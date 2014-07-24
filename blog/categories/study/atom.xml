@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Study | srHang | 飒然]]></title>
+  <title><![CDATA[Category: Study | 飒然所思所想]]></title>
   <link href="http://superhj1987.github.io/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2014-07-24T21:32:04+08:00</updated>
+  <updated>2014-07-24T21:44:14+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,13 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA['Nginx Notes']]></title>
+    <title type="html"><![CDATA['Nginx学习笔记']]></title>
     <link href="http://superhj1987.github.io/blog/2014/07/24/nginx-notes/"/>
     <updated>2014-07-24T21:30:20+08:00</updated>
     <id>http://superhj1987.github.io/blog/2014/07/24/nginx-notes</id>
-    <content type="html"><![CDATA[<h1>Nginx学习笔记</h1>
-
-<h3>概述</h3>
+    <content type="html"><![CDATA[<h3>概述</h3>
 ]]></content>
   </entry>
   
