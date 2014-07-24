@@ -3,7 +3,7 @@
   
   
   <url>
-    <loc>http://superhj1987.github.io/blog/2014/07/24/nginx-notes/</loc>
+    <loc>http://superhj1987.github.io/blog/2014/07/24/web-security-notes/</loc>
     <lastmod>2014-07-24T21:30:20+08:00</lastmod>
     <priority>0.8</priority>
   </url>
@@ -11,14 +11,14 @@
   
   <url>
     <loc>http://superhj1987.github.io/blog/archives/</loc>
-    <lastmod>2014-07-24T21:50:54+08:00</lastmod>
+    <lastmod>2014-07-24T23:25:19+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/</loc>
-    <lastmod>2014-07-24T21:50:54+08:00</lastmod>
+    <lastmod>2014-07-24T23:25:19+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
