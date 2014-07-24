@@ -1,29 +1,60 @@
----
-layout: default
----
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<link rel="shortcut icon" href="/static/images/fav.ico" type="image/x-icon" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>srHang | 飒然 - What、How、Why</title>
+<style>
+body{
+  width:100%;
+  font-family:'宋体',Arial;
+  color:#000;
+  font-size:9pt;
+  text-align:center;
+  padding:0;
+  margin:0;
+  background:url(/images/page_bg.png);
+}
+ul{
+   width:600px;
+   overflow:hidden;
+   margin:250px auto;
+   margin-bottom:0px;
+   text-align:center;
+   padding:0;
+}
+ul li{
+   display:inline;
+   padding-left:20px;
+}
+a{
+   color:#000;
+   font-weight:bold;
+   text-decoration:underline;
+}
+a:hover{
+   color:#666;
+}
+</style>
+</head>
+<body>
+<ul>
+<li><h3 style='display:inline'>srHang >> </h3></li>
+<li><a href='/blog/' target='_blank'>Blog</a>
+<li>|</li>
+<li><a href='http://srhang.iteye.com' target='_blank'>ITeye</a>
+<li>|</li>
+<li><a href='http://weibo.com/superhj1987' target='_blank'>Weibo</a></li>
+<li>|</li>
+<li><a href='https://github.com/superhj1987' target='_blank'>GitHub</a></li>
+</ul>
+<br/>
+<br/>
+<a href="http://weibo.com/u/1307023714?s=6uyXnP" target="_blank"><img border="0" src="http://service.t.sina.com.cn/widget/qmd/1307023714/cc8c1592/7.png"/></a>          
+<!-- JiaThis Button BEGIN -->
+<!-- <script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script> -->
+<!-- JiaThis Button END -->
 
-<div class="blog-index">
-  {% assign index = true %}
-  {% for post in paginator.posts %}
-  {% assign content = post.content %}
-    <article>
-      {% include article.html %}
-    </article>
-  {% endfor %}
-  <div class="pagination">
-    {% if paginator.next_page %}
-      <a class="prev" href="{{paginator.next_page_path}}">&larr; Older</a>
-    {% endif %}
-    <a href="/blog/archives">Blog Archives</a>
-    {% if paginator.previous_page %}
-    <a class="next" href="{{paginator.previous_page_path}}">Newer &rarr;</a>
-    {% endif %}
-  </div>
-</div>
-<aside class="sidebar">
-  {% if site.blog_index_asides.size %}
-    {% include_array blog_index_asides %}
-  {% else %}
-    {% include_array default_asides %}
-  {% endif %}
-</aside>
+</body>
+</html>
