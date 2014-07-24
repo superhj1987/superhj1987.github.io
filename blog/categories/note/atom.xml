@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[srHang | 飒然]]></title>
-  <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Note | srHang | 飒然]]></title>
+  <link href="http://superhj1987.github.io/blog/categories/note/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
   <updated>2014-07-24T21:32:04+08:00</updated>
   <id>http://superhj1987.github.io/</id>
