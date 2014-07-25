@@ -16,6 +16,8 @@ categories: Technology-Note
 4. 一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。 
 5. 白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。
 
+<!--more-->
+
 ### 二、客户端脚本安全 
 1. 浏览器安全 
 	
