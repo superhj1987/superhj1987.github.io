@@ -1,94 +1,97 @@
 
-<!DOCTYPE html>
-<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
-<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
-<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <title>《白帽子讲Web安全》读书笔记 - srHang | 飒然</title>
-  <meta name="author" content="飒然Hang">
+<!DOCTYPE HTML>
 
-  
-  <meta name="description" content="最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。 整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。 一、世界观安全 黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客， &hellip;">
-  
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>《白帽子讲Web安全》读书笔记 - srHang | 飒然</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="《白帽子讲Web安全》读书笔记 最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。 整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。 一、世界观安全 黑帽子和白帽子这两个概念， &hellip;">
+	
 
   <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  
-  <link rel="canonical" href="http://superhj1987.github.io/blog/2014/07/24/web-security-notes">
-  <link href="/favicon.png" rel="icon">
-  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <link href="/atom.xml" rel="alternate" title="srHang | 飒然" type="application/atom+xml">
-  <script src="/javascripts/modernizr-2.0.js"></script>
-  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
-  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
-  <script src="/javascripts/octopress.js" type="text/javascript"></script>
-  
+	<link href="/atom.xml" rel="alternate" title="srHang | 飒然" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://superhj1987.github.io/blog/2014/07/24/web-security-notes/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
   
 
 </head>
 
-<body   >
-  <header role="banner"><hgroup>
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
   <h1><a href="/">飒然 is Thinking...</a></h1>
   
-    <h2>What、How、Why</h2>
+    <h3>What、How、Why</h2>
   
 </hgroup>
-
-</header>
-  <nav role="navigation"><ul class="subscription" data-subscription="rss">
-  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
-  
+<nav id="main-nav"><ul class="main">
+    <li><a href="/blog/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
 </ul>
-  
-<form action="https://www.google.com/search" method="get">
-  <fieldset role="search">
-    <input type="hidden" name="q" value="site:superhj1987.github.io" />
-    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
-  </fieldset>
-</form>
-  
-<ul class="main-navigation">
-  <li><a href="/blog/">首页</a></li>
-  <li><a href="/blog/archives">所有文章</a></li>
-</ul>
-
+<section class="aboutme">
+  <h1>About Me</h1>
+  <p>码农@NetEase;</p>
+  <p>曾参与易信公众平台开发;</p>
+  <p>现参与云计算相关开发工作中。。。</p>
+</section></nav>
+<nav id="sub-nav">
+	<div class="social">
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
+	</div>
 </nav>
-  <div id="main">
-    <div id="content">
-      <div>
-<article class="hentry" role="article">
-  
-  <header>
-    
-      <h1 class="entry-title">《白帽子讲Web安全》读书笔记</h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-24T21:30:20+08:00" pubdate data-updated="true">Jul 24<sup>th</sup>, 2014</time>
-        
-      </p>
-    
-  </header>
-
-
-<div class="entry-content"><p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">《白帽子讲Web安全》读书笔记</h1>
+	<div class="entry-content" itemprop="articleBody"><p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
 
 <p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
 
@@ -101,6 +104,9 @@
 <li>一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。</li>
 <li>白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。</li>
 </ol>
+
+
+<!--more-->
 
 
 <h3>二、客户端脚本安全</h3>
@@ -164,115 +170,50 @@
 <p>除了在技术层面对安全进行保证外，还可以在业务层面对安全进行最大化的保障。此外，微软提出的 SDL安全开发流程，运用在项目开发过程中能够很好地保障系统的安全。而运营方面的安全保障则能够进一步保证整个系统的安全性。</p>
 </div>
 
-
-  <footer>
-    <p class="meta">
-      
-  
-
-<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
-
-      
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-24T21:30:20+08:00" pubdate data-updated="true">Jul 24<sup>th</sup>, 2014</time>
-      
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/technology-note/'>technology-note</a>
-  
-</span>
-
-
-    </p>
-    
-      <div class="sharing">
-  
-  
-  
-</div>
-
-    
-    <p class="meta">
-      
-      
-    </p>
-  </footer>
 </article>
 
+	<div class="share">
+
+     <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tsina">新浪微博</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_weixin">微信</a>
+
+<a href="http://www.jiathis.com/share?uid=901552" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=901552" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=901552"></script>
+<!-- UY END -->
+ 
 </div>
 
-<aside class="sidebar">
-  
-    <section>
-  <h1>Who am I?</h1>
-  <p>码农@NetEase Hangzhou Research;On the way to the full stack engineer.</p>
-</section>
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    
-      <li class="post">
-        <a href="/blog/2014/07/24/web-security-notes/">《白帽子讲Web安全》读书笔记</a>
-      </li>
-    
-  </ul>
-</section>
 
-<section>
-  <h1>GitHub Repos</h1>
-  <ul id="gh_repos">
-    <li class="loading">Status updating...</li>
-  </ul>
-  
-  <a href="https://github.com/superhj1987">@superhj1987</a> on GitHub
-  
-  <script type="text/javascript">
-    $(document).ready(function(){
-        if (!window.jXHR){
-            var jxhr = document.createElement('script');
-            jxhr.type = 'text/javascript';
-            jxhr.src = '/javascripts/libs/jXHR.js';
-            var s = document.getElementsByTagName('script')[0];
-            s.parentNode.insertBefore(jxhr, s);
-        }
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
 
-        github.showRepos({
-            user: 'superhj1987',
-            count: 0,
-            skip_forks: true,
-            target: '#gh_repos'
-        });
-    });
-  </script>
-  <script src="/javascripts/github.js" type="text/javascript"> </script>
-</section>
+    飒然Hang
 
 
-  
-</aside>
-
-
-    </div>
-  </div>
-  <footer role="contentinfo"><p>
-  Copyright &copy; 2014 - 飒然Hang -
-  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
-</p>
-
-</footer>
-  
-
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
 
 
 
