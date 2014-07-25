@@ -9,7 +9,7 @@
 	<meta name="author" content="飒然Hang">
 
 	
-	<meta name="description" content="Jul 24th, 2014 technology-note 《白帽子讲Web安全》读书笔记 最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。 整本书四篇十八章，包括世界观安全、客户端脚本安全、 &hellip;">
+	<meta name="description" content="Jul 25th, 2014 Nginx基本数据结构 引言 nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -55,15 +55,18 @@
     <li><a href="/blog/">首页</a></li>
     <li><a href="/blog/archives">所有文章</a></li>
 </ul>
-<section class="aboutme">
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px'>
   <h3>About Me</h3>
   <p>码农@NetEase;</p>
-  <p>曾参与易信公众平台开发;</p>
-  <p>现参与云计算相关开发工作中。。。</p>
+  <p>Java工程师，易信公众平台服务端开发;</p>
+  <p>后端工程师，云计算NLB开发ing...</p>
 </section>
 </nav>
-<nav id="sub-nav">
+<nav id="sub-nav" style='margin-top:20px !important'>
 	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo">Weibo</a>
+		
 		
 			<a class="github" href="https://github.com/superhj1987" title="GitHub">GitHub</a>
 		
@@ -92,6 +95,42 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-25T17:08:02+08:00" data-updated="true" itemprop="datePublished">Jul 25<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/07/25/nginx-data-structure/" itemprop="url">Nginx基本数据结构</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h3>引言</h3>
+
+<p>nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。但实际上nginx各个部分逻辑划分还是很明确的，整体上是一种松散的结构。</p>
+
+<p>作者之所以重复造了这些轮子，无非是为了追求高效。查看这些数据结构的源码，的确是设计的比较精巧，也保证了对内存足够小的占用以及各种操作的高效。</p>
+
+
+		
+		<a href="/blog/2014/07/25/nginx-data-structure/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">

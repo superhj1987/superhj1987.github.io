@@ -4,7 +4,7 @@
   <title><![CDATA[srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2014-07-25T16:26:54+08:00</updated>
+  <updated>2014-07-25T21:33:06+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,184 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Nginx基本数据结构]]></title>
+    <link href="http://superhj1987.github.io/blog/2014/07/25/nginx-data-structure/"/>
+    <updated>2014-07-25T17:08:02+08:00</updated>
+    <id>http://superhj1987.github.io/blog/2014/07/25/nginx-data-structure</id>
+    <content type="html"><![CDATA[<h3>引言</h3>
+
+<p>nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。但实际上nginx各个部分逻辑划分还是很明确的，整体上是一种松散的结构。</p>
+
+<p>作者之所以重复造了这些轮子，无非是为了追求高效。查看这些数据结构的源码，的确是设计的比较精巧，也保证了对内存足够小的占用以及各种操作的高效。</p>
+
+<!--more-->
+
+
+<h3>数据结构</h3>
+
+<ul>
+<li><p>ngx_str_t</p>
+
+<pre><code>  typedef struct{
+      size_t len;
+      u_char *data;
+  }ngx_str_t;
+</code></pre></li>
+</ul>
+
+
+<p>这是nginx对字符串的实现，源码在ngx_string.h中。len指的是字符串的长度（不包括\0），data指向字符串。这种设计一方面，在计算字符创长度时只需要读取len字段即可，另一方面可以重复引用一段字符串内存。</p>
+
+<p>常用api:</p>
+
+<pre><code>    #define ngx_string(str) { sizof(str) - 1},(u_char *) str } //从一个普通字符串构造出一个nginx字符串，用sizeof计算长度，故参数必须是一个常量字符串。
+
+    #define ngx_null_string {0,NULL}
+
+    ngx_strncmp(s1,s2,n)
+
+    ngx_strcm(s1,s2)
+</code></pre>
+
+<ul>
+<li><p>ngx_pool_t</p>
+
+<pre><code>  struct ngx_pool_s {
+      ngx_pool_data_t       d;
+      size_t                max;
+      ngx_pool_t           *current;
+      ngx_chain_t          *chain;
+      ngx_pool_large_t     *large;
+      ngx_pool_cleanup_t   *cleanup;
+      ngx_log_t            *log;
+  };
+</code></pre></li>
+</ul>
+
+
+<p>这个数据结构在nginx中是一个非常重要的数据结构。用来管理一系列的资源（如内存、文件等
+，使得对这些资源的使用和释放统一进行。这个是在c语言编程中值得借鉴的一个东西，代码中如果到处都是malloc和free的话，不仅会导致内存泄露，也会使代码难以阅读和维护。</p>
+
+<ul>
+<li><p>ngx_array_t</p>
+
+<pre><code>  struct ngx_array_s {
+      void        *elts;
+      ngx_uint_t   nelts;
+      size_t       size;
+      ngx_uint_t   nalloc;
+      ngx_pool_t  *pool;
+  };
+</code></pre></li>
+<li><p>ngx_hash_t</p>
+
+<ul>
+<li>ngx_hash_t不像其他的hash表的实现，可以插入删除元素，只能一次初始化。</li>
+<li><p>解决冲突使用的是开链法，但实际上是开了一段连续的存储空间，和数组差不多。</p>
+
+<pre><code>  typedef struct {
+      ngx_hash_t       *hash;
+      ngx_hash_key_pt   key;
+
+      ngx_uint_t        max_size;
+      ngx_uint_t        bucket_size;
+
+      char             *name;
+      ngx_pool_t       *pool;
+      ngx_pool_t       *temp_pool;
+  } ngx_hash_init_t;
+</code></pre></li>
+</ul>
+</li>
+<li>ngx_chain_t
+      struct ngx_chain_s {
+          ngx_buf_t    <em>buf;
+          ngx_chain_t  </em>next;
+      };</li>
+<li><p>ngx_buf_t</p>
+
+<pre><code>  struct ngx_buf_s {
+      u_char          *pos;
+      u_char          *last;
+      off_t            file_pos;
+      off_t            file_last;
+
+      u_char          *start;         /* start of buffer */
+      u_char          *end;           /* end of buffer */
+      ngx_buf_tag_t    tag;
+      ngx_file_t      *file;
+      ngx_buf_t       *shadow;
+
+
+      /* the buf's content could be changed */
+      unsigned         temporary:1;
+
+      /*
+      * the buf's content is in a memory cache or in a read only memory
+      * and must not be changed
+      */
+      unsigned         memory:1;
+
+      /* the buf's content is mmap()ed and must not be changed */
+      unsigned         mmap:1;
+
+      unsigned         recycled:1;
+      unsigned         in_file:1;
+      unsigned         flush:1;
+      unsigned         sync:1;
+      unsigned         last_buf:1;
+      unsigned         last_in_chain:1;
+
+      unsigned         last_shadow:1;
+      unsigned         temp_file:1;
+
+      /* STUB */ int   num;
+  };
+</code></pre></li>
+<li><p>ngx_list_t</p>
+
+<pre><code>  typedef struct {
+      ngx_list_part_t  *last;
+      ngx_list_part_t   part;
+      size_t            size;
+      ngx_uint_t        nalloc;
+      ngx_pool_t       *pool;
+  } ngx_list_t;
+  struct ngx_list_part_s {
+      void             *elts;
+      ngx_uint_t        nelts;
+      ngx_list_part_t  *next;
+  };
+</code></pre></li>
+<li><p>ngx_queue_t
+      struct ngx_queue_s {
+          ngx_queue_t  <em>prev;
+          ngx_queue_t  </em>next;
+      };
+      链表节点的数据成员并没有生命在链表节点的结构体中，只是声明了前向和后向指针。使用的时候需要定义一个哨兵节点。具体存放数据的节点称之为数据节点。对于数据节点，需要在数据结构体中加入一个类型为ngx_queue_s的域。使用下面的函数进行数据插入，其中x为数据节点的queue_t域。
+      #define ngx_queue_insert_head(h, x)                         \
+          (x)&ndash;>next = (h)&ndash;>next;                                  \
+          (x)&ndash;>next->prev = x;                                    \
+          (x)&ndash;>prev = h;                                          \
+          (h)&ndash;>next = x</p>
+
+<pre><code>  #define ngx_queue_insert_after   ngx_queue_insert_head
+
+  #define ngx_queue_insert_tail(h, x)                          \
+      (x)-&gt;prev = (h)-&gt;prev;                                   \
+      (x)-&gt;prev-&gt;next = x;                                     \
+      (x)-&gt;next = h;                                           \
+      (h)-&gt;prev = x
+  获得数据时，使用ngx_queue_data()宏。
+  #define ngx_queue_data(q, type, link)                        \
+      (type *) ((u_char *) q - offsetof(type, link))
+</code></pre></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[《白帽子讲Web安全》读书笔记]]></title>
