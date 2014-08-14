@@ -12,10 +12,13 @@
 </div>
 {% include custom/header.html %}
 <nav id="main-nav">{% include navigation.html %}</nav>
-<nav id="sub-nav">
+<nav id="sub-nav" style='margin-top:20px !important'>
 	<div class="social">
+		{% if site.weibo_user %}
+		<a class="weibo" href="http://weibo.com/{{ site.weibo_user }}" title="Weibo" target="_blank">Weibo</a>
+		{% endif %}
 		{% if site.github_user %}
-			<a class="github" href="https://github.com/{{ site.github_user }}" title="GitHub">GitHub</a>
+			<a class="github" href="https://github.com/{{ site.github_user }}" title="GitHub" target="_blank">GitHub</a>
 		{% endif %}
 		{% if site.coderwall_user %}
 			<a class="coderwall" href="https://coderwall.com/{{ site.coderwall_user }}" title="Coderwall">Coderwall</a>
@@ -48,7 +51,7 @@
 			<a class="behance" href="https://www.behance.net/{{ site.behance_user }}" title="Behance">Behance</a>
 		{% endif %}
     	{% if site.subscribe_rss %}
-			<a class="rss" href="{{ site.subscribe_rss }}" title="RSS">RSS</a>
+			<a class="rss" href="{{ site.subscribe_rss }}" title="RSS" target="_blank">RSS</a>
 		{% endif %}
 	</div>
 </nav>

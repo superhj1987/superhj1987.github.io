@@ -3,7 +3,7 @@
 # ----------------------- #
 
 url: http://superhj1987.github.io
-title: srHang | 飒然
+title: Blog - srHang | 飒然
 subtitle: What、How、Why
 author: 飒然Hang
 simple_search: https://www.google.com/search
@@ -82,3 +82,4 @@ disqus_short_name:
 disqus_show_comment_count: false
 
 weibo_share: true
+weibo_user: superhj1987
