@@ -4,7 +4,7 @@
   <title><![CDATA[Blog - srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2014-07-26T14:33:59+08:00</updated>
+  <updated>2014-08-14T17:22:40+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,23 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[技术的成长]]></title>
+    <link href="http://superhj1987.github.io/blog/2014/08/14/grow-up-in-tech/"/>
+    <updated>2014-08-14T16:38:01+08:00</updated>
+    <id>http://superhj1987.github.io/blog/2014/08/14/grow-up-in-tech</id>
+    <content type="html"><![CDATA[<p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
+
+<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。但是我觉得上学的时候，大部分进公司做的东西也能做出来吧,除非是那种需要基于一定的环境(大数据、高并发)才能做的。当然，其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
+
+<p>这也牵扯到了技术的广度和深度的问题。这两个的优先级不能一味的说谁优谁劣，技术研究的人肯定倾向于去拓展技术的深度，而面向产品的人、架构的人应该关心广度多一些吧。当然如果不去精通一门技术，广度却也是无法拓展的。所谓技术上的成长，抛开技术的深度和广度来言，我觉得还是主要指技术思维的拓展和进步。技术领域的很多东西都是触类旁通的，只要你有好的逻辑思维和方法论，那么对于很多东西都是能很快上手直至掌握、运用、精通的。</p>
+
+<p>还有一个上手能力和学习能力的问题，上手能力指的是你掌握然后使用，而学习能力应该是理解并能改进。这个两个概念以前的确没去区分过，现在想想却也是有很大的不同。上手容易，精通难。所谓学习能力，是上手之后能够快速地吸收为自己的东西，能够从自己的角度看待，甚至提出自己的改进。</p>
+
+<p>作为技术人，追求的无非是技术的长进，从多个维度来看，关键的还是项目经验和思维能力的同步提高。当然，如果对某一个领域能深入研究成为专家那也是锦上添花的事情。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Nginx基本数据结构]]></title>
@@ -28,6 +45,8 @@
 
 
 <h3>数据结构</h3>
+
+<p>nginx实现中有很多结构体，一般命名为ngx_XXX_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。但实际上nginx各个部分逻辑划分还是很明确的，整体上是一种松散的结构。</p>
 
 <ul>
 <li><p>ngx_str_t</p>
@@ -76,118 +95,162 @@
 <li><p>ngx_array_t</p>
 
 <pre><code>  struct ngx_array_s {
-      void        *elts;
-      ngx_uint_t   nelts;
-      size_t       size;
-      ngx_uint_t   nalloc;
-      ngx_pool_t  *pool;
+      void        *elts; //指向实际的存储区域
+      ngx_uint_t   nelts; //数组实际元素个数
+      size_t       size; //数组单个元素的大小，单位是字节
+      ngx_uint_t   nalloc; //数组的容量
+      ngx_pool_t  *pool; //该数组用来分配内存的内存池
   };
 </code></pre></li>
 <li><p>ngx_hash_t</p>
 
 <ul>
 <li>ngx_hash_t不像其他的hash表的实现，可以插入删除元素，只能一次初始化。</li>
-<li><p>解决冲突使用的是开链法，但实际上是开了一段连续的存储空间，和数组差不多。</p>
+<li><p>解决冲突使用的是开链法，但实际上是开了一段连续的存储空间，和数组差不多。            <br/>
+      ngx_int_t ngx_hash_init(ngx_hash_init_t <em>hinit, ngx_hash_key_t </em>names,ngx_uint_t nelts);//ngx_hash_t的初始化。</p>
 
-<pre><code>  typedef struct {
-      ngx_hash_t       *hash;
-      ngx_hash_key_pt   key;
-
-      ngx_uint_t        max_size;
-      ngx_uint_t        bucket_size;
-
-      char             *name;
-      ngx_pool_t       *pool;
-      ngx_pool_t       *temp_pool;
+<pre><code>  ngx_hash_init_t提供了初始化一个hash表所需要的一些基本信息
+  typedef struct {
+      ngx_hash_t       *hash; //指向hash表
+      ngx_hash_key_pt   key; //指向从字符串生成hash值的hash函数。默认的实现为ngx_hash_key_lc
+      ngx_uint_t        max_size; //hash表中的桶的个数
+      ngx_uint_t        bucket_size; //每个桶的最大限制大小，单位是字节
+      char             *name; //hash表的名字
+      ngx_pool_t       *pool; //hash表分配内存使用的pool
+      ngx_pool_t       *temp_pool; //使用的临时pool,初始化完成后，可以释放和销毁
   } ngx_hash_init_t;
+
+  typedef struct {                ngx_str_t         key;              ngx_uint_t        key_hash;             void             *value;            } ngx_hash_key_t;
+  void *ngx_hash_find(ngx_hash_t *hash, ngx_uint_t key, u_char *name, size_t len); //在hash里面查找key对应的value。          
 </code></pre></li>
 </ul>
 </li>
-<li>ngx_chain_t
-      struct ngx_chain_s {
-          ngx_buf_t    <em>buf;
-          ngx_chain_t  </em>next;
-      };</li>
-<li><p>ngx_buf_t</p>
-
-<pre><code>  struct ngx_buf_s {
-      u_char          *pos;
-      u_char          *last;
-      off_t            file_pos;
-      off_t            file_last;
-
-      u_char          *start;         /* start of buffer */
-      u_char          *end;           /* end of buffer */
-      ngx_buf_tag_t    tag;
-      ngx_file_t      *file;
-      ngx_buf_t       *shadow;
+<li><p>ngx_chain_t</p></li>
+</ul>
 
 
-      /* the buf's content could be changed */
-      unsigned         temporary:1;
+<p>nginx的filter模块在处理从别的filter模块或者是handler模块传递过来的数据，数据一个链表的形式（ngx_chain_t）进行传递。</p>
 
-      /*
-      * the buf's content is in a memory cache or in a read only memory
-      * and must not be changed
-      */
-      unsigned         memory:1;
+<pre><code>        struct ngx_chain_s {
+            ngx_buf_t    *buf;
+            ngx_chain_t  *next;
+        };
+</code></pre>
 
-      /* the buf's content is mmap()ed and must not be changed */
-      unsigned         mmap:1;
+<p>创建ngx_chain_t对象</p>
 
-      unsigned         recycled:1;
-      unsigned         in_file:1;
-      unsigned         flush:1;
-      unsigned         sync:1;
-      unsigned         last_buf:1;
-      unsigned         last_in_chain:1;
+<pre><code>        ngx_chain_t *ngx_alloc_chain_link(ngx_pool_t *pool);
+</code></pre>
 
-      unsigned         last_shadow:1;
-      unsigned         temp_file:1;
+<p>释放一个ngx_chain_t类型的对象。如果要释放整个chain，则迭代此链表，对每个节点使用此宏即可。</p>
 
-      /* STUB */ int   num;
+<pre><code>        释放一个ngx_chain_t类型的对象。如果要释放整个chain，则迭代此链表，对每个节点使用此宏即可。
+</code></pre>
+
+<ul>
+<li>ngx_buf_t</li>
+</ul>
+
+
+<p>ngx_buf_t是ngx_chain_t的数据结点</p>
+
+<pre><code>    struct ngx_buf_s {
+        u_char          *pos;
+        u_char          *last;
+        off_t            file_pos;
+        off_t            file_last;
+
+        u_char          *start;         /* start of buffer */
+        u_char          *end;           /* end of buffer */
+        ngx_buf_tag_t    tag;
+        ngx_file_t      *file;
+        ngx_buf_t       *shadow;
+
+
+        /* the buf's content could be changed */
+        unsigned         temporary:1;
+
+        /*
+        * the buf's content is in a memory cache or in a read only memory
+        * and must not be changed
+        */
+        unsigned         memory:1;
+
+        /* the buf's content is mmap()ed and must not be changed */
+        unsigned         mmap:1;
+
+        unsigned         recycled:1;
+        unsigned         in_file:1;
+        unsigned         flush:1;
+        unsigned         sync:1;
+        unsigned         last_buf:1;
+        unsigned         last_in_chain:1;
+
+        unsigned         last_shadow:1;
+        unsigned         temp_file:1;
+
+        /* STUB */ int   num;
+    };
+</code></pre>
+
+<ul>
+<li>ngx_list_t</li>
+</ul>
+
+
+<p>和普通的链表实现相比，它的节点是一个固定大小的数组。在初始化的时候，我们需要设定元素需要占用的空间大小，每个节点数组的容量大小。在添加元素到这个list里面的时候，会在最尾部的节点里的数组上添加元素，如果这个节点的数组存满了，就再增加一个新的节点到这个list里面去。</p>
+
+<pre><code>    typedef struct {
+        ngx_list_part_t  *last; //指向该链表的最后一个节点
+        ngx_list_part_t   part; //指向该链表首个存放具体元素的节点
+        size_t            size; //链表中存放的具体元素所需内存大小
+        ngx_uint_t        nalloc; //每个节点所含的固定大小的数组的容量
+        ngx_pool_t       *pool; //该list使用的分配内存的pool
+    } ngx_list_t;
+
+    struct ngx_list_part_s {
+        void             *elts; //节点中存放具体元素的内存的开始地址   
+        ngx_uint_t        nelts; //节点中已有元素个数，不能大于 nalloc
+        ngx_list_part_t  *next; //指向下一个节点
+    };
+
+    ngx_list_t *ngx_list_create(ngx_pool_t *pool, ngx_uint_t n, size_t size); //创建一个ngx_list_t类型的对象,并对该list的第一个节点分配存放元素的内存空间。
+
+    pool:   分配内存使用的pool。
+    n:  每个节点固定长度的数组的长度。
+    size:   存放的具体元素的个数。
+</code></pre>
+
+<ul>
+<li><p>ngx_queue_t</p>
+
+<pre><code>  struct ngx_queue_s {
+      ngx_queue_t  *prev;
+      ngx_queue_t  *next;
   };
-</code></pre></li>
-<li><p>ngx_list_t</p>
-
-<pre><code>  typedef struct {
-      ngx_list_part_t  *last;
-      ngx_list_part_t   part;
-      size_t            size;
-      ngx_uint_t        nalloc;
-      ngx_pool_t       *pool;
-  } ngx_list_t;
-  struct ngx_list_part_s {
-      void             *elts;
-      ngx_uint_t        nelts;
-      ngx_list_part_t  *next;
-  };
-</code></pre></li>
-<li><p>ngx_queue_t
-      struct ngx_queue_s {
-          ngx_queue_t  <em>prev;
-          ngx_queue_t  </em>next;
-      };
-      链表节点的数据成员并没有生命在链表节点的结构体中，只是声明了前向和后向指针。使用的时候需要定义一个哨兵节点。具体存放数据的节点称之为数据节点。对于数据节点，需要在数据结构体中加入一个类型为ngx_queue_s的域。使用下面的函数进行数据插入，其中x为数据节点的queue_t域。
-      #define ngx_queue_insert_head(h, x)                         \
-          (x)&ndash;>next = (h)&ndash;>next;                                  \
-          (x)&ndash;>next->prev = x;                                    \
-          (x)&ndash;>prev = h;                                          \
-          (h)&ndash;>next = x</p>
-
-<pre><code>  #define ngx_queue_insert_after   ngx_queue_insert_head
-
-  #define ngx_queue_insert_tail(h, x)                          \
-      (x)-&gt;prev = (h)-&gt;prev;                                   \
-      (x)-&gt;prev-&gt;next = x;                                     \
-      (x)-&gt;next = h;                                           \
-      (h)-&gt;prev = x
-  获得数据时，使用ngx_queue_data()宏。
-  #define ngx_queue_data(q, type, link)                        \
-      (type *) ((u_char *) q - offsetof(type, link))
 </code></pre></li>
 </ul>
 
+
+<p>链表节点的数据成员并没有生命在链表节点的结构体中，只是声明了前向和后向指针。使用的时候需要定义一个哨兵节点。具体存放数据的节点称之为数据节点。对于数据节点，需要在数据结构体中加入一个类型为ngx_queue_s的域。使用下面的函数进行数据插入，其中x为数据节点的queue_t域。</p>
+
+<pre><code>    #define ngx_queue_insert_head(h, x)                         \
+        (x)-&gt;next = (h)-&gt;next;                                  \
+        (x)-&gt;next-&gt;prev = x;                                    \
+        (x)-&gt;prev = h;                                          \
+        (h)-&gt;next = x
+
+    #define ngx_queue_insert_after   ngx_queue_insert_head
+
+    #define ngx_queue_insert_tail(h, x)                          \
+        (x)-&gt;prev = (h)-&gt;prev;                                   \
+        (x)-&gt;prev-&gt;next = x;                                     \
+        (x)-&gt;next = h;                                           \
+        (h)-&gt;prev = x
+    获得数据时，使用ngx_queue_data()宏。
+    #define ngx_queue_data(q, type, link)                        \
+        (type *) ((u_char *) q - offsetof(type, link))
+</code></pre>
 ]]></content>
   </entry>
   
