@@ -1,0 +1,220 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>async源码分析 - Blog - srHang | 飒然</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="Async源码分析 最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码： async.waterfall = function (tasks, callback) { callback = callback || function &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Blog - srHang | 飒然" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://superhj1987.github.io/blog/2014/08/22/node-async-analysis/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1>飒然 is Thinking...</h1>
+  
+    <h3>What、How、Why</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/blog/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
+</ul>
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px'>
+  <h3>About Me</h3>
+  <p>码农@NetEase;</p>
+  <p>Java工程师，易信公众平台服务端开发;</p>
+  <p>后端工程师，云计算NLB开发ing...</p>
+</section>
+</nav>
+<nav id="sub-nav" style='margin-top:20px !important'>
+	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Async源码分析</h1>
+	<div class="entry-content" itemprop="articleBody"><p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
+
+<pre>
+    async.waterfall = function (tasks, callback) {
+        callback = callback || function () {};
+        if (!_isArray(tasks)) {
+          var err = new Error('First argument to waterfall must be an array of functions');
+          return callback(err);
+        }
+        if (!tasks.length) {
+            return callback();
+        }
+        var wrapIterator = function (iterator) {
+            return function (err) {
+                if (err) {
+                    callback.apply(null, arguments);
+                    callback = function () {};
+                }
+                else {
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    var next = iterator.next();
+                    if (next) {
+                        args.push(wrapIterator(next));
+                    }
+                    else {
+                        args.push(callback);
+                    }
+                    async.setImmediate(function () {
+                        iterator.apply(null, args);
+                    });
+                }
+            };
+        };
+        wrapIterator(async.iterator(tasks))();
+    };
+ </pre>
+
+
+<p> <br/>
+开始先对参数进行了检查，判断tasks是否是一个function数组。然后使用了一个内部函数wrapIterator封装了实现。wrapIterator的参数带出了async.iterator函数：</p>
+
+<pre> 
+    async.iterator = function (tasks) {
+        var makeCallback = function (index) {
+            var fn = function () {
+                if (tasks.length) {
+                    tasks[index].apply(null, arguments);
+                }
+                return fn.next(); //这个地方有必要么？？？
+            };
+            fn.next = function () {
+                return (index < tasks.length - 1) ? makeCallback(index + 1): null;
+            };
+            return fn;
+        };
+        return makeCallback(0);
+    };
+</pre>
+
+
+<p> <br/>
+这个函数，其主要实现是其内部函数makeCallback。其功能就是迭代tasks，封装其中的每一个function,让其执行后返回下一个function,以此实现迭代。</p>
+
+<p>接下来，再回到wrapIterator，此function是对iterator的封装。执行后返回的是一个匿名function。其明确的参数只有一个err。当err不为空的时候，直接执行callback function。否则从index为1开始取出参数列表，并把iterator的下一个function包装之后push到args中（如果没有下一个function了则push回调函数）。接下来，则执行当前的iterator，执行的参数是下一个iterator function（作为这一步的回调函数）以及参数（如果当前的iterator被调用时传递了其他参数）。这样在当前iterator中回调下一个iterator，依次迭代执行，直至执行完所有function和callback。</p>
+</div>
+
+</article>
+
+	<!-- <div class="share"> -->
+
+     <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tsina">新浪微博</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_weixin">微信</a>
+
+<a href="http://www.jiathis.com/share?uid=901552" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=901552" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=901552"></script>
+<!-- UY END -->
+ 
+<!-- </div> -->
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    飒然Hang
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
