@@ -4,7 +4,7 @@
   <title><![CDATA[Blog - srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2014-08-27T15:23:18+08:00</updated>
+  <updated>2014-08-27T15:24:47+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -34,6 +34,9 @@
 <li><p>节省带宽</p></li>
 <li><p>稳定性高</p></li>
 </ol>
+
+
+<!--more-->
 
 
 <h3>1.2 架构</h3>
