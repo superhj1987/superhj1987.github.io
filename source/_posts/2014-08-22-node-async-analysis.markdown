@@ -39,7 +39,10 @@ categories:
         };
         wrapIterator(async.iterator(tasks))();
     };
- </pre>   
+ </pre>  
+ 
+<!-- more --> 
+  
 开始先对参数进行了检查，判断tasks是否是一个function数组。然后使用了一个内部函数wrapIterator封装了实现。wrapIterator的参数带出了async.iterator函数：
 <pre> 
  	async.iterator = function (tasks) {
