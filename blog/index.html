@@ -546,12 +546,7 @@ ngx_start_worker_processes(ngx_cycle_t *cycle, ngx_int_t n, ngx_int_t type)
 
 <p>这里ngx_pass_open_channel，即遍历所有worker进程，跳过自己和异常的worker，把消息发送给各个worker进程。worker进程的管道可读事件捕捉函数是ngx_channel_handler(ngx_event_t *ev)，在这个函数中，会读取message，然后解析，并根据不同给的命令做不同的处理。</p>
 
-<p>这里有一个关键的函数是ngx_pid_t
-ngx_spawn_process(ngx_cycle_t <em>cycle, ngx_spawn_proc_pt proc, void </em>data,</p>
-
-<pre><code>char *name, ngx_int_t respawn)。
-proc是子进程的执行函数，data是其参数，name是进程名。
-</code></pre>
+<p>这里有一个关键的函数是ngx_pid_t ngx_spawn_process(ngx_cycle_t <em>cycle, ngx_spawn_proc_pt proc, void </em>data,char *name, ngx_int_t respawn)。proc是子进程的执行函数，data是其参数，name是进程名。</p>
 
 <p>这个函数的任务：</p>
 
