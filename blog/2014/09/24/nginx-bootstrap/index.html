@@ -5,11 +5,11 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>Blog - srHang | 飒然</title>
+	<title>Nginx源码分析之启动过程 - Blog - srHang | 飒然</title>
 	<meta name="author" content="飒然Hang">
 
 	
-	<meta name="description" content="Sep 24th, 2014 Nginx源码分析之启动过程 nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ &hellip;">
+	<meta name="description" content="Nginx源码分析之启动过程 nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -19,7 +19,7 @@
 
 	<link href="/atom.xml" rel="alternate" title="Blog - srHang | 飒然" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://superhj1987.github.io/blog/">
+	<link rel="canonical" href="http://superhj1987.github.io/blog/2014/09/24/nginx-bootstrap/">
 	<link href="/favicon.png" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -94,33 +94,9 @@
 				
 			
 			<div class="mid-col-container">
-				<div id="content" class="inner">
-<div itemscope itemtype="http://schema.org/Blog">
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-24T17:38:57+08:00" data-updated="true" itemprop="datePublished">Sep 24<sup>th</sup>, 2014</time></div>
-		<div class="tags">
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/09/24/nginx-bootstrap/" itemprop="url">Nginx源码分析之启动过程</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Nginx源码分析之启动过程</h1>
+	<div class="entry-content" itemprop="articleBody"><p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
 
 <p>main函数的处理过程总体上可以概括如下：</p>
 
@@ -831,256 +807,42 @@ for ( ;; ) {
 <li>创建进程和进程间通信机制，master进程负责管理各个worker子进程，通过 socketpair向子进程发送消息，各个worker子进程服务利用事件机制处理请求，通过socketpair与其他子进程通信（发送消息或者接收消息），进程启动的各个适当时机会调用模块的init_module钩子、init_process钩子、exit_process钩子和 exit_master钩子，init_master钩子没有被调用过。nginx的worker子进程继承了父进程的全局变量之后，子进程和父进程就会独立处理这些全局变量，有些全局量需要在父子进程之间同步就要通过通信方式了，比如 ngx_processes（进程表）的同步。</li>
 </ol>
 
-
-		
-		
-	</div>
+</div>
 
 </article>
 
+	<!-- <div class="share"> -->
 
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+     <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tsina">新浪微博</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_weixin">微信</a>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-27T14:32:50+08:00" data-updated="true" itemprop="datePublished">Aug 27<sup>th</sup>, 2014</time></div>
-		<div class="tags">
-
+<a href="http://www.jiathis.com/share?uid=901552" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
 </div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/08/27/nginx-loabbalance/" itemprop="url">Nginx负载均衡</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>一、特点</h2>
-
-<h3>1.1 应用情况</h3>
-
-<p>Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。据Netcraft统计，世界上最繁忙的网站中有11.48%使用Nginx作为其服务器或者代理服务器。基于反向代理的功能，Nginx作为负载均衡主要有以下几点理由：</p>
-
-<ol>
-<li><p>高并发连接</p></li>
-<li><p>内存消耗少</p></li>
-<li><p>配置文件非常简单</p></li>
-<li><p>成本低廉</p></li>
-<li><p>支持Rewrite重写规则</p></li>
-<li><p>内置的健康检查功能</p></li>
-<li><p>节省带宽</p></li>
-<li><p>稳定性高</p></li>
-</ol>
-
-
-
-		
-		<a href="/blog/2014/08/27/nginx-loabbalance/" class="more-link">继续阅读 &rarr;</a>
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-22T16:08:28+08:00" data-updated="true" itemprop="datePublished">Aug 22<sup>nd</sup>, 2014</time></div>
-		<div class="tags">
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/08/22/node-async-analysis/" itemprop="url">Async源码分析</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
-
-<pre>
-    async.waterfall = function (tasks, callback) {
-        callback = callback || function () {};
-        if (!_isArray(tasks)) {
-          var err = new Error('First argument to waterfall must be an array of functions');
-          return callback(err);
-        }
-        if (!tasks.length) {
-            return callback();
-        }
-        var wrapIterator = function (iterator) {
-            return function (err) {
-                if (err) {
-                    callback.apply(null, arguments);
-                    callback = function () {};
-                }
-                else {
-                    var args = Array.prototype.slice.call(arguments, 1);
-                    var next = iterator.next();
-                    if (next) {
-                        args.push(wrapIterator(next));
-                    }
-                    else {
-                        args.push(callback);
-                    }
-                    async.setImmediate(function () {
-                        iterator.apply(null, args);
-                    });
-                }
-            };
-        };
-        wrapIterator(async.iterator(tasks))();
-    };
- </pre>
-
-
-<p></p>
-
-
-		
-		<a href="/blog/2014/08/22/node-async-analysis/" class="more-link">继续阅读 &rarr;</a>
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-14T16:38:01+08:00" data-updated="true" itemprop="datePublished">Aug 14<sup>th</sup>, 2014</time></div>
-		<div class="tags">
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/08/14/grow-up-in-tech/" itemprop="url">技术的成长</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
-
-<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
-
-
-		
-		<a href="/blog/2014/08/14/grow-up-in-tech/" class="more-link">继续阅读 &rarr;</a>
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-25T17:08:02+08:00" data-updated="true" itemprop="datePublished">Jul 25<sup>th</sup>, 2014</time></div>
-		<div class="tags">
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/07/25/nginx-data-structure/" itemprop="url">Nginx源码分析之基本数据结构</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h3>引言</h3>
-
-<p>nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。但实际上nginx各个部分逻辑划分还是很明确的，整体上是一种松散的结构。</p>
-
-<p>作者之所以重复造了这些轮子，无非是为了追求高效。查看这些数据结构的源码，的确是设计的比较精巧，也保证了对内存足够小的占用以及各种操作的高效。</p>
-
-
-		
-		<a href="/blog/2014/07/25/nginx-data-structure/" class="more-link">继续阅读 &rarr;</a>
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-07-24T21:30:20+08:00" data-updated="true" itemprop="datePublished">Jul 24<sup>th</sup>, 2014</time></div>
-		<div class="tags">
-
-
-	<a class='category' href='/blog/categories/technology-note/'>technology-note</a>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=901552" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=901552"></script>
+<!-- UY END -->
+ 
+<!-- </div> -->
 
 
 </div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/07/24/web-security-notes/" itemprop="url">《白帽子讲Web安全》读书笔记</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
-
-<p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
-
-<h3>一、世界观安全</h3>
-
-<ol>
-<li>黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客，后者则指的是工作在反黑客领域的安全技术专家。</li>
-<li>安全问题的本质是信任的问题。并且安全是一个持续的过程，并不存在所谓的银弹。</li>
-<li>安全三要素：机密性、完整性、可用性</li>
-<li>一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。</li>
-<li>白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。</li>
-</ol>
-
-
-
-		
-		<a href="/blog/2014/07/24/web-security-notes/" class="more-link">继续阅读 &rarr;</a>
-	</div>
-
-</article>
-
-</div>
-<nav id="pagenavi">
-    
-    
-    <div class="center"><a href="/blog/archives">所有文章</a></div>
-</nav></div>
 			</div>
 			<footer id="footer" class="inner">Copyright &copy; 2014
 
