@@ -1,0 +1,245 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>JVM内存的GC的骗局（转载） - Blog - srHang | 飒然</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="JVM内存的GC的骗局（转载） 本文来自网易内部资料，觉得很有价值。故记录下来，以备查看。 概述 在日常程序开发中，很多JAVA程度员不太关心内存的使用情况。当然，如果程序员运气较好或者系统没有大规模的被测试或者被用户使用时，这个问题或许永远不出现，使得程序员一直认为内存反正是无限的， &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Blog - srHang | 飒然" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://superhj1987.github.io/blog/2014/09/25/jvm-cheat/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1>飒然 is Thinking...</h1>
+  
+    <h3>What、How、Why</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/blog/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
+</ul>
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px'>
+  <h3>About Me</h3>
+  <p>码农@NetEase;</p>
+  <p>Java工程师，易信公众平台服务端开发;</p>
+  <p>后端工程师，云计算NLB开发ing...</p>
+</section>
+</nav>
+<nav id="sub-nav" style='margin-top:20px !important'>
+	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">JVM内存的GC的骗局（转载）</h1>
+	<div class="entry-content" itemprop="articleBody"><p>本文来自网易内部资料，觉得很有价值。故记录下来，以备查看。</p>
+
+<p>概述</p>
+
+<p>在日常程序开发中，很多JAVA程度员不太关心内存的使用情况。当然，如果程序员运气较好或者系统没有大规模的被测试或者被用户使用时，这个问题或许永远不出现，使得程序员一直认为内存反正是无限的，可以一直使用。确实，JVM的垃圾回收器会帮我们处理好所有的事情，可如果运气不是那么好，不幸就有可能发生在我们的身上，比如：进程会抛出OOM异常，不再接收新的请求；响应时间在固定时间段内变长，超时或者不响应，CPU使用率时常像过山车一样等。内存使用在大部分的工作时间可以正常工作，这样会导致很多的人对JAVA应用的内存使用情况不明了或者得不到充分的性能测试，而导致程序无法正常工作。出现上面的情况程序员一般会比较好的较快的发现问题或能总结一定的规律。</p>
+
+<p>问题</p>
+
+<p>有时候JVM还会发生欺骗你的场景， JVM不停的在垃圾回收，可是每次回收完后堆却还是满的，很明显程序内存被使用完了，已经无法正常工作了，但JVM就是不抛出OutOfMemoryError(OOM)这个异常来告诉程序员内部发出了什么，只是不停的做老好人尝试帮我们做垃圾回收，把服务器的资源耗光了，但是此时服务器已经无法响应用户的正常请求了，让我们一起来看看这些情况发生时候的现象，体会一下被欺骗的感觉。</p>
+
+<p>现状：</p>
+
+<p>同事在模拟用户不停的发送请求给某系统，在运行一段时间后，突然，系统上邮件报告测试用例请求失败，登录测试系统的服务器，首先看下JVM的参数设置，如下：</p>
+
+<p>-server –Xms4g –Xmx4g -XX:MaxPermSize=256m  -verbose:gc -XX:+PrintGCDetails -Xloggc:$CATALINA_BASE/logs/gc.log -XX:+PrintGCTimeStamp，再使用TOP命令看看服务器发生了什么。</p>
+
+<p>观察一段时间后，CPU一直运行在100%，于是想当然的认为可能是那段程序里面触发了BUG,有可能是正则表达式或者某段代码里面有个死循环的坑跳进去，没有出来。这不是很简单的事吗？直接使用jstack + pid 把堆栈打出来即可，直接操作吧，界面上马上输出操作日志，由于日志过多并且其他的日志类似，帮只截取部分如下：</p>
+
+<p>从上面的堆栈日志可以看出，所有的线程都被BLOCKED住了，然后堆栈里面也找不到任何业务的相关代码，难道直觉出错了，感觉一下子不太好了，但是至少可以排查到不是上面的二种原因了，好吧，那再看看应用的GC的情况，部分日志如下。</p>
+
+<p>1403682.561: [GC [PSYoungGen: 1375104K->11376K(1386176K)] 4145665K->2782002K(4182400K), 0.0174410 secs] [Times: user=0.27 sys=0.00, real=0.02 secs]</p>
+
+<p>1407799.743: [GC [PSYoungGen: 1386160K->11632K(1386432K)] 4156786K->2793538K(4182656K), 0.0285330 secs] [Times: user=0.48 sys=0.00, real=0.03 secs]</p>
+
+<p>1409230.024: [GC [PSYoungGen: 1386416K->10688K(1377984K)] 4168322K->2803822K(4174208K), 0.0265000 secs] [Times: user=0.43 sys=0.00, real=0.02 secs]</p>
+
+<p>1409230.051: [Full GC [PSYoungGen: 10688K->7014K(1377984K)] [PSOldGen: 2793134K->2796224K(2796224K)] 2803822K->2803238K(4174208K) [PSPermGen: 48439K->48439K(262144K)], 7.8892780 secs] [Times: user=7.92 sys=0.00, real=7.89 secs]</p>
+
+<p>1410502.582: [Full GC [PSYoungGen: 1366336K->85344K(1377984K)] [PSOldGen: 2796224K->2796224K(2796224K)] 4162560K->2881568K(4174208K) [PSPermGen: 48577K->48577K(262144K)], 8.2720110 secs] [Times: user=8.29 sys=0.00, real=8.27 secs]</p>
+
+<p>解释一下：</p>
+
+<p>第一行：
+1403682.561: [GC [PSYoungGen: 1375104K->11376K(1386176K)] 4145665K->2782002K(4182400K), 0.0174410 secs] [Times: user=0.27 sys=0.00, real=0.02 secs]</p>
+
+<p>发生的时间点，：JVM运行的时间长度，以度为单位，也可以格式化成固定的时间格式</p>
+
+<p>PSYoungGen：发生了何种类型的GC，此处代表发生了年轻代的GC</p>
+
+<p>1375104K：回收前的大小</p>
+
+<p>11376K：回收后的大小</p>
+
+<p>1386176K：YOUNG代的大小</p>
+
+<p>4145665 K：回收前总的占用大小</p>
+
+<p>2782002K：回收后的占用大小</p>
+
+<p>4182400K：总占用大小</p>
+
+<p>0.27和0.00：代表在用户态(user)和系统状(sys)的CPU运行时间</p>
+
+<p>0.02 secs：代表实际的GC的运行时间</p>
+
+<p>注：上面总的运行时间小于用户态和系统态的时间总和，是由于后者仅指CPU的运行时间，包括等待或IO阻塞的时间，而且现在的GC是采用多线程收集的，同时机器也是多个CPU，因此，大部分是二者之和要比前面的值大，如果是采用串形化收集器( serial collector)的话，二者时间几乎相差不多。关于各种收集器的差别，后续有时间再安排详细总结。</p>
+
+<p>接下来的二行，不再重复说明，第四行有Full字样，代表JVM发生了Full GC，不过多了二个分区的收集，PSOldGen：老生代的回收前后空间大小及总空间；PSPermGen：持久代的回收前后空间大小和总空间。从第三行，可以看出老空间的使用率达到饱和，从而触发了FULL GC，但是很遗憾的是第五行后又接着发生了FULL GC，后面的都是一直在持续进行，但是系统一直不抛出OOM异常或者进程退出，导致这台机器服务进程一直存在，但是基本无法正常工作。</p>
+
+<p>GC，无论Young GC还是Full GC，每次都会导致JVM STW(STOP WORLD)暂停用户的业务工作，来处理垃圾回收任务，短时间内无法响应用户请求，特别是大量的Full GC会导致系统响应速度降低，另外还有OOM的巨大风险。Young GC频繁，就算GC采用多线程回收方式，尽管回收的时候非常短，但是如果GC次数和频率很高，因此对应用的影响是不可忽视的。 Full GC 包括整个分区的垃圾回收，包括新生代、旧生代、持久代等。因此其回收成本高，应用也会暂停更长时间，无法及时响应用户的请求，所以需要特别注意这个种情况，一般来讲，排除主动的调用GC操作外，JVM会在以下几种情况发生Full GC。</p>
+
+<ol>
+<li><p>旧生代内存不足</p></li>
+<li><p>持久代内存不足</p></li>
+<li><p>统计新生代 GC晋升到旧生代的平均大小大于旧生代的剩余空间</p></li>
+</ol>
+
+
+<p>解决</p>
+
+<p>知道发生的原因后，就可以使用JMAP -heap直接看一下JVM内存的对像值，或者使用JMAP -dump直接JVM的堆栈DUMP出来，使用MAT打开分析就行。如果这种现像发生之后，DUMP出来的文件会较大，有些会达到十多个G，因为一般不直接在工作机器上进行，需要把文件转发到其他的非线上服务并且内存足够的机器上分析，最后可以用MAT把分析后的文件打开即可，操作结果如下：</p>
+
+<p>第四行里面看不出实际的业务相关的，第五行到六行还是可以看出来的，那就先看第四行的对象包括什么具体的实例吧。</p>
+
+<p>打开后，首页会给出可疑的建议对象实例，直接跳转到列表中，打开折叠细节即可看到真面目，里面包括了三十多万个对象，找相关的人员对根据业务需要，直接把不需要的实例在使用完后移除，其他几行的问题类似处理就即可。</p>
+
+<p>总结</p>
+
+<p>从上面GC的发生的情况来看，JVM一次次不停的努力的帮我们进行GC操作，直拉把CPU全部占光，但是就是不直接抛出异常直接告诉我们内存不够了，感觉把我们带了到一个巨大的庞氏骗局，也许我们把JVM的内存加大，这个坑还将帮我们隐藏下去，如果程序设置了定时重启之类的操作，这个坑就永远发现不了。一般产品开发人员非常希望应用程序能在用户发觉之前发现这个问题，JVM无法判断出这个问题，因为也就不能帮我们抛出几乎OOM的异常，不过可以通过调整GCTimeLimit和GCHeapFreeLimit参数来重新定义何时抛出OutOfMemoryError错误。GCTimeLimit 的默认值是98%，也就是说如果98%时间都用花在GC上，则会抛出OutOfMemoryError。GCHeapFreeLimit 是回收后可用堆的大小。默认值是2%。当然最好的办法就是开发工程师开始就很清楚如何使用相关的容器类的正确用法，并且在上线前能经过充分的测试或运行。本文只是引用GC方面的一个具体的安全来说明GC是怎么骗人的，关于GC和JVM内存相关的细节如何及时的发现此类的问题，有机会再通过示例和大家探讨学习。</p>
+
+<p>注：以上资料仅以HOTSPOT VM 1.7.65 版本参考。</p>
+
+<p>参考资料：</p>
+
+<p>JVM <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html">http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html</a></p>
+
+<p>HotSpot JVM就是个庞氏骗局 <a href="http://it.deepinmind.com/gc/2014/04/01/hotspot-jvm-ponzi-scheme.html">http://it.deepinmind.com/gc/2014/04/01/hotspot-jvm-ponzi-scheme.html</a></p>
+
+<p>Java内存泄露分析 <a href="http://doc.hz.netease.com/pages/viewpage.action?pageId=36468038">http://doc.hz.netease.com/pages/viewpage.action?pageId=36468038</a></p>
+</div>
+
+</article>
+
+	<!-- <div class="share"> -->
+
+     <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tsina">新浪微博</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_weixin">微信</a>
+
+<a href="http://www.jiathis.com/share?uid=901552" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=901552" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=901552"></script>
+<!-- UY END -->
+ 
+<!-- </div> -->
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    飒然Hang
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://superhj1987.github.io/blog/2014/09/25/jvm-cheat/</loc>
+    <lastmod>2014-09-25T21:29:52+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://superhj1987.github.io/blog/2014/09/24/nginx-bootstrap/</loc>
     <lastmod>2014-09-24T17:38:57+08:00</lastmod>
     <priority>0.8</priority>
@@ -41,21 +47,21 @@
   
   <url>
     <loc>http://superhj1987.github.io/blog/archives/</loc>
-    <lastmod>2014-09-25T15:59:29+08:00</lastmod>
+    <lastmod>2014-09-25T21:56:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/blog/</loc>
-    <lastmod>2014-09-25T15:59:29+08:00</lastmod>
+    <lastmod>2014-09-25T21:56:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/blog/categories/</loc>
-    <lastmod>2014-09-25T15:59:29+08:00</lastmod>
+    <lastmod>2014-09-25T21:56:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
