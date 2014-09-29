@@ -9,7 +9,7 @@
 	<meta name="author" content="飒然Hang">
 
 	
-	<meta name="description" content="Sep 25th, 2014 JVM内存的GC的骗局（转载） 本文来自网易内部资料，觉得很有价值。故记录下来，以备查看。 概述 在日常程序开发中，很多JAVA程度员不太关心内存的使用情况。当然，如果程序员运气较好或者系统没有大规模的被测试或者被用户使用时，这个问题或许永远不出现， &hellip;">
+	<meta name="description" content="Sep 29th, 2014 ShellShock这点事 前言 在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接： &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -96,6 +96,40 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-29T21:49:46+08:00" data-updated="true" itemprop="datePublished">Sep 29<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/09/29/shell-shock/" itemprop="url">ShellShock这点事</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>前言</h2>
+
+<p>在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接：<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271">CVE-2014-6271</a> 、<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-7169">CVE-2014-7169</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7186">CVE-2014-7186</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7187">CVE-2014-7187</a>、<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6277">CVE-2014-6277</a>。世界上Linux服务器的占有份额是很大的，而bash又是Linux不可或缺的一个部分。可想而知，这个漏洞的破坏力有多大。这个从名字上就可以看出来，ShellShock是医学上的一种严重的疾病，中文叫做“弹震症”，指的是受到爆炸冲击后导致浑身颤抖、思维混乱等症状。这个命名很形象地反映了问题的严重性。</p>
+
+
+		
+		<a href="/blog/2014/09/29/shell-shock/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
