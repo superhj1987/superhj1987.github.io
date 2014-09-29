@@ -4,7 +4,7 @@
   <title><![CDATA[Blog - srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2014-09-29T21:54:33+08:00</updated>
+  <updated>2014-09-29T22:24:33+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -99,13 +99,13 @@ http-header = Referer:() { :; }; ping -c 163.com
 </pre>
 
 
-<p>除此之外，现在已经有利用这个漏洞攻击DHCP客户端、VoIP设备、Git版本控制系统、qmail等的成功例子了，可以说有Linux的地方就有shellshock的“用武之地”。这篇文章总结了现在发现的各种各种的攻击方式：<a href="http://www.fireeye.com/blog/uncategorized/2014/09/shellshock-in-the-wild.html">http://www.fireeye.com/blog/uncategorized/2014/09/shellshock-in-the-wild.html</a></p>
+<p>除此之外，现在已经有利用这个漏洞攻击DHCP客户端、VoIP设备、Git版本控制系统、qmail等的成功例子了，可以说有Linux的地方就有shellshock的“用武之地”，包括Mac os。这篇文章总结了现在发现的各种各样的攻击方式：<a href="http://www.fireeye.com/blog/uncategorized/2014/09/shellshock-in-the-wild.html">http://www.fireeye.com/blog/uncategorized/2014/09/shellshock-in-the-wild.html</a></p>
 
-<p>看到这里，可能有人会说：”让你们天天说Linux有多安全”。其实Windows也逃不开这个漏洞的危害，很多windows系统里都有bash环境，即使没有bash环境，只要你的系统使用了含有bash的组件（如负载均衡、CDN）同样，Mac os也难逃shellshock的影响。</p>
+<p>看到这里，可能有人会说：”让你们天天说Linux有多安全”。其实Windows也逃不开这个漏洞的危害，很多windows系统里都有bash环境，即使没有bash环境，只要你的系统使用了含有bash的组件（如负载均衡、CDN）也难逃shellshock的魔掌。</p>
 
 <h2>总结</h2>
 
-<p>修复Shellshock漏洞就像打地鼠，堵了一头另一头又冒出，修复一部分，很快就有其他的攻击方式出现，层出不穷，问题的关键其实还是在于bash在设计的时候对于环境变量的依赖。只要存在对环境变量的导出，那么攻击者就可以使用各种方式诱骗bash其视为命令，进行执行。</p>
+<p>修复Shellshock漏洞就像打地鼠，堵了一头另一头又冒出，修复一部分，很快就有其他的攻击方式出现，层出不穷，问题的关键其实还是在于bash在设计的时候对于环境变量的依赖。只要存在对环境变量的导出，那么攻击者就可以使用各种方式诱骗bash视其为命令，进行执行。</p>
 
 <h3>参考文章</h3>
 
@@ -113,6 +113,7 @@ http-header = Referer:() { :; }; ping -c 163.com
 <li><a href="http://www.oschina.net/news/55694/shellshock-flaw">http://www.oschina.net/news/55694/shellshock-flaw</a></li>
 <li><a href="http://news.cnblogs.com/n/504675/">http://news.cnblogs.com/n/504675/</a></li>
 <li><a href="http://weibo.com/p/1005051401527553/weibo">http://weibo.com/p/1005051401527553/weibo</a></li>
+<li><a href="https://shellshocker.net/">https://shellshocker.net/</a></li>
 </ul>
 
 ]]></content>
