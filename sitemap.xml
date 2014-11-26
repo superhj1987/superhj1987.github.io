@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://superhj1987.github.io/blog/2014/11/26/work-note-new/</loc>
+    <lastmod>2014-11-26T17:57:05+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://superhj1987.github.io/blog/2014/09/29/shell-shock/</loc>
     <lastmod>2014-09-29T21:49:46+08:00</lastmod>
     <priority>0.8</priority>
@@ -53,21 +59,21 @@
   
   <url>
     <loc>http://superhj1987.github.io/blog/archives/</loc>
-    <lastmod>2014-09-29T22:24:33+08:00</lastmod>
+    <lastmod>2014-11-26T18:39:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/blog/</loc>
-    <lastmod>2014-09-29T22:24:33+08:00</lastmod>
+    <lastmod>2014-11-26T18:39:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/blog/categories/</loc>
-    <lastmod>2014-09-29T22:24:33+08:00</lastmod>
+    <lastmod>2014-11-26T18:39:24+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
