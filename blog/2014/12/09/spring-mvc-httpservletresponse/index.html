@@ -97,7 +97,7 @@
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Spring mvc的controller传递HttpServletResponse参数的一点事</h1>
 	<div class="entry-content" itemprop="articleBody"><pre>
-@RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
+    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
     public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
     ......
     }
@@ -138,12 +138,12 @@ mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
  args[i] = argumentResolvers.resolveArgument(parameter, mavContainer, request, dataBinderFactory);
  </pre>
  这一行代码关联的是对每一中paramerter的处理类。接下来的调用见7</p></li>
-<li><p>HandlerMethodArgumentResolverComposite</p>
+<li><p>HandlerMethodArgumentResolverComposite.resolveArgument</p>
 
 <p> <pre>
  HandlerMethodArgumentResolver resolver = getArgumentResolver(parameter);
-     Assert.notNull(resolver, &ldquo;Unknown parameter type [&rdquo; + parameter.getParameterType().getName() + &ldquo;]&rdquo;);
-     return resolver.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
+ Assert.notNull(resolver, &ldquo;Unknown parameter type [&rdquo; + parameter.getParameterType().getName() + &ldquo;]&rdquo;);
+ return resolver.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
  </pre></p>
 
 <p> 这里的代码就三行，第一步是根据参数不同，获取不同的argumentResolver。当参数为HttpServletResponse的时候，就会调用ServletResponseMethodArgumentResolver.resolveArgument</p></li>

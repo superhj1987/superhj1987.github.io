@@ -121,7 +121,7 @@
 	<h1 class="title" itemprop="name"><a href="/blog/2014/12/09/spring-mvc-httpservletresponse/" itemprop="url">Spring mvc的controller传递HttpServletResponse参数的一点事</a></h1>
 	<div class="entry-content" itemprop="articleBody">
 		<pre>
-@RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
+    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
     public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
     ......
     }
