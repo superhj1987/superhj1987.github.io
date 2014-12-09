@@ -7,7 +7,7 @@ categories:
 ---
 
 <pre>
-@RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
+	@RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
     public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
     ......
     }
@@ -43,12 +43,12 @@ mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
  	args[i] = argumentResolvers.resolveArgument(parameter, mavContainer, request, dataBinderFactory);
  	</pre>
  	这一行代码关联的是对每一中paramerter的处理类。接下来的调用见7
-7. HandlerMethodArgumentResolverComposite
+7. HandlerMethodArgumentResolverComposite.resolveArgument
 
 	<pre>
 	HandlerMethodArgumentResolver resolver = getArgumentResolver(parameter);
-		Assert.notNull(resolver, "Unknown parameter type [" + parameter.getParameterType().getName() + "]");
-		return resolver.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
+	Assert.notNull(resolver, "Unknown parameter type [" + parameter.getParameterType().getName() + "]");
+	return resolver.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
 	</pre>
 	
 	这里的代码就三行，第一步是根据参数不同，获取不同的argumentResolver。当参数为HttpServletResponse的时候，就会调用ServletResponseMethodArgumentResolver.resolveArgument
