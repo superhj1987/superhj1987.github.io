@@ -1,0 +1,251 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Spring mvc的controller传递HttpServletResponse参数的一点事 - Blog - srHang | 飒然</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="Spring mvc的controller传递HttpServletResponse参数的一点事 @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html") &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Blog - srHang | 飒然" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://superhj1987.github.io/blog/2014/12/09/spring-mvc-httpservletresponse/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1>飒然 is Thinking...</h1>
+  
+    <h3>What、How、Why</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/blog/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
+</ul>
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px'>
+  <h3>About Me</h3>
+  <p>码农@随身云(中华万年历、美历);</p>
+  <p>Java工程师，易信公众平台服务端开发;</p>
+  <p>后端工程师，网易云计算NLB开发</p>
+</section>
+</nav>
+<nav id="sub-nav" style='margin-top:20px !important'>
+	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Spring mvc的controller传递HttpServletResponse参数的一点事</h1>
+	<div class="entry-content" itemprop="articleBody"><pre>
+@RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
+    public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
+    ......
+    }
+</pre>
+
+
+<p>之前在使用Spring mvc的时候发现这么一回事：在spring mvc的controller的参数里如果有HttpServletResponse(类似上面的代码),那么必须有返回值框架才会去在执行完handler后去搜索相应的viewResolver和view从而展现数据。如果没有返回值，那么默认就是返回null的。我初步推测框架的处理过程大致如此：如果controller参数里传递HttpServletResposne的话，框架就认为视图由handler自己生成可以不参于这个过程,但是如果handler有返回值的话，那么仍然认为还需要参与到视图生成的过程中。</p>
+
+<!--more-->
+
+
+<p>翻了一下spring mvc的代码，验证了自己的想法。在DispatchServlet的921行</p>
+
+<pre>
+// Actually invoke the handler.
+mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
+</pre>
+
+
+<p>这里的mv就是视图生成的结果。接着经历下面的过程：</p>
+
+<ol>
+<li>AbstractHandlerMethodAdapter.handle</li>
+<li>RequestMappingHandlerAdapter.handleInternal</li>
+<li><p>RequestMappingHandlerAdapter.invokeHandleMethod</p>
+
+<p> 这地方有一个关键的变量mavContainer
+ <pre>
+ ModelAndViewContainer mavContainer = new ModelAndViewContainer();
+ </pre>
+ mavContainer有一个属性requestHandled，其标志着此次请求是否是由handler自己控制的。默认为false。</p></li>
+<li><p>ServletInvocableHandlerMethod.invokeAndHandle</p></li>
+<li>InvocableHandlerMethod.invokeForRequest</li>
+<li><p>InvocableHandlerMethod.getMethodArgumentValues</p>
+
+<p> 这个方法的功能在名字上大体就能看出来：获取controller中每一个参数的值。关键的地方在于
+ <pre>
+ args[i] = argumentResolvers.resolveArgument(parameter, mavContainer, request, dataBinderFactory);
+ </pre>
+ 这一行代码关联的是对每一中paramerter的处理类。接下来的调用见7</p></li>
+<li><p>HandlerMethodArgumentResolverComposite</p>
+
+<p> <pre>
+ HandlerMethodArgumentResolver resolver = getArgumentResolver(parameter);
+     Assert.notNull(resolver, &ldquo;Unknown parameter type [&rdquo; + parameter.getParameterType().getName() + &ldquo;]&rdquo;);
+     return resolver.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
+ </pre></p>
+
+<p> 这里的代码就三行，第一步是根据参数不同，获取不同的argumentResolver。当参数为HttpServletResponse的时候，就会调用ServletResponseMethodArgumentResolver.resolveArgument</p></li>
+<li><p>ServletResponseMethodArgumentResolver.resolveArgument</p>
+
+<p> 最核心的一段代码来了</p>
+
+<p> <pre>
+ if (mavContainer != null) {
+     mavContainer.setRequestHandled(true);
+ }
+ </pre></p>
+
+<p> 这里就把mavContainer的requestHandled设置为了true.</p></li>
+<li><p>回到4，调用完InvocableHandlerMethod.invokeForRequest</p>
+
+<p> <pre>
+ if (returnValue == null) {
+     if (isRequestNotModified(webRequest) || hasResponseStatus() || mavContainer.isRequestHandled()) {
+         mavContainer.setRequestHandled(true);
+         return;
+     }
+ }else if (StringUtils.hasText(this.responseReason)) {
+     mavContainer.setRequestHandled(true);
+     return;
+ }</p>
+
+<p> mavContainer.setRequestHandled(false);
+ </pre></p>
+
+<p> 当handler的返回值为null的时候，直接返回。否则将mavContainer的requestHandled设置为false。</p></li>
+<li><p>接着回到3，调用完ServletInvocableHandlerMethod.invokeAndHandle后，接着调用getModelAndView(mavContainer, modelFactory, webRequest)</p></li>
+<li><p>ServletInvocableHandlerMethod.getModelAndView</p>
+
+<p><pre>
+modelFactory.updateModel(webRequest, mavContainer);</p>
+
+<p>if (mavContainer.isRequestHandled()) {
+    return null;
+}
+</pre></p>
+
+<p>这里当mavContainer的requestHandled被设置为true时,视图返回null。</p></li>
+</ol>
+
+
+<p>整个大体的流程就是这样的，如果需要使用HttpServletResponse同时还需要框架控制视图生成的话，可以给controller method一个返回值（随便什么都行）。</p>
+</div>
+
+</article>
+
+	<!-- <div class="share"> -->
+
+     <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tsina">新浪微博</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_weixin">微信</a>
+
+<a href="http://www.jiathis.com/share?uid=901552" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+	data_track_clickback:true,
+	summary:"",
+	shortUrl:false,
+	hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=901552" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+<!-- UY BEGIN -->
+<div id="uyan_frame"></div>
+<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=901552"></script>
+<!-- UY END -->
+ 
+<!-- </div> -->
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2014
+
+    飒然Hang
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
