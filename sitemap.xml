@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://superhj1987.github.io/blog/2015/01/21/springm-mvc-model-attribute-alias/</loc>
+    <lastmod>2015-01-21T12:00:00+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://superhj1987.github.io/blog/2015/01/15/2014-final-note/</loc>
     <lastmod>2015-01-15T16:08:48+08:00</lastmod>
     <priority>0.8</priority>
@@ -71,21 +77,21 @@
   
   <url>
     <loc>http://superhj1987.github.io/blog/archives/</loc>
-    <lastmod>2015-01-15T17:49:45+08:00</lastmod>
+    <lastmod>2015-01-21T12:02:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/blog/</loc>
-    <lastmod>2015-01-15T17:49:45+08:00</lastmod>
+    <lastmod>2015-01-21T12:02:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/blog/categories/</loc>
-    <lastmod>2015-01-15T17:49:45+08:00</lastmod>
+    <lastmod>2015-01-21T12:02:39+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
