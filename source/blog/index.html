@@ -10,11 +10,14 @@ layout: default
 {% endfor %}
 </div>
 <nav id="pagenavi">
-    {% if paginator.previous_page %}
-        <a href="{{paginator.previous_page}}" class="prev">←上一页</a>
+    {% if paginator.previous_page == 1 %}
+    <a href="/blog/" class="prev">←上一页</a>
+    {% endif %}
+    {% if paginator.previous_page and paginator.previous_page != 1 %}
+        <a href="/blog/posts/{{paginator.previous_page}}" class="prev">←上一页</a>
     {% endif %}
     {% if paginator.next_page %}
-        <a href="{{paginator.next_page}}" class="next">下一页→</a>
+        <a href="/blog/posts/{{paginator.next_page}}" class="next">下一页→</a>
     {% endif %}
     <div class="center"><a href="{{ root_url }}/blog/archives">所有文章</a></div>
 </nav>
