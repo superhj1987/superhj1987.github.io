@@ -9,7 +9,7 @@
 	<meta name="author" content="飒然Hang">
 
 	
-	<meta name="description" content="Aug 14th, 2014 技术的成长 最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖， &hellip;">
+	<meta name="description" content="Aug 22nd, 2014 Async源码分析 最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码： async.waterfall = function (tasks, callback) { callback = callback &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -99,6 +99,76 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T16:08:28+08:00" data-updated="true" itemprop="datePublished">Aug 22<sup>nd</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/08/22/node-async-analysis/" itemprop="url">Async源码分析</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
+
+<pre>
+    async.waterfall = function (tasks, callback) {
+        callback = callback || function () {};
+        if (!_isArray(tasks)) {
+          var err = new Error('First argument to waterfall must be an array of functions');
+          return callback(err);
+        }
+        if (!tasks.length) {
+            return callback();
+        }
+        var wrapIterator = function (iterator) {
+            return function (err) {
+                if (err) {
+                    callback.apply(null, arguments);
+                    callback = function () {};
+                }
+                else {
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    var next = iterator.next();
+                    if (next) {
+                        args.push(wrapIterator(next));
+                    }
+                    else {
+                        args.push(callback);
+                    }
+                    async.setImmediate(function () {
+                        iterator.apply(null, args);
+                    });
+                }
+            };
+        };
+        wrapIterator(async.iterator(tasks))();
+    };
+ </pre>
+
+
+<p></p>
+
+
+		
+		<a href="/blog/2014/08/22/node-async-analysis/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">

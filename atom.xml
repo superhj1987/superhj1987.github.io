@@ -4,7 +4,7 @@
   <title><![CDATA[Blog - srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2015-06-10T11:21:02+08:00</updated>
+  <updated>2015-07-09T12:57:39+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,64 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[make、ant、mvn的命令行参数传递]]></title>
+    <link href="http://superhj1987.github.io/blog/2015/07/09/mvn-ant-make-transfer-params/"/>
+    <updated>2015-07-09T11:48:47+08:00</updated>
+    <id>http://superhj1987.github.io/blog/2015/07/09/mvn-ant-make-transfer-params</id>
+    <content type="html"><![CDATA[<p>在使用make、ant、mvn的时候，怎样传递命令行参数呢。比如</p>
+
+<ul>
+<li>在makefile中读取make后面跟的参数</li>
+<li>在build.xml中读取ant后面跟的参数</li>
+<li>在pom.xml中读取mvn后跟的参数</li>
+</ul>
+
+
+<h2>1. make</h2>
+
+<p>执行命令</p>
+
+<pre><code>make name=test
+</code></pre>
+
+<p>在makefile中</p>
+
+<pre><code>${name}
+</code></pre>
+
+<ol>
+<li>ant</li>
+</ol>
+
+
+<p>执行命令</p>
+
+<pre><code>ant -Dname=test
+</code></pre>
+
+<p>在build.xml中</p>
+
+<pre><code>${name}
+</code></pre>
+
+<ol>
+<li>mvn</li>
+</ol>
+
+
+<p>执行命令</p>
+
+<pre><code>mvn -Dname=test
+</code></pre>
+
+<p>在build.xml中</p>
+
+<pre><code>${name}
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Hbase关键的几个点]]></title>
