@@ -4,7 +4,7 @@
   <title><![CDATA[Blog - srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2015-07-09T12:57:39+08:00</updated>
+  <updated>2015-07-09T13:56:17+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -39,10 +39,7 @@
 <pre><code>${name}
 </code></pre>
 
-<ol>
-<li>ant</li>
-</ol>
-
+<h2>2. ant</h2>
 
 <p>执行命令</p>
 
@@ -54,10 +51,7 @@
 <pre><code>${name}
 </code></pre>
 
-<ol>
-<li>mvn</li>
-</ol>
-
+<h2>3. mvn</h2>
 
 <p>执行命令</p>
 
