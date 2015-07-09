@@ -1,0 +1,632 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Blog - srHang | 飒然</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="Jun 10th, 2015 Hbase关键的几个点 一. 什么时候需要HBase 半结构化或非结构化数据 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要存储author的email，phone，address信息时RDBMS需要停机维护， &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Blog - srHang | 飒然" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://superhj1987.github.io/blog/">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		// $(function(){
+		// 	$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		// });
+		$(function(){
+			$('.profilepic').append("<img src='/images/avatar/hj.jpg' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1>飒然 is Thinking...</h1>
+  
+    <h3>What、How、Why</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main">
+    <li><a href="/blog/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
+</ul>
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px'>
+  <h3>About Me</h3>
+  <p>码农@随身云(中华万年历、美历);</p>
+  <p>Java工程师，易信公众平台服务端开发;</p>
+  <p>后端工程师，网易云计算NLB开发</p>
+</section>
+</nav>
+<nav id="sub-nav" style='margin-top:20px !important'>
+	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+<div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-10T10:59:59+08:00" data-updated="true" itemprop="datePublished">Jun 10<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/06/10/hbase-about/" itemprop="url">Hbase关键的几个点</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>一. 什么时候需要HBase</h2>
+
+<ol>
+<li><p>半结构化或非结构化数据</p>
+
+<p> 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要存储author的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加.</p></li>
+<li><p>记录非常稀疏</p>
+
+<p> RDBMS的行有多少列是固定的，为null的列浪费了存储空间。而如上文提到的，HBase为null的Column不会被存储，这样既节省了空间又提高了读性能。</p></li>
+<li><p>多版本数据</p>
+
+<p> 如上文提到的根据Row key和Column key定位到的Value可以有任意数量的版本值，因此对于需要存储变动历史记录的数据，用HBase就非常方便了。比如上例中的author的Address是会变动的，业务上一般只需要最新的值，但有时可能需要查询到历史值。</p></li>
+<li><p>超大数据量</p>
+
+<p> 当数据量越来越大，RDBMS数据库撑不住了，就出现了读写分离策略，通过一个Master专门负责写操作，多个Slave负责读操作，服务器成本倍增。随着压力增加，Master撑不住了，这时就要分库了，把关联不大的数据分开部署，一些join查询不能用了，需要借助中间层。随着数据量的进一步增加，一个表的记录越来越大，查询就变得很慢，于是又得搞分表，比如按ID取模分成多个表以减少单个表的记录数。经历过这些事的人都知道过程是多么的折腾。采用HBase就简单了，只需要加机器即可，HBase会自动水平切分扩展，跟Hadoop的无缝集成保障了其数据可靠性（HDFS）和海量数据分析的高性能（MapReduce）</p></li>
+</ol>
+
+
+<h2>二. HTable一些基本概念</h2>
+
+<ol>
+<li><p>Row key</p>
+
+<p> 行主键， HBase不支持条件查询和Order by等查询，读取记录只能按Row key（及其range）或全表扫描，因此Row key需要根据业务来设计以利用其存储排序特性（Table按Row key字典序排序如1,10,100,11,2）提高性能。</p></li>
+<li><p>Column Family（列族）</p>
+
+<p> 在表创建时声明，每个Column Family为一个存储单元。在上例中设计了一个HBase表blog，该表有两个列族：article和author。</p></li>
+<li><p>Column（列）</p>
+
+<p> HBase的每个列都属于一个列族，以列族名为前缀，如列article:title和article:content属于article列族，author:name和author:nickname属于author列族。</p>
+
+<p> Column不用创建表时定义即可以动态新增，同一Column Family的Columns会群聚在一个存储单元上，并依Column key排序，因此设计时应将具有相同I/O特性的Column设计在一个Column Family上以提高性能。</p></li>
+<li><p>Timestamp</p>
+
+<p> HBase通过row和column确定一份数据，这份数据的值可能有多个版本，不同版本的值按照时间倒序排序，即最新的数据排在最前面，查询时默认返回最新版本。如上例中row key=1的author:nickname值有两个版本，分别为1317180070811对应的“一叶渡江”和1317180718830对应的“yedu”（对应到实际业务可以理解为在某时刻修改了nickname为yedu，但旧值仍然存在）。Timestamp默认为系统当前时间（精确到毫秒），也可以在写入数据时指定该值。</p></li>
+<li><p>Value</p>
+
+<p> 每个值通过4个键唯一索引，tableName+RowKey+ColumnKey+Timestamp=>value，例如上例中{tableName=’blog’,RowKey=’1’,ColumnName=’author:nickname’,Timestamp=’ 1317180718830’}索引到的唯一值是“yedu”。</p></li>
+<li>存储类型
+
+<ul>
+<li>TableName 是字符串</li>
+<li>RowKey 和 ColumnName 是二进制值（Java 类型 byte[]）</li>
+<li>Timestamp 是一个 64 位整数（Java 类型 long）</li>
+<li>value 是一个字节数组（Java类型 byte[]）。</li>
+</ul>
+</li>
+</ol>
+
+
+<p>将HTable的存储结构理解为</p>
+
+<p><img src="/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
+
+<p>即HTable按Row key自动排序，每个Row包含任意数量个Columns，Columns之间按Column key自动排序，每个Column包含任意数量个Values。理解该存储结构将有助于查询结果的迭代。</p>
+
+<h2>三. 模式设计应遵循的原则</h2>
+
+<ol>
+<li><p>列族的数量以及列族的势</p>
+
+<p> 列族的数量越少越好，牵扯到了hbase的flushing；同一个表中不同列族所存储的记录数量的差别也需要考虑（列族的势），会造成记录数量少的列族的数据分散在多个region上，影响查询效率。</p></li>
+<li><p>行键的设计</p>
+
+<p> 避免使用时序或者单调（递增/递减）行键，否则会导致连续到来的数据会被分配到统一region中。</p></li>
+<li><p>尽量最小化行键和列族的大小</p>
+
+<p> 避免hbase的索引过大，加重系统存储的负担</p></li>
+<li><p>版本的数量</p>
+
+<p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
+</ol>
+
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-21T12:00:00+08:00" data-updated="true" itemprop="datePublished">Jan 21<sup>st</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/" itemprop="url">关于Spring Mvc中modelattribute无法制定别名的解决方案</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+
+<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
+
+<p><strong>Controller</strong>:</p>
+
+<pre>
+@Controller
+@RequestMapping("/api")
+public class ApiController extends BaseController {
+
+    @RequestMapping(value = "/test", headers = "Accept=application/json")
+    public void authUser(ModelMap modelMap, Account acc) {
+        ResultPack.packOk(modelMap);
+    }
+}
+
+public class Account{
+    private static final long serialVersionUID = 750752375611621980L;
+
+    private long id;
+    private String userName;
+    private String password;
+    private AccountType type = AccountType.ADMIN;
+    private long timeTag;
+    private int status = 1;
+    ...
+    ...
+}
+</pre>
+
+
+<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
+
+<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
+
+<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-15T16:08:48+08:00" data-updated="true" itemprop="datePublished">Jan 15<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/01/15/2014-final-note/" itemprop="url">2014这一年</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
+
+<p>2014年全国、全世界发生了很多事情。政府大规模的反腐揪出了一个个贪得无厌的官僚，让人们不禁拍手称快，觉得看到了国家的希望。但是腐败的根本在于体制，体制不进行变革，那么倒下一个贪官，还有另一批贪官起来，顶多是在这段时间收敛一下。其实，从某种意义来说，贪腐还不是危害最大的，如果你给人民做了贡献，带来了好处，至少我们受益了；但要只是贪污而无作为，那么真的是让人不齿了。不知道从什么时候起，自己对体制内的东西都有点反感，提到体制内，首先想到的就是背景、亲戚、老爹、关系，而不是能力。尤其是自己亲身体会或者道听途说到体制内很多万恶的潜规则之后，更是加深了这种感觉。真心希望在习大大的努力之下，能彻底破除体制内多少年形成的各种弊病，让“中国梦”真的可以成为所有人的“中国梦”。除了反腐，14年最大的事情莫过于世界杯了，对于我这种对足球仅存在巴西、罗纳尔多、亨利这些字眼的人来说，也就趁机给自己一个放纵的理由，晚上看世界杯、喝啤酒、吃烧烤，顺便买个足彩，也算充实了一下每天三点一线的生活。至于谁最好拿了冠军，说实话还真的没那么关心。</p>
+
+
+		
+		<a href="/blog/2015/01/15/2014-final-note/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-09T10:05:41+08:00" data-updated="true" itemprop="datePublished">Dec 9<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/12/09/spring-mvc-httpservletresponse/" itemprop="url">Spring mvc的controller传递HttpServletResponse参数的一点事</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<pre>
+    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
+    public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
+    ......
+    }
+</pre>
+
+
+<p>之前在使用Spring mvc的时候发现这么一回事：在spring mvc的controller的参数里如果有HttpServletResponse(类似上面的代码),那么必须有返回值框架才会去在执行完handler后去搜索相应的viewResolver和view从而展现数据。如果没有返回值，那么默认就是返回null的。我初步推测框架的处理过程大致如此：如果controller参数里传递HttpServletResposne的话，框架就认为视图由handler自己生成可以不参于这个过程,但是如果handler有返回值的话，那么仍然认为还需要参与到视图生成的过程中。</p>
+
+
+		
+		<a href="/blog/2014/12/09/spring-mvc-httpservletresponse/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-11-26T17:57:05+08:00" data-updated="true" itemprop="datePublished">Nov 26<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/11/26/work-note-new/" itemprop="url">关于工作</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>离开上一个公司快半个月了。想想，自己坚持从杭州离开，从一个大公司离开，来到这个自己一直很排斥的城市，加入一个尚不知前景的创业公司。是对还是错?</p>
+
+<p>在前东家的时候，周围优秀的人太多，不管怎么样自己都能学到很多知识，遇到疑问的时候也能有人解答。所以在前东家的几年自己成长了很多。有怨言的仅仅是那一直落后于业界的工资待遇以及刚入职时候坑人的80%，其他的都是自己很满意的，也是自己会感恩的一家公司。自己起初也是打算在那里沉淀几年技术再去创业的。至于选择离开，问问自己，是为了钱吗？其实在杭州能给我开出这种待遇的公司很多；为了职位吗？其实现在的自己水平还处于很低的一个水准，学习才是主旋律。也许仅仅是那种不甘心和挑战带来的机会吧。要知道，选择这条路意味着从此以后需要依靠自己的学习能力，自我提高，自我成长；选择这条路意味着压力、责任和冒险。自己到这里的期望是什么呢？成为技术领头人，带着一个技术团队从一个没有什么业界水准的初级团队成长为一个业界有地位的杰出团队，这也是现在能追求的最大化吧。人生总是面临很多选择，选择一个就意味着不能回头。自己能把握的只有成为更好的自己，不能把握的只能顺其自然。</p>
+
+<p>在一个极具挑战的环境下，汲取各种知识，培养自己的架构思维，尽快的成长为合格甚至顶尖的架构师，这也许是现在能带给自己最大的机会。这也是自己当初这么坚决来这里的原因吧。Stay hungry,stay foolish,把握现在，充实自己，一切顺其自然。^_^</p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-29T21:49:46+08:00" data-updated="true" itemprop="datePublished">Sep 29<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/09/29/shell-shock/" itemprop="url">ShellShock这点事</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>前言</h2>
+
+<p>在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接：<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271">CVE-2014-6271</a> 、<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-7169">CVE-2014-7169</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7186">CVE-2014-7186</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7187">CVE-2014-7187</a>、<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6277">CVE-2014-6277</a>。世界上Linux服务器的占有份额是很大的，而bash又是Linux不可或缺的一个部分。可想而知，这个漏洞的破坏力有多大。这个从名字上就可以看出来，ShellShock是医学上的一种严重的疾病，中文叫做“弹震症”，指的是受到爆炸冲击后导致浑身颤抖、思维混乱等症状。这个命名很形象地反映了问题的严重性。</p>
+
+
+		
+		<a href="/blog/2014/09/29/shell-shock/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-25T21:29:52+08:00" data-updated="true" itemprop="datePublished">Sep 25<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/09/25/jvm-cheat/" itemprop="url">JVM内存的GC的骗局（转载）</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>概述</h2>
+
+<p>在日常程序开发中，很多JAVA程度员不太关心内存的使用情况。当然，如果程序员运气较好或者系统没有大规模的被测试或者被用户使用时，这个问题或许永远不出现，使得程序员一直认为内存反正是无限的，可以一直使用。确实，JVM的垃圾回收器会帮我们处理好所有的事情，可如果运气不是那么好，不幸就有可能发生在我们的身上，比如：进程会抛出OOM异常，不再接收新的请求；响应时间在固定时间段内变长，超时或者不响应，CPU使用率时常像过山车一样等。内存使用在大部分的工作时间可以正常工作，这样会导致很多的人对JAVA应用的内存使用情况不明了或者得不到充分的性能测试，而导致程序无法正常工作。出现上面的情况程序员一般会比较好的较快的发现问题或能总结一定的规律。</p>
+
+
+		
+		<a href="/blog/2014/09/25/jvm-cheat/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-24T17:38:57+08:00" data-updated="true" itemprop="datePublished">Sep 24<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/09/24/nginx-bootstrap/" itemprop="url">Nginx源码分析之启动过程</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
+
+<p>main函数的处理过程总体上可以概括如下：</p>
+
+
+		
+		<a href="/blog/2014/09/24/nginx-bootstrap/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-27T14:32:50+08:00" data-updated="true" itemprop="datePublished">Aug 27<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/08/27/nginx-loabbalance/" itemprop="url">Nginx负载均衡</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>一、特点</h2>
+
+<h3>1.1 应用情况</h3>
+
+<p>Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。据Netcraft统计，世界上最繁忙的网站中有11.48%使用Nginx作为其服务器或者代理服务器。基于反向代理的功能，Nginx作为负载均衡主要有以下几点理由：</p>
+
+<ol>
+<li><p>高并发连接</p></li>
+<li><p>内存消耗少</p></li>
+<li><p>配置文件非常简单</p></li>
+<li><p>成本低廉</p></li>
+<li><p>支持Rewrite重写规则</p></li>
+<li><p>内置的健康检查功能</p></li>
+<li><p>节省带宽</p></li>
+<li><p>稳定性高</p></li>
+</ol>
+
+
+
+		
+		<a href="/blog/2014/08/27/nginx-loabbalance/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T16:08:28+08:00" data-updated="true" itemprop="datePublished">Aug 22<sup>nd</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/08/22/node-async-analysis/" itemprop="url">Async源码分析</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
+
+<pre>
+    async.waterfall = function (tasks, callback) {
+        callback = callback || function () {};
+        if (!_isArray(tasks)) {
+          var err = new Error('First argument to waterfall must be an array of functions');
+          return callback(err);
+        }
+        if (!tasks.length) {
+            return callback();
+        }
+        var wrapIterator = function (iterator) {
+            return function (err) {
+                if (err) {
+                    callback.apply(null, arguments);
+                    callback = function () {};
+                }
+                else {
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    var next = iterator.next();
+                    if (next) {
+                        args.push(wrapIterator(next));
+                    }
+                    else {
+                        args.push(callback);
+                    }
+                    async.setImmediate(function () {
+                        iterator.apply(null, args);
+                    });
+                }
+            };
+        };
+        wrapIterator(async.iterator(tasks))();
+    };
+ </pre>
+
+
+<p></p>
+
+
+		
+		<a href="/blog/2014/08/22/node-async-analysis/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+</div>
+<nav id="pagenavi">
+    
+    
+    
+        <a href="/blog/posts/2" class="next">下一页→</a>
+    
+    <div class="center"><a href="/blog/archives">所有文章</a></div>
+</nav></div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2015
+
+    飒然Hang
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
