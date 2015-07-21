@@ -4,7 +4,7 @@
   <title><![CDATA[Blog - srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2015-07-09T13:56:17+08:00</updated>
+  <updated>2015-07-21T20:11:03+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -456,7 +456,7 @@ http-header = Referer:() { :; }; ping -c 163.com
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[JVM内存的GC的骗局（转载）]]></title>
+    <title type="html"><![CDATA[JVM内存GC的骗局（转载）]]></title>
     <link href="http://superhj1987.github.io/blog/2014/09/25/jvm-cheat/"/>
     <updated>2014-09-25T21:29:52+08:00</updated>
     <id>http://superhj1987.github.io/blog/2014/09/25/jvm-cheat</id>
