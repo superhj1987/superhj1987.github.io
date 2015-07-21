@@ -21,7 +21,7 @@ categories:
 在makefile中
 
 	${name}
-2. ant
+## 2. ant
 
 执行命令
 
@@ -29,7 +29,7 @@ categories:
 在build.xml中
 
 	${name}
-3. mvn
+## 3. mvn
 
 执行命令
 
