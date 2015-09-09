@@ -3,6 +3,12 @@
   
   
   <url>
+    <loc>http://superhj1987.github.io/blog/2015/09/09/load-analysis/</loc>
+    <lastmod>2015-09-09T18:42:58+08:00</lastmod>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
     <loc>http://superhj1987.github.io/blog/2015/07/09/mvn-ant-make-transfer-params/</loc>
     <lastmod>2015-07-09T11:48:47+08:00</lastmod>
     <priority>0.8</priority>
@@ -101,21 +107,21 @@
   
   <url>
     <loc>http://superhj1987.github.io/blog/archives/</loc>
-    <lastmod>2015-07-21T20:11:03+08:00</lastmod>
+    <lastmod>2015-09-09T18:44:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/blog/</loc>
-    <lastmod>2015-07-21T20:11:03+08:00</lastmod>
+    <lastmod>2015-09-09T18:44:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   
   <url>
     <loc>http://superhj1987.github.io/blog/categories/</loc>
-    <lastmod>2015-07-21T20:11:03+08:00</lastmod>
+    <lastmod>2015-09-09T18:44:52+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
