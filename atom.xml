@@ -4,7 +4,7 @@
   <title><![CDATA[Blog - srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2015-09-10T17:56:18+08:00</updated>
+  <updated>2015-11-04T10:13:55+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -275,6 +275,11 @@ TIME_WAIT 18122
 <p><img src="http://superhj1987.github.io/images/web-arch.jpg" alt="web-arch" /></p>
 
 <p>本文对LVS没有做相关说明，后续会补充进来。</p>
+
+<pre><code>如需转载，请注明来自: http://superhj1987.github.com/blog
+
+版权声明：本文为博主原创文章，未经博主允许不得转载
+</code></pre>
 ]]></content>
   </entry>
   
