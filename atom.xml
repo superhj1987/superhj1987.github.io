@@ -4,7 +4,7 @@
   <title><![CDATA[Blog - srHang | 飒然]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2015-11-04T10:18:26+08:00</updated>
+  <updated>2015-11-10T16:29:56+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -146,7 +146,7 @@ TIME_WAIT 18122
 </ul>
 
 
-<p>这里需要注意的一点就是当打开了tcp_tw_reccycle，就会检查时间戳，移动环境下的发来的包的时间戳有些时候是乱跳的，会把带了“倒退”的时间戳的包当作是“recycle的tw连接的重传数据，不是新的请求”，于是丢掉不回包，造成大量丢包。</p>
+<p>这里需要注意的一点就是当打开了tcp_tw_recycle，就会检查时间戳，移动环境下的发来的包的时间戳有些时候是乱跳的，会把带了“倒退”的时间戳的包当作是“recycle的tw连接的重传数据，不是新的请求”，于是丢掉不回包，造成大量丢包。另外，当前面有LVS，并且采用的是NAT机制时，开启tcp_tw_recycle会造成一些异常，可见：<a href="http://www.pagefault.info/?p=416">http://www.pagefault.info/?p=416</a></p>
 
 <p>此外，还可以通过优化tcp/ip的可使用端口的范围，进一步提升负载能力。，如下：</p>
 
