@@ -9,7 +9,7 @@
 	<meta name="author" content="飒然Hang">
 
 	
-	<meta name="description" content="Aug 27th, 2014 Nginx负载均衡 一、特点 1.1 应用情况 Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、 &hellip;">
+	<meta name="description" content="Sep 24th, 2014 Nginx源码分析之启动过程 nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +101,40 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-24T17:38:57+08:00" data-updated="true" itemprop="datePublished">Sep 24<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/09/24/nginx-bootstrap/" itemprop="url">Nginx源码分析之启动过程</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
+
+<p>main函数的处理过程总体上可以概括如下：</p>
+
+
+		
+		<a href="/blog/2014/09/24/nginx-bootstrap/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">

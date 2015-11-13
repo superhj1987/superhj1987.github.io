@@ -9,7 +9,7 @@
 	<meta name="author" content="飒然Hang">
 
 	
-	<meta name="description" content="Sep 9th, 2015 系统负载能力浅析 互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。 那么，何为系统负载能力？ &hellip;">
+	<meta name="description" content="Nov 13th, 2015 搭建自己的github 说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。 &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -101,6 +101,48 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner">
 <div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-13T10:27:40+08:00" data-updated="true" itemprop="datePublished">Nov 13<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/11/13/your-own-github/" itemprop="url">搭建自己的github</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
+
+<p>记得几年前由于项目的需要，我尝试自己去搭建一套git服务给项目组使用，折腾了好久，才总算搭建了一个基础的系统, 刚刚能用，权限控制都没有。其中的过程记录在了这里：<a href="http://srhang.iteye.com/blog/1339110%E3%80%82%E4%BD%86%E6%9C%80%E7%BB%88%E5%9B%A0%E4%B8%BAgit%E7%9A%84%E4%B8%8A%E6%89%8B%E9%97%A8%E6%A7%9B%E6%9C%89%E7%82%B9%E9%AB%98%EF%BC%8C%E8%BF%98%E6%98%AF%E9%80%89%E6%8B%A9%E4%BA%86svn%E3%80%82%E5%90%8E%E6%9D%A5%EF%BC%8Cgithub%E5%85%B4%E8%B5%B7%EF%BC%8Cgit%E6%89%8D%E5%A6%82%E7%81%AB%E5%A6%82%E8%8D%BC%E5%9C%B0%E5%9C%A8%E5%9B%BD%E5%86%85%E7%81%AB%E4%BA%86%E8%B5%B7%E6%9D%A5%E3%80%82%E8%AE%B8%E5%A4%9A%E5%A4%A7%E7%9A%84%E4%BA%92%E8%81%94%E7%BD%91%E5%85%AC%E5%8F%B8%EF%BC%8C%E4%B9%9F%E9%83%BD%E5%BC%80%E5%A7%8B%E6%8A%8A%E9%A1%B9%E7%9B%AE%E7%94%B1svn%E8%BD%AC%E5%88%B0Git%E4%B8%8A%E3%80%82%E4%BD%86%E5%A6%82%E6%9E%9C%E4%BB%85%E4%BB%85%E6%98%AF%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAgit%E6%9C%8D%E5%8A%A1%EF%BC%8C%E9%82%A3%E4%B9%88github%E8%BF%99%E7%A7%8D%E7%BD%91%E7%AB%99%E6%8F%90%E4%BE%9B%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96ui%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%BE%BF%E6%8D%B7%E5%8D%B4%E4%B9%9F%E4%B8%8D%E5%A4%8D%E5%AD%98%E5%9C%A8%E4%BA%86%E3%80%82%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%9A%84%E6%9C%89%E9%92%B1%E7%9A%84%E5%9B%A2%E9%98%9F%EF%BC%8C%E4%BD%BF%E7%94%A8github%E7%9A%84%E6%94%B6%E8%B4%B9%E7%A7%81%E4%BA%BArepository%E5%80%92%E4%B9%9F%E8%83%BD%E4%BA%AB%E5%8F%97github%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%BE%BF%E6%8D%B7%E3%80%82%E4%BD%86%E6%98%AF%EF%BC%8C%E5%AF%B9%E4%BA%8E%E5%A4%A7%E9%83%A8%E5%88%86%E5%B0%8F%E5%85%AC%E5%8F%B8%E4%BB%A5%E5%8F%8A%E5%A4%A7%E5%85%AC%E5%8F%B8%E6%9D%A5%E8%AF%B4%EF%BC%8C%E6%98%AF%E7%8E%A9%E7%8E%A9%E4%B8%8D%E4%BC%9A%E6%8A%8A%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%E6%94%BE%E5%88%B0%E8%BF%99%E7%A7%8D%E5%85%AC%E5%85%B1%E6%9C%8D%E5%8A%A1%E4%B8%8A%E7%9A%84%E3%80%82%E4%BA%8E%E6%98%AF%E5%B0%B1%E4%BA%A7%E7%94%9F%E4%BA%86%E5%BE%88%E5%A4%9Agithub%E7%9A%84%E5%85%8B%E9%9A%86%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%BB%A5%E6%96%B9%E4%BE%BF%E9%83%A8%E7%BD%B2%E5%86%85%E7%BD%91%E7%9A%84github%E3%80%82">http://srhang.iteye.com/blog/1339110%E3%80%82%E4%BD%86%E6%9C%80%E7%BB%88%E5%9B%A0%E4%B8%BAgit%E7%9A%84%E4%B8%8A%E6%89%8B%E9%97%A8%E6%A7%9B%E6%9C%89%E7%82%B9%E9%AB%98%EF%BC%8C%E8%BF%98%E6%98%AF%E9%80%89%E6%8B%A9%E4%BA%86svn%E3%80%82%E5%90%8E%E6%9D%A5%EF%BC%8Cgithub%E5%85%B4%E8%B5%B7%EF%BC%8Cgit%E6%89%8D%E5%A6%82%E7%81%AB%E5%A6%82%E8%8D%BC%E5%9C%B0%E5%9C%A8%E5%9B%BD%E5%86%85%E7%81%AB%E4%BA%86%E8%B5%B7%E6%9D%A5%E3%80%82%E8%AE%B8%E5%A4%9A%E5%A4%A7%E7%9A%84%E4%BA%92%E8%81%94%E7%BD%91%E5%85%AC%E5%8F%B8%EF%BC%8C%E4%B9%9F%E9%83%BD%E5%BC%80%E5%A7%8B%E6%8A%8A%E9%A1%B9%E7%9B%AE%E7%94%B1svn%E8%BD%AC%E5%88%B0Git%E4%B8%8A%E3%80%82%E4%BD%86%E5%A6%82%E6%9E%9C%E4%BB%85%E4%BB%85%E6%98%AF%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AAgit%E6%9C%8D%E5%8A%A1%EF%BC%8C%E9%82%A3%E4%B9%88github%E8%BF%99%E7%A7%8D%E7%BD%91%E7%AB%99%E6%8F%90%E4%BE%9B%E7%9A%84%E5%8F%AF%E8%A7%86%E5%8C%96ui%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%BE%BF%E6%8D%B7%E5%8D%B4%E4%B9%9F%E4%B8%8D%E5%A4%8D%E5%AD%98%E5%9C%A8%E4%BA%86%E3%80%82%E5%AF%B9%E4%BA%8E%E4%B8%80%E4%BA%9B%E5%B0%8F%E7%9A%84%E6%9C%89%E9%92%B1%E7%9A%84%E5%9B%A2%E9%98%9F%EF%BC%8C%E4%BD%BF%E7%94%A8github%E7%9A%84%E6%94%B6%E8%B4%B9%E7%A7%81%E4%BA%BArepository%E5%80%92%E4%B9%9F%E8%83%BD%E4%BA%AB%E5%8F%97github%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%BE%BF%E6%8D%B7%E3%80%82%E4%BD%86%E6%98%AF%EF%BC%8C%E5%AF%B9%E4%BA%8E%E5%A4%A7%E9%83%A8%E5%88%86%E5%B0%8F%E5%85%AC%E5%8F%B8%E4%BB%A5%E5%8F%8A%E5%A4%A7%E5%85%AC%E5%8F%B8%E6%9D%A5%E8%AF%B4%EF%BC%8C%E6%98%AF%E7%8E%A9%E7%8E%A9%E4%B8%8D%E4%BC%9A%E6%8A%8A%E8%87%AA%E5%B7%B1%E7%9A%84%E4%BB%A3%E7%A0%81%E6%94%BE%E5%88%B0%E8%BF%99%E7%A7%8D%E5%85%AC%E5%85%B1%E6%9C%8D%E5%8A%A1%E4%B8%8A%E7%9A%84%E3%80%82%E4%BA%8E%E6%98%AF%E5%B0%B1%E4%BA%A7%E7%94%9F%E4%BA%86%E5%BE%88%E5%A4%9Agithub%E7%9A%84%E5%85%8B%E9%9A%86%E5%AE%9E%E7%8E%B0%EF%BC%8C%E4%BB%A5%E6%96%B9%E4%BE%BF%E9%83%A8%E7%BD%B2%E5%86%85%E7%BD%91%E7%9A%84github%E3%80%82</a></p>
+
+<p>说到github的克隆实现，最出名的莫过于<a href="https://gitlab.com">gitlab</a>。这是一个ROR的实现。应该是目前市面上最成熟的一个github克隆项目。功能也是最丰富的，在原来最基础的git库管理、权限管理、用户管理的基础上又加入了诸如code review、ci等极大方便开发者的功能。但是gitlab本身的部署是很复杂的，如果自己来一步一步的安装，需要安装很多依赖包，整个过程非常痛苦。而如果使用它提供的一键安装包的话，对于操作系统又有要求，比如就要求CentOS 6以上。一想到这么多事情，对于我这种懒人来说，还是算了。。。</p>
+
+<p>在前东家的时候，git项目是从gitlab迁移到了gitbucket（其中的原因当然不仅仅是因为gitlab部署的繁琐）。说起<a href="https://gitbucket.github.io/gitbucket-news/">gitbucket</a>，在百度上也搜不出什么信息来。仅仅能搜到的估计也就github库。这个项目是日本的同行使用scala开发的一个项目。所以，抛开编程方面，对于java系的程序员还是比较友好的，部署也只需要把war包往tomcat之类的容器里一扔就好。这个对比gitlab那可是天壤之别。而谈到二次开发，scala语言的学习曲线还是非常陡的，所以对比起来，貌似gitlab的二次开发相比较起来还是容易一些的（gitlab的二次开发没参与过，这里只是猜测）。当然，gitbucket是一个相对年轻的项目，对比gitlab，功能还显得比较单薄，bug也不少。我自己在使用的过程中，fix过几个小bug并提交到了项目的主分支，但是还有不少bug被公司的同事吐槽中。。。（实在没时间专门fix这个）。另外，不得不说的是，gitbucket的markdown解析引擎，作者不知道什么原因从之前的一个叫pegdown的替换成了自己实现的markedj，让我们公司的一堆md文档都显示的各种乱，实在无语。。。不得不去clone了markedj的代码，fix了其中的一些bug，部署在我们内网的maven库里了。虽然bug挺多，但是相比起来，还是喜欢gitbucket的部署升级的简单^_^。去官网下个war包，扔到tomcat里，恭喜你，你拥有了自己的github。</p>
+
+<p>其实，除了gitlab和gitbucket还有很多github的克隆实现。这篇文章列出了很多并做了简单介绍:
+<a href="http://www.oschina.net/news/50222/git-code-platforms">http://www.oschina.net/news/50222/git-code-platforms</a></p>
+
+<p>总之，开发工具这种东西，还是要选择最适合自己以及自己团队。</p>
+
+		
+		
+	</div>
+
+</article>
 
 
     <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
@@ -553,40 +595,6 @@ public class Account{
 
 		
 		<a href="/blog/2014/09/25/jvm-cheat/" class="more-link">继续阅读 &rarr;</a>
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-24T17:38:57+08:00" data-updated="true" itemprop="datePublished">Sep 24<sup>th</sup>, 2014</time></div>
-		<div class="tags">
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2014/09/24/nginx-bootstrap/" itemprop="url">Nginx源码分析之启动过程</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
-
-<p>main函数的处理过程总体上可以概括如下：</p>
-
-
-		
-		<a href="/blog/2014/09/24/nginx-bootstrap/" class="more-link">继续阅读 &rarr;</a>
 	</div>
 
 </article>
