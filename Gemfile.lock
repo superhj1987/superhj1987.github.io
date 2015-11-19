@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     RedCloth (4.2.9)
     blankslate (2.1.2.4)
@@ -62,7 +62,7 @@ GEM
     rack (1.5.3)
     rack-protection (1.5.3)
       rack
-    rake (10.4.2)
+    rake (10.3.2)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -95,7 +95,7 @@ DEPENDENCIES
   jekyll-date-format (~> 1.0)
   jekyll-page-hooks (~> 1.2)
   jekyll-sitemap
-  rake (~> 10.0)
+  rake (= 10.3.2)
   rb-fsevent (~> 0.9)
   rdiscount (~> 2.0)
   rubypants (~> 0.2.0)
