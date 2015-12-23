@@ -44,7 +44,7 @@ categories:
 
 - CSS预处理器: Sass、Less
 - JS预处理器：Coffescript、Typescript
-- Liveroad技术可以自动侦测代码改变刷新浏览器
+- Liveload技术可以自动侦测代码改变刷新浏览器
 - “富前端”，技术以AngularJs为代表，也带来了MVVM的概念: module view viewModule
 - 前端模块化，以RequireJs和SeaJs为代表，前者是预执行，后者是懒执行
 - ReactJs引入的虚拟dom和组件化开发以及React Native统一三端的开发。其中React的高性能dom操作值得研究
@@ -55,7 +55,7 @@ categories:
 - CSS3带来的n多新特性
 - ES6标准落地，带来了新的feature:async/await、decorator
 
-详细的推荐阅读这篇文章：<http://blog.csdn.net/borishuai/article/details/8676573>。
+详细的内容可以阅读这篇文章：<http://blog.csdn.net/borishuai/article/details/8676573>。
 
 ## 结语
 
