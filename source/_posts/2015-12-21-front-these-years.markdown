@@ -55,7 +55,9 @@ categories:
 - CSS3带来的n多新特性
 - ES6标准落地，带来了新的feature:async/await、decorator、fetch等
 
-详细的内容可以阅读这篇文章：<http://blog.csdn.net/borishuai/article/details/8676573>。
+此外，随着大数据的日益火热，数据可视化技术也成为了前端一个很重要的部分。尤其是大数据的可视化。这方面，国内的echarts做的还不错，虽然也被不少人吐槽。
+
+关于前端技术体系，详细的内容可以阅读这篇文章：<http://blog.csdn.net/borishuai/article/details/8676573>。
 
 ## 结语
 
