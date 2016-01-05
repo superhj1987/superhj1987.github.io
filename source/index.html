@@ -1,64 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<!-- http://t.co/dKP3o1e -->
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>飒然Hang - What、How、Why</title>
-<style>
-body{
-  width:100%;
-  font-family:'宋体',Arial;
-  color:#000;
-  font-size:0.8em;
-  text-align:center;
-  padding:0;
-  margin:0;
-  background:url(/images/page_bg.png);
-}
-ul{
-   width:100%;
-   overflow:hidden;
-   margin:250px auto;
-   margin-bottom:0px;
-   text-align:center;
-   padding:0;
-}
-ul li{
-   display:inline;
-   padding-right:20px;
-}
-a{
-   color:#000;
-   font-weight:bold;
-   text-decoration:underline;
-}
-a:hover{
-   color:#666;
-}
-</style>
-</head>
-<body>
-<ul>
-<!-- <li><h3 style='display:inline'>srHang >> </h3></li> -->
-<li><a href='/blog/' target='_blank'>博客</a>
-<li>|</li>
-<li><a href='https://github.com/superhj1987' target='_blank'>GitHub</a></li>
-<li>|</li>
-<li><a href='http://toutiao.io/subjects/4944' target='_blank'>头条专栏</a></li>
-<li>|</li>
-<li><a href='/blog/' target='_blank'>关于我</a></li>
-</ul>
-<br/>
-<br/>
-<a href="http://weibo.com/u/1307023714?s=6uyXnP" target="_blank"><img border="0" src="http://service.t.sina.com.cn/widget/qmd/1307023714/cc8c1592/7.png"/></a>          
-<!-- JiaThis Button BEGIN -->
-<!-- <script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script> -->
-<!-- JiaThis Button END -->
+---
+layout: default
+---
 
-</body>
-</html>
+{% assign index = true %}
+<div itemscope itemtype="http://schema.org/Blog">
+{% for post in paginator.posts %}
+{% assign content = post.content %}
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">{% include article.html %}</article>
+{% endfor %}
+</div>
+<nav id="pagenavi">
+    {% if paginator.previous_page == 1 %}
+    <a href="/" class="prev">←上一页</a>
+    {% endif %}
+    {% if paginator.previous_page and paginator.previous_page != 1 %}
+        <a href="/blog/posts/{{paginator.previous_page}}" class="prev">←上一页</a>
+    {% endif %}
+    {% if paginator.next_page %}
+        <a href="/blog/posts/{{paginator.next_page}}" class="next">下一页→</a>
+    {% endif %}
+    <div class="center"><a href="{{ root_url }}/blog/archives">所有文章</a></div>
+</nav>
