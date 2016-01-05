@@ -1,64 +1,643 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+
+<!DOCTYPE HTML>
+
+<html>
+
 <head>
-<!-- http://t.co/dKP3o1e -->
-<meta name="HandheldFriendly" content="True">
-<meta name="MobileOptimized" content="320">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" href="/favicon.png" type="image/x-icon" />
-<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>飒然Hang - What、How、Why</title>
-<style>
-body{
-  width:100%;
-  font-family:'宋体',Arial;
-  color:#000;
-  font-size:0.8em;
-  text-align:center;
-  padding:0;
-  margin:0;
-  background:url(/images/page_bg.png);
-}
-ul{
-   width:100%;
-   overflow:hidden;
-   margin:250px auto;
-   margin-bottom:0px;
-   text-align:center;
-   padding:0;
-}
-ul li{
-   display:inline;
-   padding-right:20px;
-}
-a{
-   color:#000;
-   font-weight:bold;
-   text-decoration:underline;
-}
-a:hover{
-   color:#666;
-}
-</style>
+	<meta charset="utf-8">
+	<title>后端技术杂谈 | 飒然Hang</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="Dec 31st, 2015 研发招聘之殇 ps: 本文完成于2015年12月31号 对于一个公司来说，要想健康长久的发展，招聘是一个永久的话题。而对于一个互联网公司，尤其是以产品为主的公司来说，研发是招聘中的关键职位，高质量的研发人才也是所有企业都急缺的。一直持有一个观点： &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://superhj1987.github.io/">
+	<link href="/favicon.icon" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
+  
+
 </head>
+
+
 <body>
-<ul>
-<!-- <li><h3 style='display:inline'>srHang >> </h3></li> -->
-<li><a href='/blog/' target='_blank'>博客</a>
-<li>|</li>
-<li><a href='https://github.com/superhj1987' target='_blank'>GitHub</a></li>
-<li>|</li>
-<li><a href='http://toutiao.io/subjects/4944' target='_blank'>头条专栏</a></li>
-<li>|</li>
-<li><a href='/blog/' target='_blank'>关于我</a></li>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		// $(function(){
+		// 	$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		// });
+		$(function(){
+			$('.profilepic').append("<img src='/images/avatar/backend_logo.png' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1>后端技术杂谈</h1>
+  
+    <h3>What、How、Why</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
+    <li><a href="http://toutiao.io/subjects/4944" target='_blank'>头条专栏</a></li>
 </ul>
-<br/>
-<br/>
-<a href="http://weibo.com/u/1307023714?s=6uyXnP" target="_blank"><img border="0" src="http://service.t.sina.com.cn/widget/qmd/1307023714/cc8c1592/7.png"/></a>          
-<!-- JiaThis Button BEGIN -->
-<!-- <script type="text/javascript" src="http://v2.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script> -->
-<!-- JiaThis Button END -->
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px;overflow:scroll'>
+  <h3>飒然Hang</h3>
+  <p>专注于JavaEE开发、服务端基础架构、研发管理等。</p>
+  <br/>
+  <p>后端技术负责人@中华万年历;</p>
+  <p>后端开发工程师@网易杭州研究院;</p>
+  <p>作为技术负责人在学校期间折腾过几个创业项目.</p>
+</section>
+</nav>
+<nav id="sub-nav" style='margin-top:20px !important'>
+	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+	</div>
+</nav>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner">
+<div itemscope itemtype="http://schema.org/Blog">
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-12-31T22:01:02+08:00" data-updated="true" itemprop="datePublished">Dec 31<sup>st</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/12/31/dev-job-talk/" itemprop="url">研发招聘之殇</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><strong><em>ps: 本文完成于2015年12月31号</em></strong></p>
+
+<p>对于一个公司来说，要想健康长久的发展，招聘是一个永久的话题。而对于一个互联网公司，尤其是以产品为主的公司来说，研发是招聘中的关键职位，高质量的研发人才也是所有企业都急缺的。一直持有一个观点：招一个优秀的人给他两倍的薪资带来的效果远远大于招两个普通的人。也一直秉着这个观点来招聘。</p>
+
+
+		
+		<a href="/blog/2015/12/31/dev-job-talk/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-12-21T18:53:48+08:00" data-updated="true" itemprop="datePublished">Dec 21<sup>st</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/12/21/front-these-years/" itemprop="url">前端这些年</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>前言</h2>
+
+<p>本人一直从事的是服务端开发工作，写前端貌似有点跑题，不过自己初中也就是2000年左右的时候，引领我进入计算机大门的也的确是前端，后来也做过不少的前端工作。于是，就想着从自己的角度写点前端这些年的发展。但毕竟不是专业所长，有所纰漏在所难免。</p>
+
+
+		
+		<a href="/blog/2015/12/21/front-these-years/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-20T17:13:46+08:00" data-updated="true" itemprop="datePublished">Nov 20<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/11/20/2015book-to-read/" itemprop="url">2015图书阅读清单</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>技术</h2>
+
+<h3>1. 精益数据分析</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/26278639/">http://book.douban.com/subject/26278639/</a></li>
+<li>说明：一本讲述数据驱动创业的书籍，比如在你的产品中如何区分虚荣指标，如何抓住关键指标等。对于每一个商业模式都有其特定的关键指标和底线。而且对于一个公司的几个阶段（移情、黏性、病毒性、营收、规模化）指标也不是相同的。商业模式+阶段决定了你需要关注的指标。</li>
+<li>进度：100%</li>
+</ul>
+
+
+<h3>2. 推荐系统实践</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/10769749/">http://book.douban.com/subject/10769749/</a></li>
+<li>说明：讲述了构建一个推荐系统的基本知识、算法以及架构等。基本涵盖了能实现一个基本的推荐系统所需的相关技术等。看完这本书，基本能对推荐系统入门。</li>
+<li>进度：100%</li>
+<li>备注：此书上大学时曾经看过，但当时由于没有实战环境，所以没啥印象。此次阅读是基于项目需要，但其中部分牵扯到具体算法的部分没有细看</li>
+</ul>
+
+
+
+		
+		<a href="/blog/2015/11/20/2015book-to-read/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-13T10:27:40+08:00" data-updated="true" itemprop="datePublished">Nov 13<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/11/13/your-own-github/" itemprop="url">搭建自己的github</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
+
+<p>记得几年前由于项目的需要，曾尝试自己去搭建一套git服务给项目组使用，折腾了好久，才总算搭建了一个基础的系统, 刚刚能用，权限控制都没有(<a href="http://srhang.iteye.com/blog/1339110">http://srhang.iteye.com/blog/1339110</a>)。但最终因为git的上手门槛有点高，还是选择了svn。后来随着github的兴起，git才如火如荼地在国内火了起来。许多大的互联网公司，也都开始把项目由svn转到git。但如果仅仅是搭建一个git服务，那么github这种网站提供的可视化ui带来的便捷却也不复存在了。对于一些小的有钱的团队，使用github的收费私人repository倒也是一种解决办法。但是，对于大部分公司来说，还是不会把公司内部的代码放到这种公共服务上的。这种需求场景下，就诞生了很多github的克隆实现，以方便部署内网的github。</p>
+
+
+		
+		<a href="/blog/2015/11/13/your-own-github/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-09T18:42:58+08:00" data-updated="true" itemprop="datePublished">Sep 9<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/09/09/load-analysis/" itemprop="url">系统负载能力浅析</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p><strong><em>&mdash;本文于2015.12.23号最新更新&mdash;</em></strong></p>
+
+<p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
+
+<p>那么，何为系统负载能力？怎么衡量？相关因素有哪些？又如何优化呢？</p>
+
+
+		
+		<a href="/blog/2015/09/09/load-analysis/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-07-09T11:48:47+08:00" data-updated="true" itemprop="datePublished">Jul 9<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/07/09/mvn-ant-make-transfer-params/" itemprop="url">Make、ant、mvn的命令行参数传递</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>在使用make、ant、mvn的时候，怎样传递命令行参数呢。比如</p>
+
+<ul>
+<li>在makefile中读取make后面跟的参数</li>
+<li>在build.xml中读取ant后面跟的参数</li>
+<li>在pom.xml中读取mvn后跟的参数</li>
+</ul>
+
+
+<h2>1. make</h2>
+
+<p>执行命令</p>
+
+<pre><code>make name=test
+</code></pre>
+
+<p>在makefile中</p>
+
+<pre><code>${name}
+</code></pre>
+
+<h2>2. ant</h2>
+
+<p>执行命令</p>
+
+<pre><code>ant -Dname=test
+</code></pre>
+
+<p>在build.xml中</p>
+
+<pre><code>${name}
+</code></pre>
+
+<h2>3. mvn</h2>
+
+<p>执行命令</p>
+
+<pre><code>mvn -Dname=test
+</code></pre>
+
+<p>在build.xml中</p>
+
+<pre><code>${name}
+</code></pre>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-10T10:59:59+08:00" data-updated="true" itemprop="datePublished">Jun 10<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/06/10/hbase-about/" itemprop="url">Hbase关键的几个点</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>一. 什么时候需要HBase</h2>
+
+<ol>
+<li><p>半结构化或非结构化数据</p>
+
+<p> 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要存储author的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加.</p></li>
+<li><p>记录非常稀疏</p>
+
+<p> RDBMS的行有多少列是固定的，为null的列浪费了存储空间。而如上文提到的，HBase为null的Column不会被存储，这样既节省了空间又提高了读性能。</p></li>
+<li><p>多版本数据</p>
+
+<p> 如上文提到的根据Row key和Column key定位到的Value可以有任意数量的版本值，因此对于需要存储变动历史记录的数据，用HBase就非常方便了。比如上例中的author的Address是会变动的，业务上一般只需要最新的值，但有时可能需要查询到历史值。</p></li>
+<li><p>超大数据量</p>
+
+<p> 当数据量越来越大，RDBMS数据库撑不住了，就出现了读写分离策略，通过一个Master专门负责写操作，多个Slave负责读操作，服务器成本倍增。随着压力增加，Master撑不住了，这时就要分库了，把关联不大的数据分开部署，一些join查询不能用了，需要借助中间层。随着数据量的进一步增加，一个表的记录越来越大，查询就变得很慢，于是又得搞分表，比如按ID取模分成多个表以减少单个表的记录数。经历过这些事的人都知道过程是多么的折腾。采用HBase就简单了，只需要加机器即可，HBase会自动水平切分扩展，跟Hadoop的无缝集成保障了其数据可靠性（HDFS）和海量数据分析的高性能（MapReduce）</p></li>
+</ol>
+
+
+<h2>二. HTable一些基本概念</h2>
+
+<ol>
+<li><p>Row key</p>
+
+<p> 行主键， HBase不支持条件查询和Order by等查询，读取记录只能按Row key（及其range）或全表扫描，因此Row key需要根据业务来设计以利用其存储排序特性（Table按Row key字典序排序如1,10,100,11,2）提高性能。</p></li>
+<li><p>Column Family（列族）</p>
+
+<p> 在表创建时声明，每个Column Family为一个存储单元。在上例中设计了一个HBase表blog，该表有两个列族：article和author。</p></li>
+<li><p>Column（列）</p>
+
+<p> HBase的每个列都属于一个列族，以列族名为前缀，如列article:title和article:content属于article列族，author:name和author:nickname属于author列族。</p>
+
+<p> Column不用创建表时定义即可以动态新增，同一Column Family的Columns会群聚在一个存储单元上，并依Column key排序，因此设计时应将具有相同I/O特性的Column设计在一个Column Family上以提高性能。</p></li>
+<li><p>Timestamp</p>
+
+<p> HBase通过row和column确定一份数据，这份数据的值可能有多个版本，不同版本的值按照时间倒序排序，即最新的数据排在最前面，查询时默认返回最新版本。如上例中row key=1的author:nickname值有两个版本，分别为1317180070811对应的“一叶渡江”和1317180718830对应的“yedu”（对应到实际业务可以理解为在某时刻修改了nickname为yedu，但旧值仍然存在）。Timestamp默认为系统当前时间（精确到毫秒），也可以在写入数据时指定该值。</p></li>
+<li><p>Value</p>
+
+<p> 每个值通过4个键唯一索引，tableName+RowKey+ColumnKey+Timestamp=>value，例如上例中{tableName=’blog’,RowKey=’1’,ColumnName=’author:nickname’,Timestamp=’ 1317180718830’}索引到的唯一值是“yedu”。</p></li>
+<li>存储类型
+
+<ul>
+<li>TableName 是字符串</li>
+<li>RowKey 和 ColumnName 是二进制值（Java 类型 byte[]）</li>
+<li>Timestamp 是一个 64 位整数（Java 类型 long）</li>
+<li>value 是一个字节数组（Java类型 byte[]）。</li>
+</ul>
+</li>
+</ol>
+
+
+<p>将HTable的存储结构理解为</p>
+
+<p><img src="/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
+
+<p>即HTable按Row key自动排序，每个Row包含任意数量个Columns，Columns之间按Column key自动排序，每个Column包含任意数量个Values。理解该存储结构将有助于查询结果的迭代。</p>
+
+<h2>三. 模式设计应遵循的原则</h2>
+
+<ol>
+<li><p>列族的数量以及列族的势</p>
+
+<p> 列族的数量越少越好，牵扯到了hbase的flushing；同一个表中不同列族所存储的记录数量的差别也需要考虑（列族的势），会造成记录数量少的列族的数据分散在多个region上，影响查询效率。</p></li>
+<li><p>行键的设计</p>
+
+<p> 避免使用时序或者单调（递增/递减）行键，否则会导致连续到来的数据会被分配到统一region中。</p></li>
+<li><p>尽量最小化行键和列族的大小</p>
+
+<p> 避免hbase的索引过大，加重系统存储的负担</p></li>
+<li><p>版本的数量</p>
+
+<p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
+</ol>
+
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-21T12:00:00+08:00" data-updated="true" itemprop="datePublished">Jan 21<sup>st</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/" itemprop="url">关于Spring Mvc中modelattribute无法制定别名的解决方案</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+
+<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
+
+<p><strong>Controller</strong>:</p>
+
+<pre>
+@Controller
+@RequestMapping("/api")
+public class ApiController extends BaseController {
+
+    @RequestMapping(value = "/test", headers = "Accept=application/json")
+    public void authUser(ModelMap modelMap, Account acc) {
+        ResultPack.packOk(modelMap);
+    }
+}
+
+public class Account{
+    private static final long serialVersionUID = 750752375611621980L;
+
+    private long id;
+    private String userName;
+    private String password;
+    private AccountType type = AccountType.ADMIN;
+    private long timeTag;
+    private int status = 1;
+    ...
+    ...
+}
+</pre>
+
+
+<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
+
+<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
+
+<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
+
+		
+		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-15T16:08:48+08:00" data-updated="true" itemprop="datePublished">Jan 15<sup>th</sup>, 2015</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2015/01/15/2014-final-note/" itemprop="url">2014这一年</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
+
+<p>2014年全国、全世界发生了很多事情。政府大规模的反腐揪出了一个个贪得无厌的官僚，让人们不禁拍手称快，觉得看到了国家的希望。但是腐败的根本在于体制，体制不进行变革，那么倒下一个贪官，还有另一批贪官起来，顶多是在这段时间收敛一下。其实，从某种意义来说，贪腐还不是危害最大的，如果你给人民做了贡献，带来了好处，至少我们受益了；但要只是贪污而无作为，那么真的是让人不齿了。不知道从什么时候起，自己对体制内的东西都有点反感，提到体制内，首先想到的就是背景、亲戚、老爹、关系，而不是能力。尤其是自己亲身体会或者道听途说到体制内很多万恶的潜规则之后，更是加深了这种感觉。真心希望在习大大的努力之下，能彻底破除体制内多少年形成的各种弊病，让“中国梦”真的可以成为所有人的“中国梦”。除了反腐，14年最大的事情莫过于世界杯了，对于我这种对足球仅存在巴西、罗纳尔多、亨利这些字眼的人来说，也就趁机给自己一个放纵的理由，晚上看世界杯、喝啤酒、吃烧烤，顺便买个足彩，也算充实了一下每天三点一线的生活。至于谁最好拿了冠军，说实话还真的没那么关心。</p>
+
+
+		
+		<a href="/blog/2015/01/15/2014-final-note/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-09T10:05:41+08:00" data-updated="true" itemprop="datePublished">Dec 9<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/12/09/spring-mvc-httpservletresponse/" itemprop="url">Spring mvc的controller传递HttpServletResponse参数的一点事</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<pre>
+    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
+    public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
+    ......
+    }
+</pre>
+
+
+<p>之前在使用Spring mvc的时候发现这么一回事：在spring mvc的controller的参数里如果有HttpServletResponse(类似上面的代码),那么必须有返回值框架才会去在执行完handler后去搜索相应的viewResolver和view从而展现数据。如果没有返回值，那么默认就是返回null的。我初步推测框架的处理过程大致如此：如果controller参数里传递HttpServletResposne的话，框架就认为视图由handler自己生成可以不参于这个过程,但是如果handler有返回值的话，那么仍然认为还需要参与到视图生成的过程中。</p>
+
+
+		
+		<a href="/blog/2014/12/09/spring-mvc-httpservletresponse/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+</div>
+<nav id="pagenavi">
+    
+    
+    
+        <a href="/blog/posts/2" class="next">下一页→</a>
+    
+    <div class="center"><a href="/blog/archives">所有文章</a></div>
+</nav></div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2016
+
+    飒然Hang
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
