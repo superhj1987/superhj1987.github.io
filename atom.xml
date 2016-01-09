@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2016-01-06T23:04:24+08:00</updated>
+  <updated>2016-01-09T16:59:05+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -664,7 +664,7 @@ TIME_WAIT 18122
 <ol>
 <li><p>半结构化或非结构化数据</p>
 
-<p> 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要存储author的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加.</p></li>
+<p> 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要增加存储比如一个用户的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加.</p></li>
 <li><p>记录非常稀疏</p>
 
 <p> RDBMS的行有多少列是固定的，为null的列浪费了存储空间。而如上文提到的，HBase为null的Column不会被存储，这样既节省了空间又提高了读性能。</p></li>
@@ -685,7 +685,7 @@ TIME_WAIT 18122
 <p> 行主键， HBase不支持条件查询和Order by等查询，读取记录只能按Row key（及其range）或全表扫描，因此Row key需要根据业务来设计以利用其存储排序特性（Table按Row key字典序排序如1,10,100,11,2）提高性能。</p></li>
 <li><p>Column Family（列族）</p>
 
-<p> 在表创建时声明，每个Column Family为一个存储单元。在上例中设计了一个HBase表blog，该表有两个列族：article和author。</p></li>
+<p> 在表创建时声明，每个Column Family为一个存储单元。</p></li>
 <li><p>Column（列）</p>
 
 <p> HBase的每个列都属于一个列族，以列族名为前缀，如列article:title和article:content属于article列族，author:name和author:nickname属于author列族。</p>
