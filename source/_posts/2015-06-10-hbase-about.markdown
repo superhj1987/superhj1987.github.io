@@ -10,7 +10,7 @@ categories:
 
 1. 半结构化或非结构化数据
 	
-	对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要存储author的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加. 
+	对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要增加存储比如一个用户的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加. 
 
 2. 记录非常稀疏 
 	
@@ -32,7 +32,7 @@ categories:
 	
 2. Column Family（列族） 
 	
-	在表创建时声明，每个Column Family为一个存储单元。在上例中设计了一个HBase表blog，该表有两个列族：article和author。
+	在表创建时声明，每个Column Family为一个存储单元。
 	
 3. Column（列） 
 	
