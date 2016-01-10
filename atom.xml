@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2016-01-10T15:51:22+08:00</updated>
+  <updated>2016-01-10T16:18:49+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,7 @@
     <link href="http://superhj1987.github.io/blog/2016/01/10/git-usage/"/>
     <updated>2016-01-10T10:15:30+08:00</updated>
     <id>http://superhj1987.github.io/blog/2016/01/10/git-usage</id>
-    <content type="html"><![CDATA[<p>其实一般的使用只需要掌握git的常用命令即可，但是在使用的过程中，常常会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。</p>
+    <content type="html"><![CDATA[<p>其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。</p>
 
 <p><img src="http://superhj1987.github.io/images/blog_images/git-process.jpg" alt="git-process" /></p>
 
