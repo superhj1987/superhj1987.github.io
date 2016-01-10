@@ -381,52 +381,6 @@ git tag -d [tag] #删除标签
 git push origin :refs/tags/v0.1 #删除远程标签
 </code></pre>
 
-<h2>日志</h2>
-
-<p>有时候需要查看版本的日志记录，以确定、跟踪代码的变化等</p>
-
-<pre><code>git log #显示当前分支的版本历史
-git log --stat #显示commit历史，以及每次commit发生变更的文件
-
-#显示某个文件的版本历史，包括文件改名
-git log --follow [file] 
-git whatchanged [file]
-
-git blame [file] #显示指定文件由谁何时修改过
-
-git log -p [file] #显示指定文件相关额每一次diff
-
-git show [commit] #显示每次提交的元数据和内容变化
-git show --name-only [commit] #显示某次提交发生变化的文件
-git show [commit]:[filename] #显示某次提交某个文件的内容
-
-git reflog #显示当前分支的最近几次提交
-</code></pre>
-
-<h2>撤销</h2>
-
-<p>在提交了错误的修改或者想撤销文件的变动时，需要以下命令：</p>
-
-<pre><code>git checkout [file] #恢复暂存区的指定文件到工作区
-git checkout [commit] [file] #恢复某个commit的指定文件到工作区
-git checkout . #回复上一个commit的所有文件到工作区
-
-git reset --hard #重置暂存区和工作区到上一次commit
-git reset [commit] #重置当前分支到commit，重置暂存区，但工作区不变
-git reset —soft #只回退commit,此时可以直接git commi
-git reset --hard [commit] #重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
-git reset --keep [commit] #重置当前HEAD为指定commit,但保持暂存区和工作区不变
-
-#新建一个commit撤销指定commit,后者的所有变化都将被前者抵消，并且应用到当前分支
-git revert [commit] 
-#回退所有内容到上一个版本
-git　reset　HEAD^
-#回退文件的版本到上一个版本
-git　reset　HEAD^　[file]
-#向前回退到第3个版本
-git　reset　--soft　HEAD~3   
-</code></pre>
-
 <h2>远程仓库的使用</h2>
 
 <p>远程仓库是指托管在网络上的项目仓库，可能会有好多个，其中有些你只能读，另外有些可以写。</p>
@@ -481,6 +435,52 @@ git　reset　--soft　HEAD~3
 </code></pre></li>
 </ol>
 
+
+<h2>日志</h2>
+
+<p>有时候需要查看版本的日志记录，以确定、跟踪代码的变化等</p>
+
+<pre><code>git log #显示当前分支的版本历史
+git log --stat #显示commit历史，以及每次commit发生变更的文件
+
+#显示某个文件的版本历史，包括文件改名
+git log --follow [file] 
+git whatchanged [file]
+
+git blame [file] #显示指定文件由谁何时修改过
+
+git log -p [file] #显示指定文件相关额每一次diff
+
+git show [commit] #显示每次提交的元数据和内容变化
+git show --name-only [commit] #显示某次提交发生变化的文件
+git show [commit]:[filename] #显示某次提交某个文件的内容
+
+git reflog #显示当前分支的最近几次提交
+</code></pre>
+
+<h2>撤销</h2>
+
+<p>在提交了错误的修改或者想撤销文件的变动时，需要以下命令：</p>
+
+<pre><code>git checkout [file] #恢复暂存区的指定文件到工作区
+git checkout [commit] [file] #恢复某个commit的指定文件到工作区
+git checkout . #回复上一个commit的所有文件到工作区
+
+git reset --hard #重置暂存区和工作区到上一次commit
+git reset [commit] #重置当前分支到commit，重置暂存区，但工作区不变
+git reset —soft #只回退commit,此时可以直接git commi
+git reset --hard [commit] #重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
+git reset --keep [commit] #重置当前HEAD为指定commit,但保持暂存区和工作区不变
+
+#新建一个commit撤销指定commit,后者的所有变化都将被前者抵消，并且应用到当前分支
+git revert [commit] 
+#回退所有内容到上一个版本
+git　reset　HEAD^
+#回退文件的版本到上一个版本
+git　reset　HEAD^　[file]
+#向前回退到第3个版本
+git　reset　--soft　HEAD~3   
+</code></pre>
 
 <h2>查看文件改动历史</h2>
 
