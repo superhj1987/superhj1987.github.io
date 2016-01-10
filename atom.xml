@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2016-01-10T10:26:15+08:00</updated>
+  <updated>2016-01-10T10:42:48+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -27,7 +27,24 @@
 <!--more-->
 
 
-<h2>配置</h2>
+<h2>目录</h2>
+
+<ul>
+<li><a href="#config">配置</a></li>
+<li><a href="#repo">取得项目的 Git 仓库</a></li>
+<li><a href="#commit">记录每次更新到仓库</a></li>
+<li><a href="#remote">远程仓库的使用</a></li>
+<li><a href="#branch">分支的使用</a></li>
+<li><a href="#tag">标签的使用</a></li>
+<li><a href="#log">日志</a></li>
+<li><a href="#revert">撤销</a></li>
+<li><a href="#cherrypick">选择某些commits操作</a></li>
+<li><a href="#submodule">Submodule</a></li>
+<li><a href="#other">其他</a></li>
+</ul>
+
+
+<h2><a name="config"></a>配置</h2>
 
 <ol>
 <li><p>下面的命令将修改/home/[username]/.gitconfig文件，也就是说下面的配置只对每一个ssh的用户可见，所以每个人都需要做。</p>
@@ -93,7 +110,7 @@
 </ol>
 
 
-<h2>取得项目的 Git 仓库</h2>
+<h2><a name="repo"></a>取得项目的 Git 仓库</h2>
 
 <p>有两种取得 Git 项目仓库的方法。第一种是在现存的目录下，通过导入所有文件来创建新的 Git 仓库。第二种是从已有的 Git 仓库克隆出一个新的镜像仓库来。</p>
 
@@ -114,7 +131,7 @@
 </ol>
 
 
-<h2>记录每次更新到仓库</h2>
+<h2><a name="commit"></a>记录每次更新到仓库</h2>
 
 <ol>
 <li><p>检查当前文件状态</p>
@@ -243,61 +260,7 @@ git reset --hard 版本号 // 回滚
 </ol>
 
 
-<h2>分支的使用</h2>
-
-<p>分支是在开发中经常使用的一个功能。</p>
-
-<pre><code>git branch 列出本地分支
-git branch -r 列出远端分支
-git branch -a 列出所有本地分支和远程分支
-git branch -v#查看各个分支最后一个提交对象的信息
-git branch --merge#查看已经合并到当前分支的分支
-git branch --no-merge#查看为合并到当前分支的分支
-
-git branch [branch-name] 新建分支,但仍然停留在当前分支
-git branch [branch] [commit] 新建一个分支，指向指定commit
-git checkout [branch-name] 切换到分支
-git checkout -b [branch-name] 新建+切换到该分支
-git checkout -b [branch1] [branch2] 基于branch2新建branch1分支，并切换
-
-git branch -d [branch-name] 删除分支
-git branch -D [branch-name] 强制删除分支
-
-git merge [branch-name] 将分支合并到当前分支
-git rebase [branch-name] 将banch-name分支上超前的提交，变基到当前分支
-
-git branch --set-upstream [branch] [remote-branch] 建立现有分支和指定远程分支的追踪关系
-
-# 删除远程分支
-git push origin --delete [branch-name]
-git push origin :[branch-name]
-git branch -dr [remote/branch-name]
-</code></pre>
-
-<h2>标签的使用</h2>
-
-<p>当你完成一个版本的开发，需要做发布的时候，会需要给此次版本打一个表标签：</p>
-
-<pre><code>git tag #列出现有标签
-
-git tag [tag] #新建标签
-git tag [tag] #新建一个tag在当前commit
-git tag [tag] [commit] #新建一个tag在指定commit
-git tag -a [tag] -m 'tag cooment' #新建带注释标签
-git checkout -b [branch] [tag] #新建一个分支，指向某个tag
-
-git show [tag] #查看tag信息
-
-git checkout [tagn] #切换到标签
-
-git push [remote] [tag] #推送分支到源上
-git push [remote] --tags #一次性推送所有分支
-
-git tag -d [tag] #删除标签
-git push origin :refs/tags/v0.1 #删除远程标签
-</code></pre>
-
-<h2>远程仓库的使用</h2>
+<h2><a name="remote"></a>远程仓库的使用</h2>
 
 <p>远程仓库是指托管在网络上的项目仓库，可能会有好多个，其中有些你只能读，另外有些可以写。</p>
 
@@ -352,7 +315,61 @@ git push origin :refs/tags/v0.1 #删除远程标签
 </ol>
 
 
-<h2>日志</h2>
+<h2><a name="branch"></a>分支的使用</h2>
+
+<p>分支是在开发中经常使用的一个功能。</p>
+
+<pre><code>git branch 列出本地分支
+git branch -r 列出远端分支
+git branch -a 列出所有本地分支和远程分支
+git branch -v#查看各个分支最后一个提交对象的信息
+git branch --merge#查看已经合并到当前分支的分支
+git branch --no-merge#查看为合并到当前分支的分支
+
+git branch [branch-name] 新建分支,但仍然停留在当前分支
+git branch [branch] [commit] 新建一个分支，指向指定commit
+git checkout [branch-name] 切换到分支
+git checkout -b [branch-name] 新建+切换到该分支
+git checkout -b [branch1] [branch2] 基于branch2新建branch1分支，并切换
+
+git branch -d [branch-name] 删除分支
+git branch -D [branch-name] 强制删除分支
+
+git merge [branch-name] 将分支合并到当前分支
+git rebase [branch-name] 将banch-name分支上超前的提交，变基到当前分支
+
+git branch --set-upstream [branch] [remote-branch] 建立现有分支和指定远程分支的追踪关系
+
+# 删除远程分支
+git push origin --delete [branch-name]
+git push origin :[branch-name]
+git branch -dr [remote/branch-name]
+</code></pre>
+
+<h2><a name="tag"></a>标签的使用</h2>
+
+<p>当你完成一个版本的开发，需要做发布的时候，会需要给此次版本打一个表标签：</p>
+
+<pre><code>git tag #列出现有标签
+
+git tag [tag] #新建标签
+git tag [tag] #新建一个tag在当前commit
+git tag [tag] [commit] #新建一个tag在指定commit
+git tag -a [tag] -m 'tag cooment' #新建带注释标签
+git checkout -b [branch] [tag] #新建一个分支，指向某个tag
+
+git show [tag] #查看tag信息
+
+git checkout [tagn] #切换到标签
+
+git push [remote] [tag] #推送分支到源上
+git push [remote] --tags #一次性推送所有分支
+
+git tag -d [tag] #删除标签
+git push origin :refs/tags/v0.1 #删除远程标签
+</code></pre>
+
+<h2><a name="log"></a>日志</h2>
 
 <p>有时候需要查看版本的日志记录，以确定、跟踪代码的变化等</p>
 
@@ -374,7 +391,7 @@ git show [commit]:[filename] #显示某次提交某个文件的内容
 git reflog #显示当前分支的最近几次提交
 </code></pre>
 
-<h2>撤销</h2>
+<h2><a name="revert"></a>撤销</h2>
 
 <p>在提交了错误的修改或者想撤销文件的变动时，需要以下命令：</p>
 
@@ -383,7 +400,7 @@ git checkout [commit] [file] #恢复某个commit的指定文件到工作区
 git checkout . #回复上一个commit的所有文件到工作区
 
 git reset --hard #重置暂存区和工作区到上一次commit
-git reset [commit] #重置当前分支到commit，重置暂存区，但工作区不变
+git reset [commit] [file] #重置当前分支到commit，重置暂存区，但工作区不变
 git reset —soft #只回退commit,此时可以直接git commi
 git reset --hard [commit] #重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
 git reset --keep [commit] #重置当前HEAD为指定commit,但保持暂存区和工作区不变
@@ -398,49 +415,14 @@ git　reset　HEAD^　[file]
 git　reset　--soft　HEAD~3   
 </code></pre>
 
-<h2>查看文件改动历史</h2>
-
-<ol>
-<li><p>显示文件的每一行是在那个版本最后修改</p>
-
-<pre><code> git blame filename.c
-</code></pre></li>
-<li><p>显示某个文件的每个版本提交信息：提交日期，提交人员，版本号，提交备注（没有修改细节）</p>
-
-<pre><code> git whatchanged charge.lua
-</code></pre></li>
-<li><p>显示某个版本的修改详情</p>
-
-<pre><code> git show 7aee80cd2afe3202143f379ec671917bc86f9771
- git log -p 7aee80cd2afe3202143f379ec671917bc86f9771
-</code></pre></li>
-<li><p>显示每个版本都修改了那些文件</p>
-
-<pre><code> git log --pretty=oneline
-</code></pre></li>
-<li><p>显示某个文件的修改</p>
-
-<pre><code> git log --pretty=oneline  charge.lua
-</code></pre></li>
-<li><p>显示某个版本的某个文件修改情况</p>
-
-<pre><code> git show 5aa1be6674ecf6c36a579521708bf6e5efb6795f charge.lua
-</code></pre></li>
-<li><p>恢复单个文件的历史版本</p>
-
-<pre><code> git reset &lt;commit id&gt; &lt;filename&gt;
-</code></pre></li>
-</ol>
-
-
-<h2>选择某些commits操作</h2>
+<h2><a name="cherrypick"></a>选择某些commits操作</h2>
 
 <p>git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。</p>
 
 <pre><code>git cherry-pick &lt;commit id&gt;
 </code></pre>
 
-<h2>Submodule</h2>
+<h2><a name="submodule"></a>Submodule</h2>
 
 <p>当你的工程的部分文件是另一个git库时，可以使用submodule（现在subtree已经替代了submodule）。</p>
 
@@ -463,7 +445,7 @@ git　reset　--soft　HEAD~3
 </ol>
 
 
-<h2>其他</h2>
+<h2><a name="other"></a>其他</h2>
 
 <pre><code>git help #获取命令的帮助信息
 git archive #生成一个可供发布的压缩包
