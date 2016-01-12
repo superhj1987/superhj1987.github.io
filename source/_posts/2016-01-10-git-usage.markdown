@@ -358,6 +358,9 @@ categories:
 	git　reset　HEAD^　[file]
 	#向前回退到第3个版本
 	git　reset　--soft　HEAD~3	
+	
+	# 清空未进入暂存区的改动
+	git clean -f -d
 
 ## <a name="cherrypick"></a>选择某些commits操作
 
