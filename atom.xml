@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2016-01-12T11:51:08+08:00</updated>
+  <updated>2016-01-12T14:55:41+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -411,6 +411,9 @@ git　reset　HEAD^
 git　reset　HEAD^　[file]
 #向前回退到第3个版本
 git　reset　--soft　HEAD~3   
+
+# 清空未进入暂存区的改动
+git clean -f -d
 </code></pre>
 
 <h2><a name="cherrypick"></a>选择某些commits操作</h2>
