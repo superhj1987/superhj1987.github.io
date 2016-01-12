@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
-  <link href="http://superhj1987.github.io/"/>
-  <updated>2016-01-12T18:19:25+08:00</updated>
-  <id>http://superhj1987.github.io/</id>
+  <link href="http://www.rowkey.me/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2016-01-12T19:40:00+08:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
@@ -15,12 +15,12 @@
   
   <entry>
     <title type="html"><![CDATA[Git使用指南(持续更新)]]></title>
-    <link href="http://superhj1987.github.io/blog/2016/01/10/git-usage/"/>
+    <link href="http://www.rowkey.me/blog/2016/01/10/git-usage/"/>
     <updated>2016-01-10T10:15:30+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2016/01/10/git-usage</id>
+    <id>http://www.rowkey.me/blog/2016/01/10/git-usage</id>
     <content type="html"><![CDATA[<p>其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。</p>
 
-<p><img src="http://superhj1987.github.io/images/blog_images/git-process.png" alt="git-process" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/git-process.png" alt="git-process" /></p>
 
 <p>上图所示，使用git的流程一般如此，通常使用图中的六个命令即可。</p>
 
@@ -458,9 +458,9 @@ git archive #生成一个可供发布的压缩包
   
   <entry>
     <title type="html"><![CDATA[研发招聘之殇]]></title>
-    <link href="http://superhj1987.github.io/blog/2015/12/31/dev-job-talk/"/>
+    <link href="http://www.rowkey.me/blog/2015/12/31/dev-job-talk/"/>
     <updated>2015-12-31T22:01:02+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2015/12/31/dev-job-talk</id>
+    <id>http://www.rowkey.me/blog/2015/12/31/dev-job-talk</id>
     <content type="html"><![CDATA[<p><strong><em>ps: 本文完成于2015年12月31号</em></strong></p>
 
 <p>对于一个公司来说，要想健康长久的发展，招聘是一个永久的话题。而对于一个互联网公司，尤其是以产品为主的公司来说，研发是招聘中的关键职位，高质量的研发人才也是所有企业都急缺的。一直持有一个观点：招一个优秀的人给他两倍的薪资带来的效果远远大于招两个普通的人。也一直秉着这个观点来招聘。</p>
@@ -510,9 +510,9 @@ git archive #生成一个可供发布的压缩包
   
   <entry>
     <title type="html"><![CDATA[前端这些年]]></title>
-    <link href="http://superhj1987.github.io/blog/2015/12/21/front-these-years/"/>
+    <link href="http://www.rowkey.me/blog/2015/12/21/front-these-years/"/>
     <updated>2015-12-21T18:53:48+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2015/12/21/front-these-years</id>
+    <id>http://www.rowkey.me/blog/2015/12/21/front-these-years</id>
     <content type="html"><![CDATA[<h2>前言</h2>
 
 <p>本人一直从事的是服务端开发工作，写前端貌似有点跑题，不过自己初中也就是2000年左右的时候，引领我进入计算机大门的也的确是前端，后来也做过不少的前端工作。于是，就想着从自己的角度写点前端这些年的发展。但毕竟不是专业所长，有所纰漏在所难免。</p>
@@ -598,9 +598,9 @@ git archive #生成一个可供发布的压缩包
   
   <entry>
     <title type="html"><![CDATA[2015图书阅读清单]]></title>
-    <link href="http://superhj1987.github.io/blog/2015/11/20/2015book-to-read/"/>
+    <link href="http://www.rowkey.me/blog/2015/11/20/2015book-to-read/"/>
     <updated>2015-11-20T17:13:46+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2015/11/20/2015book-to-read</id>
+    <id>http://www.rowkey.me/blog/2015/11/20/2015book-to-read</id>
     <content type="html"><![CDATA[<h2>技术</h2>
 
 <h3>1. 精益数据分析</h3>
@@ -680,9 +680,9 @@ git archive #生成一个可供发布的压缩包
   
   <entry>
     <title type="html"><![CDATA[搭建自己的github]]></title>
-    <link href="http://superhj1987.github.io/blog/2015/11/13/your-own-github/"/>
+    <link href="http://www.rowkey.me/blog/2015/11/13/your-own-github/"/>
     <updated>2015-11-13T10:27:40+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2015/11/13/your-own-github</id>
+    <id>http://www.rowkey.me/blog/2015/11/13/your-own-github</id>
     <content type="html"><![CDATA[<p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
 
 <p>记得几年前由于项目的需要，曾尝试自己去搭建一套git服务给项目组使用，折腾了好久，才总算搭建了一个基础的系统, 刚刚能用，权限控制都没有(<a href="http://srhang.iteye.com/blog/1339110">http://srhang.iteye.com/blog/1339110</a>)。但最终因为git的上手门槛有点高，还是选择了svn。后来随着github的兴起，git才如火如荼地在国内火了起来。许多大的互联网公司，也都开始把项目由svn转到git。但如果仅仅是搭建一个git服务，那么github这种网站提供的可视化ui带来的便捷却也不复存在了。对于一些小的有钱的团队，使用github的收费私人repository倒也是一种解决办法。但是，对于大部分公司来说，还是不会把公司内部的代码放到这种公共服务上的。这种需求场景下，就诞生了很多github的克隆实现，以方便部署内网的github。</p>
@@ -703,9 +703,9 @@ git archive #生成一个可供发布的压缩包
   
   <entry>
     <title type="html"><![CDATA[系统负载能力浅析]]></title>
-    <link href="http://superhj1987.github.io/blog/2015/09/09/load-analysis/"/>
+    <link href="http://www.rowkey.me/blog/2015/09/09/load-analysis/"/>
     <updated>2015-09-09T18:42:58+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2015/09/09/load-analysis</id>
+    <id>http://www.rowkey.me/blog/2015/09/09/load-analysis</id>
     <content type="html"><![CDATA[<p><strong><em>&mdash;本文于2015.12.23号最新更新&mdash;</em></strong></p>
 
 <p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
@@ -1036,7 +1036,7 @@ TIME_WAIT 28322
 
 <p>一般的java后端系统应用架构如下图所示：lvs+nginx+tomcat+mysql/ddb+redis/codis</p>
 
-<p><img src="http://superhj1987.github.io/images/web-arch.jpg" alt="web-arch" /></p>
+<p><img src="http://www.rowkey.me/images/web-arch.jpg" alt="web-arch" /></p>
 
 <pre><code>如需转载，请注明来自: http://superhj1987.github.com
 
@@ -1049,9 +1049,9 @@ TIME_WAIT 28322
   
   <entry>
     <title type="html"><![CDATA[Hbase关键的几个点]]></title>
-    <link href="http://superhj1987.github.io/blog/2015/06/10/hbase-about/"/>
+    <link href="http://www.rowkey.me/blog/2015/06/10/hbase-about/"/>
     <updated>2015-06-10T10:59:59+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2015/06/10/hbase-about</id>
+    <id>http://www.rowkey.me/blog/2015/06/10/hbase-about</id>
     <content type="html"><![CDATA[<h2>一. 什么时候需要HBase</h2>
 
 <ol>
@@ -1104,7 +1104,7 @@ TIME_WAIT 28322
 
 <p>将HTable的存储结构理解为</p>
 
-<p><img src="http://superhj1987.github.io/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
 
 <p>即HTable按Row key自动排序，每个Row包含任意数量个Columns，Columns之间按Column key自动排序，每个Column包含任意数量个Values。理解该存储结构将有助于查询结果的迭代。</p>
 
@@ -1130,9 +1130,9 @@ TIME_WAIT 28322
   
   <entry>
     <title type="html"><![CDATA[关于Spring mvc中model的attribute无法指定别名的解决方案]]></title>
-    <link href="http://superhj1987.github.io/blog/2015/01/21/springm-mvc-model-attribute-alias/"/>
+    <link href="http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias/"/>
     <updated>2015-01-21T12:00:00+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2015/01/21/springm-mvc-model-attribute-alias</id>
+    <id>http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias</id>
     <content type="html"><![CDATA[<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
 
 <p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
@@ -1175,9 +1175,9 @@ public class Account{
   
   <entry>
     <title type="html"><![CDATA[工作总结@2014]]></title>
-    <link href="http://superhj1987.github.io/blog/2015/01/15/2014-final-note/"/>
+    <link href="http://www.rowkey.me/blog/2015/01/15/2014-final-note/"/>
     <updated>2015-01-15T16:08:48+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2015/01/15/2014-final-note</id>
+    <id>http://www.rowkey.me/blog/2015/01/15/2014-final-note</id>
     <content type="html"><![CDATA[<p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
 
 <p>对自己来说，今年最大的事情莫过于离开一座城市，到达另一座城市，开始了新的职业生涯。</p>
@@ -1210,9 +1210,9 @@ public class Account{
   
   <entry>
     <title type="html"><![CDATA[Spring mvc的controller传递HttpServletResponse参数的一点事]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/12/09/spring-mvc-httpservletresponse/"/>
+    <link href="http://www.rowkey.me/blog/2014/12/09/spring-mvc-httpservletresponse/"/>
     <updated>2014-12-09T10:05:41+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/12/09/spring-mvc-httpservletresponse</id>
+    <id>http://www.rowkey.me/blog/2014/12/09/spring-mvc-httpservletresponse</id>
     <content type="html"><![CDATA[<pre>
     @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
     public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
@@ -1313,9 +1313,9 @@ modelFactory.updateModel(webRequest, mavContainer);</p>
   
   <entry>
     <title type="html"><![CDATA[ShellShock这点事]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/09/29/shell-shock/"/>
+    <link href="http://www.rowkey.me/blog/2014/09/29/shell-shock/"/>
     <updated>2014-09-29T21:49:46+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/09/29/shell-shock</id>
+    <id>http://www.rowkey.me/blog/2014/09/29/shell-shock</id>
     <content type="html"><![CDATA[<h2>前言</h2>
 
 <p>在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接：<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271">CVE-2014-6271</a> 、<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-7169">CVE-2014-7169</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7186">CVE-2014-7186</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7187">CVE-2014-7187</a>、<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6277">CVE-2014-6277</a>。世界上Linux服务器的占有份额是很大的，而bash又是Linux不可或缺的一个部分。可想而知，这个漏洞的破坏力有多大。这个从名字上就可以看出来，ShellShock是医学上的一种严重的疾病，中文叫做“弹震症”，指的是受到爆炸冲击后导致浑身颤抖、思维混乱等症状。这个命名很形象地反映了问题的严重性。</p>
@@ -1419,9 +1419,9 @@ http-header = Referer:() { :; }; ping -c 163.com
   
   <entry>
     <title type="html"><![CDATA[JVM内存GC的骗局（转载）]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/09/25/jvm-cheat/"/>
+    <link href="http://www.rowkey.me/blog/2014/09/25/jvm-cheat/"/>
     <updated>2014-09-25T21:29:52+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/09/25/jvm-cheat</id>
+    <id>http://www.rowkey.me/blog/2014/09/25/jvm-cheat</id>
     <content type="html"><![CDATA[<h2>概述</h2>
 
 <p>在日常程序开发中，很多JAVA程度员不太关心内存的使用情况。当然，如果程序员运气较好或者系统没有大规模的被测试或者被用户使用时，这个问题或许永远不出现，使得程序员一直认为内存反正是无限的，可以一直使用。确实，JVM的垃圾回收器会帮我们处理好所有的事情，可如果运气不是那么好，不幸就有可能发生在我们的身上，比如：进程会抛出OOM异常，不再接收新的请求；响应时间在固定时间段内变长，超时或者不响应，CPU使用率时常像过山车一样等。内存使用在大部分的工作时间可以正常工作，这样会导致很多的人对JAVA应用的内存使用情况不明了或者得不到充分的性能测试，而导致程序无法正常工作。出现上面的情况程序员一般会比较好的较快的发现问题或能总结一定的规律。</p>
@@ -1513,9 +1513,9 @@ http-header = Referer:() { :; }; ping -c 163.com
   
   <entry>
     <title type="html"><![CDATA[Nginx源码分析之启动过程]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/09/24/nginx-bootstrap/"/>
+    <link href="http://www.rowkey.me/blog/2014/09/24/nginx-bootstrap/"/>
     <updated>2014-09-24T17:38:57+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/09/24/nginx-bootstrap</id>
+    <id>http://www.rowkey.me/blog/2014/09/24/nginx-bootstrap</id>
     <content type="html"><![CDATA[<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
 
 <p>main函数的处理过程总体上可以概括如下：</p>
@@ -2357,9 +2357,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[Nginx负载均衡]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/08/27/nginx-loabbalance/"/>
+    <link href="http://www.rowkey.me/blog/2014/08/27/nginx-loabbalance/"/>
     <updated>2014-08-27T14:32:50+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/08/27/nginx-loabbalance</id>
+    <id>http://www.rowkey.me/blog/2014/08/27/nginx-loabbalance</id>
     <content type="html"><![CDATA[<h2>一、特点</h2>
 
 <h3>1.1 应用情况</h3>
@@ -2383,7 +2383,7 @@ for ( ;; ) {
 
 <h3>1.2 架构</h3>
 
-<p><img src="http://superhj1987.github.io/images/ngx_arch.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/ngx_arch.jpg" alt="" /></p>
 
 <p>nginx在启动后，会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。工作进程以非特权用户运行。</p>
 
@@ -2428,14 +2428,14 @@ for ( ;; ) {
 
 <p> 轮询的原理很简单，首先我们介绍一下轮询的基本流程。如下是处理一次请求的流程图：</p>
 
-<p> <img src="http://superhj1987.github.io/images/ngx_wr_process.jpg" alt="" /></p>
+<p> <img src="http://www.rowkey.me/images/ngx_wr_process.jpg" alt="" /></p>
 
 <p> 图中有两点需要注意，第一，如果可以把加权轮询算法分为先深搜索和先广搜索，那么nginx采用的是先深搜索算法，即将首先将请求都分给高权重的机器，直到该机器的权值降到了比其他机器低，才开始将请求分给下一个高权重的机器；第二，当所有后端机器都down掉时，nginx会立即将所有机器的标志位清成初始状态，以避免造成所有的机器都处在timeout的状态，从而导致整个前端被夯住。</p></li>
 <li><p>ip hash</p>
 
 <p> ip hash是nginx内置的另一个负载均衡的策略，流程和轮询很类似，只是其中的算法和具体的策略有些变化，如下图所示：</p>
 
-<p> <img src="http://superhj1987.github.io/images/ngx_iphash_process.jpg" alt="" /></p>
+<p> <img src="http://www.rowkey.me/images/ngx_iphash_process.jpg" alt="" /></p>
 
 <p> ip hash算法的核心实现如下：</p>
 
@@ -2567,7 +2567,7 @@ for ( ;; ) {
 
 <p>Nginx属于典型的微内核设计，其内核非常简洁和优雅，同时具有非常高的可扩展性。如下图所示：</p>
 
-<p><img src="http://superhj1987.github.io/images/ngx_micro.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/ngx_micro.jpg" alt="" /></p>
 
 <p>Nginx是纯C语言的实现，其可扩展性在于其模块化的设计。目前，Nginx已经有很多的第三方模块，大大扩展了自身的功能。nginx_lua_module可以将Lua语言嵌入到Nginx配置中，从而利用Lua极大增强了Nginx本身的编程能力，甚至可以不用配合其它脚本语言（如PHP或Python等），只靠Nginx本身就可以实现复杂业务的处理。</p>
 
@@ -2575,7 +2575,7 @@ for ( ;; ) {
 
 <p>nginx的配置架构如下图所示：</p>
 
-<p><img src="http://superhj1987.github.io/images/ngx_config.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/ngx_config.jpg" alt="" /></p>
 
 <p>Nginx支持热部署，几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动。能够在不间断服务的情况下，对软件版本进行进行升级。Nginx的配置文件非常简单，风格跟程序一样通俗易懂，能够支持perl语法。使用nginx –s reload可以在运行时加载配置文件，便于运行时扩容/减容。重新加载配置时，master进程发送命令给当前正在运行的worker进程worker进程接到命令后会在处理完当前任务后退出。同时，master进程会启动新的worker进程来接管工作。</p>
 
@@ -2639,9 +2639,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[async源码分析]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/08/22/node-async-analysis/"/>
+    <link href="http://www.rowkey.me/blog/2014/08/22/node-async-analysis/"/>
     <updated>2014-08-22T16:08:28+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/08/22/node-async-analysis</id>
+    <id>http://www.rowkey.me/blog/2014/08/22/node-async-analysis</id>
     <content type="html"><![CDATA[<p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
 
 <pre>
@@ -2717,9 +2717,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[技术的成长]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/08/14/grow-up-in-tech/"/>
+    <link href="http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech/"/>
     <updated>2014-08-14T16:38:01+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/08/14/grow-up-in-tech</id>
+    <id>http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech</id>
     <content type="html"><![CDATA[<p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
 
 <p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
@@ -2738,9 +2738,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[Nginx源码分析之基本数据结构]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/07/25/nginx-data-structure/"/>
+    <link href="http://www.rowkey.me/blog/2014/07/25/nginx-data-structure/"/>
     <updated>2014-07-25T17:08:02+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/07/25/nginx-data-structure</id>
+    <id>http://www.rowkey.me/blog/2014/07/25/nginx-data-structure</id>
     <content type="html"><![CDATA[<h3>引言</h3>
 
 <p>nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。但实际上nginx各个部分逻辑划分还是很明确的，整体上是一种松散的结构。</p>
@@ -2962,9 +2962,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[《白帽子讲Web安全》读书笔记]]></title>
-    <link href="http://superhj1987.github.io/blog/2014/07/24/web-security-notes/"/>
+    <link href="http://www.rowkey.me/blog/2014/07/24/web-security-notes/"/>
     <updated>2014-07-24T21:30:20+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2014/07/24/web-security-notes</id>
+    <id>http://www.rowkey.me/blog/2014/07/24/web-security-notes</id>
     <content type="html"><![CDATA[<p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
 
 <p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
@@ -3047,9 +3047,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[杂感一篇]]></title>
-    <link href="http://superhj1987.github.io/blog/2013/07/06/no-name/"/>
+    <link href="http://www.rowkey.me/blog/2013/07/06/no-name/"/>
     <updated>2013-07-06T16:57:45+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2013/07/06/no-name</id>
+    <id>http://www.rowkey.me/blog/2013/07/06/no-name</id>
     <content type="html"><![CDATA[<p>最近两部关于青春的片子《致青春》和《中国合伙人》，对于前者这种爱情的东西，从某个时间段开始，我早已不愿关注。后者讲述的奋斗、梦想，却是我特别想看一看的。虽然我知道成功学这东西，完全是一群成功了的人在吹嘘当年自己有多苦逼，后来变得多NB。但是他们的成功却的确能触动自己心里的那根神经，唤起自己当初的激情。</p>
 
 <p>十几年前，自己无意之中说出的一句话，到现在也算一直坚持了下来。虽然没有功成名就，但到现在还是不至于令自己失望的。平淡的日子往往让自己忘了自己当初的梦想，也忘了走向它的这条路。今天看《中国合伙人》这部影片又像当初看《社交网络》一样让自己全身瞬间充满了能量，同时也让自己拷问着自己：还坚持当初的梦想吗？正在为梦想努力吗？努力有收获吗？其实，现实中大多数人在说自己梦想的时候都能侃侃而谈，而真正能付诸于努力的人却寥寥可数。为梦想而努力，结果不一定是成功，但没有为此而努力过，那也许会成为一辈子最大的憾事。</p>
@@ -3062,9 +3062,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[无题]]></title>
-    <link href="http://superhj1987.github.io/blog/2013/05/13/no-name/"/>
+    <link href="http://www.rowkey.me/blog/2013/05/13/no-name/"/>
     <updated>2013-05-13T23:02:50+08:00</updated>
-    <id>http://superhj1987.github.io/blog/2013/05/13/no-name</id>
+    <id>http://www.rowkey.me/blog/2013/05/13/no-name</id>
     <content type="html"><![CDATA[<p>5.11-5.12，176公里，千岛湖镇-汾口-千岛湖镇，环湖一周。相信这将会是我未来永远难忘的一段经历。</p>
 
 <p>开始的计划是5.11中午从千岛湖镇出发，历经96公里前往汾口，18：00左右到达目的地。没想到走了大约20公里之后遇到了各种上坡路，尤其一段一公里的大上坡，让我们实在无法保持速度。全身各种疼，大腿完全是无知觉地在做机械运动，有无数次想放弃的冲动。如此艰难的挣扎，造成的后果就是从枫树岭开始的20公里山路只能摸黑前进，中间好几次撞到石头差点栽到地上。所幸的是有一辆自行车是有车灯的，不然还真不知道如何前行。最后到达汾口的时候已经是晚上快9点了。虽然远远晚于原定计划，但顺利到达目的地的喜悦还是让我们挺开心的。</p>
@@ -3078,17 +3078,17 @@ for ( ;; ) {
 <!--more-->
 
 
-<p><img src="http://superhj1987.github.io/images/blog_images/1.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/1.jpg" alt="" /></p>
 
-<p><img src="http://superhj1987.github.io/images/blog_images/2.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/2.jpg" alt="" /></p>
 
-<p><img src="http://superhj1987.github.io/images/blog_images/3.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/3.jpg" alt="" /></p>
 
-<p><img src="http://superhj1987.github.io/images/blog_images/4.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/4.jpg" alt="" /></p>
 
-<p><img src="http://superhj1987.github.io/images/blog_images/5.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/5.jpg" alt="" /></p>
 
-<p><img src="http://superhj1987.github.io/images/blog_images/6.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/6.jpg" alt="" /></p>
 ]]></content>
   </entry>
   
