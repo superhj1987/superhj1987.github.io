@@ -117,7 +117,43 @@
     飒然Hang
 
 
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<style>
+#scrollUp {
+	bottom: 20px;
+	right: 20px;
+	background: #555;
+	color: #fff;
+	font-size: 12px;
+	font-family: sans-serif;
+	text-decoration: none;
+	opacity: .9;
+	padding: 10px 20px;
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	-webkit-transition: background 200ms linear;
+	-moz-transition: background 200ms linear;
+	transition: background 200ms linear;
+}
+#scrollUp:hover {
+	background: #000;
+}
+</style>
+<a style='position: fixed; z-index: 2147483647; display:none' id="scrollUp" href="javascript:void(0);" onclick="javascript:document.getElementsByTagName('BODY')[0].scrollTop=0;">↑top</a>
+<script type="text/javascript">
+$(function(){
+	$(window).scroll(function(){	
+			$( ($(window).scrollTop() > 300) ? $("#scrollUp").fadeIn(200) : $("#scrollUp").fadeOut(200) );
+	});
+	$("#scrollUp").click( function(event) {
+	  	$('html, body').animate({scrollTop:0}, 300);
+        return false;
+	});
+});
+</script>
+
+	</footer>
 		</div>
 	</div>
 	

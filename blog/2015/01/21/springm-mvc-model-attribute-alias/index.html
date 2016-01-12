@@ -145,12 +145,58 @@ public class Account{
 
 	<!-- <div class="share"> -->
 
-     <!-- JiaThis Button BEGIN -->
-<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?move=0&amp;btn=r2.gif" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-<!-- UJian Button BEGIN -->
-	<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide"></script>
-<!-- UJian Button END -->
+     <div class="ds-share flat" data-title="关于Spring mvc中model的attribute无法指定别名的解决方案" data-content="<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+
+<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
+
+<p><strong>Controller</strong>:</p>
+
+<pre>
+@Controller
+@RequestMapping("/api")
+public class ApiController extends BaseController {
+
+    @RequestMapping(value = "/test", headers = "Accept=application/json")
+    public void authUser(ModelMap modelMap, Account acc) {
+        ResultPack.packOk(modelMap);
+    }
+}
+
+public class Account{
+    private static final long serialVersionUID = 750752375611621980L;
+
+    private long id;
+    private String userName;
+    private String password;
+    private AccountType type = AccountType.ADMIN;
+    private long timeTag;
+    private int status = 1;
+    ...
+    ...
+}
+</pre>
+
+
+<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
+
+<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
+
+<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
+" data-url="http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+</div>
 <!-- 多说评论框 start -->
 	<div class="ds-thread" data-title="关于Spring mvc中model的attribute无法指定别名的解决方案"></div>
 <!-- 多说评论框 end -->
@@ -167,6 +213,12 @@ var duoshuoQuery = {short_name:"rowkey"};
 })();
 </script>
 <!-- 多说公共JS代码 end -->
+<!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:6,picSize:84,textHeight:45};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
  
 <!-- </div> -->
 
@@ -178,7 +230,43 @@ var duoshuoQuery = {short_name:"rowkey"};
     飒然Hang
 
 
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a></footer>
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<style>
+#scrollUp {
+	bottom: 20px;
+	right: 20px;
+	background: #555;
+	color: #fff;
+	font-size: 12px;
+	font-family: sans-serif;
+	text-decoration: none;
+	opacity: .9;
+	padding: 10px 20px;
+	-webkit-border-radius: 16px;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+	-webkit-transition: background 200ms linear;
+	-moz-transition: background 200ms linear;
+	transition: background 200ms linear;
+}
+#scrollUp:hover {
+	background: #000;
+}
+</style>
+<a style='position: fixed; z-index: 2147483647; display:none' id="scrollUp" href="javascript:void(0);" onclick="javascript:document.getElementsByTagName('BODY')[0].scrollTop=0;">↑top</a>
+<script type="text/javascript">
+$(function(){
+	$(window).scroll(function(){	
+			$( ($(window).scrollTop() > 300) ? $("#scrollUp").fadeIn(200) : $("#scrollUp").fadeOut(200) );
+	});
+	$("#scrollUp").click( function(event) {
+	  	$('html, body').animate({scrollTop:0}, 300);
+        return false;
+	});
+});
+</script>
+
+	</footer>
 		</div>
 	</div>
 	
