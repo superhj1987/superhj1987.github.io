@@ -272,6 +272,8 @@ mysql是目前最常用的关系型数据库，支持复杂的查询。但是其
 ![web-arch](/images/web-arch.jpg)
 
 	
-	如需转载，请注明来自: http://superhj1987.github.com/blog
+	如需转载，请注明来自: http://superhj1987.github.com
 
 	版权声明：本文为博主原创文章，未经博主允许不得转载
+	
+	本文部分参考自网络相关资料，由于时间太久，无法追朔原作者。如有侵权，请联系superhj1987@126.com
