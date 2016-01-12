@@ -212,13 +212,13 @@
 
 <p>使用上面的命令，可以得到当前系统的各个状态的网络连接的数目。如下：</p>
 
-<pre><code>LAST_ACK 14
-SYN_RECV 348
-ESTABLISHED 70
-FIN_WAIT1 229
-FIN_WAIT2 30
-CLOSING 33
-TIME_WAIT 18122
+<pre><code>LAST_ACK 13
+SYN_RECV 468
+ESTABLISHED 90
+FIN_WAIT1 259
+FIN_WAIT2 40
+CLOSING 34
+TIME_WAIT 28322
 </code></pre>
 
 <p>这里，TIME_WAIT的连接数是需要注意的一点。此值过高会占用大量连接，影响系统的负载能力。需要调整参数，以尽快的释放time_wait连接。</p>

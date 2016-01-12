@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://superhj1987.github.io/atom.xml" rel="self"/>
   <link href="http://superhj1987.github.io/"/>
-  <updated>2016-01-12T14:55:41+08:00</updated>
+  <updated>2016-01-12T17:47:26+08:00</updated>
   <id>http://superhj1987.github.io/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -816,13 +816,13 @@ git archive #生成一个可供发布的压缩包
 
 <p>使用上面的命令，可以得到当前系统的各个状态的网络连接的数目。如下：</p>
 
-<pre><code>LAST_ACK 14
-SYN_RECV 348
-ESTABLISHED 70
-FIN_WAIT1 229
-FIN_WAIT2 30
-CLOSING 33
-TIME_WAIT 18122
+<pre><code>LAST_ACK 13
+SYN_RECV 468
+ESTABLISHED 90
+FIN_WAIT1 259
+FIN_WAIT2 40
+CLOSING 34
+TIME_WAIT 28322
 </code></pre>
 
 <p>这里，TIME_WAIT的连接数是需要注意的一点。此值过高会占用大量连接，影响系统的负载能力。需要调整参数，以尽快的释放time_wait连接。</p>
