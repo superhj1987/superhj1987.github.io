@@ -120,37 +120,30 @@
 
 
 Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
-<style>
-#scrollUp {
-	bottom: 20px;
-	right: 20px;
-	background: #555;
-	color: #fff;
-	font-size: 12px;
-	font-family: sans-serif;
-	text-decoration: none;
-	opacity: .9;
-	padding: 10px 20px;
-	-webkit-border-radius: 16px;
-	-moz-border-radius: 16px;
-	border-radius: 16px;
-	-webkit-transition: background 200ms linear;
-	-moz-transition: background 200ms linear;
-	transition: background 200ms linear;
-}
-#scrollUp:hover {
-	background: #000;
-}
-</style>
-<a style='position: fixed; z-index: 2147483647; display:none' id="scrollUp" href="javascript:void(0);" onclick="javascript:document.getElementsByTagName('BODY')[0].scrollTop=0;">↑top</a>
+<div class="ds-share flat" data-title="Categories - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/categories/" data-content=" ">
+    <div class="ds-share-aside-right">
+      <div class="ds-share-aside-inner">
+      </div>
+      <div class="ds-share-aside-toggle">分享到</div>
+    </div>
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
 <script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
 $(function(){
-	$(window).scroll(function(){	
-			$( ($(window).scrollTop() > 300) ? $("#scrollUp").fadeIn(200) : $("#scrollUp").fadeOut(200) );
-	});
-	$("#scrollUp").click( function(event) {
-	  	$('html, body').animate({scrollTop:0}, 300);
-        return false;
+	$.scrollUp({
+		appendId: 'footer'
 	});
 });
 </script>
