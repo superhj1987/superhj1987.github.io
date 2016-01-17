@@ -346,7 +346,7 @@ categories:
 	git log --graph #绘制一个ASCII图像来展示提交历史的分支结构
 	git log -<n> #限制显示的提交数量
 	
-	# 按照现实日期过滤显示结果，日期可以使用多种格式，如2015-1-1, yestoday
+	# 按照现实日期过滤显示结果，日期可以使用多种格式，如2015-1-1, yesterday
 	git log --after="<date>" #在日期之后
 	git log --before="<date>" #在日期之前
 	
