@@ -467,7 +467,7 @@ git push origin :refs/tags/v0.1 #删除远程标签
 <p>有时候需要查看版本的日志记录，以确定、跟踪代码的变化等</p>
 
 <pre><code>git log #显示当前分支的版本历史
-git log --stat #显示commit历史，以及每次commit发生变更的文件
+git log --stat #显示commit历史，以及每次commit发生变更的文件，每次提交的文件增删数量
 
 #显示某个文件的版本历史，包括文件改名
 git log --follow [file] 
@@ -483,15 +483,17 @@ git show [commit]:[filename] #显示某次提交某个文件的内容
 
 git reflog #显示当前分支的最近几次提交
 
+
+##下面是git log的高级用法##
+
 git log --oneline #把每一个提交压缩到一行
 
 git log --decorate #显示指向这个提交的所有引用（比如说分支、标签等）
-git log --stat #显示每次提交的文件增删数量
-git short log #把每个提交按作者分类，显示提交信息的第一行。这样可以容易地看到谁做了什么
+git shortlog #把每个提交按作者分类，显示提交信息的第一行。这样可以容易地看到谁做了什么
 git log --graph #绘制一个ASCII图像来展示提交历史的分支结构
 git log -&lt;n&gt; #限制显示的提交数量
 
-# 按照现实日期过滤显示结果
+# 按照现实日期过滤显示结果，日期可以使用多种格式，如2015-1-1, yestoday
 git log --after="&lt;date&gt;" #在日期之后
 git log --before="&lt;date&gt;" #在日期之前
 
@@ -507,6 +509,7 @@ git log -- xxx.java #--告诉后面是文件名不是分支名
 git log --grep="xxx" #按提交信息来过滤提交
 
 git log -S "xxx"(-G"&lt;regex&gt;") #根据内容(源代码)来过滤提交
+git log --pretty=format:"&lt;string&gt;" #自定义输出格式，占位符：%cn-作者名字 %h-缩略标识 %cd-提价日期
 </code></pre>
 
 <h2><a name="revert"></a>撤销</h2>
