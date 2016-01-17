@@ -482,6 +482,31 @@ git show --name-only [commit] #显示某次提交发生变化的文件
 git show [commit]:[filename] #显示某次提交某个文件的内容
 
 git reflog #显示当前分支的最近几次提交
+
+git log --oneline #把每一个提交压缩到一行
+
+git log --decorate #显示指向这个提交的所有引用（比如说分支、标签等）
+git log --stat #显示每次提交的文件增删数量
+git short log #把每个提交按作者分类，显示提交信息的第一行。这样可以容易地看到谁做了什么
+git log --graph #绘制一个ASCII图像来展示提交历史的分支结构
+git log -&lt;n&gt; #限制显示的提交数量
+
+# 按照现实日期过滤显示结果
+git log --after="&lt;date&gt;" #在日期之后
+git log --before="&lt;date&gt;" #在日期之前
+
+git log --author="&lt;author&gt;" #按照作者(作者的邮箱地址也算作是作者的名字)
+
+git log --no-merges #排除外来的和并提交
+git log --merges #只显示外来合并提交
+
+git log master..feature #从master分支fork到feature分支后发生的变化
+
+git log -- xxx.java #--告诉后面是文件名不是分支名
+
+git log --grep="xxx" #按提交信息来过滤提交
+
+git log -S "xxx"(-G"&lt;regex&gt;") #根据内容(源代码)来过滤提交
 </code></pre>
 
 <h2><a name="revert"></a>撤销</h2>
@@ -511,7 +536,7 @@ git　reset　--soft　HEAD~3
 git clean -f -d
 </code></pre>
 
-<h2><a name="cherrypick"></a>选择某些commits操作</h2>
+<h2><a name="cherrypick"></a>选择某些commit操作</h2>
 
 <p>git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。</p>
 
@@ -545,6 +570,7 @@ git clean -f -d
 
 <pre><code>git help #获取命令的帮助信息
 git archive #生成一个可供发布的压缩包
+git rev-list --max-count=1 HEAD #查看当前分支的最新rev
 </code></pre>
 
 <p><strong><em>ps: 以上部分参考自网上资料，如有侵权请联系superhj1987@126.com</em></strong></p>
