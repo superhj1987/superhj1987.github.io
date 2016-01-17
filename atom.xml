@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-01-17T21:08:16+08:00</updated>
+  <updated>2016-01-17T21:13:51+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -398,7 +398,7 @@ git shortlog #把每个提交按作者分类，显示提交信息的第一行。
 git log --graph #绘制一个ASCII图像来展示提交历史的分支结构
 git log -&lt;n&gt; #限制显示的提交数量
 
-# 按照现实日期过滤显示结果，日期可以使用多种格式，如2015-1-1, yestoday
+# 按照现实日期过滤显示结果，日期可以使用多种格式，如2015-1-1, yesterday
 git log --after="&lt;date&gt;" #在日期之后
 git log --before="&lt;date&gt;" #在日期之前
 
