@@ -1,10 +1,12 @@
 ---
 layout: post
-title: "Git使用指南(持续更新)"
+title: "Git常用命令指南"
 date: 2016-01-10 10:15:30 +0800
 comments: true
 categories: 
 ---
+
+***ps:本指南会持续更新***
 
 其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。
 
@@ -320,7 +322,7 @@ categories:
 有时候需要查看版本的日志记录，以确定、跟踪代码的变化等
 
 	git log #显示当前分支的版本历史
-	git log --stat #显示commit历史，以及每次commit发生变更的文件
+	git log --stat #显示commit历史，以及每次commit发生变更的文件，每次提交的文件增删数量
 		
 	#显示某个文件的版本历史，包括文件改名
 	git log --follow [file] 
@@ -335,7 +337,35 @@ categories:
 	git show [commit]:[filename] #显示某次提交某个文件的内容
 		
 	git reflog #显示当前分支的最近几次提交
-		
+	
+	
+	##下面是git log的高级用法##
+	
+	git log --oneline #把每一个提交压缩到一行
+	
+	git log --decorate #显示指向这个提交的所有引用（比如说分支、标签等）
+	git shortlog #把每个提交按作者分类，显示提交信息的第一行。这样可以容易地看到谁做了什么
+	git log --graph #绘制一个ASCII图像来展示提交历史的分支结构
+	git log -<n> #限制显示的提交数量
+	
+	# 按照现实日期过滤显示结果，日期可以使用多种格式，如2015-1-1, yesterday
+	git log --after="<date>" #在日期之后
+	git log --before="<date>" #在日期之前
+	
+	git log --author="<author>" #按照作者(作者的邮箱地址也算作是作者的名字)
+	
+	git log --no-merges #排除外来的和并提交
+	git log --merges #只显示外来合并提交
+	
+	git log master..feature #从master分支fork到feature分支后发生的变化
+	
+	git log -- xxx.java #--告诉后面是文件名不是分支名
+	
+	git log --grep="xxx" #按提交信息来过滤提交
+	
+	git log -S "xxx"(-G"<regex>") #根据内容(源代码)来过滤提交
+	git log --pretty=format:"<string>" #自定义输出格式，占位符：%cn-作者名字 %h-缩略标识 %cd-提价日期
+ 		
 ## <a name="revert"></a>撤销
 
 在提交了错误的修改或者想撤销文件的变动时，需要以下命令：
@@ -362,7 +392,7 @@ categories:
 	# 清空未进入暂存区的改动
 	git clean -f -d
 
-## <a name="cherrypick"></a>选择某些commits操作
+## <a name="cherrypick"></a>选择某些commit操作
 
 git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。
 
@@ -392,5 +422,6 @@ git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进�
 
 	git help #获取命令的帮助信息
 	git archive #生成一个可供发布的压缩包
+	git rev-list --max-count=1 HEAD #查看当前分支的最新rev
 	
 ***ps: 以上部分参考自网上资料，如有侵权请联系superhj1987@126.com***
