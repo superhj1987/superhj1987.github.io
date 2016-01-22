@@ -141,66 +141,6 @@
   
 
 
-<time datetime="2016-01-18T15:41:31+08:00" data-updated="true" itemprop="datePublished">Jan 18<sup>th</sup>, 2016</time></div>
-		<div class="tags">
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/01/18/io-model/" itemprop="url">也谈IO模型</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>前言</h2>
-
-<p>说到IO模型，都会牵扯到同步/异步、阻塞/非阻塞这几个词。从词的表面上看，很多人都觉得很容易理解。但是细细一想，却发现有点摸不着头脑。自己也曾被这几个词弄的迷迷糊糊的，每次看相关资料弄明白了，然后很快又给搞混了。经历过这么几次之后，发现这东西必须得有所总结提炼才不至于再次混为一谈。下文就结合网络编程模型来具体的讲解一下这几个词的真正含义和区别。</p>
-
-<h2>网络编程模型</h2>
-
-<h3>同步阻塞</h3>
-
-<p>想一下，我们刚开始学习网络编程的时候，使用socket编写一个简单网络服务的步骤：</p>
-
-<ul>
-<li>创建socket</li>
-<li>listen某个端口</li>
-<li>accept阻塞等待连接请求</li>
-<li>有请求达到，那么调用recvfrom来读取客户端请求，调用send发送数据给客户端</li>
-<li>继续accept等待下一个请求</li>
-</ul>
-
-
-<p>流程如下图所示：</p>
-
-<h3>同步非阻塞</h3>
-
-<h3>IO费用</h3>
-
-<h3>信号驱动</h3>
-
-<h3>异步非阻塞</h3>
-
-<h2>对比</h2>
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
 <time datetime="2016-01-10T10:15:30+08:00" data-updated="true" itemprop="datePublished">Jan 10<sup>th</sup>, 2016</time></div>
 		<div class="tags">
 
@@ -636,6 +576,46 @@ public class Account{
 
 		
 		
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-09T10:05:41+08:00" data-updated="true" itemprop="datePublished">Dec 9<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/12/09/spring-mvc-httpservletresponse/" itemprop="url">Spring mvc的controller传递HttpServletResponse参数的一点事</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<pre>
+    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
+    public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
+    ......
+    }
+</pre>
+
+
+<p>之前在使用Spring mvc的时候发现这么一回事：在spring mvc的controller的参数里如果有HttpServletResponse(类似上面的代码),那么必须有返回值框架才会去在执行完handler后去搜索相应的viewResolver和view从而展现数据。如果没有返回值，那么默认就是返回null的。我初步推测框架的处理过程大致如此：如果controller参数里传递HttpServletResposne的话，框架就认为视图由handler自己生成可以不参于这个过程,但是如果handler有返回值的话，那么仍然认为还需要参与到视图生成的过程中。</p>
+
+
+		
+		<a href="/blog/2014/12/09/spring-mvc-httpservletresponse/" class="more-link">继续阅读 &rarr;</a>
 	</div>
 
 </article>
