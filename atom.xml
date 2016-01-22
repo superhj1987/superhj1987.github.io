@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-01-17T21:15:54+08:00</updated>
+  <updated>2016-01-22T18:39:28+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,44 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[也谈IO模型]]></title>
+    <link href="http://www.rowkey.me/blog/2016/01/18/io-model/"/>
+    <updated>2016-01-18T15:41:31+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/01/18/io-model</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
+
+<p>说到IO模型，都会牵扯到同步/异步、阻塞/非阻塞这几个词。从词的表面上看，很多人都觉得很容易理解。但是细细一想，却发现有点摸不着头脑。自己也曾被这几个词弄的迷迷糊糊的，每次看相关资料弄明白了，然后很快又给搞混了。经历过这么几次之后，发现这东西必须得有所总结提炼才不至于再次混为一谈。下文就结合网络编程模型来具体的讲解一下这几个词的真正含义和区别。</p>
+
+<h2>网络编程模型</h2>
+
+<h3>同步阻塞</h3>
+
+<p>想一下，我们刚开始学习网络编程的时候，使用socket编写一个简单网络服务的步骤：</p>
+
+<ul>
+<li>创建socket</li>
+<li>listen某个端口</li>
+<li>accept阻塞等待连接请求</li>
+<li>有请求达到，那么调用recvfrom来读取客户端请求，调用send发送数据给客户端</li>
+<li>继续accept等待下一个请求</li>
+</ul>
+
+
+<p>流程如下图所示：</p>
+
+<h3>同步非阻塞</h3>
+
+<h3>IO费用</h3>
+
+<h3>信号驱动</h3>
+
+<h3>异步非阻塞</h3>
+
+<h2>对比</h2>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Git常用命令指南]]></title>
@@ -3088,38 +3126,6 @@ for ( ;; ) {
 <p>电影里三个人的友情是让我感触颇深的另一个地方。想想自己，活了快26年，真正能称得上朋友的人其实就那么几个人。和他们在一起，你会很确定不管你怎么样，他们都不会嫌弃你；不管你跟他们说了什么话，他们也不会介意。心情不好的时候，一个电话，他们不管有多忙也会立马赶到你的身旁。其实，以前的自己挺自私的，有点像孟晓峻，自从经历了那件事之后，我才体会到友情是多么的珍贵，也才弥足珍惜现在的他们。</p>
 
 <p>不说什么下决心的话，能做的就是脚踏实地，朝着自己想去的那个方向努力。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[无题]]></title>
-    <link href="http://www.rowkey.me/blog/2013/05/13/no-name/"/>
-    <updated>2013-05-13T23:02:50+08:00</updated>
-    <id>http://www.rowkey.me/blog/2013/05/13/no-name</id>
-    <content type="html"><![CDATA[<p>5.11-5.12，176公里，千岛湖镇-汾口-千岛湖镇，环湖一周。相信这将会是我未来永远难忘的一段经历。</p>
-
-<p>开始的计划是5.11中午从千岛湖镇出发，历经96公里前往汾口，18：00左右到达目的地。没想到走了大约20公里之后遇到了各种上坡路，尤其一段一公里的大上坡，让我们实在无法保持速度。全身各种疼，大腿完全是无知觉地在做机械运动，有无数次想放弃的冲动。如此艰难的挣扎，造成的后果就是从枫树岭开始的20公里山路只能摸黑前进，中间好几次撞到石头差点栽到地上。所幸的是有一辆自行车是有车灯的，不然还真不知道如何前行。最后到达汾口的时候已经是晚上快9点了。虽然远远晚于原定计划，但顺利到达目的地的喜悦还是让我们挺开心的。</p>
-
-<p>5.12的路程相对来说是比较容易的，一路都是大缓坡，咬咬牙就都过了。中间在界首农庄吃了顿午饭。之后连续10个隧道，一路都还是挺舒服的。下午4点多，终于回到了出发点。算是完成了这次环千岛湖骑行。</p>
-
-<p>这一段行程，真的感觉是对自己的一种历练+超越。在很多次想要放弃的时候，我都告诉自己，人只有超越自己、超越极限，才能成为一个无比强大的个体。和别人比较是没有任何意义的，能够战胜自己的人才是最优秀的。</p>
-
-<p>PS：一路上各种哈雷机车，那叫一个帅气。。。据说是哈雷机车110周年纪念日，全国的机车爱好者都过来环湖庆祝。望而兴叹，啥时候自己也能成为一个哈雷机车车友呢？</p>
-
-<!--more-->
-
-
-<p><img src="http://www.rowkey.me/images/blog_images/1.jpg" alt="" /></p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/2.jpg" alt="" /></p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/3.jpg" alt="" /></p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/4.jpg" alt="" /></p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/5.jpg" alt="" /></p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/6.jpg" alt="" /></p>
 ]]></content>
   </entry>
   
