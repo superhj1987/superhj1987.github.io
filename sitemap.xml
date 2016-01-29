@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.rowkey.me/blog/2016/01/18/io-model/</loc>
+    <lastmod>2016-01-18T15:41:31+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.rowkey.me/blog/2016/01/10/git-usage/</loc>
     <lastmod>2016-01-10T10:15:30+08:00</lastmod>
   </url>
@@ -95,6 +99,12 @@
   </url>
   <url>
     <loc>http://www.rowkey.me/blog/categories/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/2/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/3/</loc>
   </url>
   <url>
     <loc>http://www.rowkey.me/ace/build/css.html</loc>
