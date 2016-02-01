@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-02-01T17:48:36+08:00</updated>
+  <updated>2016-02-01T17:50:32+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1298,7 +1298,7 @@ TIME_WAIT 28322
 
 <h2>三. 一般架构</h2>
 
-<p>一般的Java后端系统应用架构如下图所示：Lvs+Nginx+Tomcat+MySql/DDB+Redis/Codis</p>
+<p>一般的Java后端系统应用架构如下图所示：LVS+Nginx+Tomcat+MySql/DDB+Redis/Codis</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/web-arch.png" alt="web-arch" /></p>
 
