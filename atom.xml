@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-01-29T20:32:08+08:00</updated>
+  <updated>2016-02-01T11:49:32+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -111,7 +111,9 @@
 
 <p>上文的就餐方式还是需要你每次都去问一下饭菜状况。于是，你再次不耐烦了，就跟老板说，哪个饭菜好了就通知我一声吧。然后就自己坐在桌子那里干自己的事情。更甚者，你可以把手机号留给老板，自己出门，等饭菜好了直接发条短信给你。这就类似信号驱动的IO模型。</p>
 
-<p>一般的流程如下：</p>
+<p><img src="http://www.rowkey.me/images/blog_images/io/sigio.png" alt="bio" /></p>
+
+<p>流程如下：</p>
 
 <ul>
 <li>开启套接字信号驱动IO功能</li>
