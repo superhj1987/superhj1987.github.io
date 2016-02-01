@@ -267,9 +267,11 @@ mysql是目前最常用的关系型数据库，支持复杂的查询。但是其
 
 ## 三. 一般架构
 
-一般的java后端系统应用架构如下图所示：lvs+nginx+tomcat+mysql/ddb+redis/codis
+一般的Java后端系统应用架构如下图所示：LVS+Nginx+Tomcat+MySql/DDB+Redis/Codis
 
-![web-arch](/images/web-arch.jpg)
+![web-arch](/images/blog_images/web-arch.png)
+
+其中，虚线部分是数据库层，采用的是主从模式。也可以使用redis cluster(codis等)以及mysql cluster(Cobar等)来替换。
 
 	
 	如需转载，请注明来自: http://superhj1987.github.com
