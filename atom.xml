@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-02-23T21:51:02+08:00</updated>
+  <updated>2016-02-23T21:54:01+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -157,11 +157,11 @@
 
 <h3>一般架构</h3>
 
-<p>下图为一个典型的大数据处理架构流程：</p>
+<p>下图为一个典型的大数据系统架构：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/data-arch.png" alt="data-arch" /></p>
 
-<p>这里需要提到的是Lambda架构这个概念。Lambda架构是由Storm的作者Nathan Marz提出的一个实时大数据处理框架。目标是设计出一个能满足实时大数据系统关键特性的架构，包括有：高容错、低延时和可扩展等。Lambda架构整合离线计算和实时计算，融合不可变性（Immunability），读写分离和复杂性隔离等一系列架构原则，可集成Hadoop，Kafka，Storm，Spark，Hbase等各类大数据组件。</p>
+<p>这里还需要提到的是Lambda架构这个概念。Lambda架构是由Storm的作者Nathan Marz提出的一个实时大数据处理框架。目标是设计出一个能满足实时大数据系统关键特性的架构，包括有：高容错、低延时和可扩展等。Lambda架构整合离线计算和实时计算，融合不可变性（Immunability），读写分离和复杂性隔离等一系列架构原则，可集成Hadoop，Kafka，Storm，Spark，Hbase等各类大数据组件。</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/lambda-arch.jpg" alt="lambda-arch" /></p>
 
