@@ -141,6 +141,42 @@
   
 
 
+<time datetime="2016-02-23T18:44:34+08:00" data-updated="true" itemprop="datePublished">Feb 23<sup>rd</sup>, 2016</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2016/02/23/data-talk/" itemprop="url">数据杂谈(一)</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>前言</h2>
+
+<p>记得几年前，曾经有人预测过未来最流行的三大技术：大数据、高并发、数据挖掘。到现在来看，这三种技术的确也随着这几年互联网的发展变得越发成熟和可靠。掌握这三种技术的人，不管是求职还是创业，都属于香饽饽。一个很深的印象就是当年研究生毕业的时候，专业是数据挖掘、大数据的学生都比较受各种企业的青睐，不管他是不是真的掌握了这些东西。虽然我对大部分高校的相关专业持怀疑态度，但是却也不得不承认，这些专业的确改变了很多东西，也给很多学生镀上了一层金。</p>
+
+<p>自己一直从事的是Java EE中间件、基础架构等方面的研发工作，对数据这一块只是略知皮毛，在前东家的时候我也没有机会接触数据平台。但由于现公司业务的原因，却不得不去触碰这一块，到目前为止也就仅仅半年时间（其间穿插各种协调、管理的杂事）。因此，数据相关的东西对我来说完全是一个新的领域，算是离开了自己的舒适区。不过，逃离舒适区这个想想也挺兴奋的。</p>
+
+
+		
+		<a href="/blog/2016/02/23/data-talk/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
 <time datetime="2016-02-18T20:31:11+08:00" data-updated="true" itemprop="datePublished">Feb 18<sup>th</sup>, 2016</time></div>
 		<div class="tags">
 
@@ -149,7 +185,7 @@
 	</div>
 	<h1 class="title" itemprop="name"><a href="/blog/2016/02/18/2016plan/" itemprop="url">2016年的几点规划</a></h1>
 	<div class="entry-content" itemprop="articleBody">
-		<p>明天就要开始新的一年正式的上班了，回想一下过去的2015年，对于自己来说，虽然有不少的收获和成长，但还是令自己比较不满意的。由于某些原因，自己的学习进度以及工作情况都受到了很大的影响，并没有达到年初的期望。不过，至少没有浑浑噩噩的一年又一年，也算不错了。^_^</p>
+		<p>2015年对于我自己来说，是令自己很不满意的一年。由于某些原因，自己的学习进度以及工作情况都受到了很大的影响。当然，也因此让自己有了不少工作学习之外的感悟。</p>
 
 <p><strong>工作学习方面：</strong></p>
 
@@ -562,73 +598,6 @@
 <p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
 </ol>
 
-
-		
-		
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-21T12:00:00+08:00" data-updated="true" itemprop="datePublished">Jan 21<sup>st</sup>, 2015</time></div>
-		<div class="tags">
-
-</div>
-		
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/" itemprop="url">关于Spring Mvc中model的attribute无法指定别名的解决方案</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
-
-<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
-
-<p><strong>Controller</strong>:</p>
-
-<pre>
-@Controller
-@RequestMapping("/api")
-public class ApiController extends BaseController {
-
-    @RequestMapping(value = "/test", headers = "Accept=application/json")
-    public void authUser(ModelMap modelMap, Account acc) {
-        ResultPack.packOk(modelMap);
-    }
-}
-
-public class Account{
-    private static final long serialVersionUID = 750752375611621980L;
-
-    private long id;
-    private String userName;
-    private String password;
-    private AccountType type = AccountType.ADMIN;
-    private long timeTag;
-    private int status = 1;
-    ...
-    ...
-}
-</pre>
-
-
-<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
-
-<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
-
-<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
 
 		
 		
