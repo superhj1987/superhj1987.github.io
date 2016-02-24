@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-02-24T11:08:24+08:00</updated>
+  <updated>2016-02-24T11:23:06+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -180,12 +180,14 @@
 
 <ul>
 <li>批处理层：Hadoop是理想的批处理层工具。特点是延时较高、高吞吐量，并且是append-only（没有delete和update的概念）的。包括对全部数据集的预计算。</li>
-<li>服务层：用于加载和显示数据库中的批处理视图，以便用户能够查询。</li>
+<li>服务层：用于加载和显示数据库中的批处理视图，以便用户能够查询。可以使用Impala作为这一层的工具（使用Hive元数据指向HDFS中的一个表）。</li>
 <li>速度层：主要处理新数据和服务层更新造成的高延迟补偿，利用流处理系统如 (Storm, Spark)计算实时视图(HBase)。这些视图有效期一直到它们已经能通过批处理和服务层获得时为止。</li>
 </ul>
 
 
 <p>为了获得一个完整结果，批处理和实时视图都必须被同时查询和融合(实时代表新数据)。</p>
+
+<p>当然，架构的引入是不能照本宣科的，还是需要根据实际情况进行调整，以更好地适合业务场景。</p>
 
 <h2>数据挖掘</h2>
 
