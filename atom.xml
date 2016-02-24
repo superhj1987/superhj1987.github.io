@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-02-23T21:54:01+08:00</updated>
+  <updated>2016-02-24T11:05:18+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -155,6 +155,17 @@
 </ol>
 
 
+<p>《大数据：可扩展实时系统的原理和最佳实践》一书的作者将big data相关的开源项目做了以下分类：</p>
+
+<ol>
+<li>批量计算系统：延时较高、吞吐量大，如Hadoop。</li>
+<li>序列化框架：为对象和字段提供一种模式定义语言，实现传输通信以及不同语言环境之间的转化。如Thrift, Protocol Buffers, 和Avro。</li>
+<li>支持任意存取的NoSQL数据库：牺牲了SQL强大的表现力优势，根据应用场景不同仅支持部分操作。按照CAP理论来说，就是牺牲C（一致性）或A（可用性）来实现AP或CP。如Cassandra, HBase, MongoDB,Voldemort, Riak, CouchDB等。</li>
+<li>消息/排队系统：保证进程之间以容错和异步的方式传递消息，在实时处理系统中非常重要。如Kestrel。</li>
+<li>实时计算系统：高吞吐、低延时的流处理系统。如Storm。</li>
+</ol>
+
+
 <h3>一般架构</h3>
 
 <p>下图为一个典型的大数据系统架构：</p>
@@ -164,6 +175,17 @@
 <p>这里还需要提到的是Lambda架构这个概念。Lambda架构是由Storm的作者Nathan Marz提出的一个实时大数据处理框架。目标是设计出一个能满足实时大数据系统关键特性的架构，包括有：高容错、低延时和可扩展等。Lambda架构整合离线计算和实时计算，融合不可变性（Immunability），读写分离和复杂性隔离等一系列架构原则，可集成Hadoop，Kafka，Storm，Spark，Hbase等各类大数据组件。</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/lambda-arch.jpg" alt="lambda-arch" /></p>
+
+<p>Lambda架构是由三层组成：批处理层、服务层和速度层，总体可由query = function(alldata)这个公式来表示。</p>
+
+<ul>
+<li>批处理层：Hadoop是理想的批处理层工具。特点是延时较高、高吞吐量，并且是append-only（没有delete和update的概念）的。包括对全部数据集的预计算。</li>
+<li>服务层：用于加载和显示数据库中的批处理视图，以便用户能够查询。</li>
+<li>速度层：主要处理新数据和服务层更新造成的高延迟补偿，利用流处理系统如 (Storm, Spark)计算实时视图(HBase)。这些视图有效期一直到它们已经能通过批处理和服务层获得时为止。</li>
+</ul>
+
+
+<p>为了获得一个完整结果，批处理和实时视图都必须被同时查询和融合(实时代表新数据)。</p>
 
 <h2>数据挖掘</h2>
 
