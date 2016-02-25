@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-02-24T21:43:24+08:00</updated>
+  <updated>2016-02-25T11:08:46+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -46,7 +46,7 @@
 
 <p>说到数据的作用，不得不提数据分析师这个职位。此职位一般来说倾向的是数学相关专业人士，使用数据来指导产品、运营、市场等工作，是公司中使用数据最多的人。在公司中，市场运营销售这几个部门也都是和数据关系很密切的。市场需要参考数据分析哪一个渠道推广效果更好，运营部门需要根据数据分析什么内容更能提高产品的活跃度，销售部门则需要数据反映公司的收入情况。当然，除了这些，数据挖掘就是另一个很重要的使用数据的方面了，可以使用数据对用户进行行为分析，从而挖掘用户的兴趣，最终达到精准推荐、精准营销的目的。</p>
 
-<p>概括来看，数据的作用有以下两点：</p>
+<p>概括来看，数据的作用主要有以下两点：</p>
 
 <ul>
 <li>数据统计→指导产品、市场、运营、销售工作</li>
@@ -59,12 +59,12 @@
 <p>有了数据，就需要有存放数据的地方。数据库和数据仓库即存放数据库的两种形式。两者在本质上没有区别，都是为了存储数据。</p>
 
 <ul>
-<li><p>数据库：面向业务设计，一般针对的是在线业务，存储的是在线业务数据。如：Oracle、DB2、MySQL、Sybase、MS SQL Server等。</p></li>
+<li><p>数据库：面向业务设计，一般针对的是在线业务，存储的是在线业务数据。如：Oracle、DB2、MySQL、Sybase、MS SQL Server等。可以分为：关系型数据库和NoSql数据库，其中后者又可分为KV数据库、文档型数据库、列数据库。</p></li>
 <li><p>数据仓库：是数据库概念的升级，面向分析，存储的是历史数据。从数据量来说，数据仓库要比数据库更庞大得多。主要用于数据挖掘和数据分析，代表软件为Hive。</p></li>
 </ul>
 
 
-<p>ETL: 数据仓库很多时候是需要从其他地方传输数据到数据仓库的，这个过程就是ETL：extract-抽取、transform-转换、load-加载。</p>
+<p>ETL: 数据仓库很多时候是需要从其他地方传输数据到数据仓库，这个过程就是ETL：extract-抽取、transform-转换、load-加载。</p>
 
 <h3>数据的生命周期</h3>
 
@@ -74,7 +74,7 @@
 
 <h2>数据系统</h2>
 
-<p>不管是数据统计还是数据挖掘，构建一个数据系统都是做好这些的前提。一般来说，构建一个完善的数据系统有以下几点：</p>
+<p>不管是数据统计还是数据挖掘，构建一个数据系统都是做好这些的前提。一般来说，构建一个完备的数据系统有以下几点：</p>
 
 <ol>
 <li><p>数据采集</p>
@@ -187,7 +187,7 @@
 
 <p>为了获得一个完整结果，批处理和实时视图都必须被同时查询和融合(实时代表新数据)。</p>
 
-<p>当然，架构的引入是不能照本宣科的，还是需要根据实际情况进行调整，以更好地适合业务场景。</p>
+<p>当然，架构的引入是不能照本宣科的，还是需要根据实际情况进行调整，以更好地适应业务场景。</p>
 
 <h2>数据挖掘</h2>
 
@@ -2869,7 +2869,7 @@ for ( ;; ) {
 
 <h3>1.2 架构</h3>
 
-<p><img src="http://www.rowkey.me/blog_images/images/ngx_arch.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/ngx_arch.jpg" alt="" /></p>
 
 <p>nginx在启动后，会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。工作进程以非特权用户运行。</p>
 
@@ -2914,14 +2914,14 @@ for ( ;; ) {
 
 <p> 轮询的原理很简单，首先我们介绍一下轮询的基本流程。如下是处理一次请求的流程图：</p>
 
-<p> <img src="http://www.rowkey.me/blog_images/images/ngx_wr_process.jpg" alt="" /></p>
+<p> <img src="http://www.rowkey.me/images/blog_images/ngx_wr_process.jpg" alt="" /></p>
 
 <p> 图中有两点需要注意，第一，如果可以把加权轮询算法分为先深搜索和先广搜索，那么nginx采用的是先深搜索算法，即将首先将请求都分给高权重的机器，直到该机器的权值降到了比其他机器低，才开始将请求分给下一个高权重的机器；第二，当所有后端机器都down掉时，nginx会立即将所有机器的标志位清成初始状态，以避免造成所有的机器都处在timeout的状态，从而导致整个前端被夯住。</p></li>
 <li><p>ip hash</p>
 
 <p> ip hash是nginx内置的另一个负载均衡的策略，流程和轮询很类似，只是其中的算法和具体的策略有些变化，如下图所示：</p>
 
-<p> <img src="http://www.rowkey.me/blog_images/images/ngx_iphash_process.jpg" alt="" /></p>
+<p> <img src="http://www.rowkey.me/images/blog_images/ngx_iphash_process.jpg" alt="" /></p>
 
 <p> ip hash算法的核心实现如下：</p>
 
@@ -3053,7 +3053,7 @@ for ( ;; ) {
 
 <p>Nginx属于典型的微内核设计，其内核非常简洁和优雅，同时具有非常高的可扩展性。如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/blog_images/images/ngx_micro.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/ngx_micro.jpg" alt="" /></p>
 
 <p>Nginx是纯C语言的实现，其可扩展性在于其模块化的设计。目前，Nginx已经有很多的第三方模块，大大扩展了自身的功能。nginx_lua_module可以将Lua语言嵌入到Nginx配置中，从而利用Lua极大增强了Nginx本身的编程能力，甚至可以不用配合其它脚本语言（如PHP或Python等），只靠Nginx本身就可以实现复杂业务的处理。</p>
 
@@ -3061,7 +3061,7 @@ for ( ;; ) {
 
 <p>nginx的配置架构如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/blog_images/images/ngx_config.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/ngx_config.jpg" alt="" /></p>
 
 <p>Nginx支持热部署，几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动。能够在不间断服务的情况下，对软件版本进行进行升级。Nginx的配置文件非常简单，风格跟程序一样通俗易懂，能够支持perl语法。使用nginx –s reload可以在运行时加载配置文件，便于运行时扩容/减容。重新加载配置时，master进程发送命令给当前正在运行的worker进程worker进程接到命令后会在处理完当前任务后退出。同时，master进程会启动新的worker进程来接管工作。</p>
 
