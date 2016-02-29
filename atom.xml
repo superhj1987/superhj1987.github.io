@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-02-29T16:16:43+08:00</updated>
+  <updated>2016-02-29T16:19:59+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -262,13 +262,13 @@
 
 <p>个性化推荐系统的典型架构如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/recommeng-sys-arch.png" alt="recommend-sys" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/recommend-sys-arch.png" alt="recommend-sys" /></p>
 
 <p>在线业务系统的日志接入数据高速公路，再由数据高速公路迅速运转到离线数据处理平台和在线流计算平台；离线数据处理平台周期性地以批处理方式加工过去一段时间的数据，得到人群标签和其他模型参数，存放在高速缓存中，供在线业务系统使用，与此同时，在线流计算平台实时对线上的日志数据做处理，对离线计算出的数据进行补充、修正等；在线业务系统综合离线特征和在线特征使用一定的逻辑得到输出供业务使用，产生的日志流入数据高速公路。</p>
 
 <p>基于此框架，个性化推荐系统的典型流程如下：</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/recommeng-sys.png" alt="recommend-sys" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/recommend-sys.png" alt="recommend-sys" /></p>
 
 <p>其他更为详细的，个性化推荐牵扯到的算法、细节还有很多，留待后续推荐系统相关文章中再谈。</p>
 
