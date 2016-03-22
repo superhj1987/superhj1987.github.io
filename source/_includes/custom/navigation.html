@@ -1,7 +1,6 @@
 <ul class="main">
 	<li><a href="{{ root_url }}/">首页</a></li>
     <li><a href="{{ root_url }}/blog/archives">所有文章</a></li>
-    <li><a href="http://toutiao.io/subjects/4944" target='_blank'>头条专栏</a></li>
 </ul>
 {% if page.index %}
 <div class="ds-share flat" data-title="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}" data-url="{{canonical}}" data-content="{{ description | strip_html | condense_spaces | truncate:150 }}">
