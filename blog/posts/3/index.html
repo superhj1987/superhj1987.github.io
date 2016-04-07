@@ -140,6 +140,42 @@
   
 
 
+<time datetime="2014-07-25T17:08:02+08:00" data-updated="true" itemprop="datePublished">Jul 25<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/07/25/nginx-data-structure/" itemprop="url">Nginx源码分析之基本数据结构</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h3>引言</h3>
+
+<p>nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。但实际上nginx各个部分逻辑划分还是很明确的，整体上是一种松散的结构。</p>
+
+<p>作者之所以重复造了这些轮子，无非是为了追求高效。查看这些数据结构的源码，的确是设计的比较精巧，也保证了对内存足够小的占用以及各种操作的高效。</p>
+
+
+		
+		<a href="/blog/2014/07/25/nginx-data-structure/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
 <time datetime="2014-07-24T21:30:20+08:00" data-updated="true" itemprop="datePublished">Jul 24<sup>th</sup>, 2014</time></div>
 		<div class="tags">
 
