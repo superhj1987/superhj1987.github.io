@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-04-12T15:23:52+08:00</updated>
+  <updated>2016-05-23T20:03:27+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,429 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java内存管理]]></title>
+    <link href="http://www.rowkey.me/blog/2016/05/07/javamm/"/>
+    <updated>2016-05-07T14:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/05/07/javamm</id>
+    <content type="html"><![CDATA[<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理才能写出更好的程序，才能更好地优化程序的性能。</p>
+
+<!--more-->
+
+
+<h2>一. 背景知识</h2>
+
+<p>目前国内外著名的几个大型互联网的语言选型如下所示：</p>
+
+<ol>
+<li>Google: c/c++ python java js，不得不提的是Google贡献给java社区的guava包质量非常高。</li>
+<li>Youtube、豆瓣: python</li>
+<li>fackbook、yahoo、flickr、新浪：<strong>php</strong>(优化过的php)</li>
+<li>网易、阿里、搜狐: java、php、node.js</li>
+<li>Twitter: ruby->java,之所以如此就在于与jvm相比，Ruby的runtime是非常慢的。并且ruby的应用比起java还是比较小众的。</li>
+</ol>
+
+
+<p>可见，虽然最近这些年很多言论都号称java已死或者不久即死，但是Java的语言应用占有率一直居高不下。与高性能的c/c++相比，java具有gc机制，并且没有那让人望而生畏的指针，上手门槛相对较低；而与上手成本更低的php、ruby来说，又比这些脚本语言有性能上的优势(这里暂时忽略fb自己开发的php vm)。</p>
+
+<p>对于Java来说，最终是要依靠字节码运行在jvm上的。目前，常见的jvm有以下几种：</p>
+
+<ul>
+<li>Sun HotSpot</li>
+<li>BEA Jrockit</li>
+<li>IBM J9</li>
+<li>Dalvik(Android)</li>
+</ul>
+
+
+<p>其中以HotSpot应用最广泛。目前sun jdk的最新版本已经到了8，但鉴于新版的jdk使用并未普及，因此本文仅仅针对HotSpot虚拟机的jdk6来讲。</p>
+
+<h2>二. Jvm虚拟机内存简介</h2>
+
+<h3>2.1 Java运行时内存区</h3>
+
+<p>对于Java的运行时内存组成，有一部分是线程私有的，另一部分是则线程共享的。</p>
+
+<p><strong>线程私用的如下：</strong></p>
+
+<ul>
+<li><p>程序计数器</p>
+
+<p>  当前线程所执行的字节码的行号指示器</p></li>
+<li><p>Java虚拟机栈</p>
+
+<p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p></li>
+<li><p>本地方法栈</p>
+
+<p>  Native方法服务。在HotSpot虚拟几种，和虚拟机栈合二为一。</p></li>
+</ul>
+
+
+<p><strong>线程共享的如下：</strong></p>
+
+<ul>
+<li><p>Java堆</p>
+
+<p>  存放对象实例，几乎所有的对象实例都在这里分配内存。</p></li>
+<li><p>方法区</p>
+
+<p>  存储已经被虚拟机加载的类信息、常量、静态变量、JIT编译后的代码等数据。</p></li>
+<li><p>运行时常量池</p>
+
+<p>  方法区的一部分。用于存放编译期生辰的各种字面量和符号引用。</p></li>
+<li><p>直接内存</p>
+
+<p>  NIO、Native函数直接分配的堆外内存。DirectBuffer引用也会使用此部分内存。</p></li>
+</ul>
+
+
+<h3>2.2 对象访问</h3>
+
+<p>Jvm中对于某一对象的访问有两种方式：</p>
+
+<ol>
+<li><p>通过句柄访问</p>
+
+<p> <image src="http://www.rowkey.me/images/blog_images/access_object_handler.png" width="500px"/></p></li>
+<li><p>直接指针</p>
+
+<p> <image src="http://www.rowkey.me/images/blog_images/access_direct.png" width="500px"/></p>
+
+<p> 此种方式也是HotSpot虚拟机采用的方式。</p></li>
+</ol>
+
+
+<h3>2.3 内存溢出</h3>
+
+<p>在JVM申请内存的过程中，会遇到无法申请到足够内存，从而导致内存溢出的情况。一般有以下几种情况：</p>
+
+<ul>
+<li>虚拟机栈和本地方法栈溢出
+
+<ul>
+<li>StackOverflowError:线程请求的栈深度大于虚拟机所允许的最大深度(循环递归)</li>
+<li>OutOfMemoryError: 虚拟机在扩展栈是无法申请到足够的内存空间</li>
+</ul>
+</li>
+<li>Java堆溢出: 当创建大量对象并且对象生命周期都很长的情况下，会引发OutOfMemoryError</li>
+<li>运行时常量区溢出：OutOfMemoryError:PermGen space，这里一个典型的例子就是String的intern方法，当大量字符串使用intern时，会触发此内存溢出</li>
+<li>方法区溢出：方法区存放Class等元数据信息，如果产生大量的类(使用cglib)，那么就会引发此内存溢出，OutOfMemoryError:PermGen space</li>
+</ul>
+
+
+<h2>三. 垃圾收集</h2>
+
+<h3>3.1 理论基础</h3>
+
+<h4>网站访问慢的原因总结来看，一般有以下几点：</h4>
+
+<ul>
+<li>内存：垃圾收集占用cpu；放入了太多数据，造成内存泄露(java也是有这种问题的^_^)</li>
+<li>线程死锁</li>
+<li>I/O速度太慢</li>
+<li>依赖的其他服务响应太慢</li>
+<li>复杂的业务逻辑或者算法造成响应的缓慢</li>
+</ul>
+
+
+<p>其中，垃圾收集对性能的影响一般有以下几个：</p>
+
+<ul>
+<li>内存泄露</li>
+<li>程序暂停</li>
+<li>程序吞吐量显著下降</li>
+<li>响应时间变慢</li>
+</ul>
+
+
+<h4>垃圾收集的一些基本概念</h4>
+
+<ul>
+<li>Concurrent Collector:收集的同时可运行其他的工作进程</li>
+<li>Parallel Collector: 使用多CPU进行垃圾收集</li>
+<li>Stop-the-word(STW):收集时必须暂停其他所有的工作进程</li>
+</ul>
+
+
+<h4>吞吐量与响应时间</h4>
+
+<ul>
+<li>吞吐量是对单位时间内完成的工作量的量度。如：每分钟的 Web 服务器请求数量</li>
+<li>响应时间是提交请求和返回该请求的响应之间使用的时间。如：访问Web页面花费的时间</li>
+</ul>
+
+
+<p>吞吐量与访问时间的关系很复杂，有时可能以响应时间为代价而得到较高的吞吐量，而有时候又要以吞吐量为代价得到较好的响应时间。而在其他情况下，一个单独的更改可能对两者都有提高。通常，平均响应时间越短，系统吞吐量越大；平均响应时间越长，系统吞吐量越小；
+但是，系统吞吐量越大， 未必平均响应时间越短；因为在某些情况（例如，不增加任何硬件配置）吞吐量的增大，有时会把平均响应时间作为牺牲，来换取一段时间处理更多的请求。</p>
+
+<p>针对于Java的垃圾回收来说，不同的垃圾回收器会不同程度地影响这两个指标。例如：并行的垃圾收集器，其保证的是吞吐量，会在一定程度上牺牲响应时间。而并发的收集器，则主要保证的是请求的响应时间。</p>
+
+<p>一张图可以反映这两者的情况：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/res_time_throughoutput.png" width="500px"/></p>
+
+<p>上图就是吞吐量优先的情况，下图则是响应时间优先。</p>
+
+<h4>GC机制</h4>
+
+<p>对于GC(垃圾回收)的流程的基本描述如下：</p>
+
+<ul>
+<li>找出堆中活着的对象</li>
+<li>释放死对象占用的资源</li>
+<li>定期调整活对象的位置</li>
+</ul>
+
+
+<p>GC算法一般有以下几种：</p>
+
+<ul>
+<li>Mark-Sweep 标记-清除</li>
+<li>Mark-Sweep-Compact 标记-整理</li>
+<li><p>Copying Collector 复制算法</p></li>
+<li><p>Mark-标记</p>
+
+<p> 从&#8221;GC roots&#8221;开始扫描(这里的roots包括线程栈、静态常量等)，给能够沿着roots到达的对象标记为&#8221;live&#8221;,最终所有能够到达的对象都被标记为&#8221;live&#8221;,而无法到达的对象则为&#8221;dead&#8221;。效率和存活对象的数量是线性相关的。</p></li>
+<li><p>Sweep-清除</p>
+
+<p> 扫描堆，定位到所有&#8221;dead&#8221;对象，并清理掉。效率和堆的大小是线性相关的。</p></li>
+<li><p>Compact-压缩</p>
+
+<p> 对于对象的清除，会产生一些内存碎片，这时候就需要对这些内存进行压缩、整理。包括：relocate(将存货的对象移动到一起，从而释放出连续的可用内存)、remap(收集所有的对象引用指向新的对象地址)。效率和存活对象的数量是线性相关的。</p></li>
+<li><p>Copy-复制</p>
+
+<p> 将内存分为&#8221;from&#8221;和&#8221;to&#8221;两个区域，垃圾回收时，将from区域的存活对象整体复制到to区域中。效率和存活对象的数量是线性相关的。</p></li>
+</ul>
+
+
+<p>其中，copy对比mark-sweep</p>
+
+<ol>
+<li>内存消耗：copy需要两倍的最大live set内存；mark-sweep则只需要一倍。</li>
+<li>效率上：copy与live set成线性相关，效率高；mark-sweep则与堆大小线性相关，效率较低。</li>
+</ol>
+
+
+<h4>分代收集</h4>
+
+<p>对于分代收集，有以下几个相关理论</p>
+
+<ul>
+<li>分代假设：大部分对象的寿命很短，“朝生夕死”，重点放在对年青代对象的收集，而且年青带通常只占整个空间的一小部分。</li>
+<li>把年青代里活的很长的对象移动到老年代。</li>
+<li>只有当老年代满了才去收集。</li>
+<li>收集效率明显比不分代高。</li>
+</ul>
+
+
+<p>HotSpot虚拟机的分代收集，分为一个Eden区、两个survivor去以及Old Generation/Tenured区，其中eden以及survivor共同组成New Generatiton/Young space。</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/hotspot-gc.png" width="300px"/></p>
+
+<ul>
+<li>eden区是分配对象的区域。</li>
+<li>survivor是minor/younger gc后存储存活对象的区域。</li>
+<li>Tenured区域存储长时间存活的对象。</li>
+</ul>
+
+
+<h4>典型的jvm收集器组合</h4>
+
+<ul>
+<li>年青代通常使用copy收集，会stop the world</li>
+<li>老年代收集一般采用mark-sweep-compact, 有可能会stop the world，也可以是concurrent或者部分concurrent。</li>
+</ul>
+
+
+<h3>3.2 hotspot垃圾收集器</h3>
+
+<p><image src="http://www.rowkey.me/images/blog_images/hotspot-collector.png" width="400px"/></p>
+
+<p>上图即为hotspot虚拟机的垃圾收集器组成。</p>
+
+<h4>Serial收集器</h4>
+
+<ul>
+<li>-XX:+UserSerialGC参数打开此收集器</li>
+<li>client模式下新生代默认的收集器。</li>
+<li>较长的stop the world时间</li>
+<li>简单而高效</li>
+</ul>
+
+
+<p>此收集器的一个工作流程如下如所示：</p>
+
+<p>收集前：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/serial_before.png" width="400px"/></p>
+
+<p>收集后：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/serial_after.png" width="400px"/></p>
+
+<h4>ParNew收集器</h4>
+
+<ul>
+<li>-XX:+UserParNewGC</li>
+<li>+UseConcuMarkSweepGC时默认开启</li>
+<li>Serial收集器的多线程版本</li>
+<li>默认线程数与CPU数目相同</li>
+<li>-XX:ParrallelGCThreads指定线程数目</li>
+</ul>
+
+
+<p>对比serial收集器如下图所示：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/parnew.png" width="400px"/></p>
+
+<h4>Parallel Scavenge收集器</h4>
+
+<ul>
+<li>新生代并行收集器</li>
+<li>采用Copy算法</li>
+<li>主要关注的是达到可控制的吞吐量，“吞吐量优先”</li>
+<li>-XX:MaxGCPauseMillis -XX:GCTimeRAtion两个参数精确控制吞吐量</li>
+<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略</li>
+<li>Server模式的默认新生代收集器</li>
+</ul>
+
+
+<h4>Serial Old收集器</h4>
+
+<ul>
+<li>Serial的老年代版本</li>
+<li>Client模式的默认老年代收集器</li>
+<li>CMS收集器的后备预案，Concurrent Mode Failure时使用</li>
+<li>-XX:+UseSerialGC开启此收集器</li>
+</ul>
+
+
+<h4>Parallel Old收集器</h4>
+
+<ul>
+<li>-XX:+UseParallelGC -XX:+UseParallelOldGC启用此收集器</li>
+<li>Parallel Scavenge的老年代版本，使用多线程和&#8221;mark-sweep&#8221;算法</li>
+<li>关注点在吞吐量以及CPU资源敏感的场合使用</li>
+<li>一般使用Parallel Scavenge + Parallel Old可以达到最大吞吐量保证</li>
+</ul>
+
+
+<h4>CMS收集器</h4>
+
+<p>并发低停顿收集器</p>
+
+<ul>
+<li>-XX:UseConcMarkSweepGC 开启CMS收集器，(默认使用ParNew作为年轻代收集器，SerialOld作为收集失败的垃圾收集器)</li>
+<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，会和互联网应用。</li>
+</ul>
+
+
+<p>四个步骤：</p>
+
+<ul>
+<li>初始标记 Stop the world: 只标记GC roots能直接关联到的对象，速度很快。</li>
+<li>并发标记：进行GC roots tracing，与用户线程并发进行</li>
+<li>重新标记 Stop the world：修正并发标记期间因程序继续运行导致变动的标记记录</li>
+<li>并发清除</li>
+</ul>
+
+
+<p>对比serial old收集器如下图所示：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/cms.png" width="400px"/></p>
+
+<p>cms有以下的缺点：</p>
+
+<ul>
+<li>cms是唯一不进行compact的垃圾收集器，当cms释放了垃圾对象占用的内存后，它不会把活动对象移动到老年代的一端</li>
+<li>对CPU资源非常敏感。不会导致线程停顿，但会导致程序变慢，总吞吐量降低。CPU核越多越不明显</li>
+<li>无法处理浮动垃圾。可能出现“concurrent Mode Failure”失败， 导致另一次full GC ,可以通过调整-CMSInitiatingOccupancyFraction来控制内存占用达到多少时触发gc</li>
+<li>大量空间碎片。这个可以通过设置-XX:UseCMSCompacAtFullCollection(是否在full gc时开启compact)以及-XX:CMSFullGCsBeforeCompaction(在进行compact前full gc的次数)</li>
+</ul>
+
+
+<h4>G1收集器</h4>
+
+<ul>
+<li>使用的标记-清理算法</li>
+<li>不会产生碎片</li>
+<li>可预测的停顿</li>
+<li>化整为零：将整个Java堆划分为多个大小相等的独立区域</li>
+</ul>
+
+
+<p><image src="http://www.rowkey.me/images/blog_images/g1.png" width="500px"/></p>
+
+<h3>3.3 调优经验</h3>
+
+<ul>
+<li>打开gc，读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps</li>
+<li>最佳状态： 只有young gc</li>
+<li>从young gc开始， 尽量给年青代大点的内存， 避免full gc</li>
+<li>注意survivor大小</li>
+<li>注意内存墙： 4G~5G</li>
+</ul>
+
+
+<h4>GC日志简介</h4>
+
+<p><image src="http://www.rowkey.me/images/blog_images/gclog.png" width="500px"/></p>
+
+<ul>
+<li>第一个箭头：35592K->1814K(36288K)，箭头指向的是新生段的内存占用情况； - 第二个箭头：38508K->7792K(520256K)，箭头指向的是回收后的内存占用情况。</li>
+<li>垃圾收集停顿时间： 0.0336</li>
+</ul>
+
+
+<h4>老年代使用建议</h4>
+
+<ul>
+<li>从Parallel GC开始 (-XX:+UseParallel[Old]GC)
+
+<ul>
+<li>Parallel GC的minor GC时间是最快的， CMS的young gc要比parallel慢， 因为内存碎片</li>
+<li>最大的吞吐量</li>
+</ul>
+</li>
+<li><strong>确实有必要才改成CMS或G1(for old gen collections)</strong></li>
+</ul>
+
+
+<h4>开发建议</h4>
+
+<ul>
+<li>小对象allocate的代价很小，通常10个CPU指令</li>
+<li>收集掉新对象也非常廉价</li>
+<li>不用担心活的很短的小对象</li>
+<li>大对象分配的代价以及初始化的代价很大</li>
+<li>不同大小的大对象可能导致java堆碎片，尤其是CMS, ParallelGC 或 G1还好</li>
+<li>尽量避免分配大对象</li>
+<li>改变数据结构大小
+
+<ul>
+<li>避免改变数组或array backed collections / containers的大小</li>
+<li>对象构建（初始化）时显式批量定数组大小</li>
+</ul>
+</li>
+<li>改变大小导致不必要的对象分配，可能导致java堆碎片</li>
+<li>对象池可能潜在的问题
+
+<ul>
+<li>增加了活对象的数量， 可能增加GC时间</li>
+<li>访问（多线程）对象池需要锁， 可能带来可扩展性的问题。 小心过于频繁的对象池访问</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>四. Java7、8带来的一些变化</h2>
+
+<p>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</p>
+
+<p>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。此外，java8带来了成熟的G1垃圾回收器。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[基于内容和用户画像的个性化推荐]]></title>
@@ -3382,27 +3805,6 @@ for ( ;; ) {
 这个函数，其主要实现是其内部函数makeCallback。其功能就是迭代tasks，封装其中的每一个function,让其执行后返回下一个function,以此实现迭代。</p>
 
 <p>接下来，再回到wrapIterator，此function是对iterator的封装。执行后返回的是一个匿名function。其明确的参数只有一个err。当err不为空的时候，直接执行callback function。否则从index为1开始取出参数列表，并把iterator的下一个function包装之后push到args中（如果没有下一个function了则push回调函数）。接下来，则执行当前的iterator，执行的参数是下一个iterator function（作为这一步的回调函数）以及参数（如果当前的iterator被调用时传递了其他参数）。这样在当前iterator中回调下一个iterator，依次迭代执行，直至执行完所有function和callback。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[技术的成长]]></title>
-    <link href="http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech/"/>
-    <updated>2014-08-14T16:38:01+08:00</updated>
-    <id>http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech</id>
-    <content type="html"><![CDATA[<p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
-
-<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
-
-<!--more-->
-
-
-<p>这也牵扯到了技术的广度和深度的问题。这两个的优先级不能一味的说谁优谁劣，技术研究的人肯定倾向于去拓展技术的深度，而面向产品、架构的人应该关心广度多一些吧。当然如果不去精通一门技术，广度却也是无法拓展的。所谓技术上的成长，抛开技术的深度和广度来言，我觉得还是主要指技术思维的拓展和进步。技术领域的很多东西都是触类旁通的，只要你有好的逻辑思维和方法论，那么对于很多东西都是能很快上手直至掌握、运用、精通的。</p>
-
-<p>还有一个上手能力和学习能力的问题，上手能力指的是你掌握然后使用，而学习能力应该是理解并能改进。这两个概念以前没去区分过，现在想想却也是有很大不同的。上手容易，精通难。所谓学习能力，是上手之后能够快速地吸收为自己的东西，能够从自己的角度看待问题，甚至提出自己的改进。很多人接触一个新的技术的确能够很快地上手去运用，但是却很少会深入地去学习这种技术的原理、运行机制之类的东西。这也是优秀开发人员和一般开发人员本质的区别。
-学习技术，更是要学习其精髓而非皮毛，知其然更要知其所以然。</p>
-
-<p>其实，总结来看，作为一个技术人，追求的技术上的长进，从多个维度来看，关键的还是项目经验和思维能力的同步提高。当然，如果对某一个领域能深入研究从而成为专家那也是锦上添花的事情。</p>
 ]]></content>
   </entry>
   

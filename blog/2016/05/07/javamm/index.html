@@ -1,0 +1,609 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="ujianVerification" content="7625e668c8eb782e03dfa1be3a6339f7" />
+	<title>Java内存管理 - 后端技术杂谈 | 飒然Hang</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="Java内存管理 对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此， &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.rowkey.me/blog/2016/05/07/javamm/">
+	<link href="/favicon.ico" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		// $(function(){
+		// 	$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		// });
+		$(function(){
+			$('.profilepic').append("<img src='/images/avatar/backend_logo.png' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1>后端技术杂谈</h1>
+  
+    <h3>What、How、Why</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
+</ul>
+
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px;overflow:scroll'>
+  <h3>飒然Hang</h3>
+  <p>专注于JavaEE开发、服务端基础架构、研发管理等。</p>
+  <br/>
+  <p>working@中华万年历;</p>
+  <p>后端开发工程师@网易杭州研究院;</p>
+</section>
+</nav>
+<nav id="sub-nav" style='margin-top:20px !important'>
+	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+	</div>
+</nav>
+<style type="text/css">
+	span#cnzz_stat_icon_1257166229{
+		display: none !important
+	}
+	div#ujian_BtnDiv{
+		display: none !important
+	}
+</style>
+<!-- cnzz统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Java内存管理</h1>
+	<div class="entry-content" itemprop="articleBody"><p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理才能写出更好的程序，才能更好地优化程序的性能。</p>
+
+<!--more-->
+
+
+<h2>一. 背景知识</h2>
+
+<p>目前国内外著名的几个大型互联网的语言选型如下所示：</p>
+
+<ol>
+<li>Google: c/c++ python java js，不得不提的是Google贡献给java社区的guava包质量非常高。</li>
+<li>Youtube、豆瓣: python</li>
+<li>fackbook、yahoo、flickr、新浪：<strong>php</strong>(优化过的php)</li>
+<li>网易、阿里、搜狐: java、php、node.js</li>
+<li>Twitter: ruby->java,之所以如此就在于与jvm相比，Ruby的runtime是非常慢的。并且ruby的应用比起java还是比较小众的。</li>
+</ol>
+
+
+<p>可见，虽然最近这些年很多言论都号称java已死或者不久即死，但是Java的语言应用占有率一直居高不下。与高性能的c/c++相比，java具有gc机制，并且没有那让人望而生畏的指针，上手门槛相对较低；而与上手成本更低的php、ruby来说，又比这些脚本语言有性能上的优势(这里暂时忽略fb自己开发的php vm)。</p>
+
+<p>对于Java来说，最终是要依靠字节码运行在jvm上的。目前，常见的jvm有以下几种：</p>
+
+<ul>
+<li>Sun HotSpot</li>
+<li>BEA Jrockit</li>
+<li>IBM J9</li>
+<li>Dalvik(Android)</li>
+</ul>
+
+
+<p>其中以HotSpot应用最广泛。目前sun jdk的最新版本已经到了8，但鉴于新版的jdk使用并未普及，因此本文仅仅针对HotSpot虚拟机的jdk6来讲。</p>
+
+<h2>二. Jvm虚拟机内存简介</h2>
+
+<h3>2.1 Java运行时内存区</h3>
+
+<p>对于Java的运行时内存组成，有一部分是线程私有的，另一部分是则线程共享的。</p>
+
+<p><strong>线程私用的如下：</strong></p>
+
+<ul>
+<li><p>程序计数器</p>
+
+<p>  当前线程所执行的字节码的行号指示器</p></li>
+<li><p>Java虚拟机栈</p>
+
+<p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p></li>
+<li><p>本地方法栈</p>
+
+<p>  Native方法服务。在HotSpot虚拟几种，和虚拟机栈合二为一。</p></li>
+</ul>
+
+
+<p><strong>线程共享的如下：</strong></p>
+
+<ul>
+<li><p>Java堆</p>
+
+<p>  存放对象实例，几乎所有的对象实例都在这里分配内存。</p></li>
+<li><p>方法区</p>
+
+<p>  存储已经被虚拟机加载的类信息、常量、静态变量、JIT编译后的代码等数据。</p></li>
+<li><p>运行时常量池</p>
+
+<p>  方法区的一部分。用于存放编译期生辰的各种字面量和符号引用。</p></li>
+<li><p>直接内存</p>
+
+<p>  NIO、Native函数直接分配的堆外内存。DirectBuffer引用也会使用此部分内存。</p></li>
+</ul>
+
+
+<h3>2.2 对象访问</h3>
+
+<p>Jvm中对于某一对象的访问有两种方式：</p>
+
+<ol>
+<li><p>通过句柄访问</p>
+
+<p> <image src="/images/blog_images/access_object_handler.png" width="500px"/></p></li>
+<li><p>直接指针</p>
+
+<p> <image src="/images/blog_images/access_direct.png" width="500px"/></p>
+
+<p> 此种方式也是HotSpot虚拟机采用的方式。</p></li>
+</ol>
+
+
+<h3>2.3 内存溢出</h3>
+
+<p>在JVM申请内存的过程中，会遇到无法申请到足够内存，从而导致内存溢出的情况。一般有以下几种情况：</p>
+
+<ul>
+<li>虚拟机栈和本地方法栈溢出
+
+<ul>
+<li>StackOverflowError:线程请求的栈深度大于虚拟机所允许的最大深度(循环递归)</li>
+<li>OutOfMemoryError: 虚拟机在扩展栈是无法申请到足够的内存空间</li>
+</ul>
+</li>
+<li>Java堆溢出: 当创建大量对象并且对象生命周期都很长的情况下，会引发OutOfMemoryError</li>
+<li>运行时常量区溢出：OutOfMemoryError:PermGen space，这里一个典型的例子就是String的intern方法，当大量字符串使用intern时，会触发此内存溢出</li>
+<li>方法区溢出：方法区存放Class等元数据信息，如果产生大量的类(使用cglib)，那么就会引发此内存溢出，OutOfMemoryError:PermGen space</li>
+</ul>
+
+
+<h2>三. 垃圾收集</h2>
+
+<h3>3.1 理论基础</h3>
+
+<h4>网站访问慢的原因总结来看，一般有以下几点：</h4>
+
+<ul>
+<li>内存：垃圾收集占用cpu；放入了太多数据，造成内存泄露(java也是有这种问题的^_^)</li>
+<li>线程死锁</li>
+<li>I/O速度太慢</li>
+<li>依赖的其他服务响应太慢</li>
+<li>复杂的业务逻辑或者算法造成响应的缓慢</li>
+</ul>
+
+
+<p>其中，垃圾收集对性能的影响一般有以下几个：</p>
+
+<ul>
+<li>内存泄露</li>
+<li>程序暂停</li>
+<li>程序吞吐量显著下降</li>
+<li>响应时间变慢</li>
+</ul>
+
+
+<h4>垃圾收集的一些基本概念</h4>
+
+<ul>
+<li>Concurrent Collector:收集的同时可运行其他的工作进程</li>
+<li>Parallel Collector: 使用多CPU进行垃圾收集</li>
+<li>Stop-the-word(STW):收集时必须暂停其他所有的工作进程</li>
+</ul>
+
+
+<h4>吞吐量与响应时间</h4>
+
+<ul>
+<li>吞吐量是对单位时间内完成的工作量的量度。如：每分钟的 Web 服务器请求数量</li>
+<li>响应时间是提交请求和返回该请求的响应之间使用的时间。如：访问Web页面花费的时间</li>
+</ul>
+
+
+<p>吞吐量与访问时间的关系很复杂，有时可能以响应时间为代价而得到较高的吞吐量，而有时候又要以吞吐量为代价得到较好的响应时间。而在其他情况下，一个单独的更改可能对两者都有提高。通常，平均响应时间越短，系统吞吐量越大；平均响应时间越长，系统吞吐量越小；
+但是，系统吞吐量越大， 未必平均响应时间越短；因为在某些情况（例如，不增加任何硬件配置）吞吐量的增大，有时会把平均响应时间作为牺牲，来换取一段时间处理更多的请求。</p>
+
+<p>针对于Java的垃圾回收来说，不同的垃圾回收器会不同程度地影响这两个指标。例如：并行的垃圾收集器，其保证的是吞吐量，会在一定程度上牺牲响应时间。而并发的收集器，则主要保证的是请求的响应时间。</p>
+
+<p>一张图可以反映这两者的情况：</p>
+
+<p><image src="/images/blog_images/res_time_throughoutput.png" width="500px"/></p>
+
+<p>上图就是吞吐量优先的情况，下图则是响应时间优先。</p>
+
+<h4>GC机制</h4>
+
+<p>对于GC(垃圾回收)的流程的基本描述如下：</p>
+
+<ul>
+<li>找出堆中活着的对象</li>
+<li>释放死对象占用的资源</li>
+<li>定期调整活对象的位置</li>
+</ul>
+
+
+<p>GC算法一般有以下几种：</p>
+
+<ul>
+<li>Mark-Sweep 标记-清除</li>
+<li>Mark-Sweep-Compact 标记-整理</li>
+<li><p>Copying Collector 复制算法</p></li>
+<li><p>Mark-标记</p>
+
+<p> 从&#8221;GC roots&#8221;开始扫描(这里的roots包括线程栈、静态常量等)，给能够沿着roots到达的对象标记为&#8221;live&#8221;,最终所有能够到达的对象都被标记为&#8221;live&#8221;,而无法到达的对象则为&#8221;dead&#8221;。效率和存活对象的数量是线性相关的。</p></li>
+<li><p>Sweep-清除</p>
+
+<p> 扫描堆，定位到所有&#8221;dead&#8221;对象，并清理掉。效率和堆的大小是线性相关的。</p></li>
+<li><p>Compact-压缩</p>
+
+<p> 对于对象的清除，会产生一些内存碎片，这时候就需要对这些内存进行压缩、整理。包括：relocate(将存货的对象移动到一起，从而释放出连续的可用内存)、remap(收集所有的对象引用指向新的对象地址)。效率和存活对象的数量是线性相关的。</p></li>
+<li><p>Copy-复制</p>
+
+<p> 将内存分为&#8221;from&#8221;和&#8221;to&#8221;两个区域，垃圾回收时，将from区域的存活对象整体复制到to区域中。效率和存活对象的数量是线性相关的。</p></li>
+</ul>
+
+
+<p>其中，copy对比mark-sweep</p>
+
+<ol>
+<li>内存消耗：copy需要两倍的最大live set内存；mark-sweep则只需要一倍。</li>
+<li>效率上：copy与live set成线性相关，效率高；mark-sweep则与堆大小线性相关，效率较低。</li>
+</ol>
+
+
+<h4>分代收集</h4>
+
+<p>对于分代收集，有以下几个相关理论</p>
+
+<ul>
+<li>分代假设：大部分对象的寿命很短，“朝生夕死”，重点放在对年青代对象的收集，而且年青带通常只占整个空间的一小部分。</li>
+<li>把年青代里活的很长的对象移动到老年代。</li>
+<li>只有当老年代满了才去收集。</li>
+<li>收集效率明显比不分代高。</li>
+</ul>
+
+
+<p>HotSpot虚拟机的分代收集，分为一个Eden区、两个survivor去以及Old Generation/Tenured区，其中eden以及survivor共同组成New Generatiton/Young space。</p>
+
+<p><image src="/images/blog_images/hotspot-gc.png" width="300px"/></p>
+
+<ul>
+<li>eden区是分配对象的区域。</li>
+<li>survivor是minor/younger gc后存储存活对象的区域。</li>
+<li>Tenured区域存储长时间存活的对象。</li>
+</ul>
+
+
+<h4>典型的jvm收集器组合</h4>
+
+<ul>
+<li>年青代通常使用copy收集，会stop the world</li>
+<li>老年代收集一般采用mark-sweep-compact, 有可能会stop the world，也可以是concurrent或者部分concurrent。</li>
+</ul>
+
+
+<h3>3.2 hotspot垃圾收集器</h3>
+
+<p><image src="/images/blog_images/hotspot-collector.png" width="400px"/></p>
+
+<p>上图即为hotspot虚拟机的垃圾收集器组成。</p>
+
+<h4>Serial收集器</h4>
+
+<ul>
+<li>-XX:+UserSerialGC参数打开此收集器</li>
+<li>client模式下新生代默认的收集器。</li>
+<li>较长的stop the world时间</li>
+<li>简单而高效</li>
+</ul>
+
+
+<p>此收集器的一个工作流程如下如所示：</p>
+
+<p>收集前：</p>
+
+<p><image src="/images/blog_images/serial_before.png" width="400px"/></p>
+
+<p>收集后：</p>
+
+<p><image src="/images/blog_images/serial_after.png" width="400px"/></p>
+
+<h4>ParNew收集器</h4>
+
+<ul>
+<li>-XX:+UserParNewGC</li>
+<li>+UseConcuMarkSweepGC时默认开启</li>
+<li>Serial收集器的多线程版本</li>
+<li>默认线程数与CPU数目相同</li>
+<li>-XX:ParrallelGCThreads指定线程数目</li>
+</ul>
+
+
+<p>对比serial收集器如下图所示：</p>
+
+<p><image src="/images/blog_images/parnew.png" width="400px"/></p>
+
+<h4>Parallel Scavenge收集器</h4>
+
+<ul>
+<li>新生代并行收集器</li>
+<li>采用Copy算法</li>
+<li>主要关注的是达到可控制的吞吐量，“吞吐量优先”</li>
+<li>-XX:MaxGCPauseMillis -XX:GCTimeRAtion两个参数精确控制吞吐量</li>
+<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略</li>
+<li>Server模式的默认新生代收集器</li>
+</ul>
+
+
+<h4>Serial Old收集器</h4>
+
+<ul>
+<li>Serial的老年代版本</li>
+<li>Client模式的默认老年代收集器</li>
+<li>CMS收集器的后备预案，Concurrent Mode Failure时使用</li>
+<li>-XX:+UseSerialGC开启此收集器</li>
+</ul>
+
+
+<h4>Parallel Old收集器</h4>
+
+<ul>
+<li>-XX:+UseParallelGC -XX:+UseParallelOldGC启用此收集器</li>
+<li>Parallel Scavenge的老年代版本，使用多线程和&#8221;mark-sweep&#8221;算法</li>
+<li>关注点在吞吐量以及CPU资源敏感的场合使用</li>
+<li>一般使用Parallel Scavenge + Parallel Old可以达到最大吞吐量保证</li>
+</ul>
+
+
+<h4>CMS收集器</h4>
+
+<p>并发低停顿收集器</p>
+
+<ul>
+<li>-XX:UseConcMarkSweepGC 开启CMS收集器，(默认使用ParNew作为年轻代收集器，SerialOld作为收集失败的垃圾收集器)</li>
+<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，会和互联网应用。</li>
+</ul>
+
+
+<p>四个步骤：</p>
+
+<ul>
+<li>初始标记 Stop the world: 只标记GC roots能直接关联到的对象，速度很快。</li>
+<li>并发标记：进行GC roots tracing，与用户线程并发进行</li>
+<li>重新标记 Stop the world：修正并发标记期间因程序继续运行导致变动的标记记录</li>
+<li>并发清除</li>
+</ul>
+
+
+<p>对比serial old收集器如下图所示：</p>
+
+<p><image src="/images/blog_images/cms.png" width="400px"/></p>
+
+<p>cms有以下的缺点：</p>
+
+<ul>
+<li>cms是唯一不进行compact的垃圾收集器，当cms释放了垃圾对象占用的内存后，它不会把活动对象移动到老年代的一端</li>
+<li>对CPU资源非常敏感。不会导致线程停顿，但会导致程序变慢，总吞吐量降低。CPU核越多越不明显</li>
+<li>无法处理浮动垃圾。可能出现“concurrent Mode Failure”失败， 导致另一次full GC ,可以通过调整-CMSInitiatingOccupancyFraction来控制内存占用达到多少时触发gc</li>
+<li>大量空间碎片。这个可以通过设置-XX:UseCMSCompacAtFullCollection(是否在full gc时开启compact)以及-XX:CMSFullGCsBeforeCompaction(在进行compact前full gc的次数)</li>
+</ul>
+
+
+<h4>G1收集器</h4>
+
+<ul>
+<li>使用的标记-清理算法</li>
+<li>不会产生碎片</li>
+<li>可预测的停顿</li>
+<li>化整为零：将整个Java堆划分为多个大小相等的独立区域</li>
+</ul>
+
+
+<p><image src="/images/blog_images/g1.png" width="500px"/></p>
+
+<h3>3.3 调优经验</h3>
+
+<ul>
+<li>打开gc，读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps</li>
+<li>最佳状态： 只有young gc</li>
+<li>从young gc开始， 尽量给年青代大点的内存， 避免full gc</li>
+<li>注意survivor大小</li>
+<li>注意内存墙： 4G~5G</li>
+</ul>
+
+
+<h4>GC日志简介</h4>
+
+<p><image src="/images/blog_images/gclog.png" width="500px"/></p>
+
+<ul>
+<li>第一个箭头：35592K->1814K(36288K)，箭头指向的是新生段的内存占用情况； - 第二个箭头：38508K->7792K(520256K)，箭头指向的是回收后的内存占用情况。</li>
+<li>垃圾收集停顿时间： 0.0336</li>
+</ul>
+
+
+<h4>老年代使用建议</h4>
+
+<ul>
+<li>从Parallel GC开始 (-XX:+UseParallel[Old]GC)
+
+<ul>
+<li>Parallel GC的minor GC时间是最快的， CMS的young gc要比parallel慢， 因为内存碎片</li>
+<li>最大的吞吐量</li>
+</ul>
+</li>
+<li><strong>确实有必要才改成CMS或G1(for old gen collections)</strong></li>
+</ul>
+
+
+<h4>开发建议</h4>
+
+<ul>
+<li>小对象allocate的代价很小，通常10个CPU指令</li>
+<li>收集掉新对象也非常廉价</li>
+<li>不用担心活的很短的小对象</li>
+<li>大对象分配的代价以及初始化的代价很大</li>
+<li>不同大小的大对象可能导致java堆碎片，尤其是CMS, ParallelGC 或 G1还好</li>
+<li>尽量避免分配大对象</li>
+<li>改变数据结构大小
+
+<ul>
+<li>避免改变数组或array backed collections / containers的大小</li>
+<li>对象构建（初始化）时显式批量定数组大小</li>
+</ul>
+</li>
+<li>改变大小导致不必要的对象分配，可能导致java堆碎片</li>
+<li>对象池可能潜在的问题
+
+<ul>
+<li>增加了活对象的数量， 可能增加GC时间</li>
+<li>访问（多线程）对象池需要锁， 可能带来可扩展性的问题。 小心过于频繁的对象池访问</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>四. Java7、8带来的一些变化</h2>
+
+<p>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</p>
+
+<p>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。此外，java8带来了成熟的G1垃圾回收器。</p>
+</div>
+
+</article>
+
+	<div class="share">
+
+     <!-- 多说分享 start-->
+<div class="ds-share flat" data-title="Java内存管理 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/05/07/javamm/" data-content="对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理才能写出更好的程序， &hellip;">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+<!-- 多说分享 end-->
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-title="Java内存管理"></div>
+<!-- 多说评论框 end -->
+<!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+ 
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2016
+
+    飒然Hang
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+</script>
+
+	</footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
