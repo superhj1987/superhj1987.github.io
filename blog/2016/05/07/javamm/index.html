@@ -10,7 +10,10 @@
 	<meta name="author" content="飒然Hang">
 
 	
-	<meta name="description" content="Java内存管理 对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此， &hellip;">
+	<meta name="description" content="Java内存管理 目录 一. 背景知识
+二. Jvm虚拟机内存简介
+三. 垃圾收集
+四. Java7、8带来的一些变化 对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是， &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -112,14 +115,26 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Java内存管理</h1>
-	<div class="entry-content" itemprop="articleBody"><p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理才能写出更好的程序，才能更好地优化程序的性能。</p>
+	<div class="entry-content" itemprop="articleBody"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
+<li><a href="#%E4%BA%8C.%20Jvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B">二. Jvm虚拟机内存简介</a></li>
+<li><a href="#%E4%B8%89.%20%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">三. 垃圾收集</a></li>
+<li><a href="#%E5%9B%9B.%20Java7%E3%80%818%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%98%E5%8C%96">四. Java7、8带来的一些变化</a></li>
+</ul>
+
+
+<p><img src="/images/blog_images/java.jpg" alt="java" /></p>
+
+<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必须的，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
 
 <!--more-->
 
 
-<h2>一. 背景知识</h2>
+<h2><a name='一. 背景知识'></a>一. 背景知识</h2>
 
-<p>目前国内外著名的几个大型互联网的语言选型如下所示：</p>
+<p>根据网络可以找到的资料以及笔者能够打听到的消息，目前国内外著名的几个大型互联网的语言选型概括如下：</p>
 
 <ol>
 <li>Google: c/c++ python java js，不得不提的是Google贡献给java社区的guava包质量非常高。</li>
@@ -144,13 +159,17 @@
 
 <p>其中以HotSpot应用最广泛。目前sun jdk的最新版本已经到了8，但鉴于新版的jdk使用并未普及，因此本文仅仅针对HotSpot虚拟机的jdk6来讲。</p>
 
-<h2>二. Jvm虚拟机内存简介</h2>
+<h2><a name='二. Jvm虚拟机内存简介'></a>二. Jvm虚拟机内存简介</h2>
 
 <h3>2.1 Java运行时内存区</h3>
 
-<p>对于Java的运行时内存组成，有一部分是线程私有的，另一部分是则线程共享的。</p>
+<p>Java的运行时内存组成如下图所示：</p>
 
-<p><strong>线程私用的如下：</strong></p>
+<p><img src="/images/blog_images/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
+
+<p>其中，对于这各个部分有一些是线程私有的，其他则是线程共享的。</p>
+
+<p><strong>线程私有的如下：</strong></p>
 
 <ul>
 <li><p>程序计数器</p>
@@ -161,7 +180,7 @@
 <p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p></li>
 <li><p>本地方法栈</p>
 
-<p>  Native方法服务。在HotSpot虚拟几种，和虚拟机栈合二为一。</p></li>
+<p>  Native方法服务。在HotSpot虚拟机中和Java虚拟机栈合二为一。</p></li>
 </ul>
 
 
@@ -176,7 +195,7 @@
 <p>  存储已经被虚拟机加载的类信息、常量、静态变量、JIT编译后的代码等数据。</p></li>
 <li><p>运行时常量池</p>
 
-<p>  方法区的一部分。用于存放编译期生辰的各种字面量和符号引用。</p></li>
+<p>  方法区的一部分。用于存放编译期生成的各种字面量和符号引用。</p></li>
 <li><p>直接内存</p>
 
 <p>  NIO、Native函数直接分配的堆外内存。DirectBuffer引用也会使用此部分内存。</p></li>
@@ -185,7 +204,7 @@
 
 <h3>2.2 对象访问</h3>
 
-<p>Jvm中对于某一对象的访问有两种方式：</p>
+<p>Java是面向对象的一种编程语言，那么如何通过引用来访问对象呢？一般有两种方式：</p>
 
 <ol>
 <li><p>通过句柄访问</p>
@@ -207,21 +226,21 @@
 <li>虚拟机栈和本地方法栈溢出
 
 <ul>
-<li>StackOverflowError:线程请求的栈深度大于虚拟机所允许的最大深度(循环递归)</li>
-<li>OutOfMemoryError: 虚拟机在扩展栈是无法申请到足够的内存空间</li>
+<li>StackOverflowError: 线程请求的栈深度大于虚拟机所允许的最大深度(循环递归)</li>
+<li>OutOfMemoryError: 虚拟机在扩展栈是无法申请到足够的内存空间，一般可以通过不停地创建线程引起此种情况</li>
 </ul>
 </li>
 <li>Java堆溢出: 当创建大量对象并且对象生命周期都很长的情况下，会引发OutOfMemoryError</li>
 <li>运行时常量区溢出：OutOfMemoryError:PermGen space，这里一个典型的例子就是String的intern方法，当大量字符串使用intern时，会触发此内存溢出</li>
-<li>方法区溢出：方法区存放Class等元数据信息，如果产生大量的类(使用cglib)，那么就会引发此内存溢出，OutOfMemoryError:PermGen space</li>
+<li>方法区溢出：方法区存放Class等元数据信息，如果产生大量的类(使用cglib)，那么就会引发此内存溢出，OutOfMemoryError:PermGen space，在使用Hibernate等框架时会容易引起此种情况。</li>
 </ul>
 
 
-<h2>三. 垃圾收集</h2>
+<h2><a name='三. 垃圾收集'></a>三. 垃圾收集</h2>
 
 <h3>3.1 理论基础</h3>
 
-<h4>网站访问慢的原因总结来看，一般有以下几点：</h4>
+<h4>在通常情况下，我们掌握java的内存管理就是为了应对网站/服务访问慢，慢的原因一般有以下几点：</h4>
 
 <ul>
 <li>内存：垃圾收集占用cpu；放入了太多数据，造成内存泄露(java也是有这种问题的^_^)</li>
@@ -242,16 +261,20 @@
 </ul>
 
 
-<h4>垃圾收集的一些基本概念</h4>
+<h4>先来看垃圾收集的一些基本概念</h4>
 
 <ul>
 <li>Concurrent Collector:收集的同时可运行其他的工作进程</li>
 <li>Parallel Collector: 使用多CPU进行垃圾收集</li>
 <li>Stop-the-word(STW):收集时必须暂停其他所有的工作进程</li>
+<li>Sticky-reference-count：对于使用“引用计数”（reference count）算法的GC，如果对象的计数器溢出，则起不到标记某个对象是垃圾的作用了，这种错误称为sticky-reference-count problem，通常可以增加计数器的bit数来减少出现这个问题的几率，但是那样会占用更多空间。一般如果GC算法能迅速清理完对象，也不容易出现这个问题。</li>
+<li>Mutator：mutate的中文是变异，在GC中即是指一种JVM程序，专门更新对象的状态的，也就是让对象“变异”成为另一种类型，比如变为垃圾。</li>
+<li>On-the-fly：用来描述某个GC的类型：on-the-fly reference count garbage collector。此GC不用标记而是通过引用计数来识别垃圾。</li>
+<li>Generational gc：这是一种相对于传统的“标记-清理”技术来说，比较先进的gc，特点是把对象分成不同的generation，即分成几代人，有年轻的，有年老的。这类gc主要是利用计算机程序的一个特点，即“越年轻的对象越容易死亡”，也就是存活的越久的对象越有机会存活下去（姜是老的辣）。</li>
 </ul>
 
 
-<h4>吞吐量与响应时间</h4>
+<h4>牵扯到垃圾收集，还需要搞清楚吞吐量与响应时间的含义</h4>
 
 <ul>
 <li>吞吐量是对单位时间内完成的工作量的量度。如：每分钟的 Web 服务器请求数量</li>
@@ -263,12 +286,6 @@
 但是，系统吞吐量越大， 未必平均响应时间越短；因为在某些情况（例如，不增加任何硬件配置）吞吐量的增大，有时会把平均响应时间作为牺牲，来换取一段时间处理更多的请求。</p>
 
 <p>针对于Java的垃圾回收来说，不同的垃圾回收器会不同程度地影响这两个指标。例如：并行的垃圾收集器，其保证的是吞吐量，会在一定程度上牺牲响应时间。而并发的收集器，则主要保证的是请求的响应时间。</p>
-
-<p>一张图可以反映这两者的情况：</p>
-
-<p><image src="/images/blog_images/res_time_throughoutput.png" width="500px"/></p>
-
-<p>上图就是吞吐量优先的情况，下图则是响应时间优先。</p>
 
 <h4>GC机制</h4>
 
@@ -302,7 +319,7 @@
 </ul>
 
 
-<p>其中，copy对比mark-sweep</p>
+<p>其中，Copy对比Mark-sweep</p>
 
 <ol>
 <li>内存消耗：copy需要两倍的最大live set内存；mark-sweep则只需要一倍。</li>
@@ -522,7 +539,7 @@
 </ul>
 
 
-<h2>四. Java7、8带来的一些变化</h2>
+<h2><a name='四. Java7、8带来的一些变化'></a>四. Java7、8带来的一些变化</h2>
 
 <p>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</p>
 
@@ -534,7 +551,10 @@
 	<div class="share">
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="Java内存管理 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/05/07/javamm/" data-content="对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理才能写出更好的程序， &hellip;">
+<div class="ds-share flat" data-title="Java内存管理 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/05/07/javamm/" data-content="目录 一. 背景知识
+二. Jvm虚拟机内存简介
+三. 垃圾收集
+四. Java7、8带来的一些变化 对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是，在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题， &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
