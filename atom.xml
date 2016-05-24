@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-05-24T15:46:24+08:00</updated>
+  <updated>2016-05-24T15:47:58+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -437,11 +437,12 @@
 
 <h2><a name='四. Java7、8带来的一些变化'></a>四. Java7、8带来的一些变化</h2>
 
-<p>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</p>
+<ul>
+<li>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</li>
+<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。此外，java8带来了成熟的G1垃圾回收器。</li>
+<li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。你可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
+</ul>
 
-<p>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。此外，java8带来了成熟的G1垃圾回收器。</p>
-
-<p>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。你可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</p>
 ]]></content>
   </entry>
   
