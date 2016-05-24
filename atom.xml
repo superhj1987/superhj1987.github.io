@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-05-24T15:45:06+08:00</updated>
+  <updated>2016-05-24T15:46:24+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Java内存管理]]></title>
+    <title type="html"><![CDATA[谈谈Java内存管理]]></title>
     <link href="http://www.rowkey.me/blog/2016/05/07/javamm/"/>
     <updated>2016-05-07T14:59:44+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/05/07/javamm</id>
