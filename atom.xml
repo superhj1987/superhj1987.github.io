@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-05-25T10:46:50+08:00</updated>
+  <updated>2016-05-25T11:33:44+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -80,7 +80,14 @@
 <p>  当前线程所执行的字节码的行号指示器</p></li>
 <li><p>Java虚拟机栈</p>
 
-<p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p></li>
+<p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p>
+
+<ul>
+<li>每个线程都有自己独立的栈空间</li>
+<li>线程栈只存基本类型和对象地址</li>
+<li>方法中局部变量在线程空间中</li>
+</ul>
+</li>
 <li><p>本地方法栈</p>
 
 <p>  Native方法服务。在HotSpot虚拟机中和Java虚拟机栈合二为一。</p></li>
@@ -92,7 +99,7 @@
 <ul>
 <li><p>Java堆</p>
 
-<p>  存放对象实例，几乎所有的对象实例都在这里分配内存。</p></li>
+<p>  存放对象实例，几乎所有的对象实例以及其属性都在这里分配内存。</p></li>
 <li><p>方法区</p>
 
 <p>  存储已经被虚拟机加载的类信息、常量、静态变量、JIT编译后的代码等数据。</p></li>
