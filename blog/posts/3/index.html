@@ -140,6 +140,158 @@
   
 
 
+<time datetime="2014-09-24T17:38:57+08:00" data-updated="true" itemprop="datePublished">Sep 24<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/09/24/nginx-bootstrap/" itemprop="url">Nginx源码分析之启动过程</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
+
+<p>main函数的处理过程总体上可以概括如下：</p>
+
+
+		
+		<a href="/blog/2014/09/24/nginx-bootstrap/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-27T14:32:50+08:00" data-updated="true" itemprop="datePublished">Aug 27<sup>th</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/08/27/nginx-loabbalance/" itemprop="url">Nginx负载均衡</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<h2>一、特点</h2>
+
+<h3>1.1 应用情况</h3>
+
+<p>Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。据Netcraft统计，世界上最繁忙的网站中有11.48%使用Nginx作为其服务器或者代理服务器。基于反向代理的功能，Nginx作为负载均衡主要有以下几点理由：</p>
+
+<ol>
+<li><p>高并发连接</p></li>
+<li><p>内存消耗少</p></li>
+<li><p>配置文件非常简单</p></li>
+<li><p>成本低廉</p></li>
+<li><p>支持Rewrite重写规则</p></li>
+<li><p>内置的健康检查功能</p></li>
+<li><p>节省带宽</p></li>
+<li><p>稳定性高</p></li>
+</ol>
+
+
+
+		
+		<a href="/blog/2014/08/27/nginx-loabbalance/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T16:08:28+08:00" data-updated="true" itemprop="datePublished">Aug 22<sup>nd</sup>, 2014</time></div>
+		<div class="tags">
+
+</div>
+		
+	</div>
+	<h1 class="title" itemprop="name"><a href="/blog/2014/08/22/node-async-analysis/" itemprop="url">Async源码分析</a></h1>
+	<div class="entry-content" itemprop="articleBody">
+		<p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
+
+<pre>
+    async.waterfall = function (tasks, callback) {
+        callback = callback || function () {};
+        if (!_isArray(tasks)) {
+          var err = new Error('First argument to waterfall must be an array of functions');
+          return callback(err);
+        }
+        if (!tasks.length) {
+            return callback();
+        }
+        var wrapIterator = function (iterator) {
+            return function (err) {
+                if (err) {
+                    callback.apply(null, arguments);
+                    callback = function () {};
+                }
+                else {
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    var next = iterator.next();
+                    if (next) {
+                        args.push(wrapIterator(next));
+                    }
+                    else {
+                        args.push(callback);
+                    }
+                    async.setImmediate(function () {
+                        iterator.apply(null, args);
+                    });
+                }
+            };
+        };
+        wrapIterator(async.iterator(tasks))();
+    };
+ </pre>
+
+
+<p></p>
+
+
+		
+		<a href="/blog/2014/08/22/node-async-analysis/" class="more-link">继续阅读 &rarr;</a>
+	</div>
+
+</article>
+
+
+    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+	<div class="meta">
+		<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
 <time datetime="2014-08-14T16:38:01+08:00" data-updated="true" itemprop="datePublished">Aug 14<sup>th</sup>, 2014</time></div>
 		<div class="tags">
 

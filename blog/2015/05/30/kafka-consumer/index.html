@@ -1,0 +1,275 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="ujianVerification" content="7625e668c8eb782e03dfa1be3a6339f7" />
+	<title>kafka学习笔记 - Consumer开发的一些关键点 - 后端技术杂谈 | 飒然Hang</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="Kafka学习笔记 - Consumer开发的一些关键点 Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务， &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.rowkey.me/blog/2015/05/30/kafka-consumer/">
+	<link href="/favicon.ico" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		// $(function(){
+		// 	$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		// });
+		$(function(){
+			$('.profilepic').append("<img src='/images/avatar/backend_logo.png' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1>后端技术杂谈</h1>
+  
+    <h3>What、How、Why</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
+</ul>
+
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px;overflow:scroll'>
+  <h3>飒然Hang</h3>
+  <p>专注于JavaEE开发、服务端基础架构、研发管理等。</p>
+  <br/>
+  <p>working@中华万年历;</p>
+  <p>后端开发工程师@网易杭州研究院;</p>
+</section>
+</nav>
+<nav id="sub-nav" style='margin-top:20px !important'>
+	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+	</div>
+</nav>
+<style type="text/css">
+	span#cnzz_stat_icon_1257166229{
+		display: none !important
+	}
+	div#ujian_BtnDiv{
+		display: none !important
+	}
+</style>
+<!-- cnzz统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Kafka学习笔记 - Consumer开发的一些关键点</h1>
+	<div class="entry-content" itemprop="articleBody"><p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
+
+<p><img src="/images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
+
+<h2>一. 消费过的数据无法再次消费</h2>
+
+<p>在user level上，一旦消费过topic里的数据，那么就无法再次用同一个groupid消费同一组数据。如果想要再次消费数据，要么换另一个groupid，要么使用镜像：</p>
+
+<p><img src="/images/blog_images/kafka-consumer-1.jpg" alt="pic" /></p>
+
+<p>此外，low level的api提供了一些机制去设置partion和offset。</p>
+
+<h2>二. offset管理</h2>
+
+<p>kafka会记录offset到zk中。但是，zk client api对zk的频繁写入是一个低效的操作。0.8.2 kafka引入了native offset storage，将offset管理从zk移出，并且可以做到水平扩展。其原理就是利用了kafka的compacted topic，offset以consumer group,topic与partion的组合作为key直接提交到compacted topic中。同时Kafka又在内存中维护了<consumer group,topic,partition>的三元组来维护最新的offset信息，consumer来取最新offset信息的时候直接内存里拿即可。当然，kafka允许你快速的checkpoint最新的offset信息到磁盘上。</p>
+
+<h2>三. stream</h2>
+
+<p>This API is centered around iterators, implemented by the KafkaStream class. Each KafkaStream represents the stream of messages from one or more partitions on one or more servers. Each stream is used for single threaded processing, so the client can provide the number of desired streams in the create call. Thus a stream may represent the merging of multiple server partitions (to correspond to the number of processing threads), but each partition only goes to one stream.</p>
+
+<p>根据官方文档所说，stream即指的是来自一个或多个服务器上的一个或者多个partition的消息。每一个stream都对应一个单线程处理。因此，client能够设置满足自己需求的stream数目。总之，一个stream也许代表了多个服务器partion的消息的聚合，但是每一个partition都只能到一个stream。</p>
+
+<h2>四. consumer和partition</h2>
+
+<ol>
+<li>如果consumer比partition多，是浪费，因为kafka的设计是在一个partition上是不允许并发的，所以consumer数不要大于partition数</li>
+<li>如果consumer比partition少，一个consumer会对应于多个partitions，这里主要合理分配consumer数和partition数，否则会导致partition里面的数据被取的不均匀</li>
+<li>如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同</li>
+<li>增减consumer，broker，partition会导致rebalance，所以rebalance后consumer对应的partition会发生变化</li>
+<li>High-level接口中获取不到数据的时候是会block的</li>
+</ol>
+
+
+<p>负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该再开 Consumer 进程，进程内线程数同样和分区数一致。（多谢 @shadyxu 指出）</p>
+
+<h2>五. high-level的consumer工具</h2>
+
+<ol>
+<li><p>bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker &ndash;group pv</p>
+
+<p> 可以看到当前group offset的状况。</p></li>
+<li><p>bin/kafka-run-class.sh kafka.tools.UpdateOffsetsInZK earliest config/consumer.properties  page_visits</p>
+
+<pre><code> 3个参数， 
+ [earliest | latest]，表示将offset置到哪里 
+ consumer.properties ，这里是配置文件的路径 
+ topic，topic名，这里是page_visits
+</code></pre></li>
+</ol>
+
+
+<h2>六. SimpleConsumer</h2>
+
+<p>kafka的low-level接口，使用场景：</p>
+
+<ol>
+<li>读取一个消息多次。</li>
+<li>在一个进程中仅仅消费某一个topic中几个partition的数据.</li>
+<li>管理事务以确保一个消息处理且仅仅被处理一次。</li>
+</ol>
+
+
+<p>用这个接口需要注意一下几点：</p>
+
+<ol>
+<li>在应用中必须跟踪记录offset以确保能够确定上次消费到的位置。</li>
+<li>必须设置哪一个broker是要操作的topic和partition的leader。</li>
+<li>必须自己控制broker的leader的改变。</li>
+</ol>
+
+
+<p>使用步骤：</p>
+
+<ol>
+<li>找出一个active状态的broker并且找出哪一个broker是那些topic和partition的leader，必须知道读哪个topic的哪个partition。</li>
+<li>找到负责该partition的broker leader，从而找到存有该partition副本的那个broker。</li>
+<li>自己去写request并fetch数据。</li>
+<li>获取数据。</li>
+<li>需要识别和处理broker leader的改变。</li>
+</ol>
+
+</div>
+
+</article>
+
+	<div class="share">
+
+     <!-- 多说分享 start-->
+<div class="ds-share flat" data-title="kafka学习笔记 - Consumer开发的一些关键点 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2015/05/30/kafka-consumer/" data-content="Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。 一. 消费过的数据无法再次消费 在user &hellip;">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+<!-- 多说分享 end-->
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-title="kafka学习笔记 - Consumer开发的一些关键点"></div>
+<!-- 多说评论框 end -->
+<!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+ 
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2016
+
+    飒然Hang
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+</script>
+
+	</footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

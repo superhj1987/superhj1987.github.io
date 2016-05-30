@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-05-27T11:12:36+08:00</updated>
+  <updated>2016-05-30T23:44:18+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -2240,6 +2240,353 @@ TIME_WAIT 28322
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[kafka学习笔记 - Consumer开发的一些关键点]]></title>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-consumer/"/>
+    <updated>2015-05-30T22:00:18+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-consumer</id>
+    <content type="html"><![CDATA[<p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
+
+<h2>一. 消费过的数据无法再次消费</h2>
+
+<p>在user level上，一旦消费过topic里的数据，那么就无法再次用同一个groupid消费同一组数据。如果想要再次消费数据，要么换另一个groupid，要么使用镜像：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/kafka-consumer-1.jpg" alt="pic" /></p>
+
+<p>此外，low level的api提供了一些机制去设置partion和offset。</p>
+
+<h2>二. offset管理</h2>
+
+<p>kafka会记录offset到zk中。但是，zk client api对zk的频繁写入是一个低效的操作。0.8.2 kafka引入了native offset storage，将offset管理从zk移出，并且可以做到水平扩展。其原理就是利用了kafka的compacted topic，offset以consumer group,topic与partion的组合作为key直接提交到compacted topic中。同时Kafka又在内存中维护了<consumer group,topic,partition>的三元组来维护最新的offset信息，consumer来取最新offset信息的时候直接内存里拿即可。当然，kafka允许你快速的checkpoint最新的offset信息到磁盘上。</p>
+
+<h2>三. stream</h2>
+
+<p>This API is centered around iterators, implemented by the KafkaStream class. Each KafkaStream represents the stream of messages from one or more partitions on one or more servers. Each stream is used for single threaded processing, so the client can provide the number of desired streams in the create call. Thus a stream may represent the merging of multiple server partitions (to correspond to the number of processing threads), but each partition only goes to one stream.</p>
+
+<p>根据官方文档所说，stream即指的是来自一个或多个服务器上的一个或者多个partition的消息。每一个stream都对应一个单线程处理。因此，client能够设置满足自己需求的stream数目。总之，一个stream也许代表了多个服务器partion的消息的聚合，但是每一个partition都只能到一个stream。</p>
+
+<h2>四. consumer和partition</h2>
+
+<ol>
+<li>如果consumer比partition多，是浪费，因为kafka的设计是在一个partition上是不允许并发的，所以consumer数不要大于partition数</li>
+<li>如果consumer比partition少，一个consumer会对应于多个partitions，这里主要合理分配consumer数和partition数，否则会导致partition里面的数据被取的不均匀</li>
+<li>如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同</li>
+<li>增减consumer，broker，partition会导致rebalance，所以rebalance后consumer对应的partition会发生变化</li>
+<li>High-level接口中获取不到数据的时候是会block的</li>
+</ol>
+
+
+<p>负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该再开 Consumer 进程，进程内线程数同样和分区数一致。（多谢 @shadyxu 指出）</p>
+
+<h2>五. high-level的consumer工具</h2>
+
+<ol>
+<li><p>bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker &ndash;group pv</p>
+
+<p> 可以看到当前group offset的状况。</p></li>
+<li><p>bin/kafka-run-class.sh kafka.tools.UpdateOffsetsInZK earliest config/consumer.properties  page_visits</p>
+
+<pre><code> 3个参数， 
+ [earliest | latest]，表示将offset置到哪里 
+ consumer.properties ，这里是配置文件的路径 
+ topic，topic名，这里是page_visits
+</code></pre></li>
+</ol>
+
+
+<h2>六. SimpleConsumer</h2>
+
+<p>kafka的low-level接口，使用场景：</p>
+
+<ol>
+<li>读取一个消息多次。</li>
+<li>在一个进程中仅仅消费某一个topic中几个partition的数据.</li>
+<li>管理事务以确保一个消息处理且仅仅被处理一次。</li>
+</ol>
+
+
+<p>用这个接口需要注意一下几点：</p>
+
+<ol>
+<li>在应用中必须跟踪记录offset以确保能够确定上次消费到的位置。</li>
+<li>必须设置哪一个broker是要操作的topic和partition的leader。</li>
+<li>必须自己控制broker的leader的改变。</li>
+</ol>
+
+
+<p>使用步骤：</p>
+
+<ol>
+<li>找出一个active状态的broker并且找出哪一个broker是那些topic和partition的leader，必须知道读哪个topic的哪个partition。</li>
+<li>找到负责该partition的broker leader，从而找到存有该partition副本的那个broker。</li>
+<li>自己去写request并fetch数据。</li>
+<li>获取数据。</li>
+<li>需要识别和处理broker leader的改变。</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[kafka学习笔记 - 使用与配置]]></title>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-usage/"/>
+    <updated>2015-05-30T21:01:18+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-usage</id>
+    <content type="html"><![CDATA[<p>此部分内容主要来自官方文档。</p>
+
+<h2>一. 使用</h2>
+
+<ol>
+<li><p>下载代码</p>
+
+<p> <a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.2.0/kafka_2.10-0.8.2.0.tgz">https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.2.0/kafka_2.10-0.8.2.0.tgz</a></p>
+
+<pre><code> tar -xzf kafka_2.10-0.8.2.0.tgz
+ cd kafka_2.10-0.8.2.0
+</code></pre></li>
+<li><p>启动服务器</p>
+
+<p> kafka依赖zookeeper，所以需要首先安装并启动zookeeper。可以使用kafka自带的zookeeper。</p>
+
+<pre><code> bin/zookeeper-server-start.sh config/zookeeper.properties
+</code></pre>
+
+<p> 然后即可启动kafka</p>
+
+<pre><code> bin/kafka-server-start.sh config/server.properties
+</code></pre></li>
+<li><p>创建topic</p>
+
+<p> 消息传输需要指定topic。所以首先要创建一个topic。</p>
+
+<pre><code> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+</code></pre>
+
+<p> 之后，可以看到已经创建的topic.其中的replication-factor指的是复制因子，即log冗余的份数，这里的数字不能大于broker的数量。</p>
+
+<pre><code> bin/kafka-topics.sh --list --zookeeper localhost:2181
+</code></pre>
+
+<p> 也可以不用手动创建topic，只需要配置broker的时候设置为auto-create topic when a non-existent topic is published to.</p></li>
+<li><p>发送消息</p>
+
+<p> kafka提供了一个命令行客户端，可以从一个文件或者标准输入里读取并发送到kafka集群。默认的，每一行都作为一个单独的消息。</p>
+
+<pre><code> bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test 
+</code></pre>
+
+<p> 在命令行输入消息并回车即可发送消息。</p></li>
+<li><p>启动一个消费者</p>
+
+<p> kafka也提供了一个命令行消费者，接受消息并打印到标准输出。</p>
+
+<pre><code> bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning
+</code></pre></li>
+<li><p>设置多broker集群</p>
+
+<p> 首先需要为每一个broker创建一个配置文件。</p>
+
+<pre><code> cp config/server.properties config/server-1.properties 
+ cp config/server.properties config/server-2.properties
+
+ config/server-1.properties:
+     broker.id=1
+     port=9093
+     log.dir=/tmp/kafka-logs-1
+
+ config/server-2.properties:
+     broker.id=2
+     port=9094
+ log.dir=/tmp/kafka-logs-2   
+</code></pre>
+
+<p> 然后启动这两个结点：</p>
+
+<pre><code> bin/kafka-server-start.sh config/server-1.properties &amp;
+ bin/kafka-server-start.sh config/server-2.properties &amp;
+</code></pre>
+
+<p> 现在一共有了三个结点，三个broker，那么这样就可以形成一个集群。</p>
+
+<p> 创建一个复制引子为3的topic</p>
+
+<pre><code> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic my-replicated-topic
+</code></pre>
+
+<p> 如果想查看目前这个topic的partion在broker上的分布情况</p>
+
+<pre><code> bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic my-replicated-topic
+</code></pre></li>
+</ol>
+
+
+<h2>二. 关键配置</h2>
+
+<h3>2.1 broker</h3>
+
+<ul>
+<li>broker.id</li>
+<li>log.dirs</li>
+<li>zookeeper.connect</li>
+</ul>
+
+
+<h3>2.2 Producter</h3>
+
+<ul>
+<li>metadata.broker.list</li>
+<li>request.required.acks</li>
+<li>producer.type</li>
+<li>serializer.class</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[kafka学习笔记 - 介绍]]></title>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-intro/"/>
+    <updated>2015-05-30T20:06:18+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-intro</id>
+    <content type="html"><![CDATA[<h2>什么是kafka</h2>
+
+<p>最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说：Kafka是一个分布式、分区、冗余的commit日志service。它提供了一种特殊设计的消息系统功能。</p>
+
+<!--more-->
+
+
+<p>以下内容来自官方文档。</p>
+
+<h2>特点</h2>
+
+<ul>
+<li>不支持事务</li>
+<li>不保证全局消息顺序，可以保证partition消息顺序</li>
+<li>顺序写磁盘，性能可媲美内存操作</li>
+<li>无论消息是否被消费，都会持久化保存（保存时间可以设置）</li>
+<li>消费者看到的消息顺序即是保存在log中的顺序</li>
+<li>对于一个复制因子(replication factor)为N的topic,可以保证在N-1个server挂掉的情况下，已经提交到log中的消息不会丢失。</li>
+</ul>
+
+
+<h2>组成部分</h2>
+
+<p>总体结构如下图：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/producer_consumer.png" alt="" />p</p>
+
+<ul>
+<li>kafka将消息以category的方式保存在一起，称为topic</li>
+<li>向topic产生消息的进程称为producer</li>
+<li>处理topic上的消息的进程称为consumer</li>
+<li>kafka集群由一个或者多个server组成，称为broker.</li>
+</ul>
+
+
+<h3>Topics and Logs</h3>
+
+<p>topic是kafka提供的高一层的抽象。</p>
+
+<p>一个topic指的是消息发布到的一个分类或者feed名称。对于每一个topic，kafka集群都保存了一个分区log，如下：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/log_anatomy.png" alt="" /></p>
+
+<p>每一个分区都是一个提交日志，一系列有序的、不可变顺序的消息连续地追加到上面。</p>
+
+<p>每一个在分区中的消息都会被指定一个顺序编号offset，这个值可以唯一标识这个分区中的每一个消息。</p>
+
+<p>无论一个消息是否已经被消费过，kfka集群都会保存这个消息（保存时间可以设置）。例如，如果log的保存时长设置为两天，那么在一个消息发布后的两天内都是可以被消费的，之后才被丢弃。kafaka在数据容量方面的性能实际上是可以用常量衡量的，所以保存大量的数据并不是一个问题。</p>
+
+<p>对于每一个消费者来说，其仅仅需要保存的元数据就是在kafka日志的位置，称为“offset”。消费者控制这个值：一般情况下，当消费者读取消息的时候，增加offset，但是实际上消费者可以任意顺序读取消息。例如，消费者能够重置到一个旧的offset做再次处理。</p>
+
+<p>上面说到的一些特性表明kafka的消费者是非常轻量级的，并不受到集群或者其他消费者的影响。例如，可以使用命令行工具去“tail”任何topic的内容，而不需要改变任何已经被消费过的内容。</p>
+
+<p>日志中的partition有以下几个作用：</p>
+
+<ul>
+<li>日志可以在单个服务器上扩展。虽然单个partition的扩展必须适应于所在的服务器，但是一个topic有许多partition，因此能够承载大量的数据。</li>
+<li>partition作为并行的一个单元</li>
+</ul>
+
+
+<h3>分布式</h3>
+
+<p>日志的partition分布在kafka集群的服务器上，其中的每一个服务器都控制一组分区上的数据和请求。每一个分区通过一定数量的服务器的冗余提高容错率。</p>
+
+<p>每一个partition都有一个服务器作为&#8221;leader&#8221;，零个或者多个服务器作为“followers”。对于某一个partition,Leader控制所有的读写请求，followers被动地去冗余leader。如果leader发生了故障，那么followers中的一个会自动地成为新的leader。每一个服务器对于其中的一部分partition是做为leader,对于其他的partition则是做为follower，这样就能很好的在集群内部做好负载均衡。</p>
+
+<h3>生产者</h3>
+
+<p>生产者向所选择的topics发布消息。生产者负责选择哪一个消息被指定到topic的哪一个partition中。这个也可以通过round-robin简单地做负载均衡或者按照一些语义分区机制（例如基于消息中的一些key）来做。</p>
+
+<h3>消费者</h3>
+
+<p>传统的消息机制有两种模型：队列和发布-订阅。在队列模型中，一个由消费者组成的池从服务器读取消息，每一个消息都可以达到其中的某一个消费者；在发布-订阅模型中，消息被广播到所有消费者中。kafka融合这两种方式提供了一个消费者抽象：consumer group。</p>
+
+<p>消费者以消费者group name给自己打标签，每一个消息都会发布到一个topic，然后传递到每一个注册的消费者group中的消费者实例。消费者实例可以在单独的进程或者机器上。</p>
+
+<p>如果所有的消费者实例都在同一个消费者group中，那么工作机制就类似于传统的队列。</p>
+
+<p>如果每一个消费者实例都在不同的消费者group中，那么就类似于发布-订阅模型，所有消息被广播到所有消费者。</p>
+
+<p>更为普遍的，topic具有几个消费者group。每一个group由许多消费者实例组成，以备扩展和容错。比起发布-订阅模型，用消费者cluster替代了单一进程。</p>
+
+<p>在消息顺序方面，kafka也具有比传统的消息系统更好的保障机制。</p>
+
+<p>传统的队列在服务端保存消息的顺序，服务端按照存储的顺序传递消息，多consumer去消费这些消息。然而，即使服务端按照顺序交出消息，但是消息是异步传递给消费者的，那么这些消息可能乱序到达不同的消费者。这也意味着消息的顺序在并发消费的情况下丢失了。消息系统通常用一个概念“执行消费者”来完成消息的顺序传递，即只允许一个进程从一个队列中消费消息，当然这样也意味着在处理过程中没有了并行化处理。</p>
+
+<p>kafka里有一个概念叫做parallelism—the partition—within the topics，能够同时为一个consume池提供顺序保证和负载均衡。指定分区到一个消费者group中的消费者，这样每一个分区只被这个group中的一个consumer消费。此consumer则成为这个分区唯一的reader去顺序消费这些数据。当有许多partitions，这样也能同时将这些consumer实例进行负载均衡。值得注意的一点是不能有比分区数目更多的消费者实例。</p>
+
+<p>kafa仅仅能够提供一个partition中的消息顺序保证。如果你需要一个完全的消息顺序保障，那么可以通过仅仅具有一个partition的topic来实现，当然，这样就意味着这里仅仅有一个消费者进程。</p>
+
+<h3>保证</h3>
+
+<p>kafka在高层次上可以给予以下保障：</p>
+
+<ul>
+<li>通过同一个生产者发出到某个topic上partition的消息将会以其原始发送顺序附加到partition上。</li>
+<li>一个消费者实例看到消息的顺序即其在log中的顺序。</li>
+<li>对于一个复制引子为N的topic，其可以允许N-1个服务器故障而不丢失任何已经提交到log中的消息。</li>
+</ul>
+
+
+<h3>使用场景</h3>
+
+<ol>
+<li><p>消息传输</p>
+
+<p> kafka能够很好地替代传统的消息代理。消息代理的使用场景多种多样（缓冲消息生产者的消息）。相比大多数消息系统kafka具有更好地吞吐量，内建的分区机制、复制、容错，这让它成为一个大规模消息处理的不错的选择。</p>
+
+<p> 消息系统使用者一般要求的是低吞吐，但是同时也要求端对端的低延迟。</p>
+
+<p> 这个场景下，另外经常用到的传统消息系统有ACtiveMQ和RabbitMQ。</p></li>
+<li><p>网站行为追踪</p>
+
+<p> 最开始kafka是用来构建一个用户行为追踪管道，作为一个实时发布-订阅feed系统。这意味着站点活动（pv，搜索或者其他用户会产生的行为）会被发布到中央topics，对应于每一中行为对应一个topic。如此，可以包括多种使用场景包括实时处理、实时监控等。</p>
+
+<p> 由于对于每一个uv会产生大量行为消息，因此行为追踪的量级通常会非常大。</p></li>
+<li><p>度量</p>
+
+<p> kafka通常被用来操作监控数据。包括聚合分布式应用的统计数据，产生操作数据的中心feed。</p></li>
+<li><p>日志聚合</p>
+
+<p> 日志聚合也叫做日志分布式收集，同样的方案有flume、scribe等。与之相比，kafka提供了差不多的性能、更强的可持续保证以及更低的端到端的延迟。</p></li>
+<li><p>流处理</p>
+
+<p> 在用户、内容推荐领域，需要对数据流进行处理，kakfa经常被用来聚合、收集原始数据然后传输到新的topic中。一般结合storm和samza使用。</p></li>
+<li><p>事件源</p>
+
+<p> 事件源是一种针对策略变动的记录作为时间序记录的应用设计。kafka对大规模log数据存储的支持使得它能够非常好支持事件源的设计。</p></li>
+<li><p>提交日志</p>
+
+<p> kakfa可以为分布式系统提供一种外部的提交日志。日志可以冗余结点间、act间的数据，作为一个re-syncing机制。此外，kafka的日志压缩也是一个优势。此场景，kafka的使用和Apache的BookKeeper类似。</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[关于Spring mvc中model的attribute无法指定别名的解决方案]]></title>
     <link href="http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias/"/>
     <updated>2015-01-21T12:00:00+08:00</updated>
@@ -2619,1210 +2966,6 @@ http-header = Referer:() { :; }; ping -c 163.com
 <p>HotSpot JVM就是个庞氏骗局 <a href="http://it.deepinmind.com/gc/2014/04/01/hotspot-jvm-ponzi-scheme.html">http://it.deepinmind.com/gc/2014/04/01/hotspot-jvm-ponzi-scheme.html</a></p>
 
 <p>Java内存泄露分析 <a href="http://doc.hz.netease.com/pages/viewpage.action?pageId=36468038">http://doc.hz.netease.com/pages/viewpage.action?pageId=36468038</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Nginx源码分析之启动过程]]></title>
-    <link href="http://www.rowkey.me/blog/2014/09/24/nginx-bootstrap/"/>
-    <updated>2014-09-24T17:38:57+08:00</updated>
-    <id>http://www.rowkey.me/blog/2014/09/24/nginx-bootstrap</id>
-    <content type="html"><![CDATA[<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
-
-<p>main函数的处理过程总体上可以概括如下：</p>
-
-<!--more-->
-
-
-<ol>
-<li>简单初始化一些数据接结构和模块：ngx_debug_init、ngx_strerror_init、ngx_time_init、ngx_regex_init、ngx_log_init、ngx_ssl_init等</li>
-<li>获取并处理命令参数：ngx_get_options。</li>
-<li><p>初始化ngx_cycle_t结构体变量init_cycle，设置其log、pool字段等。
- <pre>
- ngx_memzero(&amp;init_cycle, sizeof(ngx_cycle_t));
- init_cycle.log = log;
- ngx_cycle = &amp;init_cycle;</p>
-
-<p> init_cycle.pool = ngx_create_pool(1024, log);
- if (init_cycle.pool == NULL) {
-     return 1;
- }
-</pre></p></li>
-<li>保存参数，设置全局变量：ngx_argc ngx_os_argv ngx_argv ngx_environ</li>
-<li>处理控制台命令行参数，设置init_cycle的字段。这些字段包括：conf_prefix、prefix（-p prefix）、conf_file(-c filename)、conf_param(-g directives)。此外，还设置init_cyle.log.log_level=NGX_LOG_INFO。</li>
-<li>调用ngx_os_init来设置一些和操作系统相关的全局变量：ngx_page_size、ngx_cacheline_size、ngx_ncpu、ngx_max_sockets、ngx_inherited_nonblocking。</li>
-<li>调用ngx_crc32_table_init初始化ngx_crc32_table_short。用于后续做crc校验。</li>
-<li>调用ngx_add_inherited_sockets(&amp;init_cycle)→ngx_set_inherited_sockets，初始化init_cycle的listening字段（一个ngx_listening_t的数组）。</li>
-<li>对所有模块进行计数
- <pre>
- ngx_max_module = 0;
- for (i = 0; ngx_modules[i]; i++) {
-     ngx_modules[i]->index = ngx_max_module++;
- }
-</pre></li>
-<li>调用ngx_init_cycle进行模块的初始化，当解析配置文件错误时，退出程序。这个函数传入init_cycle然后返回一个新的ngx_cycle_t。</li>
-<li>调用ngx_signal_process、ngx_init_signals处理信号。</li>
-<li>在daemon模式下，调用ngx_daemon以守护进程的方式运行。这里可以在./configure的时候加入参数&ndash;with-debug，并在nginx.conf中配置:
-<pre>
-master_process  off; # 简化调试 此指令不得用于生产环境
-daemon          off; # 简化调试 此指令可以用到生产环境
-</pre>
-可以取消守护进程模式以及master线程模型。</li>
-<li>调用ngx_create_pidfile创建pid文件，把master进程的pid保存在里面。</li>
-<li><p>根据进程模式来分别调用相应的函数
-<pre>
-if (ngx_process == NGX_PROCESS_SINGLE) {
-    ngx_single_process_cycle(cycle);</p>
-
-<p>} else {
-    ngx_master_process_cycle(cycle);
-}
-</pre>
-多进程的情况下，调用ngx_master_process_cycle。单进程的情况下调用ngx_single_process_cycle完成最后的启动工作。</p></li>
-</ol>
-
-
-<p>整个启动过程中一个关键的变量init_cycle，其数据结构ngx_cycle_t如下所示：</p>
-
-<pre>
-struct ngx_cycle_s {
-    void                  ****conf_ctx;
-    ngx_pool_t               *pool;
-
-    ngx_log_t                *log;
-    ngx_log_t                 new_log;
-
-    ngx_connection_t        **files;
-    ngx_connection_t         *free_connections;
-    ngx_uint_t                free_connection_n;
-
-    ngx_queue_t               reusable_connections_queue;
-
-    ngx_array_t               listening;
-    ngx_array_t               paths;
-    ngx_list_t                open_files;
-    ngx_list_t                shared_memory;
-
-    ngx_uint_t                connection_n;
-    ngx_uint_t                files_n;
-
-    ngx_connection_t         *connections;
-    ngx_event_t              *read_events;
-    ngx_event_t              *write_events;
-
-    ngx_cycle_t              *old_cycle;
-
-    ngx_str_t                 conf_file;
-    ngx_str_t                 conf_param;
-    ngx_str_t                 conf_prefix;
-    ngx_str_t                 prefix;
-    ngx_str_t                 lock_file;
-    ngx_str_t                 hostname;
-};
-</pre>
-
-
-<p>它保存了一次启动过程需要的一些资源。</p>
-
-<p>ngx_init_cycle函数的处理过程如下：</p>
-
-<ol>
-<li>调用ngx_timezone_update()、ngx_timeofday、ngx_time_update()来更新时区、时间等，做时间校准，用来创建定时器等。</li>
-<li><p>创建pool,赋给一个新的cycle（ngx_cycle_t）。这个新的cycle的一些字段从旧的cycle传递过来，比如：log,conf_prefix,prefix,conf_file,conf_param。
- <pre>
- cycle->conf_prefix.len = old_cycle->conf_prefix.len;
- cycle->conf_prefix.data = ngx_pstrdup(pool, &amp;old_cycle->conf_prefix);
- if (cycle->conf_prefix.data == NULL) {
-     ngx_destroy_pool(pool);
-     return NULL;
- }</p>
-
-<p> cycle->prefix.len = old_cycle->prefix.len;
- cycle->prefix.data = ngx_pstrdup(pool, &amp;old_cycle->prefix);
- if (cycle->prefix.data == NULL) {
-     ngx_destroy_pool(pool);
-     return NULL;
- }</p>
-
-<p> cycle->conf_file.len = old_cycle->conf_file.len;
- cycle->conf_file.data = ngx_pnalloc(pool, old_cycle->conf_file.len + 1);
- if (cycle->conf_file.data == NULL) {
-     ngx_destroy_pool(pool);
-     return NULL;
- }
- ngx_cpystrn(cycle->conf_file.data, old_cycle->conf_file.data,
-             old_cycle->conf_file.len + 1);</p>
-
-<p> cycle->conf_param.len = old_cycle->conf_param.len;
- cycle->conf_param.data = ngx_pstrdup(pool, &amp;old_cycle->conf_param);
- if (cycle->conf_param.data == NULL) {
-     ngx_destroy_pool(pool);
-     return NULL;
- }
- </pre>
-还有一些字段会首先判断old_cycle中是否存在，如果存在，则申请同样大小的空间，并初始化。这些字段如下：
- <pre>
- n = old_cycle->paths.nelts ? old_cycle->paths.nelts : 10;</p>
-
-<p> //paths
- cycle->paths.elts = ngx_pcalloc(pool, n * sizeof(ngx_path_t *));
- if (cycle->paths.elts == NULL) {
-     ngx_destroy_pool(pool);
-     return NULL;
- }</p>
-
-<p> cycle->paths.nelts = 0;
- cycle->paths.size = sizeof(ngx_path_t *);
- cycle->paths.nalloc = n;
- cycle->paths.pool = pool;</p>
-
-<p> //open_files
- if (old_cycle->open_files.part.nelts) {
-     n = old_cycle->open_files.part.nelts;
-     for (part = old_cycle->open_files.part.next; part; part = part->next) {
-         n += part->nelts;
-     }</p>
-
-<p> } else {
-     n = 20;
- }</p>
-
-<p> //shared_memory
- if (old_cycle->shared_memory.part.nelts) {
-     n = old_cycle->shared_memory.part.nelts;
-     for (part = old_cycle->shared_memory.part.next; part; part = part->next)
-     {
-         n += part->nelts;
-     }</p>
-
-<p> } else {
-     n = 1;
- }</p>
-
-<p> //listening
- n = old_cycle->listening.nelts ? old_cycle->listening.nelts : 10;</p>
-
-<p> cycle->listening.elts = ngx_pcalloc(pool, n * sizeof(ngx_listening_t));
- if (cycle->listening.elts == NULL) {
-     ngx_destroy_pool(pool);
-     return NULL;
- }</p>
-
-<p> cycle->listening.nelts = 0;
- cycle->listening.size = sizeof(ngx_listening_t);
- cycle->listening.nalloc = n;
- cycle->listening.pool = pool;
-</pre></p>
-
-<p>  此外，new_log.log_level重新赋值的为NGX_LOG_ERR；old_cycle为传递进来的cycle；hostname为gethostname;初始化resuable_connection_queue。</p>
-
-<p>  这里有一个关键变量的初始化：conf_ctx。初始化为ngx_max_module个void *指针。说明其实所有模块的配置结构的指针。</p></li>
-<li><p>调用所有模块的create_conf，返回的配置结构指针放到conf_ctx数组中，索引为ngx_modules[i]->index。</p></li>
-<li>从命令行和配置文件读取配置更新到conf_ctx中。ngx_conf_param是读取命令行中的指令，ngx_conf_parse是把读取配置文件。ngx_conf_param最后也是通过调用ngx_cong_parse来读取配置的。ngx_conf_parse函数中有一个for循环，每次都调用ngx_conf_read_token取得一个配置指令，然后调用ngx_conf_handler来处理这条指令。ngx_conf_handler每次会遍历所有模块的指令集，查找这条配置指令并分析其合法性，如果正确则创建配置结构并把指针加入到cycle.conf_ctx中。
- 遍历指令集的过程首先是遍历所有的核心类模块，若是 event类的指令，则会遍历到ngx_events_module，这个模块是属于核心类的，其钩子set又会嵌套调用ngx_conf_parse去遍历所有的event类模块，同样的，若是http类指令，则会遍历到ngx_http_module，该模块的钩子set进一步遍历所有的http类模块，mail类指令会遍历到ngx_mail_module，该模块的钩子进一步遍历到所有的mail类模块。要特别注意的是：这三个遍历过程中会在适当的时机调用event类模块、http类模块和mail类模块的创建配置和初始化配置的钩子。从这里可以看出，event、http、mail三类模块的钩子是配置中的指令驱动的。</li>
-<li>调用core module的init_conf。</li>
-<li><p>读取核心模块ngx_core_module的配置结构，调用ngx_create_pidfile创建pid文件。
- <pre>
- ccf = (ngx_core_conf_t *) ngx_get_conf(cycle->conf_ctx, ngx_core_module);
-</pre></p>
-
-<p>  这里代码中有一句注释：
-  <pre>
-   we do not create the pid file in the first ngx_init_cycle() call
-   because we need to write the demonized process pid
-</pre>
-  当不是第一次初始化cycles时才会调用ngx_create_pidfile写入pid。</p></li>
-<li>调用ngx_test_lockfile,ngx_create_paths并打开error_log文件复制给cycle->new_log.file。</li>
-<li>遍历cycle的open_files.part.elts，打开每一个文件。open_files填充的文件数据是读取配置文件时写入的。</li>
-<li>创建共享内存。这里和对open_files类似。先预分配空间，再填充数据。</li>
-<li>处理listening sockets，遍历cycle->listening数组与old_cycle->listenning进行比较，设置cycle->listening的一些状态信息，调用ngx_open_listening_sockets启动所有监听socket，循环调用socket、bind、listen完成服务端监听监听socket的启动。并调用ngx_configure_listening_sockets配置监听socket,根据ngx_listening_t中的状态信息设置socket的读写缓存和TCP_DEFER_ACCEPT。</li>
-<li>调用每个module的init_module。</li>
-<li>关闭或者删除一些残留在old_cycle中的资源，首先释放不用的共性内存，关闭不使用的监听socket，再关闭不适用的打开文件。最后把old_cycle放入ngx_old_cycles。最后再设定一个定时器，定期回调ngx_cleaner_event清理ngx_old_cycles。周期设置为30000ms。</li>
-</ol>
-
-
-<p>接下来是进程的启动，包括master和worker进程。main函数最后调用ngx_master_process_cycle来启动master进程模式(这里对单进程模式不做讲述)。</p>
-
-<ol>
-<li>设置一些信号，如下：
- <pre>
- sigaddset(&amp;set, SIGCHLD);
- sigaddset(&amp;set, SIGALRM);
- sigaddset(&amp;set, SIGIO);
- sigaddset(&amp;set, SIGINT);
- sigaddset(&amp;set, ngx_signal_value(NGX_RECONFIGURE_SIGNAL));
- sigaddset(&amp;set, ngx_signal_value(NGX_REOPEN_SIGNAL));
- sigaddset(&amp;set, ngx_signal_value(NGX_NOACCEPT_SIGNAL));
- sigaddset(&amp;set, ngx_signal_value(NGX_TERMINATE_SIGNAL));
- sigaddset(&amp;set, ngx_signal_value(NGX_SHUTDOWN_SIGNAL));
- sigaddset(&amp;set, ngx_signal_value(NGX_CHANGEBIN_SIGNAL));
-</pre></li>
-<li>调用ngx_setproctitle设置进程标题：&#8221;master process&#8221; + ngx_argv[0&hellip;]</li>
-<li>启动worker进程,数量为ccf->worker_processes。
- <pre>
- ngx_start_worker_processes(cycle, ccf->worker_processes,
-                            NGX_PROCESS_RESPAWN);
-</pre></li>
-<li>启动文件cache管理进程。
- <pre>
- ngx_start_cache_manager_processes(cycle, 0);
-</pre>
- 这里的cahche在一些模块中是需要的，如fastcgi模块等,这些模块会把文件cache路径添加到cycle->paths中，文件cache管理进程会定期调用这些模块的文件cache处理钩子处理一下文件cache。</li>
-<li>master主循环，主要是循环处理信号量。在循环过程中，判断相应的条件然后进入相应的处理。这里的相关标志位基本都是在信号处理函数中赋值的。
- <pre>
- for ( ;; ) {
-  // delay用来设置等待worker退出的时间，master接收了退出信号后首先发送退出信号给worker，
-  // 而worker退出需要一些时间
-  if (delay) {
-      delay = 2;
-          &hellip;
-      itv.it_interval.tv_sec = 0;
-      itv.it_interval.tv_usec = 0;
-      itv.it_value.tv_sec = delay / 1000;
-      itv.it_value.tv_usec = (delay % 1000 ) * 1000;
-      // 设置定时器
-      if (setitimer(ITIMER_REAL, &amp;itv, NULL) == -1) {
-          ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-          “setitimer() failed”);
-      }
-  }
-  ngx_log_debug0(NGX_LOG_DEBUG_EVENT, cycle->log, 0, “sigsuspend”);
-  // 挂起信号量，等待定时器
-  sigsuspend(&amp;set);
-  ngx_time_update(0, 0);
-  ngx_log_debug0(NGX_LOG_DEBUG_EVENT, cycle->log, 0, “wake up”);
-  // 收到了SIGCHLD信号，有worker退出（ngx_reap==1）
-  if (ngx_reap) {
-      ngx_reap = 0;
-      ngx_log_debug0(NGX_LOG_DEBUG_EVENT, cycle->log, 0, “reap children”);
-      // 处理所有worker，如果有worker异常退出则重启这个worker，如果所有worker都退出
-      // 返回0赋值给live
-      live = ngx_reap_children(cycle);
-  }
-  // 如果worker都已经退出，
-  // 并且收到了NGX_CMD_TERMINATE命令或者SIGTERM信号或者SIGINT信号(ngx_terminate=1)
-  // 或者NGX_CMD_QUIT命令或者SIGQUIT信号(ngx_quit=1)，则master退出
-  if (!live &amp;&amp; (ngx_terminate || ngx_quit)) {
-      ngx_master_process_exit(cycle);
-  }
-  // 收到了NGX_CMD_TERMINATE命令或者SIGTERM信号或者SIGINT信号，
-  // 通知所有worker退出，并且等待worker退出
-  if (ngx_terminate) {
-      // 设置延时
-      if (delay == 0) {
-          delay = 50;
-      }
-      if (delay > 1000) {
-          // 延时已到，给所有worker发送SIGKILL信号，强制杀死worker
-          ngx_signal_worker_processes(cycle, SIGKILL);
-      } else {
-          // 给所有worker发送SIGTERM信号，通知worker退出
-          ngx_signal_worker_processes(cycle,
-          ngx_signal_value(NGX_TERMINATE_SIGNAL));
-      }
-      continue;
-  }
-  // 收到了NGX_CMD_QUIT命令或者SIGQUIT信号
-  if (ngx_quit) {
-      // 给所有worker发送SIGQUIT信号
-      ngx_signal_worker_processes(cycle,
-      ngx_signal_value(NGX_SHUTDOWN_SIGNAL));
-      // 关闭所有监听的socket
-      ls = cycle->listening.elts;
-      for (n = 0; n &lt; cycle->listening.nelts; n++) {
-          if (ngx_close_socket(ls[n].fd) == -1) {
-              ngx_log_error(NGX_LOG_EMERG, cycle->log, ngx_socket_errno,
-                  ngx_close_socket_n ” %V failed”,&amp;ls[n].addr_text);
-          }
-      }
-      cycle->listening.nelts = 0;
-  continue;
-  }
-  // 收到了SIGHUP信号
-  if (ngx_reconfigure) {
-      ngx_reconfigure = 0;
-      // 代码已经被替换，重启worker，不需要重新初始化配置
-      if (ngx_new_binary) {
-          ngx_start_worker_processes(cycle, ccf->worker_processes,
-              NGX_PROCESS_RESPAWN);
-          ngx_start_cache_manager_processes(cycle, 0);
-          ngx_noaccepting = 0;
-          continue;
-      }
-      ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, “reconfiguring”);
-      // 重新初始化配置
-      cycle = ngx_init_cycle(cycle);
-      if (cycle == NULL) {
-          cycle = (ngx_cycle_t ) ngx_cycle;
-          continue;
-      }
-      // 重启worker
-      ngx_cycle = cycle;
-      ccf = (ngx_core_conf_t *) ngx_get_conf(cycle->conf_ctx,
-      ngx_core_module);
-      ngx_start_worker_processes(cycle, ccf->worker_processes,
-          NGX_PROCESS_JUST_RESPAWN);
-      ngx_start_cache_manager_processes(cycle, 1);
-      live = 1;
-      ngx_signal_worker_processes(cycle,
-          ngx_signal_value(NGX_SHUTDOWN_SIGNAL));
-  }
-  // 当ngx_noaccepting=1的时候会把ngx_restart设为1，重启worker
-  if (ngx_restart) {
-      ngx_restart = 0;
-      ngx_start_worker_processes(cycle, ccf->worker_processes,
-          NGX_PROCESS_RESPAWN);
-      ngx_start_cache_manager_processes(cycle, 0);
-      live = 1;
-  }
-  // 收到SIGUSR1信号，重新打开log文件
-  if (ngx_reopen) {
-      ngx_reopen = 0;
-      ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, “reopening logs”);
-      ngx_reopen_files(cycle, ccf->user);
-      ngx_signal_worker_processes(cycle,
-      ngx_signal_value(NGX_REOPEN_SIGNAL));
-  }
-  // 收到SIGUSR2信号，热代码替换
-  if (ngx_change_binary) {
-      ngx_change_binary = 0;
-      ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, “changing binary”);
-      // 调用execve执行新的代码
-      ngx_new_binary = ngx_exec_new_binary(cycle, ngx_argv);
-  }
-  // 收到SIGWINCH信号，不再接收请求，worker退出，master不退出
-  if (ngx_noaccept) {
-      ngx_noaccept = 0;
-      ngx_noaccepting = 1;
-      ngx_signal_worker_processes(cycle,
-      ngx_signal_value(NGX_SHUTDOWN_SIGNAL));
-  }
-}
-</pre>
-信号处理函数是在main函数中进行的初始化：ngx_init_signals(cycle->log)。其中的signal handler代码如下所示：</li>
-</ol>
-
-
-<pre>
-void
-ngx_signal_handler(int signo)
-{
-    char            *action;
-    ngx_int_t        ignore;
-    ngx_err_t        err;
-    ngx_signal_t    *sig;
-
-    ignore = 0;
-
-    err = ngx_errno;
-
-    for (sig = signals; sig->signo != 0; sig++) {
-        if (sig->signo == signo) {
-            break;
-        }
-    }
-
-    ngx_time_sigsafe_update();
-
-    action = "";
-
-    switch (ngx_process) {
-
-    case NGX_PROCESS_MASTER:
-    case NGX_PROCESS_SINGLE:
-        switch (signo) {
-
-        case ngx_signal_value(NGX_SHUTDOWN_SIGNAL):
-            ngx_quit = 1;
-            action = ", shutting down";
-            break;
-
-        case ngx_signal_value(NGX_TERMINATE_SIGNAL):
-        case SIGINT:
-            ngx_terminate = 1;
-            action = ", exiting";
-            break;
-
-        case ngx_signal_value(NGX_NOACCEPT_SIGNAL):
-            if (ngx_daemonized) {
-                ngx_noaccept = 1;
-                action = ", stop accepting connections";
-            }
-            break;
-
-        case ngx_signal_value(NGX_RECONFIGURE_SIGNAL):
-            ngx_reconfigure = 1;
-            action = ", reconfiguring";
-            break;
-
-        case ngx_signal_value(NGX_REOPEN_SIGNAL):
-            ngx_reopen = 1;
-            action = ", reopening logs";
-            break;
-
-        case ngx_signal_value(NGX_CHANGEBIN_SIGNAL):
-            if (getppid() > 1 || ngx_new_binary > 0) {
-
-                /*
-                 * Ignore the signal in the new binary if its parent is
-                 * not the init process, i.e. the old binary's process
-                 * is still running.  Or ignore the signal in the old binary's
-                 * process if the new binary's process is already running.
-                 */
-
-                action = ", ignoring";
-                ignore = 1;
-                break;
-            }
-
-            ngx_change_binary = 1;
-            action = ", changing binary";
-            break;
-
-        case SIGALRM:
-            ngx_sigalrm = 1;
-            break;
-
-        case SIGIO:
-            ngx_sigio = 1;
-            break;
-
-        case SIGCHLD:
-            ngx_reap = 1;
-            break;
-        }
-
-        break;
-
-    case NGX_PROCESS_WORKER:
-    case NGX_PROCESS_HELPER:
-        switch (signo) {
-
-        case ngx_signal_value(NGX_NOACCEPT_SIGNAL):
-            if (!ngx_daemonized) {
-                break;
-            }
-            ngx_debug_quit = 1;
-        case ngx_signal_value(NGX_SHUTDOWN_SIGNAL):
-            ngx_quit = 1;
-            action = ", shutting down";
-            break;
-
-        case ngx_signal_value(NGX_TERMINATE_SIGNAL):
-        case SIGINT:
-            ngx_terminate = 1;
-            action = ", exiting";
-            break;
-
-        case ngx_signal_value(NGX_REOPEN_SIGNAL):
-            ngx_reopen = 1;
-            action = ", reopening logs";
-            break;
-
-        case ngx_signal_value(NGX_RECONFIGURE_SIGNAL):
-        case ngx_signal_value(NGX_CHANGEBIN_SIGNAL):
-        case SIGIO:
-            action = ", ignoring";
-            break;
-        }
-
-        break;
-    }
-
-    ngx_log_error(NGX_LOG_NOTICE, ngx_cycle->log, 0,
-                  "signal %d (%s) received%s", signo, sig->signame, action);
-
-    if (ignore) {
-        ngx_log_error(NGX_LOG_CRIT, ngx_cycle->log, 0,
-                      "the changing binary signal is ignored: "
-                      "you should shutdown or terminate "
-                      "before either old or new binary's process");
-    }
-
-    if (signo == SIGCHLD) {
-        ngx_process_get_status();
-    }
-
-    ngx_set_errno(err);
-}
-</pre>
-
-
-<p>创建worker子进程的函数是ngx_start_worker_processes。</p>
-
-<pre>
-static void
-ngx_start_worker_processes(ngx_cycle_t *cycle, ngx_int_t n, ngx_int_t type)
-{
-    ngx_int_t      i;
-    ngx_channel_t  ch;
-
-    ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, "start worker processes");
-
-    ch.command = NGX_CMD_OPEN_CHANNEL; //传递给其他worker子进程的命令：打开通信管道
-
-    //创建n个worker进程
-    for (i = 0; i < n; i++) {
-
-        //创建worker子进程并初始化相关资源和属性
-        ngx_spawn_process(cycle, ngx_worker_process_cycle,
-                          (void *) (intptr_t) i, "worker process", type);
-
-        /*master父进程向所有已经创建的worker子进程（不包括本子进程）广播消息
-        包括当前worker子进程的进程id、在进程表中的位置和管道句柄，这些worker子进程收到消息后，会更新这些消息到自己进程空间的进程表，以此实现两个worke子进程之间的通信。
-        */
-        ch.pid = ngx_processes[ngx_process_slot].pid;
-        ch.slot = ngx_process_slot;
-        ch.fd = ngx_processes[ngx_process_slot].channel[0];
-
-        ngx_pass_open_channel(cycle, &ch);
-    }
-}
-</pre>
-
-
-<p>这里ngx_pass_open_channel，即遍历所有worker进程，跳过自己和异常的worker，把消息发送给各个worker进程。worker进程的管道可读事件捕捉函数是ngx_channel_handler(ngx_event_t *ev)，在这个函数中，会读取message，然后解析，并根据不同给的命令做不同的处理。</p>
-
-<p>这里有一个关键的函数是ngx_pid_t ngx_spawn_process(ngx_cycle_t <em>cycle, ngx_spawn_proc_pt proc, void </em>data,char *name, ngx_int_t respawn)。proc是子进程的执行函数，data是其参数，name是进程名。</p>
-
-<p>这个函数的任务：</p>
-
-<ol>
-<li>有一个ngx_processes全局数组，包含了所有的子进程，这里会fork出子进程并放入相应的位置，并设置这个进程的相关属性。</li>
-<li>创建socketpair，并设置相关属性</li>
-<li>子啊子进程中执行传递进来的函数。</li>
-</ol>
-
-
-<pre>
-u_long     on;
-ngx_pid_t  pid;
-ngx_int_t  s; //fork的子进程在ngx_processes中的位置
-
-//如果传递进来的respawn>0，说明是要替换进程ngx_processes[respawn]，可安全重用该进程表项。
-if (respawn >= 0) {
-   s = respawn;
-} else {
-   遍历进程表，找到空闲的slot
-   for (s = 0; s < ngx_last_process; s++) {
-        if (ngx_processes[s].pid == -1) {
-                break;
-            }
-        }
-
-        //达到最大进程限制报错
-        if (s == NGX_MAX_PROCESSES) {
-            ngx_log_error(NGX_LOG_ALERT, cycle->log, 0,
-                          "no more than %d processes can be spawned",
-                          NGX_MAX_PROCESSES);
-            return NGX_INVALID_PID;
-        }
-    }
-</pre>
-
-
-<p></p>
-
-<p>接下来创建一对socketpair句柄，然后初始化相关属性。</p>
-
-<pre>
-    if (respawn != NGX_PROCESS_DETACHED) { //NGX_PROCESS_DETACHED是热代码替换
-
-        /* Solaris 9 still has no AF_LOCAL */
-
-        //建立socketpair
-        if (socketpair(AF_UNIX, SOCK_STREAM, 0, ngx_processes[s].channel) == -1)
-        {
-            ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-                          "socketpair() failed while spawning \"%s\"", name);
-            return NGX_INVALID_PID;
-        }
-
-        。。。
-
-        //设置非阻塞模式
-        if (ngx_nonblocking(ngx_processes[s].channel[0]) == -1) {
-            ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-                          ngx_nonblocking_n " failed while spawning \"%s\"",
-                          name);
-            ngx_close_channel(ngx_processes[s].channel, cycle->log);
-            return NGX_INVALID_PID;
-        }
-
-        if (ngx_nonblocking(ngx_processes[s].channel[1]) == -1) {
-            ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-                          ngx_nonblocking_n " failed while spawning \"%s\"",
-                          name);
-            ngx_close_channel(ngx_processes[s].channel, cycle->log);
-            return NGX_INVALID_PID;
-        }
-
-        //打开异步模式
-        on = 1;
-        if (ioctl(ngx_processes[s].channel[0], FIOASYNC, &on) == -1) {
-            ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-                          "ioctl(FIOASYNC) failed while spawning \"%s\"", name);
-            ngx_close_channel(ngx_processes[s].channel, cycle->log);
-            return NGX_INVALID_PID;
-        }
-
-        //设置异步io所有者
-        if (fcntl(ngx_processes[s].channel[0], F_SETOWN, ngx_pid) == -1) {
-            ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-                          "fcntl(F_SETOWN) failed while spawning \"%s\"", name);
-            ngx_close_channel(ngx_processes[s].channel, cycle->log);
-            return NGX_INVALID_PID;
-        }
-
-        //当exec后关闭句柄
-        if (fcntl(ngx_processes[s].channel[0], F_SETFD, FD_CLOEXEC) == -1) {
-            ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-                          "fcntl(FD_CLOEXEC) failed while spawning \"%s\"",
-                           name);
-            ngx_close_channel(ngx_processes[s].channel, cycle->log);
-            return NGX_INVALID_PID;
-        }
-
-        if (fcntl(ngx_processes[s].channel[1], F_SETFD, FD_CLOEXEC) == -1) {
-            ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-                          "fcntl(FD_CLOEXEC) failed while spawning \"%s\"",
-                           name);
-            ngx_close_channel(ngx_processes[s].channel, cycle->log);
-            return NGX_INVALID_PID;
-        }
-
-        //设置当前子进程的句柄
-        ngx_channel = ngx_processes[s].channel[1];
-
-    } else {
-        ngx_processes[s].channel[0] = -1;
-        ngx_processes[s].channel[1] = -1;
-    }
-</pre>
-
-
-<p>接下来就是fork子进程，并设置进程相关参数。</p>
-
-<pre>
-    //设置进程在进程表中的slot
-    ngx_process_slot = s;
-
-    pid = fork();
-
-    switch (pid) {
-
-    case -1:
-        ngx_log_error(NGX_LOG_ALERT, cycle->log, ngx_errno,
-                      "fork() failed while spawning \"%s\"", name);
-        ngx_close_channel(ngx_processes[s].channel, cycle->log);
-        return NGX_INVALID_PID;
-
-    case 0:
-        //子进程，执行传递进来的子进程函数
-        ngx_pid = ngx_getpid();
-        proc(cycle, data);
-        break;
-
-    default:
-        break;
-    }
-
-    ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, "start %s %P", name, pid);
-
-    ngx_processes[s].pid = pid;
-    ngx_processes[s].exited = 0;
-
-    if (respawn >= 0) { //使用原来的子进程即可
-        return pid;
-    }
-
-    //初始化进程结构
-    ngx_processes[s].proc = proc;
-    ngx_processes[s].data = data;
-    ngx_processes[s].name = name;
-    ngx_processes[s].exiting = 0;
-
-    switch (respawn) {
-
-    case NGX_PROCESS_NORESPAWN:
-        ngx_processes[s].respawn = 0;
-        ngx_processes[s].just_spawn = 0;
-        ngx_processes[s].detached = 0;
-        break;
-
-    case NGX_PROCESS_JUST_SPAWN:
-        ngx_processes[s].respawn = 0;
-        ngx_processes[s].just_spawn = 1;
-        ngx_processes[s].detached = 0;
-        break;
-
-    case NGX_PROCESS_RESPAWN:
-        ngx_processes[s].respawn = 1;
-        ngx_processes[s].just_spawn = 0;
-        ngx_processes[s].detached = 0;
-        break;
-
-    case NGX_PROCESS_JUST_RESPAWN:
-        ngx_processes[s].respawn = 1;
-        ngx_processes[s].just_spawn = 1;
-        ngx_processes[s].detached = 0;
-        break;
-
-    case NGX_PROCESS_DETACHED:
-        ngx_processes[s].respawn = 0;
-        ngx_processes[s].just_spawn = 0;
-        ngx_processes[s].detached = 1;
-        break;
-    }
-
-    if (s == ngx_last_process) {
-        ngx_last_process++;
-    }   
-</pre>
-
-
-<p>最后看一下，worker进程执行的函数static void
-ngx_worker_process_cycle(ngx_cycle_t <em>cycle, void </em>data)。</p>
-
-<ol>
-<li><p>调用ngx_worker_process_init初始化；</p>
-
-<ul>
-<li>设置ngx_process=NGX_PROCESS_WORKER</li>
-<li>全局性的设置，包括执行环境、优先级、限制、setgid、setuid、信号初始化</li>
-<li>调用所有模块的init_process钩子</li>
-<li>关闭不使用的管道句柄，关闭当前的worker子进程的channel[0]句柄和继承来的其他进程的channel[1]句柄。使用其他进程的channel[0]句柄发送消息，使用本进程的channel[1]句柄监听事件。</li>
-</ul>
-</li>
-<li><p>进行线程相关的操作。（如果有线程模式）</p></li>
-<li>主循环处理各种状态，类似master进程的主循环。</li>
-</ol>
-
-
-<pre>   
-for ( ;; ) {
-
-        if (ngx_exiting) { //退出状态，关闭所有连接
-
-            c = cycle->connections;
-
-            for (i = 0; i < cycle->connection_n; i++) {
-
-                /* THREAD: lock */
-
-                if (c[i].fd != -1 && c[i].idle) {
-                    c[i].close = 1;
-                    c[i].read->handler(c[i].read);
-                }
-            }
-
-            if (ngx_event_timer_rbtree.root == ngx_event_timer_rbtree.sentinel)
-            {
-                ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, "exiting");
-
-                ngx_worker_process_exit(cycle);
-            }
-        }
-
-        ngx_log_debug0(NGX_LOG_DEBUG_EVENT, cycle->log, 0, "worker cycle");
-
-        ngx_process_events_and_timers(cycle); //处理事件和计时
-
-        if (ngx_terminate) { //收到NGX_CMD_TERMINATE命令，清理进城后退出，并调用所有模块的exit_process钩子。
-            ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, "exiting");
-
-            ngx_worker_process_exit(cycle);
-        }
-
-        if (ngx_quit) {
-            ngx_quit = 0;
-            ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0,
-                          "gracefully shutting down");
-            ngx_setproctitle("worker process is shutting down");
-
-            if (!ngx_exiting) {
-                //关闭监听socket，并设置退出状态
-                ngx_close_listening_sockets(cycle);
-                ngx_exiting = 1;
-            }
-        }
-
-        if (ngx_reopen) { //重新打开log
-            ngx_reopen = 0;
-            ngx_log_error(NGX_LOG_NOTICE, cycle->log, 0, "reopening logs");
-            ngx_reopen_files(cycle, -1);
-        }
-    }
-</pre>
-
-
-<p>总结一下，nginx的启动过程可以划分为两个部分，</p>
-
-<ol>
-<li>读取配置文件并设置全局的配置结构信息以及每个模块的配置结构信息，调用模块的 create_conf钩子和init_conf钩子。</li>
-<li>创建进程和进程间通信机制，master进程负责管理各个worker子进程，通过 socketpair向子进程发送消息，各个worker子进程服务利用事件机制处理请求，通过socketpair与其他子进程通信（发送消息或者接收消息），进程启动的各个适当时机会调用模块的init_module钩子、init_process钩子、exit_process钩子和 exit_master钩子，init_master钩子没有被调用过。nginx的worker子进程继承了父进程的全局变量之后，子进程和父进程就会独立处理这些全局变量，有些全局量需要在父子进程之间同步就要通过通信方式了，比如 ngx_processes（进程表）的同步。</li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Nginx负载均衡]]></title>
-    <link href="http://www.rowkey.me/blog/2014/08/27/nginx-loabbalance/"/>
-    <updated>2014-08-27T14:32:50+08:00</updated>
-    <id>http://www.rowkey.me/blog/2014/08/27/nginx-loabbalance</id>
-    <content type="html"><![CDATA[<h2>一、特点</h2>
-
-<h3>1.1 应用情况</h3>
-
-<p>Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。据Netcraft统计，世界上最繁忙的网站中有11.48%使用Nginx作为其服务器或者代理服务器。基于反向代理的功能，Nginx作为负载均衡主要有以下几点理由：</p>
-
-<ol>
-<li><p>高并发连接</p></li>
-<li><p>内存消耗少</p></li>
-<li><p>配置文件非常简单</p></li>
-<li><p>成本低廉</p></li>
-<li><p>支持Rewrite重写规则</p></li>
-<li><p>内置的健康检查功能</p></li>
-<li><p>节省带宽</p></li>
-<li><p>稳定性高</p></li>
-</ol>
-
-
-<!--more-->
-
-
-<h3>1.2 架构</h3>
-
-<p><img src="http://www.rowkey.me/images/blog_images/ngx_arch.jpg" alt="" /></p>
-
-<p>nginx在启动后，会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。工作进程以非特权用户运行。</p>
-
-<p>master进程主要用来管理worker进程，包含：接收来自外界的信号，向各worker进程发送信号，监控worker进程的运行状态，当worker进程退出后(异常情况下)，会自动重新启动新的worker进程。</p>
-
-<p>worker进程则是处理基本的网络事件。多个worker进程之间是对等的，他们同等竞争来自客户端的请求，各进程互相之间是独立的。一个请求，只可能在一个worker进程中处理，一个worker进程，不可能处理其它进程的请求。</p>
-
-<p>开发模型：epoll和kqueue。</p>
-
-<p>支持的事件机制：kqueue、epoll、rt signals、/dev/poll 、event ports、select以及poll。</p>
-
-<p>支持的kqueue特性包括EV_CLEAR、EV_DISABLE、NOTE_LOWAT、EV_EOF，可用数据的数量，错误代码.</p>
-
-<p>支持sendfile、sendfile64和sendfilev;文件AIO；DIRECTIO;支持Accept-filters和TCP_DEFER_ACCEP.</p>
-
-<h3>1.3 性能</h3>
-
-<p>Nginx的高并发，官方测试支持5万并发连接。实际生产环境能到2-3万并发连接数。10000个非活跃的HTTP keep-alive 连接仅占用约2.5MB内存。三万并发连接下，10个Nginx进程，消耗内存150M。淘宝tengine团队说测试结果是“24G内存机器上，处理并发请求可达200万”。</p>
-
-<h2>二、负载均衡</h2>
-
-<h3>2.1 协议支持</h3>
-
-<p>Nginx工作在网络的7层，可以针对http应用本身来做分流策略。支持七层HTTP、HTTPS协议的负载均衡。对四层协议的支持需要第三方插件-yaoweibin的ngx_tcp_proxy_module实现了tcp upstream。</p>
-
-<p><a href="https://github.com/yaoweibin/nginx_tcp_proxy_module">https://github.com/yaoweibin/nginx_tcp_proxy_module</a></p>
-
-<p>此外，nginx本身也逐渐在完善对其他协议的支持：</p>
-
-<ul>
-<li><p>Nginx 1.3.13 开发版支持WebSocket代理。</p></li>
-<li><p>Nginx 1.3.15开发版支持SPDY。</p></li>
-</ul>
-
-
-<h3>2.2 均衡策略</h3>
-
-<p>nginx的负载均衡策略可以划分为两大类：内置策略和扩展策略。内置策略包含加权轮询和ip hash，在默认情况下这两种策略会编译进nginx内核，只需在nginx配置中指明参数即可。扩展策略有很多，如fair、通用hash、consistent hash等，默认不编译进nginx内核。</p>
-
-<ol>
-<li><p>加权轮询（weighted round robin）</p>
-
-<p> 轮询的原理很简单，首先我们介绍一下轮询的基本流程。如下是处理一次请求的流程图：</p>
-
-<p> <img src="http://www.rowkey.me/images/blog_images/ngx_wr_process.jpg" alt="" /></p>
-
-<p> 图中有两点需要注意，第一，如果可以把加权轮询算法分为先深搜索和先广搜索，那么nginx采用的是先深搜索算法，即将首先将请求都分给高权重的机器，直到该机器的权值降到了比其他机器低，才开始将请求分给下一个高权重的机器；第二，当所有后端机器都down掉时，nginx会立即将所有机器的标志位清成初始状态，以避免造成所有的机器都处在timeout的状态，从而导致整个前端被夯住。</p></li>
-<li><p>ip hash</p>
-
-<p> ip hash是nginx内置的另一个负载均衡的策略，流程和轮询很类似，只是其中的算法和具体的策略有些变化，如下图所示：</p>
-
-<p> <img src="http://www.rowkey.me/images/blog_images/ngx_iphash_process.jpg" alt="" /></p>
-
-<p> ip hash算法的核心实现如下：</p>
-
-<p> <pre>
- for(i = 0;i &lt; 3;i++){
-     hash = (hash * 113 + iphp->addr[i]) % 6271;
- }</p>
-
-<p> p = hash % iphp->rrp.peers->number;
- </pre></p>
-
-<p> 从代码中可以看出，hash值既与ip有关又与后端机器的数量有关。经过测试，上述算法可以连续产生1045个互异的value，这是该算法的硬限制。对此nginx使用了保护机制，当经过20次hash仍然找不到可用的机器时，算法退化成轮询。因此，从本质上说，ip hash算法是一种变相的轮询算法，如果两个ip的初始hash值恰好相同，那么来自这两个ip的请求将永远落在同一台服务器上，这为均衡性埋下了很深的隐患。</p></li>
-<li><p>fair</p>
-
-<p> fair策略是扩展策略，默认不被编译进nginx内核。其原理是根据后端服务器的响应时间判断负载情况，从中选出负载最轻的机器进行分流。这种策略具有很强的自适应性，但是实际的网络环境往往不是那么简单，因此要慎用。</p></li>
-<li><p>通用hash、一致性hash</p>
-
-<p> 这两种也是扩展策略，在具体的实现上有些差别，通用hash比较简单，可以以nginx内置的变量为key进行hash，一致性hash采用了nginx内置的一致性hash环，可以支持memcache。</p></li>
-</ol>
-
-
-<h3>2.2 配置示例</h3>
-
-<ol>
-<li><p>HTTP</p>
-
-<pre><code> http {
-
-     upstream  www.s135.com  {
-
-       server   192.168.1.2:80;
-
-       server   192.168.1.3:80;
-
-     }
-
-
-
-     server{
-
-       listen  80;
-
-       server_name  www.s135.com;
-
-
-
-       location / {
-
-                proxy_pass        http://www.s135.com;
-
-                proxy_set_header   Host             $host;
-
-                proxy_set_header   X-Real-IP        $remote_addr;
-
-                proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
-
-       }
-
-
-
-       location /nginx_status {
-
-                stub_status on;
-
-                access_log off;
-
-                allow 192.168.1.1;#设置为可访问该状态信息的ip
-
-                deny all;
-
-       }
-
-     }
-
- }
-</code></pre></li>
-<li><p>TCP - ngx_tcp_proxy_module</p>
-
-<pre><code> tcp {
-
-     upstream cluster {
-
-         # simple round-robin
-
-         server 192.168.0.1:80;
-
-         server 192.168.0.2:80;
-
-
-
-         check interval=3000 rise=2 fall=5 timeout=1000;
-
-
-
-         #check interval=3000 rise=2 fall=5 timeout=1000 type=ssl_hello;
-
-
-
-         #check interval=3000 rise=2 fall=5 timeout=1000 type=http;
-
-         #check_http_send "GET / HTTP/1.0\r\n\r\n";
-
-         #check_http_expect_alive http_2xx http_3xx;
-
-     }
-
-
-
-     server {
-
-         listen 8888;
-
-         proxy_pass cluster;
-
-     }
-
- }
-</code></pre></li>
-</ol>
-
-
-<h2>三、动态负载均衡</h2>
-
-<h3>3.1 自身监控</h3>
-
-<p>内置了对后端服务器的健康检查功能。如果Nginx proxy后端的某台服务器宕机了，会把返回错误的请求重新提交到另一个节点，不会影响前端访问。它没有独立的健康检查模块，而是使用业务请求作为健康检查，这省去了独立健康检查线程，这是好处。坏处是，当业务复杂时，可能出现误判，例如后端响应超时，这可能是后端宕机，也可能是某个业务请求自身出现问题，跟后端无关。</p>
-
-<h3>3.2 可扩展性</h3>
-
-<p>Nginx属于典型的微内核设计，其内核非常简洁和优雅，同时具有非常高的可扩展性。如下图所示：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/ngx_micro.jpg" alt="" /></p>
-
-<p>Nginx是纯C语言的实现，其可扩展性在于其模块化的设计。目前，Nginx已经有很多的第三方模块，大大扩展了自身的功能。nginx_lua_module可以将Lua语言嵌入到Nginx配置中，从而利用Lua极大增强了Nginx本身的编程能力，甚至可以不用配合其它脚本语言（如PHP或Python等），只靠Nginx本身就可以实现复杂业务的处理。</p>
-
-<h3>3.3 配置修改</h3>
-
-<p>nginx的配置架构如下图所示：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/ngx_config.jpg" alt="" /></p>
-
-<p>Nginx支持热部署，几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动。能够在不间断服务的情况下，对软件版本进行进行升级。Nginx的配置文件非常简单，风格跟程序一样通俗易懂，能够支持perl语法。使用nginx –s reload可以在运行时加载配置文件，便于运行时扩容/减容。重新加载配置时，master进程发送命令给当前正在运行的worker进程worker进程接到命令后会在处理完当前任务后退出。同时，master进程会启动新的worker进程来接管工作。</p>
-
-<h2>四、优势和劣势</h2>
-
-<h3>4.1 优势</h3>
-
-<ol>
-<li><p>可以很好地进行http 的头处理</p></li>
-<li><p>对http协议以及https的良好支持</p></li>
-<li><p>有足够的第三方插件供使用</p></li>
-<li><p>支持热部署，更改后端是平滑的</p></li>
-</ol>
-
-
-<h3>4.2 劣势</h3>
-
-<ol>
-<li><p>缺少对session的支持</p></li>
-<li><p>对四层tcp的支持不够好</p></li>
-<li><p>post请求写文件系统，造成500 error</p></li>
-<li><p>缺乏主动的后端服务器健康监测</p></li>
-<li><p>默认的监控界面统计信息不全</p></li>
-</ol>
-
-
-<h2>五、Tengine</h2>
-
-<h3>5.1 特性</h3>
-
-<ol>
-<li><p>继承Nginx-1.2.9的所有特性，100%兼容Nginx的配置；</p></li>
-<li><p>动态模块加载（DSO）支持。加入一个模块不再需要重新编译整个Tengine；</p></li>
-<li><p>输入过滤器机制支持。通过使用这种机制Web应用防火墙的编写更为方便；</p></li>
-<li><p>动态脚本语言Lua支持。扩展功能非常高效简单；</p></li>
-<li><p>支持管道（pipe）和syslog（本地和远端）形式的日志以及日志抽样；</p></li>
-<li><p>组合多个CSS、JavaScript文件的访问请求变成一个请求；</p></li>
-<li><p>更加强大的负载均衡能力，包括一致性hash模块、会话保持模块，还可以对后端的服务器进行主动健康检查，根据服务器状态自动上线下线；</p></li>
-<li><p>自动根据CPU数目设置进程个数和绑定CPU亲缘性；</p></li>
-<li><p>监控系统的负载和资源占用从而对系统进行保护；</p></li>
-<li><p>显示对运维人员更友好的出错信息，便于定位出错机器；</p></li>
-<li><p>更强大的防攻击（访问速度限制）模块；</p></li>
-<li><p>更方便的命令行参数，如列出编译的模块列表、支持的指令等；</p></li>
-<li><p>可以根据访问文件类型设置过期时间；</p></li>
-</ol>
-
-
-<h3>5.2 负载均衡</h3>
-
-<p>负载均衡方面，Tengine主要有以下几个特点，基本上弥补了 nginx在负载均衡方面的欠缺：</p>
-
-<ol>
-<li><p>支持一致性Hash模块</p></li>
-<li><p>会话保持模块</p></li>
-<li><p>对后端服务器的主动健康检查。</p></li>
-<li><p>增加了请求体不缓存到磁盘的机制</p></li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[async源码分析]]></title>
-    <link href="http://www.rowkey.me/blog/2014/08/22/node-async-analysis/"/>
-    <updated>2014-08-22T16:08:28+08:00</updated>
-    <id>http://www.rowkey.me/blog/2014/08/22/node-async-analysis</id>
-    <content type="html"><![CDATA[<p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
-
-<pre>
-    async.waterfall = function (tasks, callback) {
-        callback = callback || function () {};
-        if (!_isArray(tasks)) {
-          var err = new Error('First argument to waterfall must be an array of functions');
-          return callback(err);
-        }
-        if (!tasks.length) {
-            return callback();
-        }
-        var wrapIterator = function (iterator) {
-            return function (err) {
-                if (err) {
-                    callback.apply(null, arguments);
-                    callback = function () {};
-                }
-                else {
-                    var args = Array.prototype.slice.call(arguments, 1);
-                    var next = iterator.next();
-                    if (next) {
-                        args.push(wrapIterator(next));
-                    }
-                    else {
-                        args.push(callback);
-                    }
-                    async.setImmediate(function () {
-                        iterator.apply(null, args);
-                    });
-                }
-            };
-        };
-        wrapIterator(async.iterator(tasks))();
-    };
- </pre>
-
-
-<p></p>
-
-<!-- more -->
-
-
-<p></p>
-
-<p>开始先对参数进行了检查，判断tasks是否是一个function数组。然后使用了一个内部函数wrapIterator封装了实现。wrapIterator的参数带出了async.iterator函数：</p>
-
-<pre> 
-    async.iterator = function (tasks) {
-        var makeCallback = function (index) {
-            var fn = function () {
-                if (tasks.length) {
-                    tasks[index].apply(null, arguments);
-                }
-                return fn.next(); //这个地方有必要么？？？
-            };
-            fn.next = function () {
-                return (index < tasks.length - 1) ? makeCallback(index + 1): null;
-            };
-            return fn;
-        };
-        return makeCallback(0);
-    };
-</pre>
-
-
-<p> <br/>
-这个函数，其主要实现是其内部函数makeCallback。其功能就是迭代tasks，封装其中的每一个function,让其执行后返回下一个function,以此实现迭代。</p>
-
-<p>接下来，再回到wrapIterator，此function是对iterator的封装。执行后返回的是一个匿名function。其明确的参数只有一个err。当err不为空的时候，直接执行callback function。否则从index为1开始取出参数列表，并把iterator的下一个function包装之后push到args中（如果没有下一个function了则push回调函数）。接下来，则执行当前的iterator，执行的参数是下一个iterator function（作为这一步的回调函数）以及参数（如果当前的iterator被调用时传递了其他参数）。这样在当前iterator中回调下一个iterator，依次迭代执行，直至执行完所有function和callback。</p>
 ]]></content>
   </entry>
   

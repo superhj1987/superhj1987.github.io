@@ -1,0 +1,328 @@
+
+<!DOCTYPE HTML>
+
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="ujianVerification" content="7625e668c8eb782e03dfa1be3a6339f7" />
+	<title>kafka学习笔记 - 介绍 - 后端技术杂谈 | 飒然Hang</title>
+	<meta name="author" content="飒然Hang">
+
+	
+	<meta name="description" content="Kafka学习笔记 - 介绍 什么是kafka 最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service &hellip;">
+	
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+	
+	<link rel="canonical" href="http://www.rowkey.me/blog/2015/05/30/kafka-intro/">
+	<link href="/favicon.ico" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+	
+  
+
+</head>
+
+
+<body>
+	<div class="container">
+		<div class="left-col">
+			<div class="intrude-less">
+			<header id="header" class="inner"><div class="profilepic">
+	
+	<script src="/javascripts/md5.js"></script>
+	<script type="text/javascript">
+		// $(function(){
+		// 	$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("superhj1987@126.com") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
+		// });
+		$(function(){
+			$('.profilepic').append("<img src='/images/avatar/backend_logo.png' alt='Profile Picture' style='width: 160px;' />");
+		});
+	</script>
+	
+</div>
+<hgroup>
+  <h1>后端技术杂谈</h1>
+  
+    <h3>What、How、Why</h2>
+  
+</hgroup>
+
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">首页</a></li>
+    <li><a href="/blog/archives">所有文章</a></li>
+</ul>
+
+<section class="aboutme" style='margin-top:15px !important;border:1px dashed;padding:2px;overflow:scroll'>
+  <h3>飒然Hang</h3>
+  <p>专注于JavaEE开发、服务端基础架构、研发管理等。</p>
+  <br/>
+  <p>working@中华万年历;</p>
+  <p>后端开发工程师@网易杭州研究院;</p>
+</section>
+</nav>
+<nav id="sub-nav" style='margin-top:20px !important'>
+	<div class="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+	</div>
+</nav>
+<style type="text/css">
+	span#cnzz_stat_icon_1257166229{
+		display: none !important
+	}
+	div#ujian_BtnDiv{
+		display: none !important
+	}
+</style>
+<!-- cnzz统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+</header>				
+			</div>
+		</div>	
+		<div class="mid-col">
+			
+				
+			
+			<div class="mid-col-container">
+				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+	<h1 class="title" itemprop="name">Kafka学习笔记 - 介绍</h1>
+	<div class="entry-content" itemprop="articleBody"><h2>什么是kafka</h2>
+
+<p>最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说：Kafka是一个分布式、分区、冗余的commit日志service。它提供了一种特殊设计的消息系统功能。</p>
+
+<!--more-->
+
+
+<p>以下内容来自官方文档。</p>
+
+<h2>特点</h2>
+
+<ul>
+<li>不支持事务</li>
+<li>不保证全局消息顺序，可以保证partition消息顺序</li>
+<li>顺序写磁盘，性能可媲美内存操作</li>
+<li>无论消息是否被消费，都会持久化保存（保存时间可以设置）</li>
+<li>消费者看到的消息顺序即是保存在log中的顺序</li>
+<li>对于一个复制因子(replication factor)为N的topic,可以保证在N-1个server挂掉的情况下，已经提交到log中的消息不会丢失。</li>
+</ul>
+
+
+<h2>组成部分</h2>
+
+<p>总体结构如下图：</p>
+
+<p><img src="/images/blog_images/producer_consumer.png" alt="" />p</p>
+
+<ul>
+<li>kafka将消息以category的方式保存在一起，称为topic</li>
+<li>向topic产生消息的进程称为producer</li>
+<li>处理topic上的消息的进程称为consumer</li>
+<li>kafka集群由一个或者多个server组成，称为broker.</li>
+</ul>
+
+
+<h3>Topics and Logs</h3>
+
+<p>topic是kafka提供的高一层的抽象。</p>
+
+<p>一个topic指的是消息发布到的一个分类或者feed名称。对于每一个topic，kafka集群都保存了一个分区log，如下：</p>
+
+<p><img src="/images/blog_images/log_anatomy.png" alt="" /></p>
+
+<p>每一个分区都是一个提交日志，一系列有序的、不可变顺序的消息连续地追加到上面。</p>
+
+<p>每一个在分区中的消息都会被指定一个顺序编号offset，这个值可以唯一标识这个分区中的每一个消息。</p>
+
+<p>无论一个消息是否已经被消费过，kfka集群都会保存这个消息（保存时间可以设置）。例如，如果log的保存时长设置为两天，那么在一个消息发布后的两天内都是可以被消费的，之后才被丢弃。kafaka在数据容量方面的性能实际上是可以用常量衡量的，所以保存大量的数据并不是一个问题。</p>
+
+<p>对于每一个消费者来说，其仅仅需要保存的元数据就是在kafka日志的位置，称为“offset”。消费者控制这个值：一般情况下，当消费者读取消息的时候，增加offset，但是实际上消费者可以任意顺序读取消息。例如，消费者能够重置到一个旧的offset做再次处理。</p>
+
+<p>上面说到的一些特性表明kafka的消费者是非常轻量级的，并不受到集群或者其他消费者的影响。例如，可以使用命令行工具去“tail”任何topic的内容，而不需要改变任何已经被消费过的内容。</p>
+
+<p>日志中的partition有以下几个作用：</p>
+
+<ul>
+<li>日志可以在单个服务器上扩展。虽然单个partition的扩展必须适应于所在的服务器，但是一个topic有许多partition，因此能够承载大量的数据。</li>
+<li>partition作为并行的一个单元</li>
+</ul>
+
+
+<h3>分布式</h3>
+
+<p>日志的partition分布在kafka集群的服务器上，其中的每一个服务器都控制一组分区上的数据和请求。每一个分区通过一定数量的服务器的冗余提高容错率。</p>
+
+<p>每一个partition都有一个服务器作为&#8221;leader&#8221;，零个或者多个服务器作为“followers”。对于某一个partition,Leader控制所有的读写请求，followers被动地去冗余leader。如果leader发生了故障，那么followers中的一个会自动地成为新的leader。每一个服务器对于其中的一部分partition是做为leader,对于其他的partition则是做为follower，这样就能很好的在集群内部做好负载均衡。</p>
+
+<h3>生产者</h3>
+
+<p>生产者向所选择的topics发布消息。生产者负责选择哪一个消息被指定到topic的哪一个partition中。这个也可以通过round-robin简单地做负载均衡或者按照一些语义分区机制（例如基于消息中的一些key）来做。</p>
+
+<h3>消费者</h3>
+
+<p>传统的消息机制有两种模型：队列和发布-订阅。在队列模型中，一个由消费者组成的池从服务器读取消息，每一个消息都可以达到其中的某一个消费者；在发布-订阅模型中，消息被广播到所有消费者中。kafka融合这两种方式提供了一个消费者抽象：consumer group。</p>
+
+<p>消费者以消费者group name给自己打标签，每一个消息都会发布到一个topic，然后传递到每一个注册的消费者group中的消费者实例。消费者实例可以在单独的进程或者机器上。</p>
+
+<p>如果所有的消费者实例都在同一个消费者group中，那么工作机制就类似于传统的队列。</p>
+
+<p>如果每一个消费者实例都在不同的消费者group中，那么就类似于发布-订阅模型，所有消息被广播到所有消费者。</p>
+
+<p>更为普遍的，topic具有几个消费者group。每一个group由许多消费者实例组成，以备扩展和容错。比起发布-订阅模型，用消费者cluster替代了单一进程。</p>
+
+<p>在消息顺序方面，kafka也具有比传统的消息系统更好的保障机制。</p>
+
+<p>传统的队列在服务端保存消息的顺序，服务端按照存储的顺序传递消息，多consumer去消费这些消息。然而，即使服务端按照顺序交出消息，但是消息是异步传递给消费者的，那么这些消息可能乱序到达不同的消费者。这也意味着消息的顺序在并发消费的情况下丢失了。消息系统通常用一个概念“执行消费者”来完成消息的顺序传递，即只允许一个进程从一个队列中消费消息，当然这样也意味着在处理过程中没有了并行化处理。</p>
+
+<p>kafka里有一个概念叫做parallelism—the partition—within the topics，能够同时为一个consume池提供顺序保证和负载均衡。指定分区到一个消费者group中的消费者，这样每一个分区只被这个group中的一个consumer消费。此consumer则成为这个分区唯一的reader去顺序消费这些数据。当有许多partitions，这样也能同时将这些consumer实例进行负载均衡。值得注意的一点是不能有比分区数目更多的消费者实例。</p>
+
+<p>kafa仅仅能够提供一个partition中的消息顺序保证。如果你需要一个完全的消息顺序保障，那么可以通过仅仅具有一个partition的topic来实现，当然，这样就意味着这里仅仅有一个消费者进程。</p>
+
+<h3>保证</h3>
+
+<p>kafka在高层次上可以给予以下保障：</p>
+
+<ul>
+<li>通过同一个生产者发出到某个topic上partition的消息将会以其原始发送顺序附加到partition上。</li>
+<li>一个消费者实例看到消息的顺序即其在log中的顺序。</li>
+<li>对于一个复制引子为N的topic，其可以允许N-1个服务器故障而不丢失任何已经提交到log中的消息。</li>
+</ul>
+
+
+<h3>使用场景</h3>
+
+<ol>
+<li><p>消息传输</p>
+
+<p> kafka能够很好地替代传统的消息代理。消息代理的使用场景多种多样（缓冲消息生产者的消息）。相比大多数消息系统kafka具有更好地吞吐量，内建的分区机制、复制、容错，这让它成为一个大规模消息处理的不错的选择。</p>
+
+<p> 消息系统使用者一般要求的是低吞吐，但是同时也要求端对端的低延迟。</p>
+
+<p> 这个场景下，另外经常用到的传统消息系统有ACtiveMQ和RabbitMQ。</p></li>
+<li><p>网站行为追踪</p>
+
+<p> 最开始kafka是用来构建一个用户行为追踪管道，作为一个实时发布-订阅feed系统。这意味着站点活动（pv，搜索或者其他用户会产生的行为）会被发布到中央topics，对应于每一中行为对应一个topic。如此，可以包括多种使用场景包括实时处理、实时监控等。</p>
+
+<p> 由于对于每一个uv会产生大量行为消息，因此行为追踪的量级通常会非常大。</p></li>
+<li><p>度量</p>
+
+<p> kafka通常被用来操作监控数据。包括聚合分布式应用的统计数据，产生操作数据的中心feed。</p></li>
+<li><p>日志聚合</p>
+
+<p> 日志聚合也叫做日志分布式收集，同样的方案有flume、scribe等。与之相比，kafka提供了差不多的性能、更强的可持续保证以及更低的端到端的延迟。</p></li>
+<li><p>流处理</p>
+
+<p> 在用户、内容推荐领域，需要对数据流进行处理，kakfa经常被用来聚合、收集原始数据然后传输到新的topic中。一般结合storm和samza使用。</p></li>
+<li><p>事件源</p>
+
+<p> 事件源是一种针对策略变动的记录作为时间序记录的应用设计。kafka对大规模log数据存储的支持使得它能够非常好支持事件源的设计。</p></li>
+<li><p>提交日志</p>
+
+<p> kakfa可以为分布式系统提供一种外部的提交日志。日志可以冗余结点间、act间的数据，作为一个re-syncing机制。此外，kafka的日志压缩也是一个优势。此场景，kafka的使用和Apache的BookKeeper类似。</p></li>
+</ol>
+
+</div>
+
+</article>
+
+	<div class="share">
+
+     <!-- 多说分享 start-->
+<div class="ds-share flat" data-title="kafka学习笔记 - 介绍 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2015/05/30/kafka-intro/" data-content="什么是kafka 最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说： &hellip;">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+<!-- 多说分享 end-->
+<!-- 多说评论框 start -->
+<div class="ds-thread" data-title="kafka学习笔记 - 介绍"></div>
+<!-- 多说评论框 end -->
+<!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+ 
+</div>
+
+
+</div>
+			</div>
+			<footer id="footer" class="inner">Copyright &copy; 2016
+
+    飒然Hang
+
+
+Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+</script>
+
+	</footer>
+		</div>
+	</div>
+	
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
