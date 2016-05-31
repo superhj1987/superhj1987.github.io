@@ -4,7 +4,7 @@
   <title><![CDATA[Category: kafka | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/kafka/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-05-31T11:47:48+08:00</updated>
+  <updated>2016-05-31T11:56:16+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -212,6 +212,7 @@
 <li>broker.id: broker的唯一标识符，集群环境该值不可重复。</li>
 <li>log.dirs: 一个用逗号分隔的目录列表，可以有多个，用来为Kafka存储数据。每当需要为一个新的partition分配一个目录时，会选择当前的存储partition最少的目录来存储。</li>
 <li>zookeeper.connect：zookeeper访问地址，多个地址用’,’隔开</li>
+<li>message.max.bytes: server能接收的一条消息的最大的大小。这个属性跟consumer使用的最大fetch大小是一致的，这很重要，否则一个不守规矩的producer会发送一个太大的消息。默认值：1000000。</li>
 </ul>
 
 
