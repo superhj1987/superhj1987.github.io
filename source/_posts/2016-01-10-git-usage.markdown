@@ -61,6 +61,8 @@ categories:
 		
 			git config --global http.postBuffer 524288000
 			
+			(bytes)
+			
 	- 此外，也可以使用以下命令做相应修改
  
  			git config -e --global
