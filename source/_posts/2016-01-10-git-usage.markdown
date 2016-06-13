@@ -59,7 +59,7 @@ categories:
 
 	- 如果使用HTTP clone遇到提交大小限制，请使用以下命令提高限值
 		
-			git config http.postBuffer 524288000
+			git config --global http.postBuffer 524288000
 			
 	- 此外，也可以使用以下命令做相应修改
  
