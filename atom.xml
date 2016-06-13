@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-06-13T21:53:46+08:00</updated>
+  <updated>2016-06-13T22:03:18+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1158,6 +1158,8 @@ tomcat的bio connector，采用的是线程池来避免对于每一个客户端�
 <li><p>如果使用HTTP clone遇到提交大小限制，请使用以下命令提高限值</p>
 
 <pre><code>  git config --global http.postBuffer 524288000
+
+  (bytes)
 </code></pre></li>
 <li><p>此外，也可以使用以下命令做相应修改</p>
 
