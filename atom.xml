@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-06-13T22:09:10+08:00</updated>
+  <updated>2016-06-14T17:52:16+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1252,11 +1252,11 @@ tomcat的bio connector，采用的是线程池来避免对于每一个客户端�
 <ul>
 <li><p>告诉git忽略对已经纳入版本管理的文件a的修改,git会一直忽略此文件直到重新告诉git可以再次跟踪此文件:</p>
 
-<pre><code>  git update-index--assume-unchanged a
+<pre><code>  git update-index --assume-unchanged a
 </code></pre></li>
 <li><p>告诉git恢复跟踪a</p>
 
-<pre><code>  git update-index —no-assume-unchanged a
+<pre><code>  git update-index -—no-assume-unchanged a
 </code></pre></li>
 <li><p>查看当前被忽略的、已经纳入版本库管理的文件</p>
 
@@ -1298,7 +1298,7 @@ tomcat的bio connector，采用的是线程池来避免对于每一个客户端�
 </code></pre>
 
 <p>  最后提交的时候，该文件就不再纳入版本管理了。
-  如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f（译注：即 force 的首字母），以防误删除文件后丢失修改的内容。</p>
+  如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f（即 force的首字母），以防误删除文件后丢失修改的内容。</p>
 
 <p>  另外一种情况是，我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。换句话说，仅是从跟踪清单中删除。比如一些 编译文件，不小心纳入仓库后，要移除跟踪但不删除文件，以便稍后在 .gitignore 文件中补上，用 &ndash;cached 选项即可：</p>
 
