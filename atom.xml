@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-06-20T17:05:27+08:00</updated>
+  <updated>2016-06-20T17:09:24+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -105,7 +105,7 @@
     <link href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/"/>
     <updated>2016-06-17T22:59:44+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/06/17/java-skill-tree</id>
-    <content type="html"><![CDATA[<p>此技能树基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
+    <content type="html"><![CDATA[<p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
 
 <!--more-->
 
