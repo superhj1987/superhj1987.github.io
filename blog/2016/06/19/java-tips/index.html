@@ -10,7 +10,7 @@
 	<meta name="author" content="飒然Hang">
 
 	
-	<meta name="description" content="Java开发的几个注意点 1. 将一些需要变动的配置写在属性文件中 比如，没有把批处理使用的线程数设置成可在属性文件中配置。你的批处理程序无论在DEV环境中，还是TEST环境中，都可以顺畅无阻地运行，但是一旦部署在PROD上，把它作为多线程程序处理更大的数据集时，就会抛出IOException， &hellip;">
+	<meta name="description" content="Java开发的几个注意点 在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。 1. 将一些需要变动的配置写在属性文件中 比如， &hellip;">
 	
 
   <!-- http://t.co/dKP3o1e -->
@@ -20,7 +20,7 @@
 
 	<link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
 	
-	<link rel="canonical" href="http://www.rowkey.me/blog/2016/06/20/java-tips/">
+	<link rel="canonical" href="http://www.rowkey.me/blog/2016/06/19/java-tips/">
 	<link href="/favicon.ico" rel="shortcut icon">
 	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
 	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
@@ -112,7 +112,12 @@
 			<div class="mid-col-container">
 				<div id="content" class="inner"><article class="post" itemscope itemtype="http://schema.org/BlogPosting">
 	<h1 class="title" itemprop="name">Java开发的几个注意点</h1>
-	<div class="entry-content" itemprop="articleBody"><h2>1. 将一些需要变动的配置写在属性文件中</h2>
+	<div class="entry-content" itemprop="articleBody"><p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
+
+<!--more-->
+
+
+<h2>1. 将一些需要变动的配置写在属性文件中</h2>
 
 <p>比如，没有把批处理使用的线程数设置成可在属性文件中配置。你的批处理程序无论在DEV环境中，还是TEST环境中，都可以顺畅无阻地运行，但是一旦部署在PROD上，把它作为多线程程序处理更大的数据集时，就会抛出IOException，原因也许是线上环境并发造成也许是其他。如果线程数目可以在属性文件中配置，那么使它成为一个单线程应用程序就变得十分容易了。我们不再需要为了解决问题而反复地部署和测试应用了。这种方法也同样适用于配置 URL、服务器和端口号等。当然这里推荐使用属性文件外化这些配置。</p>
 
@@ -185,7 +190,7 @@
 </ul>
 
 
-<p><strong><em>Ps:此文部分借鉴自网上资料。</em></strong></p>
+<p><strong><em>Ps:此文部分内容来自网上资料。</em></strong></p>
 </div>
 
 </article>
@@ -193,7 +198,7 @@
 	<div class="share">
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="Java开发的几个注意点 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/06/20/java-tips/" data-content="1. 将一些需要变动的配置写在属性文件中 比如，没有把批处理使用的线程数设置成可在属性文件中配置。你的批处理程序无论在DEV环境中，还是TEST环境中，都可以顺畅无阻地运行，但是一旦部署在PROD上，把它作为多线程程序处理更大的数据集时，就会抛出IOException， &hellip;">
+<div class="ds-share flat" data-title="Java开发的几个注意点 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/06/19/java-tips/" data-content="在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。 1. 将一些需要变动的配置写在属性文件中 比如，没有把批处理使用的线程数设置成可在属性文件中配置。 &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	

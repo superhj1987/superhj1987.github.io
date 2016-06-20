@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-06-20T17:00:52+08:00</updated>
+  <updated>2016-06-20T17:05:27+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -15,10 +15,15 @@
   
   <entry>
     <title type="html"><![CDATA[Java开发的几个注意点]]></title>
-    <link href="http://www.rowkey.me/blog/2016/06/20/java-tips/"/>
-    <updated>2016-06-20T20:59:44+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/06/20/java-tips</id>
-    <content type="html"><![CDATA[<h2>1. 将一些需要变动的配置写在属性文件中</h2>
+    <link href="http://www.rowkey.me/blog/2016/06/19/java-tips/"/>
+    <updated>2016-06-19T20:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/06/19/java-tips</id>
+    <content type="html"><![CDATA[<p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
+
+<!--more-->
+
+
+<h2>1. 将一些需要变动的配置写在属性文件中</h2>
 
 <p>比如，没有把批处理使用的线程数设置成可在属性文件中配置。你的批处理程序无论在DEV环境中，还是TEST环境中，都可以顺畅无阻地运行，但是一旦部署在PROD上，把它作为多线程程序处理更大的数据集时，就会抛出IOException，原因也许是线上环境并发造成也许是其他。如果线程数目可以在属性文件中配置，那么使它成为一个单线程应用程序就变得十分容易了。我们不再需要为了解决问题而反复地部署和测试应用了。这种方法也同样适用于配置 URL、服务器和端口号等。当然这里推荐使用属性文件外化这些配置。</p>
 
@@ -91,7 +96,7 @@
 </ul>
 
 
-<p><strong><em>Ps:此文部分借鉴自网上资料。</em></strong></p>
+<p><strong><em>Ps:此文部分内容来自网上资料。</em></strong></p>
 ]]></content>
   </entry>
   
