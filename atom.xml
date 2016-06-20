@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-06-20T11:37:04+08:00</updated>
+  <updated>2016-06-20T17:00:52+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,88 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java开发的几个注意点]]></title>
+    <link href="http://www.rowkey.me/blog/2016/06/20/java-tips/"/>
+    <updated>2016-06-20T20:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/06/20/java-tips</id>
+    <content type="html"><![CDATA[<h2>1. 将一些需要变动的配置写在属性文件中</h2>
+
+<p>比如，没有把批处理使用的线程数设置成可在属性文件中配置。你的批处理程序无论在DEV环境中，还是TEST环境中，都可以顺畅无阻地运行，但是一旦部署在PROD上，把它作为多线程程序处理更大的数据集时，就会抛出IOException，原因也许是线上环境并发造成也许是其他。如果线程数目可以在属性文件中配置，那么使它成为一个单线程应用程序就变得十分容易了。我们不再需要为了解决问题而反复地部署和测试应用了。这种方法也同样适用于配置 URL、服务器和端口号等。当然这里推荐使用属性文件外化这些配置。</p>
+
+<h2>2. 测试中尽可能模拟线上环境</h2>
+
+<p>比如，生产过程中一个典型的场景就是只使用1到3个账户进行测试，而这个数量本应是1000到2000个的。在做性能测试时，使用的数据必须是真实并且未经裁剪的。不贴近真实环境的性能测试，可能会带来不可预料的性能、拓展和多线程问题。</p>
+
+<h2>3. 对于所有外部调用以及内部服务都要做容错处理</h2>
+
+<p>不管是RPC调用还是对于第三方服务的调用，都不能想当然的认为可用性是100%的.不允许出现服务调用超时和重试，将会对应用程序的稳定性和性能造成不利地影响。</p>
+
+<h2>4. 安全设计上一个系统要遵循最小权限原则</h2>
+
+<p>网络服务随处可见，从而使得黑客可以轻易地利用它进行拒绝服务攻击。所以，设计系统时，需要遵循“最小权限”原则，采用白名单等方式。</p>
+
+<h2>5. 需要提供以下文档</h2>
+
+<ol>
+<li>编写单元测试文档并使其拥有良好的代码覆盖率。</li>
+<li>高层次的设计图：描述了所有的组件，交互和结构。</li>
+<li>详细的设计图：具体到代码层面的设计</li>
+<li>系统map（类似于site map）：说明系统的所有组成文件、配置文件等</li>
+</ol>
+
+
+<h2>6. 做好系统关键功能的监控、错误恢复、备份等</h2>
+
+<p>对于系统一些至关重要的功能模块要做好对其的监控，防止其影响系统的运行,造成不可估算的损失。另外，如果可以，监控到故障后去去试图恢复，恢复失败再发送告警。对于一些很重要的数据文件，还要做到冗余备份，防止发生一些突然故障造成数据丢失。</p>
+
+<h2>7. 数据库设计时设计一些便于追踪历史、整理的列</h2>
+
+<p>比如created_time、update_time可以说明记录的创建和更新时间。；created_by、updated_by可以说明记录是由谁创建和更新的。</p>
+
+<p>此外，删除记录有时候并非真正删除，这时需要设计表示此记录状态的列，如可以取‘Y’或‘N’的‘deleted’列或是可以取‘Active’或‘Inactive’的 ‘record_status’列。</p>
+
+<h2>8. 制定好项目回滚计划</h2>
+
+<p>新的功能上线时，如果发生故障，没有一份回滚计划，那么可能会手忙脚乱。有一个良好的回顾及计划，可以让你能够有条不紊的执行相关操作，将系统恢复到一个可运行的状态。</p>
+
+<h2>9. 项目上线前要做好量化分析</h2>
+
+<p>对于项目中用到的内存、数据库、文件、缓存等，要做好量化分析。预估出未来一段时间的空间占用，给运维分配机器时一个参考。防止，由于数据量增长过快，导致存储不够。</p>
+
+<h2>10. 制定好系统的部署计划。</h2>
+
+<p>系统部署的平台是一个至关重要的部分。对于平台的描述，不能仅限于一台服务器、两个数据库这个层面，至少需要包括</p>
+
+<ul>
+<li>操作系统的特定版本，JVM等。</li>
+<li>有多少内存（包括物理内存，JVM堆内存，JVM栈内存和JVM永久代的空间）。</li>
+<li>CPU（内核数）。</li>
+<li>负载均衡器，需要的节点数、节点类型，比如是active/active型还是active/passive型，以及聚类要求。</li>
+<li>文件系统要求，例如，你的应用程序可能会收集生成的报告并将其保存一年，之后才进行归档。这样的话，你就需要有足够的硬盘空间。有些应用程序要求产生数据提取文件，并将它们暂时储存以供其他系统进程或数据仓库系统用来做多维分析报告。还有些数据文件是基于安全文件传输协议的，它们或来自内部系统，或来自外部系统，并且在归档前需要被保存12到36个月。</li>
+</ul>
+
+
+<h2>11. 选择最合适的工具/技术</h2>
+
+<p>很多情况下，开发者会在生产系统中使用一门想要学习的语言或某种工具。通常这不是最好的选择。比如，为已经实际上是关系型的数据使用NoSQL数据库。不管是语言还是工具，都有其适用的场景。类似“PHP”是最好的语言这种，只能表示呵呵。</p>
+
+<h2>12. 在一些关键技术领域具有充足的知识储备。</h2>
+
+<ul>
+<li>设计模式</li>
+<li>JVM调优</li>
+<li>多线程“并发问题”</li>
+<li>事务问题，包括分布式事务</li>
+<li>性能问题，包括GC、计算等</li>
+<li>缓存</li>
+</ul>
+
+
+<p><strong><em>Ps:此文部分借鉴自网上资料。</em></strong></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java后端工程师技术树]]></title>
@@ -2827,112 +2909,6 @@ modelFactory.updateModel(webRequest, mavContainer);</p>
 
 
 <p>整个大体的流程就是这样的，如果需要使用HttpServletResponse同时还需要框架控制视图生成的话，可以给controller method一个返回值（随便什么都行）。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[ShellShock这点事]]></title>
-    <link href="http://www.rowkey.me/blog/2014/09/29/shell-shock/"/>
-    <updated>2014-09-29T21:49:46+08:00</updated>
-    <id>http://www.rowkey.me/blog/2014/09/29/shell-shock</id>
-    <content type="html"><![CDATA[<h2>前言</h2>
-
-<p>在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接：<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271">CVE-2014-6271</a> 、<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-7169">CVE-2014-7169</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7186">CVE-2014-7186</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7187">CVE-2014-7187</a>、<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6277">CVE-2014-6277</a>。世界上Linux服务器的占有份额是很大的，而bash又是Linux不可或缺的一个部分。可想而知，这个漏洞的破坏力有多大。这个从名字上就可以看出来，ShellShock是医学上的一种严重的疾病，中文叫做“弹震症”，指的是受到爆炸冲击后导致浑身颤抖、思维混乱等症状。这个命名很形象地反映了问题的严重性。</p>
-
-<!--more-->
-
-
-<h2>漏洞的原理是什么</h2>
-
-<p>参照shellshock官网<a href="https://shellshocker.net/">https://shellshocker.net/</a>，测试本机是否受这个漏洞的影响，先要执行一段shell代码：</p>
-
-<pre>
-env x='() { :;}; echo vulnerable' bash -c ""
-</pre>
-
-
-<p>如果发现有以下输出说明你系统受到这个漏洞的影响。</p>
-
-<pre>
-vulnerable
-</pre>
-
-
-<p>为什么会这样呢？看一下代码，首先设置一个环境变量x，x指向的是一个函数，这个函数仅仅有一句:;的代码，就是返回true。后面跟着的echo vulnerable，按说是不应该为执行的。后面的bash -c &hellip;，这里使用bash命令开启了子shell，子shell会在启动的时候继承父shell的环境变量，于是在继承x这个变量的时候，就把echo vulnerable这行执行了。结果就是打印出了vulnerable。</p>
-
-<p>官网上提到如果这一步就发现自己收到了影响，那么先update bash吧。</p>
-
-<p>在升级完bash后，并非就高枕无忧了，又有人发现了更NB的利用这个漏洞的办法。执行下面的shell代码：</p>
-
-<pre>
-env X='() { (shellshocker.net)=>\' bash -c "echo date"; cat echo ; rm -f echo
-</pre>
-
-
-<p>如果这行代码，打印出了日期（可能会伴有一些错误），那么说明你仍然没有逃脱这个漏洞的影响。</p>
-
-<pre>
-bash: X: line 1: syntax error near unexpected token `='
-bash: X: line 1: `'
-bash: error importing function definition for `X'
-2014年 9月29日 星期一 21时04分30秒 CST
-</pre>
-
-
-<p>update bash之后，只是让子shell继承父shell的时候不去执行后面的语句。但是这个代码变态之处在于它故意使用（shellshocker.net）=让shell报错，后面的>\则留在了缓冲区中，子shell继承到了>\,然后执行echo date，此时相当于下面的代码：</p>
-
-<pre>
->\
-echo date
-</pre>
-
-
-<p>\是命令换行的，于是就相当于>echo date，>是重定向符号，最后其实等价于date  > echo，这样最终把命令给执行了。</p>
-
-<p>此外，官网还列出了其他的exploit，都是利用了子进程对环境变量的继承：</p>
-
-<ol>
-<li><p>Exploit 3 (???)</p>
-
-<p> Here is another variation of the exploit. Please leave a comment below if you know the CVE of this exploit.
- <pre>
-env -i X=&lsquo; () { }; echo hello&rsquo; bash -c &lsquo;date&rsquo;
-</pre></p>
-
-<p>  If the above command outputs &ldquo;hello&rdquo;, you are vulnerable.</p></li>
-<li><p>Exploit 4 (CVE-2014-7186)</p></li>
-<li><p>Exploit 5 (CVE-2014-7187)</p></li>
-</ol>
-
-
-<h2>怎样利用这个漏洞</h2>
-
-<p>看了上面说的bash漏洞，那我们怎样来利用呢？举一个典型的列子，现在有很多网站是使用的apache运行在Linux系统上的，也是以子进程的方式来运行web程序的，其中用户端传来的HTTP_USER_AGENT、HTTP_HEADER等是会传递到子进程中的，而且这些变量是用户端任意可以指定的，如果按照开始讲的那样传递一个x过来，但是并不仅仅是echo一个字符串，那危害。。。可想而知。如下面的一个http请求（如果不是仅仅ping一个ip地址）：</p>
-
-<pre>
-http-user-agent = shellshock-scan () http-header = Cookie:() { :; }; ping -c 163.com
-http-header = Host:() { :; }; ping -c 163.com
-http-header = Referer:() { :; }; ping -c 163.com
-</pre>
-
-
-<p>除此之外，现在已经有利用这个漏洞攻击DHCP客户端、VoIP设备、Git版本控制系统、qmail等的成功例子了，可以说有Linux的地方就有shellshock的“用武之地”，包括Mac os。这篇文章总结了现在发现的各种各样的攻击方式：<a href="http://www.fireeye.com/blog/uncategorized/2014/09/shellshock-in-the-wild.html">http://www.fireeye.com/blog/uncategorized/2014/09/shellshock-in-the-wild.html</a></p>
-
-<p>看到这里，可能有人会说：”让你们天天说Linux有多安全”。其实Windows也逃不开这个漏洞的危害，很多windows系统里都有bash环境，即使没有bash环境，只要你的系统使用了含有bash的组件（如负载均衡、CDN）也难逃shellshock的魔掌。</p>
-
-<h2>总结</h2>
-
-<p>修复Shellshock漏洞就像打地鼠，堵了一头另一头又冒出，修复一部分，很快就有其他的攻击方式出现，层出不穷，问题的关键其实还是在于bash在设计的时候对于环境变量的依赖。只要存在对环境变量的导出，那么攻击者就可以使用各种方式诱骗bash视其为命令，进行执行。</p>
-
-<h3>参考文章</h3>
-
-<ul>
-<li><a href="http://www.oschina.net/news/55694/shellshock-flaw">http://www.oschina.net/news/55694/shellshock-flaw</a></li>
-<li><a href="http://news.cnblogs.com/n/504675/">http://news.cnblogs.com/n/504675/</a></li>
-<li><a href="http://weibo.com/p/1005051401527553/weibo">http://weibo.com/p/1005051401527553/weibo</a></li>
-<li><a href="https://shellshocker.net/">https://shellshocker.net/</a></li>
-</ul>
-
 ]]></content>
   </entry>
   
