@@ -172,7 +172,7 @@ ngx_buf_t是ngx_chain_t的数据结点
     		ngx_queue_t  *next;
 		};
 		
-链表节点的数据成员并没有声明在链表节点的结构体中，只是声明了前向和后向指针。使用的时候需要定义一个哨兵节点。具体存放数据的节点称之为数据节点。对于数据节点，需要在数据结构体中加入一个类型为ngx_queue_s的域。使用下面的函数进行数据插入，其中x为数据节点的queue_t域。
+链表节点的数据成员并没有声明在链表节点的结构体中，只是声明了前向和后向指针。使用的时候需要定义一个哨兵节点。具体存放数据的节点称之为数据节点。对于数据节点，需要在数据结构体中加入一个类型为ngx_queue_t的域。使用下面的函数进行数据插入，其中x为数据节点的ngx_queue_t域。
 		
 		#define ngx_queue_insert_head(h, x)                         \
     		(x)->next = (h)->next;                                  \
@@ -187,6 +187,7 @@ ngx_buf_t是ngx_chain_t的数据结点
     		(x)->prev->next = x;                                     \
     		(x)->next = h;                                           \
     		(h)->prev = x
-    	获得数据时，使用ngx_queue_data()宏。
+    		
+    	获得数据时，使用ngx_queue_data()宏。其中type是数据节点类型，link是数据节点中ngx_queue_t的域名字。
     	#define ngx_queue_data(q, type, link)                        \
     		(type *) ((u_char *) q - offsetof(type, link))
