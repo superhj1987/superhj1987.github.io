@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-06-22T14:54:00+08:00</updated>
+  <updated>2016-06-28T10:52:28+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,173 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java后端工程师学习之路]]></title>
+    <link href="http://www.rowkey.me/blog/2016/06/27/java-backend-study/"/>
+    <updated>2016-06-27T21:39:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/06/27/java-backend-study</id>
+    <content type="html"><![CDATA[<p>之前自己总结过的<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>，其涵盖的技术点比较全面，并非一朝一夕能够全部覆盖到的。对于一些还没有入门或者刚刚入门的Java后端工程师，如果一下子需要学习如此多的知识，想必很多人会望而却步。</p>
+
+<p>本文截取了技能树中的一些关键技能点，并辅以学习资料和书籍推荐，做为Java后端工程师的一个入门或者入职学习计划，是一个相对完整的从基础到高级的修炼过程。基本上涵盖了一个合格的Java后端工程师必备的技能点。</p>
+
+<!--more-->
+
+
+<h2>一. Git版本管理+Maven工程管理</h2>
+
+<p><a href="http://weibo.com/p/1001643874239169320051">微博新兵训练营课程——环境与工具</a></p>
+
+<h2>二. Java高级编程</h2>
+
+<h3>资料</h3>
+
+<ul>
+<li>Socket编程: <a href="http://ifeve.com/java-socket/">http://ifeve.com/java-socket/</a></li>
+<li>NIO: <a href="http://ifeve.com/java-nio-all/">http://ifeve.com/java-nio-all/</a></li>
+<li>序列化: <a href="http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/">http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/</a></li>
+<li>RPC框架: <a href="http://dubbo.io">http://dubbo.io</a></li>
+<li>并发编程：<a href="http://ifeve.com/java-concurrency-constructs/">http://ifeve.com/java-concurrency-constructs/</a></li>
+</ul>
+
+
+<h3>书籍</h3>
+
+<ul>
+<li><a href="http://item.jd.com/11740734.html">《Java并发编程的艺术》</a></li>
+</ul>
+
+
+<h2>三. 性能优化与诊断-系统</h2>
+
+<p><a href="https://book.douban.com/subject/4027746/">《Linux服务器性能调整》</a></p>
+
+<p>学习内容：</p>
+
+<ul>
+<li>Linux概述</li>
+<li>性能分析工具</li>
+<li>系统调优</li>
+<li>Linux服务器应用的性能特征</li>
+<li>调优案例分析</li>
+</ul>
+
+
+<h2>四. 性能优化与诊断-JVM</h2>
+
+<ul>
+<li><p><a href="https://book.douban.com/subject/25828043/">《Java性能优化权威指南》</a></p>
+
+<p>  学习内容：</p>
+
+<ul>
+<li>JVM概述</li>
+<li>JVM性能监控</li>
+<li>JVM性能剖析与工具</li>
+<li>JVM参数与调优步骤</li>
+<li>JVM调优案例分析</li>
+</ul>
+</li>
+<li><p><a href="https://book.douban.com/subject/24722612/">《深入理解Java虚拟机(第二版)》</a></p></li>
+</ul>
+
+
+<h2>五. 消息中间件</h2>
+
+<h3>JMS</h3>
+
+<ul>
+<li>大规模分布式消息中间件简介：<a href="http://blog.csdn.net/huyiyang2010/article/details/5969944">http://blog.csdn.net/huyiyang2010/article/details/5969944</a></li>
+<li>JMS Overview: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html</a></li>
+<li>Basic JMS API Concepts: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html</a></li>
+<li>The JMS API Programming Model: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html">http://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html</a></li>
+<li>Creating Robust JMS Applications:<a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncfu.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncfu.html</a></li>
+<li>Using the JMS API in Java EE Applications: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html</a></li>
+<li>Further Information about JMS: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html</a></li>
+</ul>
+
+
+<h3>Kafka</h3>
+
+<p><a href="http://www.orchome.com/kafka/index">http://www.orchome.com/kafka/index</a></p>
+
+<p>学习内容：</p>
+
+<ul>
+<li>开始学习kafka</li>
+<li>入门</li>
+<li>接口</li>
+<li>配置</li>
+<li>设计</li>
+<li>实现</li>
+<li>什么是kafka</li>
+<li>什么场景下使用kafka</li>
+</ul>
+
+
+<h3>RabbitMQ</h3>
+
+<p><a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
+
+<h2>六. Redis设计与实现</h2>
+
+<p><a href="http://redisbook.com/">http://redisbook.com/</a></p>
+
+<p>学习内容：</p>
+
+<ul>
+<li>常用命令以及数据结构</li>
+<li>内部数据结构</li>
+<li>内存映射数据库结构</li>
+<li>redis数据类型</li>
+<li>功能的实现</li>
+<li>内部运作机制</li>
+</ul>
+
+
+<h2>七. 数据相关</h2>
+
+<h3>理论基础</h3>
+
+<ul>
+<li>MapReduce：<a href="http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx">http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx</a></li>
+<li>GFS：<a href="http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx">http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx</a></li>
+<li>Bigtable：<a href="http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx">http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx</a></li>
+</ul>
+
+
+<h3>实时计算</h3>
+
+<ul>
+<li>Storm:<a href="https://book.douban.com/subject/26312249/">《Storm分布式实时计算模式》</a></li>
+<li>Spark streaming: <a href="https://spark.apache.org/streaming/">官网文档</a></li>
+</ul>
+
+
+<h3>离线计算</h3>
+
+<ul>
+<li>Hadoop:<a href="https://book.douban.com/subject/26206050/">《Hadoop权威指南》</a></li>
+<li>Hive:<a href="https://book.douban.com/subject/25791255/">《Hive编程指南》</a></li>
+<li>Spark:<a href="https://book.douban.com/subject/26616244/">《Spark快速大数据分析》</a></li>
+</ul>
+
+
+<h3>Lambda架构</h3>
+
+<p><a href="http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln">Linkedln技术高管Jay Kreps：Lambda架构剖析</a></p>
+
+<h3>机器学习：</h3>
+
+<ul>
+<li><a href="https://book.douban.com/subject/10769749/">《推荐系统实践》</a></li>
+<li><a href="https://book.douban.com/subject/26596778/">《计算广告》</a></li>
+<li><a href="https://book.douban.com/subject/3288908/">《集体智慧》</a></li>
+<li><a href="https://book.douban.com/subject/26708119/">《机器学习》</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java开发的几个注意点]]></title>
@@ -2818,109 +2985,6 @@ public class Account{
 
 
 <p>Stay hungry,stay foolish!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Spring mvc的controller传递HttpServletResponse参数的一点事]]></title>
-    <link href="http://www.rowkey.me/blog/2014/12/09/spring-mvc-httpservletresponse/"/>
-    <updated>2014-12-09T10:05:41+08:00</updated>
-    <id>http://www.rowkey.me/blog/2014/12/09/spring-mvc-httpservletresponse</id>
-    <content type="html"><![CDATA[<pre>
-    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
-    public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
-    ......
-    }
-</pre>
-
-
-<p>之前在使用Spring mvc的时候发现这么一回事：在spring mvc的controller的参数里如果有HttpServletResponse(类似上面的代码),那么必须有返回值框架才会去在执行完handler后去搜索相应的viewResolver和view从而展现数据。如果没有返回值，那么默认就是返回null的。我初步推测框架的处理过程大致如此：如果controller参数里传递HttpServletResposne的话，框架就认为视图由handler自己生成可以不参于这个过程,但是如果handler有返回值的话，那么仍然认为还需要参与到视图生成的过程中。</p>
-
-<!--more-->
-
-
-<p>翻了一下spring mvc的代码，验证了自己的想法。在DispatchServlet的921行</p>
-
-<pre>
-// Actually invoke the handler.
-mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
-</pre>
-
-
-<p>这里的mv就是视图生成的结果。接着经历下面的过程：</p>
-
-<ol>
-<li>AbstractHandlerMethodAdapter.handle</li>
-<li>RequestMappingHandlerAdapter.handleInternal</li>
-<li><p>RequestMappingHandlerAdapter.invokeHandleMethod</p>
-
-<p> 这地方有一个关键的变量mavContainer
- <pre>
- ModelAndViewContainer mavContainer = new ModelAndViewContainer();
- </pre>
- mavContainer有一个属性requestHandled，其标志着此次请求是否是由handler自己控制的。默认为false。</p></li>
-<li><p>ServletInvocableHandlerMethod.invokeAndHandle</p></li>
-<li>InvocableHandlerMethod.invokeForRequest</li>
-<li><p>InvocableHandlerMethod.getMethodArgumentValues</p>
-
-<p> 这个方法的功能在名字上大体就能看出来：获取controller中每一个参数的值。关键的地方在于
- <pre>
- args[i] = argumentResolvers.resolveArgument(parameter, mavContainer, request, dataBinderFactory);
- </pre>
- 这一行代码关联的是对每一中paramerter的处理类。接下来的调用见7</p></li>
-<li><p>HandlerMethodArgumentResolverComposite.resolveArgument</p>
-
-<p> <pre>
- HandlerMethodArgumentResolver resolver = getArgumentResolver(parameter);
- Assert.notNull(resolver, &ldquo;Unknown parameter type [&rdquo; + parameter.getParameterType().getName() + &ldquo;]&rdquo;);
- return resolver.resolveArgument(parameter, mavContainer, webRequest, binderFactory);
- </pre></p>
-
-<p> 这里的代码就三行，第一步是根据参数不同，获取不同的argumentResolver。当参数为HttpServletResponse的时候，就会调用ServletResponseMethodArgumentResolver.resolveArgument</p></li>
-<li><p>ServletResponseMethodArgumentResolver.resolveArgument</p>
-
-<p> 最核心的一段代码来了</p>
-
-<p> <pre>
- if (mavContainer != null) {
-     mavContainer.setRequestHandled(true);
- }
- </pre></p>
-
-<p> 这里就把mavContainer的requestHandled设置为了true.</p></li>
-<li><p>回到4，调用完InvocableHandlerMethod.invokeForRequest</p>
-
-<p> <pre>
- if (returnValue == null) {
-     if (isRequestNotModified(webRequest) || hasResponseStatus() || mavContainer.isRequestHandled()) {
-         mavContainer.setRequestHandled(true);
-         return;
-     }
- }else if (StringUtils.hasText(this.responseReason)) {
-     mavContainer.setRequestHandled(true);
-     return;
- }</p>
-
-<p> mavContainer.setRequestHandled(false);
- </pre></p>
-
-<p> 当handler的返回值为null的时候，直接返回。否则将mavContainer的requestHandled设置为false。</p></li>
-<li><p>接着回到3，调用完ServletInvocableHandlerMethod.invokeAndHandle后，接着调用getModelAndView(mavContainer, modelFactory, webRequest)</p></li>
-<li><p>ServletInvocableHandlerMethod.getModelAndView</p>
-
-<p><pre>
-modelFactory.updateModel(webRequest, mavContainer);</p>
-
-<p>if (mavContainer.isRequestHandled()) {
-    return null;
-}
-</pre></p>
-
-<p>这里当mavContainer的requestHandled被设置为true时,视图返回null。</p></li>
-</ol>
-
-
-<p>整个大体的流程就是这样的，如果需要使用HttpServletResponse同时还需要框架控制视图生成的话，可以给controller method一个返回值（随便什么都行）。</p>
 ]]></content>
   </entry>
   
