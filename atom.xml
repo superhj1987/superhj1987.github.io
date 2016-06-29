@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-06-29T11:48:47+08:00</updated>
+  <updated>2016-06-29T22:49:01+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Java后端工程师训练营之学习计划]]></title>
+    <title type="html"><![CDATA[我的书架之Java后端工程师]]></title>
     <link href="http://www.rowkey.me/blog/2016/06/27/java-backend-study/"/>
     <updated>2016-06-27T21:39:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/06/27/java-backend-study</id>
@@ -29,7 +29,17 @@
 
 <p><a href="http://weibo.com/p/1001643874239169320051">微博新兵训练营课程——环境与工具</a></p>
 
-<h2>二. Java高级编程</h2>
+<h2>二. Java编程</h2>
+
+<h3>书籍</h3>
+
+<ul>
+<li><a href="https://book.douban.com/subject/3146174/">《Java核心技术(卷1)》</a>：学习java必备的黄皮书，入门推荐书籍</li>
+<li><a href="https://book.douban.com/subject/3360866/">《Java核心技术(卷2)》</a>：黄皮书之高级特性</li>
+<li><a href="https://book.douban.com/subject/10484692/">《Java并发编程实战》</a>: 对java并发库讲得非常透彻</li>
+<li><a href="https://book.douban.com/subject/3360807/">《Effective Java》</a>：Java之父高司令都称赞的一本java进阶书籍</li>
+</ul>
+
 
 <h3>资料</h3>
 
@@ -39,13 +49,6 @@
 <li>序列化: <a href="http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/">http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/</a></li>
 <li>RPC框架: <a href="http://dubbo.io">http://dubbo.io</a></li>
 <li>并发编程：<a href="http://ifeve.com/java-concurrency-constructs/">http://ifeve.com/java-concurrency-constructs/</a></li>
-</ul>
-
-
-<h3>书籍</h3>
-
-<ul>
-<li><a href="https://book.douban.com/subject/10484692/">《Java并发编程实战》</a></li>
 </ul>
 
 
