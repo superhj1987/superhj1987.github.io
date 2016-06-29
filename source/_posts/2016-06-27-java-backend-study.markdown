@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java后端工程师学习之路"
+title: "我的书架之Java后端工程师"
 date: 2016-06-27 21:39:34 +0800
 comments: true
 categories: java
@@ -16,7 +16,15 @@ categories: java
 
 [微博新兵训练营课程——环境与工具](http://weibo.com/p/1001643874239169320051)
 
-## 二. Java高级编程
+## 二. Java编程
+
+### 书籍
+
+- [《Java核心技术(卷1)》](https://book.douban.com/subject/3146174/)：学习java必备的黄皮书，入门推荐书籍
+- [《Java核心技术(卷2)》](https://book.douban.com/subject/3360866/)：黄皮书之高级特性
+- [《Java并发编程实战》](https://book.douban.com/subject/10484692/): 对java并发库讲得非常透彻
+- [《Effective Java》](https://book.douban.com/subject/3360807/)：Java之父高司令都称赞的一本java进阶书籍
+- [《写给大忙人看的Java SE 8》](https://book.douban.com/subject/26274206/):涵盖了java8带来以及java7中被略过的新的java特性，值得一看
 
 ### 资料
 
@@ -25,10 +33,6 @@ categories: java
 - 序列化: <http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/>
 - RPC框架: <http://dubbo.io>
 - 并发编程：<http://ifeve.com/java-concurrency-constructs/>
-
-### 书籍
-
-- [《Java并发编程实战》](https://book.douban.com/subject/10484692/)
 
 ## 三. 性能优化与诊断-系统
 
