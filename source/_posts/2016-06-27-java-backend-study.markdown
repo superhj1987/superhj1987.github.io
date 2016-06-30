@@ -34,7 +34,25 @@ categories: java
 - RPC框架: <http://dubbo.io>
 - 并发编程：<http://ifeve.com/java-concurrency-constructs/>
 
-## 三. 性能优化与诊断-系统
+## 三. 开发框架
+
+- Spring：[跟开涛学Spring3](http://download.csdn.net/download/victor901/7909219gen)
+- Spring MVC:[跟开涛学springmvc](http://www.cnblogs.com/kaitao/archive/2012/07/16/2593441.html)
+- MyBatis:[MyBatis实战教程](http://www.yihaomen.com/article/java/302.htm) [MyBatis学习](http://limingnihao.iteye.com/blog/781671)
+
+对于这些框架或者是一些常用的软件，个人最推崇的还是阅读**官方文档**来学习。当然，看这些资料能让你入门地更加快速一些。
+
+更进一步的，在学会使用之后，去阅读这些框架或软件的源码是必不可少的一步。阅读源码的一种比较好的步骤如下：
+
+- 1) 先阅读架构文档
+- 2) 根据架构，将源码文件以模块（或上下层级）分类
+- 3) 从最独立（依赖性最小）的模块代码读起
+- 4) 阅读该模块功能文档
+- 5) 阅读该模块源代码
+- 6) 一边阅读一边整理「调用关系表」
+- 7) goto 3
+
+## 四. 性能优化与诊断-系统
 
 [《Linux服务器性能调整》](https://book.douban.com/subject/4027746/)
 
@@ -46,7 +64,7 @@ categories: java
 + Linux服务器应用的性能特征
 + 调优案例分析
 
-## 四. 性能优化与诊断-JVM
+## 五. 性能优化与诊断-JVM
 
 - [《Java性能优化权威指南》](https://book.douban.com/subject/25828043/)
 
@@ -60,7 +78,7 @@ categories: java
 
 - [《深入理解Java虚拟机(第二版)》](https://book.douban.com/subject/24722612/)
 
-## 五. 消息中间件
+## 六. 消息中间件
 
 ### JMS
 
@@ -91,7 +109,7 @@ categories: java
 
 [官方文档](http://www.rabbitmq.com/documentation.html)
 
-## 六. Redis设计与实现
+## 七. Redis设计与实现
 
 <http://redisbook.com/>
 
@@ -104,7 +122,7 @@ categories: java
 + 功能的实现
 + 内部运作机制
 
-## 七. 数据相关
+## 八. 数据相关
 
 ### 理论基础
 
