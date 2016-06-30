@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-06-29T22:50:51+08:00</updated>
+  <updated>2016-06-30T12:32:46+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -53,7 +53,31 @@
 </ul>
 
 
-<h2>三. 性能优化与诊断-系统</h2>
+<h2>三. 开发框架</h2>
+
+<ul>
+<li>Spring：<a href="http://download.csdn.net/download/victor901/7909219gen">跟开涛学Spring3</a></li>
+<li>Spring MVC:<a href="http://www.cnblogs.com/kaitao/archive/2012/07/16/2593441.html">跟开涛学springmvc</a></li>
+<li>MyBatis:<a href="http://www.yihaomen.com/article/java/302.htm">MyBatis实战教程</a> <a href="http://limingnihao.iteye.com/blog/781671">MyBatis学习</a></li>
+</ul>
+
+
+<p>对于这些框架或者是一些常用的软件，个人最推崇的还是阅读<strong>官方文档</strong>来学习。当然，看这些资料能让你入门地更加快速一些。</p>
+
+<p>更进一步的，在学会使用之后，去阅读这些框架或软件的源码是必不可少的一步。阅读源码的一种比较好的步骤如下：</p>
+
+<ul>
+<li>1) 先阅读架构文档</li>
+<li>2) 根据架构，将源码文件以模块（或上下层级）分类</li>
+<li>3) 从最独立（依赖性最小）的模块代码读起</li>
+<li>4) 阅读该模块功能文档</li>
+<li>5) 阅读该模块源代码</li>
+<li>6) 一边阅读一边整理「调用关系表」</li>
+<li>7) goto 3</li>
+</ul>
+
+
+<h2>四. 性能优化与诊断-系统</h2>
 
 <p><a href="https://book.douban.com/subject/4027746/">《Linux服务器性能调整》</a></p>
 
@@ -68,7 +92,7 @@
 </ul>
 
 
-<h2>四. 性能优化与诊断-JVM</h2>
+<h2>五. 性能优化与诊断-JVM</h2>
 
 <ul>
 <li><p><a href="https://book.douban.com/subject/25828043/">《Java性能优化权威指南》</a></p>
@@ -87,7 +111,7 @@
 </ul>
 
 
-<h2>五. 消息中间件</h2>
+<h2>六. 消息中间件</h2>
 
 <h3>JMS</h3>
 
@@ -124,7 +148,7 @@
 
 <p><a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
 
-<h2>六. Redis设计与实现</h2>
+<h2>七. Redis设计与实现</h2>
 
 <p><a href="http://redisbook.com/">http://redisbook.com/</a></p>
 
@@ -140,7 +164,7 @@
 </ul>
 
 
-<h2>七. 数据相关</h2>
+<h2>八. 数据相关</h2>
 
 <h3>理论基础</h3>
 
