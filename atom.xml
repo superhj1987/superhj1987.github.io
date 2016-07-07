@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-07-07T23:10:10+08:00</updated>
+  <updated>2016-07-07T23:14:54+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -164,7 +164,7 @@
 
 <h3>原理</h3>
 
-<p>OAuth是目前最为流行的第三方认证技术，即如何为第三方应用提供基于自己系统帐户体系的认证。目前，微博、微信、QQ、Facebook、Twitter基本上都是通过此协议让第三方应用集成的。简单的介绍可见百度百科简介: <a href="http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_">http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_</a></p>
+<p>OAuth是目前最为流行的第三方认证技术，即如何为第三方应用提供基于自己系统帐户体系的认证。目前，微博、微信、QQ、Facebook、Twitter基本上都是通过此协议让第三方应用集成的。简单的介绍可见百度百科简介: <a href="http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_">OAuth</a>。</p>
 
 <p>此外，这里有一篇博文讲的比较详细：<a href="https://www.baidu.com/link?url=dsh9gFpNCLJSQoBq13Pw_nND3XvhBEfuuWQIyDpSDahpKPARnW2b950PgL0ywr8f&amp;wd=&amp;eqid=921a63a50002869300000004577e6e05">OAuth的机制原理讲解及开发流程</a>。</p>
 
