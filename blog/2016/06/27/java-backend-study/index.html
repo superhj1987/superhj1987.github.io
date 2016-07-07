@@ -207,6 +207,8 @@
 
 <h3>JMS</h3>
 
+<p>最为经典，也比较简单的一个消息中间件规范，ActiveMQ是其一个实现。但由于自身的一些局限，不再推荐使用。</p>
+
 <ul>
 <li>大规模分布式消息中间件简介：<a href="http://blog.csdn.net/huyiyang2010/article/details/5969944">http://blog.csdn.net/huyiyang2010/article/details/5969944</a></li>
 <li>JMS Overview: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html</a></li>
@@ -218,11 +220,20 @@
 </ul>
 
 
+<h3>RabbitMQ</h3>
+
+<p>RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。</p>
+
+<p><a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
+
 <h3>Kafka</h3>
 
-<p><a href="http://www.orchome.com/kafka/index">http://www.orchome.com/kafka/index</a></p>
+<p>基于日志的消息队列，首推当然是官方文档: <a href="http://kafka.apache.org/documentation.html">http://kafka.apache.org/documentation.html</a></p>
 
-<p>学习内容：</p>
+<ul>
+<li><p><a href="http://www.orchome.com/kafka/index">kafka中文教程</a>：比较不错的中文教程</p>
+
+<p>  学习内容：</p>
 
 <ul>
 <li>开始学习kafka</li>
@@ -234,17 +245,34 @@
 <li>什么是kafka</li>
 <li>什么场景下使用kafka</li>
 </ul>
+</li>
+<li><p><a href="https://github.com/superhj1987/kafka-study">kafka-study</a>: 笔者在学习kafka时的一些笔记</p></li>
+</ul>
 
 
-<h3>RabbitMQ</h3>
+<h2>七. OAuth认证技术</h2>
 
-<p><a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
+<h3>原理</h3>
 
-<h2>七. Redis设计与实现</h2>
+<p>OAuth是目前最为流行的第三方认证技术，即如何为第三方应用提供基于自己系统帐户体系的认证。目前，微博、微信、QQ、Facebook、Twitter基本上都是通过此协议让第三方应用集成的。简单的介绍可见百度百科简介: <a href="http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_">http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_</a></p>
 
-<p><a href="http://redisbook.com/">http://redisbook.com/</a></p>
+<p>此外，这里有一篇博文讲的比较详细：<a href="https://www.baidu.com/link?url=dsh9gFpNCLJSQoBq13Pw_nND3XvhBEfuuWQIyDpSDahpKPARnW2b950PgL0ywr8f&amp;wd=&amp;eqid=921a63a50002869300000004577e6e05">OAuth的机制原理讲解及开发流程</a>。</p>
 
-<p>学习内容：</p>
+<h3>开源实现</h3>
+
+<ul>
+<li>Google oauth core：<a href="http://oauth.net/code/">http://oauth.net/code/</a></li>
+<li>Spring oauth: <a href="http://projects.spring.io/spring-security-oauth/">http://projects.spring.io/spring-security-oauth/</a></li>
+</ul>
+
+
+<h2>八. Redis设计与实现</h2>
+
+<ul>
+<li><p><a href="http://redisdoc.com/">Redis命令</a>: 使用当然要看这份权威文档，也是平常开发中最常用的参考资料。</p></li>
+<li><p><a href="http://redisbook.com/">Redis设计与实现</a>：可以通过此文档来学习Redis的原理。当然，自己去看redis的源代码更是不错的选择。</p>
+
+<p>  学习内容：</p>
 
 <ul>
 <li>常用命令以及数据结构</li>
@@ -254,41 +282,49 @@
 <li>功能的实现</li>
 <li>内部运作机制</li>
 </ul>
+</li>
+</ul>
 
 
-<h2>八. 数据相关</h2>
+<h2>九. 数据相关</h2>
 
 <h3>理论基础</h3>
 
 <ul>
-<li>MapReduce：<a href="http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx">http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx</a></li>
-<li>GFS：<a href="http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx">http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx</a></li>
-<li>Bigtable：<a href="http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx">http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx</a></li>
+<li><a href="http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx">MapReduce</a>: 分布式计算的鼻祖，当然谷歌现在推出了新的计算模型。</li>
+<li><a href="http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx">GFS</a>: 分布式存储技术，开源实现为HDFS</li>
+<li><a href="http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx">Bigtable</a>: 稀疏大型数据库(列数据库)技术，开源实现为HBASE。</li>
 </ul>
 
+
+<p>作为业界良心的google还有其他许多先进的分布式技术，其论文也非常值得去研读。可以通过此链接获取一些论文的内容：<a href="http://www.chinacloud.cn/show.aspx?id=14382&amp;cid=11">http://www.chinacloud.cn/show.aspx?id=14382&amp;cid=11</a></p>
 
 <h3>实时计算</h3>
 
 <ul>
-<li>Storm:<a href="https://book.douban.com/subject/26312249/">《Storm分布式实时计算模式》</a></li>
-<li>Spark streaming: <a href="https://spark.apache.org/streaming/">官网文档</a></li>
+<li><a href="https://book.douban.com/subject/26312249/">《Storm分布式实时计算模式》</a>：虽然twitter推出了新一代的Heron，但Storm仍是目前应用最为广泛的实时计算技术。</li>
+<li><a href="https://spark.apache.org/streaming/">Spark streaming: </a>：Spark带来了基于批处理的实时流计算技术，对比Storm各有优劣。</li>
 </ul>
 
 
 <h3>离线计算</h3>
 
 <ul>
-<li>Hadoop:<a href="https://book.douban.com/subject/26206050/">《Hadoop权威指南》</a></li>
-<li>Hive:<a href="https://book.douban.com/subject/25791255/">《Hive编程指南》</a></li>
-<li>Spark:<a href="https://book.douban.com/subject/26616244/">《Spark快速大数据分析》</a></li>
+<li><a href="https://book.douban.com/subject/26206050/">《Hadoop权威指南》</a>：无须多言，Haoop是大数据必须要学习的技术，涵盖了HDFS+HBase+MapReduce。</li>
+<li><a href="https://book.douban.com/subject/25791255/">《Hive编程指南》</a>：Hive降低了MapReduce程序编写的复杂度。</li>
+<li><a href="https://book.douban.com/subject/26616244/">《Spark快速大数据分析》</a>： Spark引进的基于RDD的计算模型大大提高了离线计算的性能，相对于MR来说是更为领先的离线计算技术。</li>
 </ul>
 
 
 <h3>Lambda架构</h3>
 
+<p>大数据领域的经典架构方案。融合了离线和实时计算模型，对外能够提供稳定可靠的数据。</p>
+
 <p><a href="http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln">Linkedln技术高管Jay Kreps：Lambda架构剖析</a></p>
 
-<h3>机器学习：</h3>
+<h3>机器学习</h3>
+
+<p>除了个性化推荐系统之外，CTR预估、广告推荐、预测模型都是机器学习的应用场景。</p>
 
 <ul>
 <li><a href="https://book.douban.com/subject/10769749/">《推荐系统实践》</a></li>
