@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-07-07T23:14:54+08:00</updated>
+  <updated>2016-07-07T23:24:46+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -132,9 +132,7 @@
 
 <h3>RabbitMQ</h3>
 
-<p>RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。</p>
-
-<p><a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
+<p>RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。适用于需要事务管理、对消息丢失很敏感的应用场景。对比kafka来看，RabbitMQ更为强调消息的可靠性、事务等。通过阅读官方文档学习即可：<a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
 
 <h3>Kafka</h3>
 
@@ -228,9 +226,7 @@
 
 <h3>Lambda架构</h3>
 
-<p>大数据领域的经典架构方案。融合了离线和实时计算模型，对外能够提供稳定可靠的数据。</p>
-
-<p><a href="http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln">Linkedln技术高管Jay Kreps：Lambda架构剖析</a></p>
+<p>大数据领域的经典架构方案，融合了离线和实时计算模型，对外能够提供稳定可靠的数据。对此架构的剖析可见此篇文章：<a href="http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln">Linkedln技术高管Jay Kreps：Lambda架构剖析</a></p>
 
 <h3>机器学习</h3>
 
