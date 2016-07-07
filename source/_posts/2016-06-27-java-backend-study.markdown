@@ -96,9 +96,7 @@ categories: java
 
 ### RabbitMQ
 
-RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。
-
-[官方文档](http://www.rabbitmq.com/documentation.html)
+RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。适用于需要事务管理、对消息丢失很敏感的应用场景。对比kafka来看，RabbitMQ更为强调消息的可靠性、事务等。通过阅读官方文档学习即可：[官方文档](http://www.rabbitmq.com/documentation.html)
 
 ### Kafka
 
@@ -170,9 +168,7 @@ OAuth是目前最为流行的第三方认证技术，即如何为第三方应用
 
 ### Lambda架构
 
-大数据领域的经典架构方案。融合了离线和实时计算模型，对外能够提供稳定可靠的数据。
-
-[Linkedln技术高管Jay Kreps：Lambda架构剖析](http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln)
+大数据领域的经典架构方案，融合了离线和实时计算模型，对外能够提供稳定可靠的数据。对此架构的剖析可见此篇文章：[Linkedln技术高管Jay Kreps：Lambda架构剖析](http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln)
 
 ### 机器学习
 
