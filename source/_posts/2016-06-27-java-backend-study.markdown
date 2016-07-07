@@ -84,6 +84,8 @@ categories: java
 
 ### JMS
 
+最为经典，也比较简单的一个消息中间件规范，ActiveMQ是其一个实现。但由于自身的一些局限，不再推荐使用。
+
 + 大规模分布式消息中间件简介：<http://blog.csdn.net/huyiyang2010/article/details/5969944>
 + JMS Overview: <http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html>
 + Basic JMS API Concepts: <http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html>
@@ -92,62 +94,89 @@ categories: java
 + Using the JMS API in Java EE Applications: <http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html>
 + Further Information about JMS: <http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html>
 
-### Kafka
-
-<http://www.orchome.com/kafka/index>
-
-学习内容：
-
-+ 开始学习kafka
-+ 入门
-+ 接口
-+ 配置
-+ 设计
-+ 实现
-+ 什么是kafka
-+ 什么场景下使用kafka
-
 ### RabbitMQ
+
+RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。
 
 [官方文档](http://www.rabbitmq.com/documentation.html)
 
-## 七. Redis设计与实现
+### Kafka
 
-<http://redisbook.com/>
+基于日志的消息队列，首推当然是官方文档: <http://kafka.apache.org/documentation.html>
 
-学习内容：
+- [kafka中文教程](http://www.orchome.com/kafka/index)：比较不错的中文教程
 
-+ 常用命令以及数据结构
-+ 内部数据结构
-+ 内存映射数据库结构
-+ redis数据类型
-+ 功能的实现
-+ 内部运作机制
+	学习内容：
 
-## 八. 数据相关
+	+ 开始学习kafka
+	+ 入门
+	+ 接口
+	+ 配置
+	+ 设计
+	+ 实现
+	+ 什么是kafka
+	+ 什么场景下使用kafka
+
+- [kafka-study](https://github.com/superhj1987/kafka-study): 笔者在学习kafka时的一些笔记
+
+## 七. OAuth认证技术
+
+### 原理
+
+OAuth是目前最为流行的第三方认证技术，即如何为第三方应用提供基于自己系统帐户体系的认证。目前，微博、微信、QQ、Facebook、Twitter基本上都是通过此协议让第三方应用集成的。简单的介绍可见百度百科简介: <http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_>
+
+此外，这里有一篇博文讲的比较详细：[OAuth的机制原理讲解及开发流程](https://www.baidu.com/link?url=dsh9gFpNCLJSQoBq13Pw_nND3XvhBEfuuWQIyDpSDahpKPARnW2b950PgL0ywr8f&wd=&eqid=921a63a50002869300000004577e6e05)。
+
+### 开源实现
+
+- Google oauth core：<http://oauth.net/code/>
+- Spring oauth: <http://projects.spring.io/spring-security-oauth/>
+
+## 八. Redis设计与实现
+
+- [Redis命令](http://redisdoc.com/): 使用当然要看这份权威文档，也是平常开发中最常用的参考资料。
+
+- [Redis设计与实现](http://redisbook.com/)：可以通过此文档来学习Redis的原理。当然，自己去看redis的源代码更是不错的选择。
+
+	学习内容：
+
+	+ 常用命令以及数据结构
+	+ 内部数据结构
+	+ 内存映射数据库结构
+	+ redis数据类型
+	+ 功能的实现
+	+ 内部运作机制
+
+## 九. 数据相关
 
 ### 理论基础
 
-+ MapReduce：http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx
-+ GFS：http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx
-+ Bigtable：http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx
++ [MapReduce](http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx): 分布式计算的鼻祖，当然谷歌现在推出了新的计算模型。
++ [GFS](http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx): 分布式存储技术，开源实现为HDFS
++ [Bigtable](http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx): 稀疏大型数据库(列数据库)技术，开源实现为HBASE。
+
+作为业界良心的google还有其他许多先进的分布式技术，其论文也非常值得去研读。可以通过此链接获取一些论文的内容：<http://www.chinacloud.cn/show.aspx?id=14382&cid=11>
 
 ### 实时计算
 
-+ Storm:[《Storm分布式实时计算模式》](https://book.douban.com/subject/26312249/)
-+ Spark streaming: [官网文档](https://spark.apache.org/streaming/)
++ [《Storm分布式实时计算模式》](https://book.douban.com/subject/26312249/)：虽然twitter推出了新一代的Heron，但Storm仍是目前应用最为广泛的实时计算技术。
++ [Spark streaming: ](https://spark.apache.org/streaming/)：Spark带来了基于批处理的实时流计算技术，对比Storm各有优劣。
 
 ### 离线计算
 
-+ Hadoop:[《Hadoop权威指南》](https://book.douban.com/subject/26206050/)
-+ Hive:[《Hive编程指南》](https://book.douban.com/subject/25791255/)
-+ Spark:[《Spark快速大数据分析》](https://book.douban.com/subject/26616244/)
++ [《Hadoop权威指南》](https://book.douban.com/subject/26206050/)：无须多言，Haoop是大数据必须要学习的技术，涵盖了HDFS+HBase+MapReduce。
++ [《Hive编程指南》](https://book.douban.com/subject/25791255/)：Hive降低了MapReduce程序编写的复杂度。
++ [《Spark快速大数据分析》](https://book.douban.com/subject/26616244/)： Spark引进的基于RDD的计算模型大大提高了离线计算的性能，相对于MR来说是更为领先的离线计算技术。
 
 ### Lambda架构
 
+大数据领域的经典架构方案。融合了离线和实时计算模型，对外能够提供稳定可靠的数据。
+
 [Linkedln技术高管Jay Kreps：Lambda架构剖析](http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln)
 
-### 机器学习：
+### 机器学习
+
+除了个性化推荐系统之外，CTR预估、广告推荐、预测模型都是机器学习的应用场景。
 
 - [《推荐系统实践》](https://book.douban.com/subject/10769749/)
 - [《计算广告》](https://book.douban.com/subject/26596778/) 
