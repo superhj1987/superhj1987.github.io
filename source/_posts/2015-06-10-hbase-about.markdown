@@ -3,7 +3,7 @@ layout: post
 title: "Hbase关键的几个点"
 date: 2015-06-10 10:59:59 +0800
 comments: true
-categories: 
+categories: Big-Data Hadoop
 ---
 
 ## 一. 什么时候需要HBase

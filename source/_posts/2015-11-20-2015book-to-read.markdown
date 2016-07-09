@@ -3,7 +3,7 @@ layout: post
 title: "2015图书阅读清单"
 date: 2015-11-20 17:13:46 +0800
 comments: true
-categories: 
+categories: study
 ---
 
 ## 技术

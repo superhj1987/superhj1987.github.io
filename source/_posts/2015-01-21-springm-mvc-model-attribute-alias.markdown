@@ -3,7 +3,7 @@ layout: post
 title: "关于Spring mvc中model的attribute无法指定别名的解决方案"
 date: 2015-01-21 12:00:00 +0800
 comments: true
-categories: 
+categories: spring
 ---
 
 最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。

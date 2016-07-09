@@ -3,7 +3,7 @@ layout: post
 title: "ShellShock这点事"
 date: 2014-09-29 21:49:46 +0800
 comments: true
-categories: 
+categories: security
 ---
 
 ## 前言

@@ -3,7 +3,7 @@ layout: post
 title: "数据杂谈"
 date: 2016-02-23 18:44:34 +0800
 comments: true
-categories: 
+categories: Data-Mining Big-Data
 ---
 
 ## 目录

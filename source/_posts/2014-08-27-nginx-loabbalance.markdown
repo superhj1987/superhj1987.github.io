@@ -3,7 +3,7 @@ layout: post
 title: "Nginx负载均衡"
 date: 2014-08-27 14:32:50 +0800
 comments: true
-categories: 
+categories: nginx
 ---
 
 ##一、特点

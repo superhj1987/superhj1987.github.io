@@ -3,7 +3,7 @@ layout: post
 title: "工作总结@2014"
 date: 2015-01-15 16:08:48 +0800
 comments: true
-categories: 
+categories: work
 ---
 
 突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。

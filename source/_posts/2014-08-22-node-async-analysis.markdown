@@ -3,7 +3,7 @@ layout: post
 title: "async源码分析"
 date: 2014-08-22 16:08:28 +0800
 comments: true
-categories: 
+categories: nodejs
 ---
 最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：
 <pre>

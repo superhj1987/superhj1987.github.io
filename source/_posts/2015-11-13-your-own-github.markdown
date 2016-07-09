@@ -3,7 +3,7 @@ layout: post
 title: "搭建自己的github"
 date: 2015-11-13 10:27:40 +0800
 comments: true
-categories: 
+categories: git
 ---
 
 说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。

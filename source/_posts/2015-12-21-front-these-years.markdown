@@ -3,7 +3,7 @@ layout: post
 title: "前端这些年"
 date: 2015-12-21 18:53:48 +0800
 comments: true
-categories: 
+categories: front
 ---
 
 ## 前言

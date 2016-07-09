@@ -3,7 +3,7 @@ layout: post
 title: "研发招聘之殇"
 date: 2015-12-31 22:01:02 +0800
 comments: true
-categories: 
+categories: work
 ---
 
 ***ps: 本文完成于2015年12月31号***

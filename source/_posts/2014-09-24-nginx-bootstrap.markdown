@@ -3,7 +3,7 @@ layout: post
 title: "Nginx源码分析之启动过程"
 date: 2014-09-24 17:38:57 +0800
 comments: true
-categories: 
+categories: nginx
 ---
 
 nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。

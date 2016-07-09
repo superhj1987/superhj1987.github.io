@@ -3,7 +3,7 @@ layout: post
 title: "JVM内存GC的骗局（转载）"
 date: 2014-09-25 21:29:52 +0800
 comments: true
-categories: 
+categories: java
 ---
 
 ##概述

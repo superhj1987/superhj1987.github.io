@@ -3,7 +3,7 @@ layout: post
 title: "Spring mvc的controller传递HttpServletResponse参数的一点事"
 date: 2014-12-09 10:05:41 +0800
 comments: true
-categories: 
+categories: spring
 ---
 
 <pre>

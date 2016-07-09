@@ -3,7 +3,7 @@ layout: post
 title: "Nginx源码分析之基本数据结构"
 date: 2014-07-25 17:08:02 +0800
 comments: true
-categories: 
+categories: nginx
 ---
 
 ### 引言

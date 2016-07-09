@@ -3,7 +3,7 @@ layout: post
 title: "Git常用命令指南"
 date: 2016-01-10 10:15:30 +0800
 comments: true
-categories: 
+categories: git
 ---
 
 ***ps:本指南会持续更新***

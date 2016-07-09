@@ -3,7 +3,7 @@ layout: post
 title: "无题"
 date: 2013-05-13 23:02:50 +0800
 comments: true
-categories: 
+categories: life
 ---
 
 5.11-5.12，176公里，千岛湖镇-汾口-千岛湖镇，环湖一周。相信这将会是我未来永远难忘的一段经历。
