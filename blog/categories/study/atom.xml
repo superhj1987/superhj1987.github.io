@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: study | 后端技术杂谈 | 飒然Hang]]></title>
+  <link href="http://www.rowkey.me/blog/categories/study/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2016-07-09T18:11:52+08:00</updated>
+  <id>http://www.rowkey.me/</id>
+  <author>
+    <name><![CDATA[飒然Hang]]></name>
+    <email><![CDATA[superhj1987@126.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[2015图书阅读清单]]></title>
+    <link href="http://www.rowkey.me/blog/2015/11/20/2015book-to-read/"/>
+    <updated>2015-11-20T17:13:46+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/11/20/2015book-to-read</id>
+    <content type="html"><![CDATA[<h2>技术</h2>
+
+<h3>1. 精益数据分析</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/26278639/">http://book.douban.com/subject/26278639/</a></li>
+<li>说明：一本讲述数据驱动创业的书籍，比如在你的产品中如何区分虚荣指标，如何抓住关键指标等。对于每一个商业模式都有其特定的关键指标和底线。而且对于一个公司的几个阶段（移情、黏性、病毒性、营收、规模化）指标也不是相同的。商业模式+阶段决定了你需要关注的指标。</li>
+<li>进度：100%</li>
+</ul>
+
+
+<h3>2. 推荐系统实践</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/10769749/">http://book.douban.com/subject/10769749/</a></li>
+<li>说明：讲述了构建一个推荐系统的基本知识、算法以及架构等。基本涵盖了能实现一个基本的推荐系统所需的相关技术等。看完这本书，基本能对推荐系统入门。</li>
+<li>进度：100%</li>
+<li>备注：此书上大学时曾经看过，但当时由于没有实战环境，所以没啥印象。此次阅读是基于项目需要，但其中部分牵扯到具体算法的部分没有细看</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>3. 集体智慧编程</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/3288908/">http://book.douban.com/subject/3288908/</a></li>
+<li>说明：讲述集体智慧的书籍，也是推荐系统相关的一本书</li>
+<li>进度：0%</li>
+</ul>
+
+
+<h3>4. 快学scala</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/19971952/">http://book.douban.com/subject/19971952/</a></li>
+<li>说明：学习scala的一本书，应该算是快速指引</li>
+<li>进度：20%</li>
+<li>备注：scala的学习曲线很陡，之前找到twitter的scala school，但是发现讲的有点不到位。鉴于此，找一本经典的书籍快速入门一下也不错。</li>
+</ul>
+
+
+<h2>非技术</h2>
+
+<h3>1. 他来了，请闭眼</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/25912734/">http://book.douban.com/subject/25912734/</a></li>
+<li>说明：犯罪心理学&hellip;</li>
+<li>进度：100%</li>
+<li>备注：看了电视剧，不过瘾，就直接找书来看了</li>
+</ul>
+
+
+<h3>2. 三体</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/2567698/">http://book.douban.com/subject/2567698/</a></li>
+<li>说明：不用多说了，今年最火的小说。一共有三部</li>
+<li>进度：30%</li>
+<li>备注：看到了第二部《黑暗森林》，然后一直没时间看后面了..</li>
+</ul>
+
+
+<h3>3. 藏地密码</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/2201813/">http://book.douban.com/subject/2201813/</a></li>
+<li>说明：一共有十部，讲述了一群人为了一个共同的秘密，在藏地进行探险的故事。</li>
+<li>进度：100%</li>
+<li>备注：继鬼吹灯、盗墓笔记之后，又一部让我恨不得一口气看完的小说</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[技术的成长]]></title>
+    <link href="http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech/"/>
+    <updated>2014-08-14T16:38:01+08:00</updated>
+    <id>http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech</id>
+    <content type="html"><![CDATA[<p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
+
+<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
+
+<!--more-->
+
+
+<p>这也牵扯到了技术的广度和深度的问题。这两个的优先级不能一味的说谁优谁劣，技术研究的人肯定倾向于去拓展技术的深度，而面向产品、架构的人应该关心广度多一些吧。当然如果不去精通一门技术，广度却也是无法拓展的。所谓技术上的成长，抛开技术的深度和广度来言，我觉得还是主要指技术思维的拓展和进步。技术领域的很多东西都是触类旁通的，只要你有好的逻辑思维和方法论，那么对于很多东西都是能很快上手直至掌握、运用、精通的。</p>
+
+<p>还有一个上手能力和学习能力的问题，上手能力指的是你掌握然后使用，而学习能力应该是理解并能改进。这两个概念以前没去区分过，现在想想却也是有很大不同的。上手容易，精通难。所谓学习能力，是上手之后能够快速地吸收为自己的东西，能够从自己的角度看待问题，甚至提出自己的改进。很多人接触一个新的技术的确能够很快地上手去运用，但是却很少会深入地去学习这种技术的原理、运行机制之类的东西。这也是优秀开发人员和一般开发人员本质的区别。
+学习技术，更是要学习其精髓而非皮毛，知其然更要知其所以然。</p>
+
+<p>其实，总结来看，作为一个技术人，追求的技术上的长进，从多个维度来看，关键的还是项目经验和思维能力的同步提高。当然，如果对某一个领域能深入研究从而成为专家那也是锦上添花的事情。</p>
+]]></content>
+  </entry>
+  
+</feed>

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-07-09T14:54:49+08:00</updated>
+  <updated>2016-07-09T18:11:52+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -333,6 +333,555 @@
 
 
 <p><strong><em>Ps:此文部分内容来自网上资料。</em></strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java后端工程师技能树]]></title>
+    <link href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/"/>
+    <updated>2016-06-17T22:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/06/17/java-skill-tree</id>
+    <content type="html"><![CDATA[<p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
+
+<!--more-->
+
+
+<p><a href="/images/blog_images/java-skill-tree.png"><img src="/images/blog_images/java-skill-tree.png" alt="java-skill-tree" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[谈谈Java内存管理]]></title>
+    <link href="http://www.rowkey.me/blog/2016/05/07/javamm/"/>
+    <updated>2016-05-07T14:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/05/07/javamm</id>
+    <content type="html"><![CDATA[<h2>目录</h2>
+
+<ul>
+<li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
+<li><a href="#%E4%BA%8C.%20Jvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B">二. Jvm虚拟机内存简介</a></li>
+<li><a href="#%E4%B8%89.%20%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">三. 垃圾收集</a></li>
+<li><a href="#%E5%9B%9B.%20Java7%E3%80%818%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%98%E5%8C%96">四. Java7、8带来的一些变化</a></li>
+</ul>
+
+
+<p><img src="/images/blog_images/java.jpg" alt="java" /></p>
+
+<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
+
+<!--more-->
+
+
+<h2><a name='一. 背景知识'></a>一. 背景知识</h2>
+
+<p>根据网络可以找到的资料以及笔者能够打听到的消息，目前国内外著名的几个大型互联网公司的语言选型概括如下：</p>
+
+<ol>
+<li>Google: C/C++ Go Python Java JavaScript，不得不提的是Google贡献给java社区的guava包质量非常高，非常值得学习和使用。</li>
+<li>Youtube、豆瓣: Python</li>
+<li>Fackbook、Yahoo、Flickr、新浪：<strong>php</strong>(优化过的php vm)</li>
+<li>网易、阿里、搜狐: Java、PHP、Node.js</li>
+<li>Twitter: Ruby->Java,之所以如此就在于与Jvm相比，Ruby的runtime是非常慢的。并且Ruby的应用比起Java还是比较小众的。不过最近twitter有往scala上迁移的趋势。</li>
+</ol>
+
+
+<p>可见，虽然最近这些年很多言论都号称java已死或者不久即死，但是Java的语言应用占有率一直居高不下。与高性能的C/C++相比，Java具有gc机制，并且没有那让人望而生畏的指针，上手门槛相对较低；而与上手成本更低的PHP、Ruby等脚本语言来说，又比这些脚本语言有性能上的优势(这里暂时忽略FB自己开发的HHVM)。</p>
+
+<p>对于Java来说，最终是要依靠字节码运行在jvm上的。目前，常见的jvm有以下几种：</p>
+
+<ul>
+<li>Sun HotSpot</li>
+<li>BEA Jrockit</li>
+<li>IBM J9</li>
+<li>Dalvik(Android)</li>
+</ul>
+
+
+<p>其中以HotSpot应用最广泛。目前sun jdk的最新版本已经到了8，但鉴于新版的jdk使用并未普及，因此本文仅仅针对HotSpot虚拟机的jdk6来讲。</p>
+
+<h2><a name='二. Jvm虚拟机内存简介'></a>二. Jvm虚拟机内存简介</h2>
+
+<h3>2.1 Java运行时内存区</h3>
+
+<p>Java的运行时内存组成如下图所示：</p>
+
+<p><img src="/images/blog_images/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
+
+<p>其中，对于这各个部分有一些是线程私有的，其他则是线程共享的。</p>
+
+<p><strong>线程私有的如下：</strong></p>
+
+<ul>
+<li><p>程序计数器</p>
+
+<p>  当前线程所执行的字节码的行号指示器</p></li>
+<li><p>Java虚拟机栈</p>
+
+<p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p>
+
+<ul>
+<li>每个线程都有自己独立的栈空间</li>
+<li>线程栈只存基本类型和对象地址</li>
+<li>方法中局部变量在线程空间中</li>
+</ul>
+</li>
+<li><p>本地方法栈</p>
+
+<p>  Native方法服务。在HotSpot虚拟机中和Java虚拟机栈合二为一。</p></li>
+</ul>
+
+
+<p><strong>线程共享的如下：</strong></p>
+
+<ul>
+<li><p>Java堆</p>
+
+<p>  存放对象实例，几乎所有的对象实例以及其属性都在这里分配内存。</p></li>
+<li><p>方法区</p>
+
+<p>  存储已经被虚拟机加载的类信息、常量、静态变量、JIT编译后的代码等数据。</p></li>
+<li><p>运行时常量池</p>
+
+<p>  方法区的一部分。用于存放编译期生成的各种字面量和符号引用。</p></li>
+<li><p>直接内存</p>
+
+<p>  NIO、Native函数直接分配的堆外内存。DirectBuffer引用也会使用此部分内存。</p></li>
+</ul>
+
+
+<h3>2.2 对象访问</h3>
+
+<p>Java是面向对象的一种编程语言，那么如何通过引用来访问对象呢？一般有两种方式：</p>
+
+<ol>
+<li><p>通过句柄访问</p>
+
+<p> <image src="http://www.rowkey.me/images/blog_images/access_object_handler.png" width="500px"/></p></li>
+<li><p>直接指针</p>
+
+<p> <image src="http://www.rowkey.me/images/blog_images/access_direct.png" width="500px"/></p>
+
+<p> 此种方式也是HotSpot虚拟机采用的方式。</p></li>
+</ol>
+
+
+<h3>2.3 内存溢出</h3>
+
+<p>在JVM申请内存的过程中，会遇到无法申请到足够内存，从而导致内存溢出的情况。一般有以下几种情况：</p>
+
+<ul>
+<li>虚拟机栈和本地方法栈溢出
+
+<ul>
+<li>StackOverflowError: 线程请求的栈深度大于虚拟机所允许的最大深度(循环递归)</li>
+<li>OutOfMemoryError: 虚拟机在扩展栈是无法申请到足够的内存空间，一般可以通过不停地创建线程引起此种情况</li>
+</ul>
+</li>
+<li>Java堆溢出: 当创建大量对象并且对象生命周期都很长的情况下，会引发OutOfMemoryError</li>
+<li>运行时常量区溢出：OutOfMemoryError:PermGen space，这里一个典型的例子就是String的intern方法，当大量字符串使用intern时，会触发此内存溢出</li>
+<li>方法区溢出：方法区存放Class等元数据信息，如果产生大量的类(使用cglib)，那么就会引发此内存溢出，OutOfMemoryError:PermGen space，在使用Hibernate等框架时会容易引起此种情况。</li>
+</ul>
+
+
+<h2><a name='三. 垃圾收集'></a>三. 垃圾收集</h2>
+
+<h3>3.1 理论基础</h3>
+
+<h4>在通常情况下，我们掌握java的内存管理就是为了应对网站/服务访问慢，慢的原因一般有以下几点：</h4>
+
+<ul>
+<li>内存：垃圾收集占用cpu；放入了太多数据，造成内存泄露(java也是有这种问题的^_^)</li>
+<li>线程死锁</li>
+<li>I/O速度太慢</li>
+<li>依赖的其他服务响应太慢</li>
+<li>复杂的业务逻辑或者算法造成响应的缓慢</li>
+</ul>
+
+
+<p>其中，垃圾收集对性能的影响一般有以下几个：</p>
+
+<ul>
+<li>内存泄露</li>
+<li>程序暂停</li>
+<li>程序吞吐量显著下降</li>
+<li>响应时间变慢</li>
+</ul>
+
+
+<h4>先来看垃圾收集的一些基本概念</h4>
+
+<ul>
+<li>Concurrent Collector:收集的同时可运行其他的工作进程</li>
+<li>Parallel Collector: 使用多CPU进行垃圾收集</li>
+<li>Stop-the-word(STW):收集时必须暂停其他所有的工作进程</li>
+<li>Sticky-reference-count：对于使用“引用计数”（reference count）算法的GC，如果对象的计数器溢出，则起不到标记某个对象是垃圾的作用了，这种错误称为sticky-reference-count problem，通常可以增加计数器的bit数来减少出现这个问题的几率，但是那样会占用更多空间。一般如果GC算法能迅速清理完对象，也不容易出现这个问题。</li>
+<li>Mutator：mutate的中文是变异，在GC中即是指一种JVM程序，专门更新对象的状态的，也就是让对象“变异”成为另一种类型，比如变为垃圾。</li>
+<li>On-the-fly：用来描述某个GC的类型：on-the-fly reference count garbage collector。此GC不用标记而是通过引用计数来识别垃圾。</li>
+<li>Generational gc：这是一种相对于传统的“标记-清理”技术来说，比较先进的gc，特点是把对象分成不同的generation，即分成几代人，有年轻的，有年老的。这类gc主要是利用计算机程序的一个特点，即“越年轻的对象越容易死亡”，也就是存活的越久的对象越有机会存活下去（姜是老的辣）。</li>
+</ul>
+
+
+<h4>牵扯到垃圾收集，还需要搞清楚吞吐量与响应时间的含义</h4>
+
+<ul>
+<li>吞吐量是对单位时间内完成的工作量的量度。如：每分钟的 Web 服务器请求数量</li>
+<li>响应时间是提交请求和返回该请求的响应之间使用的时间。如：访问Web页面花费的时间</li>
+</ul>
+
+
+<p>吞吐量与访问时间的关系很复杂，有时可能以响应时间为代价而得到较高的吞吐量，而有时候又要以吞吐量为代价得到较好的响应时间。而在其他情况下，一个单独的更改可能对两者都有提高。通常，平均响应时间越短，系统吞吐量越大；平均响应时间越长，系统吞吐量越小；
+但是，系统吞吐量越大， 未必平均响应时间越短；因为在某些情况（例如，不增加任何硬件配置）吞吐量的增大，有时会把平均响应时间作为牺牲，来换取一段时间处理更多的请求。</p>
+
+<p>针对于Java的垃圾回收来说，不同的垃圾回收器会不同程度地影响这两个指标。例如：并行的垃圾收集器，其保证的是吞吐量，会在一定程度上牺牲响应时间。而并发的收集器，则主要保证的是请求的响应时间。</p>
+
+<h4>对于GC(垃圾回收)的流程的基本描述如下：</h4>
+
+<ul>
+<li>找出堆中活着的对象</li>
+<li>释放死对象占用的资源</li>
+<li>定期调整活对象的位置</li>
+</ul>
+
+
+<h4>GC算法一般有以下几种：</h4>
+
+<ul>
+<li>Mark-Sweep 标记-清除</li>
+<li>Mark-Sweep-Compact 标记-整理</li>
+<li><p>Copying Collector 复制算法</p></li>
+<li><p>Mark-标记</p>
+
+<p> 从&#8221;GC roots&#8221;开始扫描(这里的roots包括线程栈、静态常量等)，给能够沿着roots到达的对象标记为&#8221;live&#8221;,最终所有能够到达的对象都被标记为&#8221;live&#8221;,而无法到达的对象则为&#8221;dead&#8221;。效率和存活对象的数量是线性相关的。</p></li>
+<li><p>Sweep-清除</p>
+
+<p> 扫描堆，定位到所有&#8221;dead&#8221;对象，并清理掉。效率和堆的大小是线性相关的。</p></li>
+<li><p>Compact-压缩</p>
+
+<p> 对于对象的清除，会产生一些内存碎片，这时候就需要对这些内存进行压缩、整理。包括：relocate(将存货的对象移动到一起，从而释放出连续的可用内存)、remap(收集所有的对象引用指向新的对象地址)。效率和存活对象的数量是线性相关的。</p></li>
+<li><p>Copy-复制</p>
+
+<p> 将内存分为&#8221;from&#8221;和&#8221;to&#8221;两个区域，垃圾回收时，将from区域的存活对象整体复制到to区域中。效率和存活对象的数量是线性相关的。</p></li>
+</ul>
+
+
+<p>其中，Copy对比Mark-sweep</p>
+
+<ol>
+<li>内存消耗：copy需要两倍的最大live set内存；mark-sweep则只需要一倍。</li>
+<li>效率上：copy与live set成线性相关，效率高；mark-sweep则与堆大小线性相关，效率较低。</li>
+</ol>
+
+
+<h4>分代收集是目前比较先进的垃圾回收方案</h4>
+
+<p>对于分代收集，有以下几个相关理论</p>
+
+<ul>
+<li>分代假设：大部分对象的寿命很短，“朝生夕死”，重点放在对年青代对象的收集，而且年青代通常只占整个空间的一小部分。</li>
+<li>把年青代里活的很长的对象移动到老年代。</li>
+<li>只有当老年代满了才去收集。</li>
+<li>收集效率明显比不分代高。</li>
+</ul>
+
+
+<p>HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/hotspot-gc.png" width="300px"/></p>
+
+<ul>
+<li>Eden区是分配对象的区域。</li>
+<li>Survivor是minor/younger gc后存储存活对象的区域。</li>
+<li>Tenured区域存储长时间存活的对象。</li>
+</ul>
+
+
+<h4>分代收集中典型的垃圾收集算法组合描述如下：</h4>
+
+<ul>
+<li>年青代通常使用Copy算法收集，会stop the world</li>
+<li>老年代收集一般采用Mark-sweep-compact, 有可能会stop the world，也可以是concurrent或者部分concurrent。</li>
+</ul>
+
+
+<h3>3.2 HotSpot垃圾收集器</h3>
+
+<p><image src="http://www.rowkey.me/images/blog_images/hotspot-collector.png" width="300px"/></p>
+
+<p>上图即为HotSpot虚拟机的垃圾收集器组成。</p>
+
+<h4>Serial收集器</h4>
+
+<ul>
+<li>-XX:+UserSerialGC参数打开此收集器</li>
+<li>Client模式下新生代默认的收集器。</li>
+<li>较长的stop the world时间</li>
+<li>简单而高效</li>
+</ul>
+
+
+<p>此收集器的一个工作流程如下如所示：</p>
+
+<p>收集前：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/serial_before.png" width="400px"/></p>
+
+<p>收集后：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/serial_after.png" width="400px"/></p>
+
+<h4>ParNew收集器</h4>
+
+<ul>
+<li>-XX:+UserParNewGC</li>
+<li>+UseConcuMarkSweepGC时默认开启</li>
+<li>Serial收集器的多线程版本</li>
+<li>默认线程数与CPU数目相同</li>
+<li>-XX:ParrallelGCThreads指定线程数目</li>
+</ul>
+
+
+<p>对比Serial收集器如下图所示：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/parnew.png" width="400px"/></p>
+
+<h4>Parallel Scavenge收集器</h4>
+
+<ul>
+<li>新生代并行收集器</li>
+<li>采用Copy算法</li>
+<li>主要关注的是达到可控制的吞吐量，“吞吐量优先”</li>
+<li>-XX:MaxGCPauseMillis -XX:GCTimeRAtion两个参数精确控制吞吐量</li>
+<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略</li>
+<li>Server模式的默认新生代收集器</li>
+</ul>
+
+
+<h4>Serial Old收集器</h4>
+
+<ul>
+<li>Serial的老年代版本</li>
+<li>Client模式的默认老年代收集器</li>
+<li>CMS收集器的后备预案，Concurrent Mode Failure时使用</li>
+<li>-XX:+UseSerialGC开启此收集器</li>
+</ul>
+
+
+<h4>Parallel Old收集器</h4>
+
+<ul>
+<li>-XX:+UseParallelGC -XX:+UseParallelOldGC启用此收集器</li>
+<li>Server模式的默认老年代收集器</li>
+<li>Parallel Scavenge的老年代版本，使用多线程和&#8221;mark-sweep&#8221;算法</li>
+<li>关注点在吞吐量以及CPU资源敏感的场合使用</li>
+<li>一般使用Parallel Scavenge + Parallel Old可以达到最大吞吐量保证</li>
+</ul>
+
+
+<h4>CMS收集器</h4>
+
+<p>并发低停顿收集器</p>
+
+<ul>
+<li>-XX:UseConcMarkSweepGC 开启CMS收集器，(默认使用ParNew作为年轻代收集器，SerialOld作为收集失败的垃圾收集器)</li>
+<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，会和互联网应用。</li>
+</ul>
+
+
+<p>四个步骤：</p>
+
+<ul>
+<li>初始标记 Stop the world: 只标记GC roots能直接关联到的对象，速度很快。</li>
+<li>并发标记：进行GC roots tracing，与用户线程并发进行</li>
+<li>重新标记 Stop the world：修正并发标记期间因程序继续运行导致变动的标记记录</li>
+<li>并发清除</li>
+</ul>
+
+
+<p>对比serial old收集器如下图所示：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/cms.png" width="400px"/></p>
+
+<p>CMS有以下的缺点：</p>
+
+<ul>
+<li>CMS是唯一不进行compact的垃圾收集器，当cms释放了垃圾对象占用的内存后，它不会把活动对象移动到老年代的一端</li>
+<li>对CPU资源非常敏感。不会导致线程停顿，但会导致程序变慢，总吞吐量降低。CPU核越多越不明显</li>
+<li>无法处理浮动垃圾。可能出现“concurrent Mode Failure”失败， 导致另一次full GC ,可以通过调整-XX:CMSInitiatingOccupancyFraction来控制内存占用达到多少时触发gc</li>
+<li>大量空间碎片。这个可以通过设置-XX:UseCMSCompacAtFullCollection(是否在full gc时开启compact)以及-XX:CMSFullGCsBeforeCompaction(在进行compact前full gc的次数)</li>
+</ul>
+
+
+<h4>G1收集器</h4>
+
+<p>G1算法在Java6中还是试验性质的，在Java7中正式引入，但还未被广泛运用到生产环境中。它的特点如下：</p>
+
+<ul>
+<li>使用标记-清理算法</li>
+<li>不会产生碎片</li>
+<li>可预测的停顿时间</li>
+<li>化整为零：将整个Java堆划分为多个大小相等的独立区域</li>
+<li>-XX:+UseG1GC可以打开此垃圾回收器</li>
+<li>-XX:MaxGCPauseMillis=200可以设置最大GC停顿时间，当然JVM并不保证一定能够达到，只是尽力。</li>
+</ul>
+
+
+<p><image src="http://www.rowkey.me/images/blog_images/g1.png" width="500px"/></p>
+
+<h3>3.3 调优经验</h3>
+
+<ul>
+<li>需要打开gc日志并读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps</li>
+<li>垃圾回收的最佳状态是只有young gc，也就是避免生命周期很长的对象的存在。</li>
+<li>从young gc开始，尽量给年青代大点的内存，避免full gc</li>
+<li>注意Survivor大小</li>
+<li>注意内存墙：4G~5G</li>
+</ul>
+
+
+<h4>GC日志简介</h4>
+
+<p><image src="http://www.rowkey.me/images/blog_images/gclog.png" width="500px"/></p>
+
+<ul>
+<li>第一个箭头：35592K->1814K(36288K)，箭头指向的是新生段的内存占用情况； - 第二个箭头：38508K->7792K(520256K)，箭头指向的是回收后的内存占用情况。</li>
+<li>垃圾收集停顿时间：0.0336</li>
+</ul>
+
+
+<h4>老年代使用建议</h4>
+
+<ul>
+<li>Parallel GC(-XX:+UseParallel[Old]GC)
+
+<ul>
+<li>Parallel GC的minor GC时间是最快的， CMS的young gc要比parallel慢， 因为内存碎片</li>
+<li>可以保证最大的吞吐量</li>
+</ul>
+</li>
+<li><strong>确实有必要才改成CMS或G1(for old gen collections)</strong></li>
+</ul>
+
+
+<h4>开发建议</h4>
+
+<ul>
+<li>小对象allocate的代价很小，通常10个CPU指令；收集掉新对象也非常廉价；不用担心活的很短的小对象</li>
+<li>大对象分配的代价以及初始化的代价很大；不同大小的大对象可能导致java堆碎片，尤其是CMS, ParallelGC 或 G1还好；尽量避免分配大对象</li>
+<li>避免改变数据结构大小，如避免改变数组或array backed collections / containers的大小;对象构建（初始化）时最好显式批量定数组大小;改变大小导致不必要的对象分配，可能导致java堆碎片</li>
+<li>对象池可能潜在的问题
+
+<ul>
+<li>增加了活对象的数量，可能增加GC时间</li>
+<li>访问（多线程）对象池需要锁，可能带来可扩展性的问题</li>
+<li>小心过于频繁的对象池访问</li>
+</ul>
+</li>
+</ul>
+
+
+<h2><a name='四. Java7、8带来的一些变化'></a>四. Java7、8带来的一些变化</h2>
+
+<ul>
+<li>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</li>
+<li>Java7正式引入G1垃圾收集器用于替换CMS。</li>
+<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。</li>
+<li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[JVM内存GC的骗局（转载）]]></title>
+    <link href="http://www.rowkey.me/blog/2014/09/25/jvm-cheat/"/>
+    <updated>2014-09-25T21:29:52+08:00</updated>
+    <id>http://www.rowkey.me/blog/2014/09/25/jvm-cheat</id>
+    <content type="html"><![CDATA[<h2>概述</h2>
+
+<p>在日常程序开发中，很多JAVA程度员不太关心内存的使用情况。当然，如果程序员运气较好或者系统没有大规模的被测试或者被用户使用时，这个问题或许永远不出现，使得程序员一直认为内存反正是无限的，可以一直使用。确实，JVM的垃圾回收器会帮我们处理好所有的事情，可如果运气不是那么好，不幸就有可能发生在我们的身上，比如：进程会抛出OOM异常，不再接收新的请求；响应时间在固定时间段内变长，超时或者不响应，CPU使用率时常像过山车一样等。内存使用在大部分的工作时间可以正常工作，这样会导致很多的人对JAVA应用的内存使用情况不明了或者得不到充分的性能测试，而导致程序无法正常工作。出现上面的情况程序员一般会比较好的较快的发现问题或能总结一定的规律。</p>
+
+<!--more-->
+
+
+<h2>问题</h2>
+
+<p>有时候JVM还会发生欺骗你的场景， JVM不停的在垃圾回收，可是每次回收完后堆却还是满的，很明显程序内存被使用完了，已经无法正常工作了，但JVM就是不抛出OutOfMemoryError(OOM)这个异常来告诉程序员内部发出了什么，只是不停的做老好人尝试帮我们做垃圾回收，把服务器的资源耗光了，但是此时服务器已经无法响应用户的正常请求了，让我们一起来看看这些情况发生时候的现象，体会一下被欺骗的感觉。</p>
+
+<h2>现状：</h2>
+
+<p>同事在模拟用户不停的发送请求给某系统，在运行一段时间后，突然，系统上邮件报告测试用例请求失败，登录测试系统的服务器，首先看下JVM的参数设置，如下：</p>
+
+<p>-server –Xms4g –Xmx4g -XX:MaxPermSize=256m  -verbose:gc -XX:+PrintGCDetails -Xloggc:$CATALINA_BASE/logs/gc.log -XX:+PrintGCTimeStamp，再使用TOP命令看看服务器发生了什么。</p>
+
+<p>观察一段时间后，CPU一直运行在100%，于是想当然的认为可能是那段程序里面触发了BUG,有可能是正则表达式或者某段代码里面有个死循环的坑跳进去，没有出来。这不是很简单的事吗？直接使用jstack + pid 把堆栈打出来即可，直接操作吧，界面上马上输出操作日志，从堆栈日志可以看出，所有的线程都被BLOCKED住了，然后堆栈里面也找不到任何业务的相关代码，难道直觉出错了，感觉一下子不太好了，但是至少可以排查到不是上面的二种原因了，好吧，那再看看应用的GC的情况，部分日志如下。</p>
+
+<p>1403682.561: [GC [PSYoungGen: 1375104K->11376K(1386176K)] 4145665K->2782002K(4182400K), 0.0174410 secs] [Times: user=0.27 sys=0.00, real=0.02 secs]</p>
+
+<p>1407799.743: [GC [PSYoungGen: 1386160K->11632K(1386432K)] 4156786K->2793538K(4182656K), 0.0285330 secs] [Times: user=0.48 sys=0.00, real=0.03 secs]</p>
+
+<p>1409230.024: [GC [PSYoungGen: 1386416K->10688K(1377984K)] 4168322K->2803822K(4174208K), 0.0265000 secs] [Times: user=0.43 sys=0.00, real=0.02 secs]</p>
+
+<p>1409230.051: [Full GC [PSYoungGen: 10688K->7014K(1377984K)] [PSOldGen: 2793134K->2796224K(2796224K)] 2803822K->2803238K(4174208K) [PSPermGen: 48439K->48439K(262144K)], 7.8892780 secs] [Times: user=7.92 sys=0.00, real=7.89 secs]</p>
+
+<p>1410502.582: [Full GC [PSYoungGen: 1366336K->85344K(1377984K)] [PSOldGen: 2796224K->2796224K(2796224K)] 4162560K->2881568K(4174208K) [PSPermGen: 48577K->48577K(262144K)], 8.2720110 secs] [Times: user=8.29 sys=0.00, real=8.27 secs]</p>
+
+<p>PS：这里使用-XX:+PrintGCDateStamps替代-XX:+PrintGCTimeStamp,可以打印出真实时间戳。</p>
+
+<h2>解释一下：</h2>
+
+<p>第一行：
+1403682.561: [GC [PSYoungGen: 1375104K->11376K(1386176K)] 4145665K->2782002K(4182400K), 0.0174410 secs] [Times: user=0.27 sys=0.00, real=0.02 secs]</p>
+
+<p>发生的时间点，：JVM运行的时间长度，以度为单位，也可以格式化成固定的时间格式</p>
+
+<p>PSYoungGen：发生了何种类型的GC，此处代表发生了年轻代的GC</p>
+
+<p>1375104K：回收前的大小</p>
+
+<p>11376K：回收后的大小</p>
+
+<p>1386176K：YOUNG代的大小</p>
+
+<p>4145665 K：回收前总的占用大小</p>
+
+<p>2782002K：回收后的占用大小</p>
+
+<p>4182400K：总占用大小</p>
+
+<p>0.27和0.00：代表在用户态(user)和系统状(sys)的CPU运行时间</p>
+
+<p>0.02 secs：代表实际的GC的运行时间</p>
+
+<p>注：上面总的运行时间小于用户态和系统态的时间总和，是由于后者仅指CPU的运行时间，包括等待或IO阻塞的时间，而且现在的GC是采用多线程收集的，同时机器也是多个CPU，因此，大部分是二者之和要比前面的值大，如果是采用串形化收集器( serial collector)的话，二者时间几乎相差不多。关于各种收集器的差别，后续有时间再安排详细总结。</p>
+
+<p>接下来的二行，不再重复说明，第四行有Full字样，代表JVM发生了Full GC，不过多了二个分区的收集，PSOldGen：老生代的回收前后空间大小及总空间；PSPermGen：持久代的回收前后空间大小和总空间。从第三行，可以看出老空间的使用率达到饱和，从而触发了FULL GC，但是很遗憾的是第五行后又接着发生了FULL GC，后面的都是一直在持续进行，但是系统一直不抛出OOM异常或者进程退出，导致这台机器服务进程一直存在，但是基本无法正常工作。</p>
+
+<p>GC，无论Young GC还是Full GC，每次都会导致JVM STW(STOP WORLD)暂停用户的业务工作，来处理垃圾回收任务，短时间内无法响应用户请求，特别是大量的Full GC会导致系统响应速度降低，另外还有OOM的巨大风险。Young GC频繁，就算GC采用多线程回收方式，尽管回收的时候非常短，但是如果GC次数和频率很高，因此对应用的影响是不可忽视的。 Full GC 包括整个分区的垃圾回收，包括新生代、旧生代、持久代等。因此其回收成本高，应用也会暂停更长时间，无法及时响应用户的请求，所以需要特别注意这个种情况，一般来讲，排除主动的调用GC操作外，JVM会在以下几种情况发生Full GC。</p>
+
+<ol>
+<li><p>旧生代内存不足</p></li>
+<li><p>持久代内存不足</p></li>
+<li><p>统计新生代 GC晋升到旧生代的平均大小大于旧生代的剩余空间</p></li>
+</ol>
+
+
+<h2>解决</h2>
+
+<p>知道发生的原因后，就可以使用JMAP -heap直接看一下JVM内存的对像值，或者使用JMAP -dump直接JVM的堆栈DUMP出来，使用MAT打开分析就行。如果这种现像发生之后，DUMP出来的文件会较大，有些会达到十多个G，因为一般不直接在工作机器上进行，需要把文件转发到其他的非线上服务并且内存足够的机器上分析，最后可以用MAT把分析后的文件打开即可，打开后，首页会给出可疑的建议对象实例，直接跳转到列表中，打开折叠细节即可看到真面目，里面包括了三十多万个对象，找相关的人员对根据业务需要，直接把不需要的实例在使用完后移除，其他几行的问题类似处理就即可。</p>
+
+<h2>总结</h2>
+
+<p>从上面GC的发生的情况来看，JVM一次次不停的努力的帮我们进行GC操作，直到把CPU全部占光，但是就是不直接抛出异常直接告诉我们内存不够了，感觉把我们带了到一个巨大的庞氏骗局，也许我们把JVM的内存加大，这个坑还将帮我们隐藏下去，如果程序设置了定时重启之类的操作，这个坑就永远发现不了。一般产品开发人员非常希望应用程序能在用户发觉之前发现这个问题，JVM无法判断出这个问题，因为也就不能帮我们抛出几乎OOM的异常，不过可以通过调整GCTimeLimit和GCHeapFreeLimit参数来重新定义何时抛出OutOfMemoryError错误。GCTimeLimit 的默认值是98%，也就是说如果98%时间都用花在GC上，则会抛出OutOfMemoryError。GCHeapFreeLimit 是回收后可用堆的大小。默认值是2%。当然最好的办法就是开发工程师开始就很清楚如何使用相关的容器类的正确用法，并且在上线前能经过充分的测试或运行。本文只是引用GC方面的一个具体的安全来说明GC是怎么骗人的，关于GC和JVM内存相关的细节如何及时的发现此类的问题，有机会再通过示例和大家探讨学习。</p>
+
+<p>注：以上资料仅以HOTSPOT VM 1.7.65 版本参考。</p>
+
+<p>参考资料：</p>
+
+<p>JVM <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html">http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html</a></p>
+
+<p>HotSpot JVM就是个庞氏骗局 <a href="http://it.deepinmind.com/gc/2014/04/01/hotspot-jvm-ponzi-scheme.html">http://it.deepinmind.com/gc/2014/04/01/hotspot-jvm-ponzi-scheme.html</a></p>
+
+<p>Java内存泄露分析 <a href="http://doc.hz.netease.com/pages/viewpage.action?pageId=36468038">http://doc.hz.netease.com/pages/viewpage.action?pageId=36468038</a></p>
 ]]></content>
   </entry>
   
