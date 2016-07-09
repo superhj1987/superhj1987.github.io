@@ -1,3 +1,8 @@
 {% include custom/navigation.html %}
+{% if site.description %}
 <section class="aboutme" style='margin-top:15px !important;border-bottom:1px dashed;padding:2px;overflow:scroll'>
+  <p>
+    {{ site.description }}
+  </p>
 </section>
+{% endif %}

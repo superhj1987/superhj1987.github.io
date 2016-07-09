@@ -1,17 +1,5 @@
 <div class="profilepic">
-	{% if site.email_md5 %}
-	<img src="http://www.gravatar.com/avatar/{{ site.email_md5 }}?s=160" alt="Profile Picture" style="width: 160px;" />
-	{% else %}
-	<script src="{{ root_url }}/javascripts/md5.js"></script>
-	<script type="text/javascript">
-		// $(function(){
-		// 	$('.profilepic').append("<img src='http://www.gravatar.com/avatar/" + MD5("{{ site.email | downcase }}") + "?s=160' alt='Profile Picture' style='width: 160px;' />");
-		// });
-		$(function(){
-			$('.profilepic').append("<img src='/images/avatar/backend_logo.png' alt='Profile Picture' style='width: 160px;' />");
-		});
-	</script>
-	{% endif %}
+	<img src="/images/avatar/backend_logo.png" alt="Profile Picture" style="width: 160px;" />
 </div>
 {% include custom/header.html %}
 <nav id="main-nav">{% include navigation.html %}</nav>
@@ -57,6 +45,15 @@
 			<a class="rss" href="{{ site.subscribe_rss }}" title="RSS" target="_blank">RSS</a>
 		{% endif %}
 	</div>
+	 {% if page.index %}
+ <aside class="sidebar">
+  {% if site.blog_index_asides.size %}
+    {% include_array blog_index_asides %}
+  {% else %}
+    {% include_array default_asides %}
+  {% endif %}
+</aside>
+{% endif %}
 </nav>
 <style type="text/css">
 	span#cnzz_stat_icon_1257166229{

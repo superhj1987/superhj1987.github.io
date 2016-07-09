@@ -1,6 +1,6 @@
 ---
 layout: page
-title: "Categories"
+title: "分类目录"
 date: 2013-07-28 23:11
 comments: true
 sharing: false
