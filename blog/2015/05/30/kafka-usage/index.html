@@ -78,9 +78,21 @@
     	
 			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
 		
-	</div>
-	 
+		<form action="http://cn.bing.com/search" method="get" onsubmit="return preSearch()">
+		<div class="content">
+			<input type="text" class="textfield searchtip" name="q" size="24" value="">
+			<input type="submit" class="button" value="搜索">
+		</div>
+		</form>
 </nav>
+<script type="text/javascript">
+	function preSearch(){
+		var $q = $("input[name=q]");
+		$q.val($q.val() + " site:rowkey.me");
+
+		return true;
+	}
+</script>
 <style type="text/css">
 	span#cnzz_stat_icon_1257166229{
 		display: none !important
