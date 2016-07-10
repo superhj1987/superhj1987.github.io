@@ -535,7 +535,6 @@ td.code {
     margin:0
 }
 .post-content code {
-    display:inline;
     padding:5px 8px
 }
 #archives {
@@ -613,6 +612,9 @@ td.code {
     #secondary {
         display:none
     }
+    div#m-search{
+        display:block !important;
+    }
 }
 @media print, screen and (max-width: 680px) {
     .al_year {
@@ -643,7 +645,7 @@ td.code {
         padding:12px 0
     }
     #nav-menu {
-        margin:35px 0 -1px
+        margin:10px 0 -1px
     }
     #nav-menu a {
         padding:0 15px;
@@ -660,6 +662,11 @@ td.code {
         margin-left:70px;
         padding-left:20px
     }
+}
+
+div#m-search{
+    margin-top:20px;
+    display:none;
 }
 
 #social a {

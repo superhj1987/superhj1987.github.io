@@ -6,6 +6,9 @@
                 </a>
                 {% if site.subtitle %}<p class="description">{{ site.subtitle }}</p>{% endif %}
             </div>
+            <div id="m-search">
+                {% include asides/search.html %}
+            </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
                     {% include custom/navigation.html %}

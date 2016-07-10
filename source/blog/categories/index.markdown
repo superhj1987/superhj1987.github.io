@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "分类"
-comments: true
+comments: false
 sharing: false
 footer: false
 ---
