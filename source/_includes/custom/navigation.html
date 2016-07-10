@@ -1,19 +1,4 @@
-<ul class="main">
-	<li><a href="{{ root_url }}/">首页</a></li>
-    <li><a href="{{ root_url }}/blog/archives">所有文章</a></li>
-    <li><a href="{{ root_url }}/blog/categories">分类目录</a></li>
-    <li><a href="{{ root_url }}/about_me.html">关于我</a></li>
-</ul>
-{% if page.index %}
-<div class="ds-share flat" data-title="{% if page.title %}{{ page.title }} - {% endif %}{{ site.title }}" data-url="{{canonical}}" data-content="{{ description | strip_html | condense_spaces | truncate:150 }}">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">
-      	
-      	<li><a class="ds-more" href="javascript:void(0);" style="background-image:none !important;padding-left:0">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-      	
-      </ul>
-    </div>
- </div>
- {% endif %}
+<a class="index-nav current" href="{{ root_url }}/">博客</a>
+<a class="archives-nav" href="{{ root_url }}/blog/archives">归档</a>
+<a class="categories-nav" href="{{ root_url }}/blog/categories">分类</a>
+<a class="about-nav" href="{{ root_url }}/about_me.html">关于我</a>

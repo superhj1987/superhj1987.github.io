@@ -1,26 +1,37 @@
 ---
 layout: default
-index: true
-description: 后端技术杂谈主要分享后端技术相关的一些实践、代码、心得等
-keywords: 后端技术,杂谈,后端技术杂谈,飒然,杭建,java,jvm,编程,后端,大数据,服务端,基础架构,Scala
 ---
 
-{% assign index = true %}
-<div itemscope itemtype="http://schema.org/Blog">
-{% for post in paginator.posts %}
-{% assign content = post.content %}
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">{% include article.html %}</article>
-{% endfor %}
-</div>
-<nav id="pagenavi">
-    {% if paginator.previous_page == 1 %}
-    <a href="/" class="prev">←上一页</a>
-    {% endif %}
-    {% if paginator.previous_page and paginator.previous_page != 1 %}
-        <a href="/blog/posts/{{paginator.previous_page}}" class="prev">←上一页</a>
-    {% endif %}
-    {% if paginator.next_page %}
-        <a href="/blog/posts/{{paginator.next_page}}" class="next">下一页→</a>
-    {% endif %}
-    <div class="center"><a href="{{ root_url }}/blog/archives">所有文章</a></div>
-</nav>
+  <div class="col-8" id="main">
+    <div class="res-cons">
+    {% assign index = true %}
+    {% for post in paginator.posts %}
+    {% assign content = post.content %}
+      <article class="post">
+        {% include article.html %}
+      </article>
+    {% endfor %}
+      <div class="page-navigator">
+        {% if paginator.previous_page == 1 %}
+        <a href="/" class="prev">←上一页</a>
+        {% endif %}
+        {% if paginator.previous_page and paginator.previous_page != 1 %}
+            <a href="/blog/posts/{{paginator.previous_page}}" class="prev"><<上一页</a>
+        {% endif %}
+        {% if paginator.next_page %}
+            <a href="/blog/posts/{{paginator.next_page}}" class="next">下一页>></a>
+        {% endif %}
+        <div class="center"><a href="{{ root_url }}/blog/archives">所有文章</a></div>
+      </div>
+     </div>
+  </div>
+    
+  <aside id="secondary">
+  <div id="sidebar">
+  {% if site.blog_index_asides.size %}
+    {% include_array blog_index_asides %}
+  {% else %}
+    {% include_array default_asides %}
+  {% endif %}
+  </div>
+  </aside>

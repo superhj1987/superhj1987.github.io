@@ -1,10 +1,16 @@
 ---
-layout: post
+layout: page
 title: "关于我"
-date: 2013-05-01 20:02:50 +0800
 comments: true
 ---
 
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#nav-menu a").removeClass("current");
+	$("#nav-menu .about-nav").addClass("current");
+});
+</script>
+<div class="post-content">
 <b>飒然Hang</b>，Java后端工程师/架构师，working@中华万年历
 <ul>
 	<li>技术以后端为主，也有过单片机、嵌入式、前端、安卓等开发经验。</li>
@@ -15,3 +21,5 @@ comments: true
 	<li>觉得总结和分享是自我提高的一种很好的方式，于是写博客成了闲暇的一种爱好。</li>
 	<li>目前对进入大公司是没有丝毫兴趣的。^_^</li>
 </ul>
+<div>
+{% include asides/social.html %}

@@ -1,16 +1,30 @@
+{% unless page.no_header %}
+  <header>
+    {% if index %}
+      <h2 class="post-title"><a href="{{ root_url }}{{ post.url }}">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a></h2>
+    {% else %}
+      <h1 class="post-title">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
+    {% endif %}
+    {% unless page.meta == false %}
+      <p class="post-meta">
+        {% include post/date.html %}{{ time }}
+        {% if index %}
+        <a data-thread-key="{{ post.url }}" href="{{ root_url }}{{ post.url }}#ds-thread" class="ds-thread-count"></a>
+        {% else %}
+        {% include post/author.html %} in categories: {% include post/categories.html %}
+        {% endif %}
+      </p>
+    {% endunless %}
+  </header>
+{% endunless %}
 {% if index %}
-	<div class="meta">
-		<div class="date">{% include post/date.html %}{{ time }}</div>
-		<div class="tags">{% include post/categories.html %}</div>
-		<a data-thread-key="{{ post.url }}" href="{{ root_url }}{{ post.url }}#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="{{ root_url }}{{ post.url }}" itemprop="url">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		{{ content | excerpt }}
-		{% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
-		{% if excerpted == 'true' %}<a href="{{ root_url }}{{ post.url }}" class="more-link">{{ site.excerpt_link }}</a>{% endif %}
-	</div>
+  <div class="post-content">{{ content | excerpt }}</div>
+  {% capture excerpted %}{{ content | has_excerpt }}{% endcapture %}
+  {% if excerpted == 'true' %}
+    <footer>
+      <a rel="full-article" href="{{ root_url }}{{ post.url }}">{{ site.excerpt_link }}</a>
+    </footer>
+  {% endif %}
 {% else %}
-	<h1 class="title" itemprop="name">{% if site.titlecase %}{{ page.title | titlecase }}{% else %}{{ page.title }}{% endif %}</h1>
-	<div class="entry-content" itemprop="articleBody">{{ content }}</div>
+<div class="post-content">{{ content }}</div>
 {% endif %}

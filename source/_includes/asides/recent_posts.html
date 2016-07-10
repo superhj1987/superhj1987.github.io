@@ -1,10 +1,26 @@
-<section>
-  <h1>Recent Posts</h1>
-  <ul id="recent_posts">
-    {% for post in site.posts limit: site.recent_posts %}
-      <li class="post">
-        <a href="{{ root_url }}{{ post.url }}">{% if site.titlecase %}{{ post.title | titlecase }}{% else %}{{ post.title }}{% endif %}</a>
-      </li>
-    {% endfor %}
-  </ul>
+<section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		{% for post in site.posts limit: site.recent_posts %}
+     	<li>
+      	  <a href="{{ root_url }}{{ post.url }}">{{ post.title }}</a>
+      	</li>
+    	{% endfor %}
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最热文章</h3>
+	<ul class="widget-list">
+	<!-- 多说热评文章 start -->
+	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+	<!-- 多说热评文章 end -->
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最新评论</h3>
+	<!-- 多说最新评论 start -->
+	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+<!-- 多说最新评论 end -->
 </section>

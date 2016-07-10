@@ -1,79 +1,15 @@
-<div class="profilepic">
-	<img src="/images/avatar/backend_logo.png" alt="Profile Picture" style="width: 160px;" />
-</div>
-{% include custom/header.html %}
-<nav id="main-nav">{% include navigation.html %}</nav>
-<nav id="sub-nav" style='margin-top:20px !important'>
-	<div class="social">
-		{% if site.weibo_user %}
-		<a class="weibo" href="http://weibo.com/{{ site.weibo_user }}" title="Weibo" target="_blank">Weibo</a>
-		{% endif %}
-		{% if site.github_user %}
-			<a class="github" href="https://github.com/{{ site.github_user }}" title="GitHub" target="_blank">GitHub</a>
-		{% endif %}
-		{% if site.coderwall_user %}
-			<a class="coderwall" href="https://coderwall.com/{{ site.coderwall_user }}" title="Coderwall">Coderwall</a>
-		{% endif %}
-		{% if site.stackoverflow_user and site.stackoverflow_user_id %}
-		  <a class="stackoverflow" href="http://stackoverflow.com/users/{{site.stackoverflow_user_id}}/{{site.stackoverflow_user}}" title="StackOverflow"></a>
-		{% endif %}
-		{% if site.linkedin_user %}
-			<a class="linkedin" href="http://www.linkedin.com/in/{{ site.linkedin_user }}" title="LinkedIn">LinkedIn</a>
-		{% endif %}
-		{% if site.pinterest_user %}
-			<a class="pinterest" href="https://pinterest.com/{{ site.pinterest_user }}" title="Pinterest">Pinterest</a>
-		{% endif %}
-		{% if site.delicious_user %}
-			<a class="delicious" href="http://delicious.com/{{ site.delicious_user }}" title="Delicious">Delicious</a>
-		{% endif %}
-		{% if site.pinboard_user %}
-			<a class="pinboard" href="https://pinboard.in/u:{{ site.pinboard_user }}" title="Pinboard">Pinboard</a>
-		{% endif %}
-		{% if site.douban_user %}
-			<a class="douban" href="https://www.douban.com/people/{{ site.douban_user }}" title="Douban">Douban</a>
-		{% endif %}
-		{% if site.quora_user %}
-			<a class="quora" href="https://quora.com/{{ site.quora_user }}" title="Quora">Quora</a>
-		{% endif %}
-		{% if site.instagram_user %}
-			<a class="instagram" href="https://instagram.com/{{ site.instagram_user }}" title="Instagram">Instagram</a>
-		{% endif %}
-    	{% if site.behance_user %}
-			<a class="behance" href="https://www.behance.net/{{ site.behance_user }}" title="Behance">Behance</a>
-		{% endif %}
-    	{% if site.subscribe_rss %}
-			<a class="rss" href="{{ site.subscribe_rss }}" title="RSS" target="_blank">RSS</a>
-		{% endif %}
-		<form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch()">
-		<div class="content">
-			<input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
-			<input type="submit" class="button" value="搜索">
-		</div>
-		</form>
-		<form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
-		<div class="content">
-			<input type="hidden" name="q" value="">
-		</div>
-		</form>
-</nav>
-<script type="text/javascript">
-	function doSearch(){
-		var $q = $("input[name=q]");
-
-		$q.val($("input[name=s]").val() + " site:rowkey.me");
-
-		$("form[name=frmSearch]").submit();
-
-		return false;
-	}
-</script>
-<style type="text/css">
-	span#cnzz_stat_icon_1257166229{
-		display: none !important
-	}
-	div#ujian_BtnDiv{
-		display: none !important
-	}
-</style>
-<!-- cnzz统计 -->
-<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="{{ root_url }}/">
+                   {{ site.head }}
+                </a>
+                {% if site.subtitle %}<p class="description">{{ site.subtitle }}</p>{% endif %}
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    {% include custom/navigation.html %}
+                </nav>
+            </div>
+        </div>
+    </div>

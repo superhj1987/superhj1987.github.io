@@ -1,11 +1,23 @@
 ---
-layout: default
-title: 文章列表
+layout: page
+title: 归档
+footer: false
 ---
-
-<div itemscope itemtype="http://schema.org/Blog">
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#nav-menu a").removeClass("current");
+	$("#nav-menu .archives-nav").addClass("current");
+});
+</script>
+<div id="archives">
 {% for post in site.posts reverse %}
-	{% include archive_post.html %}
+{% capture this_year %}{{ post.date | date: "%Y" }}{% endcapture %}
+{% unless year == this_year %}
+  {% assign year = this_year %}
+  <div class="al_year">{{ year }}</div>
+{% endunless %}
+<div class="archives-post clearfix">
+  {% include archive_post.html %}
+</div>
 {% endfor %}
-  </section>
 </div>
