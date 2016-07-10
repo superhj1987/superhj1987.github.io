@@ -24,13 +24,15 @@ layout: default
     </footer>
   {% endunless %}
 </article>
-{% if site.disqus_short_name and page.comments == true %}
+{% if page.comments == true %}
+{% if site.disqus_short_name %}
   <section>
     <h3>Comments</h3>
     <div id="disqus_thread" aria-live="polite">{% include post/disqus_thread.html %}</div>
   </section>
 {% endif %}
 {% include post/duoshuo_comment.html %}
+{% endif %}
   </div>
 </div>
 {% unless page.sidebar == false %}
