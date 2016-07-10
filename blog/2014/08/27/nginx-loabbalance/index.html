@@ -416,6 +416,7 @@
 <!-- 多说评论框 end -->
  
  
+ 
      <!-- UJian Button BEGIN -->
 <div class="ujian-hook"></div>
 <script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
@@ -423,6 +424,7 @@
 <a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
 <!-- UJian Button END -->
  
+
 </div>
 
     
@@ -542,22 +544,24 @@
 <link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
 <script type="text/javascript">
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-var duoshuoQuery = {short_name:"rowkey"};
-(function() {
-	var ds = document.createElement('script');
-	ds.type = 'text/javascript';ds.async = true;
-	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-	ds.charset = 'UTF-8';
-	(document.getElementsByTagName('head')[0] 
-	 || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-<!-- 多说公共JS代码 end -->
 $(function(){
 	$.scrollUp({
 		appendId: 'footer'
 	});
 });
+</script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
 </script>
 
   </footer>
