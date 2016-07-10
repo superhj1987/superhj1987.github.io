@@ -49,6 +49,29 @@
                 </a>
                 <p class="description">What、How、Why</p>
             </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
             <div>
                 <nav id="nav-menu" class="clearfix">
                     <a class="index-nav current" href="/">首页</a>
@@ -198,7 +221,7 @@
   <div id="sidebar">
   
     <section class="widget">
-    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch()">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
     <div class="content">
       <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
     </div>
@@ -210,10 +233,11 @@
     </form>
 </section>
 <script type="text/javascript">
-  function doSearch(){
-    var $q = $("input[name=q]");
-    $q.val($("input[name=s]").val() + " site:rowkey.me");
-    $("form[name=frmSearch]").submit();
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
     return false;
   }
 </script><section class="widget" id="social">
