@@ -3,7 +3,7 @@ layout: page
 title: "分类"
 comments: true
 sharing: false
-footer: true
+footer: false
 ---
 <script type="text/javascript">
 $(document).ready(function(){
