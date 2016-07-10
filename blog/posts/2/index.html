@@ -1,141 +1,82 @@
 
-<!DOCTYPE HTML>
-
-<html>
-
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<meta name="ujianVerification" content="7625e668c8eb782e03dfa1be3a6339f7" />
-	<title>后端技术杂谈 | 飒然Hang</title>
-	<meta name="author" content="飒然Hang">
+  <meta charset="utf-8">
+  <title>后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="前端这些年 Dec 21st, 2015 前言 本人一直从事的是服务端开发工作，写前端貌似有点跑题，不过自己初中也就是2000年左右的时候，引领我进入计算机大门的也的确是前端，后来也做过不少的前端工作。于是，就想着从自己的角度写点前端这些年的发展。但毕竟不是专业所长，有所纰漏在所难免。 继续阅读 &hellip;">
+  
 
-	
-	<meta name="description" content="后端技术杂谈主要分享后端技术相关的一些实践、代码、心得等">
-	<meta name="keywords" content="后端技术,杂谈,后端技术杂谈,飒然,杭建,java,jvm,编程,后端,大数据,服务端,基础架构,Scala">
-
-  <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
-	
-	<link rel="canonical" href="http://www.rowkey.me/blog/posts/2/">
-	<link href="/favicon.ico" rel="shortcut icon">
-	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
-	
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/posts/2/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
   
 
 </head>
-
-
-<body>
-	<div class="container">
-		<div class="left-col">
-			<div class="intrude-less">
-			<header id="header" class="inner"><div class="profilepic">
-	<img src="/images/avatar/backend_logo.png" alt="Profile Picture" style="width: 160px;" />
-</div>
-<hgroup>
-  <h1>后端技术杂谈</h1>
-  
-    <h3>What、How、Why</h2>
-  
-</hgroup>
-
-<nav id="main-nav"><ul class="main">
-	<li><a href="/">首页</a></li>
-    <li><a href="/blog/archives">所有文章</a></li>
-    <li><a href="/blog/categories">分类目录</a></li>
-    <li><a href="/about_me.html">关于我</a></li>
-</ul>
-
-<div class="ds-share flat" data-title="后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/posts/2/" data-content="后端技术杂谈主要分享后端技术相关的一些实践、代码、心得等">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">
-      	
-      	<li><a class="ds-more" href="javascript:void(0);" style="background-image:none !important;padding-left:0">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-      	
-      </ul>
-    </div>
- </div>
- 
-
-</nav>
-<nav id="sub-nav" style='margin-top:20px !important'>
-	<div class="social">
-		
-		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
-		
-		
-			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-    	
-    	
-			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
-		
-		<form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch()">
-		<div class="content">
-			<input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
-			<input type="submit" class="button" value="搜索">
-		</div>
-		</form>
-		<form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
-		<div class="content">
-			<input type="hidden" name="q" value="">
-		</div>
-		</form>
-</nav>
-<script type="text/javascript">
-	function doSearch(){
-		var $q = $("input[name=q]");
-
-		$q.val($("input[name=s]").val() + " site:rowkey.me");
-
-		$("form[name=frmSearch]").submit();
-
-		return false;
-	}
-</script>
 <style type="text/css">
-	span#cnzz_stat_icon_1257166229{
-		display: none !important
-	}
-	div#ujian_BtnDiv{
-		display: none !important
-	}
+  span#cnzz_stat_icon_1257166229{
+    display: none !important
+  }
+  div#ujian_BtnDiv{
+    display: none !important
+  }
 </style>
 <!-- cnzz统计 -->
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-</header>				
-			</div>
-		</div>	
-		<div class="mid-col">
-			
-				
-			
-			<div class="mid-col-container">
-				<div id="content" class="inner">
-<div itemscope itemtype="http://schema.org/Blog">
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">博客</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="about-nav" href="/about_me.html">关于我</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			  <div class="col-8" id="main">
+    <div class="res-cons">
+    
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/12/21/front-these-years/">前端这些年</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -147,33 +88,40 @@
   
 
 
-<time datetime="2015-12-21T18:53:48+08:00" data-updated="true" itemprop="datePublished">Dec 21<sup>st</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-12-21T18:53:48+08:00" pubdate data-updated="true">Dec 21<sup>st</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/12/21/front-these-years/" href="/blog/2015/12/21/front-these-years/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/front/'>front</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/12/21/front-these-years/" href="/blog/2015/12/21/front-these-years/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/12/21/front-these-years/" itemprop="url">前端这些年</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>前言</h2>
+  <div class="post-content"><h2>前言</h2>
 
 <p>本人一直从事的是服务端开发工作，写前端貌似有点跑题，不过自己初中也就是2000年左右的时候，引领我进入计算机大门的也的确是前端，后来也做过不少的前端工作。于是，就想着从自己的角度写点前端这些年的发展。但毕竟不是专业所长，有所纰漏在所难免。</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/12/21/front-these-years/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2015/12/21/front-these-years/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/11/20/2015book-to-read/">2015图书阅读清单</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -185,19 +133,16 @@
   
 
 
-<time datetime="2015-11-20T17:13:46+08:00" data-updated="true" itemprop="datePublished">Nov 20<sup>th</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-11-20T17:13:46+08:00" pubdate data-updated="true">Nov 20<sup>th</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/11/20/2015book-to-read/" href="/blog/2015/11/20/2015book-to-read/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/study/'>study</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/11/20/2015book-to-read/" href="/blog/2015/11/20/2015book-to-read/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/11/20/2015book-to-read/" itemprop="url">2015图书阅读清单</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>技术</h2>
+  <div class="post-content"><h2>技术</h2>
 
 <h3>1. 精益数据分析</h3>
 
@@ -218,17 +163,27 @@
 </ul>
 
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/11/20/2015book-to-read/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2015/11/20/2015book-to-read/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/11/13/your-own-github/">搭建自己的github</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -240,33 +195,40 @@
   
 
 
-<time datetime="2015-11-13T10:27:40+08:00" data-updated="true" itemprop="datePublished">Nov 13<sup>th</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-11-13T10:27:40+08:00" pubdate data-updated="true">Nov 13<sup>th</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/11/13/your-own-github/" href="/blog/2015/11/13/your-own-github/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/git/'>git</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/11/13/your-own-github/" href="/blog/2015/11/13/your-own-github/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/11/13/your-own-github/" itemprop="url">搭建自己的github</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
+  <div class="post-content"><p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
 
 <p>记得几年前由于项目的需要，曾尝试自己去搭建一套git服务给项目组使用，折腾了好久，才总算搭建了一个基础的系统, 刚刚能用，权限控制都没有(<a href="http://srhang.iteye.com/blog/1339110">http://srhang.iteye.com/blog/1339110</a>)。但最终因为git的上手门槛有点高，还是选择了svn。后来随着github的兴起，git才如火如荼地在国内火了起来。许多大的互联网公司，也都开始把项目由svn转到git。但如果仅仅是搭建一个git服务，那么github这种网站提供的可视化ui带来的便捷却也不复存在了。对于一些小的有钱的团队，使用github的收费私人repository倒也是一种解决办法。但是，对于大部分公司来说，还是不会把公司内部的代码放到这种公共服务上的。这种需求场景下，就诞生了很多github的克隆实现，以方便部署内网的github。</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/11/13/your-own-github/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2015/11/13/your-own-github/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/09/09/load-analysis/">系统负载能力浅析</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -278,35 +240,42 @@
   
 
 
-<time datetime="2015-09-09T18:42:58+08:00" data-updated="true" itemprop="datePublished">Sep 9<sup>th</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-09-09T18:42:58+08:00" pubdate data-updated="true">Sep 9<sup>th</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/09/09/load-analysis/" href="/blog/2015/09/09/load-analysis/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/linux/'>linux</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/09/09/load-analysis/" href="/blog/2015/09/09/load-analysis/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/09/09/load-analysis/" itemprop="url">系统负载能力浅析</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p><strong><em>&mdash;本文于2015.12.23号最新更新&mdash;</em></strong></p>
+  <div class="post-content"><p><strong><em>&mdash;本文于2015.12.23号最新更新&mdash;</em></strong></p>
 
 <p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
 
 <p>那么，何为系统负载能力？怎么衡量？相关因素有哪些？又如何优化呢？</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/09/09/load-analysis/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2015/09/09/load-analysis/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/06/10/hbase-about/">Hbase关键的几个点</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -318,19 +287,16 @@
   
 
 
-<time datetime="2015-06-10T10:59:59+08:00" data-updated="true" itemprop="datePublished">Jun 10<sup>th</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-06-10T10:59:59+08:00" pubdate data-updated="true">Jun 10<sup>th</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/06/10/hbase-about/" href="/blog/2015/06/10/hbase-about/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/big-data/'>big-data</a>, <a class='category' href='/blog/categories/hadoop/'>hadoop</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/06/10/hbase-about/" href="/blog/2015/06/10/hbase-about/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/06/10/hbase-about/" itemprop="url">Hbase关键的几个点</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>一. 什么时候需要HBase</h2>
+  <div class="post-content"><h2>一. 什么时候需要HBase</h2>
 
 <ol>
 <li><p>半结构化或非结构化数据</p>
@@ -403,17 +369,23 @@
 <p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
 </ol>
 
-
-		
-		
-	</div>
-
-</article>
+</div>
+  
+  
 
 
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/05/30/kafka-consumer/">Kafka学习笔记 - Consumer开发的一些关键点</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -425,19 +397,16 @@
   
 
 
-<time datetime="2015-05-30T22:00:18+08:00" data-updated="true" itemprop="datePublished">May 30<sup>th</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-05-30T22:00:18+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/05/30/kafka-consumer/" href="/blog/2015/05/30/kafka-consumer/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/kafka/'>kafka</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/05/30/kafka-consumer/" href="/blog/2015/05/30/kafka-consumer/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/05/30/kafka-consumer/" itemprop="url">Kafka学习笔记 - Consumer开发的一些关键点</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
+  <div class="post-content"><p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
 
 <p><img src="/images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
 
@@ -518,17 +487,23 @@
 <li>需要识别和处理broker leader的改变。</li>
 </ol>
 
-
-		
-		
-	</div>
-
-</article>
+</div>
+  
+  
 
 
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/05/30/kafka-usage/">Kafka学习笔记 - 使用与配置</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -540,19 +515,16 @@
   
 
 
-<time datetime="2015-05-30T21:01:18+08:00" data-updated="true" itemprop="datePublished">May 30<sup>th</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-05-30T21:01:18+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/05/30/kafka-usage/" href="/blog/2015/05/30/kafka-usage/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/kafka/'>kafka</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/05/30/kafka-usage/" href="/blog/2015/05/30/kafka-usage/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/05/30/kafka-usage/" itemprop="url">Kafka学习笔记 - 使用与配置</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>目录</h2>
+  <div class="post-content"><h2>目录</h2>
 
 <ul>
 <li><a href="#%E4%B8%80.%20%E4%BD%BF%E7%94%A8">一. 使用</a></li>
@@ -707,17 +679,23 @@
 <li><p>修复了上述问题后，后来还是遇到网络流量异常的情况，后来在追踪KafkaSpout源码的过程中，发现当kafka中的消息过大时，如果不设置合适的bufferSizeBytes以及fetchSizeBytes(至少要大于kafka中最大消息的大小)，那么很容易造成客户端由于bufferSizeBytes或者fetchSize设置过小，无法将消息放入buffer中也不能成功fetch而不停地去轮询服务端，从而导致网络流量异常。</p></li>
 </ul>
 
-
-		
-		
-	</div>
-
-</article>
+</div>
+  
+  
 
 
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/05/30/kafka-intro/">Kafka学习笔记 - 介绍</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -729,33 +707,40 @@
   
 
 
-<time datetime="2015-05-30T20:06:18+08:00" data-updated="true" itemprop="datePublished">May 30<sup>th</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-05-30T20:06:18+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/05/30/kafka-intro/" href="/blog/2015/05/30/kafka-intro/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/kafka/'>kafka</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/05/30/kafka-intro/" href="/blog/2015/05/30/kafka-intro/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/05/30/kafka-intro/" itemprop="url">Kafka学习笔记 - 介绍</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>什么是kafka</h2>
+  <div class="post-content"><h2>什么是kafka</h2>
 
 <p>最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说：Kafka是一个分布式、分区、冗余的commit日志service。它提供了一种特殊设计的消息系统功能。</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/05/30/kafka-intro/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2015/05/30/kafka-intro/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/">关于Spring Mvc中model的attribute无法指定别名的解决方案</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -767,19 +752,16 @@
   
 
 
-<time datetime="2015-01-21T12:00:00+08:00" data-updated="true" itemprop="datePublished">Jan 21<sup>st</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-01-21T12:00:00+08:00" pubdate data-updated="true">Jan 21<sup>st</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/01/21/springm-mvc-model-attribute-alias/" href="/blog/2015/01/21/springm-mvc-model-attribute-alias/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/spring/'>spring</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/01/21/springm-mvc-model-attribute-alias/" href="/blog/2015/01/21/springm-mvc-model-attribute-alias/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/" itemprop="url">关于Spring Mvc中model的attribute无法指定别名的解决方案</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+  <div class="post-content"><p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
 
 <p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
 
@@ -816,17 +798,23 @@ public class Account{
 <p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
 
 <p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
-
-		
-		
-	</div>
-
-</article>
+</div>
+  
+  
 
 
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/01/15/2014-final-note/">工作总结@2014</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -838,19 +826,16 @@ public class Account{
   
 
 
-<time datetime="2015-01-15T16:08:48+08:00" data-updated="true" itemprop="datePublished">Jan 15<sup>th</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-01-15T16:08:48+08:00" pubdate data-updated="true">Jan 15<sup>th</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/01/15/2014-final-note/" href="/blog/2015/01/15/2014-final-note/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/work/'>work</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/01/15/2014-final-note/" href="/blog/2015/01/15/2014-final-note/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/01/15/2014-final-note/" itemprop="url">工作总结@2014</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
+  <div class="post-content"><p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
 
 <p>对自己来说，今年最大的事情莫过于离开一座城市，到达另一座城市，开始了新的职业生涯。</p>
 
@@ -877,31 +862,123 @@ public class Account{
 
 
 <p>Stay hungry,stay foolish!</p>
+</div>
+  
+  
 
+
+      </article>
+    
+      <div class="page-navigator">
+        
+        <a href="/" class="prev">←上一页</a>
+        
+        
+        
+            <a href="/blog/posts/3" class="next">下一页>></a>
+        
+        <div class="center"><a href="/blog/archives">所有文章</a></div>
+      </div>
+     </div>
+  </div>
+    
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch()">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(){
+    var $q = $("input[name=q]");
+    $q.val($("input[name=s]").val() + " site:rowkey.me");
+    $("form[name=frmSearch]").submit();
+    return false;
+  }
+</script><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
 		
 		
-	</div>
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/19/java-tips/">Java开发的几个注意点</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/04/07/up-recommend/">基于内容和用户画像的个性化推荐</a>
+      	</li>
+    	
+	</ul>
+</section>
 
-</article>
+<section class="widget">
+	<h3 class="widget-title">最热文章</h3>
+	<ul class="widget-list">
+	<!-- 多说热评文章 start -->
+	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+	<!-- 多说热评文章 end -->
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最新评论</h3>
+	<!-- 多说最新评论 start -->
+	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+<!-- 多说最新评论 end -->
+</section>
+  
+  </div>
+  </aside>
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2016 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+
 
 </div>
-<nav id="pagenavi">
-    
-    <a href="/" class="prev">←上一页</a>
-    
-    
-    
-        <a href="/blog/posts/3" class="next">下一页→</a>
-    
-    <div class="center"><a href="/blog/archives">所有文章</a></div>
-</nav></div>
-			</div>
-			<footer id="footer" class="inner">Copyright &copy; 2016
-
-    飒然Hang
-
-
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
 <link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
 <script type="text/javascript">
@@ -923,13 +1000,9 @@ $(function(){
 });
 </script>
 
-	</footer>
-		</div>
-		<div class="right-col">
-			
-		</div>
-	</div>
-	
+  </footer>
+  
+
 
 
 

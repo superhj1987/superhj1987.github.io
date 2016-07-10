@@ -1,141 +1,82 @@
 
-<!DOCTYPE HTML>
-
-<html>
-
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<meta name="ujianVerification" content="7625e668c8eb782e03dfa1be3a6339f7" />
-	<title>后端技术杂谈 | 飒然Hang</title>
-	<meta name="author" content="飒然Hang">
+  <meta charset="utf-8">
+  <title>后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="Java后端工程师学习大纲 Jun 27th, 2016 之前自己总结过的Java后端工程师技能树，其涵盖的技术点比较全面，并非一朝一夕能够全部覆盖到的。对于一些还没有入门或者刚刚入门的Java后端工程师，如果一下子需要学习如此多的知识，想必很多人会望而却步。 本文截取了技能树中的一些关键技能点 &hellip;">
+  
 
-	
-	<meta name="description" content="后端技术杂谈主要分享后端技术相关的一些实践、代码、心得等">
-	<meta name="keywords" content="后端技术,杂谈,后端技术杂谈,飒然,杭建,java,jvm,编程,后端,大数据,服务端,基础架构,Scala">
-
-  <!-- http://t.co/dKP3o1e -->
   <meta name="HandheldFriendly" content="True">
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
-	
-	<link rel="canonical" href="http://www.rowkey.me/">
-	<link href="/favicon.ico" rel="shortcut icon">
-	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<link href="/stylesheets/font-awesome.min.css" media="screen, projection" rel="stylesheet" type="text/css">
-	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
-	<script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
-	
+  
+  <link rel="canonical" href="http://www.rowkey.me/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
   
 
 </head>
-
-
-<body>
-	<div class="container">
-		<div class="left-col">
-			<div class="intrude-less">
-			<header id="header" class="inner"><div class="profilepic">
-	<img src="/images/avatar/backend_logo.png" alt="Profile Picture" style="width: 160px;" />
-</div>
-<hgroup>
-  <h1>后端技术杂谈</h1>
-  
-    <h3>What、How、Why</h2>
-  
-</hgroup>
-
-<nav id="main-nav"><ul class="main">
-	<li><a href="/">首页</a></li>
-    <li><a href="/blog/archives">所有文章</a></li>
-    <li><a href="/blog/categories">分类目录</a></li>
-    <li><a href="/about_me.html">关于我</a></li>
-</ul>
-
-<div class="ds-share flat" data-title="后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/" data-content="后端技术杂谈主要分享后端技术相关的一些实践、代码、心得等">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">
-      	
-      	<li><a class="ds-more" href="javascript:void(0);" style="background-image:none !important;padding-left:0">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-      	
-      </ul>
-    </div>
- </div>
- 
-
-</nav>
-<nav id="sub-nav" style='margin-top:20px !important'>
-	<div class="social">
-		
-		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
-		
-		
-			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-    	
-    	
-			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
-		
-		<form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch()">
-		<div class="content">
-			<input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
-			<input type="submit" class="button" value="搜索">
-		</div>
-		</form>
-		<form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
-		<div class="content">
-			<input type="hidden" name="q" value="">
-		</div>
-		</form>
-</nav>
-<script type="text/javascript">
-	function doSearch(){
-		var $q = $("input[name=q]");
-
-		$q.val($("input[name=s]").val() + " site:rowkey.me");
-
-		$("form[name=frmSearch]").submit();
-
-		return false;
-	}
-</script>
 <style type="text/css">
-	span#cnzz_stat_icon_1257166229{
-		display: none !important
-	}
-	div#ujian_BtnDiv{
-		display: none !important
-	}
+  span#cnzz_stat_icon_1257166229{
+    display: none !important
+  }
+  div#ujian_BtnDiv{
+    display: none !important
+  }
 </style>
 <!-- cnzz统计 -->
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-</header>				
-			</div>
-		</div>	
-		<div class="mid-col">
-			
-				
-			
-			<div class="mid-col-container">
-				<div id="content" class="inner">
-<div itemscope itemtype="http://schema.org/Blog">
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">博客</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="about-nav" href="/about_me.html">关于我</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			  <div class="col-8" id="main">
+    <div class="res-cons">
+    
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -147,35 +88,42 @@
   
 
 
-<time datetime="2016-06-27T21:39:34+08:00" data-updated="true" itemprop="datePublished">Jun 27<sup>th</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-06-27T21:39:34+08:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/06/27/java-backend-study/" href="/blog/2016/06/27/java-backend-study/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/java/'>java</a>
-
-
-</div>
-		<a data-thread-key="/blog/2016/06/27/java-backend-study/" href="/blog/2016/06/27/java-backend-study/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/06/27/java-backend-study/" itemprop="url">Java后端工程师学习大纲</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>之前自己总结过的<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>，其涵盖的技术点比较全面，并非一朝一夕能够全部覆盖到的。对于一些还没有入门或者刚刚入门的Java后端工程师，如果一下子需要学习如此多的知识，想必很多人会望而却步。</p>
+  <div class="post-content"><p>之前自己总结过的<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>，其涵盖的技术点比较全面，并非一朝一夕能够全部覆盖到的。对于一些还没有入门或者刚刚入门的Java后端工程师，如果一下子需要学习如此多的知识，想必很多人会望而却步。</p>
 
 <p>本文截取了技能树中的一些关键技能点，并辅以学习资料和书籍推荐，做为Java后端工程师的一个入门或者入职学习计划，基本上涵盖了一个合格的Java后端工程师必备的技能点，是一个相对完整的从基础到高级的修炼过程。当然，这只是一个大纲性指引的东西，也主要针对的是Java后端这个职位，并不会面面俱到，也不会很详细的讲述。毕竟其中每一个知识点深入下去都是可以成书的。另外，像数据结构、计算机网络等计算机科学基础知识，我认为是从事计算机专业的人必备的知识点，因此并不包括在内。如果要一个很全的知识点可以移步<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>。</p>
 
 <p><strong>本大纲于2016.07.07号最新更新</strong>^_^&hellip;</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/06/27/java-backend-study/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2016/06/27/java-backend-study/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/06/19/java-tips/">Java开发的几个注意点</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -187,31 +135,38 @@
   
 
 
-<time datetime="2016-06-19T20:59:44+08:00" data-updated="true" itemprop="datePublished">Jun 19<sup>th</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-06-19T20:59:44+08:00" pubdate data-updated="true">Jun 19<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/06/19/java-tips/" href="/blog/2016/06/19/java-tips/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/java/'>java</a>
-
+  <div class="post-content"><p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
 
 </div>
-		<a data-thread-key="/blog/2016/06/19/java-tips/" href="/blog/2016/06/19/java-tips/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/06/19/java-tips/" itemprop="url">Java开发的几个注意点</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/06/19/java-tips/">继续阅读 &rarr;</a>
+    </footer>
+  
 
 
-		
-		<a href="/blog/2016/06/19/java-tips/" class="more-link">继续阅读 &rarr;</a>
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -223,31 +178,38 @@
   
 
 
-<time datetime="2016-06-17T22:59:44+08:00" data-updated="true" itemprop="datePublished">Jun 17<sup>th</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-06-17T22:59:44+08:00" pubdate data-updated="true">Jun 17<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/06/17/java-skill-tree/" href="/blog/2016/06/17/java-skill-tree/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/java/'>java</a>
-
+  <div class="post-content"><p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
 
 </div>
-		<a data-thread-key="/blog/2016/06/17/java-skill-tree/" href="/blog/2016/06/17/java-skill-tree/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/06/17/java-skill-tree/" itemprop="url">Java后端工程师技能树</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/06/17/java-skill-tree/">继续阅读 &rarr;</a>
+    </footer>
+  
 
 
-		
-		<a href="/blog/2016/06/17/java-skill-tree/" class="more-link">继续阅读 &rarr;</a>
-	</div>
-
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -259,19 +221,16 @@
   
 
 
-<time datetime="2016-05-07T14:59:44+08:00" data-updated="true" itemprop="datePublished">May 7<sup>th</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-05-07T14:59:44+08:00" pubdate data-updated="true">May 7<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/05/07/javamm/" href="/blog/2016/05/07/javamm/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/java/'>java</a>
-
-
-</div>
-		<a data-thread-key="/blog/2016/05/07/javamm/" href="/blog/2016/05/07/javamm/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/05/07/javamm/" itemprop="url">谈谈Java内存管理</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>目录</h2>
+  <div class="post-content"><h2>目录</h2>
 
 <ul>
 <li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
@@ -285,17 +244,27 @@
 
 <p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/05/07/javamm/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2016/05/07/javamm/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/04/07/up-recommend/">基于内容和用户画像的个性化推荐</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -307,19 +276,16 @@
   
 
 
-<time datetime="2016-04-07T14:59:44+08:00" data-updated="true" itemprop="datePublished">Apr 7<sup>th</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-04-07T14:59:44+08:00" pubdate data-updated="true">Apr 7<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/04/07/up-recommend/" href="/blog/2016/04/07/up-recommend/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/data-mining/'>data-mining</a>
-
-
-</div>
-		<a data-thread-key="/blog/2016/04/07/up-recommend/" href="/blog/2016/04/07/up-recommend/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/04/07/up-recommend/" itemprop="url">基于内容和用户画像的个性化推荐</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>基于内容和用户画像的个性化推荐，有两个实体：内容和用户。需要有一个联系这两者的东西，即为标签。内容转换为标签即为内容特征化，用户则称为用户特征化。因此，对于此种推荐，主要分为以下几个关键部分：</p>
+  <div class="post-content"><p>基于内容和用户画像的个性化推荐，有两个实体：内容和用户。需要有一个联系这两者的东西，即为标签。内容转换为标签即为内容特征化，用户则称为用户特征化。因此，对于此种推荐，主要分为以下几个关键部分：</p>
 
 <ul>
 <li>标签库</li>
@@ -333,17 +299,27 @@
 
 <p><img src="/images/blog_images/up-recommend.png" alt="uc_interest" /></p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/04/07/up-recommend/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2016/04/07/up-recommend/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/02/23/data-talk/">数据杂谈</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -355,19 +331,16 @@
   
 
 
-<time datetime="2016-02-23T18:44:34+08:00" data-updated="true" itemprop="datePublished">Feb 23<sup>rd</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-02-23T18:44:34+08:00" pubdate data-updated="true">Feb 23<sup>rd</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/02/23/data-talk/" href="/blog/2016/02/23/data-talk/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/big-data/'>big-data</a>, <a class='category' href='/blog/categories/data-mining/'>data-mining</a>
-
-
-</div>
-		<a data-thread-key="/blog/2016/02/23/data-talk/" href="/blog/2016/02/23/data-talk/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/02/23/data-talk/" itemprop="url">数据杂谈</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>目录</h2>
+  <div class="post-content"><h2>目录</h2>
 
 <ul>
 <li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
@@ -387,17 +360,27 @@
 
 <p>自己一直从事的是Java EE中间件、基础架构等方面的研发工作，对数据这一块只是略知皮毛，在前东家的时候我也没有机会接触数据平台。但由于现公司业务的原因，却不得不去触碰这一块，到目前为止也就仅仅半年时间（其间穿插各种协调、管理的杂事）。因此，数据相关的东西对我来说完全是一个新的领域，算是离开了自己的舒适区。不过，逃离舒适区这个想想也挺兴奋的。</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/02/23/data-talk/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2016/02/23/data-talk/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/02/18/2016plan/">2016年的几点规划</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -409,19 +392,16 @@
   
 
 
-<time datetime="2016-02-18T20:31:11+08:00" data-updated="true" itemprop="datePublished">Feb 18<sup>th</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-02-18T20:31:11+08:00" pubdate data-updated="true">Feb 18<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/02/18/2016plan/" href="/blog/2016/02/18/2016plan/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/work/'>work</a>
-
-
-</div>
-		<a data-thread-key="/blog/2016/02/18/2016plan/" href="/blog/2016/02/18/2016plan/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/02/18/2016plan/" itemprop="url">2016年的几点规划</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p>明天就要开始新的一年正式的上班了，回想一下过去的2015年，对于自己来说，虽然有不少的收获和成长，但还是令自己比较不满意的。由于某些原因，自己的学习进度以及工作情况都受到了很大的影响，并没有达到年初的期望。不过，至少没有浑浑噩噩的一年又一年，也算不错了。^_^</p>
+  <div class="post-content"><p>明天就要开始新的一年正式的上班了，回想一下过去的2015年，对于自己来说，虽然有不少的收获和成长，但还是令自己比较不满意的。由于某些原因，自己的学习进度以及工作情况都受到了很大的影响，并没有达到年初的期望。不过，至少没有浑浑噩噩的一年又一年，也算不错了。^_^</p>
 
 <p><strong>工作学习方面：</strong></p>
 
@@ -451,17 +431,23 @@
 <p><strong>工作学习之外：</strong></p>
 
 <p>今年最大的一点感受：不管其他如何，健康才是一个人最最重要的东西。尤其是对于天天坐在电脑面前的程序员们来说，保持健康就是保证最大的竞争力。</p>
-
-		
-		
-	</div>
-
-</article>
+</div>
+  
+  
 
 
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/01/18/io-model/">也谈IO模型</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -473,19 +459,16 @@
   
 
 
-<time datetime="2016-01-18T15:41:31+08:00" data-updated="true" itemprop="datePublished">Jan 18<sup>th</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-01-18T15:41:31+08:00" pubdate data-updated="true">Jan 18<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/01/18/io-model/" href="/blog/2016/01/18/io-model/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/network/'>network</a>
-
-
-</div>
-		<a data-thread-key="/blog/2016/01/18/io-model/" href="/blog/2016/01/18/io-model/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/01/18/io-model/" itemprop="url">也谈IO模型</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<h2>目录</h2>
+  <div class="post-content"><h2>目录</h2>
 
 <ul>
 <li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
@@ -508,17 +491,27 @@
 </ul>
 
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/01/18/io-model/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2016/01/18/io-model/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/01/10/git-usage/">Git常用命令指南</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -530,19 +523,16 @@
   
 
 
-<time datetime="2016-01-10T10:15:30+08:00" data-updated="true" itemprop="datePublished">Jan 10<sup>th</sup>, 2016</time></div>
-		<div class="tags">
+<time datetime="2016-01-10T10:15:30+08:00" pubdate data-updated="true">Jan 10<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/01/10/git-usage/" href="/blog/2016/01/10/git-usage/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/git/'>git</a>
-
-
-</div>
-		<a data-thread-key="/blog/2016/01/10/git-usage/" href="/blog/2016/01/10/git-usage/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2016/01/10/git-usage/" itemprop="url">Git常用命令指南</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p><strong><em>ps:本指南会持续更新</em></strong></p>
+  <div class="post-content"><p><strong><em>ps:本指南会持续更新</em></strong></p>
 
 <p>其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。</p>
 
@@ -550,17 +540,27 @@
 
 <p>上图所示，使用git的流程一般如此，通常使用图中的六个命令即可。</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/01/10/git-usage/">继续阅读 &rarr;</a>
+    </footer>
+  
 
-		
-		<a href="/blog/2016/01/10/git-usage/" class="more-link">继续阅读 &rarr;</a>
-	</div>
 
-</article>
-
-
-    <article class="post" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
-	<div class="meta">
-		<div class="date">
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/12/31/dev-job-talk/">研发招聘之殇</a></h2>
+    
+    
+      <p class="post-meta">
+        
 
 
 
@@ -572,45 +572,138 @@
   
 
 
-<time datetime="2015-12-31T22:01:02+08:00" data-updated="true" itemprop="datePublished">Dec 31<sup>st</sup>, 2015</time></div>
-		<div class="tags">
+<time datetime="2015-12-31T22:01:02+08:00" pubdate data-updated="true">Dec 31<sup>st</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/12/31/dev-job-talk/" href="/blog/2015/12/31/dev-job-talk/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
 
 
-	<a class='category' href='/blog/categories/work/'>work</a>
-
-
-</div>
-		<a data-thread-key="/blog/2015/12/31/dev-job-talk/" href="/blog/2015/12/31/dev-job-talk/#ds-thread" class="ds-thread-count"></a>
-	</div>
-	<h1 class="title" itemprop="name"><a href="/blog/2015/12/31/dev-job-talk/" itemprop="url">研发招聘之殇</a></h1>
-	<div class="entry-content" itemprop="articleBody">
-		<p><strong><em>ps: 本文完成于2015年12月31号</em></strong></p>
+  <div class="post-content"><p><strong><em>ps: 本文完成于2015年12月31号</em></strong></p>
 
 <p>对于一个公司来说，要想健康长久的发展，招聘是一个永久的话题。而对于一个互联网公司，尤其是以产品为主的公司来说，研发是招聘中的关键职位，高质量的研发人才也是所有企业都急缺的。一直持有一个观点：招一个优秀的人给他两倍的薪资带来的效果远远大于招两个普通的人。也一直秉着这个观点来招聘。</p>
 
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/12/31/dev-job-talk/">继续阅读 &rarr;</a>
+    </footer>
+  
 
+
+      </article>
+    
+      <div class="page-navigator">
+        
+        
+        
+            <a href="/blog/posts/2" class="next">下一页>></a>
+        
+        <div class="center"><a href="/blog/archives">所有文章</a></div>
+      </div>
+     </div>
+  </div>
+    
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch()">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(){
+    var $q = $("input[name=q]");
+    $q.val($("input[name=s]").val() + " site:rowkey.me");
+    $("form[name=frmSearch]").submit();
+    return false;
+  }
+</script><section class="widget" id="social">
 		
-		<a href="/blog/2015/12/31/dev-job-talk/" class="more-link">继续阅读 &rarr;</a>
-	</div>
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/19/java-tips/">Java开发的几个注意点</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/04/07/up-recommend/">基于内容和用户画像的个性化推荐</a>
+      	</li>
+    	
+	</ul>
+</section>
 
-</article>
+<section class="widget">
+	<h3 class="widget-title">最热文章</h3>
+	<ul class="widget-list">
+	<!-- 多说热评文章 start -->
+	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+	<!-- 多说热评文章 end -->
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最新评论</h3>
+	<!-- 多说最新评论 start -->
+	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+<!-- 多说最新评论 end -->
+</section>
+  
+  </div>
+  </aside>
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2016 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+
 
 </div>
-<nav id="pagenavi">
-    
-    
-    
-        <a href="/blog/posts/2" class="next">下一页→</a>
-    
-    <div class="center"><a href="/blog/archives">所有文章</a></div>
-</nav></div>
-			</div>
-			<footer id="footer" class="inner">Copyright &copy; 2016
-
-    飒然Hang
-
-
-Design credit: <a href="http://shashankmehta.in/archive/2012/greyshade.html">Shashank Mehta</a>
 <link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
 <script type="text/javascript">
@@ -632,13 +725,9 @@ $(function(){
 });
 </script>
 
-	</footer>
-		</div>
-		<div class="right-col">
-			
-		</div>
-	</div>
-	
+  </footer>
+  
+
 
 
 
