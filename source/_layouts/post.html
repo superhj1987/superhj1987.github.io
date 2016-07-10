@@ -13,10 +13,10 @@ single: true
     {% endunless %}
     <div class="meta">
       {% if page.next.url %}
-        <a class="basic-alignment left" href="{{page.next.url}}" title="上一篇: {{page.next.title}}">&laquo; {{page.next.title}} </a>
+        <a class="basic-alignment left" style="float:left !important" href="{{page.next.url}}" title="上一篇: {{page.next.title}}">&laquo; {{page.next.title}} </a>
       {% endif %}
       {% if page.previous.url %}
-        <a class="basic-alignment right" href="{{page.previous.url}}" title="下一篇: {{page.previous.title}}">{{page.previous.title}} &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="{{page.previous.url}}" title="下一篇: {{page.previous.title}}">{{page.previous.title}} &raquo;</a>
       {% endif %}
     </div>
   </footer>
