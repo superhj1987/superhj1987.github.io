@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="工作总结@2014 Jan 15th, 2015 Posted by 飒然Hang in categories: work 突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。 对自己来说，今年最大的事情莫过于离开一座城市，到达另一座城市，开始了新的职业生涯。 进入新的公司， &hellip;">
+  <meta name="description" content="工作总结@2014 Jan 15th, 2015 Posted by 飒然Hang in work 突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。 对自己来说，今年最大的事情莫过于离开一座城市，到达另一座城市，开始了新的职业生涯。 进入新的公司，一个创业公司， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -91,7 +91,7 @@
   
 
 <span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
- in categories: 
+ in 
 
 <span class="categories">
   
@@ -279,6 +279,35 @@
 	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
 <!-- 多说最新评论 end -->
 </section>
+<section class="widget">
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <a href="https://github.com/superhj1987">@superhj1987</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
   
   </div>
 </aside>
@@ -291,6 +320,7 @@
   	<div class="container">
 	Copyright &copy; 2016 - 飒然Hang -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 
 
 </div>

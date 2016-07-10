@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="2016年的几点规划 Feb 18th, 2016 Posted by 飒然Hang in categories: work 明天就要开始新的一年正式的上班了，回想一下过去的2015年，对于自己来说，虽然有不少的收获和成长，但还是令自己比较不满意的。由于某些原因， &hellip;">
+  <meta name="description" content="2016年的几点规划 Feb 18th, 2016 Posted by 飒然Hang in work 明天就要开始新的一年正式的上班了，回想一下过去的2015年，对于自己来说，虽然有不少的收获和成长，但还是令自己比较不满意的。由于某些原因，自己的学习进度以及工作情况都受到了很大的影响， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -91,7 +91,7 @@
   
 
 <span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
- in categories: 
+ in 
 
 <span class="categories">
   
@@ -282,6 +282,35 @@
 	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
 <!-- 多说最新评论 end -->
 </section>
+<section class="widget">
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <a href="https://github.com/superhj1987">@superhj1987</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
   
   </div>
 </aside>
@@ -294,6 +323,7 @@
   	<div class="container">
 	Copyright &copy; 2016 - 飒然Hang -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 
 
 </div>

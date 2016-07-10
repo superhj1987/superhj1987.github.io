@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="研发招聘之殇 Dec 31st, 2015 Posted by 飒然Hang in categories: work ps: 本文完成于2015年12月31号 对于一个公司来说，要想健康长久的发展，招聘是一个永久的话题。而对于一个互联网公司，尤其是以产品为主的公司来说，研发是招聘中的关键职位， &hellip;">
+  <meta name="description" content="研发招聘之殇 Dec 31st, 2015 Posted by 飒然Hang in work ps: 本文完成于2015年12月31号 对于一个公司来说，要想健康长久的发展，招聘是一个永久的话题。而对于一个互联网公司，尤其是以产品为主的公司来说，研发是招聘中的关键职位， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -91,7 +91,7 @@
   
 
 <span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
- in categories: 
+ in 
 
 <span class="categories">
   
@@ -296,6 +296,35 @@
 	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
 <!-- 多说最新评论 end -->
 </section>
+<section class="widget">
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <a href="https://github.com/superhj1987">@superhj1987</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
   
   </div>
 </aside>
@@ -308,6 +337,7 @@
   	<div class="container">
 	Copyright &copy; 2016 - 飒然Hang -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 
 
 </div>
