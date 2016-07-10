@@ -29,12 +29,12 @@ single: true
   </section>
 {% endif %}
 {% include post/duoshuo_comment.html %}
+{% endif %}
 {% unless page.ujian == false %}
  {% if site.ujian %}
      {% include post/ujian.html %}
  {% endif %}
 {% endunless %}
-{% endif %}
   </div>
 </div>
 {% unless page.sidebar == false %}
