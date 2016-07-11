@@ -21,6 +21,7 @@ var github = (function(){
           if (!data || !data.data) { return; }
           for (var i = 0; i < data.data.length; i++) {
             if (options.skip_forks && data.data[i].fork) { continue; }
+            if(data.data[i].name = 'superhj1987.github.io'){continue; }
             repos.push(data.data[i]);
           }
           if (options.count) { repos.splice(options.count); }
