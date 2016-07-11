@@ -1,0 +1,3053 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
+  <link href="http://www.rowkey.me/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2016-07-11T15:17:00+08:00</updated>
+  <id>http://www.rowkey.me/</id>
+  <author>
+    <name><![CDATA[飒然Hang]]></name>
+    <email><![CDATA[superhj1987@126.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Java后端工程师学习大纲]]></title>
+    <link href="http://www.rowkey.me/blog/2016/06/27/java-backend-study/"/>
+    <updated>2016-06-27T21:39:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/06/27/java-backend-study</id>
+    <content type="html"><![CDATA[<p>之前自己总结过的<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>，其涵盖的技术点比较全面，并非一朝一夕能够全部覆盖到的。对于一些还没有入门或者刚刚入门的Java后端工程师，如果一下子需要学习如此多的知识，想必很多人会望而却步。</p>
+
+<p>本文截取了技能树中的一些关键技能点，并辅以学习资料和书籍推荐，做为Java后端工程师的一个入门或者入职学习计划，基本上涵盖了一个合格的Java后端工程师必备的技能点，是一个相对完整的从基础到高级的修炼过程。当然，这只是一个大纲性指引的东西，也主要针对的是Java后端这个职位，并不会面面俱到，也不会很详细的讲述。毕竟其中每一个知识点深入下去都是可以成书的。另外，像数据结构、计算机网络等计算机科学基础知识，我认为是从事计算机专业的人必备的知识点，因此并不包括在内。如果要一个很全的知识点可以移步<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>。</p>
+
+<p><strong>本大纲于2016.07.07号最新更新</strong>^_^&hellip;</p>
+
+<!--more-->
+
+
+<h2>一. Git版本管理+Maven工程管理</h2>
+
+<p><a href="http://weibo.com/p/1001643874239169320051">微博新兵训练营课程——环境与工具</a></p>
+
+<h2>二. Java编程</h2>
+
+<h3>书籍</h3>
+
+<ul>
+<li><a href="https://book.douban.com/subject/3146174/">《Java核心技术(卷1)》</a>：学习java必备的黄皮书，入门推荐书籍</li>
+<li><a href="https://book.douban.com/subject/3360866/">《Java核心技术(卷2)》</a>：黄皮书之高级特性</li>
+<li><a href="https://book.douban.com/subject/10484692/">《Java并发编程实战》</a>: 对java并发库讲得非常透彻</li>
+<li><a href="https://book.douban.com/subject/3360807/">《Effective Java》</a>：Java之父高司令都称赞的一本java进阶书籍</li>
+<li><a href="https://book.douban.com/subject/26274206/">《写给大忙人看的Java SE 8》</a>:涵盖了java8带来以及java7中被略过的新的java特性，值得一看</li>
+</ul>
+
+
+<h3>资料</h3>
+
+<ul>
+<li>Socket编程: <a href="http://ifeve.com/java-socket/">http://ifeve.com/java-socket/</a></li>
+<li>NIO: <a href="http://ifeve.com/java-nio-all/">http://ifeve.com/java-nio-all/</a></li>
+<li>序列化: <a href="http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/">http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/</a></li>
+<li>RPC框架: <a href="http://dubbo.io">http://dubbo.io</a></li>
+<li>并发编程：<a href="http://ifeve.com/java-concurrency-constructs/">http://ifeve.com/java-concurrency-constructs/</a></li>
+</ul>
+
+
+<h2>三. 开发框架</h2>
+
+<ul>
+<li>Spring: <a href="http://www.open-open.com/doc/view/5407635b943d410c9cfde409c90450b7">跟开涛学Spring3</a></li>
+<li>Spring MVC: <a href="http://www.cnblogs.com/kaitao/archive/2012/07/16/2593441.html">跟开涛学SpringMvc</a></li>
+<li>MyBatis: <a href="http://www.yihaomen.com/article/java/302.htm">MyBatis实战教程</a> <a href="http://limingnihao.iteye.com/blog/781671">MyBatis学习</a></li>
+</ul>
+
+
+<p>对于这些框架或者是一些常用的软件，个人最推崇的还是阅读<strong>官方文档</strong>来学习。当然，看这些资料能让你入门地更加快速一些。</p>
+
+<p>更进一步的，在学会使用之后，去阅读这些框架或软件的源码是必不可少的一步。阅读源码的一种比较好的步骤如下：</p>
+
+<ul>
+<li>1) 先阅读架构文档</li>
+<li>2) 根据架构，将源码文件以模块（或上下层级）分类</li>
+<li>3) 从最独立（依赖性最小）的模块代码读起</li>
+<li>4) 阅读该模块功能文档</li>
+<li>5) 阅读该模块源代码</li>
+<li>6) 一边阅读一边整理「调用关系表」</li>
+<li>7) goto 3</li>
+</ul>
+
+
+<h2>四. 性能优化与诊断-系统</h2>
+
+<p><a href="https://book.douban.com/subject/4027746/">《Linux服务器性能调整》</a></p>
+
+<p>学习内容：</p>
+
+<ul>
+<li>Linux概述</li>
+<li>性能分析工具</li>
+<li>系统调优</li>
+<li>Linux服务器应用的性能特征</li>
+<li>调优案例分析</li>
+</ul>
+
+
+<h2>五. 性能优化与诊断-JVM</h2>
+
+<ul>
+<li><p><a href="https://book.douban.com/subject/25828043/">《Java性能优化权威指南》</a></p>
+
+<p>  学习内容：</p>
+
+<ul>
+<li>JVM概述</li>
+<li>JVM性能监控</li>
+<li>JVM性能剖析与工具</li>
+<li>JVM参数与调优步骤</li>
+<li>JVM调优案例分析</li>
+</ul>
+</li>
+<li><p><a href="https://book.douban.com/subject/24722612/">《深入理解Java虚拟机(第二版)》</a></p></li>
+</ul>
+
+
+<h2>六. 消息中间件</h2>
+
+<h3>JMS</h3>
+
+<p>最为经典，也比较简单的一个消息中间件规范，ActiveMQ是其一个实现。但由于自身的一些局限，不再推荐使用。</p>
+
+<ul>
+<li>大规模分布式消息中间件简介：<a href="http://blog.csdn.net/huyiyang2010/article/details/5969944">http://blog.csdn.net/huyiyang2010/article/details/5969944</a></li>
+<li>JMS Overview: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html</a></li>
+<li>Basic JMS API Concepts: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html</a></li>
+<li>The JMS API Programming Model: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html">http://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html</a></li>
+<li>Creating Robust JMS Applications:<a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncfu.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncfu.html</a></li>
+<li>Using the JMS API in Java EE Applications: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html</a></li>
+<li>Further Information about JMS: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html</a></li>
+</ul>
+
+
+<h3>RabbitMQ</h3>
+
+<p>RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。适用于需要事务管理、对消息丢失很敏感的应用场景。对比kafka来看，RabbitMQ更为强调消息的可靠性、事务等。通过阅读官方文档学习即可：<a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
+
+<h3>Kafka</h3>
+
+<p>基于日志的消息队列，首推当然是官方文档: <a href="http://kafka.apache.org/documentation.html">http://kafka.apache.org/documentation.html</a></p>
+
+<ul>
+<li><p><a href="http://www.orchome.com/kafka/index">kafka中文教程</a>：比较不错的中文教程</p>
+
+<p>  学习内容：</p>
+
+<ul>
+<li>开始学习kafka</li>
+<li>入门</li>
+<li>接口</li>
+<li>配置</li>
+<li>设计</li>
+<li>实现</li>
+<li>什么是kafka</li>
+<li>什么场景下使用kafka</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/superhj1987/kafka-study">kafka-study</a>: 笔者在学习kafka时的一些笔记</p></li>
+</ul>
+
+
+<h2>七. OAuth认证技术</h2>
+
+<h3>原理</h3>
+
+<p>OAuth是目前最为流行的第三方认证技术，即如何为第三方应用提供基于自己系统帐户体系的认证。目前，微博、微信、QQ、Facebook、Twitter基本上都是通过此协议让第三方应用集成的。简单的介绍可见百度百科简介: <a href="http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_">OAuth</a>。</p>
+
+<p>此外，这里有一篇博文讲的比较详细：<a href="https://www.baidu.com/link?url=dsh9gFpNCLJSQoBq13Pw_nND3XvhBEfuuWQIyDpSDahpKPARnW2b950PgL0ywr8f&amp;wd=&amp;eqid=921a63a50002869300000004577e6e05">OAuth的机制原理讲解及开发流程</a>。</p>
+
+<h3>开源实现</h3>
+
+<ul>
+<li>Google oauth core：<a href="http://oauth.net/code/">http://oauth.net/code/</a></li>
+<li>Spring oauth: <a href="http://projects.spring.io/spring-security-oauth/">http://projects.spring.io/spring-security-oauth/</a></li>
+</ul>
+
+
+<h2>八. Redis设计与实现</h2>
+
+<ul>
+<li><p><a href="http://redisdoc.com/">Redis命令</a>: 使用当然要看这份权威文档，也是平常开发中最常用的参考资料。</p></li>
+<li><p><a href="http://redisbook.com/">Redis设计与实现</a>：可以通过此文档来学习Redis的原理。当然，自己去看redis的源代码更是不错的选择。</p>
+
+<p>  学习内容：</p>
+
+<ul>
+<li>常用命令以及数据结构</li>
+<li>内部数据结构</li>
+<li>内存映射数据库结构</li>
+<li>redis数据类型</li>
+<li>功能的实现</li>
+<li>内部运作机制</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>九. 数据相关</h2>
+
+<h3>理论基础</h3>
+
+<ul>
+<li><a href="http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx">MapReduce</a>: 分布式计算的鼻祖，当然谷歌现在推出了新的计算模型。</li>
+<li><a href="http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx">GFS</a>: 分布式存储技术，开源实现为HDFS</li>
+<li><a href="http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx">Bigtable</a>: 稀疏大型数据库(列数据库)技术，开源实现为HBASE。</li>
+</ul>
+
+
+<p>作为业界良心的google还有其他许多先进的分布式技术，其论文也非常值得去研读。可以通过此链接获取一些论文的内容：<a href="http://www.chinacloud.cn/show.aspx?id=14382&amp;cid=11">http://www.chinacloud.cn/show.aspx?id=14382&amp;cid=11</a></p>
+
+<h3>实时计算</h3>
+
+<ul>
+<li><a href="https://book.douban.com/subject/26312249/">《Storm分布式实时计算模式》</a>：虽然twitter推出了新一代的Heron，但Storm仍是目前应用最为广泛的实时计算技术。</li>
+<li><a href="https://spark.apache.org/streaming/">Spark streaming: </a>：Spark带来了基于批处理的实时流计算技术，对比Storm各有优劣。</li>
+</ul>
+
+
+<h3>离线计算</h3>
+
+<ul>
+<li><a href="https://book.douban.com/subject/26206050/">《Hadoop权威指南》</a>：无须多言，Haoop是大数据必须要学习的技术，涵盖了HDFS+HBase+MapReduce。</li>
+<li><a href="https://book.douban.com/subject/25791255/">《Hive编程指南》</a>：Hive降低了MapReduce程序编写的复杂度。</li>
+<li><a href="https://book.douban.com/subject/26616244/">《Spark快速大数据分析》</a>： Spark引进的基于RDD的计算模型大大提高了离线计算的性能，相对于MR来说是更为领先的离线计算技术。</li>
+</ul>
+
+
+<h3>Lambda架构</h3>
+
+<p>大数据领域的经典架构方案，融合了离线和实时计算模型，对外能够提供稳定可靠的数据。对此架构的剖析可见此篇文章：<a href="http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln">Linkedln技术高管Jay Kreps：Lambda架构剖析</a></p>
+
+<h3>机器学习</h3>
+
+<p>除了个性化推荐系统之外，CTR预估、广告推荐、预测模型都是机器学习的应用场景。</p>
+
+<ul>
+<li><a href="https://book.douban.com/subject/10769749/">《推荐系统实践》</a></li>
+<li><a href="https://book.douban.com/subject/26596778/">《计算广告》</a></li>
+<li><a href="https://book.douban.com/subject/3288908/">《集体智慧》</a></li>
+<li><a href="https://book.douban.com/subject/26708119/">《机器学习》</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java开发的几个注意点]]></title>
+    <link href="http://www.rowkey.me/blog/2016/06/19/java-tips/"/>
+    <updated>2016-06-19T20:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/06/19/java-tips</id>
+    <content type="html"><![CDATA[<p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
+
+<!--more-->
+
+
+<h2>1. 将一些需要变动的配置写在属性文件中</h2>
+
+<p>比如，没有把一些需要并发执行时使用的线程数设置成可在属性文件中配置。那么你的程序无论在DEV环境中，还是TEST环境中，都可以顺畅无阻地运行，但是一旦部署在PROD上，把它作为多线程程序处理更大的数据集时，就会抛出IOException，原因也许是线上环境并发造成也许是其他。如果线程数目可以在属性文件中配置，那么使它成为一个单线程应用程序就变得十分容易了。我们不再需要为了解决问题而反复地部署和测试应用了。这种方法也同样适用于配置 URL、服务器和端口号等。</p>
+
+<p>这里推荐使用属性文件外化这些配置，文件格式使用properties、yaml、hocon、json都可以。下面的类实现了对这些格式的文件的spring注入支持，包括占位符支持。</p>
+
+<p><a href="https://github.com/superhj1987/awesome-libs/blob/master/src/main/java/me/rowkey/libs/spring/config/AwesomePropertyPlaceholderConfigurer.java">https://github.com/superhj1987/awesome-libs/blob/master/src/main/java/me/rowkey/libs/spring/config/AwesomePropertyPlaceholderConfigurer.java</a></p>
+
+<h2>2. 测试中尽可能模拟线上环境</h2>
+
+<p>生产过程中一个典型的场景就是只使用1到3个帐户进行测试，而这个数量本应是1000到2000个的。在做性能测试时，使用的数据必须是真实并且未经裁剪的。不贴近真实环境的性能测试，可能会带来不可预料的性能、拓展和多线程问题。这里也可以采取预发布环境的方式来解决部分问题。</p>
+
+<h2>3. 对于所有外部调用以及内部服务都要做容错处理</h2>
+
+<p>不管是RPC调用还是对于第三方服务的调用，都不能想当然的认为可用性是100%的。不允许出现服务调用超时和重试，将会对应用程序的稳定性和性能造成不利的影响。</p>
+
+<h2>4. 安全设计上一个系统要遵循最小权限原则</h2>
+
+<p>网络服务随处可见，从而使得黑客可以轻易地利用它进行拒绝服务攻击。所以，设计系统时，需要遵循“最小权限”原则，采用白名单等方式。</p>
+
+<h2>5. 需要提供以下文档</h2>
+
+<ol>
+<li>编写单元测试文档并使其拥有良好的代码覆盖率。</li>
+<li>高层次的设计图：描述了所有的组件，交互和结构。</li>
+<li>详细的设计图：具体到代码层面的设计，以及一些关键逻辑的流程。</li>
+<li>系统组成文档：说明系统的所有组成文件、配置文件等。</li>
+<li>数据库层面的dml以及ddl文档，尤其是sql查询语句需要经过dba或者核心开发人员的review才能够上线。</li>
+</ol>
+
+
+<p>不仅仅对于传统的开发流程，即使对于敏捷开发，这些文档也是必不可少的，否则在后续的维护、交接上会带来很大的不便。</p>
+
+<h2>6. 做好系统关键功能的监控、错误恢复、备份等</h2>
+
+<p>对于系统一些至关重要的功能模块要做好对其的监控，防止其影响系统的运行,造成不可估算的损失。另外，如果可以，监控到故障后去去试图恢复，恢复失败再发送告警。对于一些很重要的数据文件，还要做到冗余备份，防止发生一些突然故障造成数据丢失。</p>
+
+<h2>7. 数据库设计时设计一些便于追踪历史、整理的列</h2>
+
+<p>比如create_time、update_time可以说明记录的创建和更新时间。create_by、update_by可以说明记录是由谁创建和更新的。</p>
+
+<p>此外，删除记录有时候并非真正删除，这时需要设计表示此记录状态的列，如可以取‘Active’或‘Inactive’的 ‘status’列。</p>
+
+<h2>8. 制定好项目回滚计划</h2>
+
+<p>新的功能上线时，如果发生故障，没有一份回滚计划，那么可能会手忙脚乱而造成线上服务一段时间不可用。有一个良好的回滚计划，可以让你能够有条不紊的执行相关操作，在可控时间内将系统恢复到一个可运行的状态。</p>
+
+<h2>9. 项目上线前要做好量化分析</h2>
+
+<p>对于项目中用到的内存、数据库、文件、缓存等，要做好量化分析。预估出未来一段时间的空间占用，给运维分配机器时一个参考。防止，由于数据量增长过快，导致存储不够。这一点是非常重要的，不然很容易造成线上服务不可用。</p>
+
+<h2>10. 制定好系统的部署计划。</h2>
+
+<p>系统部署的平台是一个至关重要的部分。对于部署平台的描述，不能仅限于一台服务器、两个数据库这个层面，至少需要包括</p>
+
+<ul>
+<li>操作系统的特定版本，JVM等。</li>
+<li>有多少内存（包括物理内存，JVM堆内存，JVM栈内存和JVM永久代的空间）。</li>
+<li>CPU（内核数）。</li>
+<li>负载均衡器，需要的节点数、节点类型，比如是Active-Standby型还是Active-Active型。</li>
+<li>文件系统要求，例如，你的应用程序可能会收集生成的日志并将其保存很长的周期，之后才进行归档。这样的话，你就需要有足够的硬盘空间。</li>
+</ul>
+
+
+<h2>11. 选择最合适的工具/技术</h2>
+
+<p>很多情况下，开发者会在生产系统中使用一门想要学习的语言或某种工具。通常这不是最好的选择。比如，为已经实际上是关系型的数据使用NoSQL数据库。不管是语言还是工具，都有其适用的场景。不能求新，也不能以“自我”为标准。</p>
+
+<h2>12. 在一些关键技术领域具有充足的知识储备。</h2>
+
+<ul>
+<li>设计模式</li>
+<li>JVM调优</li>
+<li>多线程“并发问题”</li>
+<li>事务问题，包括分布式事务</li>
+<li>性能问题，包括GC、计算等</li>
+<li>缓存</li>
+</ul>
+
+
+<p><strong><em>Ps:此文部分内容来自网上资料。</em></strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java后端工程师技能树]]></title>
+    <link href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/"/>
+    <updated>2016-06-17T22:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/06/17/java-skill-tree</id>
+    <content type="html"><![CDATA[<p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
+
+<!--more-->
+
+
+<p><a href="http://www.rowkey.me/images/blog_images/java-skill-tree.png"><img src="http://www.rowkey.me/images/blog_images/java-skill-tree.png" alt="java-skill-tree" /></a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[谈谈Java内存管理]]></title>
+    <link href="http://www.rowkey.me/blog/2016/05/07/javamm/"/>
+    <updated>2016-05-07T14:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/05/07/javamm</id>
+    <content type="html"><![CDATA[<h2>目录</h2>
+
+<ul>
+<li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
+<li><a href="#%E4%BA%8C.%20Jvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B">二. Jvm虚拟机内存简介</a></li>
+<li><a href="#%E4%B8%89.%20%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">三. 垃圾收集</a></li>
+<li><a href="#%E5%9B%9B.%20Java7%E3%80%818%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%98%E5%8C%96">四. Java7、8带来的一些变化</a></li>
+</ul>
+
+
+<p><img src="http://www.rowkey.me/images/blog_images/java.jpg" alt="java" /></p>
+
+<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
+
+<!--more-->
+
+
+<h2><a name='一. 背景知识'></a>一. 背景知识</h2>
+
+<p>根据网络可以找到的资料以及笔者能够打听到的消息，目前国内外著名的几个大型互联网公司的语言选型概括如下：</p>
+
+<ol>
+<li>Google: C/C++ Go Python Java JavaScript，不得不提的是Google贡献给java社区的guava包质量非常高，非常值得学习和使用。</li>
+<li>Youtube、豆瓣: Python</li>
+<li>Fackbook、Yahoo、Flickr、新浪：<strong>php</strong>(优化过的php vm)</li>
+<li>网易、阿里、搜狐: Java、PHP、Node.js</li>
+<li>Twitter: Ruby->Java,之所以如此就在于与Jvm相比，Ruby的runtime是非常慢的。并且Ruby的应用比起Java还是比较小众的。不过最近twitter有往scala上迁移的趋势。</li>
+</ol>
+
+
+<p>可见，虽然最近这些年很多言论都号称java已死或者不久即死，但是Java的语言应用占有率一直居高不下。与高性能的C/C++相比，Java具有gc机制，并且没有那让人望而生畏的指针，上手门槛相对较低；而与上手成本更低的PHP、Ruby等脚本语言来说，又比这些脚本语言有性能上的优势(这里暂时忽略FB自己开发的HHVM)。</p>
+
+<p>对于Java来说，最终是要依靠字节码运行在jvm上的。目前，常见的jvm有以下几种：</p>
+
+<ul>
+<li>Sun HotSpot</li>
+<li>BEA Jrockit</li>
+<li>IBM J9</li>
+<li>Dalvik(Android)</li>
+</ul>
+
+
+<p>其中以HotSpot应用最广泛。目前sun jdk的最新版本已经到了8，但鉴于新版的jdk使用并未普及，因此本文仅仅针对HotSpot虚拟机的jdk6来讲。</p>
+
+<h2><a name='二. Jvm虚拟机内存简介'></a>二. Jvm虚拟机内存简介</h2>
+
+<h3>2.1 Java运行时内存区</h3>
+
+<p>Java的运行时内存组成如下图所示：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
+
+<p>其中，对于这各个部分有一些是线程私有的，其他则是线程共享的。</p>
+
+<p><strong>线程私有的如下：</strong></p>
+
+<ul>
+<li><p>程序计数器</p>
+
+<p>  当前线程所执行的字节码的行号指示器</p></li>
+<li><p>Java虚拟机栈</p>
+
+<p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p>
+
+<ul>
+<li>每个线程都有自己独立的栈空间</li>
+<li>线程栈只存基本类型和对象地址</li>
+<li>方法中局部变量在线程空间中</li>
+</ul>
+</li>
+<li><p>本地方法栈</p>
+
+<p>  Native方法服务。在HotSpot虚拟机中和Java虚拟机栈合二为一。</p></li>
+</ul>
+
+
+<p><strong>线程共享的如下：</strong></p>
+
+<ul>
+<li><p>Java堆</p>
+
+<p>  存放对象实例，几乎所有的对象实例以及其属性都在这里分配内存。</p></li>
+<li><p>方法区</p>
+
+<p>  存储已经被虚拟机加载的类信息、常量、静态变量、JIT编译后的代码等数据。</p></li>
+<li><p>运行时常量池</p>
+
+<p>  方法区的一部分。用于存放编译期生成的各种字面量和符号引用。</p></li>
+<li><p>直接内存</p>
+
+<p>  NIO、Native函数直接分配的堆外内存。DirectBuffer引用也会使用此部分内存。</p></li>
+</ul>
+
+
+<h3>2.2 对象访问</h3>
+
+<p>Java是面向对象的一种编程语言，那么如何通过引用来访问对象呢？一般有两种方式：</p>
+
+<ol>
+<li><p>通过句柄访问</p>
+
+<p> <image src="http://www.rowkey.me/images/blog_images/access_object_handler.png" width="500px"/></p></li>
+<li><p>直接指针</p>
+
+<p> <image src="http://www.rowkey.me/images/blog_images/access_direct.png" width="500px"/></p>
+
+<p> 此种方式也是HotSpot虚拟机采用的方式。</p></li>
+</ol>
+
+
+<h3>2.3 内存溢出</h3>
+
+<p>在JVM申请内存的过程中，会遇到无法申请到足够内存，从而导致内存溢出的情况。一般有以下几种情况：</p>
+
+<ul>
+<li>虚拟机栈和本地方法栈溢出
+
+<ul>
+<li>StackOverflowError: 线程请求的栈深度大于虚拟机所允许的最大深度(循环递归)</li>
+<li>OutOfMemoryError: 虚拟机在扩展栈是无法申请到足够的内存空间，一般可以通过不停地创建线程引起此种情况</li>
+</ul>
+</li>
+<li>Java堆溢出: 当创建大量对象并且对象生命周期都很长的情况下，会引发OutOfMemoryError</li>
+<li>运行时常量区溢出：OutOfMemoryError:PermGen space，这里一个典型的例子就是String的intern方法，当大量字符串使用intern时，会触发此内存溢出</li>
+<li>方法区溢出：方法区存放Class等元数据信息，如果产生大量的类(使用cglib)，那么就会引发此内存溢出，OutOfMemoryError:PermGen space，在使用Hibernate等框架时会容易引起此种情况。</li>
+</ul>
+
+
+<h2><a name='三. 垃圾收集'></a>三. 垃圾收集</h2>
+
+<h3>3.1 理论基础</h3>
+
+<h4>在通常情况下，我们掌握java的内存管理就是为了应对网站/服务访问慢，慢的原因一般有以下几点：</h4>
+
+<ul>
+<li>内存：垃圾收集占用cpu；放入了太多数据，造成内存泄露(java也是有这种问题的^_^)</li>
+<li>线程死锁</li>
+<li>I/O速度太慢</li>
+<li>依赖的其他服务响应太慢</li>
+<li>复杂的业务逻辑或者算法造成响应的缓慢</li>
+</ul>
+
+
+<p>其中，垃圾收集对性能的影响一般有以下几个：</p>
+
+<ul>
+<li>内存泄露</li>
+<li>程序暂停</li>
+<li>程序吞吐量显著下降</li>
+<li>响应时间变慢</li>
+</ul>
+
+
+<h4>先来看垃圾收集的一些基本概念</h4>
+
+<ul>
+<li>Concurrent Collector:收集的同时可运行其他的工作进程</li>
+<li>Parallel Collector: 使用多CPU进行垃圾收集</li>
+<li>Stop-the-word(STW):收集时必须暂停其他所有的工作进程</li>
+<li>Sticky-reference-count：对于使用“引用计数”（reference count）算法的GC，如果对象的计数器溢出，则起不到标记某个对象是垃圾的作用了，这种错误称为sticky-reference-count problem，通常可以增加计数器的bit数来减少出现这个问题的几率，但是那样会占用更多空间。一般如果GC算法能迅速清理完对象，也不容易出现这个问题。</li>
+<li>Mutator：mutate的中文是变异，在GC中即是指一种JVM程序，专门更新对象的状态的，也就是让对象“变异”成为另一种类型，比如变为垃圾。</li>
+<li>On-the-fly：用来描述某个GC的类型：on-the-fly reference count garbage collector。此GC不用标记而是通过引用计数来识别垃圾。</li>
+<li>Generational gc：这是一种相对于传统的“标记-清理”技术来说，比较先进的gc，特点是把对象分成不同的generation，即分成几代人，有年轻的，有年老的。这类gc主要是利用计算机程序的一个特点，即“越年轻的对象越容易死亡”，也就是存活的越久的对象越有机会存活下去（姜是老的辣）。</li>
+</ul>
+
+
+<h4>牵扯到垃圾收集，还需要搞清楚吞吐量与响应时间的含义</h4>
+
+<ul>
+<li>吞吐量是对单位时间内完成的工作量的量度。如：每分钟的 Web 服务器请求数量</li>
+<li>响应时间是提交请求和返回该请求的响应之间使用的时间。如：访问Web页面花费的时间</li>
+</ul>
+
+
+<p>吞吐量与访问时间的关系很复杂，有时可能以响应时间为代价而得到较高的吞吐量，而有时候又要以吞吐量为代价得到较好的响应时间。而在其他情况下，一个单独的更改可能对两者都有提高。通常，平均响应时间越短，系统吞吐量越大；平均响应时间越长，系统吞吐量越小；
+但是，系统吞吐量越大， 未必平均响应时间越短；因为在某些情况（例如，不增加任何硬件配置）吞吐量的增大，有时会把平均响应时间作为牺牲，来换取一段时间处理更多的请求。</p>
+
+<p>针对于Java的垃圾回收来说，不同的垃圾回收器会不同程度地影响这两个指标。例如：并行的垃圾收集器，其保证的是吞吐量，会在一定程度上牺牲响应时间。而并发的收集器，则主要保证的是请求的响应时间。</p>
+
+<h4>对于GC(垃圾回收)的流程的基本描述如下：</h4>
+
+<ul>
+<li>找出堆中活着的对象</li>
+<li>释放死对象占用的资源</li>
+<li>定期调整活对象的位置</li>
+</ul>
+
+
+<h4>GC算法一般有以下几种：</h4>
+
+<ul>
+<li>Mark-Sweep 标记-清除</li>
+<li>Mark-Sweep-Compact 标记-整理</li>
+<li><p>Copying Collector 复制算法</p></li>
+<li><p>Mark-标记</p>
+
+<p> 从&#8221;GC roots&#8221;开始扫描(这里的roots包括线程栈、静态常量等)，给能够沿着roots到达的对象标记为&#8221;live&#8221;,最终所有能够到达的对象都被标记为&#8221;live&#8221;,而无法到达的对象则为&#8221;dead&#8221;。效率和存活对象的数量是线性相关的。</p></li>
+<li><p>Sweep-清除</p>
+
+<p> 扫描堆，定位到所有&#8221;dead&#8221;对象，并清理掉。效率和堆的大小是线性相关的。</p></li>
+<li><p>Compact-压缩</p>
+
+<p> 对于对象的清除，会产生一些内存碎片，这时候就需要对这些内存进行压缩、整理。包括：relocate(将存货的对象移动到一起，从而释放出连续的可用内存)、remap(收集所有的对象引用指向新的对象地址)。效率和存活对象的数量是线性相关的。</p></li>
+<li><p>Copy-复制</p>
+
+<p> 将内存分为&#8221;from&#8221;和&#8221;to&#8221;两个区域，垃圾回收时，将from区域的存活对象整体复制到to区域中。效率和存活对象的数量是线性相关的。</p></li>
+</ul>
+
+
+<p>其中，Copy对比Mark-sweep</p>
+
+<ol>
+<li>内存消耗：copy需要两倍的最大live set内存；mark-sweep则只需要一倍。</li>
+<li>效率上：copy与live set成线性相关，效率高；mark-sweep则与堆大小线性相关，效率较低。</li>
+</ol>
+
+
+<h4>分代收集是目前比较先进的垃圾回收方案</h4>
+
+<p>对于分代收集，有以下几个相关理论</p>
+
+<ul>
+<li>分代假设：大部分对象的寿命很短，“朝生夕死”，重点放在对年青代对象的收集，而且年青代通常只占整个空间的一小部分。</li>
+<li>把年青代里活的很长的对象移动到老年代。</li>
+<li>只有当老年代满了才去收集。</li>
+<li>收集效率明显比不分代高。</li>
+</ul>
+
+
+<p>HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/hotspot-gc.png" width="300px"/></p>
+
+<ul>
+<li>Eden区是分配对象的区域。</li>
+<li>Survivor是minor/younger gc后存储存活对象的区域。</li>
+<li>Tenured区域存储长时间存活的对象。</li>
+</ul>
+
+
+<h4>分代收集中典型的垃圾收集算法组合描述如下：</h4>
+
+<ul>
+<li>年青代通常使用Copy算法收集，会stop the world</li>
+<li>老年代收集一般采用Mark-sweep-compact, 有可能会stop the world，也可以是concurrent或者部分concurrent。</li>
+</ul>
+
+
+<h3>3.2 HotSpot垃圾收集器</h3>
+
+<p><image src="http://www.rowkey.me/images/blog_images/hotspot-collector.png" width="300px"/></p>
+
+<p>上图即为HotSpot虚拟机的垃圾收集器组成。</p>
+
+<h4>Serial收集器</h4>
+
+<ul>
+<li>-XX:+UserSerialGC参数打开此收集器</li>
+<li>Client模式下新生代默认的收集器。</li>
+<li>较长的stop the world时间</li>
+<li>简单而高效</li>
+</ul>
+
+
+<p>此收集器的一个工作流程如下如所示：</p>
+
+<p>收集前：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/serial_before.png" width="400px"/></p>
+
+<p>收集后：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/serial_after.png" width="400px"/></p>
+
+<h4>ParNew收集器</h4>
+
+<ul>
+<li>-XX:+UserParNewGC</li>
+<li>+UseConcuMarkSweepGC时默认开启</li>
+<li>Serial收集器的多线程版本</li>
+<li>默认线程数与CPU数目相同</li>
+<li>-XX:ParrallelGCThreads指定线程数目</li>
+</ul>
+
+
+<p>对比Serial收集器如下图所示：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/parnew.png" width="400px"/></p>
+
+<h4>Parallel Scavenge收集器</h4>
+
+<ul>
+<li>新生代并行收集器</li>
+<li>采用Copy算法</li>
+<li>主要关注的是达到可控制的吞吐量，“吞吐量优先”</li>
+<li>-XX:MaxGCPauseMillis -XX:GCTimeRAtion两个参数精确控制吞吐量</li>
+<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略</li>
+<li>Server模式的默认新生代收集器</li>
+</ul>
+
+
+<h4>Serial Old收集器</h4>
+
+<ul>
+<li>Serial的老年代版本</li>
+<li>Client模式的默认老年代收集器</li>
+<li>CMS收集器的后备预案，Concurrent Mode Failure时使用</li>
+<li>-XX:+UseSerialGC开启此收集器</li>
+</ul>
+
+
+<h4>Parallel Old收集器</h4>
+
+<ul>
+<li>-XX:+UseParallelGC -XX:+UseParallelOldGC启用此收集器</li>
+<li>Server模式的默认老年代收集器</li>
+<li>Parallel Scavenge的老年代版本，使用多线程和&#8221;mark-sweep&#8221;算法</li>
+<li>关注点在吞吐量以及CPU资源敏感的场合使用</li>
+<li>一般使用Parallel Scavenge + Parallel Old可以达到最大吞吐量保证</li>
+</ul>
+
+
+<h4>CMS收集器</h4>
+
+<p>并发低停顿收集器</p>
+
+<ul>
+<li>-XX:UseConcMarkSweepGC 开启CMS收集器，(默认使用ParNew作为年轻代收集器，SerialOld作为收集失败的垃圾收集器)</li>
+<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，会和互联网应用。</li>
+</ul>
+
+
+<p>四个步骤：</p>
+
+<ul>
+<li>初始标记 Stop the world: 只标记GC roots能直接关联到的对象，速度很快。</li>
+<li>并发标记：进行GC roots tracing，与用户线程并发进行</li>
+<li>重新标记 Stop the world：修正并发标记期间因程序继续运行导致变动的标记记录</li>
+<li>并发清除</li>
+</ul>
+
+
+<p>对比serial old收集器如下图所示：</p>
+
+<p><image src="http://www.rowkey.me/images/blog_images/cms.png" width="400px"/></p>
+
+<p>CMS有以下的缺点：</p>
+
+<ul>
+<li>CMS是唯一不进行compact的垃圾收集器，当cms释放了垃圾对象占用的内存后，它不会把活动对象移动到老年代的一端</li>
+<li>对CPU资源非常敏感。不会导致线程停顿，但会导致程序变慢，总吞吐量降低。CPU核越多越不明显</li>
+<li>无法处理浮动垃圾。可能出现“concurrent Mode Failure”失败， 导致另一次full GC ,可以通过调整-XX:CMSInitiatingOccupancyFraction来控制内存占用达到多少时触发gc</li>
+<li>大量空间碎片。这个可以通过设置-XX:UseCMSCompacAtFullCollection(是否在full gc时开启compact)以及-XX:CMSFullGCsBeforeCompaction(在进行compact前full gc的次数)</li>
+</ul>
+
+
+<h4>G1收集器</h4>
+
+<p>G1算法在Java6中还是试验性质的，在Java7中正式引入，但还未被广泛运用到生产环境中。它的特点如下：</p>
+
+<ul>
+<li>使用标记-清理算法</li>
+<li>不会产生碎片</li>
+<li>可预测的停顿时间</li>
+<li>化整为零：将整个Java堆划分为多个大小相等的独立区域</li>
+<li>-XX:+UseG1GC可以打开此垃圾回收器</li>
+<li>-XX:MaxGCPauseMillis=200可以设置最大GC停顿时间，当然JVM并不保证一定能够达到，只是尽力。</li>
+</ul>
+
+
+<p><image src="http://www.rowkey.me/images/blog_images/g1.png" width="500px"/></p>
+
+<h3>3.3 调优经验</h3>
+
+<ul>
+<li>需要打开gc日志并读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps</li>
+<li>垃圾回收的最佳状态是只有young gc，也就是避免生命周期很长的对象的存在。</li>
+<li>从young gc开始，尽量给年青代大点的内存，避免full gc</li>
+<li>注意Survivor大小</li>
+<li>注意内存墙：4G~5G</li>
+</ul>
+
+
+<h4>GC日志简介</h4>
+
+<p><image src="http://www.rowkey.me/images/blog_images/gclog.png" width="500px"/></p>
+
+<ul>
+<li>第一个箭头：35592K->1814K(36288K)，箭头指向的是新生段的内存占用情况； - 第二个箭头：38508K->7792K(520256K)，箭头指向的是回收后的内存占用情况。</li>
+<li>垃圾收集停顿时间：0.0336</li>
+</ul>
+
+
+<h4>老年代使用建议</h4>
+
+<ul>
+<li>Parallel GC(-XX:+UseParallel[Old]GC)
+
+<ul>
+<li>Parallel GC的minor GC时间是最快的， CMS的young gc要比parallel慢， 因为内存碎片</li>
+<li>可以保证最大的吞吐量</li>
+</ul>
+</li>
+<li><strong>确实有必要才改成CMS或G1(for old gen collections)</strong></li>
+</ul>
+
+
+<h4>开发建议</h4>
+
+<ul>
+<li>小对象allocate的代价很小，通常10个CPU指令；收集掉新对象也非常廉价；不用担心活的很短的小对象</li>
+<li>大对象分配的代价以及初始化的代价很大；不同大小的大对象可能导致java堆碎片，尤其是CMS, ParallelGC 或 G1还好；尽量避免分配大对象</li>
+<li>避免改变数据结构大小，如避免改变数组或array backed collections / containers的大小;对象构建（初始化）时最好显式批量定数组大小;改变大小导致不必要的对象分配，可能导致java堆碎片</li>
+<li>对象池可能潜在的问题
+
+<ul>
+<li>增加了活对象的数量，可能增加GC时间</li>
+<li>访问（多线程）对象池需要锁，可能带来可扩展性的问题</li>
+<li>小心过于频繁的对象池访问</li>
+</ul>
+</li>
+</ul>
+
+
+<h2><a name='四. Java7、8带来的一些变化'></a>四. Java7、8带来的一些变化</h2>
+
+<ul>
+<li>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</li>
+<li>Java7正式引入G1垃圾收集器用于替换CMS。</li>
+<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。</li>
+<li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[基于内容和用户画像的个性化推荐]]></title>
+    <link href="http://www.rowkey.me/blog/2016/04/07/up-recommend/"/>
+    <updated>2016-04-07T14:59:44+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/04/07/up-recommend</id>
+    <content type="html"><![CDATA[<p>基于内容和用户画像的个性化推荐，有两个实体：内容和用户。需要有一个联系这两者的东西，即为标签。内容转换为标签即为内容特征化，用户则称为用户特征化。因此，对于此种推荐，主要分为以下几个关键部分：</p>
+
+<ul>
+<li>标签库</li>
+<li>内容特征化</li>
+<li>用户特征化</li>
+<li>隐语义推荐</li>
+</ul>
+
+
+<p>综合上面讲述的各个部分即可实现一个基于内容和用户画像的个性化推荐系统。如下图所示：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/up-recommend.png" alt="uc_interest" /></p>
+
+<!--more-->
+
+
+<h3>标签库</h3>
+
+<p>标签是联系用户与物品、内容以及物品、内容之间的纽带，也是反应用户兴趣的重要数据源。标签库的最终用途在于对用户进行行为、属性标记。是将其他实体转换为计算机可以理解的语言关键的一步。</p>
+
+<p>标签库则是对标签进行聚合的系统，包括对标签的管理、更新等。</p>
+
+<p>一般来说，标签是以层级的形式组织的。可以有一级维度、二级维度等。</p>
+
+<p>标签的来源主要有：</p>
+
+<ul>
+<li>已有内容的标签</li>
+<li>网络抓取流行标签</li>
+<li>对运营的内容进行关键词提取</li>
+</ul>
+
+
+<p>对于内容的关键词提取，使用<a href="https://github.com/fxsjy/jieba">结巴分词</a> + <a href="http://www.ruanyifeng.com/blog/2013/03/tf-idf.html">TFIDF</a>即可。此外，也可以使用<a href="http://www.tuicool.com/articles/UZ77Z3">TextRank</a>来提取内容关键词。</p>
+
+<h3>内容特征化</h3>
+
+<p>内容特征化即给内容打标签。目前有两种方式：</p>
+
+<ul>
+<li>人工打标签</li>
+<li>机器自动打标签</li>
+</ul>
+
+
+<p>针对机器自动打标签，需要采取机器学习的相关算法来实现，即针对一系列给定的标签，给内容选取其中匹配度最高的几个标签。这不同于通常的分类和聚类算法。可以采取使用分词 + <a href="http://www.cnblogs.com/wowarsenal/p/3293586.html">Word2Vec</a>来实现，过程如下：</p>
+
+<ul>
+<li>将文本语料进行分词，以空格,tab隔开都可以，使用结巴分词。</li>
+<li>使用word2vec训练词的相似度模型。</li>
+<li>使用tfidf提取内容的关键词A,B,C。</li>
+<li>遍历每一个标签，计算关键词与此标签的相似度之和。</li>
+<li>取出TopN相似度最高的标签即为此内容的标签。</li>
+</ul>
+
+
+<h3>用户特征化</h3>
+
+<p>用户特征化即为用户打标签。通过用户的行为日志和一定的模型算法得到用户的每个标签的权重。</p>
+
+<ul>
+<li>用户对内容的行为：点赞、不感兴趣、点击、浏览。对用户的反馈行为如<strong>点赞</strong>赋予权值1，<strong>不感兴趣</strong>赋予-1；对于用户的浏览行为，则可使用<strong>点击/浏览</strong>作为权值。</li>
+<li>对内容发生的行为可以认为对此内容所带的标签的行为。</li>
+<li>用户的兴趣是时间衰减的，即离当前时间越远的兴趣比重越低。时间衰减函数使用<strong>1/[log(t)+1]</strong>, t为事件发生的时间距离当前时间的大小。</li>
+<li>要考虑到热门内容会干预用户的标签，需要对热门内容进行降权。使用<strong>click/pv</strong>作为用户浏览行为权值即可达到此目的。</li>
+<li>此外，还需要考虑噪声的干扰，如标题党等。</li>
+</ul>
+
+
+<h3>隐语义推荐</h3>
+
+<p>有了内容特征和用户特征，可以使用<a href="http://blog.csdn.net/harryhuang1990/article/details/9924377">隐语义模型</a>进行推荐。这里可以使用其简化形式，以达到实时计算的目的。</p>
+
+<p>用户对于某一个内容的兴趣度(可以认为是CTR)：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/uc_interest.jpg" alt="uc_interest" /></p>
+
+<p>其中i=1&hellip;N是内容c具有的标签，m(ci)指的内容c和标签i的关联度(可以简单认为是1),n(ui)指的是用户u的标签i的权重值,当用户不具有此标签时n(ui)=0，q&copy;指的是内容c的质量，可以使用点击率(click/pv)表示。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[数据杂谈]]></title>
+    <link href="http://www.rowkey.me/blog/2016/02/23/data-talk/"/>
+    <updated>2016-02-23T18:44:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/02/23/data-talk</id>
+    <content type="html"><![CDATA[<h2>目录</h2>
+
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE">数据</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%B3%BB%E7%BB%9F">数据系统</a></li>
+<li><a href="#%E5%A4%A7%E6%95%B0%E6%8D%AE">大数据</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E7%BB%9F%E8%AE%A1">数据统计</a></li>
+<li><a href="#%E4%B8%AA%E6%80%A7%E5%8C%96%E6%8E%A8%E8%8D%90">个性化推荐</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+
+
+<h2><a name='前言'></a>前言</h2>
+
+<p>记得几年前，曾经有人预测过未来最流行的三大技术：大数据、高并发、数据挖掘。到现在来看，这三种技术的确也随着这几年互联网的发展变得越发成熟和可靠。掌握这三种技术的人，不管是求职还是创业，都属于香饽饽。一个很深的印象就是当年研究生毕业的时候，专业是数据挖掘、大数据的学生都比较受各种企业的青睐，不管他是不是真的掌握了这些东西。虽然我对大部分高校的相关专业持怀疑态度，但是却也不得不承认，这些专业的确改变了很多东西，也给很多学生镀上了一层金。</p>
+
+<p>自己一直从事的是Java EE中间件、基础架构等方面的研发工作，对数据这一块只是略知皮毛，在前东家的时候我也没有机会接触数据平台。但由于现公司业务的原因，却不得不去触碰这一块，到目前为止也就仅仅半年时间（其间穿插各种协调、管理的杂事）。因此，数据相关的东西对我来说完全是一个新的领域，算是离开了自己的舒适区。不过，逃离舒适区这个想想也挺兴奋的。</p>
+
+<!--more-->
+
+
+<h2><a name='数据'></a>数据</h2>
+
+<h3>什么是数据？</h3>
+
+<p>最近有一本很火的书叫《精益数据分析》，其核心的一个观点就是：需要用数据驱动产品和公司的发展，而不能靠直觉或者拍脑袋。可见，数据是多么的重要。在一个产品的生命周期中，会产生很多数据：用户信息、用户行为信息、ugc数据等等。这些数据表现形式可以为文字、图片、日志、视频、音频等等。</p>
+
+<p>从技术角度来讲，数据一般分为结构化数据、半结构化数据和非结构化数据。</p>
+
+<ul>
+<li>结构化数据：指的是行数据库可以存储的，数据具有相同的字段，以及相同的存储大小,可以用二维表的逻辑结构来表达实现。</li>
+<li>半结构化数据：半结构化数据，指的整体上是结构化数据形式，但字段数目不定，数据结构和内容混杂在一起。</li>
+<li>非结构化数据：不方便用二维表描述的数据，如各种文档、图片、音/视频等。</li>
+</ul>
+
+
+<h3>能用来干什么?-数据挖掘</h3>
+
+<p>说到数据的作用，不得不提数据分析师这个职位。此职位一般来说倾向的是数学相关专业人士，使用数据来指导产品、运营、市场等工作，是公司中使用数据最多的人。在公司中，市场运营销售这几个部门也都是和数据关系很密切的。市场需要参考数据分析哪一个渠道推广效果更好，运营部门需要根据数据分析什么内容更能提高产品的活跃度，销售部门则需要数据反映公司的收入情况。当然，除了这些，数据挖掘就是另一个很重要的使用数据的方面了，可以使用数据对用户进行行为分析，从而挖掘用户的兴趣，最终达到精准推荐、精准营销的目的。</p>
+
+<p>概括来看，数据的作用就是数据挖掘，就是试图从海量数据中找出有用的知识，也可以称为“知识发现”。数据挖掘的支撑技术主要包含统计学以及机器学习两方面。从这个角度来看，数据主要有以下两点作用：</p>
+
+<ul>
+<li>数据统计：通过对数据的统计计算出一些和产品、用户相关的指标，从而指导产品、市场、运营、销售工作。</li>
+<li>机器学习：使用相关技术让机器通过已有的数据学习到新的有用的知识。比如：从已有的用户行为数据分析得到用户的兴趣、爱好等信息，从而进一步实现用户个性化推荐。个性化推荐也是机器学习目前使用数据最为广泛的一点。</li>
+</ul>
+
+
+<h3>数据库&amp;&amp;数据仓库</h3>
+
+<p>有了数据，就需要有存放数据的地方。数据库和数据仓库即存放数据库的两种形式。两者在本质上没有区别，都是为了存储数据。</p>
+
+<ul>
+<li><p>数据库：面向业务设计，一般针对的是在线业务，存储的是在线业务数据。如：Oracle、DB2、MySQL、Sybase、MS SQL Server等。可以分为：关系型数据库和NoSql数据库，其中后者又可分为KV数据库、文档型数据库、列数据库。</p></li>
+<li><p>数据仓库：是数据库概念的升级，面向分析，存储的是历史数据。从数据量来说，数据仓库要比数据库更庞大得多。主要用于数据挖掘和数据分析，代表软件为Hive。</p></li>
+</ul>
+
+
+<p>ETL: 数据仓库很多时候是需要从其他地方传输数据到数据仓库，这个过程就是ETL：extract-抽取、transform-转换、load-加载。</p>
+
+<h3>数据的生命周期</h3>
+
+<p>无论是历史数据还是线上数据，都是有生命周期的。比如，对于一个产品的用户活跃度统计业务，最近半年的数据是热点数据，访问较频繁；而随着时间的推移，慢慢的这些数据不再被频繁关注，变为了一般数据；再随着时间的推移，总有一天这些数据不再会被关注就成为了冷数据。</p>
+
+<p>热点数据→一般数据→冷数据，这就是数据的一个生命周期，对于不同的生命周期，所需要的技术选型也应该不一样。</p>
+
+<h2><a name='数据系统'></a>数据系统</h2>
+
+<p>不管是数据统计还是数据挖掘，构建一个数据系统都是做好这些的前提。一般来说，构建一个完备的数据系统有以下几点：</p>
+
+<ol>
+<li><p>数据采集</p>
+
+<p> 无论是移动端还是web上，要做好数据采集集最重要的一点就是埋点。也就是要在你需要采集数据的地方做一个标记，向服务端发起一个日志请求。当然，对于服务端能够通过业务逻辑获取的内容，原则上不要打点。比如，统计某一篇新闻的阅读数目、点赞数，这些行为其实在用户打开此新闻、点赞时已经发起了服务端请求，不需要再埋一个点；此外，统计用户数目这种，在用户数据库中就可以计算出来，也不需要埋点。埋点主要针对的是通过产品的业务逻辑无法获取到的一些数据，如一个站点中某一个模块的pv、uv等。</p>
+
+<p> 埋点后向服务端发起日志请求，这些请求在用户量规模并不很大的架构设计中直接实时计算数据入库即可，但是在用户请求量很大的情况下，这种设计是有问题的，会增加业务请求的压力，从而影响线上服务，因此好的设计应该是数据请求只形成一条日志（一般通过nginx日志实现）。因此，这里很关键的一点就是如何将这些日志收集起来进行处理。目前常用的技术有flume、Scribe、Chukwa等。其中，flume是目前比较成熟且应用比较广泛的方案。</p>
+
+<p> 由于从数据源到来的数据并不一定是我们处理需要的数据或者数据格式，因此这里还有数据的清洗过程，包括分析，验证，清洗，转换，去重，</p></li>
+<li><p>数据队列</p>
+
+<p> 数据采集之后需要通过数据队列传输，这里的队列主要起的是缓冲作用以及其他非采集数据源的输入(比如某一业务逻辑产生了一条统计报文，可以直接写入队列中)，可以采取本地队列或者分布式队列。目前，比较成熟的队列有kafka、rabbitMQ等。其中，在数据统计领域kafka是应用比较广泛的。</p></li>
+<li><p>数据处理</p>
+
+<p> 对于采集到的数据，很多是需要计算才能得到需要的统计结果的。这时候就牵扯到了计算模型。这里分为离线计算和实时计算两种模型。离线计算针对实时来讲，就是非实时的，可以定时调度进行计算的，一般来说是耗时比较长，对结果需求没那么实时的业务场景，适合非线上业务；实时计算则是需要在数据一到达就开始进行计算、处理的，适合对实时性要求高的一些业务场景，比如广告的实时结算等。</p></li>
+<li><p>数据存储</p>
+
+<p> 服务端在数据统计中一个关键的功能是对采集到的内容进行存储。对于中小规模的数据，使用mysql等传统数据库即可应对，大一点规模采用分表、分库也能应对。再大一点的那就只能祭出大数据数据库了。此外，数据的存储结构也需要慎重考虑，尤其是在应对多维度查询的时候，不合理的数据结构设计会导致低下的查询效率和冗余的存储空间。</p></li>
+<li><p>数据可视化</p>
+
+<p> 数据存储的下一步是要把数据展示出来，也就是数据可视化。通常情况下，导出excel表格是一种形式，此外，web端/移动端甚至pc端也需要展示数据的话，就引出了数据可视化技术，尤其是在大数据量情况下如何更加高效快速地展示数据。</p></li>
+</ol>
+
+
+<p>数据采集+数据队列+数据处理+数据存储+数据可视化即组成了一个完整的数据系统。而从本质上来看，数据系统=数据+查询，万变不离其宗。</p>
+
+<p>对于一般规模的产品，数据其实远远没有达到需要使用大数据技术的地步。使用传统的收集数据→定时调度程序计算，存储到mysql中即可解决。如果有大的并发请求，那么使用数据队列做缓冲。当数据规模大到一定规模时，例如mysql数据库在分表分库的情况下，单表数据量还是达到了千万的规模、单机存储依然不够或者单机计算已经慢到无法容忍。应对这种情况，就需要分布式技术出场了。</p>
+
+<p>说到这里，借用《计算广告》一书中所讲，对于数据分为三种：</p>
+
+<ul>
+<li>小规模数据：此种数据可以通过采样部分数据即可反映出数据的特征。这时候，根本无需什么大数据技术，单机规模的传统数据系统架构即可应对这种场景。</li>
+<li>中等规模数据：小规模数据无法反应数据特征，当数据规模达到一定规模时，再增大特征趋向于平稳，那么此时也无需大数据技术的出场。</li>
+<li>大规模数据：不能通过采样来反应数据特征，必须全量采集数据才能获取到数据特征。此时，就需要大数据技术来解决问题。</li>
+</ul>
+
+
+<p>其中，大规模数据就不是一般架构可以解决的了的了。</p>
+
+<h2><a name='大数据'></a>大数据</h2>
+
+<p>麦肯锡的《大数据：创新、竞争和生产力的下一个前沿领域》中对大数据的定义：</p>
+
+<pre>
+大数据指的是规模超过现有数据库工具获取、存储、管理和分析能力的数据集，并同时强调并不是超过某个特定数量级的数据集才是大数据。
+</pre>
+
+
+<p></p>
+
+<p>大数据系统通常被认为具有数据的五个主要特征，通常称为数据的5Vs。分别是大规模，多样性，高效性、准确性和价值性。</p>
+
+<h3>相关技术</h3>
+
+<p>大数据是一个很宽泛的概念。当单机无法处理数据时，就有了大数据。而应对各种不同的业务场景，诞生了很多不同的软件。完成一个功能完备的系统需要多个软件的组合。</p>
+
+<ol>
+<li><p>文件/数据存储</p>
+
+<p> 传统的文件存储都是单机的，不能横跨不同的机器，一般会使用raid做安全冗余保障。但是还是无法从根本上解决问题。HDFS（Hadoop Distributed FileSystem）则是为了应对这种业务场景产生的，其基本原理来自于google的gfs，让大量的数据可以横跨成千上百万台机器。但是对用户来说，看到的文件和单机没任何区别，已经屏蔽掉了底层细节。</p>
+
+<p> 除了文件存储，还有数据的存储，即数据库。传统的mysql等数据库，在存储结构化、小规模数据的时候可以妥妥应对。但当需要存储半结构化或者非结构化数据，或者用分表、分库来解决存储性能、空间问题带来了复杂的管理、join时，就需要一种更好的数据库的出现。大数据领域的Hbase就是为了这种场景产生的，其原理是google的BigTable。当然，hbase底层还是依赖于hdfs，是一个针对半结构化、非结构化、稀疏的数据的数据库。</p>
+
+<p> 此外，hbase和hdfs相比起mysql这种毫秒级数据库，其响应速度是很慢的。如果线上业务场景需要使用这些数据，那么这时候就需要更好的数据库的出现。elasticserach就是其中的佼佼者，当然，使用这种基于索引、高效的查询数据库，并不建议存储全量数据(除非你钱有的是)。一般情况下，存储热点数据即可。</p></li>
+<li><p>离线数据处理</p>
+
+<p> 大数据的处理是非常关键的一个环节。当单机的处理程序无法在期望的时间内处理完数据时，就需要考虑使用分布式技术了。于是就出现了MapReduce、Tez、Spark这些技术。MapReduce是第一代计算引擎，Tez和Spark是第二代。MapReduce的设计，采用了很简化的计算模型，只有Map和Reduce两个计算过程（中间用Shuffle串联），用这个模型，已经可以处理大数据领域很大一部分问题了。但是，MR模型很简单，但也很笨重，有不少缺点，比如：编程模型非常复杂；计算过程磁盘IO过多。于是催生出了第二代数据处理技术，Tez、Spark这些鉴于MR模型的缺点，引入了内存cache之类新的feature，让Map和Reduce之间的界限更模糊，数据交换更灵活，更少的磁盘读写，以便更方便地描述复杂算法，取得更高的吞吐量。</p>
+
+<p> 如上面所说，编写MR的编程复杂度非常高，于是就产生了Hive、Pig，在MR上面又抽象了一层更高级的语法出来，大大简化了MR的编程复杂度。其中以Hive为代表是Sql on xx的一个典型应用。之所以使用sql，一方面是容易编写、容易维护；另一方面SQL可以让没有编程技能的诸如数据分析师都可以不依赖工程师就可以使用数据。但由于一开始的hive还是基于MR之上的，因此，其运算速度还是受到不少人的诟病。于是Hive on Tez / Spark和SparkSQL也出现了。它们都旨在用新一代通用计算引擎Tez或者Spark来跑SQL，这样就避免了基于MR带来的运算瓶颈。</p>
+
+<p> 对于程序的离线数据处理，hive一般情况下都能够满足需求。但是对于数据分析师的数据分析需求来说，这速度就真的有点龟速了。因此为了应对数据分析的需求，Impala、Presto、Drill这些交互式sql引擎应运而生。这些系统的唯一目标就是快，能够让用户更快速地处理SQL任务，因此牺牲了通用性稳定性等特性。</p>
+
+<p> 一个典型的数据仓库系统可以满足中低速数据处理的需求：底层HDFS，之上是MR、Tez、Spark,再上面则是Hive、Pig；此外，直接跑在HDFS上的Presto、Impala等也是另一种方案。</p>
+
+<p> 由于是离线计算，因此是需要一个任务调度工具来定时调度计算过程的。比较流行的一个任务调度工具是azkaban，是一个基于工作流的调度软件，在一定程度上能够满足目前的离线调度需求。</p></li>
+<li><p>实时计算</p>
+
+<p> 上面说的都是数据仓库以及离线处理需求，也是低速数据处理需求。对于高速的数据处理，则需要引出实时计算的概念，也叫流式计算。目前，storm是比较成熟和流行的流式计算技术，spark streaming则是另外一种基于批量计算的流式计算技术。所谓流式计算，就是指数据过来的时候立刻进行处理，基本无延迟，但是不够灵活，计算过的数据也不能回放，因此也无法替代上面说的数据仓库和离线计算技术。</p></li>
+<li><p>资源调度</p>
+
+<p> 综上的所有东西都在同一个集群上运行，需要达到一个有序工作的状况。因此，需要一个资源调度系统来调度这些工作，MR2.0带来的yarn就是负责此工作的一个框架。目前，docker on yarn，storm on yarn等on yarn技术的出现都得益于此框架，大大提高了大数据集群的资源使用率。此外，mesos也是另一种资源调度框架。</p></li>
+<li><p>协调服务</p>
+
+<p> 一个分布式系统能够有条不紊的运行离不开协调服务的功劳。不管是hadoop还是storm、kakfa等，都是需要通过zookeeper进行协调的。zookeeper在分布式服务中扮演的角色就类似其字面意思-动物园管理员，而大数据的各个组件就类似动物园中的动物们。</p></li>
+<li><p>集群监控</p>
+
+<p> 集群的稳定性对于一个数据系统是至关重要的。因此，集群监控技术也是需要重点考虑的一点。目前，ganglia是对hadoop进行监控一个较好的工具。除了hadoop之外，ganglia也可以对kafka、zookeeper、storm等集群进行监控。当然，只要支持jmx，任何集群都是可以通过ganglia进行监控的。</p></li>
+<li><p>数据可视化</p>
+
+<p> 最近几年，数据可视化是一个很火的概念。尤其是大数据的可视化，考虑到高效、速度以及体验等等问题，并非是个很简单的事情。目前，百度开源的echarts是比较好的一个可视化前端解决方案，在大数据可视化方面支持的也比较好。</p></li>
+</ol>
+
+
+<p>《大数据：可扩展实时系统的原理和最佳实践》一书的作者将big data相关的开源项目做了以下分类：</p>
+
+<ol>
+<li>批量计算系统：延时较高、吞吐量大，如Hadoop。</li>
+<li>序列化框架：为对象和字段提供一种模式定义语言，实现传输通信以及不同语言环境之间的转化。如Thrift, Protocol Buffers, 和Avro。</li>
+<li>支持任意存取的NoSQL数据库：牺牲了SQL强大的表现力优势，根据应用场景不同仅支持部分操作。按照CAP理论来说，就是牺牲C（一致性）或A（可用性）来实现AP或CP。如Cassandra, HBase, MongoDB,Voldemort, Riak, CouchDB等。</li>
+<li>消息/排队系统：保证进程之间以容错和异步的方式传递消息，在实时处理系统中非常重要。如Kestrel。</li>
+<li>实时计算系统：高吞吐、低延时的流处理系统。如Storm。</li>
+</ol>
+
+
+<h3>一般架构</h3>
+
+<p>下图为一个典型的大数据系统架构：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/data-arch.png" alt="data-arch" /></p>
+
+<p>这里还需要提到的是Lambda架构这个概念。Lambda架构是由Storm的作者Nathan Marz提出的一个实时大数据处理框架。目标是设计出一个能满足实时大数据系统关键特性的架构，包括有：高容错、低延时和可扩展等。Lambda架构整合离线计算和实时计算，融合不可变性（Immunability），读写分离和复杂性隔离等一系列架构原则，可集成Hadoop，Kafka，Storm，Spark，Hbase等各类大数据组件。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/lambda-arch.png" alt="lambda-arch" /></p>
+
+<p>Lambda架构是由三层组成：批处理层、服务层和速度层，总体可由query = function(alldata)这个公式来表示。</p>
+
+<ul>
+<li>批处理层：Hadoop是理想的批处理层工具。特点是延时较高、高吞吐量，并且是append-only（没有delete和update的概念）的。包括对全部数据集的预计算。</li>
+<li>服务层：用于加载和显示数据库中的批处理视图，以便用户能够查询。可以使用Impala作为这一层的工具（使用Hive元数据指向HDFS中的一个表）。</li>
+<li>速度层：主要处理新数据和服务层更新造成的高延迟补偿，利用流处理系统如 (Storm, Spark)计算实时视图(HBase)。这些视图有效期一直到它们已经能通过批处理和服务层获得时为止。</li>
+</ul>
+
+
+<p>为了获得一个完整结果，批处理和实时视图都必须被同时查询和融合(实时代表新数据)。</p>
+
+<p>当然，架构的引入是不能照本宣科的，还是需要根据实际情况进行调整，以更好地适应业务场景。</p>
+
+<h2><a name='数据统计'></a>数据统计</h2>
+
+<p>数据统计是数据首当其冲的一个作用。关于数据统计，有以下几个关键点：</p>
+
+<ol>
+<li>数据统计是业务导向的，需要和数据分析师、运营、市场等需求方做好充分的沟通，且很关键的一点要区分清楚哪些是真正的需求，哪些仅仅是临时需求，对于前者需要以对待产品的态度去对待，后者则一过性产生结果即可。</li>
+<li>数据统计一般来说都是pv、uv这些累加指标。使用数据库自带的累加器即可，如hbase/redis的incr。</li>
+<li>数据统计在牵扯到用户、IP时，有些业务是需要去重的。去重的方案有bitmap、bloomfilter等，其中，redis的hyperloglog在容许一定误差的情况下使用比较广泛。</li>
+<li>用户统计中的用户质量模型是比较复杂的一个地方。这个地方需要一定的建模，才能做到更好的判断一个用户的质量。通常，把一个新增用户一周内以及一周后的活跃情况作为这个用户质量的判别标准。</li>
+</ol>
+
+
+<h2><a name='个性化推荐'></a>个性化推荐</h2>
+
+<p>由于个性化推荐是“机器学习”的典型应用，因此这里首先要讲一下“机器学习”。</p>
+
+<p>机器学习是为了让机器具有人的学习能力，目的是建模隐藏的数据结构，然后做识别、预测、分类等。大多数情况下，这相当于将一组数据传递给算法，并由算法判断出与这些数据的属性相关的信息，借助这些信息可以预测出未来有可能出现的其他数据。对于机器学习广泛的一个定义是“利用经验来改善计算机系统自身的性能”，而计算机中的经验都是以数据的形式存在的。机器学习的一个典型过程就是机器利用它所认定的出现于数据中的重要特征对数据进行“训练”，并借此得到一个模型。</p>
+
+<p>此外，与机器学习相关的还有几个名词会被混淆或者概念不清。</p>
+
+<ul>
+<li>集体智慧：简称集智，它是一种共享的或群体的智能。百度百科、维基百科、百度知道、猪八戒网等都是目前使用集体智慧的一种形式；数据挖掘、机器学习同样需要大量群体的数据才能做出计算，是使用集体智慧的另一种形式。</li>
+<li>数据挖掘：数据挖掘就是试图从海量数据中找出有用的信息。数据挖掘支撑技术包含了机器学习、数据库、统计学等。其中，数据库提供数据管理技术，机器学习和统计学提供了数据分析技术。但是由于机器学习并不以大数据作为处理对象，因此数据挖掘要对算法进行改造，使得算法性能和空间占用达到实用的地步。</li>
+<li>模式识别：模式识别是一种目的。传统的模式识别的方法一般分为两种：统计方法和句法方法。句法分析一般是不可学习的，而统计分析则是发展了不少机器学习的方法。因此机器学习给模式识别提供了数据分析技术。当然，也就是因为几乎所有的非随机数据都会包含这样或者那样的“模式(pattern)”，才使得机器学习的预测是可能的。</li>
+</ul>
+
+
+<p>总之，机器学习也是使用数据的一个很关键的领域，典型应用有个性化推荐、CTR预估、模式识别等。牵扯到的算法、技术非常多。如此部分开头所说，其中的个性化推荐是应用最广泛的领域，用到了很多机器学习相关技术。</p>
+
+<p>从本质上看，个性化推荐和大家接触很普遍的搜索引擎是一样的，同样是为了解决信息过载的问题。搜索引擎某种意义上也是一个个性化推荐系统，其输入特征是从搜索关键字可以直接得到的。而个性化推荐中，输入特征则是需要使用机器学习相关技术才能得到。</p>
+
+<p>个性化推荐系统一般由日志系统、推荐算法、内容展示UI三部分组成。</p>
+
+<ul>
+<li>日志系统：这是推荐系统的输入源，是一个推荐系统所有信息的源头。</li>
+<li>推荐算法：这是推荐系统的核心，根据输入数据得出最终的推荐结果的具体过程就在这里。</li>
+<li>内容展示UI：对于推荐结果如何展示，也是一个值得权衡的地方。以更好地满足推荐系统的目标，并能更好的收集用户的行为信息等。</li>
+</ul>
+
+
+<p>其中，个性化推荐中最为核心的推荐算法，目前比较流行的有以下几种：</p>
+
+<ul>
+<li>基于内容的推荐：根据内容本身的属性(特征向量)所作的推荐。</li>
+<li>基于关联规则的推荐：“啤酒与尿布”的方式，是一种动态的推荐，能够实时对用户的行为作出推荐。</li>
+<li>协同过滤推荐：与基于关联规则的推荐相比是一种静态方式的推荐，是根据用户已有的历史行为作分析的基础上做的推荐。可分为物品协同过滤、用户协同过滤、基于模型的协同过滤。其中，基于模型的协同又可以分为以下几种类型：基于距离的协同过滤；基于矩阵分解的协同过滤，即Latent Factor Model(SVD)；基于图模型协同，即Graph，也叫社会网络图模型。</li>
+</ul>
+
+
+<p>个性化推荐系统的典型架构如下图所示：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/recommend-sys-arch.png" alt="recommend-sys" /></p>
+
+<p>在线业务系统的日志接入数据高速公路，再由数据高速公路迅速运转到离线数据处理平台和在线流计算平台；离线数据处理平台周期性地以批处理方式加工过去一段时间的数据，得到人群标签和其他模型参数，存放在高速缓存中，供在线业务系统使用，与此同时，在线流计算平台实时对线上的日志数据做处理，对离线计算出的数据进行补充、修正等；在线业务系统综合离线特征和在线特征使用一定的逻辑得到输出供业务使用，产生的日志流入数据高速公路。</p>
+
+<p>基于此框架，个性化推荐系统的典型流程如下：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/recommend-sys.png" alt="recommend-sys" /></p>
+
+<p>其他更为详细的，个性化推荐牵扯到的算法、细节还有很多，留待后续推荐系统相关文章中再谈。</p>
+
+<h2><a name='总结'></a>总结</h2>
+
+<p>无论是互联网还是其他领域的产品，数据的作用正变得越来越重要。综合来看，数据统计和机器学习/个性化推荐是目前最关键的使用数据的领域。基于具体的需求，搭建合适的数据系统是解决问题的关键。其中，大数据是在应对大规模数据的情况下合适的技术选型架构。</p>
+
+<h2><a name='参考资料'></a>参考资料</h2>
+
+<ul>
+<li><a href="https://book.douban.com/subject/26596778/">《计算广告》</a></li>
+<li><a href="https://book.douban.com/subject/10769749/">《推荐系统实践》</a></li>
+<li><a href="https://www.zhihu.com/question/27974418/answer/38965760">知乎@Xiaoyu Ma的有关回答</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[2016年的几点规划]]></title>
+    <link href="http://www.rowkey.me/blog/2016/02/18/2016plan/"/>
+    <updated>2016-02-18T20:31:11+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/02/18/2016plan</id>
+    <content type="html"><![CDATA[<p>明天就要开始新的一年正式的上班了，回想一下过去的2015年，对于自己来说，虽然有不少的收获和成长，但还是令自己比较不满意的。由于某些原因，自己的学习进度以及工作情况都受到了很大的影响，并没有达到年初的期望。不过，至少没有浑浑噩噩的一年又一年，也算不错了。^_^</p>
+
+<p><strong>工作学习方面：</strong></p>
+
+<ol>
+<li><p>大数据</p>
+
+<p> 公司业务的增长让以前的架构达到了瓶颈。大数据技术的引入对于我自己来说算是离开了舒适区。从hadoop、flume、kafka到storm等等都是一个崭新的领域。虽然从本质上来看，大数据和普通的程序是没啥区别的。但是牵扯到分布式，各种需要考虑的东西也就多了起来，也就引出了一个个强大的软件。15年基本上完成了公司的lambda架构，16年需要做的是完善、优化已有的，而需要考虑引入的则包括elasticsearch、spark等大数据技术。</p></li>
+<li><p>数据挖掘</p>
+
+<p> 大数据是服务于数据统计的，而数据统计的最终目的一方面是指导市场运营的工作，更重要的一点则是服务于数据挖掘。目前接触的主要是怎样构建用户画像，从而形成一个良好的推荐机制，为用户推荐更多感兴趣的运营内容。15年，完成了用户画像以及初版的推荐机制；16年，需要做的是进一步验证已有系统的效果，考虑引入更好、更成熟的方案，此外在文本内容打标签、分类等方面也需要实现成熟的机器学习方案。</p></li>
+<li><p>基础平台</p>
+
+<p> 借鉴已有开源框架，实现了公司的dao框架、redis操作框架、java ee应用性能检测框架、分布式调度框架等。16年需要继续升级基础平台。</p>
+
+<p> 值得一提的是，公司代码版本管理使用的gitbucket，自己在此之上做了不少二次开发，有些提交给了原项目，有些则是仅仅为了应对公司的需求。鉴于此，也接触到了scala的开发，不得不说，scala的学习曲线确实很陡，16年争取要能掌握并熟练运用此语言。</p></li>
+<li><p>Github</p>
+
+<p> 在github上写代码，一方面可以提高自己的编码水平，毕竟质量太差的代码，你也怕拿出来丢人；另一方面，github上那么多优秀的项目，只做拿来党是很可耻的，一些好的东西，分享出来帮助更多的同行给自己带来的成就感反过来也能督促自己技术的提升。15年自己开发或者基于原项目二次开发了一些star较多的项目。16年要坚持在github继续贡献更多好的代码。</p></li>
+<li><p>技术分享</p>
+
+<p> 在去年的研发招聘过程中，尤其是校招，感受到了目前后端工程师教育的匮乏。对于一个后端工程师的技术体系，先不说学生，不少工作很长时间的人都没有一个清晰的认识。于是自己萌生了写一本后端工程师技术体系书籍的想法，希望能够给选择后端这个方向的人一些指导。到目前为止也写了一些，希望16年至少能出一个初稿。</p>
+
+<p> 此外，自己在开发者头条的<a href="http://toutiao.io/subjects/4944">《后端技术杂谈》</a>专栏，会继续分享自己的技术感悟和总结。一方面，增人玫瑰，手有余香；更重要的一点还是能够督促自己多总结，多思考。</p></li>
+</ol>
+
+
+<p><strong>工作学习之外：</strong></p>
+
+<p>今年最大的一点感受：不管其他如何，健康才是一个人最最重要的东西。尤其是对于天天坐在电脑面前的程序员们来说，保持健康就是保证最大的竞争力。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[也谈IO模型]]></title>
+    <link href="http://www.rowkey.me/blog/2016/01/18/io-model/"/>
+    <updated>2016-01-18T15:41:31+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/01/18/io-model</id>
+    <content type="html"><![CDATA[<h2>目录</h2>
+
+<ul>
+<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
+<li><a href="#IO%E6%A8%A1%E5%9E%8B">IO模型</a></li>
+<li><a href="#%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B">网络编程模型</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+
+
+<h2><a name='前言'></a>前言</h2>
+
+<p>说到IO模型，都会牵扯到同步、异步、阻塞、非阻塞这几个词。从词的表面上看，很多人都觉得很容易理解。但是细细一想，却总会发现有点摸不着头脑。自己也曾被这几个词弄的迷迷糊糊的，每次看相关资料弄明白了，然后很快又给搞混了。经历过这么几次之后，发现这东西必须得有所总结提炼才不至于再次混为一谈。尤其是最近看到好几篇讲这个的文章，很多都有谬误，很容易把本来就搞不清楚的人弄的更加迷糊。</p>
+
+<p>最适合IO模型的例子应该是咱们平常生活中的去餐馆吃饭这个场景，下文就结合这个来讲解一下经典的几个IO模型。在此之前，先需要说明以下几点：</p>
+
+<ul>
+<li>IO有内存IO、网络IO和磁盘IO三种，通常我们说的IO指的是后两者。</li>
+<li>阻塞和非阻塞，是函数/方法的实现方式，即在数据就绪之前是立刻返回还是等待。</li>
+<li>以文件IO为例,一个IO读过程是文件数据从磁盘→内核缓冲区→用户内存的过程。同步与异步的区别主要在于数据从内核缓冲区→用户内存这个过程需不需要用户进程等待。(网络IO把磁盘换做网卡即可)</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2><a name='IO模型'></a>IO模型</h2>
+
+<h3>同步阻塞</h3>
+
+<p>去餐馆吃饭，点一个自己最爱吃的盖浇饭，然后在原地等着一直到盖浇饭做好，自己端到餐桌就餐。这就是典型的同步阻塞。当厨师给你做饭的时候，你需要一直在那里等着。</p>
+
+<p>网络编程中，读取客户端的数据需要调用recvfrom。在默认情况下，这个调用会一直阻塞直到数据接收完毕，就是一个同步阻塞的IO方式。这也是最简单的IO模型，在通常fd较少、就绪很快的情况下使用是没有问题的。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/io/bio.png" alt="bio" /></p>
+
+<h3>同步非阻塞</h3>
+
+<p>接着上面的例子，你每次点完饭就在那里等着，突然有一天你发现自己真傻。于是，你点完之后，就回桌子那里坐着，然后估计差不多了，就问老板饭好了没，如果好了就去端，没好的话就等一会再去问，依次循环直到饭做好。这就是同步非阻塞。</p>
+
+<p>这种方式在编程中对socket设置O_NONBLOCK即可。但此方式仅仅针对网络IO有效，对磁盘IO并没有作用。因为本地文件IO就没有被认为是阻塞，我们所说的网络IO的阻塞是因为网路IO有无限阻塞的可能，而本地文件除非是被锁住，否则是不可能无限阻塞的，因此只有锁这种情况下，O_NONBLOCK才会有作用。而且，磁盘IO时要么数据在内核缓冲区中直接可以返回，要么需要调用物理设备去读取，这时候进程的其他工作都需要等待。因此，后续的IO复用和信号驱动IO对文件IO也是没有意义的。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/io/nio.png" alt="bio" /></p>
+
+<p>此外，需要说明的一点是nginx和node中对于本地文件的IO是用线程的方式模拟非阻塞的效果的，而对于静态文件的io，使用zero copy(例如sendfile)的效率是非常高的。</p>
+
+<h3>IO复用</h3>
+
+<p>接着上面的列子，你点一份饭然后循环的去问好没好显然有点得不偿失，还不如就等在那里直到准备好，但是当你点了好几样饭菜的时候，你每次都去问一下所有饭菜的状态(未做好/已做好)肯定比你每次阻塞在那里等着好多了。当然，你问的时候是需要阻塞的，一直到有准备好的饭菜或者你等的不耐烦(超时)。这就引出了IO复用，也叫多路IO就绪通知。这是一种进程预先告知内核的能力，让内核发现进程指定的一个或多个IO条件就绪了，就通知进程。使得一个进程能在一连串的事件上等待。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/io/mulio.png" alt="bio" /></p>
+
+<p>IO复用的实现方式目前主要有select、poll和epoll。</p>
+
+<p>select和poll的原理基本相同：</p>
+
+<ul>
+<li>注册待侦听的fd(这里的fd创建时最好使用非阻塞)</li>
+<li>每次调用都去检查这些fd的状态，当有一个或者多个fd就绪的时候返回</li>
+<li>返回结果中包括已就绪和未就绪的fd</li>
+</ul>
+
+
+<p>相比select，poll解决了单个进程能够打开的文件描述符数量有限制这个问题：select受限于FD_SIZE的限制，如果修改则需要修改这个宏重新编译内核；而poll通过一个pollfd数组向内核传递需要关注的事件，避开了文件描述符数量限制。</p>
+
+<p>此外，select和poll共同具有的一个很大的缺点就是包含大量fd的数组被整体复制于用户态和内核态地址空间之间，开销会随着fd数量增多而线性增大。</p>
+
+<p>select和poll就类似于上面说的就餐方式。但当你每次都去询问时，老板会把所有你点的饭菜都轮询一遍再告诉你情况，当大量饭菜很长时间都不能准备好的情况下是很低效的。于是，老板有些不耐烦了，就让厨师每做好一个菜就通知他。这样每次你再去问的时候，他会直接把已经准备好的菜告诉你，你再去端。这就是事件驱动IO就绪通知的方式-<strong>epoll</strong>。</p>
+
+<p>epoll的出现，解决了select、poll的缺点：</p>
+
+<ul>
+<li>基于事件驱动的方式，避免了每次都要把所有fd都扫描一遍。</li>
+<li>epoll_wait只返回就绪的fd。</li>
+<li>epoll使用nmap内存映射技术避免了内存复制的开销。</li>
+<li>epoll的fd数量上限是操作系统的最大文件句柄数目,这个数目一般和内存有关，通常远大于1024。</li>
+</ul>
+
+
+<p>目前，epoll是Linux2.6下最高效的IO复用方式，也是Nginx、Node的IO实现方式。而在freeBSD下，kqueue是另一种类似于epoll的IO复用方式。</p>
+
+<p>此外，对于IO复用还有一个水平触发和边缘触发的概念：</p>
+
+<ul>
+<li>水平触发：当就绪的fd未被用户进程处理后，下一次查询依旧会返回，这是select和poll的触发方式。</li>
+<li>边缘触发：无论就绪的fd是否被处理，下一次不再返回。理论上性能更高，但是实现相当复杂，并且任何意外的丢失事件都会造成请求处理错误。epoll默认使用水平触发，通过相应选项可以使用边缘触发。</li>
+</ul>
+
+
+<h3>信号驱动</h3>
+
+<p>上文的就餐方式还是需要你每次都去问一下饭菜状况。于是，你再次不耐烦了，就跟老板说，哪个饭菜好了就通知我一声吧。然后就自己坐在桌子那里干自己的事情。更甚者，你可以把手机号留给老板，自己出门，等饭菜好了直接发条短信给你。这就类似信号驱动的IO模型。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/io/sigio.png" alt="bio" /></p>
+
+<p>流程如下：</p>
+
+<ul>
+<li>开启套接字信号驱动IO功能</li>
+<li>系统调用sigaction执行信号处理函数（非阻塞，立刻返回）</li>
+<li>数据就绪，生成sigio信号，通过信号回调通知应用来读取数据。</li>
+</ul>
+
+
+<h3>异步非阻塞</h3>
+
+<p>之前的就餐方式，到最后总是需要你自己去把饭菜端到餐桌。这下你也不耐烦了，于是就告诉老板，能不能饭好了直接端到你的面前或者送到你的家里(外卖)。这就是异步非阻塞IO了。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/io/aio.png" alt="bio" /></p>
+
+<p>对比信号驱动IO，异步IO的主要区别在于：信号驱动由内核告诉我们何时可以开始一个IO操作(数据在内核缓冲区中)，而异步IO则由内核通知IO操作何时已经完成(数据已经在用户空间中)。</p>
+
+<p>异步IO又叫做事件驱动IO，在Unix中，POSIX1003.1标准为异步方式访问文件定义了一套库函数，定义了AIO的一系列接口。使用aio_read或者aio_write发起异步IO操作。使用aio_error检查正在运行的IO操作的状态。</p>
+
+<h2><a name='网络编程模型'></a>网络编程模型</h2>
+
+<p>上文讲述了UNIX环境的五种IO模型。基于这五种模型，在Java中，随着NIO和NIO2.0(AIO)的引入，一般具有以下几种网络编程模型：</p>
+
+<ul>
+<li>BIO</li>
+<li>NIO</li>
+<li>AIO</li>
+</ul>
+
+
+<h3>BIO</h3>
+
+<p>BIO是一个典型的网络编程模型，是通常我们实现一个服务端程序的过程，步骤如下：</p>
+
+<ul>
+<li>主线程accept请求阻塞</li>
+<li>请求到达，创建新的线程来处理这个套接字，完成对客户端的响应。</li>
+<li>主线程继续accept下一个请求</li>
+</ul>
+
+
+<p>这种模型有一个很大的问题是：当客户端连接增多时，服务端创建的线程也会暴涨，系统性能会急剧下降。因此，在此模型的基础上，类似于
+tomcat的bio connector，采用的是线程池来避免对于每一个客户端都创建一个线程。有些地方把这种方式叫做伪异步IO(把请求抛到线程池中异步等待处理)。</p>
+
+<h3>NIO</h3>
+
+<p>JDK1.4开始引入了NIO类库，这里的NIO指的是Non-blcok IO，主要是使用Selector多路复用器来实现。Selector在Linux等主流操作系统上是通过epoll实现的。</p>
+
+<p>NIO的实现流程，类似于select：</p>
+
+<ul>
+<li>创建ServerSocketChannel监听客户端连接并绑定监听端口，设置为非阻塞模式。</li>
+<li>创建Reactor线程，创建多路复用器(Selector)并启动线程。</li>
+<li>将ServerSocketChannel注册到Reactor线程的Selector上。监听accept事件。</li>
+<li>Selector在线程run方法中无线循环轮询准备就绪的Key。</li>
+<li>Selector监听到新的客户端接入，处理新的请求，完成tcp三次握手，建立物理连接。</li>
+<li>将新的客户端连接注册到Selector上，监听读操作。读取客户端发送的网络消息。</li>
+<li>客户端发送的数据就绪则读取客户端请求，进行处理。</li>
+</ul>
+
+
+<p>相比BIO，NIO的编程非常复杂。</p>
+
+<h3>AIO</h3>
+
+<p>JDK1.7引入NIO2.0，提供了异步文件通道和异步套接字通道的实现，是真正的异步非阻塞IO, 对应于Unix中的异步IO。</p>
+
+<ul>
+<li>创建AsynchronousServerSocketChannel，绑定监听端口</li>
+<li>调用AsynchronousServerSocketChannel的accpet方法，传入自己实现的CompletionHandler。包括上一步，都是非阻塞的</li>
+<li>连接传入，回调CompletionHandler的completed方法，在里面，调用AsynchronousSocketChannel的read方法，传入负责处理数据的CompletionHandler。</li>
+<li>数据就绪，触发负责处理数据的CompletionHandler的completed方法。继续做下一步处理即可。</li>
+<li>写入操作类似，也需要传入CompletionHandler。</li>
+</ul>
+
+
+<p>其编程模型相比NIO有了不少的简化。</p>
+
+<h3>对比</h3>
+
+<table>
+<thead>
+<tr>
+<th>.  </th>
+<th> 同步阻塞IO </th>
+<th> 伪异步IO </th>
+<th> NIO </th>
+<th> AIO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端数目 ：IO线程  </td>
+<td> 1 : 1</td>
+<td> m : n</td>
+<td> m : 1 </td>
+<td> m : 0</td>
+</tr>
+<tr>
+<td>IO模型 </td>
+<td> 同步阻塞IO </td>
+<td> 同步阻塞IO </td>
+<td> 同步非阻塞IO</td>
+<td> 异步非阻塞IO</td>
+</tr>
+<tr>
+<td>吞吐量 </td>
+<td> 低</td>
+<td>中</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>编程复杂度 </td>
+<td> 简单</td>
+<td>简单</td>
+<td>非常复杂</td>
+<td>复杂</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2><a name='参考资料'></a>参考资料</h2>
+
+<ul>
+<li><a href="http://book.douban.com/subject/3924175/">构建高性能Web站点</a></li>
+<li><a href="http://book.douban.com/subject/26373138/">Netty权威指南</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Git常用命令指南]]></title>
+    <link href="http://www.rowkey.me/blog/2016/01/10/git-usage/"/>
+    <updated>2016-01-10T10:15:30+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/01/10/git-usage</id>
+    <content type="html"><![CDATA[<p><strong><em>ps:本指南会持续更新</em></strong></p>
+
+<p>其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/git-process.png" alt="git-process" /></p>
+
+<p>上图所示，使用git的流程一般如此，通常使用图中的六个命令即可。</p>
+
+<!--more-->
+
+
+<h2>目录</h2>
+
+<ul>
+<li><a href="#config">配置</a></li>
+<li><a href="#repo">取得项目的 Git 仓库</a></li>
+<li><a href="#commit">记录每次更新到仓库</a></li>
+<li><a href="#remote">远程仓库的使用</a></li>
+<li><a href="#branch">分支的使用</a></li>
+<li><a href="#tag">标签的使用</a></li>
+<li><a href="#log">日志</a></li>
+<li><a href="#revert">撤销</a></li>
+<li><a href="#cherrypick">选择某些commits操作</a></li>
+<li><a href="#submodule">Submodule</a></li>
+<li><a href="#other">其他</a></li>
+</ul>
+
+
+<h2><a name="config"></a>配置</h2>
+
+<ol>
+<li><p>下面的命令将修改/home/[username]/.gitconfig文件，也就是说下面的配置只对每一个ssh的用户可见，所以每个人都需要做。</p>
+
+<ul>
+<li><p>提交代码的log里面会显示提交者的信息</p>
+
+<pre><code>  git config --global user.name [username]
+  git config --global user.email [email]
+</code></pre></li>
+<li><p>在git命令中开启颜色显示</p>
+
+<pre><code>  git config --global color.ui true
+</code></pre></li>
+<li><p>兼容不同平台的换行符</p>
+
+<p>  For Windows:</p>
+
+<pre><code>  git config --global core.autocrlf true
+</code></pre>
+
+<p>  For Mac:</p>
+
+<pre><code>  git config --global core.autocrlf input
+</code></pre>
+
+<p>  同时在ADD之前使用以下命令不再收到关于换行符的提示:</p>
+
+<pre><code>  git config --global core.safecrlf false
+</code></pre></li>
+<li><p>如果使用HTTP clone遇到提交大小限制，请使用以下命令提高限值</p>
+
+<pre><code>  git config --global http.postBuffer 524288000(bytes)
+</code></pre></li>
+<li><p>此外，也可以使用以下命令做相应修改</p>
+
+<pre><code>  git config -e --global
+</code></pre></li>
+</ul>
+</li>
+<li><p>下面的命令将修改/etc/gitconfig文件，这是全局配置，所以admin来做一次就可以了。</p>
+
+<p> 配置一些git的常用命令alias</p>
+
+<pre><code> sudo git config --system alias.st status     #git st
+ sudo git config --system alias.ci commit   #git ci
+ sudo git config --system alias.co checkout  #git co
+ sudo git config --system alias.br  branch  #git br
+</code></pre></li>
+<li><p>也可以进入工作根目录，运行git config -e，这样就只会修改工作区的.git/config文件，但是暂时还用不着.</p>
+
+<p> git config文件的override顺序是3>1>2.</p></li>
+<li><p>显示配置列表</p>
+
+<pre><code> git config --list
+</code></pre></li>
+<li><p>配置密钥</p>
+
+<pre><code> ssh-keygen -t rsa -C superhj1987@126.com #生成密钥
+
+ ssh -T git@github.com #测试是否成功
+</code></pre></li>
+</ol>
+
+
+<h2><a name="repo"></a>取得项目的 Git 仓库</h2>
+
+<p>有两种取得 Git 项目仓库的方法。第一种是在现存的目录下，通过导入所有文件来创建新的 Git 仓库。第二种是从已有的 Git 仓库克隆出一个新的镜像仓库来。</p>
+
+<ol>
+<li><p>在工作目录中初始化新仓库</p>
+
+<p> 要对现有的某个项目开始用 Git 管理，只需到此项目所在的目录，执行：</p>
+
+<pre><code> git init 在当前目录新建一个Git代码库
+ git init [projectName] 新建一个目录并初始化为Git代码库
+</code></pre></li>
+<li><p>从现有仓库克隆</p>
+
+<pre><code> git clone git://github.com/superhj1987/test.git
+</code></pre>
+
+<p> 这会在当前目录下创建一个名为“test”的目录，其中包含一个 .git 的目录，用于保存下载下来的所有版本记录，然后从中取出最新版本的文件拷贝。</p></li>
+</ol>
+
+
+<h2><a name="commit"></a>记录每次更新到仓库</h2>
+
+<ol>
+<li><p>检查当前文件状态</p>
+
+<pre><code> git status
+</code></pre></li>
+<li><p>跟踪新文件、暂存已修改文件</p>
+
+<p> 使用命令<strong>git add [dirName] [fileName1] [fileName2]</strong>(支持正则)开始跟踪一个新文件/文件夹(包括子文件夹)。实际上只是add file into staged area，并没有提交文件。</p>
+
+<p> 此外：</p>
+
+<pre><code> git add . 添加当前目录的所有文件到暂存区
+ git add --a 添加所有文件和目录到暂存区(自己最常用的)
+</code></pre></li>
+<li><p>忽略未纳入版本管理的某些文件/文件夹</p>
+
+<p> 一般我们总会有些文件无需纳入 Git的管理，也不希望它们总出现在未跟踪文件列表。通常都是些自动生成的文件，比如日志文件，或者编译过程中创建的临时文件等。我们可以创建一个名为 .gitignore的文件，列出要忽略的文件模式。</p>
+
+<p> 文件.gitignore 的格式规范如下：</p>
+
+<ul>
+<li>所有空行或者以注释符号 ＃ 开头的行都会被 Git 忽略。</li>
+<li>可以使用标准的 glob 模式匹配。 * 匹配模式最后跟反斜杠（/）说明要忽略的是目录。 * 要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。</li>
+<li>所谓的 glob 模式是指 shell 所使用的简化了的正则表达式。星号（*）匹配零个或多个任意字符；[abc] 匹配任何一个列在方括号中的字符（这个例子要么匹配一个 a，要么匹配一个 b，要么匹配一个 c）；问号（?）只匹配一个任意字符；如果在方括号中使用短划线分隔两个字符，表示所有在这两个字符范围内的都可以匹配（比如 [0-9] 表示匹配所有 0 到 9 的数字）。</li>
+</ul>
+
+
+<p> 此外，忽略未纳入版本管理的文件或文件夹的方式还有：</p>
+
+<ul>
+<li>可以为自己配置一个全局的ignore文件，位于任何版本库之外：$ git config &ndash;global core.excludesfile ~/.gitignoreglobal</li>
+<li>.git/info/exclude文件里设置你自己本地需要排除的文件,不会影响到其他人,也不会提交到版本库中去</li>
+</ul>
+</li>
+<li><p>忽略已经在版本库里的文件/文件夹</p>
+
+<ul>
+<li><p>告诉git忽略对已经纳入版本管理的文件a的修改,git会一直忽略此文件直到重新告诉git可以再次跟踪此文件:</p>
+
+<pre><code>  git update-index --assume-unchanged a
+</code></pre></li>
+<li><p>告诉git恢复跟踪a</p>
+
+<pre><code>  git update-index -—no-assume-unchanged a
+</code></pre></li>
+<li><p>查看当前被忽略的、已经纳入版本库管理的文件</p>
+
+<pre><code>  git ls-files -v | grep -e "^[hsmrck]"
+</code></pre></li>
+</ul>
+</li>
+<li><p>查看已暂存和未暂存的更新、提交之间的差异</p>
+
+<p> git status 的显示比较简单，仅仅是列出了修改过的文件，如果要查看具体修改了什么地方，可以用 git diff 命令。</p>
+
+<ul>
+<li>git diff #查看尚未暂存的文件更新了哪些部分</li>
+<li>git diff &ndash;cached [file] #看已经暂存起来的文件和上次提交时的快照之间的差异</li>
+<li>git diff [branch1] [branch2] #显示两次提交之间的差异</li>
+</ul>
+</li>
+<li><p>提交更新</p>
+
+<p> 每次准备提交前，先用git status看下，是不是都已暂存起来了，然后再运行提交命令git commit提交更新</p>
+
+<ul>
+<li>git commit [file1] [file2] 提交会提示输入本次提交说明</li>
+<li>git commit -m [messag] 直接附带提交说明</li>
+<li>git commit &ndash;amend#修改最后一次提交</li>
+<li>git commit -v 提交时显示所有diff信息</li>
+<li>git commit &ndash;amend -m [message] 使用一次新的commit，替代上一次提交,如果代码没有任何新变化，则用来改写上一次commit的提交信息</li>
+<li>git commit &ndash;amend [file1] [file2] &hellip; 重做上一次commit，并包括指定文件的新变化</li>
+</ul>
+</li>
+<li><p>跳过使用暂存区域</p>
+
+<p> git commit -a 跳过git add步骤直接commit</p></li>
+<li><p>移除文件
+ 要从 Git 中移除某个文件（包括暂存区域和工作目录），就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交。
+可以用 git rm 命令完成此项工作，并连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。</p>
+
+<pre><code>  git rm [file1] [file2]
+</code></pre>
+
+<p>  最后提交的时候，该文件就不再纳入版本管理了。
+  如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f（即 force的首字母），以防误删除文件后丢失修改的内容。</p>
+
+<p>  另外一种情况是，我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。换句话说，仅是从跟踪清单中删除。比如一些 编译文件，不小心纳入仓库后，要移除跟踪但不删除文件，以便稍后在 .gitignore 文件中补上，用 &ndash;cached 选项即可：</p>
+
+<pre><code>  git rm --cached [file]
+</code></pre>
+
+<p>  后面可以列出文件或者目录的名字，也可以使用 glob 模式。比方说：</p>
+
+<pre><code>  git rm log/\*.log
+</code></pre>
+
+<p>  注意到星号 * 之前的反斜杠 \，因为 Git 有它自己的文件模式扩展匹配方式，所以我们不用 shell 来帮忙展开（译注：实际上不加反斜杠也可以运行，只不过按照 shell扩展的话，仅仅删除指定目录下的文件而不会递归匹配。上面的例子本来就指定了目录，所以效果等同，但下面的例子就会用递归方式匹配，所以必须加反斜杠。此命令删除所有 log/ 目录下扩展名为 .log 的文件。类似的比如：</p>
+
+<pre><code>  git rm \*~
+</code></pre>
+
+<p>  会递归删除当前目录及其子目录中所有 ~ 结尾的文件。</p></li>
+<li><p>移动文件</p>
+
+<p> 要在 Git 中对文件改名，可以运行如下命令</p>
+
+<pre><code> git mv file_from file_to
+</code></pre>
+
+<p> 其实，运行 git mv 就相当于运行了下面三条命令：</p>
+
+<pre><code> $ mv README.txt README
+ $ git rm README.txt
+ $ git add README
+</code></pre></li>
+<li><p>回滚文件</p>
+
+<pre><code>git branch backup // 先备份到一个新分支
+git log // 找到要回滚的版本
+git reset --hard 版本号 // 回滚
+</code></pre></li>
+</ol>
+
+
+<h2><a name="remote"></a>远程仓库的使用</h2>
+
+<p>远程仓库是指托管在网络上的项目仓库，可能会有好多个，其中有些你只能读，另外有些可以写。</p>
+
+<ol>
+<li><p>查看当前的远程库</p>
+
+<p> 要查看当前配置有哪些远程仓库，可以用 git remote 命令，它会列出每个远程库的简短名字。在克隆完某个项目后，至少可以看到一个名为 origin 的远程库，也可以加上 -v 选项git remote -v（译注：此为 &ndash;verbose 的简写，取首字母），显示对应的克隆地址。</p></li>
+<li><p>添加远程仓库</p>
+
+<p> 要添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用，运行 git remote add [shortname] [url]</p></li>
+<li><p>从远程同步信息</p>
+
+<pre><code> git fetch [remote] #下载仓库的所有变动
+ git pull [remote] [branch] #取回远程仓库的变化冰河本地分支合并
+</code></pre></li>
+<li><p>推送数据到远程仓库</p>
+
+<p> 项目进行到一个阶段，要同别人分享目前的成果，可以将本地仓库中的数据推送到远程仓库。实现这个任务的命令很简单：</p>
+
+<pre><code> git push [remote-name] [branch-name]。
+</code></pre>
+
+<p> 如果要把本地的 master 分支推送到 origin 服务器上（再次说明下，克隆操作会自动使用默认的 master 和 origin 名字），可以运行下面的命令：</p>
+
+<pre><code> git push origin master
+
+ git push -u origin master //push同时设置默认跟踪分支
+</code></pre>
+
+<p> 只有在所克隆的服务器上有写权限，或者同一时刻没有其他人在推数据，这条命令才会如期完成任务。如果在你推数据前，已经有其他人推送了若干更新，那你的推送操作就会被驳回。你必须先把他们的更新merge到本地才能继续。</p>
+
+<p> 此外，当你本地的版本落后于远程仓库，但是你想要用旧版本覆盖远程版本的话，使用</p>
+
+<pre><code> git push --force origin master
+</code></pre>
+
+<p> 推送所有分支到远程仓库：</p>
+
+<pre><code> git push [remote] --all
+</code></pre></li>
+<li><p>查看远程仓库信息</p>
+
+<p> 我们可以通过命令 git remote show [remote-name]查看某个远程仓库的详细信息，比如要看所克隆的 origin 仓库，可以运行：</p></li>
+<li><p>远程仓库的删除和重命名</p>
+
+<p> 在新版 Git 中可以用 git remote rename 命令修改某个远程仓库在本地的简短名称。使用git remote rm 命令删除远程仓库。</p></li>
+<li><p>检出远程仓库的某一分支</p>
+
+<pre><code> git checkout -b &lt;local.branch&gt; &lt;remote.branch&gt;
+ git checkout -t &lt;x
+</code></pre></li>
+</ol>
+
+
+<h2><a name="branch"></a>分支的使用</h2>
+
+<p>分支是在开发中经常使用的一个功能。</p>
+
+<pre><code>git branch 列出本地分支
+git branch -r 列出远端分支
+git branch -a 列出所有本地分支和远程分支
+git branch -v#查看各个分支最后一个提交对象的信息
+git branch --merge#查看已经合并到当前分支的分支
+git branch --no-merge#查看为合并到当前分支的分支
+
+git branch [branch-name] 新建分支,但仍然停留在当前分支
+git branch [branch] [commit] 新建一个分支，指向指定commit
+git checkout [branch-name] 切换到分支
+git checkout -b [branch-name] 新建+切换到该分支
+git checkout -b [branch1] [branch2] 基于branch2新建branch1分支，并切换
+
+git branch -d [branch-name] 删除分支
+git branch -D [branch-name] 强制删除分支
+
+git merge [branch-name] 将分支合并到当前分支
+git rebase [branch-name] 将banch-name分支上超前的提交，变基到当前分支
+
+git branch --set-upstream [branch] [remote-branch] 建立现有分支和指定远程分支的追踪关系
+
+# 删除远程分支
+git push origin --delete [branch-name]
+git push origin :[branch-name]
+git branch -dr [remote/branch-name]
+</code></pre>
+
+<h2><a name="tag"></a>标签的使用</h2>
+
+<p>当你完成一个版本的开发，需要做发布的时候，会需要给此次版本打一个表标签：</p>
+
+<pre><code>git tag #列出现有标签
+
+git tag [tag] #新建标签
+git tag [tag] #新建一个tag在当前commit
+git tag [tag] [commit] #新建一个tag在指定commit
+git tag -a [tag] -m 'tag cooment' #新建带注释标签
+git checkout -b [branch] [tag] #新建一个分支，指向某个tag
+
+git show [tag] #查看tag信息
+
+git checkout [tagn] #切换到标签
+
+git push [remote] [tag] #推送分支到源上
+git push [remote] --tags #一次性推送所有分支
+
+git tag -d [tag] #删除标签
+git push origin :refs/tags/v0.1 #删除远程标签
+</code></pre>
+
+<h2><a name="log"></a>日志</h2>
+
+<p>有时候需要查看版本的日志记录，以确定、跟踪代码的变化等</p>
+
+<pre><code>git log #显示当前分支的版本历史
+git log --stat #显示commit历史，以及每次commit发生变更的文件，每次提交的文件增删数量
+
+#显示某个文件的版本历史，包括文件改名
+git log --follow [file] 
+git whatchanged [file]
+
+git blame [file] #显示指定文件由谁何时修改过
+
+git log -p [file] #显示指定文件相关额每一次diff
+
+git show [commit] #显示每次提交的元数据和内容变化
+git show --name-only [commit] #显示某次提交发生变化的文件
+git show [commit]:[filename] #显示某次提交某个文件的内容
+
+git reflog #显示当前分支的最近几次提交
+
+
+##下面是git log的高级用法##
+
+git log --oneline #把每一个提交压缩到一行
+
+git log --decorate #显示指向这个提交的所有引用（比如说分支、标签等）
+git shortlog #把每个提交按作者分类，显示提交信息的第一行。这样可以容易地看到谁做了什么
+git log --graph #绘制一个ASCII图像来展示提交历史的分支结构
+git log -&lt;n&gt; #限制显示的提交数量
+
+# 按照现实日期过滤显示结果，日期可以使用多种格式，如2015-1-1, yesterday
+git log --after="&lt;date&gt;" #在日期之后
+git log --before="&lt;date&gt;" #在日期之前
+
+git log --author="&lt;author&gt;" #按照作者(作者的邮箱地址也算作是作者的名字)
+
+git log --no-merges #排除外来的和并提交
+git log --merges #只显示外来合并提交
+
+git log master..feature #从master分支fork到feature分支后发生的变化
+
+git log -- xxx.java #--告诉后面是文件名不是分支名
+
+git log --grep="xxx" #按提交信息来过滤提交
+
+git log -S "xxx"(-G"&lt;regex&gt;") #根据内容(源代码)来过滤提交
+git log --pretty=format:"&lt;string&gt;" #自定义输出格式，占位符：%cn-作者名字 %h-缩略标识 %cd-提价日期
+</code></pre>
+
+<h2><a name="revert"></a>撤销</h2>
+
+<p>在提交了错误的修改或者想撤销文件的变动时，需要以下命令：</p>
+
+<pre><code>git checkout [file] #恢复暂存区的指定文件到工作区
+git checkout [commit] [file] #恢复某个commit的指定文件到工作区
+git checkout . #回复上一个commit的所有文件到工作区
+
+git reset --hard #重置暂存区和工作区到上一次commit
+git reset [commit] [file] #重置当前分支到commit，重置暂存区，但工作区不变
+git reset —soft #只回退commit,此时可以直接git commi
+git reset --hard [commit] #重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
+git reset --keep [commit] #重置当前HEAD为指定commit,但保持暂存区和工作区不变
+
+#新建一个commit撤销指定commit,后者的所有变化都将被前者抵消，并且应用到当前分支
+git revert [commit] 
+#回退所有内容到上一个版本
+git　reset　HEAD^
+#回退文件的版本到上一个版本
+git　reset　HEAD^　[file]
+#向前回退到第3个版本
+git　reset　--soft　HEAD~3   
+
+# 清空未进入暂存区的改动
+git clean -f -d
+</code></pre>
+
+<h2><a name="cherrypick"></a>选择某些commit操作</h2>
+
+<p>git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。</p>
+
+<pre><code>git cherry-pick &lt;commit id&gt;
+</code></pre>
+
+<h2><a name="submodule"></a>Submodule</h2>
+
+<p>当你的工程的部分文件是另一个git库时，可以使用submodule（现在subtree已经替代了submodule）。</p>
+
+<ol>
+<li><p>添加</p>
+
+<p> 为当前工程添加submodule，命令如下：</p>
+
+<pre><code> git submodule add 仓库地址 路径
+</code></pre></li>
+<li><p>删除</p>
+
+<p> submodule的删除稍微麻烦点：首先，要在“.gitmodules”文件中删除相应配置信息。然后，执行“git rm –cached ”命令将子模块所在的文件从git中删除。</p></li>
+<li><p>下载的工程带有submodule</p>
+
+<p> 当使用git clone下来的工程中带有submodule时，初始的时候，submodule的内容并不会自动下载下来的，此时，只需执行如下命令：</p>
+
+<pre><code> git submodule update --init --recursive
+</code></pre></li>
+</ol>
+
+
+<h2><a name="other"></a>其他</h2>
+
+<pre><code>git help #获取命令的帮助信息
+git archive #生成一个可供发布的压缩包
+git rev-list --max-count=1 HEAD #查看当前分支的最新rev
+</code></pre>
+
+<p><strong><em>ps: 以上部分参考自网上资料，如有侵权请联系superhj1987@126.com</em></strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[研发招聘之殇]]></title>
+    <link href="http://www.rowkey.me/blog/2015/12/31/dev-job-talk/"/>
+    <updated>2015-12-31T22:01:02+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/12/31/dev-job-talk</id>
+    <content type="html"><![CDATA[<p><strong><em>ps: 本文完成于2015年12月31号</em></strong></p>
+
+<p>对于一个公司来说，要想健康长久的发展，招聘是一个永久的话题。而对于一个互联网公司，尤其是以产品为主的公司来说，研发是招聘中的关键职位，高质量的研发人才也是所有企业都急缺的。一直持有一个观点：招一个优秀的人给他两倍的薪资带来的效果远远大于招两个普通的人。也一直秉着这个观点来招聘。</p>
+
+<!--more-->
+
+
+<p>今年十月份去西安、武汉两地进行校招，发现了目前很多学生存在的问题(其实之前在前东家参与校招的时候也发现了)：</p>
+
+<ol>
+<li><p>技术脱离业界前沿。现在高校里开的课以及实验室用的技术基本都脱离业界，面试了很多学生，他们的技能还千篇一律都是ssh系列。而这种技术选项，目前也就在传统it行业流行，互联网公司早就摒弃了这一套。此外，分布式缓存、消息队列等技术更是鲜少有人涉及。更为遗憾的是，对于服务端工程师、前端工程师、客户工程师等职位应该具有的技术栈，在高校里也缺乏相应的课程和相关的人来指导(大公司一般都设置有入职培训针对这一点)。</p></li>
+<li><p>基础素质欠缺。对于应届生来说，基础素质是最关键的一点，项目经验是加分项，但不是必需和最关键的。很多学生被问起hashmap的实现原理以及怎样解决冲突时就不知所云(明明就是数据结构课讲过的)，被问到tcp/ip、操作系统时更是乱七八糟。也有些学生做过很多项目，自认为经验丰富，但当被问起使用的技术比如spring mvc的原理、mysql的索引机制时，没有任何思路。其实项目经验、工具这些东西决定了你的下限，你的基础知识和素质才决定了你的上限。互联网行业需要的是学习能力强、基本功扎实的优秀工程师，而非很多传统IT企业需要的螺丝钉。</p></li>
+<li><p>没有畏惧心。这一点可能因人而异，毕竟有些人的性格就是桀骜不驯。但是在研发这个圈子里，大神太多，是大神但比你还努力的人也太多。技术也太广，任何一门技术都很难精通。做为一个研发工程师，你必须对所有人、所有技术都有一颗为畏惧心。每个人都有亮点值得你学习，每一种技术都需要你下大功夫才能精通。记得有些学生在基础知识被问得绊绊磕磕的时候，急得号称自己精通java，但试着去问了，却发现很多知识都似是而非。说到这里，最近公司的几个实习生让我体会挺深刻的，有些学生的确会对技术有畏惧感，很谦虚，抱着一种学习的态度；但是也有很多学生自视甚高，甚至有人待了一周(很多东西都没接触到)就离职，觉得我们这技术水平入不了他的法眼，总是拿一个我听都没听过的公司跟我说这个公司很厉害的，早就给offer了等等。不敢说我们公司的技术业界领先，至少我们做出了拥有几亿用户的产品。人，还是应该有一颗畏惧心，不论对人还是对事。</p></li>
+<li><p>知其然不知其所以然。这一点的反面(知其然更知其所以然)对于研发人员其实是最关键的素质。能做出东西来只能证明你上手能力强，但并不代表你学习能力强。学习能力强，是指的能够快速吸纳理解新的知识，融汇贯通。比如，就拿最简单的spring ioc来说，用过的人基本都知道大概是个什么事情，但是抛开spring，让你自己去实现ioc，很多人估计就不知所措了。</p></li>
+</ol>
+
+
+<p>校招毕竟只是研发招聘的补充，最关键的还是社招。但是面试了很多有经验的工程师之后，却也发现了很多问题。除了上面校招提到的一些，最令我印象深刻的就是薪资。本科毕业一两年的，之前在一些不知名的公司工作过的人，动辄就漫天要价。好吧，我觉得可能是真的很优秀，那倒也匹配的上。结果，面试过n次这种人之后，我发现帝都的薪资真的不能拿常人的眼光来看，也算是给我这种来自杭州的人开了眼界。毕竟帝都这地方互联网企业一大把，舍得给钱的、面向vc的创业公司也一大把。你觉得不值，还有一大批公司觉得值。这种现象，在今年上半年达到了顶峰。不能说正确与否，只能说市场如此，带来的效应就这样。</p>
+
+<p>关于招聘，是一门学问。自己非专业的，所以很多东西肯定看的不够清楚。但对于研发招聘，自己经历过很多次被面试，也面试过很多人。有自己觉得好的面试形式，也有自己很嗤之以鼻的。</p>
+
+<ol>
+<li>N轮算法题目面试。这种形式是被微软和谷歌所推崇的，不一定好，但是至少客观，不会掺杂面试官的主管因素，而且据说后续的结果证明了算法好的人在工作上的成绩好的概率非常大。自己曾有幸经历过一次，由于自己对算法不感兴趣，也一直没刷过题目，所以结局很惨烈。不过，自己却也信服口服。应对这种面试，能做的就是做大量的题目(至少《算法导论》上的算法都要搞明白)，总结方法，锻炼自己的思维。当然参加一下acm比赛也不妨为一种好方法。剩下的，就看你的天赋和运气了。</li>
+<li>掺杂计算机基础知识、算法以及项目经验的面试。这种形式是国内大部分公司采取的。优点是能从多方面考察面试者的技术水平；缺点就是容易被面试官的主观因素所影响，尤其是很多水平很差的面试官，或者是面试官和被面试者方向不对路。</li>
+<li>软件设计。这个不同于算法题目，一般是面向某一场景的软件设计题目。每个人提交代码，然后根据代码的效率、模式设计等判定结果。现场面试的时候，面试官当场提出问题、需求，现场进行优化编程。这个面试方式，我见过某土豪日企(应届生起薪30W+)采用过。这个我暂时说不上是好是坏，应该是针对特定企业的工业场景的一种面试方式。</li>
+<li>现场结对编程/ppt讲解。记得之前看过一篇文章讲世界上研发面试最难的公司是Thoughtworks。面试官和你结对编程，然后再进行圆桌会议等等一系列复杂的流程。不过，在国内的thougtworks也许是为了迎合中国国情吧，倒是没见过这么招聘。记得校招的时候，初试出一道软件设计题目，你解决好后提交代码，现场面试的时候，就针对这个问题进行ppt演示，面试官当场提出问题，看你的应对。</li>
+<li>只看学历、学校。这种面试方式，我知道的一次貌似只有hw校招。当时听同学说，面试官声称不关心你会不会或者专业对不对口，只要学校符合，其他的都能培养出来。当然，我相信，这只是某种形势下hw的招聘策略，毕竟hw里面招的牛人还是大有人在的。尤其是2000年左右，进hw那可是人人羡慕的。</li>
+<li>群面。这种方式多见于非研发职位。不敢说在研发面试中出现好不好，但至少对我来说，如果有公司这么干，我肯定去都不去。码农们都不擅长和人打交道的好不。。。虽然，这不一定算是件好事。不过，研发总归还是要看技术的么。</li>
+</ol>
+
+
+<p>目前，我们公司采取的是国内最流行的第二种，基础知识考查这个人的基本素质，也就是看看能否胜任当前工作；项目经验看看这人做过的东西有没有消化、深入理解，看这人的学习主动性、研究问题的深度、对技术的热情如何；开放性问题看看这人是否足够聪明。坚决杜绝问RTFM的问题，也坚决不出什么脑筋急转弯。也会采取一些措施，比如两轮平行面试，来避免掺杂主观因素。</p>
+
+<p>那么怎么定义一个优秀的研发工程师呢？我们希望招到的研发人员或者说我们觉得优秀的研发人员，抛开具体技术来说，共性应该是这样的：</p>
+
+<ol>
+<li><p>聪明、思维灵活。研发最重要的一点就是要聪明，这个观点貌似雷军也说过。很难想象一个不聪明的人是如何解决复杂的工程问题的。而什么叫聪明呢？我们现在在面试的时候，会随机从现实的项目中出一道曾遇到过的问题。面试的很多人都会说没遇到过、不知道。其实最终的答案并没有对错，没遇到过这个问题也是我们最希望的，如果你能给出解决方案或者思路才说明你有足够解决现实问题的能力。</p></li>
+<li><p>对技术有热情。只有对技术有热情，才不会把工作仅仅当做工作，还会当做乐趣。这样才会对接触过的技术能深入研究下去，快速学习，快速成长起来。相比起聪明，这一点也是至关重要的。如果仅仅是聪明，而对技术不具有热情，那么很多人会浅尝辄止，不求甚解，最后聪明反被聪明误。而没有那么聪明的人如果足够有热情，找到合适的方法，努力学习原理层的东西，也会很快成为技术大牛的。</p></li>
+<li><p>基础知识扎实。和上面校招那一部分说的一样，基础知识决定一个人的上限。如果一直停留在表面应用业务的开发，不接触到底层计算机原理，那么即使你在nb闪闪发光的大公司里，你也是可有可无的一个人，价值慢慢会趋于0。而基础知识扎实，那么学起其他的业务层技术也根本不会成为问题，上限也会很高。</p></li>
+<li><p>有执行力。执行力在某种方面说就是结果导向。见过很多聪明、对技术有热情的人，却总是钻牛角尖，容易陷在一个细节上出不来，这一点自己也不例外。但是有人会考虑到整个项目的进度，做好控制，先用快速的方案实现，后续再调整和优化；有些人却往往为了一个细节，纠结来纠结去，最后造成进度延误，这就是一种没有执行力的表现。当然，如果你效率高，那么你随便钻牛角尖，不然你应该以全局为重。</p></li>
+</ol>
+
+
+<p>以上是今年招聘的一些感悟，希望来年能招到更多符合期望的人才。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[前端这些年]]></title>
+    <link href="http://www.rowkey.me/blog/2015/12/21/front-these-years/"/>
+    <updated>2015-12-21T18:53:48+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/12/21/front-these-years</id>
+    <content type="html"><![CDATA[<h2>前言</h2>
+
+<p>本人一直从事的是服务端开发工作，写前端貌似有点跑题，不过自己初中也就是2000年左右的时候，引领我进入计算机大门的也的确是前端，后来也做过不少的前端工作。于是，就想着从自己的角度写点前端这些年的发展。但毕竟不是专业所长，有所纰漏在所难免。</p>
+
+<!--more-->
+
+
+<h2>正文</h2>
+
+<h3>第一代</h3>
+
+<p>还记得2000年左右的时候，那时的四大门户：新浪、搜狐、网易、中华网（是的，那时候还没腾讯啥事）。我第一次访问这些网站的时候就被震撼到了，一直很奇怪这是怎么写出来的。恰巧，初中开了一个计算机课，老师当时在给我们讲微软的frontpage，拖着拖着就能出来一个网页。幼稚的我恍然大悟:原来用这东西就能拖出来个新浪网啊。学会了拖网页，学校里家庭条件比较好、接触电脑比较早的同学还把自己的网页传到了网上的免费空间（网易的yeah.net免费空间），然后就俨然成了公众人物。毕竟，那个时候在我们那个小城市，家里有电脑的少，能上网的更少，能有自己的网站还能通过网络访问的则少之又少了。当然，开始大家拖出来的网页都是静态页面（这里的静态指的是静止不动），然后有些人发现加上一段代码，网页上就能有各种类似动画的效果。比如: 标题动态改变、鼠标后跟着一串文字、状态栏滚动字幕等等。frontpage已经不能满足这些了，这时候一款更加NB的软件出现在了我的眼前-dreamweaver。这款软件我后来一直用到了大学本科毕业，当然，从开始的完全依赖dw来拖页面，到后来把它当成了一个写代码的IDE。说起来，那个时候没有那么多前端框架，写个页面就是html+css+js。页面布局用table，然后table里面嵌套table，控制样式一般也使用html tag。现在想想也是醉了，还记得当时还有个原则是最外面的table宽度要设置为960px，100%，居中。这算是我接触前端的第一个时代吧，那个时候国内貌似也就ie浏览器，兼容性的问题根本不存在，技术体系相对来说也比较简单。总体概括来说：</p>
+
+<ul>
+<li>table布局网页主体</li>
+<li>使用各种html标签控制样式，比如b、i、strong、br等</li>
+<li>使用原生js实现动态效果</li>
+</ul>
+
+
+<h3>第二代</h3>
+
+<p>后来，业界兴起了div+css的概念。说白了就是内容和样式要分开，div组织内容，css控制样式。与此同时，js技术也飞速发展中。jquery横空出世，成为了前端开发必不可少的一个框架。大家也在乐此不彼的收集着各种各样的jquery插件。那时候觉得jquery真是太好用了，觉得会写jquery插件的人好nb。除此之外，extjs也成为了开发web必不可少的框架，不知多少管理系统都长的一模一样。。。最让我记忆尤甚的是浏览器的兼容性问题，firefox、chrome、safari这些浏览器一下全火了起来，然后兼容性问题就成为了令广大前端开发者最头疼的一件事情，尤其是万恶的ie6。当时在做一个英国的项目的时候，甲方的boss竟然细致到1px都要度量的份上，于是无数个夜晚，我就在那里调整像素，还是要调整在多个浏览器下的像素。不知是幸运还是不幸的我也由此接触到了n多浏览器兼容的问题，记得最深的一个就是ie6的1px问题。对于这些兼容性问题，自己当时总结了一下，基本上使用css reset初始化所有样式，然后使用css hack针对不同浏览器做兼容，其他的针对具体问题具体分析。同样的，js里也存在兼容性的问题，一个典型的就是解析json字符串，有些浏览器里是默认有JSON的方法的，但有些浏览器却没有，只能使用eval来做。这方面，jquery则做了很好的兼容。其实，到了这个时候，整个前端已经乱了，尤其因为微软的自我，ie给大家带来了数不清的麻烦。针对这种情况，W3C适时的提出了新的标准，以求统一浏览器的渲染，也推出了es想统一一下前端脚本语言。不过，由于某些原因，ie6在很长一段时间都曾是国内前端开发者的梦靥，其他兼容性问题也一直成为了遗留问题。此外，随着前端样式和脚本变得越来越多、越来越复杂，页面的性能优化变得被人重视起来，雅虎前端优化35条原则、CSSSprites这些技术应运而生。这算是我经历的第二代前端。由于浏览器的多种多样，这一代的前端开发者真的挺苦逼的。总体概括如下：</p>
+
+<ul>
+<li>布局使用Div</li>
+<li>样式控制使用Css</li>
+<li>Dom操作使用jQuery</li>
+<li>ExtJs类似的前端组件框架开始兴起</li>
+<li>以Chrome、Firefox为代表的各种浏览器的崛起</li>
+<li>前端的性能优化: 资源缓存、雅虎前端35条优化原则、CSSSprites、iframe使用的优缺点</li>
+</ul>
+
+
+<p>其中，对于资源缓存一般包括以下两种解决方案：</p>
+
+<ul>
+<li>对比服务器协商缓存(服务器返回304)，推荐使用超长时间的本地缓存(Response加入头cache-control/expires)。</li>
+<li>文件的路径名包含<strong>文件摘要信息</strong>达到非覆盖发布以及资源缓存更新。</li>
+</ul>
+
+
+<h3>第三代</h3>
+
+<p>经历了两代前端，其实自己后面就没怎么关注过这一块了，顶多就是留意一下业界的新闻，技术体系也基本就停留在了第二代上。最近由于某些原因，需要带一下公司的前端团队，就恶补了一下最新的前端知识，发现自己还真的有点out了。发展到现在，前端工程师真正成为了一个举足轻重的职位。以前由于只有pc端的前端开发，很多人瞧不上前端，觉得前端不过就是做个表单验证，做个小动画，没啥技术含量。而现在由于移动互联网的兴起，移动前端开发成了越来越重要的一部分。与此同时，“富前端”的概念也提了出来，就是让web程序的体验和本地程序体验尽可能一致，于是对前端开发者的要求也就变得越来越高。html5也适时的席卷了整个生态圈，如果说几年前h5还只是个噱头，那么现在h5在移动页面以及移动app混合开发中则已经举足轻重了。与此同时，多种终端的出现，也相应催生了“响应式”页面设计，意思就是能让你的页面根据不同的终端自动适配，能够极大地优化用户体验。而nodejs的出现，则让“全栈工程师”这个名词盛行起来，发展到现在也逐步证明并实现了前后端分离的可行性。此外，页面语义化、页面性能调优、前端工程化、前端模块化、css预处理、js预处理、liveload等也成为了前端领域越来越火的研究方向，相应的诞生了很多新兴框架、技术。总体概括如下：</p>
+
+<ul>
+<li>CSS预处理器使得大家可以使用普通的编程思维来编写css: Sass、Less。这个技术还是很实用的，毕竟css的编写方式还是非常不灵活的</li>
+<li>JS预处理器：Coffescript、Typescript。这个技术我感觉是提供给不熟悉js编程的人活着是不喜欢js语法的人提供的。Google之前推出的gwt也貌似是为了这个目的。</li>
+<li>Liveload技术可以自动侦测代码改变刷新浏览器</li>
+<li>“富前端”，技术以AngularJs为代表，也带来了MVVM的概念: module view viewModule</li>
+<li>前端模块化，以RequireJs和SeaJs为代表，前者是预执行，后者是懒执行</li>
+<li>ReactJs引入的虚拟dom和组件化开发以及React Native统一三端的开发。其中React的高性能dom操作值得研究</li>
+<li>手机、平板网页等多种终端催生响应式页面</li>
+<li>客户端混合开发，其中技术以Phonegap为代表</li>
+<li>前段工程：自动化构建工具以Grunt、Gulp为代表，当然gulp是比较先进的。</li>
+<li>对比之前的Div布局，页面语义化理念的提出</li>
+<li>CSS3带来的n多新特性</li>
+<li>ES6标准落地，带来了新的feature:async/await、decorator、fetch等</li>
+</ul>
+
+
+<p>此外，随着大数据的日益火热，数据可视化技术也成为了前端一个很重要的部分。尤其是大数据的可视化。这方面，国内的echarts做的还不错，虽然也被不少人吐槽。</p>
+
+<p>关于前端技术体系，详细的内容可以阅读这篇文章：<a href="http://blog.csdn.net/borishuai/article/details/8676573">http://blog.csdn.net/borishuai/article/details/8676573</a>。</p>
+
+<h2>结语</h2>
+
+<p>不管前端怎么变，其核心只有一个：视图呈现。所有的前端技术都是围绕着这一点进行的。只不过有的是从速度上，有的是从交互上，有的则从开发效率上。</p>
+
+<p>说到前端，不得不说一下前端工程师。在最近公司的招聘中，发现前端工程师是一个相对难招的职业，尤其是好的前端工程师，一方面是由于之前大家对前端的轻视所致，另一方面也有前端技术更新迭代太快的原因。那么如何定义一个好的前端工程师呢？除了研发职位普遍具有的一些共性之外，以下几点，我觉得是前端的特质：</p>
+
+<ul>
+<li>有一定的审美观: 很难想象一个没有审美观的人开发出来的页面是如何让人觉得赏心悦目的。</li>
+<li>耐心、细致：有时候前端显示的问题，真的需要一点又一点慢慢地找出来的，尤其是css方面。</li>
+<li>有一定的产品思维：很多情况下，前端算是和用户直接打交道的（和客户端类似，开发出的东西是直接面向用户的）。因此，具有一定的产品思维，才能让你更好的优化视图、交互，做到更好的用户体验。</li>
+</ul>
+
+
+<p>最后，打个广告^_^。中华万年历，携2亿用户急需优秀的人才加入，七险一金、待遇优厚。各种职位虚位以待。<a href="http://www.lagou.com/gongsi/j1826.html">http://www.lagou.com/gongsi/j1826.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[2015图书阅读清单]]></title>
+    <link href="http://www.rowkey.me/blog/2015/11/20/2015book-to-read/"/>
+    <updated>2015-11-20T17:13:46+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/11/20/2015book-to-read</id>
+    <content type="html"><![CDATA[<h2>技术</h2>
+
+<h3>1. 精益数据分析</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/26278639/">http://book.douban.com/subject/26278639/</a></li>
+<li>说明：一本讲述数据驱动创业的书籍，比如在你的产品中如何区分虚荣指标，如何抓住关键指标等。对于每一个商业模式都有其特定的关键指标和底线。而且对于一个公司的几个阶段（移情、黏性、病毒性、营收、规模化）指标也不是相同的。商业模式+阶段决定了你需要关注的指标。</li>
+<li>进度：100%</li>
+</ul>
+
+
+<h3>2. 推荐系统实践</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/10769749/">http://book.douban.com/subject/10769749/</a></li>
+<li>说明：讲述了构建一个推荐系统的基本知识、算法以及架构等。基本涵盖了能实现一个基本的推荐系统所需的相关技术等。看完这本书，基本能对推荐系统入门。</li>
+<li>进度：100%</li>
+<li>备注：此书上大学时曾经看过，但当时由于没有实战环境，所以没啥印象。此次阅读是基于项目需要，但其中部分牵扯到具体算法的部分没有细看</li>
+</ul>
+
+
+<!--more-->
+
+
+<h3>3. 集体智慧编程</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/3288908/">http://book.douban.com/subject/3288908/</a></li>
+<li>说明：讲述集体智慧的书籍，也是推荐系统相关的一本书</li>
+<li>进度：0%</li>
+</ul>
+
+
+<h3>4. 快学scala</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/19971952/">http://book.douban.com/subject/19971952/</a></li>
+<li>说明：学习scala的一本书，应该算是快速指引</li>
+<li>进度：20%</li>
+<li>备注：scala的学习曲线很陡，之前找到twitter的scala school，但是发现讲的有点不到位。鉴于此，找一本经典的书籍快速入门一下也不错。</li>
+</ul>
+
+
+<h2>非技术</h2>
+
+<h3>1. 他来了，请闭眼</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/25912734/">http://book.douban.com/subject/25912734/</a></li>
+<li>说明：犯罪心理学&hellip;</li>
+<li>进度：100%</li>
+<li>备注：看了电视剧，不过瘾，就直接找书来看了</li>
+</ul>
+
+
+<h3>2. 三体</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/2567698/">http://book.douban.com/subject/2567698/</a></li>
+<li>说明：不用多说了，今年最火的小说。一共有三部</li>
+<li>进度：30%</li>
+<li>备注：看到了第二部《黑暗森林》，然后一直没时间看后面了..</li>
+</ul>
+
+
+<h3>3. 藏地密码</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/2201813/">http://book.douban.com/subject/2201813/</a></li>
+<li>说明：一共有十部，讲述了一群人为了一个共同的秘密，在藏地进行探险的故事。</li>
+<li>进度：100%</li>
+<li>备注：继鬼吹灯、盗墓笔记之后，又一部让我恨不得一口气看完的小说</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[搭建自己的github]]></title>
+    <link href="http://www.rowkey.me/blog/2015/11/13/your-own-github/"/>
+    <updated>2015-11-13T10:27:40+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/11/13/your-own-github</id>
+    <content type="html"><![CDATA[<p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
+
+<p>记得几年前由于项目的需要，曾尝试自己去搭建一套git服务给项目组使用，折腾了好久，才总算搭建了一个基础的系统, 刚刚能用，权限控制都没有(<a href="http://srhang.iteye.com/blog/1339110">http://srhang.iteye.com/blog/1339110</a>)。但最终因为git的上手门槛有点高，还是选择了svn。后来随着github的兴起，git才如火如荼地在国内火了起来。许多大的互联网公司，也都开始把项目由svn转到git。但如果仅仅是搭建一个git服务，那么github这种网站提供的可视化ui带来的便捷却也不复存在了。对于一些小的有钱的团队，使用github的收费私人repository倒也是一种解决办法。但是，对于大部分公司来说，还是不会把公司内部的代码放到这种公共服务上的。这种需求场景下，就诞生了很多github的克隆实现，以方便部署内网的github。</p>
+
+<!--more-->
+
+
+<p>说到github的克隆实现，最出名的莫过于<a href="https://gitlab.com">gitlab</a>。这是一个ROR的实现，应该是目前市面上最成熟的一个github克隆项目，功能也是最丰富的。它在原来最基础的git库管理、权限管理、用户管理的基础上又加入了诸如code review、ci等极大方便开发者的功能。基本把github克隆了一遍，还加上了github没有的功能。功能强大倒是强大，但是gitlab本身的部署非常复杂，需要安装很多依赖包和依赖组件，整个过程非常痛苦。虽然现在提供了集成安装包，但对操作系统又有要求，比如要求CentOS 6以上，CentOs 5的用户就享受不了这个便利了。。。一想到这么多事情，对于我这种懒人来说，还是没有选择gitlab。</p>
+
+<p>在前东家的时候，git项目是从gitlab迁移到了gitbucket（其中的原因当然不仅仅是因为gitlab部署的繁琐）。说起<a href="https://gitbucket.github.io/gitbucket-news/">gitbucket</a>，在百度上也搜不出什么信息来。能搜到的估计也就github库的地址和其他一些简单介绍。这个项目是日本的同行使用scala开发的一个github克隆。所以，抛开编程方面，对于java系的程序员还是比较友好的，部署也只需要把war包往tomcat之类的容器里一扔就ok。这个对比gitlab那可是天壤之别。而谈到二次开发，scala语言的学习曲线还是非常陡的，所以对比起来，貌似gitlab的二次开发相比较起来还是容易一些的（gitlab的二次开发没参与过，这里只是猜测）。当然，gitbucket是一个相对年轻的项目，对比gitlab，功能还显得比较单薄，bug也不少。我自己在使用的过程中，fix过几个小bug并提交到了项目的主分支，但是还有不少bug被公司的同事吐槽中（实在没时间专门fix这个）。另外，不得不说的是，gitbucket的markdown解析引擎，作者不知道什么原因从之前的一个叫pegdown的替换成了自己实现的markedj，让我们公司的一堆md文档都显示的各种乱，实在无语。。。不得不去clone了markedj的代码，fix了其中的一些bug，部署在我们内网的maven库里。bug虽然挺多，但比起gitlab来，还是喜欢gitbucket部署升级的简单（去官网下个war包，扔到tomcat里，恭喜你，你就拥有了自己的github）。当然，也有纯粹个人对jvm系语言的偏爱的原因^_^。</p>
+
+<p>其实，除了gitlab和gitbucket还有很多github的克隆实现。这篇文章列出了很多并做了简单介绍:
+<a href="http://www.oschina.net/news/50222/git-code-platforms">http://www.oschina.net/news/50222/git-code-platforms</a></p>
+
+<p>其实，开发工具这种东西，选择最适合自己以及自己团队的才是上上之选。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[系统负载能力浅析]]></title>
+    <link href="http://www.rowkey.me/blog/2015/09/09/load-analysis/"/>
+    <updated>2015-09-09T18:42:58+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/09/09/load-analysis</id>
+    <content type="html"><![CDATA[<p><strong><em>&mdash;本文于2015.12.23号最新更新&mdash;</em></strong></p>
+
+<p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
+
+<p>那么，何为系统负载能力？怎么衡量？相关因素有哪些？又如何优化呢？</p>
+
+<!--more-->
+
+
+<h2>一. 衡量指标</h2>
+
+<p>用什么来衡量一个系统的负载能力呢？有一个概念叫做每秒请求数（Requests per second），指的是每秒能够成功处理请求的数目。比如说，你可以配置tomcat服务器的maxConnection为无限大，但是受限于服务器系统或者硬件限制，很多请求是不会在一定的时间内得到响应的，这并不作为一个成功的请求，其中成功得到响应的请求数即为每秒请求数，反应出系统的负载能力。</p>
+
+<p>通常的，对于一个系统，增加并发用户数量时每秒请求数量也会增加。然而，我们最终会达到这样一个点，此时并发用户数量开始“压倒”服务器。如果继续增加并发用户数量，每秒请求数量开始下降，而反应时间则会增加。这个并发用户数量开始“压倒”服务器的临界点非常重要，此时的并发用户数量可以认为是当前系统的最大负载能力。</p>
+
+<h2>二. 相关因素</h2>
+
+<p>一般的，和系统并发访问量相关的几个因素如下：</p>
+
+<ul>
+<li>带宽</li>
+<li>硬件配置</li>
+<li>系统配置</li>
+<li>应用服务器配置</li>
+<li>程序逻辑</li>
+<li>系统架构</li>
+</ul>
+
+
+<p>其中，带宽和硬件配置是决定系统负载能力的决定性因素。这些只能依靠扩展和升级提高。我们需要重点关注的是在一定带宽和硬件配置的基础上，怎么使系统的负载能力达到最大。</p>
+
+<h3>2.1 带宽</h3>
+
+<p>毋庸置疑，带宽是决定系统负载能力的一个至关重要的因素，就好比水管一样，细的水管同一时间通过的水量自然就少（这个比喻解释带宽可能不是特别合适）。一个系统的带宽首先就决定了这个系统的负载能力，其单位为Mbps,表示数据的发送速度。</p>
+
+<h3>2.2 硬件配置</h3>
+
+<p>系统部署所在的服务器的硬件决定了一个系统的最大负载能力，也是上限。一般说来，以下几个配置起着关键作用：</p>
+
+<ul>
+<li>cpu频率/核数：cpu频率关系着cpu的运算速度，核数则影响线程调度、资源分配的效率。</li>
+<li>内存大小以及速度：内存越大，那么可以在内存中运行的数据也就越大，速度自然而然就快；内存的速度从原来的几百hz到现在几千hz，决定了数据读取存储的速度。</li>
+<li>硬盘速度：传统的硬盘是使用磁头进行寻址的，io速度比较慢，使用了SSD的硬盘，其寻址速度大大较快。</li>
+</ul>
+
+
+<p>很多系统的架构设计、系统优化，最终都会加上这么一句：使用ssd存储解决了这些问题。</p>
+
+<p>可见，硬件配置是决定一个系统的负载能力的最关键因素。</p>
+
+<h3>2.3 系统配置</h3>
+
+<p>一般来说，目前后端系统都是部署在Linux主机上的。所以抛开win系列不谈，对于Linux系统来说一般有以下配置关系着系统的负载能力。</p>
+
+<ul>
+<li>文件描述符数限制：Linux中所有东西都是文件，一个socket就对应着一个文件描述符，因此系统配置的最大打开文件数以及单个进程能够打开的最大文件数就决定了socket的数目上限。</li>
+<li>进程/线程数限制: 对于apache使用的prefork等多进程模式，其负载能力由进程数目所限制。对tomcat多线程模式则由线程数所限制。</li>
+<li>tcp内核参数：网络应用的底层自然离不开tcp/ip，Linux内核有一些与此相关的配置也决定了系统的负载能力。</li>
+</ul>
+
+
+<h4>2.3.1 文件描述符数限制</h4>
+
+<ul>
+<li><p>系统最大打开文件描述符数：/proc/sys/fs/file-max中保存了这个数目,修改此值</p>
+
+<pre><code>  临时性
+      echo 1000000 &gt; /proc/sys/fs/file-max
+  永久性：在/etc/sysctl.conf中设置
+      fs.file-max = 1000000
+</code></pre></li>
+<li><p>进程最大打开文件描述符数：这个是配单个进程能够打开的最大文件数目。可以通过ulimit -n查看/修改。如果想要永久修改，则需要修改/etc/security/limits.conf中的nofile。</p></li>
+</ul>
+
+
+<p>通过读取/proc/sys/fs/file-nr可以看到当前使用的文件描述符总数。另外，对于文件描述符的配置，需要注意以下几点：</p>
+
+<ul>
+<li>所有进程打开的文件描述符数不能超过/proc/sys/fs/file-max</li>
+<li>单个进程打开的文件描述符数不能超过user limit中nofile的soft limit</li>
+<li>nofile的soft limit不能超过其hard limit</li>
+<li>nofile的hard limit不能超过/proc/sys/fs/nr_open</li>
+</ul>
+
+
+<h4>2.3.2 进程/线程数限制</h4>
+
+<ul>
+<li>进程数限制：ulimit -u可以查看/修改单个用户能够打开的最大进程数。/etc/security/limits.conf中的noproc则是系统的最大进程数。</li>
+<li><p>线程数限制</p>
+
+<ul>
+<li>可以通过/proc/sys/kernel/threads-max查看系统总共可以打开的最大线程数。</li>
+<li>单个进程的最大线程数和PTHREAD_THREADS_MAX有关，此限制可以在/usr/include/bits/local_lim.h中查看,但是如果想要修改的话，需要重新编译。</li>
+<li>这里需要提到一点的是，Linux内核2.4的线程实现方式为linux threads，是轻量级进程，都会首先创建一个管理线程，线程数目的大小是受PTHREAD_THREADS_MAX影响的。但Linux2.6内核的线程实现方式为NPTL,是一个改进的LWP实现，最大一个区别就是，线程公用进程的pid（tgid），线程数目大小只受制于资源。</li>
+<li>线程数的大小还受线程栈大小的制约：使用ulimit -s可以查看/修改线程栈的大小，即每开启一个新的线程需要分配给此线程的一部分内存。减小此值可以增加可以打开的线程数目。</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>2.3.3 tcp内核参数</h4>
+
+<p>在一台服务器CPU和内存资源额定有限的情况下，最大的压榨服务器的性能，是最终的目的。在节省成本的情况下，可以考虑修改Linux的内核TCP/IP参数，来最大的压榨服务器的性能。如果通过修改内核参数也无法解决的负载问题，也只能考虑升级服务器了，这是硬件所限，没有办法的事。</p>
+
+<pre><code>netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+</code></pre>
+
+<p>使用上面的命令，可以得到当前系统的各个状态的网络连接的数目。如下：</p>
+
+<pre><code>LAST_ACK 13
+SYN_RECV 468
+ESTABLISHED 90
+FIN_WAIT1 259
+FIN_WAIT2 40
+CLOSING 34
+TIME_WAIT 28322
+</code></pre>
+
+<p>这里，TIME_WAIT的连接数是需要注意的一点。此值过高会占用大量连接，影响系统的负载能力。需要调整参数，以尽快的释放time_wait连接。</p>
+
+<p>一般tcp相关的内核参数在/etc/sysctl.conf文件中。为了能够尽快释放time_wait状态的连接，可以做以下配置：</p>
+
+<ul>
+<li>net.ipv4.tcp_syncookies = 1 //表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭；</li>
+<li>net.ipv4.tcp_tw_reuse = 1 //表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭；</li>
+<li>net.ipv4.tcp_tw_recycle = 1 //表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭；</li>
+<li>net.ipv4.tcp_fin_timeout = 30 //修改系統默认的 TIMEOUT 时间。</li>
+</ul>
+
+
+<p>这里需要注意的一点就是当打开了tcp_tw_recycle，就会检查时间戳，移动环境下的发来的包的时间戳有些时候是乱跳的，会把带了“倒退”的时间戳的包当作是“recycle的tw连接的重传数据，不是新的请求”，于是丢掉不回包，造成大量丢包。另外，当前面有LVS，并且采用的是NAT机制时，开启tcp_tw_recycle会造成一些异常，可见：<a href="http://www.pagefault.info/?p=416">http://www.pagefault.info/?p=416</a>。如果这种情况下仍然需要开启此选项，那么可以考虑设置net.ipv4.tcp_timestamps=0，忽略掉报文的时间戳即可。</p>
+
+<p>此外，还可以通过优化tcp/ip的可使用端口的范围，进一步提升负载能力。，如下：</p>
+
+<ul>
+<li>net.ipv4.tcp_keepalive_time = 1200 //表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟。</li>
+<li>net.ipv4.ip_local_port_range = 10000 65000 //表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为10000到65000。（注意：这里不要将最低值设的太低，否则可能会占用掉正常的端口！）</li>
+<li>net.ipv4.tcp_max_syn_backlog = 8192 //表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数。</li>
+<li>net.ipv4.tcp_max_tw_buckets = 5000 //表示系统同时保持TIME_WAIT的最大数量，如果超过这个数字，TIME_WAIT将立刻被清除并打印警告信息。默认为180000，改为5000。对于Apache、Nginx等服务器，上几行的参数可以很好地减少TIME_WAIT套接字数量，但是对于Squid，效果却不大。此项参数可以控制TIME_WAIT的最大数量，避免Squid服务器被大量的TIME_WAIT拖死。</li>
+</ul>
+
+
+<h3>2.4 应用服务器配置</h3>
+
+<p>说到应用服务器配置，这里需要提到应用服务器的几种工作模式,也叫并发策略。</p>
+
+<ul>
+<li>multi process:多进程方式，一个进程处理一个请求。</li>
+<li>prefork：类似于多进程的方式，但是会预先fork出一些进程供后续使用，是一种进程池的理念。</li>
+<li>worker：一个线程对应一个请求，相比多进程的方式，消耗资源变少，但同时一个线程的崩溃会引起整个进程的崩溃，稳定性不如多进程。</li>
+<li>master/worker：采用的是非阻塞IO的方式，只有两种进程：worker和master,master负责worker进程的创建、管理等，worker进程采用基于事件驱动的多路复用IO处理请求。mater进程只需要一个，woker进程根据cpu核数设置数目。</li>
+</ul>
+
+
+<p>前三者是传统应用服务器apache和tomcat采用的方式，最后一种是nginx采用的方式。当然这里需要注意的是应用服务器和nginx这种做反向代理服务器（暂且忽略nginx+cgi做应用服务器的功能）的区别。应用服务器是需要处理应用逻辑的，有时候是耗cup资源的；而反向代理主要用作IO，是IO密集型的应用。使用事件驱动的这种网络模型，比较适合IO密集型应用，而并不适合CPU密集型应用。对于后者，多进程/线程则是一个更好地选择。</p>
+
+<p>当然，由于nginx采用的基于事件驱动的多路IO复用的模型，其作为反向代理服务器时，可支持的并发是非常大的。淘宝tengine团队曾有一个测试结果是“24G内存机器上，处理并发请求可达200万”。</p>
+
+<h4>2.4.1 nginx/tengine</h4>
+
+<p>ngixn是目前使用最广泛的反向代理软件，而tengine是阿里开源的一个加强版nginx,其基本实现了nginx收费版本的一些功能，如：主动健康检查、session sticky等。对于nginx的配置，需要注意的有这么几点：</p>
+
+<ul>
+<li>worker数目要和cpu（核）的数目相适应</li>
+<li>keepalive timout要设置适当</li>
+<li>worker_rlimit_nofile最大文件描述符要增大</li>
+<li>upstream可以使用http 1.1的keepalive</li>
+</ul>
+
+
+<p>典型配置可见：<a href="https://github.com/superhj1987/awesome-config/blob/master/nginx/nginx.conf">https://github.com/superhj1987/awesome-config/blob/master/nginx/nginx.conf</a></p>
+
+<h4>2.4.2 tomcat</h4>
+
+<p>tomcat的关键配置总体上有两大块：jvm参数配置和connector参数配置。</p>
+
+<ul>
+<li><p>jvm参数配置：</p>
+
+<ul>
+<li>堆的最小值：Xms</li>
+<li>堆的最大值：Xmx</li>
+<li>新生代大小: Xmn</li>
+<li>永久代大小: XX:PermSize：</li>
+<li>永久代最大大小: XX:MaxPermSize：</li>
+<li>栈大小：-Xss或-XX:ThreadStackSize</li>
+</ul>
+
+
+<p>  这里对于栈大小有一点需要注意的是：在Linux x64上ThreadStackSize的默认值就是1024KB，给Java线程创建栈会用这个参数指定的大小。如果把-Xss或者-XX:ThreadStackSize设为0，就是使用“系统默认值”。而在Linux x64上HotSpot VM给Java栈定义的“系统默认”大小也是1MB。所以普通Java线程的默认栈大小怎样都是1MB。这里有一个需要注意的地方就是java的栈大小和之前提到过的操作系统的操作系统栈大小（ulimit -s）：这个配置只影响进程的初始线程；后续用pthread_create创建的线程都可以指定栈大小。HotSpot VM为了能精确控制Java线程的栈大小，特意不使用进程的初始线程（primordial thread）作为Java线程。</p>
+
+<p>  其他还要根据业务场景，选择使用那种垃圾回收器，回收的策略。另外，当需要保留GC信息时，也需要做一些设置。</p>
+
+<p>  典型配置可见：<a href="https://github.com/superhj1987/awesome-config/blob/master/tomcat/java_opts.conf">https://github.com/superhj1987/awesome-config/blob/master/tomcat/java_opts.conf</a></p></li>
+<li><p>connector参数配置</p>
+
+<ul>
+<li>protocol: 有三个选项：bio；nio；apr。建议使用apr选项，性能为最高。</li>
+<li>connectionTimeout：连接的超时时间</li>
+<li>maxThreads：最大线程数，此值限制了bio的最大连接数</li>
+<li>minSpareThreads: 最大空闲线程数</li>
+<li>acceptCount：可以接受的最大请求数目（未能得到处理的请求排队）</li>
+<li>maxConnection: 使用nio或者apr时，最大连接数受此值影响。</li>
+</ul>
+
+
+<p>  典型配置可见：<a href="https://github.com/superhj1987/awesome-config/blob/master/tomcat/connector.conf">https://github.com/superhj1987/awesome-config/blob/master/tomcat/connector.conf</a></p>
+
+<p>  一般的当一个进程有500个线程在跑的话，那性能已经是很低很低了。Tomcat默认配置的最大请求数是150。当某个应用拥有250个以上并发的时候，应考虑应用服务器的集群。</p>
+
+<p>  另外，并非是无限调大maxTreads和maxConnection就能无限调高并发能力的。线程越多，那么cpu花费在线程调度上的时间越多，同时，内存消耗也就越大，那么就极大影响处理用户的请求。受限于硬件资源，并发值是需要设置合适的值的。</p></li>
+</ul>
+
+
+<p>对于tomcat这里有一个争论就是：<strong><em>使用大内存tomcat好还是多个小的tomcat集群好？</em></strong>（针对64位服务器以及tomcat来说）</p>
+
+<p>其实，这个要根据业务场景区别对待的。通常，大内存tomcat有以下问题：</p>
+
+<ul>
+<li>一旦发生full gc，那么会非常耗时</li>
+<li>一旦gc，dump出的堆快照太大，无法分析</li>
+</ul>
+
+
+<p>因此，如果可以保证一定程度上程序的对象大部分都是朝生夕死的，老年代不会发生gc,那么使用大内存tomcat也是可以的。但是在伸缩性和高可用却比不上使用小内存（相对来说）tomcat集群。</p>
+
+<p>使用小内存tomcat集群则有以下优势：</p>
+
+<ul>
+<li>可以根据系统的负载调整tc的数量，以达到资源的最大利用率，</li>
+<li>可以防止单点故障。</li>
+</ul>
+
+
+<h4>2.4.3 数据库</h4>
+
+<h5>mysql</h5>
+
+<p>mysql是目前最常用的关系型数据库，支持复杂的查询。但是其负载能力一般，很多时候一个系统的瓶颈就发生在mysql这一点，当然有时候也和sql语句的效率有关。比如，牵扯到联表的查询一般说来效率是不会太高的。</p>
+
+<p>影响数据库性能的因素一般有以下几点：</p>
+
+<ul>
+<li>硬件配置：这个无需多说</li>
+<li>数据库设置：max_connection的一些配置会影响数据库的连接数</li>
+<li>数据表的设计：使用冗余字段避免联表查询；使用索引提高查询效率</li>
+<li>查询语句是否合理：这个牵扯到的是个人的编码素质。比如，查询符合某个条件的记录，我见过有人把记录全部查出来，再去逐条对比</li>
+<li>引擎的选择：myisam和innodb两者的适用场景不同，不存在绝对的优劣</li>
+</ul>
+
+
+<p>抛开以上因素，当数据量单表突破千万甚至百万时（和具体的数据有关），需要对mysql数据库进行优化，一种常见的方案就是分表：</p>
+
+<ul>
+<li>垂直分表：在列维度的拆分</li>
+<li>水平分表：行维度的拆分</li>
+</ul>
+
+
+<p>此外，对于数据库，可以使用读写分离的方式提高性能，尤其是对那种读频率远大于写频率的业务场景。这里一般采用master/slave的方式实现读写分离，前面用程序控制或者加一个proxy层。可以选择使用MySQL Proxy，编写lua脚本来实现基于proxy的mysql读写分离；也可以通过程序来控制，根据不同的sql语句选择相应的数据库来操作，这个也是笔者公司目前在用的方案。由于此方案和业务强绑定，是很难有一个通用的方案的，其中比较成熟的是阿里的TDDL，但是由于未全部开源且对其他组件有依赖性，不推荐使用。</p>
+
+<p>现在很多大的公司对这些分表、主从分离、分布式都基于mysql做了自己的二次开发，形成了自己公司的一套分布式数据库系统。比如阿里的<a href="https://github.com/alibaba/cobar">Cobar</a>、网易的DDB、360的Atlas等。当然，很多大公司也研发了自己的mysql分支，比较出名的就是姜承尧带领研发的InnoSQL。</p>
+
+<h5>redis</h5>
+
+<p>当然，对于系统中并发很高并且访问很频繁的数据，关系型数据库还是不能妥妥应对。这时候就需要缓存数据库出马以隔离对mysql的访问,防止mysql崩溃。</p>
+
+<p>其中，redis是目前用的比较多的缓存数据库（当然，也有直接把redis当做数据库使用的）。redis是单线程基于内存的数据库，读写性能远远超过mysql。一般情况下，对redis做读写分离主从同步就可以应对大部分场景的应用。但是这样的方案缺少ha，尤其对于分布式应用，是不可接受的。目前，redis集群的实现方案有以下几个：</p>
+
+<ul>
+<li>redis cluster:这是一种去中心化的方案，是redis的官方实现。是一种非常“重”的方案，已经不是Redis单实例的“简单、可依赖”了。目前应用案例还很少，貌似国内的芒果台用了，结局不知道如何。</li>
+<li><a href="https://github.com/twitter/twemproxy">twemproxy</a>：这是twitter开源的redis和memcached的proxy方案。比较成熟，目前的应用案例比较多，但也有一些缺陷，尤其在运维方面。比如无法平滑的扩容/缩容，运维不友好等。</li>
+<li><a href="https://github.com/wandoulabs/codis">codis</a>: 这个是豌豆荚开源的redis proxy方案，能够兼容twemproxy，并且对其做了很多改进。由豌豆荚于2014年11月开源，基于Go和C开发。现已广泛用于豌豆荚的各种Redis业务场景。现在比Twemproxy快近100%。目前据我所知除了豌豆荚之外，hulu也在使用这套方案。当然，其升级项目<a href="https://github.com/reborndb/reborn">reborndb</a>号称比codis还要厉害。</li>
+</ul>
+
+
+<h3>2.5 系统架构</h3>
+
+<p>影响性能的系统架构一般会有这几方面：</p>
+
+<ul>
+<li>负载均衡</li>
+<li>同步 or 异步</li>
+<li>28原则</li>
+</ul>
+
+
+<h4>2.5.1 负载均衡</h4>
+
+<p>负载均衡在服务端领域中是一个很关键的技术。可以分为以下两种：</p>
+
+<ul>
+<li>硬件负载均衡</li>
+<li>软件负载均衡</li>
+</ul>
+
+
+<p>其中，硬件负载均衡的性能无疑是最优的，其中以F5为代表。但是，与高性能并存的是其成本的昂贵。所以对于很多初创公司来说，一般是选用软件负载均衡的方案。</p>
+
+<p>软件负载均衡中又可以分为四层负载均衡和七层负载均衡。
+上文在应用服务器配置部分讲了nginx的反向代理功能即七层的一种成熟解决方案，主要针对的是七层http协议（虽然最新的发布版本已经支持四层负载均衡）。对于四层负载均衡，目前应用最广泛的是lvs。其是阿里的章文嵩博士带领的团队所研发的一款linux下的负载均衡软件，本质上是基于iptables实现的。分为三种工作模式：</p>
+
+<ul>
+<li>NAT: 修改数据包destination ip，in和out都要经过lvs。</li>
+<li>DR：修改数据包mac地址，lvs和realserver需要在一个vlan。</li>
+<li>IP TUUNEL：修改数据包destination ip和源ip，realserver需要支持ip tunnel协议。lvs和realserver不需要在一个vlan。</li>
+</ul>
+
+
+<p>三种模式各有优缺点，目前还有阿里开源的一个FULL NAT是在NAT原来的DNAT上加入了SNAT的功能。</p>
+
+<p>此外，haproxy也是一款常用的负载均衡软件。但限于对此使用较少，在此不做讲述。</p>
+
+<h4>2.5.2 同步 or 异步</h4>
+
+<p>对于一个系统，很多业务需要面对使用同步机制或者是异步机制的选择。比如，对于一篇帖子，一个用户对其分享后，需要记录用户的分享记录。如果你使用同步模式（分享的同时记录此行为），那么响应速度肯定会受到影响。而如果你考虑到分享过后，用户并不会立刻去查看自己的分享记录，牺牲这一点时效性，可以先完成分享的动作，然后异步记录此行为，会提高分享请求的响应速度（当然，这里可能会有事务准确性的问题）。有时候在某些业务逻辑上，在充分理解用户诉求的基础上，是可以牺牲某些特性来满足用户需求的。</p>
+
+<p>这里值得一提的是，很多时候对于一个业务流程，是可以拆开划分为几个步骤的，然后有些步骤完全可以异步并发执行，能够极大提高处理速度。</p>
+
+<h4>2.5.3 28原则</h4>
+
+<p>对于一个系统，20%的功能会带来80%的流量。这就是28原则的意思，当然也是我自己的一种表述。因此在设计系统的时候，对于80%的功能，其面对的请求压力是很小的，是没有必要进行过度设计的。但是对于另外20%的功能则是需要设计再设计、reivew再review，能够做负载均衡就做负载均衡，能够缓存就缓存，能够做分布式就分布式，能够把流程拆开异步化就异步化。</p>
+
+<p>当然，这个原则适用于生活中很多事物。</p>
+
+<h2>三. 一般架构</h2>
+
+<p>一般的Java后端系统应用架构如下图所示：LVS+Nginx+Tomcat+MySql/DDB+Redis/Codis</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/web-arch.png" alt="web-arch" /></p>
+
+<p>其中，虚线部分是数据库层，采用的是主从模式。也可以使用redis cluster(codis等)以及mysql cluster(Cobar等)来替换。</p>
+
+<pre><code>如需转载，请注明来自: http://superhj1987.github.com
+
+版权声明：本文为博主原创文章，未经博主允许不得转载
+
+本文部分参考自网络相关资料，由于时间太久，无法追朔原作者。如有侵权，请联系superhj1987@126.com
+</code></pre>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Hbase关键的几个点]]></title>
+    <link href="http://www.rowkey.me/blog/2015/06/10/hbase-about/"/>
+    <updated>2015-06-10T10:59:59+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/06/10/hbase-about</id>
+    <content type="html"><![CDATA[<h2>一. 什么时候需要HBase</h2>
+
+<ol>
+<li><p>半结构化或非结构化数据</p>
+
+<p> 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要增加存储比如一个用户的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加.</p></li>
+<li><p>记录非常稀疏</p>
+
+<p> RDBMS的行有多少列是固定的，为null的列浪费了存储空间。而如上文提到的，HBase为null的Column不会被存储，这样既节省了空间又提高了读性能。</p></li>
+<li><p>多版本数据</p>
+
+<p> 根据Row key和Column key定位到的Value可以有任意数量的版本值，因此对于需要存储变动历史记录的数据，用HBase就非常方便了。对于某一值，业务上一般只需要最新的值，但有时可能需要查询到历史值。</p></li>
+<li><p>超大数据量</p>
+
+<p> 当数据量越来越大，RDBMS数据库撑不住了，就出现了读写分离策略，通过一个Master专门负责写操作，多个Slave负责读操作，服务器成本倍增。随着压力增加，Master撑不住了，这时就要分库了，把关联不大的数据分开部署，一些join查询不能用了，需要借助中间层。随着数据量的进一步增加，一个表的记录越来越大，查询就变得很慢，于是又得搞分表，比如按ID取模分成多个表以减少单个表的记录数。经历过这些事的人都知道过程是多么的折腾。采用HBase就简单了，只需要加机器即可，HBase会自动水平切分扩展，跟Hadoop的无缝集成保障了其数据可靠性（HDFS）和海量数据分析的高性能（MapReduce）</p></li>
+</ol>
+
+
+<h2>二. HTable一些基本概念</h2>
+
+<ol>
+<li><p>Row key</p>
+
+<p> 行主键， HBase不支持条件查询和Order by等查询，读取记录只能按Row key（及其range）或全表扫描，因此Row key需要根据业务来设计以利用其存储排序特性（Table按Row key字典序排序如1,10,100,11,2）提高性能。</p></li>
+<li><p>Column Family（列族）</p>
+
+<p> 在表创建时声明，每个Column Family为一个存储单元。</p></li>
+<li><p>Column（列）</p>
+
+<p> HBase的每个列都属于一个列族，以列族名为前缀，如列article:title和article:content属于article列族，author:name和author:nickname属于author列族。</p>
+
+<p> Column不用创建表时定义即可以动态新增，同一Column Family的Columns会群聚在一个存储单元上，并依Column key排序，因此设计时应将具有相同I/O特性的Column设计在一个Column Family上以提高性能。</p></li>
+<li><p>Timestamp</p>
+
+<p> HBase通过row和column确定一份数据，这份数据的值可能有多个版本，不同版本的值按照时间倒序排序，即最新的数据排在最前面，查询时默认返回最新版本。Timestamp默认为系统当前时间（精确到毫秒），也可以在写入数据时指定该值。</p></li>
+<li><p>Value</p>
+
+<p> 每个值通过4个键唯一索引，tableName+RowKey+ColumnKey+Timestamp=>value</p></li>
+<li><p>存储类型</p>
+
+<ul>
+<li>TableName 是字符串</li>
+<li>RowKey 和 ColumnName 是二进制值（Java 类型 byte[]）</li>
+<li>Timestamp 是一个 64 位整数（Java 类型 long）</li>
+<li>value 是一个字节数组（Java类型 byte[]）。</li>
+</ul>
+</li>
+</ol>
+
+
+<p>将HTable的存储结构理解为</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
+
+<p>即HTable按Row key自动排序，每个Row包含任意数量个Columns，Columns之间按Column key自动排序，每个Column包含任意数量个Values。理解该存储结构将有助于查询结果的迭代。</p>
+
+<h2>三. 模式设计应遵循的原则</h2>
+
+<ol>
+<li><p>列族的数量以及列族的势</p>
+
+<p> 列族的数量越少越好，牵扯到了hbase的flushing；同一个表中不同列族所存储的记录数量的差别也需要考虑（列族的势），会造成记录数量少的列族的数据分散在多个region上，影响查询效率。</p></li>
+<li><p>行键的设计</p>
+
+<p> 避免使用时序或者单调（递增/递减）行键，否则会导致连续到来的数据会被分配到统一region中。</p></li>
+<li><p>尽量最小化行键和列族的大小</p>
+
+<p> 避免hbase的索引过大，加重系统存储的负担</p></li>
+<li><p>版本的数量</p>
+
+<p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[kafka学习笔记 - Consumer开发的一些关键点]]></title>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-consumer/"/>
+    <updated>2015-05-30T22:00:18+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-consumer</id>
+    <content type="html"><![CDATA[<p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
+
+<h2>一. 消费过的数据无法再次消费</h2>
+
+<p>在user level上，一旦消费过topic里的数据，那么就无法再次用同一个groupid消费同一组数据。如果想要再次消费数据，要么换另一个groupid，要么使用镜像：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/kafka-consumer-1.jpg" alt="pic" /></p>
+
+<p>此外，low level的api提供了一些机制去设置partion和offset。</p>
+
+<h2>二. offset管理</h2>
+
+<p>kafka会记录offset到zk中。但是，zk client api对zk的频繁写入是一个低效的操作。0.8.2 kafka引入了native offset storage，将offset管理从zk移出，并且可以做到水平扩展。其原理就是利用了kafka的compacted topic，offset以consumer group,topic与partion的组合作为key直接提交到compacted topic中。同时Kafka又在内存中维护了<consumer group,topic,partition>的三元组来维护最新的offset信息，consumer来取最新offset信息的时候直接内存里拿即可。当然，kafka允许你快速的checkpoint最新的offset信息到磁盘上。</p>
+
+<h2>三. stream</h2>
+
+<p>This API is centered around iterators, implemented by the KafkaStream class. Each KafkaStream represents the stream of messages from one or more partitions on one or more servers. Each stream is used for single threaded processing, so the client can provide the number of desired streams in the create call. Thus a stream may represent the merging of multiple server partitions (to correspond to the number of processing threads), but each partition only goes to one stream.</p>
+
+<p>根据官方文档所说，stream即指的是来自一个或多个服务器上的一个或者多个partition的消息。每一个stream都对应一个单线程处理。因此，client能够设置满足自己需求的stream数目。总之，一个stream也许代表了多个服务器partion的消息的聚合，但是每一个partition都只能到一个stream。</p>
+
+<h2>四. consumer和partition</h2>
+
+<ol>
+<li>如果consumer比partition多，是浪费，因为kafka的设计是在一个partition上是不允许并发的，所以consumer数不要大于partition数</li>
+<li>如果consumer比partition少，一个consumer会对应于多个partitions，这里主要合理分配consumer数和partition数，否则会导致partition里面的数据被取的不均匀</li>
+<li>如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同</li>
+<li>增减consumer，broker，partition会导致rebalance，所以rebalance后consumer对应的partition会发生变化</li>
+<li>High-level接口中获取不到数据的时候是会block的</li>
+</ol>
+
+
+<p>负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该再开 Consumer 进程，进程内线程数同样和分区数一致。（多谢 @shadyxu 指出）</p>
+
+<h2>五. high-level的consumer工具</h2>
+
+<ol>
+<li><p>bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker &ndash;group pv</p>
+
+<p> 可以看到当前group offset的状况。</p></li>
+<li><p>bin/kafka-run-class.sh kafka.tools.UpdateOffsetsInZK earliest config/consumer.properties  page_visits</p>
+
+<pre><code> 3个参数， 
+ [earliest | latest]，表示将offset置到哪里 
+ consumer.properties ，这里是配置文件的路径 
+ topic，topic名，这里是page_visits
+</code></pre></li>
+</ol>
+
+
+<h2>六. SimpleConsumer</h2>
+
+<p>kafka的low-level接口，使用场景：</p>
+
+<ol>
+<li>读取一个消息多次。</li>
+<li>在一个进程中仅仅消费某一个topic中几个partition的数据.</li>
+<li>管理事务以确保一个消息处理且仅仅被处理一次。</li>
+</ol>
+
+
+<p>用这个接口需要注意一下几点：</p>
+
+<ol>
+<li>在应用中必须跟踪记录offset以确保能够确定上次消费到的位置。</li>
+<li>必须设置哪一个broker是要操作的topic和partition的leader。</li>
+<li>必须自己控制broker的leader的改变。</li>
+</ol>
+
+
+<p>使用步骤：</p>
+
+<ol>
+<li>找出一个active状态的broker并且找出哪一个broker是那些topic和partition的leader，必须知道读哪个topic的哪个partition。</li>
+<li>找到负责该partition的broker leader，从而找到存有该partition副本的那个broker。</li>
+<li>自己去写request并fetch数据。</li>
+<li>获取数据。</li>
+<li>需要识别和处理broker leader的改变。</li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[kafka学习笔记 - 使用与配置]]></title>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-usage/"/>
+    <updated>2015-05-30T21:01:18+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-usage</id>
+    <content type="html"><![CDATA[<h2>目录</h2>
+
+<ul>
+<li><a href="#%E4%B8%80.%20%E4%BD%BF%E7%94%A8">一. 使用</a></li>
+<li><a href="#%E4%BA%8C.%20%E5%85%B3%E9%94%AE%E9%85%8D%E7%BD%AE">二. 关键配置</a></li>
+<li><a href="#%E4%B8%89.%20Storm-kafka%E4%BD%BF%E7%94%A8">三. Storm-kafka使用</a></li>
+</ul>
+
+
+<p>本文一、二部分内容主要来自官方文档。</p>
+
+<h2><a name='一. 使用'></a>一. 使用</h2>
+
+<ol>
+<li><p>下载代码</p>
+
+<p> <a href="https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.2.0/kafka_2.10-0.8.2.0.tgz">https://www.apache.org/dyn/closer.cgi?path=/kafka/0.8.2.0/kafka_2.10-0.8.2.0.tgz</a></p>
+
+<pre><code> tar -xzf kafka_2.10-0.8.2.0.tgz
+ cd kafka_2.10-0.8.2.0
+</code></pre></li>
+<li><p>启动服务器</p>
+
+<p> kafka依赖zookeeper，所以需要首先安装并启动zookeeper。可以使用kafka自带的zookeeper。</p>
+
+<pre><code> bin/zookeeper-server-start.sh config/zookeeper.properties
+</code></pre>
+
+<p> 然后即可启动kafka</p>
+
+<pre><code> bin/kafka-server-start.sh config/server.properties
+</code></pre></li>
+<li><p>创建topic</p>
+
+<p> 消息传输需要指定topic。所以首先要创建一个topic。</p>
+
+<pre><code> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 1 --partitions 1 --topic test
+</code></pre>
+
+<p> 之后，可以看到已经创建的topic.其中的replication-factor指的是复制因子，即log冗余的份数，这里的数字不能大于broker的数量。</p>
+
+<pre><code> bin/kafka-topics.sh --list --zookeeper localhost:2181
+</code></pre>
+
+<p> 也可以不用手动创建topic，只需要配置broker的时候设置为auto-create topic when a non-existent topic is published to.</p></li>
+<li><p>发送消息</p>
+
+<p> kafka提供了一个命令行客户端，可以从一个文件或者标准输入里读取并发送到kafka集群。默认的，每一行都作为一个单独的消息。</p>
+
+<pre><code> bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test 
+</code></pre>
+
+<p> 在命令行输入消息并回车即可发送消息。</p></li>
+<li><p>启动一个消费者</p>
+
+<p> kafka也提供了一个命令行消费者，接受消息并打印到标准输出。</p>
+
+<pre><code> bin/kafka-console-consumer.sh --zookeeper localhost:2181 --topic test --from-beginning
+</code></pre></li>
+<li><p>设置多broker集群</p>
+
+<p> 首先需要为每一个broker创建一个配置文件。</p>
+
+<pre><code> cp config/server.properties config/server-1.properties 
+ cp config/server.properties config/server-2.properties
+
+ config/server-1.properties:
+     broker.id=1
+     port=9093
+     log.dirs=/tmp/kafka-logs-1
+
+ config/server-2.properties:
+     broker.id=2
+     port=9094
+     log.dirs=/tmp/kafka-logs-2  
+</code></pre>
+
+<p> 然后启动这两个结点：</p>
+
+<pre><code> bin/kafka-server-start.sh config/server-1.properties &amp;
+ bin/kafka-server-start.sh config/server-2.properties &amp;
+</code></pre>
+
+<p> 现在一共有了三个结点，三个broker，那么这样就可以形成一个集群。</p>
+
+<p> 创建一个复制引子为3的topic</p>
+
+<pre><code> bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor 3 --partitions 1 --topic my-replicated-topic
+</code></pre>
+
+<p> 如果想查看目前这个topic的partion在broker上的分布情况</p>
+
+<pre><code> bin/kafka-topics.sh --describe --zookeeper localhost:2181 --topic my-replicated-topic
+</code></pre></li>
+</ol>
+
+
+<h2><a name='二. 关键配置'></a>二. 关键配置</h2>
+
+<h3>2.1 broker</h3>
+
+<ul>
+<li>broker.id: broker的唯一标识符，集群环境该值不可重复。</li>
+<li>log.dirs: 一个用逗号分隔的目录列表，可以有多个，用来为Kafka存储数据。每当需要为一个新的partition分配一个目录时，会选择当前的存储partition最少的目录来存储。</li>
+<li>zookeeper.connect：zookeeper访问地址，多个地址用’,’隔开</li>
+<li>message.max.bytes: server能接收的一条消息的最大的大小。这个属性跟consumer使用的最大fetch大小是一致的，这很重要，否则一个不守规矩的producer会发送一个太大的消息。默认值：1000000。</li>
+</ul>
+
+
+<h3>2.2 producer</h3>
+
+<ul>
+<li>metadata.broker.list： kafka的broker列表，格式为host1:port1,host2:port2</li>
+<li>request.required.acks：用来控制一个produce请求怎样才能算完成，准确的说，是有多少broker必须已经提交数据到log文件，并向leader发送ack，可以设置如下的值：
+
+<ul>
+<li>0，意味着producer永远不会等待一个来自broker的ack，这就是0.7版本的行为。这个选项提供了最低的延迟，但是持久化的保证是最弱的，当server挂掉的时候会丢失一些数据。</li>
+<li>1，意味着在leader replication已经接收到数据后，producer会得到一个ack。这个选项提供了更好的持久性。</li>
+<li>-1，意味着在所有的ISR都接收到数据后，producer才得到一个ack。这个选项提供了最好的持久性，只要还有一个replication存活，那么数据就不会丢失。</li>
+</ul>
+</li>
+<li>producer.type：决定消息是否应在一个后台线程异步发送。async表示异步发送；sync表示同步发送。设置为async则允许批量发送请求，这回带来更高的吞吐量，但是client的机器挂了的话会丢失还没有发送的数据。</li>
+<li>serializer.class: 消息的序列化使用的class，如kafka.serializer.StringEncoder</li>
+</ul>
+
+
+<p>更多细节参见kafka.consumer.ProducerConfig类。</p>
+
+<h3>2.3 consumer</h3>
+
+<ul>
+<li>group.id: 唯一的指明了consumer的group的名字，group名一样的进程属于同一个consumer group。</li>
+<li>zookeeper.connect: 通broker的配置</li>
+<li>consumer.id：consumer的唯一标识符，如果没有设置的话则自动生成。</li>
+<li><strong><em>fetch.message.max.bytes</em></strong>：每一个获取某个topic的某个partition的请求，得到最大的字节数，每一个partition的要被读取的数据会加载入内存，所以这可以帮助控制consumer使用的内存。这个值的设置不能小于在server端设置的最大消息的字节数，否则producer可能会发送大于consumer可以获取的字节数限制的消息。默认值：1024 * 1024。</li>
+<li><strong><em>fetch.min.bytes</em></strong>：一个fetch请求最少要返回多少字节的数据，如果数据量比这个配置少，则会等待，直到有足够的数据为止。默认值：1。</li>
+<li><strong><em>fetch.wait.max.ms</em></strong>：在server回应fetch请求前，如果消息不足，就是说小于fetch.min.bytes时，server最多阻塞的时间。如果超时，消息将立即发送给consumer。默认值：100。</li>
+<li><strong><em>socket.receive.buffer.bytes</em></strong>: socket的receiver buffer的字节大小。默认值：64 * 1024。</li>
+</ul>
+
+
+<p>更多细节参见kafka.consumer.ConsumerConfig类。</p>
+
+<h2><a name='三. Storm-kafka使用'></a>三. Storm-kafka使用</h2>
+
+<p>Kafka很多使用场景是输出消息到Storm的，Storm本身也提供了storm-kafka的包，在使用Storm的KafkaSpout时需要注意以下几点：</p>
+
+<ul>
+<li><p>在采用基于SimpleConsumer的消费端实现时，我们遇到过一个情况是大量的轮询导致整个环境网络的流量异常，原因是该topic一直没有新消息，consumer端的轮询没有设置等待参数，也没有在client线程里判断进行一个短暂的sleep。几乎是以死循环的方式不断跟server端通讯，尽管每次的数据包很小，但只要有几个这样的消费端足以引起网络流量的异常。这里需要设置maxWait参数，但是此参数必须与minBytes配合使用才有效。但是在storm-kafka的KafkaUtils中的fetchMessages方法中对minBytes没有设置，因此即使设置了maxWait也没有效果。这里需要自己重写KafkaUtils来解决。</p>
+
+<pre><code>  FetchRequest fetchRequest = builder.addFetch(topic, partitionId, offset, config.fetchSizeBytes).                    clientId(config.clientId).maxWait(config.fetchMaxWait).minBytes(1).build(); // 此处是修复了原来代码里没有设置minBytes
+</code></pre></li>
+<li><p>修复了上述问题后，后来还是遇到网络流量异常的情况，后来在追踪KafkaSpout源码的过程中，发现当kafka中的消息过大时，如果不设置合适的bufferSizeBytes以及fetchSizeBytes(至少要大于kafka中最大消息的大小)，那么很容易造成客户端由于bufferSizeBytes或者fetchSize设置过小，无法将消息放入buffer中也不能成功fetch而不停地去轮询服务端，从而导致网络流量异常。</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[kafka学习笔记 - 介绍]]></title>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-intro/"/>
+    <updated>2015-05-30T20:06:18+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-intro</id>
+    <content type="html"><![CDATA[<h2>什么是kafka</h2>
+
+<p>最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说：Kafka是一个分布式、分区、冗余的commit日志service。它提供了一种特殊设计的消息系统功能。</p>
+
+<!--more-->
+
+
+<p>以下内容来自官方文档。</p>
+
+<h2>特点</h2>
+
+<ul>
+<li>不支持事务</li>
+<li>不保证全局消息顺序，可以保证partition消息顺序</li>
+<li>顺序写磁盘，性能可媲美内存操作</li>
+<li>无论消息是否被消费，都会持久化保存（保存时间可以设置）</li>
+<li>消费者看到的消息顺序即是保存在log中的顺序</li>
+<li>对于一个复制因子(replication factor)为N的topic,可以保证在N-1个server挂掉的情况下，已经提交到log中的消息不会丢失。</li>
+</ul>
+
+
+<h2>组成部分</h2>
+
+<p>总体结构如下图：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/producer_consumer.png" alt="" />p</p>
+
+<ul>
+<li>kafka将消息以category的方式保存在一起，称为topic</li>
+<li>向topic产生消息的进程称为producer</li>
+<li>处理topic上的消息的进程称为consumer</li>
+<li>kafka集群由一个或者多个server组成，称为broker.</li>
+</ul>
+
+
+<h3>Topics and Logs</h3>
+
+<p>topic是kafka提供的高一层的抽象。</p>
+
+<p>一个topic指的是消息发布到的一个分类或者feed名称。对于每一个topic，kafka集群都保存了一个分区log，如下：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/log_anatomy.png" alt="" /></p>
+
+<p>每一个分区都是一个提交日志，一系列有序的、不可变顺序的消息连续地追加到上面。</p>
+
+<p>每一个在分区中的消息都会被指定一个顺序编号offset，这个值可以唯一标识这个分区中的每一个消息。</p>
+
+<p>无论一个消息是否已经被消费过，kfka集群都会保存这个消息（保存时间可以设置）。例如，如果log的保存时长设置为两天，那么在一个消息发布后的两天内都是可以被消费的，之后才被丢弃。kafaka在数据容量方面的性能实际上是可以用常量衡量的，所以保存大量的数据并不是一个问题。</p>
+
+<p>对于每一个消费者来说，其仅仅需要保存的元数据就是在kafka日志的位置，称为“offset”。消费者控制这个值：一般情况下，当消费者读取消息的时候，增加offset，但是实际上消费者可以任意顺序读取消息。例如，消费者能够重置到一个旧的offset做再次处理。</p>
+
+<p>上面说到的一些特性表明kafka的消费者是非常轻量级的，并不受到集群或者其他消费者的影响。例如，可以使用命令行工具去“tail”任何topic的内容，而不需要改变任何已经被消费过的内容。</p>
+
+<p>日志中的partition有以下几个作用：</p>
+
+<ul>
+<li>日志可以在单个服务器上扩展。虽然单个partition的扩展必须适应于所在的服务器，但是一个topic有许多partition，因此能够承载大量的数据。</li>
+<li>partition作为并行的一个单元</li>
+</ul>
+
+
+<h3>分布式</h3>
+
+<p>日志的partition分布在kafka集群的服务器上，其中的每一个服务器都控制一组分区上的数据和请求。每一个分区通过一定数量的服务器的冗余提高容错率。</p>
+
+<p>每一个partition都有一个服务器作为&#8221;leader&#8221;，零个或者多个服务器作为“followers”。对于某一个partition,Leader控制所有的读写请求，followers被动地去冗余leader。如果leader发生了故障，那么followers中的一个会自动地成为新的leader。每一个服务器对于其中的一部分partition是做为leader,对于其他的partition则是做为follower，这样就能很好的在集群内部做好负载均衡。</p>
+
+<h3>生产者</h3>
+
+<p>生产者向所选择的topics发布消息。生产者负责选择哪一个消息被指定到topic的哪一个partition中。这个也可以通过round-robin简单地做负载均衡或者按照一些语义分区机制（例如基于消息中的一些key）来做。</p>
+
+<h3>消费者</h3>
+
+<p>传统的消息机制有两种模型：队列和发布-订阅。在队列模型中，一个由消费者组成的池从服务器读取消息，每一个消息都可以达到其中的某一个消费者；在发布-订阅模型中，消息被广播到所有消费者中。kafka融合这两种方式提供了一个消费者抽象：consumer group。</p>
+
+<p>消费者以消费者group name给自己打标签，每一个消息都会发布到一个topic，然后传递到每一个注册的消费者group中的消费者实例。消费者实例可以在单独的进程或者机器上。</p>
+
+<p>如果所有的消费者实例都在同一个消费者group中，那么工作机制就类似于传统的队列。</p>
+
+<p>如果每一个消费者实例都在不同的消费者group中，那么就类似于发布-订阅模型，所有消息被广播到所有消费者。</p>
+
+<p>更为普遍的，topic具有几个消费者group。每一个group由许多消费者实例组成，以备扩展和容错。比起发布-订阅模型，用消费者cluster替代了单一进程。</p>
+
+<p>在消息顺序方面，kafka也具有比传统的消息系统更好的保障机制。</p>
+
+<p>传统的队列在服务端保存消息的顺序，服务端按照存储的顺序传递消息，多consumer去消费这些消息。然而，即使服务端按照顺序交出消息，但是消息是异步传递给消费者的，那么这些消息可能乱序到达不同的消费者。这也意味着消息的顺序在并发消费的情况下丢失了。消息系统通常用一个概念“执行消费者”来完成消息的顺序传递，即只允许一个进程从一个队列中消费消息，当然这样也意味着在处理过程中没有了并行化处理。</p>
+
+<p>kafka里有一个概念叫做parallelism—the partition—within the topics，能够同时为一个consume池提供顺序保证和负载均衡。指定分区到一个消费者group中的消费者，这样每一个分区只被这个group中的一个consumer消费。此consumer则成为这个分区唯一的reader去顺序消费这些数据。当有许多partitions，这样也能同时将这些consumer实例进行负载均衡。值得注意的一点是不能有比分区数目更多的消费者实例。</p>
+
+<p>kafa仅仅能够提供一个partition中的消息顺序保证。如果你需要一个完全的消息顺序保障，那么可以通过仅仅具有一个partition的topic来实现，当然，这样就意味着这里仅仅有一个消费者进程。</p>
+
+<h3>保证</h3>
+
+<p>kafka在高层次上可以给予以下保障：</p>
+
+<ul>
+<li>通过同一个生产者发出到某个topic上partition的消息将会以其原始发送顺序附加到partition上。</li>
+<li>一个消费者实例看到消息的顺序即其在log中的顺序。</li>
+<li>对于一个复制引子为N的topic，其可以允许N-1个服务器故障而不丢失任何已经提交到log中的消息。</li>
+</ul>
+
+
+<h3>使用场景</h3>
+
+<ol>
+<li><p>消息传输</p>
+
+<p> kafka能够很好地替代传统的消息代理。消息代理的使用场景多种多样（缓冲消息生产者的消息）。相比大多数消息系统kafka具有更好地吞吐量，内建的分区机制、复制、容错，这让它成为一个大规模消息处理的不错的选择。</p>
+
+<p> 消息系统使用者一般要求的是低吞吐，但是同时也要求端对端的低延迟。</p>
+
+<p> 这个场景下，另外经常用到的传统消息系统有ACtiveMQ和RabbitMQ。</p></li>
+<li><p>网站行为追踪</p>
+
+<p> 最开始kafka是用来构建一个用户行为追踪管道，作为一个实时发布-订阅feed系统。这意味着站点活动（pv，搜索或者其他用户会产生的行为）会被发布到中央topics，对应于每一中行为对应一个topic。如此，可以包括多种使用场景包括实时处理、实时监控等。</p>
+
+<p> 由于对于每一个uv会产生大量行为消息，因此行为追踪的量级通常会非常大。</p></li>
+<li><p>度量</p>
+
+<p> kafka通常被用来操作监控数据。包括聚合分布式应用的统计数据，产生操作数据的中心feed。</p></li>
+<li><p>日志聚合</p>
+
+<p> 日志聚合也叫做日志分布式收集，同样的方案有flume、scribe等。与之相比，kafka提供了差不多的性能、更强的可持续保证以及更低的端到端的延迟。</p></li>
+<li><p>流处理</p>
+
+<p> 在用户、内容推荐领域，需要对数据流进行处理，kakfa经常被用来聚合、收集原始数据然后传输到新的topic中。一般结合storm和samza使用。</p></li>
+<li><p>事件源</p>
+
+<p> 事件源是一种针对策略变动的记录作为时间序记录的应用设计。kafka对大规模log数据存储的支持使得它能够非常好支持事件源的设计。</p></li>
+<li><p>提交日志</p>
+
+<p> kakfa可以为分布式系统提供一种外部的提交日志。日志可以冗余结点间、act间的数据，作为一个re-syncing机制。此外，kafka的日志压缩也是一个优势。此场景，kafka的使用和Apache的BookKeeper类似。</p></li>
+</ol>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[关于Spring mvc中model的attribute无法指定别名的解决方案]]></title>
+    <link href="http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias/"/>
+    <updated>2015-01-21T12:00:00+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias</id>
+    <content type="html"><![CDATA[<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+
+<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
+
+<p><strong>Controller</strong>:</p>
+
+<pre>
+@Controller
+@RequestMapping("/api")
+public class ApiController extends BaseController {
+
+    @RequestMapping(value = "/test", headers = "Accept=application/json")
+    public void authUser(ModelMap modelMap, Account acc) {
+        ResultPack.packOk(modelMap);
+    }
+}
+
+public class Account{
+    private static final long serialVersionUID = 750752375611621980L;
+
+    private long id;
+    private String userName;
+    private String password;
+    private AccountType type = AccountType.ADMIN;
+    private long timeTag;
+    private int status = 1;
+    ...
+    ...
+}
+</pre>
+
+
+<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
+
+<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
+
+<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[工作总结@2014]]></title>
+    <link href="http://www.rowkey.me/blog/2015/01/15/2014-final-note/"/>
+    <updated>2015-01-15T16:08:48+08:00</updated>
+    <id>http://www.rowkey.me/blog/2015/01/15/2014-final-note</id>
+    <content type="html"><![CDATA[<p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
+
+<p>对自己来说，今年最大的事情莫过于离开一座城市，到达另一座城市，开始了新的职业生涯。</p>
+
+<p>进入新的公司，一个创业公司，截然不同的运作方式让我一开始有点措手不及。相比之前在大公司，小公司更需要一个人的快速成长以及自我约束，以及那种随叫随到、不怕脏累的奋斗精神。而技术层面，要尽最大化压榨硬件资源，用有限的硬件资源达到最大的性能。这些都让自己的架构方式和代码编写不得不去改变、去适应，这也算是一种成长吧。公司的基础架构、公共组件、项目管理、技术体系、项目架构都是一个初级的水平，改变这些是一个很难很长的路，但又不得不做。到现在，在做这些改变的过程中，自己的基础知识得到了巩固、架构能力也有了一定的提升，技术视野也开阔了一些。熟悉了公司的流程和整体的氛围，也算融入了这个团队，要做的还有很多，阻力也有很多。一切都在逼迫自己去学习、去思考、去提高。这也是与以前相比，给自己最大动力的事情。</p>
+
+<p>2015年，工作上希望自己能做到这些</p>
+
+<ul>
+<li>合理设计并实现整个公司的基础架构</li>
+<li>构建合理的项目管理流程、监督机制</li>
+<li>提升团队的整体水平</li>
+<li>保证产品的研发进度以及线上稳定性</li>
+<li>招一些优秀的人加入</li>
+</ul>
+
+
+<p>自身方面，希望能做到这些：</p>
+
+<ul>
+<li>提升自身的技术水平和视野</li>
+<li>深入学习一门技术：docker netty kafka rabbitmq elasticsearch solr</li>
+<li>阅读至少五本非技术书籍</li>
+</ul>
+
+
+<p>Stay hungry,stay foolish!</p>
+]]></content>
+  </entry>
+  
+</feed>
