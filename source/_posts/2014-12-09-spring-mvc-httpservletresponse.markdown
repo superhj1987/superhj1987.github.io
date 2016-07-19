@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "SpringMvc的controller传递HttpServletResponse参数的那点事"
+title: "SpringMVC的controller传递HttpServletResponse参数的那点事"
 date: 2014-12-09 10:05:41 +0800
 comments: true
 categories: spring
