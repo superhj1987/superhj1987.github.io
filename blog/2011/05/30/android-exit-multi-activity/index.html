@@ -1,0 +1,414 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>多activity中退出整个程序 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="多activity中退出整个程序 May 30th, 2011 Posted by 飒然Hang in android, java 问题 多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。 网上资料 finish()和system(0) &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2011/05/30/android-exit-multi-activity/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+    display: none !important
+  }
+  div#ujian_BtnDiv{
+    display: none !important
+  }
+</style>
+<!-- cnzz统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="about-nav" href="/about_me.html">关于我</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">多activity中退出整个程序</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-30T21:39:34+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2011</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/android/'>android</a>, <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><h2>问题</h2>
+
+<p>多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。</p>
+
+<h2>网上资料</h2>
+
+<p>finish()和system(0)都只能退出单个activity。杀进程等的等方式都不行~~~</p>
+
+<h2>解决问题</h2>
+
+<p>我们知道Android的窗口类提供了历史栈，我们可以通过stack的原理来巧妙的实现，这里我们在D窗口打开A窗口时在Intent中直接加入标志Intent.FLAG_ACTIVITY_CLEAR_TOP，再次开启A时将会清除该进程空间的所有Activity。</p>
+
+<p>在D中使用下面的代码:</p>
+
+<pre>
+Intent intent = new Intent(); 
+intent.setClass(D.this, A.class);
+intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  //注意本行的FLAG设置
+startActivity(intent);
+finish();//关掉自己
+</pre>
+
+
+<p>在A中加入代码：</p>
+
+<pre>
+@Override
+protected void onNewIntent(Intent intent) {
+// TODO Auto-generated method stub
+super.onNewIntent(intent);
+//退出
+        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
+finish();
+}
+}
+</pre>
+
+
+<p>A的Manifest.xml配置成android:launchMode=&ldquo;singleTop&rdquo;</p>
+
+<h2>原理总结</h2>
+
+<p>一般A是程序的入口点，从D起一个A的activity，加入标识Intent.FLAG_ACTIVITY_CLEAR_TOP这个过程中会把栈中B，C，都清理掉。因为A是android:launchMode=&ldquo;singleTop&rdquo;
+不会调用oncreate(),而是响应onNewIntent（）这时候判断Intent.FLAG_ACTIVITY_CLEAR_TOP，然后把A finish（）掉。
+栈中A,B,C,D全部被清理。所以整个程序退出了。</p>
+</div>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+
+     <!-- 多说分享 start-->
+<div class="ds-share flat" data-title="多activity中退出整个程序 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2011/05/30/android-exit-multi-activity/" data-content="问题 多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。 网上资料 finish()和system(0)都只能退出单个activity。杀进程等的等方式都不行~~~ 解决问题 我们知道Android的窗口类提供了历史栈， &hellip;">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+<!-- 多说分享 end-->
+ 
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2011/08/05/android-dip-sp/" title="上一篇: 多activity中退出整个程序">&laquo; 多activity中退出整个程序 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2010/12/18/android-bitmap/" title="下一篇: Android位图总结">Android位图总结 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<!-- 多说评论框 start -->
+<a name="ds-thread"></a>
+<div class="ds-thread" data-thread-key="/blog/2011/05/30/android-exit-multi-activity/" data-title="多activity中退出整个程序"></div>
+<!-- 多说评论框 end -->
+
+
+ 
+     <!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+ 
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/19/java-tips/">Java开发的几个注意点</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/04/07/up-recommend/">基于内容和用户画像的个性化推荐</a>
+      	</li>
+    	
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最热文章</h3>
+	<ul class="widget-list">
+	<!-- 多说热评文章 start -->
+	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+	<!-- 多说热评文章 end -->
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最新评论</h3>
+	<!-- 多说最新评论 start -->
+	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+<!-- 多说最新评论 end -->
+</section>
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+		<li><a href="http://coolshell.cn/" target="_blank">酷壳-CoolShell.cn</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2016 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+</script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

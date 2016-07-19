@@ -1,0 +1,467 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Android位图总结 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="Android位图总结 Dec 18th, 2010 Posted by 飒然Hang in android, java 由于项目中牵扯到了对位图(android.graphics.Bitmap)的操作，于是对照Android的参考文档详细地研究了一下Android提供的位图相关功能。 一、 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2010/12/18/android-bitmap/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+    display: none !important
+  }
+  div#ujian_BtnDiv{
+    display: none !important
+  }
+</style>
+<!-- cnzz统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="about-nav" href="/about_me.html">关于我</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">Android位图总结</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-12-18T21:39:34+08:00" pubdate data-updated="true">Dec 18<sup>th</sup>, 2010</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/android/'>android</a>, <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>由于项目中牵扯到了对位图(android.graphics.Bitmap)的操作，于是对照Android的参考文档详细地研究了一下Android提供的位图相关功能。</p>
+
+<h2>一、对位图的获取</h2>
+
+<p>在Android的SDK中提供了一个BitmapFactory 类。采用此类的几个方法能够从一个文件路径或者输入流中得到位图。</p>
+
+<ul>
+<li>包：android.graphics</li>
+<li>类：BitmapFactory</li>
+<li>Android SDK中的简介：Creates Bitmap objects from various sources, including files, streams, and byte-arrays.</li>
+</ul>
+
+
+<p>此类其提供了以下方法来获取Bitmap，这些方法都是静态的:</p>
+
+<ol>
+<li>decodeByteArray(byte[] data, int offset, int length)从一个字节数组中得到数据转换为位图。</li>
+<li>decodeFile(String pathName)由一个图像文件路径的得到位图（支持jpg、png、bmp格式）</li>
+<li>decodeFileDescriptor(FileDescriptor fd)由一个文件描述符得到位图。</li>
+<li>decodeResource(Resources res, int id)由资源ID获取位图</li>
+<li>decodeStream(InputStream is)由图片输入流获取位图。
+这里，由于Android系统本身对apk程序的限制，当加载大图片时会产生OutOfMemoryError。可以采取两种办法解决：
+
+<ul>
+<li>先使用android.provider.MediaStore.Images.Media类的query(ContentResolver cr, Uri uri, String[] projection, String where, String orderBy)方法获得对应的图片所对应的id，然后使用android.provider.MediaStore.Images.Thumbnails类的queryMiniThumbnail(ContentResolver cr, long origId, int kind, String[] projection)获得图片对应的缩略图的路径，再使用BitmapFactory的decodeFile(String pathname)获取到图片的缩略图，这样即可避免内存溢出的发生。</li>
+<li>采取压缩图片的方法对图片进行压缩。这里主要还是使用BitmapFactory类，对于上面提到过的能够获取位图的几个方法，都对应着另一个多了一个参数的方法，例如decodeFile(String pathName)对应着decodeFile(String pathName, BitmapFactory.Options opts)这个方法，其他的可查阅参考文档。其中，通过引入opts这个参数，对其进行相关的设置，最后能得到一个被压缩的图片。</li>
+</ul>
+</li>
+</ol>
+
+
+<h2>二、对位图信息的获取</h2>
+
+<p>要获取位图信息，比如位图大小、是否包含透明度、颜色格式等，获取得到Bitmap就迎刃而解了，这些信息在Bitmap的函数中可以轻松获取到。</p>
+
+<p>Android SDK中对Bitmap有详细说明，这里辅助说明以下2点：</p>
+
+<ol>
+<li>在Bitmap中对RGB颜色格式使用Bitmap.Config定义，仅包括ALPHA_8、ARGB_4444、ARGB_8888、RGB_565，缺少了一些其他的，比如说RGB_555，在开发中可能需要注意这个小问题；</li>
+<li>Bitmap还提供了compress()接口来压缩图片，不过Android SDK只支持PNG、JPG格式的压缩；其他格式的需要Android开发人员自己补充了。</li>
+</ol>
+
+
+<h2>三、位图的显示</h2>
+
+<p>位图的显示，一般可以在界面中放置ImageView控件，然后调用android.widget.ImageView类的setImageBitmap(Bitmap bm)方法将位图显示出来。另外，可以使用核心类android.graphics.Canvas的drawBirmap()方法显示位图，或者借助于BitmapDrawable来将Bitmap绘制到Canvas。</p>
+
+<h2>四、位图的缩放</h2>
+
+<p>位图的缩放，在Android SDK中提供了2种方法：</p>
+
+<ol>
+<li>将一个位图按照需求重画一遍，画后的位图就是我们需要的了，与位图的显示几乎一样：drawBitmap(Bitmap bitmap, Rect src, Rect dst, Paint paint)</li>
+<li>在原有位图的基础上，缩放原位图，创建一个新的位图： createBitmap(Bitmap source, int x, int y, int width, int height, Matrix m, boolean filter)
+归结到底，位图缩放的本质就是将原始位图按照需求显示出来，创造一张新的位图。</li>
+</ol>
+
+
+<h2>五、位图的旋转</h2>
+
+<p>位图的旋转，离不开Matrix。Matrix在线性代数中都学习过，Android SDK提供了Matrix类，可以通过各种接口来设置矩阵。例子如下“</p>
+
+<pre>
+Matrix matrix = new Matrix();matrix.setRotate(90,120,130);canvas.drawBitmap(mbmpTest, matrix, mPaint);
+</pre>
+
+
+<p>除了这种方法之外，我们也可以在使用Bitmap提供的函数如下：</p>
+
+<pre>
+public static Bitmap createBitmap (Bitmap source, int x, int y, int width, int height, Matrix m, boolean filter)
+</pre>
+
+
+<p>在原有位图旋转的基础上，创建新位图。</p>
+
+<h2>六、位图的截取</h2>
+
+<p>对于位图的规则形状如矩形的截取，很容易通过Matrix进行实现。例子如下：</p>
+
+<pre>
+Bitmap croppedImage;
+// 取得裁剪的矩形
+Rect r = mCrop.getCropRect(); 
+if(r == null) return;
+int width = r.width();
+int height = r.height();
+// 生成裁剪的图片
+croppedImage = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+Canvas canvas = new Canvas(croppedImage);
+Rect dstRect = new Rect(0, 0, width, height);
+canvas.drawBitmap(mBitmap, r, dstRect, null);
+</pre>
+
+
+<p>而对于位图的不规则形状的截取，找不到很好的解决办法。曾想过直接对像素进行操作，最终因为算法的的复杂而放弃。一次偶然的机会，在阅读一篇博文时，我发现了使用android.graphics.Canvas的clipPath方法不仅仅可以达到高亮显示路径的目的，也能够达到任意形状截取图片的目的，从而解决了此问题。</p>
+
+<p>以上就是对Android的位图功能进行的总结，以及一些自己实践中得出的想法和结论。更深入的内容需要仔细地去阅读研究Android SDK文档并付之于实践。</p>
+</div>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+
+     <!-- 多说分享 start-->
+<div class="ds-share flat" data-title="Android位图总结 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2010/12/18/android-bitmap/" data-content="由于项目中牵扯到了对位图(android.graphics.Bitmap)的操作，于是对照Android的参考文档详细地研究了一下Android提供的位图相关功能。 一、对位图的获取 在Android的SDK中提供了一个BitmapFactory 类。 &hellip;">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+<!-- 多说分享 end-->
+ 
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2011/05/30/android-exit-multi-activity/" title="上一篇: 多activity中退出整个程序">&laquo; 多activity中退出整个程序 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2010/07/13/java-notes/" title="下一篇: Java学习笔记">Java学习笔记 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<!-- 多说评论框 start -->
+<a name="ds-thread"></a>
+<div class="ds-thread" data-thread-key="/blog/2010/12/18/android-bitmap/" data-title="Android位图总结"></div>
+<!-- 多说评论框 end -->
+
+
+ 
+     <!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+ 
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/19/java-tips/">Java开发的几个注意点</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/04/07/up-recommend/">基于内容和用户画像的个性化推荐</a>
+      	</li>
+    	
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最热文章</h3>
+	<ul class="widget-list">
+	<!-- 多说热评文章 start -->
+	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+	<!-- 多说热评文章 end -->
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最新评论</h3>
+	<!-- 多说最新评论 start -->
+	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+<!-- 多说最新评论 end -->
+</section>
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+		<li><a href="http://coolshell.cn/" target="_blank">酷壳-CoolShell.cn</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2016 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+</script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>关于terracotta在tomcat集群中做session共享的问题 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="关于terracotta在tomcat集群中做session共享的问题 Aug 15th, 2012 Posted by 飒然Hang in devops 手头上的一个项目“陕西省专业技术人员继续教育学习与管理平台”是服务于全陕西省130万专技人员的高并发且事务逻辑较复杂的一个系统， &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2012/08/15/terrocota/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+    display: none !important
+  }
+  div#ujian_BtnDiv{
+    display: none !important
+  }
+</style>
+<!-- cnzz统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="about-nav" href="/about_me.html">关于我</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">关于terracotta在tomcat集群中做session共享的问题</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-15T21:39:34+08:00" pubdate data-updated="true">Aug 15<sup>th</sup>, 2012</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/devops/'>devops</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>手头上的一个项目“陕西省专业技术人员继续教育学习与管理平台”是服务于全陕西省130万专技人员的高并发且事务逻辑较复杂的一个系统，不管是编码上还是系统架构部署上都具有一定的挑战性。在考虑了现有设备以及系统负载的基础上，整个系统架构采用了六台服务器，分别是：WEB门户服务器（WEB门户+Oracle数据库）、学习管理平台服务器、系统核心数据库、资源下载服务器、在线点播服务器、数据库备份服务器。</p>
+
+<p>系统运行了数月，WEB门户采用的apache+mod_jk+memcached+4tomcat能够正常应付目前的访问。管理学习系统虽然由于一些在线课程还未上线，最大的并发还未开始，但目前课程文件的上传、人员的表单录入等对服务器的造成的负载经常使服务器响应缓慢甚至不响应。考虑到开始采用的nginx+4tomcat+ip_hash，ip_hash本身策略的缺陷使负载不能很好地均衡，于是使用memcached做集群的session共享。此时出现了一个到现在还让我搞不清楚的现象：系统session中存入一些timestamp的Date对象，读取的时候，竟然会读成UNIX原始时间戳。一直没办法解决这个问题，只能采用ip_hash的方式运行着，一旦出现服务器不响应的情况就重启tomcat。</p>
+
+<p>这几天上网查资料的时候，发现terracotta可以做tomcat集群的session共享，由于其是jvm级别的cluster解决方案且采用find-gained changes机制，因此在性能要优于memcached，关键是其是jvm堆级别的复制，储存任何值都没任何问题。按照官网的说明把所有东西都配置好了，却发现session无法正常共享。写了个测试的jsp，打印出session id，单独访问某一个tomcat，发现id在不停的换，我一开始怀疑是terracotta没安好的问题，就又重装了一遍，问题依旧。这时突然发现在IE下session是正常的，其他浏览器下session就不正常，总是不停地换，按说没有关闭浏览器是不会重新生成session的。使用fiddler来检测请求和响应的header，发现一个奇怪的问题，chrome请求一个页面时比使用IE时，多了一个对/favicon.ico的请求，而这个请求得到的响应(404)中会产生新的session id使session发生变化。（什么原因，怎么解释？）在网站的根目录下上传一个favicon.ico即可解决此问题。为了证实是favicon.ico不存在造成的问题，我在页面中请求了一个不存在的js文件，结果session id又开始不停地变。把所有不存在的文件的引用都删掉能够解决此问题，但是在没有使用terracotta前根本不存在此问题，我猜想是不是terraccota在检测到404错误的时候，就会重新生成session的缘故啊。查了一下tomcat的文档，发现context有个属性sessionCookiePath，尝试着把这个值设置为了&#8221;/&ldquo;，结果一切正常了，即使再有404错误，session也不会再变了。这是为什么？在文档中对sessionCookiePath的解释是：</p>
+
+<pre>
+The path to be used for all session cookies created for this context. If set, this overrides any path set by the web application. If not set, the value specified by the web application will be used, or the context path used if the web application does not explicitly set one. To configure all web application to use an empty path (this can be useful for portlet specification implementations) set this attribute to / in the global CATALINA_BASE/conf/context.xml file.
+</pre>
+
+
+<p>不指定此值的时候，是使用的web app中的或者是直接使用context path。我猜测terracotta是接受了此值，但在处理404资源的时候，这个path无法识别，故以为是新的一个会话，造成session改变的缘故。</p>
+
+<p>不管咋样，暂且算是解决了此问题，原因也是猜测的。有空得看一下terracotta的源代码，看看究竟是什么原因造成的。</p>
+
+<p>其实这个项目在部署运行中，出现过各种问题，因此也做过很多架构的变动。到目前还是不能让人满意，只能在后续的维护中继续改进了。</p>
+</div>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+
+     <!-- 多说分享 start-->
+<div class="ds-share flat" data-title="关于terracotta在tomcat集群中做session共享的问题 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2012/08/15/terrocota/" data-content="手头上的一个项目“陕西省专业技术人员继续教育学习与管理平台”是服务于全陕西省130万专技人员的高并发且事务逻辑较复杂的一个系统，不管是编码上还是系统架构部署上都具有一定的挑战性。在考虑了现有设备以及系统负载的基础上，整个系统架构采用了六台服务器，分别是：WEB门户服务器（WEB门户+ &hellip;">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+<!-- 多说分享 end-->
+ 
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2012/11/17/seven-language/" title="上一篇: 《七周七语言》读后感">&laquo; 《七周七语言》读后感 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2011/08/05/android-dip-sp/" title="下一篇: 多activity中退出整个程序">多activity中退出整个程序 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<!-- 多说评论框 start -->
+<a name="ds-thread"></a>
+<div class="ds-thread" data-thread-key="/blog/2012/08/15/terrocota/" data-title="关于terracotta在tomcat集群中做session共享的问题"></div>
+<!-- 多说评论框 end -->
+
+
+ 
+     <!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+ 
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/19/java-tips/">Java开发的几个注意点</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/04/07/up-recommend/">基于内容和用户画像的个性化推荐</a>
+      	</li>
+    	
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最热文章</h3>
+	<ul class="widget-list">
+	<!-- 多说热评文章 start -->
+	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+	<!-- 多说热评文章 end -->
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最新评论</h3>
+	<!-- 多说最新评论 start -->
+	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+<!-- 多说最新评论 end -->
+</section>
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+		<li><a href="http://coolshell.cn/" target="_blank">酷壳-CoolShell.cn</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2016 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+</script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
