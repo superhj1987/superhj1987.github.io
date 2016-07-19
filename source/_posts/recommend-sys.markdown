@@ -1,4 +1,10 @@
-# 推荐系统杂谈
+---
+layout: post
+title: "推荐系统杂谈"
+date: 2016-07-19 20:39:34 +0800
+comments: true
+categories: data-mining
+---
 
 推荐系统的一些普遍性目标如下：
 

@@ -1,4 +1,10 @@
-# 对Nginx的一点思考
+---
+layout: post
+title: "如何设计一个Web服务器-对Nginx的一点思考"
+date: 2016-07-19 20:39:34 +0800
+comments: true
+categories: 
+---
 
 从去年开始就一直在看nginx的源代码。随着对nginx代码的深入，逐渐领略到了其实现的精巧之处。不得不赞叹的确是一个大师级的作品。
 
