@@ -6,13 +6,13 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>多activity中退出整个程序 - 后端技术杂谈 | 飒然Hang</title>
+  <title>Android中dip、dp、sp、pt和px的区别 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="多activity中退出整个程序 Aug 5th, 2011 Posted by 飒然Hang in android, java dip: device independent pixels(设备独立像素). 不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、 &hellip;">
+  <meta name="description" content="Android中dip、dp、sp、pt和px的区别 Aug 5th, 2011 Posted by 飒然Hang in android Android有以下几个度量单位： dip: device independent pixels(设备独立像素). 不同设备有不同的显示效果, &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -92,7 +92,7 @@
   
   <header>
     
-      <h1 class="post-title">多activity中退出整个程序</h1>
+      <h1 class="post-title">Android中dip、dp、sp、pt和px的区别</h1>
     
     
       <p class="post-meta">
@@ -118,7 +118,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/android/'>android</a>, <a class='category' href='/blog/categories/java/'>java</a>
+    <a class='category' href='/blog/categories/android/'>android</a>
   
 </span>
 
@@ -129,7 +129,9 @@
   </header>
 
 
-<div class="post-content"><ul>
+<div class="post-content"><p>Android有以下几个度量单位：</p>
+
+<ul>
 <li><p> dip: device independent pixels(设备独立像素). 不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。</p></li>
 <li><p> px: pixels(像素). 不同设备显示效果相同，一般我们HVGA代表320x480像素，这个用的比较多。</p></li>
 <li><p> pt: point，是一个标准的长度单位，1pt＝1/72英寸，用于印刷业，非常简单易用；</p></li>
@@ -137,9 +139,7 @@
 </ul>
 
 
-<p>   由此，根据 google 的建议，TextView 的字号最好使用 sp 做单位，而且查看TextView的源码可知Android默认使用sp作为字号单位。</p>
-
-<h6>#</h6>
+<p>由此，根据 google 的建议，TextView 的字号最好使用 sp 做单位，而且查看TextView的源码可知Android默认使用sp作为字号单位。</p>
 
 <p>关于换算（以 sp 和 pt 为例）
 查看　TextView 等类的源码，可知：</p>
@@ -207,7 +207,7 @@ x = 160 / 72 = 2.2222
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="多activity中退出整个程序 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2011/08/05/android-dip-sp/" data-content="dip: device independent pixels(设备独立像素). 不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。 px: pixels(像素). 不同设备显示效果相同，一般我们HVGA代表320x480像素， &hellip;">
+<div class="ds-share flat" data-title="Android中dip、dp、sp、pt和px的区别 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2011/08/05/android-dip-sp/" data-content="Android有以下几个度量单位： dip: device independent pixels(设备独立像素). 不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。 px: pixels(像素). 不同设备显示效果相同， &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
@@ -240,7 +240,7 @@ x = 160 / 72 = 2.2222
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2011/08/05/android-dip-sp/" data-title="多activity中退出整个程序"></div>
+<div class="ds-thread" data-thread-key="/blog/2011/08/05/android-dip-sp/" data-title="Android中dip、dp、sp、pt和px的区别"></div>
 <!-- 多说评论框 end -->
 
 
