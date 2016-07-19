@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-07-11T22:08:17+08:00</updated>
+  <updated>2016-07-19T17:38:43+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -342,6 +342,8 @@
     <updated>2016-06-17T22:59:44+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/06/17/java-skill-tree</id>
     <content type="html"><![CDATA[<p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
+
+<p><strong>PS</strong>: 有同学指出tomcat不是web server是servlet容器，这一点图中的确不够严谨，因此更新了此技能树。其实tomcat引入了apr之后也是能够作为web server的(其实目前绝大多servlet容器都同时提供了web容器的功能，只是性能不好而已)，当然应用还不够广泛。目前，nginx+tomcat还是普遍的七层负载均衡构建集群的方案。此外，这里还牵扯到了servlet容器和应用服务器的一个区别，为什么tomcat只是servlet容器而不叫JavaEE应用服务器呢？这一点大家可以通过此链接了解一下:<a href="http://www.cnblogs.com/maydow/p/4821249.html">http://www.cnblogs.com/maydow/p/4821249.html</a>。当然，对于互联网领域目前的Java后端体系，weblogic、webspher这些应用服务器基本绝迹，因此并没有写在此技能树中。</p>
 
 <!--more-->
 
