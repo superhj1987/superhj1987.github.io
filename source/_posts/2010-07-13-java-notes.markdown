@@ -35,20 +35,20 @@ categories: java
 一个方法不能让对象参数引用一个新的对象。
 15. 方法签名：方法名、参数类型。
 16. 初始化块机制
-首先运行初始化快，然后才运行构造器的主体部分
-静态域初始化块：
-<pre>
-static{
-}
-</pre>
+	首先运行初始化快，然后才运行构造器的主体部分
+	静态域初始化块：
+	
+		static{
+		}
+
 17. 只能使用*导入一个包，如：
-<pre>
-import java.util.*;
-</pre>
+		
+		import java.util.*;
+
 18. 静态导入：静态方法、静态域
-<pre>
-import static java.lang.System.*;
-</pre>
+
+		import static java.lang.System.*;
+
 19. 如果没有指定public或private，那么这个部分（类、方法或者变量）可被同一个包中的所有方法访问
 20. 包作用域：默认情况下是包可见的
 21. 包密封:(package sealing) jar文件密封包
