@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-07-19T17:52:57+08:00</updated>
+  <updated>2016-07-19T18:24:08+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -2973,7 +2973,7 @@ TIME_WAIT 28322
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[关于Spring mvc中model的attribute无法指定别名的解决方案]]></title>
+    <title type="html"><![CDATA[关于SpringMVC中model的attribute无法指定别名的解决方案]]></title>
     <link href="http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias/"/>
     <updated>2015-01-21T12:00:00+08:00</updated>
     <id>http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias</id>
