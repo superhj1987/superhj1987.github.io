@@ -1,0 +1,21 @@
+---
+layout: post
+title: "关于terracotta在tomcat集群中做session共享的问题"
+date: 2012-08-15 21:39:34 +0800
+comments: true
+categories: devops
+---
+   
+手头上的一个项目“陕西省专业技术人员继续教育学习与管理平台”是服务于全陕西省130万专技人员的高并发且事务逻辑较复杂的一个系统，不管是编码上还是系统架构部署上都具有一定的挑战性。在考虑了现有设备以及系统负载的基础上，整个系统架构采用了六台服务器，分别是：WEB门户服务器（WEB门户+Oracle数据库）、学习管理平台服务器、系统核心数据库、资源下载服务器、在线点播服务器、数据库备份服务器。
+ 
+系统运行了数月，WEB门户采用的apache+mod_jk+memcached+4tomcat能够正常应付目前的访问。管理学习系统虽然由于一些在线课程还未上线，最大的并发还未开始，但目前课程文件的上传、人员的表单录入等对服务器的造成的负载经常使服务器响应缓慢甚至不响应。考虑到开始采用的nginx+4tomcat+ip_hash，ip_hash本身策略的缺陷使负载不能很好地均衡，于是使用memcached做集群的session共享。此时出现了一个到现在还让我搞不清楚的现象：系统session中存入一些timestamp的Date对象，读取的时候，竟然会读成UNIX原始时间戳。一直没办法解决这个问题，只能采用ip_hash的方式运行着，一旦出现服务器不响应的情况就重启tomcat。
+ 
+这几天上网查资料的时候，发现terracotta可以做tomcat集群的session共享，由于其是jvm级别的cluster解决方案且采用find-gained changes机制，因此在性能要优于memcached，关键是其是jvm堆级别的复制，储存任何值都没任何问题。按照官网的说明把所有东西都配置好了，却发现session无法正常共享。写了个测试的jsp，打印出session id，单独访问某一个tomcat，发现id在不停的换，我一开始怀疑是terracotta没安好的问题，就又重装了一遍，问题依旧。这时突然发现在IE下session是正常的，其他浏览器下session就不正常，总是不停地换，按说没有关闭浏览器是不会重新生成session的。使用fiddler来检测请求和响应的header，发现一个奇怪的问题，chrome请求一个页面时比使用IE时，多了一个对/favicon.ico的请求，而这个请求得到的响应(404)中会产生新的session id使session发生变化。（什么原因，怎么解释？）在网站的根目录下上传一个favicon.ico即可解决此问题。为了证实是favicon.ico不存在造成的问题，我在页面中请求了一个不存在的js文件，结果session id又开始不停地变。把所有不存在的文件的引用都删掉能够解决此问题，但是在没有使用terracotta前根本不存在此问题，我猜想是不是terraccota在检测到404错误的时候，就会重新生成session的缘故啊。查了一下tomcat的文档，发现context有个属性sessionCookiePath，尝试着把这个值设置为了"/"，结果一切正常了，即使再有404错误，session也不会再变了。这是为什么？在文档中对sessionCookiePath的解释是：
+<pre>
+The path to be used for all session cookies created for this context. If set, this overrides any path set by the web application. If not set, the value specified by the web application will be used, or the context path used if the web application does not explicitly set one. To configure all web application to use an empty path (this can be useful for portlet specification implementations) set this attribute to / in the global CATALINA_BASE/conf/context.xml file.
+</pre>
+不指定此值的时候，是使用的web app中的或者是直接使用context path。我猜测terracotta是接受了此值，但在处理404资源的时候，这个path无法识别，故以为是新的一个会话，造成session改变的缘故。
+
+不管咋样，暂且算是解决了此问题，原因也是猜测的。有空得看一下terracotta的源代码，看看究竟是什么原因造成的。
+
+其实这个项目在部署运行中，出现过各种问题，因此也做过很多架构的变动。到目前还是不能让人满意，只能在后续的维护中继续改进了。

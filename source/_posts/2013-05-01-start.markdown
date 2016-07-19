@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Start"
+title: "文章迁移告知"
 date: 2013-05-01 20:02:50 +0800
 comments: true
 categories: misc
