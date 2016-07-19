@@ -6,13 +6,13 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>《白帽子讲Web安全》读书笔记 - 后端技术杂谈 | 飒然Hang</title>
+  <title>谈谈系统架构这个东西 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《白帽子讲Web安全》读书笔记 Jul 24th, 2014 Posted by 飒然Hang in security 最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。 整本书四篇十八章，包括世界观安全、客户端脚本安全、 &hellip;">
+  <meta name="description" content="谈谈系统架构这个东西 Jun 4th, 2014 Posted by 飒然Hang in architecture 架构这个词在很多人看来都是很高大上的一个东西。事实上，搞架构的这些人却也都是些大神，至少都是在这个领域浸淫N久的专家级人物。现在很火的全栈工程师这个概念，就是架构师的另一种表现形式 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -20,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2014/07/24/web-security-notes/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2014/06/04/sys-arch/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
@@ -92,7 +92,7 @@
   
   <header>
     
-      <h1 class="post-title">《白帽子讲Web安全》读书笔记</h1>
+      <h1 class="post-title">谈谈系统架构这个东西</h1>
     
     
       <p class="post-meta">
@@ -108,7 +108,7 @@
   
 
 
-<time datetime="2014-07-24T21:30:20+08:00" pubdate data-updated="true">Jul 24<sup>th</sup>, 2014</time>
+<time datetime="2014-06-04T21:29:34+08:00" pubdate data-updated="true">Jun 4<sup>th</sup>, 2014</time>
         
         
   
@@ -118,7 +118,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/security/'>security</a>
+    <a class='category' href='/blog/categories/architecture/'>architecture</a>
   
 </span>
 
@@ -129,83 +129,34 @@
   </header>
 
 
-<div class="post-content"><p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
+<div class="post-content"><p>架构这个词在很多人看来都是很高大上的一个东西。事实上，搞架构的这些人却也都是些大神，至少都是在这个领域浸淫N久的专家级人物。现在很火的全栈工程师这个概念，就是架构师的另一种表现形式。</p>
 
-<p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
+<p>之于架构，其含义无非是从技术细节跳出来自上而下宏观地看待系统的一个思维，就好比建筑设计一样。架构师的角色和建筑设计师在某种意义上是相同的。在微博上看到蔡学镛分享过这么一个架构设计流程的图，从中或多或少能看出架构设计一个大概的流程。</p>
 
-<h3>一、世界观安全</h3>
+<p><img src="/images/blog_images/arch-1.jpg" alt="arch-1" /></p>
 
-<ol>
-<li>黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客，后者则指的是工作在反黑客领域的安全技术专家。</li>
-<li>安全问题的本质是信任的问题。并且安全是一个持续的过程，并不存在所谓的银弹。</li>
-<li>安全三要素：机密性、完整性、可用性</li>
-<li>一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。</li>
-<li>白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。</li>
-</ol>
+<p>首当其冲的，肯定是需要对整个系统的业务进行拆分，进行业务设计，目的就是要捋清楚系统是干什么的，能提供什么功能，对系统的需求要做到详尽的分析和考虑。不过这部分，在我参与过的一些项目看来，尤其是对现在普遍使用的敏捷开发流程来说，无需考虑的太面面俱到，但至少不能太窄或者偏离正轨，后续的开发过程会不断的反馈回来进行调整。</p>
 
+<p>接下来，系统的业务明确之后，交互设计和领域建模便可以同时执行。当然，这里我是觉得交互设计和架构师是没啥关系的，顶多就是两者要相辅相成。而领域建模这个就显得很重要了。领域建模是业务设计的主要逻辑，把现实中的业务转化成抽象的对象，这个确实是能力的体现了。我觉得这一部分很多出色的架构师相比其他人突出的一个很关键的地方。</p>
 
-<!--more-->
+<p>技术模块设计则是在理解了系统的业务需求之后，对整体的一个技术框架上的设计。这里对于技术架构，我一直有一个分不太清楚的东西，就是软件架构和系统架构。说到底，这两者都是软件层面的含义，所不同的是前者到了代码层面，而系统架构则是到了软件层面。软件架构是位于系统架构之上的。一个系统，使用了Spring、Hibernater然后用了MVC设计模式，这就是软件架构；一个系统分成负载均衡模块、Link模块、队列模块、数据模块、推送模块等等则就是系统架构。再往下就应该是部署架构了，比如系统部署了几个结点、结点之间的关系、网络的规划结构、系统的高可用、可扩展等等。当然对于一个系统来说，数据的设计是可以拿出来重点进行的，毕竟对于互联网应用来说，数据 is all，系统的很多性能、效率问题是和数据的存储设计有密切关系的。</p>
 
+<p>到最后，业务之上的这些设计会反作用于业务，将系统的关键点反馈回来，从而对业务进行调整，进而再推进整个架构的流程。现在很火的敏捷开发，某种角度看来就是一个不断迭代、反馈的过程，是传统架构设计的一种演化形式。</p>
 
-<h3>二、客户端脚本安全</h3>
-
-<ol>
-<li><p>浏览器安全</p>
-
-<p> 同源策略（Same Origin Policy）防止了跨域读写某些资源。
-浏览器提供了浏览器沙箱，使进程在一个相对独立的空间运行，能在一定程度上保护浏览器安全。</p></li>
-<li><p>跨站脚本攻击</p>
-
-<p> 跨站脚本攻击主要是注入到网站内容中，授权用户访问内容时执行一段恶意代码，从而获取用户的私密信息或者进行破坏。通常叫做XSS攻击，是针对动态网站的攻击。</p></li>
-<li><p>跨站点请求伪造</p>
-
-<p> CSRF，指的是伪造出一个请求，诱使授权用户访问，以授权用户的身份去执行请求，从而达到对授权用户信息的读取、攻击等。</p></li>
-<li><p>点击劫持</p>
-
-<p> Click jacking，是指将恶意代码隐藏在看似无害的内容后者按钮之下，诱导用户访问的一种手段。</p></li>
-<li><p>Html5安全</p>
+<p>谈到架构，那么如何才能具有架构能力呢？借鉴在知乎上看到一个回答：</p>
 
 <ul>
-<li>HTML引入了很多新的标签，一些XSS Filter可能并没有覆盖这些新增的标签和功能。比如video、audio、iframe的sandbox。此外使用canvas可以在浏览器环境中实现对验证码的在线破解，大大降低了攻击的门槛。</li>
-<li>跨域请求的Orgin Header和Access-Control-Allow-Origin的设置。postMessage的引入，使XSS PayLoad变得更加的灵活。</li>
+<li>视野开阔，知道可以直接用哪个开源项目来满足这样那样的需求。多数时候其实我们并不需要重复造轮子。视野窄的架构师会放着捷径不走，不断让团队重复造轮子，直至把项目拖死。</li>
+<li>精通设计模式，但又不泛用。不设计过度，不在各种细节问题上需求蔓延。所有架构设计都是为了满足产品需求的，不满足需求或者过度设计都是菜鸟行为。</li>
+<li>把系统拆分成多个子系统或模块，模块之间尽量松耦合，使得原先只能串行的开发任务，可以并行开展，也就是说良好的设计可以通过投入更多人力来缩短工期。反之拙劣的设计需要一个人维护一大坨代码，无法通过加人并行开发来缩短工期。</li>
+<li>能清楚地知道系统的瓶颈在什么地方，不断地定位技术难度、研发进度、性能、内存等各方面的瓶颈，不断调整骨干力量解决瓶颈，在风险爆发之前就消除隐患。</li>
+<li>行业经验带来的直觉和预见性，可以预先需求可能产生怎样的变化，提前把可扩展性、后向兼容性设计好。但仍然不要过度设计</li>
 </ul>
-</li>
-</ol>
 
 
-<h3>三、服务端安全</h3>
+<p>以上对架构的一些理解，很多地方自认还是有点迷糊。在进行系统设计的时候，也经常摸不着头脑，把不同层次的东西混为一谈。记得蔡学镛大神之前还分享过一张图片，对架构讲的挺透彻的。不明白的时候看看这个，会有种茅塞顿开的感觉。</p>
 
-<ol>
-<li><p>注入攻击</p>
-
-<p> 注入攻击是一种普遍的利用数据库SQL语句进行攻击的方式。使用用户提交的数据拼接数据库操作字符串，如果这些字符串中包含一些特殊字符就有可能查询到数据库关键信息。</p></li>
-<li><p>文件上传漏洞</p>
-
-<p> 通常的一个问题就是对上传文件的格式控制不严格，并且文件存放的路径可以通过Web路径直接进行访问；另一种方式，就是文件路径是通过表单的方式提交的，可以使用一个特殊字符“\0”截断文件路径，从而实现对脚本文件的上传。</p></li>
-<li><p>认证与会话管理</p>
-
-<p> 用户的登录状态一般是进过认证之后保存在服务端的，与服务器端的一系列交互即会话。一般对会话的管理。。。</p></li>
-<li><p>访问控制</p>
-
-<p> 对于系统中不同的用户具有不同的权限，对这些权限进行控制即访问控制。如果访问控制不严就容易形成漏洞被利用。</p></li>
-<li><p>加密算法与随机数</p>
-
-<p> 系统中对数据进行加密使用的加密算法和随机数生成算法的安全性和健壮性都直接关系到整个系统的安全性。对称加密、非对称加密的密钥的安全性，随机数算法的随机性都是要考虑的问题。</p></li>
-<li><p>Web框架安全</p>
-
-<p> 一些经典的使用率较高的Web框架如：Spring、Struts、Hibernate本身会在整个执行体系中有一些安全漏洞。比如前一阵的Struts2的命令执行漏洞，就是因为在OGNL中可以执行JAVA静态方法造成的。</p></li>
-<li><p>应用层拒绝服务攻击</p>
-
-<p> DOS，这种攻击是以耗尽服务器资源为目的攻击。DDOS分布式 拒绝服务攻击，是DOS的加强版。防范拒绝服务攻击要从访问入口处进行，限制来自统一IP的访问频率或者就是最大化提升系统的负载能力。</p></li>
-<li><p>PHP安全和Web服务器配置安全</p>
-
-<p> 针对与PHP本身的一些API的特点，可以在代码层面进行安全控制。比如，对数据库SQL相关的操作，要对用户输入的参数进行mysql_real_esape等。此外，对于Web Server如Apache http server，对其magic_quote,GLOBAL等配置要权衡关闭和开启是否会对系统的安全造成威胁。</p></li>
-</ol>
-
-
-<h3>四、互联网公司安全运营</h3>
-
-<p>除了在技术层面对安全进行保证外，还可以在业务层面对安全进行最大化的保障。此外，微软提出的 SDL安全开发流程，运用在项目开发过程中能够很好地保障系统的安全。而运营方面的安全保障则能够进一步保证整个系统的安全性。</p>
+<p><img src="/images/blog_images/arch-2.jpg" alt="arch-2" /></p>
 </div>
 
 
@@ -221,7 +172,7 @@
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="《白帽子讲Web安全》读书笔记 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2014/07/24/web-security-notes/" data-content="最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。 整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。 一、世界观安全 黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客， &hellip;">
+<div class="ds-share flat" data-title="谈谈系统架构这个东西 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2014/06/04/sys-arch/" data-content="架构这个词在很多人看来都是很高大上的一个东西。事实上，搞架构的这些人却也都是些大神，至少都是在这个领域浸淫N久的专家级人物。现在很火的全栈工程师这个概念，就是架构师的另一种表现形式。 之于架构，其含义无非是从技术细节跳出来自上而下宏观地看待系统的一个思维，就好比建筑设计一样。 &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
@@ -242,10 +193,10 @@
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2014/07/25/nginx-data-structure/" title="上一篇: Nginx源码分析之基本数据结构">&laquo; Nginx源码分析之基本数据结构 </a>
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2014/07/24/web-security-notes/" title="上一篇: 《白帽子讲Web安全》读书笔记">&laquo; 《白帽子讲Web安全》读书笔记 </a>
       
       
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2014/06/04/sys-arch/" title="下一篇: 谈谈系统架构这个东西">谈谈系统架构这个东西 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2013/07/06/no-name/" title="下一篇: 杂感一篇">杂感一篇 &raquo;</a>
       
     </div>
   </footer>
@@ -254,7 +205,7 @@
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2014/07/24/web-security-notes/" data-title="《白帽子讲Web安全》读书笔记"></div>
+<div class="ds-thread" data-thread-key="/blog/2014/06/04/sys-arch/" data-title="谈谈系统架构这个东西"></div>
 <!-- 多说评论框 end -->
 
 
