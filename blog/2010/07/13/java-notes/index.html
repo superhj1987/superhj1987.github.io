@@ -158,40 +158,22 @@
 一个方法可以改变一个对象参数的状态；
 一个方法不能让对象参数引用一个新的对象。</li>
 <li>方法签名：方法名、参数类型。</li>
-<li>初始化块机制
+<li><p>初始化块机制
 首先运行初始化快，然后才运行构造器的主体部分
-静态域初始化块：</li>
-</ol>
+静态域初始化块：</p>
 
-
-<pre>
-static{
+<pre><code>static{
 }
-</pre>
+</code></pre></li>
+<li><p>只能使用*导入一个包，如：</p>
 
+<pre><code>import java.util.*;
+</code></pre></li>
+<li><p>静态导入：静态方法、静态域</p>
 
-<ol>
-<li>只能使用*导入一个包，如：</li>
-</ol>
-
-
-<pre>
-import java.util.*;
-</pre>
-
-
-<ol>
-<li>静态导入：静态方法、静态域</li>
-</ol>
-
-
-<pre>
-import static java.lang.System.*;
-</pre>
-
-
-<ol>
-<li>如果没有指定public或private，那么这个部分（类、方法或者变量）可被同一个包中的所有方法访问</li>
+<pre><code>import static java.lang.System.*;
+</code></pre></li>
+<li><p>如果没有指定public或private，那么这个部分（类、方法或者变量）可被同一个包中的所有方法访问</p></li>
 <li>包作用域：默认情况下是包可见的</li>
 <li>包密封:(package sealing) jar文件密封包</li>
 <li>/<em>*…</em>/-&gt;文档注释 javadoc
