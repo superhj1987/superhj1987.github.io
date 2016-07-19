@@ -6,13 +6,14 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>多activity中退出整个程序 - 后端技术杂谈 | 飒然Hang</title>
+  <title>Android中的intent调用代码总结 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="多activity中退出整个程序 May 30th, 2011 Posted by 飒然Hang in android 问题 多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。 网上资料 finish()和system(0)都只能退出单个activity。 &hellip;">
+  <meta name="description" content="Android中的intent调用代码总结 Feb 8th, 2011 Posted by 飒然Hang in android 显示Web网页 Uri uri = Uri.parse("http://www.android123.com.cn");
+Intent it = new Intent( &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -20,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2011/05/30/android-exit-multi-activity/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2011/02/08/android-intent/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
@@ -92,7 +93,7 @@
   
   <header>
     
-      <h1 class="post-title">多activity中退出整个程序</h1>
+      <h1 class="post-title">Android中的intent调用代码总结</h1>
     
     
       <p class="post-meta">
@@ -108,7 +109,7 @@
   
 
 
-<time datetime="2011-05-30T21:39:34+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2011</time>
+<time datetime="2011-02-08T21:39:34+08:00" pubdate data-updated="true">Feb 8<sup>th</sup>, 2011</time>
         
         
   
@@ -129,51 +130,154 @@
   </header>
 
 
-<div class="post-content"><h2>问题</h2>
+<div class="post-content"><h3>显示Web网页</h3>
 
-<p>多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。</p>
+<pre><code>Uri uri = Uri.parse("http://www.android123.com.cn");
+Intent it = new Intent(Intent.ACTION_VIEW,uri);
+startActivity(it);
+</code></pre>
 
-<h2>网上资料</h2>
+<h3>显示Google地图</h3>
 
-<p>finish()和system(0)都只能退出单个activity。杀进程等的等方式都不行~~~</p>
+<pre><code>Uri uri = Uri.parse("geo:38.899533,-77.036476");
+Intent it = new Intent(Intent.Action_VIEW,uri);
+startActivity(it);
+</code></pre>
 
-<h2>解决问题</h2>
+<h3>Maps路径规划</h3>
 
-<p>我们知道Android的窗口类提供了历史栈，我们可以通过stack的原理来巧妙的实现，这里我们在D窗口打开A窗口时在Intent中直接加入标志Intent.FLAG_ACTIVITY_CLEAR_TOP，再次开启A时将会清除该进程空间的所有Activity。</p>
+<pre><code>Uri uri = Uri.parse("http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en");
+Intent it = new Intent(Intent.ACTION_VIEW,URI);
+startActivity(it);
+</code></pre>
 
-<p>在D中使用下面的代码:</p>
+<h3>拨打电话</h3>
 
-<pre>
-Intent intent = new Intent(); 
-intent.setClass(D.this, A.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  //注意本行的FLAG设置
+<pre><code>Uri uri = Uri.parse("tel:xxxxxx");
+Intent it = new Intent(Intent.ACTION_DIAL, uri);   
+startActivity(it);  
+
+Uri uri = Uri.parse("tel.xxxxxx");
+Intent it =new Intent(Intent.ACTION_CALL,uri);
+</code></pre>
+
+<p>注意需要权限android.permission.CALL_PHONE</p>
+
+<h3>发送SMS/MMS</h3>
+
+<pre><code>Intent it = new Intent(Intent.ACTION_VIEW);
+it.putExtra("sms_body", "android开发网欢迎您");
+it.setType("vnd.android-dir/mms-sms");
+startActivity(it);  
+</code></pre>
+
+<h3>发送短信</h3>
+
+<pre><code>Uri uri = Uri.parse("smsto:10086");
+Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+it.putExtra("sms_body", "10086"); //正文为10086
+startActivity(it);  
+</code></pre>
+
+<h3>发送彩信</h3>
+
+<pre><code>Uri uri = Uri.parse("content://media/external/images/media/10"); //该Uri根据实际情况修改，external代表外部存储即sdcard
+Intent it = new Intent(Intent.ACTION_SEND);
+it.putExtra("sms_body", "android123.com.cn"); 
+it.putExtra(Intent.EXTRA_STREAM, uri);
+it.setType("image/png");
+startActivity(it);
+</code></pre>
+
+<h3>发送Email</h3>
+
+<pre><code>Uri uri = Uri.parse("mailto:android123@163.com");
+Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+startActivity(it);
+
+Intent it = new Intent(Intent.ACTION_SEND);
+it.putExtra(Intent.EXTRA_EMAIL, "android123@163.com");
+it.putExtra(Intent.EXTRA_TEXT, "android开发网测试");
+it.setType("text/plain");
+startActivity(Intent.createChooser(it, "选择一个Email客户端"));  
+
+Intent it=new Intent(Intent.ACTION_SEND);   
+String[] tos={"android123@163.com"};     //发送到 
+String[] ccs={"ophone123@163.com"};    //抄送
+it.putExtra(Intent.EXTRA_EMAIL, tos);   
+it.putExtra(Intent.EXTRA_CC, ccs);   
+it.putExtra(Intent.EXTRA_TEXT, "正文");   
+it.putExtra(Intent.EXTRA_SUBJECT, "标题");   
+it.setType("message/rfc822");    //编码类型
+startActivity(Intent.createChooser(it, "选择一个Email客户端"));
+</code></pre>
+
+<h3>Email添加附件</h3>
+
+<pre><code>Intent it = new Intent(Intent.ACTION_SEND);
+it.putExtra(Intent.EXTRA_SUBJECT, "正文");
+it.putExtra(Intent.EXTRA_STREAM, "file:///sdcard/nobody.mp3"); //附件为sd卡上的nobody MP3文件
+sendIntent.setType("audio/mp3");
+startActivity(Intent.createChooser(it, "选择一个Email客户端"));
+</code></pre>
+
+<h3>播放多媒体</h3>
+
+<pre><code>Intent it = new Intent(Intent.ACTION_VIEW);
+Uri uri = Uri.parse("file:///sdcard/nobody.mp3");
+it.setDataAndType(uri, "audio/mp3");
+startActivity(it);
+
+Uri uri = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "1"); //从系统内部的MediaProvider索引中调用播放
+Intent it = new Intent(Intent.ACTION_VIEW, uri);
+startActivity(it);  
+</code></pre>
+
+<h3>Uninstall卸载程序</h3>
+
+<pre><code>Uri uri = Uri.fromParts("package", packageName, null); //packageName为包名，比如com.android123.apkInstaller
+Intent it = new Intent(Intent.ACTION_DELETE, uri);
+startActivity(it);
+</code></pre>
+
+<h3>进入联系人界面</h3>
+
+<pre><code>Intent intent = new Intent();
+intent.setAction(Intent.ACTION_VIEW);
+intent.setData(People.CONTENT_URI);
 startActivity(intent);
-finish();//关掉自己
-</pre>
+</code></pre>
 
+<p>查看某个联系人，当然这里是ACTION_VIEW，如果为选择并返回action改为ACTION_PICK，当然处理intent时返回需要用到startActivityforResult</p>
 
-<p>在A中加入代码：</p>
+<pre><code>Uri personUri = ContentUris.withAppendedId(People.CONTENT_URI, ID);//最后的ID参数为联系人Provider中的数据库BaseID，即哪一行
+Intent intent = new Intent();
+intent.setAction(Intent.ACTION_VIEW);
+intent.setData(personUri);
+startActivity(intent);
+</code></pre>
 
-<pre>
-@Override
-protected void onNewIntent(Intent intent) {
-// TODO Auto-generated method stub
-super.onNewIntent(intent);
-//退出
-        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
-finish();
-}
-}
-</pre>
+<h3>选择一个图片</h3>
 
+<pre><code>Intent intent = new Intent(Intent.ACTION_GET_CONTENT);  
+intent.addCategory(Intent.CATEGORY_OPENABLE);  
+intent.setType("image/*");//此处-&gt;audio/*对应选择音频 video/*对应选择视频
+startActivityForResult(intent, 0);
+</code></pre>
 
-<p>A的Manifest.xml配置成android:launchMode=&ldquo;singleTop&rdquo;</p>
+<h3>调用Android设备的照相机，并设置拍照后存放位置</h3>
 
-<h2>原理总结</h2>
+<pre><code>Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
+intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/cwj", android123 + ".jpg"))); //存放位置为sdcard卡上cwj文件夹，文件名为android123.jpg格式
+startActivityForResult(intent, 0);
+</code></pre>
 
-<p>一般A是程序的入口点，从D起一个A的activity，加入标识Intent.FLAG_ACTIVITY_CLEAR_TOP这个过程中会把栈中B，C，都清理掉。因为A是android:launchMode=&ldquo;singleTop&rdquo;
-不会调用oncreate(),而是响应onNewIntent（）这时候判断Intent.FLAG_ACTIVITY_CLEAR_TOP，然后把A finish（）掉。
-栈中A,B,C,D全部被清理。所以整个程序退出了。</p>
+<h3>搜索指定package name在market上</h3>
+
+<pre><code>Uri uri = Uri.parse("market://search?q=pname:com.android123.cwj");   
+Intent intent = new Intent(Intent.ACTION_VIEW, uri);   
+startActivity(intent); 
+</code></pre>
 </div>
 
 
@@ -189,7 +293,9 @@ finish();
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="多activity中退出整个程序 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2011/05/30/android-exit-multi-activity/" data-content="问题 多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。 网上资料 finish()和system(0)都只能退出单个activity。杀进程等的等方式都不行~~~ 解决问题 我们知道Android的窗口类提供了历史栈， &hellip;">
+<div class="ds-share flat" data-title="Android中的intent调用代码总结 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2011/02/08/android-intent/" data-content="显示Web网页 Uri uri = Uri.parse("http://www.android123.com.cn");
+Intent it = new Intent(Intent.ACTION_VIEW,uri);
+startActivity(it); 显示Google地图 Uri uri = &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
@@ -210,10 +316,10 @@ finish();
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2011/08/05/android-dip-sp/" title="上一篇: Android中dip、dp、sp、pt和px的区别">&laquo; Android中dip、dp、sp、pt和px的区别 </a>
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2011/05/30/android-exit-multi-activity/" title="上一篇: 多activity中退出整个程序">&laquo; 多activity中退出整个程序 </a>
       
       
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2011/02/08/android-intent/" title="下一篇: Android中的intent调用代码总结">Android中的intent调用代码总结 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2010/12/18/android-bitmap/" title="下一篇: Android位图总结">Android位图总结 &raquo;</a>
       
     </div>
   </footer>
@@ -222,7 +328,7 @@ finish();
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2011/05/30/android-exit-multi-activity/" data-title="多activity中退出整个程序"></div>
+<div class="ds-thread" data-thread-key="/blog/2011/02/08/android-intent/" data-title="Android中的intent调用代码总结"></div>
 <!-- 多说评论框 end -->
 
 

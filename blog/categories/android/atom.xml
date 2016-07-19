@@ -4,7 +4,7 @@
   <title><![CDATA[Category: android | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/android/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-07-19T23:51:57+08:00</updated>
+  <updated>2016-07-20T00:02:55+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -255,6 +255,162 @@ finish();
 <p>一般A是程序的入口点，从D起一个A的activity，加入标识Intent.FLAG_ACTIVITY_CLEAR_TOP这个过程中会把栈中B，C，都清理掉。因为A是android:launchMode=&ldquo;singleTop&rdquo;
 不会调用oncreate(),而是响应onNewIntent（）这时候判断Intent.FLAG_ACTIVITY_CLEAR_TOP，然后把A finish（）掉。
 栈中A,B,C,D全部被清理。所以整个程序退出了。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Android中的intent调用代码总结]]></title>
+    <link href="http://www.rowkey.me/blog/2011/02/08/android-intent/"/>
+    <updated>2011-02-08T21:39:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2011/02/08/android-intent</id>
+    <content type="html"><![CDATA[<h3>显示Web网页</h3>
+
+<pre><code>Uri uri = Uri.parse("http://www.android123.com.cn");
+Intent it = new Intent(Intent.ACTION_VIEW,uri);
+startActivity(it);
+</code></pre>
+
+<h3>显示Google地图</h3>
+
+<pre><code>Uri uri = Uri.parse("geo:38.899533,-77.036476");
+Intent it = new Intent(Intent.Action_VIEW,uri);
+startActivity(it);
+</code></pre>
+
+<h3>Maps路径规划</h3>
+
+<pre><code>Uri uri = Uri.parse("http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en");
+Intent it = new Intent(Intent.ACTION_VIEW,URI);
+startActivity(it);
+</code></pre>
+
+<h3>拨打电话</h3>
+
+<pre><code>Uri uri = Uri.parse("tel:xxxxxx");
+Intent it = new Intent(Intent.ACTION_DIAL, uri);   
+startActivity(it);  
+
+Uri uri = Uri.parse("tel.xxxxxx");
+Intent it =new Intent(Intent.ACTION_CALL,uri);
+</code></pre>
+
+<p>注意需要权限android.permission.CALL_PHONE</p>
+
+<h3>发送SMS/MMS</h3>
+
+<pre><code>Intent it = new Intent(Intent.ACTION_VIEW);
+it.putExtra("sms_body", "android开发网欢迎您");
+it.setType("vnd.android-dir/mms-sms");
+startActivity(it);  
+</code></pre>
+
+<h3>发送短信</h3>
+
+<pre><code>Uri uri = Uri.parse("smsto:10086");
+Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+it.putExtra("sms_body", "10086"); //正文为10086
+startActivity(it);  
+</code></pre>
+
+<h3>发送彩信</h3>
+
+<pre><code>Uri uri = Uri.parse("content://media/external/images/media/10"); //该Uri根据实际情况修改，external代表外部存储即sdcard
+Intent it = new Intent(Intent.ACTION_SEND);
+it.putExtra("sms_body", "android123.com.cn"); 
+it.putExtra(Intent.EXTRA_STREAM, uri);
+it.setType("image/png");
+startActivity(it);
+</code></pre>
+
+<h3>发送Email</h3>
+
+<pre><code>Uri uri = Uri.parse("mailto:android123@163.com");
+Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+startActivity(it);
+
+Intent it = new Intent(Intent.ACTION_SEND);
+it.putExtra(Intent.EXTRA_EMAIL, "android123@163.com");
+it.putExtra(Intent.EXTRA_TEXT, "android开发网测试");
+it.setType("text/plain");
+startActivity(Intent.createChooser(it, "选择一个Email客户端"));  
+
+Intent it=new Intent(Intent.ACTION_SEND);   
+String[] tos={"android123@163.com"};     //发送到 
+String[] ccs={"ophone123@163.com"};    //抄送
+it.putExtra(Intent.EXTRA_EMAIL, tos);   
+it.putExtra(Intent.EXTRA_CC, ccs);   
+it.putExtra(Intent.EXTRA_TEXT, "正文");   
+it.putExtra(Intent.EXTRA_SUBJECT, "标题");   
+it.setType("message/rfc822");    //编码类型
+startActivity(Intent.createChooser(it, "选择一个Email客户端"));
+</code></pre>
+
+<h3>Email添加附件</h3>
+
+<pre><code>Intent it = new Intent(Intent.ACTION_SEND);
+it.putExtra(Intent.EXTRA_SUBJECT, "正文");
+it.putExtra(Intent.EXTRA_STREAM, "file:///sdcard/nobody.mp3"); //附件为sd卡上的nobody MP3文件
+sendIntent.setType("audio/mp3");
+startActivity(Intent.createChooser(it, "选择一个Email客户端"));
+</code></pre>
+
+<h3>播放多媒体</h3>
+
+<pre><code>Intent it = new Intent(Intent.ACTION_VIEW);
+Uri uri = Uri.parse("file:///sdcard/nobody.mp3");
+it.setDataAndType(uri, "audio/mp3");
+startActivity(it);
+
+Uri uri = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "1"); //从系统内部的MediaProvider索引中调用播放
+Intent it = new Intent(Intent.ACTION_VIEW, uri);
+startActivity(it);  
+</code></pre>
+
+<h3>Uninstall卸载程序</h3>
+
+<pre><code>Uri uri = Uri.fromParts("package", packageName, null); //packageName为包名，比如com.android123.apkInstaller
+Intent it = new Intent(Intent.ACTION_DELETE, uri);
+startActivity(it);
+</code></pre>
+
+<h3>进入联系人界面</h3>
+
+<pre><code>Intent intent = new Intent();
+intent.setAction(Intent.ACTION_VIEW);
+intent.setData(People.CONTENT_URI);
+startActivity(intent);
+</code></pre>
+
+<p>查看某个联系人，当然这里是ACTION_VIEW，如果为选择并返回action改为ACTION_PICK，当然处理intent时返回需要用到startActivityforResult</p>
+
+<pre><code>Uri personUri = ContentUris.withAppendedId(People.CONTENT_URI, ID);//最后的ID参数为联系人Provider中的数据库BaseID，即哪一行
+Intent intent = new Intent();
+intent.setAction(Intent.ACTION_VIEW);
+intent.setData(personUri);
+startActivity(intent);
+</code></pre>
+
+<h3>选择一个图片</h3>
+
+<pre><code>Intent intent = new Intent(Intent.ACTION_GET_CONTENT);  
+intent.addCategory(Intent.CATEGORY_OPENABLE);  
+intent.setType("image/*");//此处-&gt;audio/*对应选择音频 video/*对应选择视频
+startActivityForResult(intent, 0);
+</code></pre>
+
+<h3>调用Android设备的照相机，并设置拍照后存放位置</h3>
+
+<pre><code>Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
+intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/cwj", android123 + ".jpg"))); //存放位置为sdcard卡上cwj文件夹，文件名为android123.jpg格式
+startActivityForResult(intent, 0);
+</code></pre>
+
+<h3>搜索指定package name在market上</h3>
+
+<pre><code>Uri uri = Uri.parse("market://search?q=pname:com.android123.cwj");   
+Intent intent = new Intent(Intent.ACTION_VIEW, uri);   
+startActivity(intent); 
+</code></pre>
 ]]></content>
   </entry>
   
