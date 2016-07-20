@@ -6,13 +6,13 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Git常用命令指南 - 后端技术杂谈 | 飒然Hang</title>
+  <title>Git操作指南 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Git常用命令指南 Jan 10th, 2016 Posted by 飒然Hang in git ps:本指南会持续更新 其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。 &hellip;">
+  <meta name="description" content="Git操作指南 Jan 10th, 2016 Posted by 飒然Hang in git ps:本指南会持续更新 其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。 上图所示， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -92,7 +92,7 @@
   
   <header>
     
-      <h1 class="post-title">Git常用命令指南</h1>
+      <h1 class="post-title">Git操作指南</h1>
     
     
       <p class="post-meta">
@@ -152,7 +152,9 @@
 <li><a href="#log">日志</a></li>
 <li><a href="#revert">撤销</a></li>
 <li><a href="#cherrypick">选择某些commits操作</a></li>
+<li><a href="#conflict">解决冲突</a></li>
 <li><a href="#submodule">Submodule</a></li>
+<li><a href="#subtree">Subtree</a></li>
 <li><a href="#other">其他</a></li>
 </ul>
 
@@ -217,8 +219,11 @@
 <li><p>配置密钥</p>
 
 <pre><code> ssh-keygen -t rsa -C superhj1987@126.com #生成密钥
-
  ssh -T git@github.com #测试是否成功
+ exec ssh-agent bash
+ ssh-add ~/.ssh/private-key-name # 添加私钥到ssh-agent中
+ ssh-add -l  #查看到当前计算机中存储的密钥
+ ssh-add -d pub_key # 将私钥从ssh-agent删除
 </code></pre></li>
 </ol>
 
@@ -564,6 +569,20 @@ git clean -f -d
 <pre><code>git cherry-pick &lt;commit id&gt;
 </code></pre>
 
+<h2><a name="conflict"></a>解决冲突</h2>
+
+<p>在rebase或者merge时，有时候会产生conflicts，如果无法auto merge，那么一般有两种处理方式：</p>
+
+<ul>
+<li>手动修改冲突的文件：修改完成后，使用git add,git commit或者git rebase &ndash;continue等后续操作即可。</li>
+<li><p>使用任一方的文件最为最新文件</p>
+
+<pre><code>  git checkout --ours xx
+  git checkout --theirs xx
+</code></pre></li>
+</ul>
+
+
 <h2><a name="submodule"></a>Submodule</h2>
 
 <p>当你的工程的部分文件是另一个git库时，可以使用submodule（现在subtree已经替代了submodule）。</p>
@@ -583,6 +602,26 @@ git clean -f -d
 <p> 当使用git clone下来的工程中带有submodule时，初始的时候，submodule的内容并不会自动下载下来的，此时，只需执行如下命令：</p>
 
 <pre><code> git submodule update --init --recursive
+</code></pre></li>
+</ol>
+
+
+<h2><a name="subtree"></a>Subtree</h2>
+
+<ol>
+<li><p>第一次添加子目录，建立与git项目的关联</p>
+
+<pre><code> git remote add -f &lt;子仓库名&gt; &lt;子仓库地址&gt; #其中-f意思是在添加远程仓库之后，立即执行fetch。
+ git subtree add --prefix=&lt;子目录名&gt; &lt;子仓库名&gt; &lt;分支&gt; --squash #–squash意思是把subtree的改动合并成一次commit，这样就不用拉取子项目完整的历史记录。–prefix之后的=等号也可以用空格。
+</code></pre></li>
+<li><p>从远程仓库更新子目录</p>
+
+<pre><code> git fetch &lt;远程仓库名&gt; &lt;分支&gt;
+ git subtree pull --prefix=&lt;子目录名&gt; &lt;远程分支&gt; &lt;分支&gt; --squash
+</code></pre></li>
+<li><p>从子目录push到远程仓库（确认你有写权限）</p>
+
+<pre><code> git subtree push --prefix=&lt;子目录名&gt; &lt;远程分支名&gt; 分支
 </code></pre></li>
 </ol>
 
@@ -610,7 +649,7 @@ git rev-list --max-count=1 HEAD #查看当前分支的最新rev
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="Git常用命令指南 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/01/10/git-usage/" data-content="ps:本指南会持续更新 其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。 上图所示，使用git的流程一般如此，通常使用图中的六个命令即可。 目录 配置
+<div class="ds-share flat" data-title="Git操作指南 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/01/10/git-usage/" data-content="ps:本指南会持续更新 其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。 上图所示，使用git的流程一般如此，通常使用图中的六个命令即可。 目录 配置
 取得项目的 Git 仓库 &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
@@ -644,7 +683,7 @@ git rev-list --max-count=1 HEAD #查看当前分支的最新rev
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2016/01/10/git-usage/" data-title="Git常用命令指南"></div>
+<div class="ds-thread" data-thread-key="/blog/2016/01/10/git-usage/" data-title="Git操作指南"></div>
 <!-- 多说评论框 end -->
 
 

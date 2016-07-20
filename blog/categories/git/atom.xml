@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-07-20T10:59:10+08:00</updated>
+  <updated>2016-07-20T16:17:54+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Git常用命令指南]]></title>
+    <title type="html"><![CDATA[Git操作指南]]></title>
     <link href="http://www.rowkey.me/blog/2016/01/10/git-usage/"/>
     <updated>2016-01-10T10:15:30+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/01/10/git-usage</id>
@@ -41,7 +41,9 @@
 <li><a href="#log">日志</a></li>
 <li><a href="#revert">撤销</a></li>
 <li><a href="#cherrypick">选择某些commits操作</a></li>
+<li><a href="#conflict">解决冲突</a></li>
 <li><a href="#submodule">Submodule</a></li>
+<li><a href="#subtree">Subtree</a></li>
 <li><a href="#other">其他</a></li>
 </ul>
 
@@ -106,8 +108,11 @@
 <li><p>配置密钥</p>
 
 <pre><code> ssh-keygen -t rsa -C superhj1987@126.com #生成密钥
-
  ssh -T git@github.com #测试是否成功
+ exec ssh-agent bash
+ ssh-add ~/.ssh/private-key-name # 添加私钥到ssh-agent中
+ ssh-add -l  #查看到当前计算机中存储的密钥
+ ssh-add -d pub_key # 将私钥从ssh-agent删除
 </code></pre></li>
 </ol>
 
@@ -453,6 +458,20 @@ git clean -f -d
 <pre><code>git cherry-pick &lt;commit id&gt;
 </code></pre>
 
+<h2><a name="conflict"></a>解决冲突</h2>
+
+<p>在rebase或者merge时，有时候会产生conflicts，如果无法auto merge，那么一般有两种处理方式：</p>
+
+<ul>
+<li>手动修改冲突的文件：修改完成后，使用git add,git commit或者git rebase &ndash;continue等后续操作即可。</li>
+<li><p>使用任一方的文件最为最新文件</p>
+
+<pre><code>  git checkout --ours xx
+  git checkout --theirs xx
+</code></pre></li>
+</ul>
+
+
 <h2><a name="submodule"></a>Submodule</h2>
 
 <p>当你的工程的部分文件是另一个git库时，可以使用submodule（现在subtree已经替代了submodule）。</p>
@@ -472,6 +491,26 @@ git clean -f -d
 <p> 当使用git clone下来的工程中带有submodule时，初始的时候，submodule的内容并不会自动下载下来的，此时，只需执行如下命令：</p>
 
 <pre><code> git submodule update --init --recursive
+</code></pre></li>
+</ol>
+
+
+<h2><a name="subtree"></a>Subtree</h2>
+
+<ol>
+<li><p>第一次添加子目录，建立与git项目的关联</p>
+
+<pre><code> git remote add -f &lt;子仓库名&gt; &lt;子仓库地址&gt; #其中-f意思是在添加远程仓库之后，立即执行fetch。
+ git subtree add --prefix=&lt;子目录名&gt; &lt;子仓库名&gt; &lt;分支&gt; --squash #–squash意思是把subtree的改动合并成一次commit，这样就不用拉取子项目完整的历史记录。–prefix之后的=等号也可以用空格。
+</code></pre></li>
+<li><p>从远程仓库更新子目录</p>
+
+<pre><code> git fetch &lt;远程仓库名&gt; &lt;分支&gt;
+ git subtree pull --prefix=&lt;子目录名&gt; &lt;远程分支&gt; &lt;分支&gt; --squash
+</code></pre></li>
+<li><p>从子目录push到远程仓库（确认你有写权限）</p>
+
+<pre><code> git subtree push --prefix=&lt;子目录名&gt; &lt;远程分支名&gt; 分支
 </code></pre></li>
 </ol>
 
