@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Git常用命令指南"
+title: "Git操作指南"
 date: 2016-01-10 10:15:30 +0800
 comments: true
 categories: git
@@ -27,7 +27,9 @@ categories: git
 * [日志](#log)
 * [撤销](#revert)
 * [选择某些commits操作](#cherrypick)
+* [解决冲突](#conflict)
 * [Submodule](#submodule)
+* [Subtree](#subtree)
 * [其他](#other)
 
 ## <a name="config"></a>配置
@@ -87,8 +89,11 @@ categories: git
 5. 配置密钥
 
 		ssh-keygen -t rsa -C superhj1987@126.com #生成密钥
-
 		ssh -T git@github.com #测试是否成功
+		exec ssh-agent bash
+		ssh-add ~/.ssh/private-key-name # 添加私钥到ssh-agent中
+		ssh-add -l  #查看到当前计算机中存储的密钥
+		ssh-add -d pub_key # 将私钥从ssh-agent删除
 
 ## <a name="repo"></a>取得项目的 Git 仓库
 
@@ -397,6 +402,16 @@ categories: git
 git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。
 
 	git cherry-pick <commit id>
+	
+## <a name="conflict"></a>解决冲突
+
+在rebase或者merge时，有时候会产生conflicts，如果无法auto merge，那么一般有两种处理方式：
+
+- 手动修改冲突的文件：修改完成后，使用git add,git commit或者git rebase --continue等后续操作即可。
+- 使用任一方的文件最为最新文件
+		
+		git checkout --ours xx
+		git checkout --theirs xx
 
 ## <a name="submodule"></a>Submodule
 
@@ -417,6 +432,22 @@ git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进�
 	当使用git clone下来的工程中带有submodule时，初始的时候，submodule的内容并不会自动下载下来的，此时，只需执行如下命令：
 
 		git submodule update --init --recursive
+		
+## <a name="subtree"></a>Subtree
+
+1. 第一次添加子目录，建立与git项目的关联
+
+		git remote add -f <子仓库名> <子仓库地址> #其中-f意思是在添加远程仓库之后，立即执行fetch。
+		git subtree add --prefix=<子目录名> <子仓库名> <分支> --squash #–squash意思是把subtree的改动合并成一次commit，这样就不用拉取子项目完整的历史记录。–prefix之后的=等号也可以用空格。
+	
+2. 从远程仓库更新子目录
+
+		git fetch <远程仓库名> <分支>
+		git subtree pull --prefix=<子目录名> <远程分支> <分支> --squash
+		
+3. 从子目录push到远程仓库（确认你有写权限）
+
+		git subtree push --prefix=<子目录名> <远程分支名> 分支
 
 ## <a name="other"></a>其他
 
