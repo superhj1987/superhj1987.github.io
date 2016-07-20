@@ -3,7 +3,7 @@ layout: post
 title: "《白帽子讲Web安全》读书笔记"
 date: 2013-11-11 21:30:20 +0800
 comments: true
-categories: security notes
+categories: security study
 ---
 最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。
 
