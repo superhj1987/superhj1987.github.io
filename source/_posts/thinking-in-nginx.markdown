@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "如何设计一个Web服务器-对Nginx的一点思考"
+title: "如何设计一个Web服务器"
 date: 2016-07-19 20:39:34 +0800
 comments: true
 categories: 
