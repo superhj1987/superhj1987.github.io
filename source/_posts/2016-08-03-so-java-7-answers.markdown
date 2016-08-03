@@ -36,7 +36,7 @@ SO上最多投票的一个Java问题是：[为什么处理一个排序数组要�
 
 实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。
 
-## 为什么这段代码使用随机字符串打印"hello world"
+## 为什么这段代码使用随机字符串能够打印出"hello world"
 
 问题链接：<http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world>
 
@@ -90,7 +90,7 @@ Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0
 
 问题链接：<http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception>
 
-这里有一个很明显的问题：如果有exception被抛出，但是没有任何一个catch，那么这个应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。
+这里有一个很明显的问题：如果有exception被抛出，但是没有任何办法去catch，那么应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。
 
 答案是可以，但是这里有一个"但是"。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。[jtahlborn](http://stackoverflow.com/a/13883510/5982245)给出了完整的解决办法。
 
