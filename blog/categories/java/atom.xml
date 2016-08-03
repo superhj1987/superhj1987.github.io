@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-03T20:39:20+08:00</updated>
+  <updated>2016-08-03T20:43:07+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -49,7 +49,7 @@
 
 <p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
 
-<h2>为什么这段代码使用随机字符串打印&#8221;hello world&#8221;</h2>
+<h2>为什么这段代码使用随机字符串能够打印出&#8221;hello world&#8221;</h2>
 
 <p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
 
@@ -105,7 +105,7 @@ public static String randomString(int i){
 
 <p>问题链接：<a href="http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception">http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception</a></p>
 
-<p>这里有一个很明显的问题：如果有exception被抛出，但是没有任何一个catch，那么这个应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。</p>
+<p>这里有一个很明显的问题：如果有exception被抛出，但是没有任何办法去catch，那么应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。</p>
 
 <p>答案是可以，但是这里有一个&#8221;但是&#8221;。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。<a href="http://stackoverflow.com/a/13883510/5982245">jtahlborn</a>给出了完整的解决办法。</p>
 
