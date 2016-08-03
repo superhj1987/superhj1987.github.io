@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-03T15:54:58+08:00</updated>
+  <updated>2016-08-03T20:39:20+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,116 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[StackOverflow: 你没见过的七个最好的Java答案[翻译]]]></title>
+    <link href="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/"/>
+    <updated>2016-08-03T20:30:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/08/03/so-java-7-answers</id>
+    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you">https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you</a></p>
+
+<p>StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案，同时我们也会从中学习到很多新的东西。这篇文章是在我们审阅了so上最流行的Java问题以及答案后从中挑出来的。即使你是一个有丰富经验的开发者，也能从中学到不少东西。</p>
+
+<!--more-->
+
+
+<h2>分支预测</h2>
+
+<p>SO上最多投票的一个Java问题是：<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array">为什么处理一个排序数组要比非排序数组快的多</a>。为了回答这个问题，你需要使用分支预测(branch prediction)。分支预测是一种架构，旨在通过在真实的路径发生前猜测某一分支的下一步来提升处理过程。</p>
+
+<p>分支在这里即一个if语句。这样的话，如果是一个排序数组，那么分支预测将会进行，否则不会进行。<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array/11227902#11227902">Mysticial</a>(so上的一个回答者)试图使用铁路和火车来简单介绍这个概念。假设你在铁轨连接处要决定火车要走哪条路，你会选择左边还是右边？你可以拦住火车，然后问司机该往那里，但是这样会让整个过程变慢。因此你只能去猜正确的方向，那么如何去猜呢？最好的办法就是通过观察目前这个火车每次经过时的路线，推测出正确的方向。</p>
+
+<p>这就是分支预测：识别模式并使用它。</p>
+
+<p>不幸的是，这个问题的提问者是分支预测失败的受害者。因为他的分支没有任何可以识别出的模式，所以预测出的行为是随机的。</p>
+
+<h2>Java中的安全</h2>
+
+<p>另一个流行的Java问题是：<a href="http://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords-in-java">为什么在Java中有关密码的地方更加喜欢使用char[]而不是String</a>？其实原始的问题更加具体一些，就是问的在Swing中，password控件有一个getPassword方法(返回char[]而不是getText()返回的String)。</p>
+
+<p>其实这里不用惊讶-这是一个安全问题。String是不可变的，意味着一旦它被创建了，那么你就不可能去修改它。这也意味着在GC之前，你对这些数据不能做任何处理。因此，只要有人能够访问你的内存，那么String就有可能被他获取到。</p>
+
+<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据将不会再在系统中保存，即使GC还没有进行。</p>
+
+<h2>异常</h2>
+
+<p>即使很多开发者倾向于忽略对受检异常的处理，SO上仍然有很多关于异常的问题。其中一个最流行的问题是：什么是NullPointerException，我该怎么处理它？对此，我们并没有感到惊讶，因为这个问题也是<a href="http://blog.takipi.com/the-top-10-exceptions-types-in-production-java-applications-based-on-1b-events/">在生产环境的Java应用中排名第一的异常</a>。</p>
+
+<p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
+
+<h2>为什么这段代码使用随机字符串打印&#8221;hello world&#8221;</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
+
+<p>这个问题给出了下面的代码，并打印出了&#8221;hello world&#8221;。</p>
+
+<pre><code>System.out.println(randomString(-229985452) + " " + randomString(-147909649));
+
+public static String randomString(int i){
+    Random ran = new Random(i);
+    StringBuilder sb = new StringBuilder();
+    while (true)
+    {
+        int k = ran.nextInt(27);
+        if (k == 0)
+            break;
+
+        sb.append((char)('`' + k));
+    }
+
+    return sb.toString();
+}
+</code></pre>
+
+<p>其实，选择一组随机的整数并不是随机的。给定一个seed参数(在这个例子中是-229985452和-147909649), 那么每次随机，同样的seed则会产生同样的输出。</p>
+
+<p>Random(-229985452).nextInt(27)产生的钱六个数字：8, 5, 12, 12, 15, 0</p>
+
+<p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
+
+<p>这样，最终输出的就是&#8221;hello world&#8221;。</p>
+
+<h2>为什么两个时间戳相减(in 1927)得出一个奇怪的结果？</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result">http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result</a></p>
+
+<pre><code>public static void main(String[] args) throws ParseException {
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+    String str3 = "1927-12-31 23:54:07";  
+    String str4 = "1927-12-31 23:54:08";  
+    Date sDt3 = sf.parse(str3);  
+    Date sDt4 = sf.parse(str4);  
+    long ld3 = sDt3.getTime() /1000;  
+    long ld4 = sDt4.getTime() /1000;
+    System.out.println(ld4-ld3);
+}
+</code></pre>
+
+<p>按说上面的代码最后的结果应该是1，但实际的输出却是353。其实，这是一个时区的问题。1927年12月31号24:00，上海时间往回调整了5分钟52秒，因此&#8221;1927-12-31 23:54:08&#8221;发生了两次，Java将后面一次实例化成了本地的这个时间。因此和前一秒的差距成了353。</p>
+
+<p>我们需要指出，如果你试着来运行这段代码，结果并不一定是353。<a href="http://stackoverflow.com/a/6841479/5982245">Jon Skeet指出了这一点</a>，在时区数据库项目2014版中，这个改变的时间点改到了1900-12-31，因此成了344秒的差距。</p>
+
+<h2>无法被捕获的ChuckNorrisException</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception">http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception</a></p>
+
+<p>这里有一个很明显的问题：如果有exception被抛出，但是没有任何一个catch，那么这个应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。</p>
+
+<p>答案是可以，但是这里有一个&#8221;但是&#8221;。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。<a href="http://stackoverflow.com/a/13883510/5982245">jtahlborn</a>给出了完整的解决办法。</p>
+
+<h2>哈希表</h2>
+
+<p>哈希表是另外一个在SO上流行的问题系列。许多用户都想要知道所有集合类之间的区别，什么时候该使用哪种集合。</p>
+
+<p>迭代顺序是主要考虑的因素。使用HashMap则忽略了所有的顺序信息，也就是获取元素的顺序和你插入元素的顺序是没有任何关系的；使用TreeMap则会得到一个排序好的迭代集合；使用LinkedHashMap则是一个FIFO的顺序。</p>
+
+<p>如果你还是对这些感到困惑，这里有一个相关说明的图标可以<a href="http://zeroturnaround.com/wp-content/uploads/2016/04/Java-Collections-cheat-sheet.png">参考</a>(Rebel Labs制作)。</p>
+
+<h2>总结</h2>
+
+<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们认为我们已经知道的知识。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java后端工程师学习大纲]]></title>
@@ -847,100 +957,6 @@
 <li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JVM内存GC的骗局（转载）]]></title>
-    <link href="http://www.rowkey.me/blog/2014/09/25/jvm-cheat/"/>
-    <updated>2014-09-25T21:29:52+08:00</updated>
-    <id>http://www.rowkey.me/blog/2014/09/25/jvm-cheat</id>
-    <content type="html"><![CDATA[<h2>概述</h2>
-
-<p>在日常程序开发中，很多JAVA程度员不太关心内存的使用情况。当然，如果程序员运气较好或者系统没有大规模的被测试或者被用户使用时，这个问题或许永远不出现，使得程序员一直认为内存反正是无限的，可以一直使用。确实，JVM的垃圾回收器会帮我们处理好所有的事情，可如果运气不是那么好，不幸就有可能发生在我们的身上，比如：进程会抛出OOM异常，不再接收新的请求；响应时间在固定时间段内变长，超时或者不响应，CPU使用率时常像过山车一样等。内存使用在大部分的工作时间可以正常工作，这样会导致很多的人对JAVA应用的内存使用情况不明了或者得不到充分的性能测试，而导致程序无法正常工作。出现上面的情况程序员一般会比较好的较快的发现问题或能总结一定的规律。</p>
-
-<!--more-->
-
-
-<h2>问题</h2>
-
-<p>有时候JVM还会发生欺骗你的场景， JVM不停的在垃圾回收，可是每次回收完后堆却还是满的，很明显程序内存被使用完了，已经无法正常工作了，但JVM就是不抛出OutOfMemoryError(OOM)这个异常来告诉程序员内部发出了什么，只是不停的做老好人尝试帮我们做垃圾回收，把服务器的资源耗光了，但是此时服务器已经无法响应用户的正常请求了，让我们一起来看看这些情况发生时候的现象，体会一下被欺骗的感觉。</p>
-
-<h2>现状：</h2>
-
-<p>同事在模拟用户不停的发送请求给某系统，在运行一段时间后，突然，系统上邮件报告测试用例请求失败，登录测试系统的服务器，首先看下JVM的参数设置，如下：</p>
-
-<p>-server –Xms4g –Xmx4g -XX:MaxPermSize=256m  -verbose:gc -XX:+PrintGCDetails -Xloggc:$CATALINA_BASE/logs/gc.log -XX:+PrintGCTimeStamp，再使用TOP命令看看服务器发生了什么。</p>
-
-<p>观察一段时间后，CPU一直运行在100%，于是想当然的认为可能是那段程序里面触发了BUG,有可能是正则表达式或者某段代码里面有个死循环的坑跳进去，没有出来。这不是很简单的事吗？直接使用jstack + pid 把堆栈打出来即可，直接操作吧，界面上马上输出操作日志，从堆栈日志可以看出，所有的线程都被BLOCKED住了，然后堆栈里面也找不到任何业务的相关代码，难道直觉出错了，感觉一下子不太好了，但是至少可以排查到不是上面的二种原因了，好吧，那再看看应用的GC的情况，部分日志如下。</p>
-
-<p>1403682.561: [GC [PSYoungGen: 1375104K->11376K(1386176K)] 4145665K->2782002K(4182400K), 0.0174410 secs] [Times: user=0.27 sys=0.00, real=0.02 secs]</p>
-
-<p>1407799.743: [GC [PSYoungGen: 1386160K->11632K(1386432K)] 4156786K->2793538K(4182656K), 0.0285330 secs] [Times: user=0.48 sys=0.00, real=0.03 secs]</p>
-
-<p>1409230.024: [GC [PSYoungGen: 1386416K->10688K(1377984K)] 4168322K->2803822K(4174208K), 0.0265000 secs] [Times: user=0.43 sys=0.00, real=0.02 secs]</p>
-
-<p>1409230.051: [Full GC [PSYoungGen: 10688K->7014K(1377984K)] [PSOldGen: 2793134K->2796224K(2796224K)] 2803822K->2803238K(4174208K) [PSPermGen: 48439K->48439K(262144K)], 7.8892780 secs] [Times: user=7.92 sys=0.00, real=7.89 secs]</p>
-
-<p>1410502.582: [Full GC [PSYoungGen: 1366336K->85344K(1377984K)] [PSOldGen: 2796224K->2796224K(2796224K)] 4162560K->2881568K(4174208K) [PSPermGen: 48577K->48577K(262144K)], 8.2720110 secs] [Times: user=8.29 sys=0.00, real=8.27 secs]</p>
-
-<p>PS：这里使用-XX:+PrintGCDateStamps替代-XX:+PrintGCTimeStamp,可以打印出真实时间戳。</p>
-
-<h2>解释一下：</h2>
-
-<p>第一行：
-1403682.561: [GC [PSYoungGen: 1375104K->11376K(1386176K)] 4145665K->2782002K(4182400K), 0.0174410 secs] [Times: user=0.27 sys=0.00, real=0.02 secs]</p>
-
-<p>发生的时间点，：JVM运行的时间长度，以度为单位，也可以格式化成固定的时间格式</p>
-
-<p>PSYoungGen：发生了何种类型的GC，此处代表发生了年轻代的GC</p>
-
-<p>1375104K：回收前的大小</p>
-
-<p>11376K：回收后的大小</p>
-
-<p>1386176K：YOUNG代的大小</p>
-
-<p>4145665 K：回收前总的占用大小</p>
-
-<p>2782002K：回收后的占用大小</p>
-
-<p>4182400K：总占用大小</p>
-
-<p>0.27和0.00：代表在用户态(user)和系统状(sys)的CPU运行时间</p>
-
-<p>0.02 secs：代表实际的GC的运行时间</p>
-
-<p>注：上面总的运行时间小于用户态和系统态的时间总和，是由于后者仅指CPU的运行时间，包括等待或IO阻塞的时间，而且现在的GC是采用多线程收集的，同时机器也是多个CPU，因此，大部分是二者之和要比前面的值大，如果是采用串形化收集器( serial collector)的话，二者时间几乎相差不多。关于各种收集器的差别，后续有时间再安排详细总结。</p>
-
-<p>接下来的二行，不再重复说明，第四行有Full字样，代表JVM发生了Full GC，不过多了二个分区的收集，PSOldGen：老生代的回收前后空间大小及总空间；PSPermGen：持久代的回收前后空间大小和总空间。从第三行，可以看出老空间的使用率达到饱和，从而触发了FULL GC，但是很遗憾的是第五行后又接着发生了FULL GC，后面的都是一直在持续进行，但是系统一直不抛出OOM异常或者进程退出，导致这台机器服务进程一直存在，但是基本无法正常工作。</p>
-
-<p>GC，无论Young GC还是Full GC，每次都会导致JVM STW(STOP WORLD)暂停用户的业务工作，来处理垃圾回收任务，短时间内无法响应用户请求，特别是大量的Full GC会导致系统响应速度降低，另外还有OOM的巨大风险。Young GC频繁，就算GC采用多线程回收方式，尽管回收的时候非常短，但是如果GC次数和频率很高，因此对应用的影响是不可忽视的。 Full GC 包括整个分区的垃圾回收，包括新生代、旧生代、持久代等。因此其回收成本高，应用也会暂停更长时间，无法及时响应用户的请求，所以需要特别注意这个种情况，一般来讲，排除主动的调用GC操作外，JVM会在以下几种情况发生Full GC。</p>
-
-<ol>
-<li><p>旧生代内存不足</p></li>
-<li><p>持久代内存不足</p></li>
-<li><p>统计新生代 GC晋升到旧生代的平均大小大于旧生代的剩余空间</p></li>
-</ol>
-
-
-<h2>解决</h2>
-
-<p>知道发生的原因后，就可以使用JMAP -heap直接看一下JVM内存的对像值，或者使用JMAP -dump直接JVM的堆栈DUMP出来，使用MAT打开分析就行。如果这种现像发生之后，DUMP出来的文件会较大，有些会达到十多个G，因为一般不直接在工作机器上进行，需要把文件转发到其他的非线上服务并且内存足够的机器上分析，最后可以用MAT把分析后的文件打开即可，打开后，首页会给出可疑的建议对象实例，直接跳转到列表中，打开折叠细节即可看到真面目，里面包括了三十多万个对象，找相关的人员对根据业务需要，直接把不需要的实例在使用完后移除，其他几行的问题类似处理就即可。</p>
-
-<h2>总结</h2>
-
-<p>从上面GC的发生的情况来看，JVM一次次不停的努力的帮我们进行GC操作，直到把CPU全部占光，但是就是不直接抛出异常直接告诉我们内存不够了，感觉把我们带了到一个巨大的庞氏骗局，也许我们把JVM的内存加大，这个坑还将帮我们隐藏下去，如果程序设置了定时重启之类的操作，这个坑就永远发现不了。一般产品开发人员非常希望应用程序能在用户发觉之前发现这个问题，JVM无法判断出这个问题，因为也就不能帮我们抛出几乎OOM的异常，不过可以通过调整GCTimeLimit和GCHeapFreeLimit参数来重新定义何时抛出OutOfMemoryError错误。GCTimeLimit 的默认值是98%，也就是说如果98%时间都用花在GC上，则会抛出OutOfMemoryError。GCHeapFreeLimit 是回收后可用堆的大小。默认值是2%。当然最好的办法就是开发工程师开始就很清楚如何使用相关的容器类的正确用法，并且在上线前能经过充分的测试或运行。本文只是引用GC方面的一个具体的安全来说明GC是怎么骗人的，关于GC和JVM内存相关的细节如何及时的发现此类的问题，有机会再通过示例和大家探讨学习。</p>
-
-<p>注：以上资料仅以HOTSPOT VM 1.7.65 版本参考。</p>
-
-<p>参考资料：</p>
-
-<p>JVM <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html">http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gc-ergonomics.html</a></p>
-
-<p>HotSpot JVM就是个庞氏骗局 <a href="http://it.deepinmind.com/gc/2014/04/01/hotspot-jvm-ponzi-scheme.html">http://it.deepinmind.com/gc/2014/04/01/hotspot-jvm-ponzi-scheme.html</a></p>
-
-<p>Java内存泄露分析 <a href="http://doc.hz.netease.com/pages/viewpage.action?pageId=36468038">http://doc.hz.netease.com/pages/viewpage.action?pageId=36468038</a></p>
 ]]></content>
   </entry>
   

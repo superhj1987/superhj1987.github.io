@@ -6,13 +6,13 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>技术的成长 - 后端技术杂谈 | 飒然Hang</title>
+  <title>StackOverflow: 你没见过的七个最好的Java答案[翻译] - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="技术的成长 Aug 14th, 2014 Posted by 飒然Hang in study 最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故， &hellip;">
+  <meta name="description" content="StackOverflow: 你没见过的七个最好的Java答案[翻译] Aug 3rd, 2016 Posted by 飒然Hang in java 原文：https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers- &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -20,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
@@ -92,7 +92,7 @@
   
   <header>
     
-      <h1 class="post-title">技术的成长</h1>
+      <h1 class="post-title">StackOverflow: 你没见过的七个最好的Java答案[翻译]</h1>
     
     
       <p class="post-meta">
@@ -108,7 +108,7 @@
   
 
 
-<time datetime="2014-08-14T16:38:01+08:00" pubdate data-updated="true">Aug 14<sup>th</sup>, 2014</time>
+<time datetime="2016-08-03T20:30:34+08:00" pubdate data-updated="true">Aug 3<sup>rd</sup>, 2016</time>
         
         
   
@@ -118,7 +118,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/study/'>study</a>
+    <a class='category' href='/blog/categories/java/'>java</a>
   
 </span>
 
@@ -129,19 +129,108 @@
   </header>
 
 
-<div class="post-content"><p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
+<div class="post-content"><p>原文：<a href="https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you">https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you</a></p>
 
-<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
+<p>StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案，同时我们也会从中学习到很多新的东西。这篇文章是在我们审阅了so上最流行的Java问题以及答案后从中挑出来的。即使你是一个有丰富经验的开发者，也能从中学到不少东西。</p>
 
 <!--more-->
 
 
-<p>这也牵扯到了技术的广度和深度的问题。这两个的优先级不能一味的说谁优谁劣，技术研究的人肯定倾向于去拓展技术的深度，而面向产品、架构的人应该关心广度多一些吧。当然如果不去精通一门技术，广度却也是无法拓展的。所谓技术上的成长，抛开技术的深度和广度来言，我觉得还是主要指技术思维的拓展和进步。技术领域的很多东西都是触类旁通的，只要你有好的逻辑思维和方法论，那么对于很多东西都是能很快上手直至掌握、运用、精通的。</p>
+<h2>分支预测</h2>
 
-<p>还有一个上手能力和学习能力的问题，上手能力指的是你掌握然后使用，而学习能力应该是理解并能改进。这两个概念以前没去区分过，现在想想却也是有很大不同的。上手容易，精通难。所谓学习能力，是上手之后能够快速地吸收为自己的东西，能够从自己的角度看待问题，甚至提出自己的改进。很多人接触一个新的技术的确能够很快地上手去运用，但是却很少会深入地去学习这种技术的原理、运行机制之类的东西。这也是优秀开发人员和一般开发人员本质的区别。
-学习技术，更是要学习其精髓而非皮毛，知其然更要知其所以然。</p>
+<p>SO上最多投票的一个Java问题是：<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array">为什么处理一个排序数组要比非排序数组快的多</a>。为了回答这个问题，你需要使用分支预测(branch prediction)。分支预测是一种架构，旨在通过在真实的路径发生前猜测某一分支的下一步来提升处理过程。</p>
 
-<p>其实，总结来看，作为一个技术人，追求的技术上的长进，从多个维度来看，关键的还是项目经验和思维能力的同步提高。当然，如果对某一个领域能深入研究从而成为专家那也是锦上添花的事情。</p>
+<p>分支在这里即一个if语句。这样的话，如果是一个排序数组，那么分支预测将会进行，否则不会进行。<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array/11227902#11227902">Mysticial</a>(so上的一个回答者)试图使用铁路和火车来简单介绍这个概念。假设你在铁轨连接处要决定火车要走哪条路，你会选择左边还是右边？你可以拦住火车，然后问司机该往那里，但是这样会让整个过程变慢。因此你只能去猜正确的方向，那么如何去猜呢？最好的办法就是通过观察目前这个火车每次经过时的路线，推测出正确的方向。</p>
+
+<p>这就是分支预测：识别模式并使用它。</p>
+
+<p>不幸的是，这个问题的提问者是分支预测失败的受害者。因为他的分支没有任何可以识别出的模式，所以预测出的行为是随机的。</p>
+
+<h2>Java中的安全</h2>
+
+<p>另一个流行的Java问题是：<a href="http://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords-in-java">为什么在Java中有关密码的地方更加喜欢使用char[]而不是String</a>？其实原始的问题更加具体一些，就是问的在Swing中，password控件有一个getPassword方法(返回char[]而不是getText()返回的String)。</p>
+
+<p>其实这里不用惊讶-这是一个安全问题。String是不可变的，意味着一旦它被创建了，那么你就不可能去修改它。这也意味着在GC之前，你对这些数据不能做任何处理。因此，只要有人能够访问你的内存，那么String就有可能被他获取到。</p>
+
+<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据将不会再在系统中保存，即使GC还没有进行。</p>
+
+<h2>异常</h2>
+
+<p>即使很多开发者倾向于忽略对受检异常的处理，SO上仍然有很多关于异常的问题。其中一个最流行的问题是：什么是NullPointerException，我该怎么处理它？对此，我们并没有感到惊讶，因为这个问题也是<a href="http://blog.takipi.com/the-top-10-exceptions-types-in-production-java-applications-based-on-1b-events/">在生产环境的Java应用中排名第一的异常</a>。</p>
+
+<p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
+
+<h2>为什么这段代码使用随机字符串打印&#8221;hello world&#8221;</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
+
+<p>这个问题给出了下面的代码，并打印出了&#8221;hello world&#8221;。</p>
+
+<pre><code>System.out.println(randomString(-229985452) + " " + randomString(-147909649));
+
+public static String randomString(int i){
+    Random ran = new Random(i);
+    StringBuilder sb = new StringBuilder();
+    while (true)
+    {
+        int k = ran.nextInt(27);
+        if (k == 0)
+            break;
+
+        sb.append((char)('`' + k));
+    }
+
+    return sb.toString();
+}
+</code></pre>
+
+<p>其实，选择一组随机的整数并不是随机的。给定一个seed参数(在这个例子中是-229985452和-147909649), 那么每次随机，同样的seed则会产生同样的输出。</p>
+
+<p>Random(-229985452).nextInt(27)产生的钱六个数字：8, 5, 12, 12, 15, 0</p>
+
+<p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
+
+<p>这样，最终输出的就是&#8221;hello world&#8221;。</p>
+
+<h2>为什么两个时间戳相减(in 1927)得出一个奇怪的结果？</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result">http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result</a></p>
+
+<pre><code>public static void main(String[] args) throws ParseException {
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+    String str3 = "1927-12-31 23:54:07";  
+    String str4 = "1927-12-31 23:54:08";  
+    Date sDt3 = sf.parse(str3);  
+    Date sDt4 = sf.parse(str4);  
+    long ld3 = sDt3.getTime() /1000;  
+    long ld4 = sDt4.getTime() /1000;
+    System.out.println(ld4-ld3);
+}
+</code></pre>
+
+<p>按说上面的代码最后的结果应该是1，但实际的输出却是353。其实，这是一个时区的问题。1927年12月31号24:00，上海时间往回调整了5分钟52秒，因此&#8221;1927-12-31 23:54:08&#8221;发生了两次，Java将后面一次实例化成了本地的这个时间。因此和前一秒的差距成了353。</p>
+
+<p>我们需要指出，如果你试着来运行这段代码，结果并不一定是353。<a href="http://stackoverflow.com/a/6841479/5982245">Jon Skeet指出了这一点</a>，在时区数据库项目2014版中，这个改变的时间点改到了1900-12-31，因此成了344秒的差距。</p>
+
+<h2>无法被捕获的ChuckNorrisException</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception">http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception</a></p>
+
+<p>这里有一个很明显的问题：如果有exception被抛出，但是没有任何一个catch，那么这个应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。</p>
+
+<p>答案是可以，但是这里有一个&#8221;但是&#8221;。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。<a href="http://stackoverflow.com/a/13883510/5982245">jtahlborn</a>给出了完整的解决办法。</p>
+
+<h2>哈希表</h2>
+
+<p>哈希表是另外一个在SO上流行的问题系列。许多用户都想要知道所有集合类之间的区别，什么时候该使用哪种集合。</p>
+
+<p>迭代顺序是主要考虑的因素。使用HashMap则忽略了所有的顺序信息，也就是获取元素的顺序和你插入元素的顺序是没有任何关系的；使用TreeMap则会得到一个排序好的迭代集合；使用LinkedHashMap则是一个FIFO的顺序。</p>
+
+<p>如果你还是对这些感到困惑，这里有一个相关说明的图标可以<a href="http://zeroturnaround.com/wp-content/uploads/2016/04/Java-Collections-cheat-sheet.png">参考</a>(Rebel Labs制作)。</p>
+
+<h2>总结</h2>
+
+<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们认为我们已经知道的知识。</p>
 </div>
 
 
@@ -157,7 +246,7 @@
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="技术的成长 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech/" data-content="最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖， &hellip;">
+<div class="ds-share flat" data-title="StackOverflow: 你没见过的七个最好的Java答案[翻译] - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/" data-content="原文：https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案 &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
@@ -178,10 +267,8 @@
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2014/08/22/node-async-analysis/" title="上一篇: async源码分析">&laquo; async源码分析 </a>
       
-      
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2014/07/25/nginx-data-structure/" title="下一篇: Nginx源码分析之基本数据结构">Nginx源码分析之基本数据结构 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2016/06/27/java-backend-study/" title="下一篇: Java后端工程师学习大纲">Java后端工程师学习大纲 &raquo;</a>
       
     </div>
   </footer>
@@ -190,7 +277,7 @@
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2014/08/14/grow-up-in-tech/" data-title="技术的成长"></div>
+<div class="ds-thread" data-thread-key="/blog/2016/08/03/so-java-7-answers/" data-title="StackOverflow: 你没见过的七个最好的Java答案[翻译]"></div>
 <!-- 多说评论框 end -->
 
 
