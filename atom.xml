@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-07-20T21:20:15+08:00</updated>
+  <updated>2016-08-03T15:54:58+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -489,7 +489,7 @@
 
 <h3>3.1 理论基础</h3>
 
-<h4>在通常情况下，我们掌握java的内存管理就是为了应对网站/服务访问慢，慢的原因一般有以下几点：</h4>
+<p>在通常情况下，我们掌握java的内存管理就是为了应对网站/服务访问慢，慢的原因一般有以下几点：</p>
 
 <ul>
 <li>内存：垃圾收集占用cpu；放入了太多数据，造成内存泄露(java也是有这种问题的^_^)</li>
@@ -510,7 +510,7 @@
 </ul>
 
 
-<h4>先来看垃圾收集的一些基本概念</h4>
+<h4>垃圾收集的一些基本概念</h4>
 
 <ul>
 <li>Concurrent Collector:收集的同时可运行其他的工作进程</li>
@@ -523,7 +523,9 @@
 </ul>
 
 
-<h4>牵扯到垃圾收集，还需要搞清楚吞吐量与响应时间的含义</h4>
+<h4>吞吐量与响应时间</h4>
+
+<p>牵扯到垃圾收集，还需要搞清楚吞吐量与响应时间的含义</p>
 
 <ul>
 <li>吞吐量是对单位时间内完成的工作量的量度。如：每分钟的 Web 服务器请求数量</li>
@@ -536,7 +538,7 @@
 
 <p>针对于Java的垃圾回收来说，不同的垃圾回收器会不同程度地影响这两个指标。例如：并行的垃圾收集器，其保证的是吞吐量，会在一定程度上牺牲响应时间。而并发的收集器，则主要保证的是请求的响应时间。</p>
 
-<h4>对于GC(垃圾回收)的流程的基本描述如下：</h4>
+<h4>GC的流程</h4>
 
 <ul>
 <li>找出堆中活着的对象</li>
@@ -545,7 +547,7 @@
 </ul>
 
 
-<h4>GC算法一般有以下几种：</h4>
+<h4>GC算法</h4>
 
 <ul>
 <li>Mark-Sweep 标记-清除</li>
@@ -574,9 +576,9 @@
 </ol>
 
 
-<h4>分代收集是目前比较先进的垃圾回收方案</h4>
+<h4>分代收集</h4>
 
-<p>对于分代收集，有以下几个相关理论</p>
+<p>分代收集是目前比较先进的垃圾回收方案。有以下几个相关理论</p>
 
 <ul>
 <li>分代假设：大部分对象的寿命很短，“朝生夕死”，重点放在对年青代对象的收集，而且年青代通常只占整个空间的一小部分。</li>
@@ -586,7 +588,7 @@
 </ul>
 
 
-<p>HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。</p>
+<p>HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。通常将对New Generation进行的回收称为Minor GC;对Old Generation进行的回收称为Major GC，但由于Major GC除并发GC外均需对整个堆以及Permanent Generation进行扫描和回收，因此又称为Full GC。</p>
 
 <p><image src="http://www.rowkey.me/images/blog_images/hotspot-gc.png" width="300px"/></p>
 
@@ -597,11 +599,66 @@
 </ul>
 
 
-<h4>分代收集中典型的垃圾收集算法组合描述如下：</h4>
+<p>分代收集中典型的垃圾收集算法组合描述如下：</p>
 
 <ul>
 <li>年青代通常使用Copy算法收集，会stop the world</li>
 <li>老年代收集一般采用Mark-sweep-compact, 有可能会stop the world，也可以是concurrent或者部分concurrent。</li>
+</ul>
+
+
+<p>那么何时进行Minor GC、何时进行Major GC? 一般的过程如下：</p>
+
+<ul>
+<li>对象在Eden Space完成内存分配</li>
+<li>当Eden Space满了，再创建对象，会因为申请不到空间，触发Minor GC，进行New(Eden + S0 或 Eden S1) Generation进行垃圾回收</li>
+<li>Minor GC时，Eden Space不能被回收的对象被放入到空的Survivor（S0或S1，Eden肯定会被清空），另一个Survivor里不能被GC回收的对象也会被放入这个Survivor，始终保证一个Survivor是空的</li>
+<li>在Step3时，如果发现Survivor区满了，则这些对象被copy到old区，或者Survivor并没有满，但是有些对象已经足够Old，也被放入Old Space。</li>
+<li>当Old Space被放满之后，进行Full GC</li>
+</ul>
+
+
+<p>但这个具体还要看JVM是采用的哪种GC方案。</p>
+
+<p>New Generation的GC有以下三种：</p>
+
+<ul>
+<li>Serial</li>
+<li>ParallelScavenge</li>
+<li>ParNew</li>
+</ul>
+
+
+<p>对于上述三种GC方案均是在Eden Space分配不下时，触发GC。</p>
+
+<p>Old Generation的GC有以下四种：</p>
+
+<ul>
+<li>Serial Old</li>
+<li>Parallel</li>
+<li>CMS</li>
+</ul>
+
+
+<p>对于Serial Old, Parallel Old而言触发机制为</p>
+
+<ul>
+<li>Old Generation空间不足</li>
+<li>Permanent Generation空间不足</li>
+<li>Minor GC时的悲观策略</li>
+<li>Minor GC后在Eden上分配内存仍然失败</li>
+<li>执行Heap Dump时</li>
+<li>外部调用System.gc,可通过-XX:+DisableExplicitGC来禁止</li>
+</ul>
+
+
+<p>对于CMS而言触发机制为:</p>
+
+<ul>
+<li>当Old Generation空间使用到一定比率时触发;HopSpot V1.6中默认是92%，可通过PrintCMSInitiationStatistics(此参数在V1.5中不能用)来查看这个值到底是多少;可通过CMSInitiatingOccupancyFaction来强制指定，默认值并不是复制在这个值上，是根据如下公式计算出来的:((100 -MinHeapFreeRatio) +(double)(CMSTriggerRatio* MinHeapFreeRatio) / 100.0)/ 100.0;MinHeapFreeRatio默认值：40 CMSTriggerRatio默认值：80</li>
+<li>当Permanent Generation采用CMS收集且空间使用到一定比率触发;Permanent Generation采用CMS收集需设置：-XX:+CMSClassUnloadingEnabled Hotspot V1.6中默认为92%;可通过CMSInitiatingPermOccupancyFraction来强制指定，同样，它是根据如下公式计算出来的：((100 -MinHeapFreeRatio) +(double)(CMSTriggerPermRatio* MinHeapFreeRatio) / 100.0)/ 100.0;MinHeapFreeRatio默认值：40 CMSTriggerPermRatio默认值：80</li>
+<li>Hotspot根据成本计算决定是否需要执行CMS  GC;可通过-XX:+UseCmsInitiatingOccupancyOnly来去掉这个动态执行的策略。</li>
+<li>外部调用System.gc，且设置了ExplicitGCIInvokesConcurrent;需要注意，在hotspot 6中，在这种情况下如果应用同时使用了NIO，可能会出现bug。</li>
 </ul>
 
 
