@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-03T20:43:07+08:00</updated>
+  <updated>2016-08-04T11:48:49+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,7 +14,183 @@
 
   
   <entry>
-    <title type="html"><![CDATA[StackOverflow: 你没见过的七个最好的Java答案[翻译]]]></title>
+    <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
+    <link href="http://www.rowkey.me/blog/2016/08/03/java-8-top-tips/"/>
+    <updated>2016-08-03T22:30:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/08/03/java-8-top-tips</id>
+    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
+
+<p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
+
+<p>笔者已经使用Java8工作许多年，包括新的应用开发以及迁移旧的应用，感觉是时候总结Java8中一些有用东西的最佳实践。笔者个人不太喜欢“最佳实践”这个词，因为字面上传达了一种“one size fit all”的概念，当然，编码肯定不是这样的而是不同的场景有不同的解决方案。但是笔者觉得在如何使用Java 8让自己的生活变得更加容易上还是有一些特殊的经验值得分享的。</p>
+
+<!--more-->
+
+
+<h2>Optional</h2>
+
+<p>Optional是一个评价过低的特性，它可以显著的降低代码抛出NullPointerException的可能。它在边界代码(你正在使用的API或者你发布的API)中特别有用。</p>
+
+<p>但是对于它的不适当的使用和设计很容易使一个小的变动影响到很多的类，或者降低代码的可阅读性。这里有一些如何更加高效使用Optional的建议。</p>
+
+<h3>Optional应该仅仅用在返回类型中</h3>
+
+<p>不要用在参数或者域中。<a href="http://blog.joda.org/2015/08/java-se-8-optional-pragmatic-approach.html">阅读这篇博文</a>可以看到如何正确使用Optional进行编码。幸运的是，IntelliJ IDEA可以打开inspections去检查你是否遵循了这些推荐规范。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
+
+<p>要尽早在Optional出现的地方对它进行处理。IntelliJ IDEA会阻止Optional出现在你代码的各个地方，所以记住一定要在Optional出现的地方就对他进行处理。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
+
+<h3>不能简单地调用get()方法</h3>
+
+<p>Optional是用来表示这个值是有可能为空的，让你做好应对的准备。因此，很重要的一点就是在使用这个值之前务必要检查其是否存在。简单地调用get方法而不是先调用isPresent可能会导致产生空指针异常。幸运的是，IntelliJ IDEA再一次提供了对此种方案的检查。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
+
+<h3>更加优雅的方案</h3>
+
+<p>如下代码，isPresent和get当然能够解决这个问题。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/OptionalSimple.png" alt="OptionalSimple.png" /></p>
+
+<p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值但值是null的时候。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
+
+<p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调动，那么当这是个很耗资源的方法时，那么使用lambda会带来更好的性能提升。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
+
+<h2>使用Lambda表达式</h2>
+
+<p>Lambda表达式是Java8最主要的卖点。即使你现在用不到Java8，你也应该对它有了一些基本的了解。下面讲述了一种新的方式使用Java编程，虽然这并不是一个“最佳实践”，仅仅是一个使用的指导。</p>
+
+<h3>保持简短</h3>
+
+<p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，会很容易把长的表达式重构成一个方法。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
+
+<p>当然，这些可能甚至牵扯到方法引用。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
+
+<p><img src="LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
+
+<h3>显式声明</h3>
+
+<p>在lambda表达式中是没有类型信息的，所以你会发现在参数中包含类型信息是非常有用的。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
+
+<p>如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，IntelljJ IDEA都会让你可以看到参数的类型信息。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
+
+<p>甚至lambda表示的函数接口也能看到。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
+
+<h2>设计Lambda表达式</h2>
+
+<p>我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List&lt;>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person<T>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。</p>
+
+<p>然而，如果你发现自己处在这样一种境况，那么这里有一些提示。</p>
+
+<h3>IntelliJ IDEA能够帮助你引入函数参数</h3>
+
+<p>这能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
+
+<p><img src="LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
+
+<h3>使用存在的函数接口</h3>
+
+<p>随着开发者变得对Java8越来越熟悉，当使用Supplier和Consumer这些接口时，我们将会知道什么是我们所期望的，比如创建一个ErrorMessageCreator(例子)会是令人迷惑和浪费的。可以看一下<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">函数包</a>获取已经存在的那些函数接口。</p>
+
+<h3>给你的函数接口添加@FunctionalInterface</h3>
+
+<p>如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Inteelij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
+
+<p>当方法太多时，也会提示你。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
+
+<p>当你把注解应用到一个类而不是接口时，也会发出提醒。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
+
+<p>Lambda表达式可以被用在任何有一个Single Abstract Method的接口中，但是它不能够应用到一个抽象类中。看起来没有啥逻辑，但它就是这样的。</p>
+
+<h2>Streams</h2>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Stream API</a>是Java8另一个最大的卖点，我认为我们到现在还是没有真的搞清楚这会如何改变我们的代码。这里有一些我自己发现很有用的东西。</p>
+
+<h3>将点号对齐</h3>
+
+<p>我个人比较喜欢对齐Stream操作。当然，你不需要非得这么做，但是我发现这样还是有很大好处的。</p>
+
+<ul>
+<li>一眼就看到所有的操作以及他们的顺序</li>
+<li>更容易调试(虽然Intellij IDEA提供了在一行中的lambda表达式中任意地方打断点的功能，但是将他们分隔成单独的行会更简单)</li>
+<li>可以很容易的注释掉一些操作以测试</li>
+<li>很容易地插入peek()供调试或者测试</li>
+</ul>
+
+
+<p><img src="http://www.rowkey.me/images/blog_images/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
+
+<p>这样做也会让代码看起来很舒服。当然，如果这么做，会增加代码的行数。</p>
+
+<p>你可以修改一下格式化设置使点号对齐。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/StreamWrapping.png" alt="StreamWrapping.png" /></p>
+
+<h3>使用方法引用(Method References)</h3>
+
+<p>你可能需要一会儿才能习惯这个奇怪的语法。但是，当我们能够正确地使用，它确实能够提高程序的可阅读性。考虑下面的代码：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
+
+<p>对比一下使用新引入的Objects类的辅助方法(helper methods)：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
+
+<p>后面的代码能够更加明显地表明它想保存的值。Intellij IDEA会提示你合适一个lambda可以被替换成方法引用。</p>
+
+<h3>当迭代一个集合，尽可能地使用Streams API</h3>
+
+<p>使用新的集合方法：forEach。IDEA会提示你。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
+
+<p>使用Streams API相比起使用循环和if语句更加清晰明了。例如：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/StreamBefore.png" alt="StreamBefore.png" /></p>
+
+<p>IDEA只能建议这个可以重构为：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/StreamAfter.png" alt="StreamAfter.png" /></p>
+
+<p>我做的性能测试表示这个重构是令人惊奇的-无论性能是不变、提升还是变差，都是不能被预测的。因此，当你的应用对性能要求很苛刻的话，重构的时候务必做好测试。</p>
+
+<h3>当遍历数组时使用循环</h3>
+
+<p>使用Java8并不是意味着你必须到处都使用Stream和新的集合方法。IDEA会智能提示哪些地方可以转换为Stream，但是并不意味着你必须这么做。</p>
+
+<p>特别是当遍历一个保存了基本数据类型的小数组时，使用loop循环的性能是更加好的，而且更加可阅读(至少对哪些Stream的新手来说是这样的)。</p>
+
+<p>以上的建议，并非是固定不变的必须要遵守的。但是无论你倾向于继续使用loops做某些操作还是在能够使用的地方使用Stream API, 你都要做出决定。</p>
+
+<h2>总结</h2>
+
+<p>每天我都会发现新的东西，我t推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[译]StackOverflow: 你没见过的七个最好的Java答案]]></title>
     <link href="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/"/>
     <updated>2016-08-03T20:30:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/08/03/so-java-7-answers</id>
@@ -41,7 +217,7 @@
 
 <p>其实这里不用惊讶-这是一个安全问题。String是不可变的，意味着一旦它被创建了，那么你就不可能去修改它。这也意味着在GC之前，你对这些数据不能做任何处理。因此，只要有人能够访问你的内存，那么String就有可能被他获取到。</p>
 
-<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据将不会再在系统中保存，即使GC还没有进行。</p>
+<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据即使GC还没有进行也不会再在系统留下痕迹。</p>
 
 <h2>异常</h2>
 
@@ -49,7 +225,7 @@
 
 <p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
 
-<h2>为什么这段代码使用随机字符串能够打印出&#8221;hello world&#8221;</h2>
+<h2>为什么这段代码使用随机字符串打印出了&#8221;hello world&#8221;</h2>
 
 <p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
 
@@ -75,7 +251,7 @@ public static String randomString(int i){
 
 <p>其实，选择一组随机的整数并不是随机的。给定一个seed参数(在这个例子中是-229985452和-147909649), 那么每次随机，同样的seed则会产生同样的输出。</p>
 
-<p>Random(-229985452).nextInt(27)产生的钱六个数字：8, 5, 12, 12, 15, 0</p>
+<p>Random(-229985452).nextInt(27)产生的前六个数字：8, 5, 12, 12, 15, 0</p>
 
 <p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
 
@@ -119,7 +295,7 @@ public static String randomString(int i){
 
 <h2>总结</h2>
 
-<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们认为我们已经知道的知识。</p>
+<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。</p>
 ]]></content>
   </entry>
   
@@ -3175,51 +3351,6 @@ TIME_WAIT 28322
 <p> kakfa可以为分布式系统提供一种外部的提交日志。日志可以冗余结点间、act间的数据，作为一个re-syncing机制。此外，kafka的日志压缩也是一个优势。此场景，kafka的使用和Apache的BookKeeper类似。</p></li>
 </ol>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[关于SpringMVC中model的attribute无法指定别名的解决方案]]></title>
-    <link href="http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias/"/>
-    <updated>2015-01-21T12:00:00+08:00</updated>
-    <id>http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias</id>
-    <content type="html"><![CDATA[<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
-
-<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
-
-<p><strong>Controller</strong>:</p>
-
-<pre>
-@Controller
-@RequestMapping("/api")
-public class ApiController extends BaseController {
-
-    @RequestMapping(value = "/test", headers = "Accept=application/json")
-    public void authUser(ModelMap modelMap, Account acc) {
-        ResultPack.packOk(modelMap);
-    }
-}
-
-public class Account{
-    private static final long serialVersionUID = 750752375611621980L;
-
-    private long id;
-    private String userName;
-    private String password;
-    private AccountType type = AccountType.ADMIN;
-    private long timeTag;
-    private int status = 1;
-    ...
-    ...
-}
-</pre>
-
-
-<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
-
-<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
-
-<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
 ]]></content>
   </entry>
   

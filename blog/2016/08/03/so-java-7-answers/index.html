@@ -6,13 +6,13 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>StackOverflow: 你没见过的七个最好的Java答案[翻译] - 后端技术杂谈 | 飒然Hang</title>
+  <title>[译]StackOverflow: 你没见过的七个最好的Java答案 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="StackOverflow: 你没见过的七个最好的Java答案[翻译] Aug 3rd, 2016 Posted by 飒然Hang in java 原文：https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers- &hellip;">
+  <meta name="description" content="[译]StackOverflow: 你没见过的七个最好的Java答案 Aug 3rd, 2016 Posted by 飒然Hang in java, translate 原文：https://dzone.com/articles/stackoverflow-7-of-the-best-java- &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -92,7 +92,7 @@
   
   <header>
     
-      <h1 class="post-title">StackOverflow: 你没见过的七个最好的Java答案[翻译]</h1>
+      <h1 class="post-title">[译]StackOverflow: 你没见过的七个最好的Java答案</h1>
     
     
       <p class="post-meta">
@@ -118,7 +118,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/java/'>java</a>
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/translate/'>translate</a>
   
 </span>
 
@@ -152,7 +152,7 @@
 
 <p>其实这里不用惊讶-这是一个安全问题。String是不可变的，意味着一旦它被创建了，那么你就不可能去修改它。这也意味着在GC之前，你对这些数据不能做任何处理。因此，只要有人能够访问你的内存，那么String就有可能被他获取到。</p>
 
-<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据将不会再在系统中保存，即使GC还没有进行。</p>
+<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据即使GC还没有进行也不会再在系统留下痕迹。</p>
 
 <h2>异常</h2>
 
@@ -160,7 +160,7 @@
 
 <p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
 
-<h2>为什么这段代码使用随机字符串能够打印出&#8221;hello world&#8221;</h2>
+<h2>为什么这段代码使用随机字符串打印出了&#8221;hello world&#8221;</h2>
 
 <p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
 
@@ -186,7 +186,7 @@ public static String randomString(int i){
 
 <p>其实，选择一组随机的整数并不是随机的。给定一个seed参数(在这个例子中是-229985452和-147909649), 那么每次随机，同样的seed则会产生同样的输出。</p>
 
-<p>Random(-229985452).nextInt(27)产生的钱六个数字：8, 5, 12, 12, 15, 0</p>
+<p>Random(-229985452).nextInt(27)产生的前六个数字：8, 5, 12, 12, 15, 0</p>
 
 <p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
 
@@ -230,7 +230,7 @@ public static String randomString(int i){
 
 <h2>总结</h2>
 
-<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们认为我们已经知道的知识。</p>
+<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。</p>
 </div>
 
 
@@ -246,7 +246,7 @@ public static String randomString(int i){
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="StackOverflow: 你没见过的七个最好的Java答案[翻译] - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/" data-content="原文：https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案 &hellip;">
+<div class="ds-share flat" data-title="[译]StackOverflow: 你没见过的七个最好的Java答案 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/" data-content="原文：https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案 &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
@@ -267,6 +267,8 @@ public static String randomString(int i){
     
     <div class="meta">
       
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2016/08/03/java-8-top-tips/" title="上一篇: [译]Java8 Top Tips">&laquo; [译]Java8 Top Tips </a>
+      
       
         <a class="basic-alignment right" style="float:right !important" href="/blog/2016/06/27/java-backend-study/" title="下一篇: Java后端工程师学习大纲">Java后端工程师学习大纲 &raquo;</a>
       
@@ -277,7 +279,7 @@ public static String randomString(int i){
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2016/08/03/so-java-7-answers/" data-title="StackOverflow: 你没见过的七个最好的Java答案[翻译]"></div>
+<div class="ds-thread" data-thread-key="/blog/2016/08/03/so-java-7-answers/" data-title="[译]StackOverflow: 你没见过的七个最好的Java答案"></div>
 <!-- 多说评论框 end -->
 
 
@@ -346,7 +348,11 @@ public static String randomString(int i){
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2016/08/03/so-java-7-answers/">StackOverflow: 你没见过的七个最好的Java答案[翻译]</a>
+      	  <a href="/blog/2016/08/03/java-8-top-tips/">[译]Java8 Top Tips</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/08/03/so-java-7-answers/">[译]StackOverflow: 你没见过的七个最好的Java答案</a>
       	</li>
     	
      	<li>
@@ -359,10 +365,6 @@ public static String randomString(int i){
     	
      	<li>
       	  <a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a>
       	</li>
     	
 	</ul>

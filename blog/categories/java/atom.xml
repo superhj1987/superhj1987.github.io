@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-03T20:43:07+08:00</updated>
+  <updated>2016-08-04T11:48:49+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,7 +14,183 @@
 
   
   <entry>
-    <title type="html"><![CDATA[StackOverflow: 你没见过的七个最好的Java答案[翻译]]]></title>
+    <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
+    <link href="http://www.rowkey.me/blog/2016/08/03/java-8-top-tips/"/>
+    <updated>2016-08-03T22:30:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/08/03/java-8-top-tips</id>
+    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
+
+<p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
+
+<p>笔者已经使用Java8工作许多年，包括新的应用开发以及迁移旧的应用，感觉是时候总结Java8中一些有用东西的最佳实践。笔者个人不太喜欢“最佳实践”这个词，因为字面上传达了一种“one size fit all”的概念，当然，编码肯定不是这样的而是不同的场景有不同的解决方案。但是笔者觉得在如何使用Java 8让自己的生活变得更加容易上还是有一些特殊的经验值得分享的。</p>
+
+<!--more-->
+
+
+<h2>Optional</h2>
+
+<p>Optional是一个评价过低的特性，它可以显著的降低代码抛出NullPointerException的可能。它在边界代码(你正在使用的API或者你发布的API)中特别有用。</p>
+
+<p>但是对于它的不适当的使用和设计很容易使一个小的变动影响到很多的类，或者降低代码的可阅读性。这里有一些如何更加高效使用Optional的建议。</p>
+
+<h3>Optional应该仅仅用在返回类型中</h3>
+
+<p>不要用在参数或者域中。<a href="http://blog.joda.org/2015/08/java-se-8-optional-pragmatic-approach.html">阅读这篇博文</a>可以看到如何正确使用Optional进行编码。幸运的是，IntelliJ IDEA可以打开inspections去检查你是否遵循了这些推荐规范。</p>
+
+<p><img src="//images/blog_images/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
+
+<p>要尽早在Optional出现的地方对它进行处理。IntelliJ IDEA会阻止Optional出现在你代码的各个地方，所以记住一定要在Optional出现的地方就对他进行处理。</p>
+
+<p><img src="//images/blog_images/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
+
+<h3>不能简单地调用get()方法</h3>
+
+<p>Optional是用来表示这个值是有可能为空的，让你做好应对的准备。因此，很重要的一点就是在使用这个值之前务必要检查其是否存在。简单地调用get方法而不是先调用isPresent可能会导致产生空指针异常。幸运的是，IntelliJ IDEA再一次提供了对此种方案的检查。</p>
+
+<p><img src="//images/blog_images/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
+
+<h3>更加优雅的方案</h3>
+
+<p>如下代码，isPresent和get当然能够解决这个问题。</p>
+
+<p><img src="//images/blog_images/OptionalSimple.png" alt="OptionalSimple.png" /></p>
+
+<p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值但值是null的时候。</p>
+
+<p><img src="//images/blog_images/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
+
+<p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调动，那么当这是个很耗资源的方法时，那么使用lambda会带来更好的性能提升。</p>
+
+<p><img src="//images/blog_images/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
+
+<h2>使用Lambda表达式</h2>
+
+<p>Lambda表达式是Java8最主要的卖点。即使你现在用不到Java8，你也应该对它有了一些基本的了解。下面讲述了一种新的方式使用Java编程，虽然这并不是一个“最佳实践”，仅仅是一个使用的指导。</p>
+
+<h3>保持简短</h3>
+
+<p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，会很容易把长的表达式重构成一个方法。</p>
+
+<p><img src="//images/blog_images/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
+
+<p>当然，这些可能甚至牵扯到方法引用。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
+
+<p><img src="LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
+
+<h3>显式声明</h3>
+
+<p>在lambda表达式中是没有类型信息的，所以你会发现在参数中包含类型信息是非常有用的。</p>
+
+<p><img src="//images/blog_images/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
+
+<p>如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，IntelljJ IDEA都会让你可以看到参数的类型信息。</p>
+
+<p><img src="//images/blog_images/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
+
+<p>甚至lambda表示的函数接口也能看到。</p>
+
+<p><img src="//images/blog_images/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
+
+<h2>设计Lambda表达式</h2>
+
+<p>我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List&lt;>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person<T>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。</p>
+
+<p>然而，如果你发现自己处在这样一种境况，那么这里有一些提示。</p>
+
+<h3>IntelliJ IDEA能够帮助你引入函数参数</h3>
+
+<p>这能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
+
+<p><img src="LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
+
+<h3>使用存在的函数接口</h3>
+
+<p>随着开发者变得对Java8越来越熟悉，当使用Supplier和Consumer这些接口时，我们将会知道什么是我们所期望的，比如创建一个ErrorMessageCreator(例子)会是令人迷惑和浪费的。可以看一下<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">函数包</a>获取已经存在的那些函数接口。</p>
+
+<h3>给你的函数接口添加@FunctionalInterface</h3>
+
+<p>如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Inteelij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。</p>
+
+<p><img src="//images/blog_images/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
+
+<p>当方法太多时，也会提示你。</p>
+
+<p><img src="//images/blog_images/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
+
+<p>当你把注解应用到一个类而不是接口时，也会发出提醒。</p>
+
+<p><img src="//images/blog_images/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
+
+<p>Lambda表达式可以被用在任何有一个Single Abstract Method的接口中，但是它不能够应用到一个抽象类中。看起来没有啥逻辑，但它就是这样的。</p>
+
+<h2>Streams</h2>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Stream API</a>是Java8另一个最大的卖点，我认为我们到现在还是没有真的搞清楚这会如何改变我们的代码。这里有一些我自己发现很有用的东西。</p>
+
+<h3>将点号对齐</h3>
+
+<p>我个人比较喜欢对齐Stream操作。当然，你不需要非得这么做，但是我发现这样还是有很大好处的。</p>
+
+<ul>
+<li>一眼就看到所有的操作以及他们的顺序</li>
+<li>更容易调试(虽然Intellij IDEA提供了在一行中的lambda表达式中任意地方打断点的功能，但是将他们分隔成单独的行会更简单)</li>
+<li>可以很容易的注释掉一些操作以测试</li>
+<li>很容易地插入peek()供调试或者测试</li>
+</ul>
+
+
+<p><img src="//images/blog_images/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
+
+<p>这样做也会让代码看起来很舒服。当然，如果这么做，会增加代码的行数。</p>
+
+<p>你可以修改一下格式化设置使点号对齐。</p>
+
+<p><img src="//images/blog_images/StreamWrapping.png" alt="StreamWrapping.png" /></p>
+
+<h3>使用方法引用(Method References)</h3>
+
+<p>你可能需要一会儿才能习惯这个奇怪的语法。但是，当我们能够正确地使用，它确实能够提高程序的可阅读性。考虑下面的代码：</p>
+
+<p><img src="//images/blog_images/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
+
+<p>对比一下使用新引入的Objects类的辅助方法(helper methods)：</p>
+
+<p><img src="//images/blog_images/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
+
+<p>后面的代码能够更加明显地表明它想保存的值。Intellij IDEA会提示你合适一个lambda可以被替换成方法引用。</p>
+
+<h3>当迭代一个集合，尽可能地使用Streams API</h3>
+
+<p>使用新的集合方法：forEach。IDEA会提示你。</p>
+
+<p><img src="//images/blog_images/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
+
+<p>使用Streams API相比起使用循环和if语句更加清晰明了。例如：</p>
+
+<p><img src="//images/blog_images/StreamBefore.png" alt="StreamBefore.png" /></p>
+
+<p>IDEA只能建议这个可以重构为：</p>
+
+<p><img src="//images/blog_images/StreamAfter.png" alt="StreamAfter.png" /></p>
+
+<p>我做的性能测试表示这个重构是令人惊奇的-无论性能是不变、提升还是变差，都是不能被预测的。因此，当你的应用对性能要求很苛刻的话，重构的时候务必做好测试。</p>
+
+<h3>当遍历数组时使用循环</h3>
+
+<p>使用Java8并不是意味着你必须到处都使用Stream和新的集合方法。IDEA会智能提示哪些地方可以转换为Stream，但是并不意味着你必须这么做。</p>
+
+<p>特别是当遍历一个保存了基本数据类型的小数组时，使用loop循环的性能是更加好的，而且更加可阅读(至少对哪些Stream的新手来说是这样的)。</p>
+
+<p>以上的建议，并非是固定不变的必须要遵守的。但是无论你倾向于继续使用loops做某些操作还是在能够使用的地方使用Stream API, 你都要做出决定。</p>
+
+<h2>总结</h2>
+
+<p>每天我都会发现新的东西，我t推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[译]StackOverflow: 你没见过的七个最好的Java答案]]></title>
     <link href="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/"/>
     <updated>2016-08-03T20:30:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/08/03/so-java-7-answers</id>
@@ -41,7 +217,7 @@
 
 <p>其实这里不用惊讶-这是一个安全问题。String是不可变的，意味着一旦它被创建了，那么你就不可能去修改它。这也意味着在GC之前，你对这些数据不能做任何处理。因此，只要有人能够访问你的内存，那么String就有可能被他获取到。</p>
 
-<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据将不会再在系统中保存，即使GC还没有进行。</p>
+<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据即使GC还没有进行也不会再在系统留下痕迹。</p>
 
 <h2>异常</h2>
 
@@ -49,7 +225,7 @@
 
 <p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
 
-<h2>为什么这段代码使用随机字符串能够打印出&#8221;hello world&#8221;</h2>
+<h2>为什么这段代码使用随机字符串打印出了&#8221;hello world&#8221;</h2>
 
 <p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
 
@@ -75,7 +251,7 @@ public static String randomString(int i){
 
 <p>其实，选择一组随机的整数并不是随机的。给定一个seed参数(在这个例子中是-229985452和-147909649), 那么每次随机，同样的seed则会产生同样的输出。</p>
 
-<p>Random(-229985452).nextInt(27)产生的钱六个数字：8, 5, 12, 12, 15, 0</p>
+<p>Random(-229985452).nextInt(27)产生的前六个数字：8, 5, 12, 12, 15, 0</p>
 
 <p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
 
@@ -119,7 +295,7 @@ public static String randomString(int i){
 
 <h2>总结</h2>
 
-<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们认为我们已经知道的知识。</p>
+<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。</p>
 ]]></content>
   </entry>
   
@@ -459,504 +635,6 @@ public static String randomString(int i){
 
 
 <p><a href="//images/blog_images/java-skill-tree.png"><img src="//images/blog_images/java-skill-tree.png" alt="java-skill-tree" /></a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[谈谈Java内存管理]]></title>
-    <link href="http://www.rowkey.me/blog/2016/05/07/javamm/"/>
-    <updated>2016-05-07T14:59:44+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/05/07/javamm</id>
-    <content type="html"><![CDATA[<h2>目录</h2>
-
-<ul>
-<li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
-<li><a href="#%E4%BA%8C.%20Jvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B">二. Jvm虚拟机内存简介</a></li>
-<li><a href="#%E4%B8%89.%20%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">三. 垃圾收集</a></li>
-<li><a href="#%E5%9B%9B.%20Java7%E3%80%818%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%98%E5%8C%96">四. Java7、8带来的一些变化</a></li>
-</ul>
-
-
-<p><img src="//images/blog_images/java.jpg" alt="java" /></p>
-
-<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
-
-<!--more-->
-
-
-<h2><a name='一. 背景知识'></a>一. 背景知识</h2>
-
-<p>根据网络可以找到的资料以及笔者能够打听到的消息，目前国内外著名的几个大型互联网公司的语言选型概括如下：</p>
-
-<ol>
-<li>Google: C/C++ Go Python Java JavaScript，不得不提的是Google贡献给java社区的guava包质量非常高，非常值得学习和使用。</li>
-<li>Youtube、豆瓣: Python</li>
-<li>Fackbook、Yahoo、Flickr、新浪：<strong>php</strong>(优化过的php vm)</li>
-<li>网易、阿里、搜狐: Java、PHP、Node.js</li>
-<li>Twitter: Ruby->Java,之所以如此就在于与Jvm相比，Ruby的runtime是非常慢的。并且Ruby的应用比起Java还是比较小众的。不过最近twitter有往scala上迁移的趋势。</li>
-</ol>
-
-
-<p>可见，虽然最近这些年很多言论都号称java已死或者不久即死，但是Java的语言应用占有率一直居高不下。与高性能的C/C++相比，Java具有gc机制，并且没有那让人望而生畏的指针，上手门槛相对较低；而与上手成本更低的PHP、Ruby等脚本语言来说，又比这些脚本语言有性能上的优势(这里暂时忽略FB自己开发的HHVM)。</p>
-
-<p>对于Java来说，最终是要依靠字节码运行在jvm上的。目前，常见的jvm有以下几种：</p>
-
-<ul>
-<li>Sun HotSpot</li>
-<li>BEA Jrockit</li>
-<li>IBM J9</li>
-<li>Dalvik(Android)</li>
-</ul>
-
-
-<p>其中以HotSpot应用最广泛。目前sun jdk的最新版本已经到了8，但鉴于新版的jdk使用并未普及，因此本文仅仅针对HotSpot虚拟机的jdk6来讲。</p>
-
-<h2><a name='二. Jvm虚拟机内存简介'></a>二. Jvm虚拟机内存简介</h2>
-
-<h3>2.1 Java运行时内存区</h3>
-
-<p>Java的运行时内存组成如下图所示：</p>
-
-<p><img src="//images/blog_images/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
-
-<p>其中，对于这各个部分有一些是线程私有的，其他则是线程共享的。</p>
-
-<p><strong>线程私有的如下：</strong></p>
-
-<ul>
-<li><p>程序计数器</p>
-
-<p>  当前线程所执行的字节码的行号指示器</p></li>
-<li><p>Java虚拟机栈</p>
-
-<p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p>
-
-<ul>
-<li>每个线程都有自己独立的栈空间</li>
-<li>线程栈只存基本类型和对象地址</li>
-<li>方法中局部变量在线程空间中</li>
-</ul>
-</li>
-<li><p>本地方法栈</p>
-
-<p>  Native方法服务。在HotSpot虚拟机中和Java虚拟机栈合二为一。</p></li>
-</ul>
-
-
-<p><strong>线程共享的如下：</strong></p>
-
-<ul>
-<li><p>Java堆</p>
-
-<p>  存放对象实例，几乎所有的对象实例以及其属性都在这里分配内存。</p></li>
-<li><p>方法区</p>
-
-<p>  存储已经被虚拟机加载的类信息、常量、静态变量、JIT编译后的代码等数据。</p></li>
-<li><p>运行时常量池</p>
-
-<p>  方法区的一部分。用于存放编译期生成的各种字面量和符号引用。</p></li>
-<li><p>直接内存</p>
-
-<p>  NIO、Native函数直接分配的堆外内存。DirectBuffer引用也会使用此部分内存。</p></li>
-</ul>
-
-
-<h3>2.2 对象访问</h3>
-
-<p>Java是面向对象的一种编程语言，那么如何通过引用来访问对象呢？一般有两种方式：</p>
-
-<ol>
-<li><p>通过句柄访问</p>
-
-<p> <image src="http://www.rowkey.me/images/blog_images/access_object_handler.png" width="500px"/></p></li>
-<li><p>直接指针</p>
-
-<p> <image src="http://www.rowkey.me/images/blog_images/access_direct.png" width="500px"/></p>
-
-<p> 此种方式也是HotSpot虚拟机采用的方式。</p></li>
-</ol>
-
-
-<h3>2.3 内存溢出</h3>
-
-<p>在JVM申请内存的过程中，会遇到无法申请到足够内存，从而导致内存溢出的情况。一般有以下几种情况：</p>
-
-<ul>
-<li>虚拟机栈和本地方法栈溢出
-
-<ul>
-<li>StackOverflowError: 线程请求的栈深度大于虚拟机所允许的最大深度(循环递归)</li>
-<li>OutOfMemoryError: 虚拟机在扩展栈是无法申请到足够的内存空间，一般可以通过不停地创建线程引起此种情况</li>
-</ul>
-</li>
-<li>Java堆溢出: 当创建大量对象并且对象生命周期都很长的情况下，会引发OutOfMemoryError</li>
-<li>运行时常量区溢出：OutOfMemoryError:PermGen space，这里一个典型的例子就是String的intern方法，当大量字符串使用intern时，会触发此内存溢出</li>
-<li>方法区溢出：方法区存放Class等元数据信息，如果产生大量的类(使用cglib)，那么就会引发此内存溢出，OutOfMemoryError:PermGen space，在使用Hibernate等框架时会容易引起此种情况。</li>
-</ul>
-
-
-<h2><a name='三. 垃圾收集'></a>三. 垃圾收集</h2>
-
-<h3>3.1 理论基础</h3>
-
-<p>在通常情况下，我们掌握java的内存管理就是为了应对网站/服务访问慢，慢的原因一般有以下几点：</p>
-
-<ul>
-<li>内存：垃圾收集占用cpu；放入了太多数据，造成内存泄露(java也是有这种问题的^_^)</li>
-<li>线程死锁</li>
-<li>I/O速度太慢</li>
-<li>依赖的其他服务响应太慢</li>
-<li>复杂的业务逻辑或者算法造成响应的缓慢</li>
-</ul>
-
-
-<p>其中，垃圾收集对性能的影响一般有以下几个：</p>
-
-<ul>
-<li>内存泄露</li>
-<li>程序暂停</li>
-<li>程序吞吐量显著下降</li>
-<li>响应时间变慢</li>
-</ul>
-
-
-<h4>垃圾收集的一些基本概念</h4>
-
-<ul>
-<li>Concurrent Collector:收集的同时可运行其他的工作进程</li>
-<li>Parallel Collector: 使用多CPU进行垃圾收集</li>
-<li>Stop-the-word(STW):收集时必须暂停其他所有的工作进程</li>
-<li>Sticky-reference-count：对于使用“引用计数”（reference count）算法的GC，如果对象的计数器溢出，则起不到标记某个对象是垃圾的作用了，这种错误称为sticky-reference-count problem，通常可以增加计数器的bit数来减少出现这个问题的几率，但是那样会占用更多空间。一般如果GC算法能迅速清理完对象，也不容易出现这个问题。</li>
-<li>Mutator：mutate的中文是变异，在GC中即是指一种JVM程序，专门更新对象的状态的，也就是让对象“变异”成为另一种类型，比如变为垃圾。</li>
-<li>On-the-fly：用来描述某个GC的类型：on-the-fly reference count garbage collector。此GC不用标记而是通过引用计数来识别垃圾。</li>
-<li>Generational gc：这是一种相对于传统的“标记-清理”技术来说，比较先进的gc，特点是把对象分成不同的generation，即分成几代人，有年轻的，有年老的。这类gc主要是利用计算机程序的一个特点，即“越年轻的对象越容易死亡”，也就是存活的越久的对象越有机会存活下去（姜是老的辣）。</li>
-</ul>
-
-
-<h4>吞吐量与响应时间</h4>
-
-<p>牵扯到垃圾收集，还需要搞清楚吞吐量与响应时间的含义</p>
-
-<ul>
-<li>吞吐量是对单位时间内完成的工作量的量度。如：每分钟的 Web 服务器请求数量</li>
-<li>响应时间是提交请求和返回该请求的响应之间使用的时间。如：访问Web页面花费的时间</li>
-</ul>
-
-
-<p>吞吐量与访问时间的关系很复杂，有时可能以响应时间为代价而得到较高的吞吐量，而有时候又要以吞吐量为代价得到较好的响应时间。而在其他情况下，一个单独的更改可能对两者都有提高。通常，平均响应时间越短，系统吞吐量越大；平均响应时间越长，系统吞吐量越小；
-但是，系统吞吐量越大， 未必平均响应时间越短；因为在某些情况（例如，不增加任何硬件配置）吞吐量的增大，有时会把平均响应时间作为牺牲，来换取一段时间处理更多的请求。</p>
-
-<p>针对于Java的垃圾回收来说，不同的垃圾回收器会不同程度地影响这两个指标。例如：并行的垃圾收集器，其保证的是吞吐量，会在一定程度上牺牲响应时间。而并发的收集器，则主要保证的是请求的响应时间。</p>
-
-<h4>GC的流程</h4>
-
-<ul>
-<li>找出堆中活着的对象</li>
-<li>释放死对象占用的资源</li>
-<li>定期调整活对象的位置</li>
-</ul>
-
-
-<h4>GC算法</h4>
-
-<ul>
-<li>Mark-Sweep 标记-清除</li>
-<li>Mark-Sweep-Compact 标记-整理</li>
-<li><p>Copying Collector 复制算法</p></li>
-<li><p>Mark-标记</p>
-
-<p> 从&#8221;GC roots&#8221;开始扫描(这里的roots包括线程栈、静态常量等)，给能够沿着roots到达的对象标记为&#8221;live&#8221;,最终所有能够到达的对象都被标记为&#8221;live&#8221;,而无法到达的对象则为&#8221;dead&#8221;。效率和存活对象的数量是线性相关的。</p></li>
-<li><p>Sweep-清除</p>
-
-<p> 扫描堆，定位到所有&#8221;dead&#8221;对象，并清理掉。效率和堆的大小是线性相关的。</p></li>
-<li><p>Compact-压缩</p>
-
-<p> 对于对象的清除，会产生一些内存碎片，这时候就需要对这些内存进行压缩、整理。包括：relocate(将存货的对象移动到一起，从而释放出连续的可用内存)、remap(收集所有的对象引用指向新的对象地址)。效率和存活对象的数量是线性相关的。</p></li>
-<li><p>Copy-复制</p>
-
-<p> 将内存分为&#8221;from&#8221;和&#8221;to&#8221;两个区域，垃圾回收时，将from区域的存活对象整体复制到to区域中。效率和存活对象的数量是线性相关的。</p></li>
-</ul>
-
-
-<p>其中，Copy对比Mark-sweep</p>
-
-<ol>
-<li>内存消耗：copy需要两倍的最大live set内存；mark-sweep则只需要一倍。</li>
-<li>效率上：copy与live set成线性相关，效率高；mark-sweep则与堆大小线性相关，效率较低。</li>
-</ol>
-
-
-<h4>分代收集</h4>
-
-<p>分代收集是目前比较先进的垃圾回收方案。有以下几个相关理论</p>
-
-<ul>
-<li>分代假设：大部分对象的寿命很短，“朝生夕死”，重点放在对年青代对象的收集，而且年青代通常只占整个空间的一小部分。</li>
-<li>把年青代里活的很长的对象移动到老年代。</li>
-<li>只有当老年代满了才去收集。</li>
-<li>收集效率明显比不分代高。</li>
-</ul>
-
-
-<p>HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。通常将对New Generation进行的回收称为Minor GC;对Old Generation进行的回收称为Major GC，但由于Major GC除并发GC外均需对整个堆以及Permanent Generation进行扫描和回收，因此又称为Full GC。</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/hotspot-gc.png" width="300px"/></p>
-
-<ul>
-<li>Eden区是分配对象的区域。</li>
-<li>Survivor是minor/younger gc后存储存活对象的区域。</li>
-<li>Tenured区域存储长时间存活的对象。</li>
-</ul>
-
-
-<p>分代收集中典型的垃圾收集算法组合描述如下：</p>
-
-<ul>
-<li>年青代通常使用Copy算法收集，会stop the world</li>
-<li>老年代收集一般采用Mark-sweep-compact, 有可能会stop the world，也可以是concurrent或者部分concurrent。</li>
-</ul>
-
-
-<p>那么何时进行Minor GC、何时进行Major GC? 一般的过程如下：</p>
-
-<ul>
-<li>对象在Eden Space完成内存分配</li>
-<li>当Eden Space满了，再创建对象，会因为申请不到空间，触发Minor GC，进行New(Eden + S0 或 Eden S1) Generation进行垃圾回收</li>
-<li>Minor GC时，Eden Space不能被回收的对象被放入到空的Survivor（S0或S1，Eden肯定会被清空），另一个Survivor里不能被GC回收的对象也会被放入这个Survivor，始终保证一个Survivor是空的</li>
-<li>在Step3时，如果发现Survivor区满了，则这些对象被copy到old区，或者Survivor并没有满，但是有些对象已经足够Old，也被放入Old Space。</li>
-<li>当Old Space被放满之后，进行Full GC</li>
-</ul>
-
-
-<p>但这个具体还要看JVM是采用的哪种GC方案。</p>
-
-<p>New Generation的GC有以下三种：</p>
-
-<ul>
-<li>Serial</li>
-<li>ParallelScavenge</li>
-<li>ParNew</li>
-</ul>
-
-
-<p>对于上述三种GC方案均是在Eden Space分配不下时，触发GC。</p>
-
-<p>Old Generation的GC有以下四种：</p>
-
-<ul>
-<li>Serial Old</li>
-<li>Parallel</li>
-<li>CMS</li>
-</ul>
-
-
-<p>对于Serial Old, Parallel Old而言触发机制为</p>
-
-<ul>
-<li>Old Generation空间不足</li>
-<li>Permanent Generation空间不足</li>
-<li>Minor GC时的悲观策略</li>
-<li>Minor GC后在Eden上分配内存仍然失败</li>
-<li>执行Heap Dump时</li>
-<li>外部调用System.gc,可通过-XX:+DisableExplicitGC来禁止</li>
-</ul>
-
-
-<p>对于CMS而言触发机制为:</p>
-
-<ul>
-<li>当Old Generation空间使用到一定比率时触发;HopSpot V1.6中默认是92%，可通过PrintCMSInitiationStatistics(此参数在V1.5中不能用)来查看这个值到底是多少;可通过CMSInitiatingOccupancyFaction来强制指定，默认值并不是复制在这个值上，是根据如下公式计算出来的:((100 -MinHeapFreeRatio) +(double)(CMSTriggerRatio* MinHeapFreeRatio) / 100.0)/ 100.0;MinHeapFreeRatio默认值：40 CMSTriggerRatio默认值：80</li>
-<li>当Permanent Generation采用CMS收集且空间使用到一定比率触发;Permanent Generation采用CMS收集需设置：-XX:+CMSClassUnloadingEnabled Hotspot V1.6中默认为92%;可通过CMSInitiatingPermOccupancyFraction来强制指定，同样，它是根据如下公式计算出来的：((100 -MinHeapFreeRatio) +(double)(CMSTriggerPermRatio* MinHeapFreeRatio) / 100.0)/ 100.0;MinHeapFreeRatio默认值：40 CMSTriggerPermRatio默认值：80</li>
-<li>Hotspot根据成本计算决定是否需要执行CMS  GC;可通过-XX:+UseCmsInitiatingOccupancyOnly来去掉这个动态执行的策略。</li>
-<li>外部调用System.gc，且设置了ExplicitGCIInvokesConcurrent;需要注意，在hotspot 6中，在这种情况下如果应用同时使用了NIO，可能会出现bug。</li>
-</ul>
-
-
-<h3>3.2 HotSpot垃圾收集器</h3>
-
-<p><image src="http://www.rowkey.me/images/blog_images/hotspot-collector.png" width="300px"/></p>
-
-<p>上图即为HotSpot虚拟机的垃圾收集器组成。</p>
-
-<h4>Serial收集器</h4>
-
-<ul>
-<li>-XX:+UserSerialGC参数打开此收集器</li>
-<li>Client模式下新生代默认的收集器。</li>
-<li>较长的stop the world时间</li>
-<li>简单而高效</li>
-</ul>
-
-
-<p>此收集器的一个工作流程如下如所示：</p>
-
-<p>收集前：</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/serial_before.png" width="400px"/></p>
-
-<p>收集后：</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/serial_after.png" width="400px"/></p>
-
-<h4>ParNew收集器</h4>
-
-<ul>
-<li>-XX:+UserParNewGC</li>
-<li>+UseConcuMarkSweepGC时默认开启</li>
-<li>Serial收集器的多线程版本</li>
-<li>默认线程数与CPU数目相同</li>
-<li>-XX:ParrallelGCThreads指定线程数目</li>
-</ul>
-
-
-<p>对比Serial收集器如下图所示：</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/parnew.png" width="400px"/></p>
-
-<h4>Parallel Scavenge收集器</h4>
-
-<ul>
-<li>新生代并行收集器</li>
-<li>采用Copy算法</li>
-<li>主要关注的是达到可控制的吞吐量，“吞吐量优先”</li>
-<li>-XX:MaxGCPauseMillis -XX:GCTimeRAtion两个参数精确控制吞吐量</li>
-<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略</li>
-<li>Server模式的默认新生代收集器</li>
-</ul>
-
-
-<h4>Serial Old收集器</h4>
-
-<ul>
-<li>Serial的老年代版本</li>
-<li>Client模式的默认老年代收集器</li>
-<li>CMS收集器的后备预案，Concurrent Mode Failure时使用</li>
-<li>-XX:+UseSerialGC开启此收集器</li>
-</ul>
-
-
-<h4>Parallel Old收集器</h4>
-
-<ul>
-<li>-XX:+UseParallelGC -XX:+UseParallelOldGC启用此收集器</li>
-<li>Server模式的默认老年代收集器</li>
-<li>Parallel Scavenge的老年代版本，使用多线程和&#8221;mark-sweep&#8221;算法</li>
-<li>关注点在吞吐量以及CPU资源敏感的场合使用</li>
-<li>一般使用Parallel Scavenge + Parallel Old可以达到最大吞吐量保证</li>
-</ul>
-
-
-<h4>CMS收集器</h4>
-
-<p>并发低停顿收集器</p>
-
-<ul>
-<li>-XX:UseConcMarkSweepGC 开启CMS收集器，(默认使用ParNew作为年轻代收集器，SerialOld作为收集失败的垃圾收集器)</li>
-<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，会和互联网应用。</li>
-</ul>
-
-
-<p>四个步骤：</p>
-
-<ul>
-<li>初始标记 Stop the world: 只标记GC roots能直接关联到的对象，速度很快。</li>
-<li>并发标记：进行GC roots tracing，与用户线程并发进行</li>
-<li>重新标记 Stop the world：修正并发标记期间因程序继续运行导致变动的标记记录</li>
-<li>并发清除</li>
-</ul>
-
-
-<p>对比serial old收集器如下图所示：</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/cms.png" width="400px"/></p>
-
-<p>CMS有以下的缺点：</p>
-
-<ul>
-<li>CMS是唯一不进行compact的垃圾收集器，当cms释放了垃圾对象占用的内存后，它不会把活动对象移动到老年代的一端</li>
-<li>对CPU资源非常敏感。不会导致线程停顿，但会导致程序变慢，总吞吐量降低。CPU核越多越不明显</li>
-<li>无法处理浮动垃圾。可能出现“concurrent Mode Failure”失败， 导致另一次full GC ,可以通过调整-XX:CMSInitiatingOccupancyFraction来控制内存占用达到多少时触发gc</li>
-<li>大量空间碎片。这个可以通过设置-XX:UseCMSCompacAtFullCollection(是否在full gc时开启compact)以及-XX:CMSFullGCsBeforeCompaction(在进行compact前full gc的次数)</li>
-</ul>
-
-
-<h4>G1收集器</h4>
-
-<p>G1算法在Java6中还是试验性质的，在Java7中正式引入，但还未被广泛运用到生产环境中。它的特点如下：</p>
-
-<ul>
-<li>使用标记-清理算法</li>
-<li>不会产生碎片</li>
-<li>可预测的停顿时间</li>
-<li>化整为零：将整个Java堆划分为多个大小相等的独立区域</li>
-<li>-XX:+UseG1GC可以打开此垃圾回收器</li>
-<li>-XX:MaxGCPauseMillis=200可以设置最大GC停顿时间，当然JVM并不保证一定能够达到，只是尽力。</li>
-</ul>
-
-
-<p><image src="http://www.rowkey.me/images/blog_images/g1.png" width="500px"/></p>
-
-<h3>3.3 调优经验</h3>
-
-<ul>
-<li>需要打开gc日志并读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps</li>
-<li>垃圾回收的最佳状态是只有young gc，也就是避免生命周期很长的对象的存在。</li>
-<li>从young gc开始，尽量给年青代大点的内存，避免full gc</li>
-<li>注意Survivor大小</li>
-<li>注意内存墙：4G~5G</li>
-</ul>
-
-
-<h4>GC日志简介</h4>
-
-<p><image src="http://www.rowkey.me/images/blog_images/gclog.png" width="500px"/></p>
-
-<ul>
-<li>第一个箭头：35592K->1814K(36288K)，箭头指向的是新生段的内存占用情况； - 第二个箭头：38508K->7792K(520256K)，箭头指向的是回收后的内存占用情况。</li>
-<li>垃圾收集停顿时间：0.0336</li>
-</ul>
-
-
-<h4>老年代使用建议</h4>
-
-<ul>
-<li>Parallel GC(-XX:+UseParallel[Old]GC)
-
-<ul>
-<li>Parallel GC的minor GC时间是最快的， CMS的young gc要比parallel慢， 因为内存碎片</li>
-<li>可以保证最大的吞吐量</li>
-</ul>
-</li>
-<li><strong>确实有必要才改成CMS或G1(for old gen collections)</strong></li>
-</ul>
-
-
-<h4>开发建议</h4>
-
-<ul>
-<li>小对象allocate的代价很小，通常10个CPU指令；收集掉新对象也非常廉价；不用担心活的很短的小对象</li>
-<li>大对象分配的代价以及初始化的代价很大；不同大小的大对象可能导致java堆碎片，尤其是CMS, ParallelGC 或 G1还好；尽量避免分配大对象</li>
-<li>避免改变数据结构大小，如避免改变数组或array backed collections / containers的大小;对象构建（初始化）时最好显式批量定数组大小;改变大小导致不必要的对象分配，可能导致java堆碎片</li>
-<li>对象池可能潜在的问题
-
-<ul>
-<li>增加了活对象的数量，可能增加GC时间</li>
-<li>访问（多线程）对象池需要锁，可能带来可扩展性的问题</li>
-<li>小心过于频繁的对象池访问</li>
-</ul>
-</li>
-</ul>
-
-
-<h2><a name='四. Java7、8带来的一些变化'></a>四. Java7、8带来的一些变化</h2>
-
-<ul>
-<li>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</li>
-<li>Java7正式引入G1垃圾收集器用于替换CMS。</li>
-<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。</li>
-<li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
-</ul>
-
 ]]></content>
   </entry>
   

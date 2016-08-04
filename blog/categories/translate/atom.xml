@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: translate | 后端技术杂谈 | 飒然Hang]]></title>
+  <link href="http://www.rowkey.me/blog/categories/translate/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2016-08-04T11:48:49+08:00</updated>
+  <id>http://www.rowkey.me/</id>
+  <author>
+    <name><![CDATA[飒然Hang]]></name>
+    <email><![CDATA[superhj1987@126.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
+    <link href="http://www.rowkey.me/blog/2016/08/03/java-8-top-tips/"/>
+    <updated>2016-08-03T22:30:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/08/03/java-8-top-tips</id>
+    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
+
+<p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
+
+<p>笔者已经使用Java8工作许多年，包括新的应用开发以及迁移旧的应用，感觉是时候总结Java8中一些有用东西的最佳实践。笔者个人不太喜欢“最佳实践”这个词，因为字面上传达了一种“one size fit all”的概念，当然，编码肯定不是这样的而是不同的场景有不同的解决方案。但是笔者觉得在如何使用Java 8让自己的生活变得更加容易上还是有一些特殊的经验值得分享的。</p>
+
+<!--more-->
+
+
+<h2>Optional</h2>
+
+<p>Optional是一个评价过低的特性，它可以显著的降低代码抛出NullPointerException的可能。它在边界代码(你正在使用的API或者你发布的API)中特别有用。</p>
+
+<p>但是对于它的不适当的使用和设计很容易使一个小的变动影响到很多的类，或者降低代码的可阅读性。这里有一些如何更加高效使用Optional的建议。</p>
+
+<h3>Optional应该仅仅用在返回类型中</h3>
+
+<p>不要用在参数或者域中。<a href="http://blog.joda.org/2015/08/java-se-8-optional-pragmatic-approach.html">阅读这篇博文</a>可以看到如何正确使用Optional进行编码。幸运的是，IntelliJ IDEA可以打开inspections去检查你是否遵循了这些推荐规范。</p>
+
+<p><img src="//images/blog_images/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
+
+<p>要尽早在Optional出现的地方对它进行处理。IntelliJ IDEA会阻止Optional出现在你代码的各个地方，所以记住一定要在Optional出现的地方就对他进行处理。</p>
+
+<p><img src="//images/blog_images/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
+
+<h3>不能简单地调用get()方法</h3>
+
+<p>Optional是用来表示这个值是有可能为空的，让你做好应对的准备。因此，很重要的一点就是在使用这个值之前务必要检查其是否存在。简单地调用get方法而不是先调用isPresent可能会导致产生空指针异常。幸运的是，IntelliJ IDEA再一次提供了对此种方案的检查。</p>
+
+<p><img src="//images/blog_images/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
+
+<h3>更加优雅的方案</h3>
+
+<p>如下代码，isPresent和get当然能够解决这个问题。</p>
+
+<p><img src="//images/blog_images/OptionalSimple.png" alt="OptionalSimple.png" /></p>
+
+<p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值但值是null的时候。</p>
+
+<p><img src="//images/blog_images/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
+
+<p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调动，那么当这是个很耗资源的方法时，那么使用lambda会带来更好的性能提升。</p>
+
+<p><img src="//images/blog_images/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
+
+<h2>使用Lambda表达式</h2>
+
+<p>Lambda表达式是Java8最主要的卖点。即使你现在用不到Java8，你也应该对它有了一些基本的了解。下面讲述了一种新的方式使用Java编程，虽然这并不是一个“最佳实践”，仅仅是一个使用的指导。</p>
+
+<h3>保持简短</h3>
+
+<p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，会很容易把长的表达式重构成一个方法。</p>
+
+<p><img src="//images/blog_images/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
+
+<p>当然，这些可能甚至牵扯到方法引用。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
+
+<p><img src="LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
+
+<h3>显式声明</h3>
+
+<p>在lambda表达式中是没有类型信息的，所以你会发现在参数中包含类型信息是非常有用的。</p>
+
+<p><img src="//images/blog_images/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
+
+<p>如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，IntelljJ IDEA都会让你可以看到参数的类型信息。</p>
+
+<p><img src="//images/blog_images/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
+
+<p>甚至lambda表示的函数接口也能看到。</p>
+
+<p><img src="//images/blog_images/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
+
+<h2>设计Lambda表达式</h2>
+
+<p>我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List&lt;>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person<T>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。</p>
+
+<p>然而，如果你发现自己处在这样一种境况，那么这里有一些提示。</p>
+
+<h3>IntelliJ IDEA能够帮助你引入函数参数</h3>
+
+<p>这能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
+
+<p><img src="LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
+
+<h3>使用存在的函数接口</h3>
+
+<p>随着开发者变得对Java8越来越熟悉，当使用Supplier和Consumer这些接口时，我们将会知道什么是我们所期望的，比如创建一个ErrorMessageCreator(例子)会是令人迷惑和浪费的。可以看一下<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">函数包</a>获取已经存在的那些函数接口。</p>
+
+<h3>给你的函数接口添加@FunctionalInterface</h3>
+
+<p>如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Inteelij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。</p>
+
+<p><img src="//images/blog_images/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
+
+<p>当方法太多时，也会提示你。</p>
+
+<p><img src="//images/blog_images/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
+
+<p>当你把注解应用到一个类而不是接口时，也会发出提醒。</p>
+
+<p><img src="//images/blog_images/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
+
+<p>Lambda表达式可以被用在任何有一个Single Abstract Method的接口中，但是它不能够应用到一个抽象类中。看起来没有啥逻辑，但它就是这样的。</p>
+
+<h2>Streams</h2>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Stream API</a>是Java8另一个最大的卖点，我认为我们到现在还是没有真的搞清楚这会如何改变我们的代码。这里有一些我自己发现很有用的东西。</p>
+
+<h3>将点号对齐</h3>
+
+<p>我个人比较喜欢对齐Stream操作。当然，你不需要非得这么做，但是我发现这样还是有很大好处的。</p>
+
+<ul>
+<li>一眼就看到所有的操作以及他们的顺序</li>
+<li>更容易调试(虽然Intellij IDEA提供了在一行中的lambda表达式中任意地方打断点的功能，但是将他们分隔成单独的行会更简单)</li>
+<li>可以很容易的注释掉一些操作以测试</li>
+<li>很容易地插入peek()供调试或者测试</li>
+</ul>
+
+
+<p><img src="//images/blog_images/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
+
+<p>这样做也会让代码看起来很舒服。当然，如果这么做，会增加代码的行数。</p>
+
+<p>你可以修改一下格式化设置使点号对齐。</p>
+
+<p><img src="//images/blog_images/StreamWrapping.png" alt="StreamWrapping.png" /></p>
+
+<h3>使用方法引用(Method References)</h3>
+
+<p>你可能需要一会儿才能习惯这个奇怪的语法。但是，当我们能够正确地使用，它确实能够提高程序的可阅读性。考虑下面的代码：</p>
+
+<p><img src="//images/blog_images/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
+
+<p>对比一下使用新引入的Objects类的辅助方法(helper methods)：</p>
+
+<p><img src="//images/blog_images/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
+
+<p>后面的代码能够更加明显地表明它想保存的值。Intellij IDEA会提示你合适一个lambda可以被替换成方法引用。</p>
+
+<h3>当迭代一个集合，尽可能地使用Streams API</h3>
+
+<p>使用新的集合方法：forEach。IDEA会提示你。</p>
+
+<p><img src="//images/blog_images/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
+
+<p>使用Streams API相比起使用循环和if语句更加清晰明了。例如：</p>
+
+<p><img src="//images/blog_images/StreamBefore.png" alt="StreamBefore.png" /></p>
+
+<p>IDEA只能建议这个可以重构为：</p>
+
+<p><img src="//images/blog_images/StreamAfter.png" alt="StreamAfter.png" /></p>
+
+<p>我做的性能测试表示这个重构是令人惊奇的-无论性能是不变、提升还是变差，都是不能被预测的。因此，当你的应用对性能要求很苛刻的话，重构的时候务必做好测试。</p>
+
+<h3>当遍历数组时使用循环</h3>
+
+<p>使用Java8并不是意味着你必须到处都使用Stream和新的集合方法。IDEA会智能提示哪些地方可以转换为Stream，但是并不意味着你必须这么做。</p>
+
+<p>特别是当遍历一个保存了基本数据类型的小数组时，使用loop循环的性能是更加好的，而且更加可阅读(至少对哪些Stream的新手来说是这样的)。</p>
+
+<p>以上的建议，并非是固定不变的必须要遵守的。但是无论你倾向于继续使用loops做某些操作还是在能够使用的地方使用Stream API, 你都要做出决定。</p>
+
+<h2>总结</h2>
+
+<p>每天我都会发现新的东西，我t推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[译]StackOverflow: 你没见过的七个最好的Java答案]]></title>
+    <link href="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/"/>
+    <updated>2016-08-03T20:30:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/08/03/so-java-7-answers</id>
+    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you">https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you</a></p>
+
+<p>StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案，同时我们也会从中学习到很多新的东西。这篇文章是在我们审阅了so上最流行的Java问题以及答案后从中挑出来的。即使你是一个有丰富经验的开发者，也能从中学到不少东西。</p>
+
+<!--more-->
+
+
+<h2>分支预测</h2>
+
+<p>SO上最多投票的一个Java问题是：<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array">为什么处理一个排序数组要比非排序数组快的多</a>。为了回答这个问题，你需要使用分支预测(branch prediction)。分支预测是一种架构，旨在通过在真实的路径发生前猜测某一分支的下一步来提升处理过程。</p>
+
+<p>分支在这里即一个if语句。这样的话，如果是一个排序数组，那么分支预测将会进行，否则不会进行。<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array/11227902#11227902">Mysticial</a>(so上的一个回答者)试图使用铁路和火车来简单介绍这个概念。假设你在铁轨连接处要决定火车要走哪条路，你会选择左边还是右边？你可以拦住火车，然后问司机该往那里，但是这样会让整个过程变慢。因此你只能去猜正确的方向，那么如何去猜呢？最好的办法就是通过观察目前这个火车每次经过时的路线，推测出正确的方向。</p>
+
+<p>这就是分支预测：识别模式并使用它。</p>
+
+<p>不幸的是，这个问题的提问者是分支预测失败的受害者。因为他的分支没有任何可以识别出的模式，所以预测出的行为是随机的。</p>
+
+<h2>Java中的安全</h2>
+
+<p>另一个流行的Java问题是：<a href="http://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords-in-java">为什么在Java中有关密码的地方更加喜欢使用char[]而不是String</a>？其实原始的问题更加具体一些，就是问的在Swing中，password控件有一个getPassword方法(返回char[]而不是getText()返回的String)。</p>
+
+<p>其实这里不用惊讶-这是一个安全问题。String是不可变的，意味着一旦它被创建了，那么你就不可能去修改它。这也意味着在GC之前，你对这些数据不能做任何处理。因此，只要有人能够访问你的内存，那么String就有可能被他获取到。</p>
+
+<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据即使GC还没有进行也不会再在系统留下痕迹。</p>
+
+<h2>异常</h2>
+
+<p>即使很多开发者倾向于忽略对受检异常的处理，SO上仍然有很多关于异常的问题。其中一个最流行的问题是：什么是NullPointerException，我该怎么处理它？对此，我们并没有感到惊讶，因为这个问题也是<a href="http://blog.takipi.com/the-top-10-exceptions-types-in-production-java-applications-based-on-1b-events/">在生产环境的Java应用中排名第一的异常</a>。</p>
+
+<p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
+
+<h2>为什么这段代码使用随机字符串打印出了&#8221;hello world&#8221;</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
+
+<p>这个问题给出了下面的代码，并打印出了&#8221;hello world&#8221;。</p>
+
+<pre><code>System.out.println(randomString(-229985452) + " " + randomString(-147909649));
+
+public static String randomString(int i){
+    Random ran = new Random(i);
+    StringBuilder sb = new StringBuilder();
+    while (true)
+    {
+        int k = ran.nextInt(27);
+        if (k == 0)
+            break;
+
+        sb.append((char)('`' + k));
+    }
+
+    return sb.toString();
+}
+</code></pre>
+
+<p>其实，选择一组随机的整数并不是随机的。给定一个seed参数(在这个例子中是-229985452和-147909649), 那么每次随机，同样的seed则会产生同样的输出。</p>
+
+<p>Random(-229985452).nextInt(27)产生的前六个数字：8, 5, 12, 12, 15, 0</p>
+
+<p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
+
+<p>这样，最终输出的就是&#8221;hello world&#8221;。</p>
+
+<h2>为什么两个时间戳相减(in 1927)得出一个奇怪的结果？</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result">http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result</a></p>
+
+<pre><code>public static void main(String[] args) throws ParseException {
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+    String str3 = "1927-12-31 23:54:07";  
+    String str4 = "1927-12-31 23:54:08";  
+    Date sDt3 = sf.parse(str3);  
+    Date sDt4 = sf.parse(str4);  
+    long ld3 = sDt3.getTime() /1000;  
+    long ld4 = sDt4.getTime() /1000;
+    System.out.println(ld4-ld3);
+}
+</code></pre>
+
+<p>按说上面的代码最后的结果应该是1，但实际的输出却是353。其实，这是一个时区的问题。1927年12月31号24:00，上海时间往回调整了5分钟52秒，因此&#8221;1927-12-31 23:54:08&#8221;发生了两次，Java将后面一次实例化成了本地的这个时间。因此和前一秒的差距成了353。</p>
+
+<p>我们需要指出，如果你试着来运行这段代码，结果并不一定是353。<a href="http://stackoverflow.com/a/6841479/5982245">Jon Skeet指出了这一点</a>，在时区数据库项目2014版中，这个改变的时间点改到了1900-12-31，因此成了344秒的差距。</p>
+
+<h2>无法被捕获的ChuckNorrisException</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception">http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception</a></p>
+
+<p>这里有一个很明显的问题：如果有exception被抛出，但是没有任何办法去catch，那么应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。</p>
+
+<p>答案是可以，但是这里有一个&#8221;但是&#8221;。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。<a href="http://stackoverflow.com/a/13883510/5982245">jtahlborn</a>给出了完整的解决办法。</p>
+
+<h2>哈希表</h2>
+
+<p>哈希表是另外一个在SO上流行的问题系列。许多用户都想要知道所有集合类之间的区别，什么时候该使用哪种集合。</p>
+
+<p>迭代顺序是主要考虑的因素。使用HashMap则忽略了所有的顺序信息，也就是获取元素的顺序和你插入元素的顺序是没有任何关系的；使用TreeMap则会得到一个排序好的迭代集合；使用LinkedHashMap则是一个FIFO的顺序。</p>
+
+<p>如果你还是对这些感到困惑，这里有一个相关说明的图标可以<a href="http://zeroturnaround.com/wp-content/uploads/2016/04/Java-Collections-cheat-sheet.png">参考</a>(Rebel Labs制作)。</p>
+
+<h2>总结</h2>
+
+<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。</p>
+]]></content>
+  </entry>
+  
+</feed>
