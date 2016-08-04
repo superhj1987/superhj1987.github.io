@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-04T11:48:49+08:00</updated>
+  <updated>2016-08-04T11:59:28+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -55,11 +55,11 @@
 
 <p><img src="//images/blog_images/OptionalSimple.png" alt="OptionalSimple.png" /></p>
 
-<p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值但值是null的时候。</p>
+<p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值。</p>
 
 <p><img src="//images/blog_images/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
 
-<p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调动，那么当这是个很耗资源的方法时，那么使用lambda会带来更好的性能提升。</p>
+<p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调用。那么当这是个代价昂贵的方法时，那么使用lambda会带来更好的性能提升。</p>
 
 <p><img src="//images/blog_images/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
 
@@ -69,13 +69,13 @@
 
 <h3>保持简短</h3>
 
-<p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，会很容易把长的表达式重构成一个方法。</p>
+<p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，也很容易把长的表达式重构成一个方法。</p>
 
 <p><img src="//images/blog_images/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
 
-<p>当然，这些可能甚至牵扯到方法引用。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
+<p>当然，这些甚至牵扯到了方法引用(Method References)。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
 
-<p><img src="LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
+<p><img src="//images/blog_images/LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
 
 <h3>显式声明</h3>
 
@@ -93,15 +93,15 @@
 
 <h2>设计Lambda表达式</h2>
 
-<p>我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List&lt;>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person<T>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。</p>
+<p>我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List&lt;>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person\&lt;T>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。</p>
 
-<p>然而，如果你发现自己处在这样一种境况，那么这里有一些提示。</p>
+<p>如果你发现自己处在这样一种境况，那么这里有一些提示。</p>
 
 <h3>IntelliJ IDEA能够帮助你引入函数参数</h3>
 
-<p>这能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
+<p>能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
 
-<p><img src="LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
+<p><img src="//images/blog_images/LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
 
 <h3>使用存在的函数接口</h3>
 
@@ -134,7 +134,7 @@
 <ul>
 <li>一眼就看到所有的操作以及他们的顺序</li>
 <li>更容易调试(虽然Intellij IDEA提供了在一行中的lambda表达式中任意地方打断点的功能，但是将他们分隔成单独的行会更简单)</li>
-<li>可以很容易的注释掉一些操作以测试</li>
+<li>可以很容易地注释掉一些操作以供测试</li>
 <li>很容易地插入peek()供调试或者测试</li>
 </ul>
 
@@ -157,7 +157,7 @@
 
 <p><img src="//images/blog_images/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
 
-<p>后面的代码能够更加明显地表明它想保存的值。Intellij IDEA会提示你合适一个lambda可以被替换成方法引用。</p>
+<p>后面的代码能够更加明显地表明它想保存的值。IntelliJ IDEA会提示你何时一个lambda可以被替换成方法引用。</p>
 
 <h3>当迭代一个集合，尽可能地使用Streams API</h3>
 
@@ -169,7 +169,7 @@
 
 <p><img src="//images/blog_images/StreamBefore.png" alt="StreamBefore.png" /></p>
 
-<p>IDEA只能建议这个可以重构为：</p>
+<p>IDEA会建议重构为：</p>
 
 <p><img src="//images/blog_images/StreamAfter.png" alt="StreamAfter.png" /></p>
 
@@ -177,15 +177,15 @@
 
 <h3>当遍历数组时使用循环</h3>
 
-<p>使用Java8并不是意味着你必须到处都使用Stream和新的集合方法。IDEA会智能提示哪些地方可以转换为Stream，但是并不意味着你必须这么做。</p>
+<p>使用Java8并不是意味着你必须到处都使用Stream和新的集合方法。IDEA会智能提示哪些地方可以转换为Stream操作，但是并不意味着你必须这么做。</p>
 
-<p>特别是当遍历一个保存了基本数据类型的小数组时，使用loop循环的性能是更加好的，而且更加可阅读(至少对哪些Stream的新手来说是这样的)。</p>
+<p>特别是当遍历一个保存基本数据类型的小数组时，使用loop循环的性能是更加好的，而且更加可阅读(至少对哪些Stream的新手来说是这样的)。</p>
 
-<p>以上的建议，并非是固定不变的必须要遵守的。但是无论你倾向于继续使用loops做某些操作还是在能够使用的地方使用Stream API, 你都要做出决定。</p>
+<p>以上的建议，并非是固定不变，也不是必须要遵守的。但是无论你倾向于继续使用loops做某些操作还是在能够使用的地方使用Stream API, 你都要做出你自己的决定。</p>
 
 <h2>总结</h2>
 
-<p>每天我都会发现新的东西，我t推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
+<p>每天我都会发现新的东西，我推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
 ]]></content>
   </entry>
   
