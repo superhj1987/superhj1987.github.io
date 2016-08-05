@@ -100,7 +100,7 @@ Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0
 
 迭代顺序是主要考虑的因素。使用HashMap则忽略了所有的顺序信息，也就是获取元素的顺序和你插入元素的顺序是没有任何关系的；使用TreeMap则会得到一个排序好的迭代集合；使用LinkedHashMap则是一个FIFO的顺序。
 
-如果你还是对这些感到困惑，这里有一个相关说明的图标可以[参考](http://zeroturnaround.com/wp-content/uploads/2016/04/Java-Collections-cheat-sheet.png)(Rebel Labs制作)。
+如果你还是对这些感到困惑，这里有一个相关说明的图表可以[参考](http://zeroturnaround.com/wp-content/uploads/2016/04/Java-Collections-cheat-sheet.png)(Rebel Labs制作)。
 
 ## 总结
 
