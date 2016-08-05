@@ -102,6 +102,8 @@ Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0
 
 如果你还是对这些感到困惑，这里有一个相关说明的图表可以[参考](http://zeroturnaround.com/wp-content/uploads/2016/04/Java-Collections-cheat-sheet.png)(Rebel Labs制作)。
 
+![Java-Collections-cheat-sheet](/images/blog_images/Java-Collections-cheat-sheet.png)
+
 ## 总结
 
 对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。
