@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-11T14:49:31+08:00</updated>
+  <updated>2016-08-11T22:05:04+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1125,6 +1125,12 @@ public static String randomString(int i){
 </li>
 </ul>
 
+
+<h4>GC的庞氏骗局</h4>
+
+<p>虽然GC在大多数情况下还是正常的，但有时候JVM也会发生欺骗你的场景， JVM不停的在垃圾回收，可是每次回收完后堆却还是满的，很明显程序内存被使用完了，已经无法正常工作了，但JVM就是不抛出OutOfMemoryError(OOM)这个异常来告诉程序员内部发出了什么，只是不停的做老好人尝试帮我们做垃圾回收，把服务器的资源耗光了。</p>
+
+<p>出现这种现象的一种典型情况就是GC的GCTimeLimit和GCHeapFreeLimit参数设置不合适。GCTimeLimit的默认值是98%，也就是说如果大于等于98%的时间都用花在GC上，则会抛出OutOfMemoryError。GCHeapFreeLimit是回收后可用堆的大小，默认值是2%，也就是说只要有多余2%的内存可用就认为此次gc是成功的。如果GCTimeLimit设置过大或者GCHeapFreeLimit设置过小那么就会造成GC的庞式骗局，不停地进行垃圾回收。</p>
 
 <h2><a name='四. Java7、8带来的一些变化'></a>四. Java7、8带来的一些变化</h2>
 
