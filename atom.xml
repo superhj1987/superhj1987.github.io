@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-11T22:05:04+08:00</updated>
+  <updated>2016-08-11T22:32:56+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1077,7 +1077,7 @@ public static String randomString(int i){
 <h3>3.3 调优经验</h3>
 
 <ul>
-<li>需要打开gc日志并读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps</li>
+<li>需要打开gc日志并读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamp -Xloggc:$CATALINA_BASE/logs/gc.log</li>
 <li>垃圾回收的最佳状态是只有young gc，也就是避免生命周期很长的对象的存在。</li>
 <li>从young gc开始，尽量给年青代大点的内存，避免full gc</li>
 <li>注意Survivor大小</li>
@@ -1087,13 +1087,24 @@ public static String randomString(int i){
 
 <h4>GC日志简介</h4>
 
-<p><image src="http://www.rowkey.me/images/blog_images/gclog.png" width="500px"/></p>
+<p>1403682.561: [GC [PSYoungGen: 1375104K->11376K(1386176K)] 4145665K->2782002K(4182400K), 0.0174410 secs] [Times: user=0.27 sys=0.00, real=0.02 secs]</p>
 
 <ul>
-<li>第一个箭头：35592K->1814K(36288K)，箭头指向的是新生段的内存占用情况； - 第二个箭头：38508K->7792K(520256K)，箭头指向的是回收后的内存占用情况。</li>
-<li>垃圾收集停顿时间：0.0336</li>
+<li>1403682.561：发生的时间点，JVM运行的时间长度，以度为单位，也可以格式化成固定的时间格式(使用-XX:+PrintGCDateStamps)</li>
+<li>PSYoungGen：发生了何种类型的GC，此处代表发生了年轻代的GC</li>
+<li>1375104K：回收前的大小</li>
+<li>11376K：回收后的大小</li>
+<li>1386176K：YOUNG代的大小</li>
+<li>4145665 K：回收前总的占用大小</li>
+<li>2782002K：回收后的占用大小</li>
+<li>4182400K：总占用大小</li>
+<li>0.0174410：垃圾收集停顿时间</li>
+<li>0.27和0.00：代表在用户态(user)和系统状(sys)的CPU运行时间</li>
+<li>0.02 secs：代表实际的GC的运行时间</li>
 </ul>
 
+
+<p>注：上面实际GC的运行时间小于用户态和系统态的时间总和，是由于前者仅指CPU的运行时间，包括等待或IO阻塞的时间，而现在的GC是采用多线程收集的，同时机器也是多个CPU，因此，大部分是二者之和要比前面的值大。如果是采用串形化收集器的话，二者时间几乎相差不多。</p>
 
 <h4>老年代使用建议</h4>
 
