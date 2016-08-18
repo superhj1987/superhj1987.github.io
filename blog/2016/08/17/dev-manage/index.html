@@ -1,0 +1,700 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>研发体系这点事 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="研发体系这点事 Aug 17th, 2016 Posted by 飒然Hang in work 几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中， &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2016/08/17/dev-manage/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+    display: none !important
+  }
+  div#ujian_BtnDiv{
+    display: none !important
+  }
+</style>
+<!-- cnzz统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="about-nav" href="/about_me.html">关于我</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">研发体系这点事</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-08-17T20:13:34+08:00" pubdate data-updated="true">Aug 17<sup>th</sup>, 2016</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中，也做过一些尝试。直到毕业后进入前东家，在几个项目的参与过程中，算是见到了大公司的研发管理是如何进行的。直至加入目前的公司，将研发管理系统梳理一遍，且学且抄且实践，对这一套东西算是有了一定的实践感悟。</p>
+
+<!--more-->
+
+
+<p>对于一个研发管理体系，其核心是围绕着一个产品流程来进行的。</p>
+
+<p><img src="/images/blog_images/product_full_process.jpg" style="width:500px;"/></p>
+
+<p>根据上图可以把研发管理体系分为以下几部分：</p>
+
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86">任务管理</a></li>
+<li><a href="#%E5%9C%A8%E7%BA%BF%E6%B2%9F%E9%80%9A">在线沟通</a></li>
+<li><a href="#%E6%96%87%E6%A1%A3%E5%8D%8F%E4%BD%9C">文档协作</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%8D%8F%E4%BD%9C">代码协作</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95%E6%9C%BA%E5%88%B6">测试机制</a></li>
+<li><a href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2">自动化部署</a></li>
+<li><a href="#%E6%95%85%E9%9A%9C%E7%9B%91%E6%8E%A7">故障监控</a></li>
+<li><a href="#%E6%8A%80%E6%9C%AF%E6%88%90%E9%95%BF">技术成长</a></li>
+</ul>
+
+
+<h2><a name='任务管理'></a>任务管理</h2>
+
+<p>其实任务管理不仅仅是针对研发的一个关键功能。对于一个产品团队，这也是至关重要的。自己经历过的任务管理软件：</p>
+
+<ul>
+<li><a href="http://www.redmine.org/">Redmine</a>: 这个是自己最开始接触的任务管理软件，也是一款比较流行的任务管理软件。比较缺憾的是，这款软件安装有点繁琐，而且基于ROR，如果需要二次开发，需要重新学习ROR。</li>
+<li><a href="http://tower.im">Tower.im</a>: 这是一个任务管理云服务，界面设计的简单优雅，一目了然。很多小的私有项目，我都会用这个进行任务管理。类似的还有teambeation等。</li>
+<li><a href="http://www.atlassian.com/software/jira/">Jira</a>: 这款软件是商业版的任务管理软件，对于这一块做的是非常专业的，很多大公司都在使用。但是，它是收费的。所以，如果你要用，要么付钱，要么去破解。。。</li>
+<li><a href="http://www.zentao.net/">禅道</a>：这款软件最早是叫做bugfree, 是开源且主要针对Bug管理的，后面慢慢发展成现在的集任务管理、bug管理、团队管理等的项目管理软件，并开启了收费策略。总体来说，功能很全，也比较专业，但是ui上有种传统it系统的感觉，流程上也不具有现在敏捷开发的一些优势。</li>
+<li><a href="https://github.com/kanboard/kanboard">Kanboard</a>: 是实现了Kanban方法论(就类似美剧《硅谷》里面那种项目管理方式)的一个开源的任务管理软件。简单的说就是将任务分为pending、analysis、Development、Test、Deploy几种状态，然后根据任务的进行，在几种状态之间进行转换。详细的可见此篇文章：<a href="http://kanbanblog.com/explained/">http://kanbanblog.com/explained/</a>。</li>
+</ul>
+
+
+<p>对于个人的项目，其实依赖于tower.im这种第三方云服务完全足够了。如果担心数据安全的话，那么推荐在内网搭建Kanboard进行看板任务管理。</p>
+
+<h2><a name='在线沟通'></a>在线沟通</h2>
+
+<p>显而易见，在线沟通是对于任何一种团队都是必不可少的一个机制，同样也是研发团队必不可缺的。常用的就是QQ、钉钉或者企业内部的im软件。那么对于小公司或者创业公司，不想用第三方服务的该怎么办呢？之前蘑菇街开源过一个teamtalk的软件，不过后来由于某些原因已经下线。目前，有一款开源的web im软件可以供大家选择：<a href="https://github.com/RocketChat/Rocket.Chat">Rocket.Chat</a>，能够搭建出内网的slack服务(将分散的沟通方式聚集到一个地方。融入到一个信息流中)。</p>
+
+<p>此外，我自己还尝试过使用intellij自带的IDE TALK来进行研发团队的在线交流。使用这个比较好的一点是可以直接做基于代码的即时交流，比如能够发送一个代码片段给同事，他那边接收到之后是直接能在他的项目里相关代码处进行操作的。</p>
+
+<h2><a name='文档协作'></a>文档协作</h2>
+
+<p>研发中首当其冲的就是文档撰写，这个很多情况下都决定了项目的可维护、可管理性。有人会说现在流行的是敏捷开发，根本不需要写文档，但其实这是对敏捷的误解。敏捷开发强调的是快速试错、快速迭代，而非简单粗暴。对于一个项目，从开始就需要需求文档、产品原型文档、项目进度文档等等，而到了研发这一步，在系统实现、写代码之前最好的就是先“想”再做，而“想”的一种比较好的输出形式就是文档。对于一个软件系统，一般来说需要写的文档有以下几种：</p>
+
+<ul>
+<li>系统业务流程文档：描述系统业务逻辑的文档，能清晰的说明真个业务的流程。</li>
+<li>系统架构设计文档：对整个系统的架构的描述，需要包含系统的各个关键组成模块以及相关的各个关键技术点等。</li>
+<li>系统功能模块概要设计/详细设计文档：对于某一个模块的流程、逻辑的描述。</li>
+<li>数据DDL/DML文档: 与系统相关的数据库的DDL和DML文档，对于前者，是需要包含所有的操作的，而对于后者，必不可少的是查询语句，用来提供给DBA，来做查询sql的review，以保证索引的正确建立等。</li>
+<li>系统部署文档：描述系统关键部分部署在哪里，需要做哪些配置。</li>
+</ul>
+
+
+<p>尤其对于一些相对复杂的功能来说，整理思路形成文档，不仅可以让自己逻辑清晰，也能让后续维护的人更快的接手下去。</p>
+
+<p>而对于文档撰写协作的方式，我自己经历过的有以下几种：</p>
+
+<ul>
+<li>使用word撰写各种文档，提交到svn等版本管理工具上</li>
+<li>使用google doc进行协作</li>
+<li>使用word撰写文档，然后提交到项目管理软件中进行管理</li>
+<li>使用markdown撰写文档，提交到版本管理工具上</li>
+</ul>
+
+
+<p>我自己比较推崇的是使用markdown撰写文档，然后使用git、svn版本管理工具或者是其他团队协作工具做版本管理。之所以使用markdown, 能够极大地节省使用word时调各种格式、样式耗费的时间。对于程序员来说真的是如虎添翼。如果是对文档多人协同编辑有刚需的团队，可以选择使用google doc或者国内的石墨(<a href="http://shimo.im">http://shimo.im</a>)。</p>
+
+<h2><a name='代码协作'></a>代码协作</h2>
+
+<p>对于一个技术团队，最最关键的肯定是写代码。一个人单打独斗那倒好说，但是这就像篮球场上，一对一靠个人硬实力，但是5对5，那就不仅仅是一个人实力强就赢得了的了。因此对于技术团队来说，代码协作是至关重要的一个部分。</p>
+
+<ul>
+<li><p>代码版本管理：Git + SVN</p>
+
+<p>  几年前最流行的代码版本管理工具是svn（当然此前，更加古老的还有cvs之流），的确为程序员们的代码管理带来了很多便捷。但到了现在，相比起这种集中式代码管理，目前最为火热的当属git这种分布式代码管理工具，在Linux上直接搭建git服务器来构建项目的git系统的。而这几年随着Github以及类似系统的涌现，对于很多私人项目我都是采用oschina或者gitcafe提供的git私有代码管理来做代码版本管理的。当然，对于公司来说，有很多开源类github系统可以搭建在企业内网。详细的可以参见：<a href="http://www.rowkey.me/blog/2015/11/13/your-own-github/">搭建自己的github</a>。当然，对比svn，git也是有缺点的。无法天然的支持对于目录级别的权限管理和基于目录的版本管理操作是目前不得不结合svn和git一起使用的重要原因。目前，我们主要使用git做版本管理，但是辅以svn做基于目录级别的发布包管理。</p></li>
+<li><p>代码分支/Tag管理： Git Flow</p>
+
+<p>  其实分支/Tag管理是代码版本管理包含的内容，之所以单独出来，是因为对于分支的使用其实还是有一定的原则和技巧的。并非如很多人一样，所有项目就一个master分支，所有修改都往这里塞。目前，最为流行的一种基于分支的工作方式就是:Git flow。介绍可以见: <a href="http://www.ituring.com.cn/article/56870">基于git的源代码管理模型——git flow</a>。简单概括就是：</p>
+
+<ul>
+<li>master和develop作为主分支。主分支是所有开发活动的核心分支。所有的开发活动产生的输出物最终都会反映到主分支的代码中。master是可以随时发布的分支，而develop则时刻保持最新的开发代码。</li>
+<li>辅助分支是用于组织解决特定问题的各种软件开发活动的分支。辅助分支主要用于组织软件新功能的并行开发、简化新功能开发代码的跟踪、辅助完成版本发布工作以及对生产代码的缺陷进行紧急修复工作。这些分支与主分支不同，通常只会在有限的时间范围内存在。包括：
+
+<ul>
+<li>用于开发新功能时所使用的feature分支；</li>
+<li>用于辅助版本发布的release分支；</li>
+<li>用于修正生产代码中的缺陷的hotfix分支。
+对于此种开发模型，这里也提供了一个命令行工具：<a href="https://github.com/nvie/gitflow">https://github.com/nvie/gitflow</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>代码质量保证：结对编程 + 定期review + PR目前一种比较好的方式。结对编程这个是一个老生常谈的方式，两个人共同承担某一开发任务，互相保证对方的代码质量，在很大程度上能够提高代码质量。而定期review则是让团队所有的成员都能够参与到这个过程中，不仅仅能够保证被review者的代码质量，也能够让团队成员学习到好的代码是怎样的而差的代码又是怎样的。PR是Pull Request的简写，当开发完成的代码提交到主分支时，需要发起pull request，此时团队负责人需要review相关代码，确保没有问题之后，才能accept此次pr。当然，上面讲述的是如何通过人来保证代码质量。除此之外，还可以通过技术上的手段在一定程度上保障代码的质量，这一部分在后续的自动化测试机制会讲述。</p></li>
+</ul>
+
+
+<h2><a name='测试机制'></a>测试机制</h2>
+
+<p>当代码开发完成之后，需要测试的介入来保证功能的正常运行。一般来说，测试分为：</p>
+
+<ul>
+<li>代码质量测试</li>
+<li>功能测试</li>
+<li>性能测试</li>
+</ul>
+
+
+<p>代码质量测试一般是在编译打包代码之前进行，通常是自动化进行的。针对Java项目，自动化代码质量测试可以分为以下几步：</p>
+
+<ul>
+<li>源代码规范检查：对于Java来说，代码规范的检查一般使用checkstyle来检查。默认的规范非常严格，这里大家可以根据需要放宽一些规范。</li>
+<li>源代码静态质量检查: 常用的工具是pmd, 可以检查Java源文件中的潜在问题, 比如空try/catch/finally/switch语句块等。</li>
+<li>字节码bug检查：常用工具是findbugs,基于Bug Patterns概念，查找javabytecode（.class文件）中的潜在bug。如NullPoint空指针检查、没有合理关闭资源、字符串相同判断错（==，而不是equals）。</li>
+<li>单元测试：使用junit即可，当然在这里当使用mvn时，其test phrase会默认生成测试报告到${project.build.directory}/surefile-reports文件夹中。这里建议使用coverage生成单元测试报告，其中一个关键的单元测试覆盖率指标达到98%以上才为合格(根据需要自己调整即可)。</li>
+</ul>
+
+
+<p>以上提到的工具，都是有maven插件的。通常情况下，也推荐使用这些工具的maven插件来调用。目前流行的自动化ci工具jenkins、QuickBuild等结合各种丰富的插件可以提供这些功能，将他们集成到一个测试流程并形成最终的测试结果报表。</p>
+
+<p>在代码发布到线上环境之前，一个关键的步骤就是功能测试，通常都是工程师来进行的。需要测试工程师根据产品需求，形成测试用例，然后根据这些用例做相应的测试。测试用例的一个模板如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>用例ID </th>
+<th> 功能名称 </th>
+<th> 用例名称 </th>
+<th> 测试数据 </th>
+<th> 前置条件 </th>
+<th> 操作步骤 </th>
+<th> 预期结果 </th>
+<th> 测试结果 </th>
+<th> 备注 </th>
+<th> review说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>- </td>
+<td> - </td>
+<td> - </td>
+<td> - </td>
+<td> - </td>
+<td> - </td>
+<td> - </td>
+<td> - </td>
+<td> - </td>
+<td> -</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>需要测试工程师根据需求创建并经过研发人员reivew确定测试用例，待到发布前进行测试以及反馈，直到所有测试用例都通过。</p>
+
+<p>对于移动app功能的测试，目前市场上有类似<a href="https://www.bugtags.com/">bugtags</a>这种所见即所得提交测试工具，可以很方便的提交bug。</p>
+
+<p>功能测试通过之后，对于一些对性能有要求的项目，还需要进行性能测试。对于这种测试来说，通常有以下几种方式：</p>
+
+<ul>
+<li>测试工程师写性能测试代码来进行测试</li>
+<li>使用性能测试工具测试，如LoadRunner、ab等</li>
+</ul>
+
+
+<p>当然，所有这些测试都是在项目发布上线之前进行的，通常是在项目的测试、预发布环境中进行的。</p>
+
+<p>此外，对于测试任务的管理工作一般在任务管理软件中都做了集成。也有类似Mantis这种事专门做缺陷管理的。</p>
+
+<h2><a name='自动化部署'></a>自动化部署</h2>
+
+<p>对于Java项目的发布流程，如下图所示：</p>
+
+<p><img src="/images/blog_images/deploy_process.jpg" alt="deploy" /></p>
+
+<p>使用ci软件可将以上步骤自动化的。</p>
+
+<p>如上图所示，对于一个项目，我们是划分为三种或者四种环境的。</p>
+
+<ul>
+<li>测试环境: 这个环境是一个相对来说比较宽松的环境，所有代码的提交都会触发jenkins的自动代码质量检查和部署。测试工程师也是首先在这个环境下进行功能、性能测试的。只有通过了，才能部署到后续的下一个环境。</li>
+<li><strong><em>集成环境</em></strong>：这个环境不是必须的，只有当项目出现了两个大的分支并行开发，发布前需要集成两部分代码时才需要这样一个环境。一般来说只使用jenkins进行部署前的打包流程，部署流程由相关人员进行。这个环境也是需要测试工程师进行测试的。</li>
+<li>预发布环境：这个环境和线上环境是一模一样的，不同的是此环境下的服务器是不在线上服务器集群中的，并不为用户提供服务。此环境下的项目发布也是需要人工参与的，也必须由测试保证功能和性能的正常。</li>
+<li>线上环境：这个环境是比较严格的一个环境。在发布前，一般来说会进行发布确认等一系列上线评审工作后，由项目负责人或者运维人员部署发布。
+
+<ul>
+<li>功能列表 vs 实现情况：检查是否已经实现所有计划的功能？如果有某些功能没有实现需要说明原因。</li>
+<li>软件演示</li>
+<li>测试结果和遗留问题列表：测试用例的情况，遗留的Bug以及情况说明</li>
+<li>上线确认</li>
+<li>后续任务计划</li>
+</ul>
+</li>
+</ul>
+
+
+<p>其中，<strong>上线确认书</strong>的一个例子如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>&ndash; </th>
+<th> xx项目上线确认书 </th>
+<th> &ndash;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>需求方验证结果 </td>
+<td> 意见： </td>
+<td> 确认人：[由各个负责人签字]</td>
+</tr>
+<tr>
+<td>开发确认 </td>
+<td> 意见： </td>
+<td> 确认人：</td>
+</tr>
+<tr>
+<td>测试确认 </td>
+<td> 意见： </td>
+<td> 确认人：</td>
+</tr>
+<tr>
+<td>服务器是否需要重启 </td>
+<td> [是否需要自动更新那些App?] </td>
+<td> 确认人：</td>
+</tr>
+<tr>
+<td>服务器配置影响 </td>
+<td> [是否需要增加新的服务器ip,是否需要修改nginx/tomcat，是否新装软件，是否新建域名？] </td>
+<td> 确认人：</td>
+</tr>
+<tr>
+<td>数据库更改 </td>
+<td> [是否需要修改线上数据库？是否有初始化语句] </td>
+<td> 确认人：</td>
+</tr>
+<tr>
+<td>数据初始化 </td>
+<td> [是否有初始化数据？如价格，默认分类等] </td>
+<td> 确认人：</td>
+</tr>
+<tr>
+<td>上线评审结论 </td>
+<td> [ ]通过 <br/> [ ] 未通过，不能上线 <br/>  [ ] 未通过，但修改完制定Bug后可直接上线</td>
+<td> 确认人：</td>
+</tr>
+<tr>
+<td>计划上线时间 </td>
+<td> 2016-08-01</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<p><strong>后续任务计划</strong>，示例如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>问题描述 </th>
+<th> 责任人 </th>
+<th> 计划完成时间 </th>
+<th> 状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>xx </td>
+<td> xx </td>
+<td> xx    </td>
+<td> xx</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2><a name='故障监控'></a>故障监控</h2>
+
+<p>对于面向用户的线上服务，发生故障是一件很严重的事情。因此，做好线上服务的故障检测告警是一件非常重要的事情。可以将故障监控分为以下两个层面的监控：</p>
+
+<ul>
+<li>运维层面的监控：主要指的对主机的带宽、cpu、内存、硬盘、io等硬件资源的监控。这可以使用开源的nagios、cacti等开源软件进行监控。目前，市面上也有很多第三方服务能够提供对于主机资源的监控，如监控宝等。</li>
+<li>业务层面的监控：是在主机资源层面以上的监控，比如业务逻辑遇到了异常等。需要业务中加入相关的监控代码，比如在异常抛出的地方，加一段日志记录。</li>
+</ul>
+
+
+<p>监控还有一个关键的步骤就是告警。告警的方式有很多种：邮件、im、短信等。考虑到故障的重要性不同、告警的合理性、便于定位问题等因素，有以下建议：</p>
+
+<ul>
+<li>告警日志要记录发生故障的机器id，尤其是在集群服务中，如果没有记录机器id，那么对于后续的问题定位会很困难。</li>
+<li>要对告警做聚合，不要每一个故障都单独进行告警，这样会对工程师造成极大的困扰。</li>
+<li>要对告警做等级划分，不能对所有告警都做同样的优先级处理。</li>
+<li>使用微信做为告警软件，能够在节省短信成本的情况下，保证告警的到达率。</li>
+</ul>
+
+
+<p>故障告警之后，那么最最关键的就是应对了。对于创业公司来说，24小时待命是必备的素质，当遇到告警的时候，需要尽快对故障做出反应，找到问题所在，并能在可控时间内解决问题。对于故障问题的排查，基本上都是依赖于日志的。只要日志打的合理，一般情况下是能够很快定位到问题所在的，但是如果是分布式服务，并且日志数据量特别大的情况下，如何定位日志就成为了难题。这里有几个方案：</p>
+
+<ul>
+<li>建立ELK体系，便于快速搜索、定位日志。对于ELK的介绍，可以见：<a href="https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/">https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/</a></li>
+<li>建立染色日志机制(<a href="https://www.zhihu.com/question/20292868">https://www.zhihu.com/question/20292868</a>)，尤其对于微服务架构，要做好对每一个请求的整个链路的监控，能够在发生问题的时候在海量调用中快速定位并收集单个异常请求信息。此外，<a href="http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&amp;mid=2653547643&amp;idx=1&amp;sn=c06dc9b0f59e8ae3d2f9feb734da4459&amp;scene=1&amp;srcid=0808MaLgymxNlsh4Z31oWKUi#rd">Mercury:唯品会全链路应用监控系统解决方案详解</a>也是类似的思路。</li>
+</ul>
+
+
+<h2><a name='技术成长'></a>技术成长</h2>
+
+<p>一个研发团队，很重要的一点是如何提高团队的战斗力。对于个人来说，在平时的工作中，提高技术的熟练度和深度，在业余补充学习专业知识，提升技术广度，这些都无须多言。那么如何在整体层面或者说是管理上促进团队成员的技术提升呢？可以采取的方式有以下几种：</p>
+
+<ul>
+<li>建立技术分享机制，鼓励大家以演讲或者技术博客的方式分享自己的技术经验或者教训，既可以对自己进行review又可以给其他成员以启示。这一点，很多公司都是纳入绩效中的。</li>
+<li>将一些项目开源，让团队成员能够享受到开源项目带来的各种好处，比如提升个人在业界的知名度、提高编码的水准(毕竟不好的代码，你也不好意思放出去)。</li>
+<li>定期举办类似黑客马拉松的比赛，提高团队成员的凝聚力，也能够提升成员解决实际问题的技术能力。</li>
+</ul>
+
+
+<p>自己比较推崇的是第一种方式，但是开始的时候往往会发现很多人是不会主动去分享的。要么是觉得自己的东西技术含量都很低，要么就觉得自己的知识为何要分享给别人。可以采取的办法就是从最初的周期性安排人员进行技术分享，然后慢慢形成一种氛围和习惯，再到后续鼓励大家主动分享。当然，辅以奖品激励或者绩效奖励也是一种不错的方式，但切忌不要忽视一些业务能力很强但不爱或者不善于分享的工程师。</p>
+
+<p>至于项目开源，这个的前提团队的项目真的是高质量并且会对开源社区有贡献的，不能为了开源而开源。尤其是对于一个公司来说，一个开源的项目直接决定了公司的技术水准的高低。</p>
+
+<p>而黑客马拉松比赛这种，需要考虑的是合适的主题。一般来说，围绕现实的业务场景来出题不仅能够提升大家解决问题的能力，也能顺便解决实际问题。比如&#8221;根据用户已有行为日志预测用户未来的行为&#8221;、“怎样构建合适的用户质量模型”都是比较合适的主题。</p>
+
+<p>此外，在安排团队成员去调研一门将要使用的新技术的时候，务必要深入到源码层面，这个观念是需要灌输到团队每一个人的意识中去的，因为去使用一个没有看过源码的开源软件是一件风险非常大的事情，极有可能造成巨大的线上故障。</p>
+</div>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+
+     <!-- 多说分享 start-->
+<div class="ds-share flat" data-title="研发体系这点事 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/17/dev-manage/" data-content="几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中，也做过一些尝试。直到毕业后进入前东家，在几个项目的参与过程中， &hellip;">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+<!-- 多说分享 end-->
+ 
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2016/08/03/java-8-top-tips/" title="下一篇: [译]Java8 Top Tips">[译]Java8 Top Tips &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<!-- 多说评论框 start -->
+<a name="ds-thread"></a>
+<div class="ds-thread" data-thread-key="/blog/2016/08/17/dev-manage/" data-title="研发体系这点事"></div>
+<!-- 多说评论框 end -->
+
+
+ 
+     <!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+ 
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget">
+    原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=1&isWeibo=0&isFans=0&uid=1307023714&verifier=cc8c1592&dpc=1"></iframe>
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2016/08/17/dev-manage/">研发体系这点事</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/08/03/java-8-top-tips/">[译]Java8 Top Tips</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/08/03/so-java-7-answers/">[译]StackOverflow: 你没见过的七个最好的Java答案</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/06/19/java-tips/">Java开发的几个注意点</a>
+      	</li>
+    	
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最热文章</h3>
+	<ul class="widget-list">
+	<!-- 多说热评文章 start -->
+	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+	<!-- 多说热评文章 end -->
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最新评论</h3>
+	<!-- 多说最新评论 start -->
+	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+<!-- 多说最新评论 end -->
+</section>
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2016 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+</script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
