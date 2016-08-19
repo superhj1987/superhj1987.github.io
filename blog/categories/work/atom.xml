@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-18T23:35:00+08:00</updated>
+  <updated>2016-08-19T11:25:47+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -25,42 +25,46 @@
 
 <p>对于一个研发管理体系，其核心是围绕着一个产品流程来进行的。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/product_full_process.jpg" style="width:500px;"/></p>
+<p><img src="http://www.rowkey.me/images/blog_images/product_full_process.jpg" style="width:300px;"/></p>
 
-<p>根据上图可以把研发管理体系分为以下几部分：</p>
+<p>根据上图的产品流程，可以把研发管理体系分为以下几部分：</p>
+
+<p><img src="//images/blog_images/dev-system-overview.jpg" alt="dev-system-overview" /></p>
+
+<p>如上图所示，即时沟通和技术提升虽然不属于研发流程中的某一个环节，但它们是贯穿整个研发体系不可或缺的一部分，有着不可替代的作用。此外，任务管理需要对任务做整个研发生命周期的管理，除了作为其中的一个关键环节，也是贯穿整个研发流程的。</p>
 
 <ul>
 <li><a href="#%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86">任务管理</a></li>
-<li><a href="#%E5%9C%A8%E7%BA%BF%E6%B2%9F%E9%80%9A">在线沟通</a></li>
 <li><a href="#%E6%96%87%E6%A1%A3%E5%8D%8F%E4%BD%9C">文档协作</a></li>
 <li><a href="#%E4%BB%A3%E7%A0%81%E5%8D%8F%E4%BD%9C">代码协作</a></li>
-<li><a href="#%E6%B5%8B%E8%AF%95%E6%9C%BA%E5%88%B6">测试机制</a></li>
+<li><a href="#%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81">质量保证</a></li>
 <li><a href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2">自动化部署</a></li>
 <li><a href="#%E6%95%85%E9%9A%9C%E7%AE%A1%E7%90%86">故障管理</a></li>
-<li><a href="#%E6%8A%80%E6%9C%AF%E6%88%90%E9%95%BF">技术成长</a></li>
+<li><a href="#%E5%8D%B3%E6%97%B6%E6%B2%9F%E9%80%9A">即时沟通</a></li>
+<li><a href="#%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87">技术提升</a></li>
 </ul>
 
 
 <h2><a name='任务管理'></a>任务管理</h2>
 
-<p>其实任务管理不仅仅是针对研发的一个关键功能。对于一个产品团队，这也是至关重要的。自己经历过的任务管理软件：</p>
+<p>任务管理是产品整个生命周期首要的环节，其对研发体系也是至关重要的。任务管理的方式，传统的有瀑布式管理，而现在最为流行的就是Scrum。Scrum开发流程的概览如下图所示：</p>
+
+<p><img src="//images/blog_images/ScrumModel.jpg" alt="scrum" /></p>
+
+<p>简单来说，scrum是依赖于三种角色、四种会议的自组织、信息透明化、成员平等的一种敏捷开发流程。更为详细的描述，可参见此篇文章：<a href="http://blog.devtang.com/2014/09/13/scrum-introduction/">http://blog.devtang.com/2014/09/13/scrum-introduction/</a>。</p>
+
+<p>依赖于任务管理方法论，市面上很多软件都做了相应的支撑，自己曾经使用过的任务管理软件如下：</p>
 
 <ul>
 <li><a href="http://www.redmine.org/">Redmine</a>: 这个是自己最开始接触的任务管理软件，也是一款比较流行的任务管理软件。比较缺憾的是，这款软件安装有点繁琐，而且基于ROR，如果需要二次开发，需要重新学习ROR。</li>
 <li><a href="http://tower.im">Tower.im</a>: 这是一个任务管理云服务，界面设计的简单优雅，一目了然。很多小的私有项目，我都会用这个进行任务管理。类似的还有teambeation等。</li>
 <li><a href="http://www.atlassian.com/software/jira/">Jira</a>: 这款软件是商业版的任务管理软件，对于这一块做的是非常专业的，很多大公司都在使用。但是，它是收费的。所以，如果你要用，要么付钱，要么去破解。。。</li>
 <li><a href="http://www.zentao.net/">禅道</a>：这款软件最早是叫做bugfree, 是开源且主要针对Bug管理的，后面慢慢发展成现在的集任务管理、bug管理、团队管理等的项目管理软件，并开启了收费策略。总体来说，功能很全，也比较专业，但是ui上有种传统it系统的感觉，流程上也不具有现在敏捷开发的一些优势。</li>
-<li><a href="https://github.com/kanboard/kanboard">Kanboard</a>: 是实现了Kanban方法论(就类似美剧《硅谷》里面那种项目管理方式)的一个开源的任务管理软件。简单的说就是将任务分为pending、analysis、Development、Test、Deploy几种状态，然后根据任务的进行，在几种状态之间进行转换。详细的可见此篇文章：<a href="http://kanbanblog.com/explained/">http://kanbanblog.com/explained/</a>。</li>
+<li><a href="https://github.com/kanboard/kanboard">Kanboard</a>: 是实现了Kanban方法论(就类似美剧《硅谷》里面那种项目管理方式)的一个开的任务管理软件，是对scrum中任务看板的一种实现。简单的说就是将任务分为pending、analysis、Development、Test、Deploy几种状态，然后根据任务的进行，在几种状态之间进行转换。详细的可见此篇文章：<a href="http://kanbanblog.com/explained/">http://kanbanblog.com/explained/</a>。</li>
 </ul>
 
 
 <p>对于个人的项目，其实依赖于tower.im这种第三方云服务完全足够了。如果担心数据安全的话，那么推荐在内网搭建Kanboard进行看板任务管理。</p>
-
-<h2><a name='在线沟通'></a>在线沟通</h2>
-
-<p>显而易见，在线沟通是对于任何一种团队都是必不可少的一个机制，同样也是研发团队必不可缺的。常用的就是QQ、钉钉或者企业内部的im软件。那么对于小公司或者创业公司，不想用第三方服务的该怎么办呢？之前蘑菇街开源过一个teamtalk的软件，不过后来由于某些原因已经下线。目前，有一款开源的web im软件可以供大家选择：<a href="https://github.com/RocketChat/Rocket.Chat">Rocket.Chat</a>，能够搭建出内网的slack服务(将分散的沟通方式聚集到一个地方。融入到一个信息流中)。</p>
-
-<p>此外，我自己还尝试过使用intellij自带的IDE TALK来进行研发团队的在线交流。使用这个比较好的一点是可以直接做基于代码的即时交流，比如能够发送一个代码片段给同事，他那边接收到之后是直接能在他的项目里相关代码处进行操作的。</p>
 
 <h2><a name='文档协作'></a>文档协作</h2>
 
@@ -118,9 +122,9 @@
 </ul>
 
 
-<h2><a name='测试机制'></a>测试机制</h2>
+<h2><a name='质量保证'></a>质量保证</h2>
 
-<p>当代码开发完成之后，需要测试的介入来保证功能的正常运行。一般来说，测试分为：</p>
+<p>当代码开发完成之后，需要质量保证机制的介入来保证功能的正常运行，从而保证代码是可发布的。一般来说，质量保证的手段就是测试，分为：</p>
 
 <ul>
 <li>代码质量测试</li>
@@ -363,7 +367,13 @@
 </table>
 
 
-<h2><a name='技术成长'></a>技术成长</h2>
+<h2><a name='即时沟通'></a>即时沟通</h2>
+
+<p>显而易见，即时沟通是任何团队都必不可少的一个机制，同样也是研发团队必不可缺的。常用的就是QQ、钉钉或者企业内部的im软件。那么对于小公司或者创业公司，不想用第三方服务的该怎么办呢？之前蘑菇街开源过一个teamtalk的软件，不过后来由于某些原因已经下线。目前，有一款开源的web im软件可以供大家选择：<a href="https://github.com/RocketChat/Rocket.Chat">Rocket.Chat</a>，能够搭建出内网的slack服务(将分散的沟通方式聚集到一个地方。融入到一个信息流中)。</p>
+
+<p>此外，我自己还尝试过使用intellij自带的IDE TALK来进行研发团队的在线交流。使用这个比较好的一点是可以直接做基于代码的即时交流，比如能够发送一个代码片段给同事，他那边接收到之后是直接能在他的项目里相关代码处进行操作的。</p>
+
+<h2><a name='技术提升'></a>技术提升</h2>
 
 <p>一个研发团队，很重要的一点是如何提高团队的战斗力。对于个人来说，在平时的工作中，提高技术的熟练度和深度，在业余补充学习专业知识，提升技术广度，这些都无须多言。那么如何在整体层面或者说是管理上促进团队成员的技术提升呢？可以采取的方式有以下几种：</p>
 
