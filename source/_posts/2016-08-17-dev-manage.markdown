@@ -10,15 +10,11 @@ categories: work
 
 <!--more-->
 
-对于一个研发管理体系，其核心是围绕着一个产品流程来进行的。
+对于一个研发管理体系，其核心是围绕着产品的整个生命周期来进行的。因此，根据一个产品的生命周期，可以把研发体系划分为几个关键的环节，如图所示：
 
-<img src="/images/blog_images/product_full_process.jpg" style="width:300px;"/>
+![dev-system-overview](/images/blog_images/dev-system-overview.png)
 
-根据上图的产品流程，可以把研发管理体系分为以下几部分：
-
-![dev-system-overview](/images/blog_images/dev-system-overview.jpg)
-
-如上图所示，即时沟通和技术提升虽然不属于研发流程中的某一个环节，但它们是贯穿整个研发体系不可或缺的一部分，有着不可替代的作用。此外，任务管理需要对任务做整个研发生命周期的管理，除了作为其中的一个关键环节，也是贯穿整个研发流程的。
+可知，即时沟通和技术提升虽然不属于研发流程中的某一个环节，但它们是贯穿整个研发体系不可或缺的一部分，有着不可替代的作用。此外，任务管理需要对任务做整个研发生命周期的管理，除了作为其中的一个关键环节，也是贯穿整个研发流程的。
 
 * [任务管理](#任务管理)
 * [文档协作](#文档协作)
@@ -33,7 +29,7 @@ categories: work
 
 任务管理是产品整个生命周期首要的环节，其对研发体系也是至关重要的。任务管理的方式，传统的有瀑布式管理，而现在最为流行的就是Scrum。Scrum开发流程的概览如下图所示：
 
-![scrum](/images/blog_images/ScrumModel.jpg)
+<img src="/images/blog_images/ScrumModel.jpg" style="width:500px"/>
 
 简单来说，scrum是依赖于三种角色、四种会议的自组织、信息透明化、成员平等的一种敏捷开发流程。更为详细的描述，可参见此篇文章：<http://blog.devtang.com/2014/09/13/scrum-introduction/>。
 
