@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-19T15:24:34+08:00</updated>
+  <updated>2016-08-19T15:28:44+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -365,7 +365,7 @@
 
 <h2><a name='即时沟通'></a>即时沟通</h2>
 
-<p>显而易见，即时沟通是任何团队都必不可少的一个机制，同样也是研发团队必不可缺的。常用的就是QQ、钉钉或者企业内部的im软件。那么对于小公司或者创业公司，不想用第三方服务的该怎么办呢？之前蘑菇街开源过一个teamtalk的软件，不过后来由于某些原因已经下线。目前，有一款开源的web im软件可以供大家选择：<a href="https://github.com/RocketChat/Rocket.Chat">Rocket.Chat</a>，能够搭建出内网的slack服务(将分散的沟通方式聚集到一个地方。融入到一个信息流中)。</p>
+<p>显而易见，即时沟通是任何团队都必不可少的一个机制，同样也是研发团队必不可缺的。常用的就是QQ、钉钉或者企业内部的im软件。那么对于小公司或者创业公司，不想用第三方服务的该怎么办呢？之前蘑菇街开源过一个teamtalk的软件，不过后来由于某些原因已经下线。目前，有一款开源的web im软件可以供大家选择：<a href="https://github.com/RocketChat/Rocket.Chat">Rocket.Chat</a>，能够搭建出内网的slack服务(将分散的沟通方式聚集到一个地方，融入到一个信息流中)。</p>
 
 <p>此外，我自己还尝试过使用intellij自带的IDE TALK来进行研发团队的在线交流。使用这个比较好的一点是可以直接做基于代码的即时交流，比如能够发送一个代码片段给同事，他那边接收到之后是直接能在他的项目里相关代码处进行操作的。</p>
 
