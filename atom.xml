@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-22T10:10:42+08:00</updated>
+  <updated>2016-08-22T16:25:33+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -2250,6 +2250,10 @@ tomcat的bio connector，采用的是线程池来避免对于每一个客户端�
 
 <pre><code>  git config --global color.ui true
 </code></pre></li>
+<li><p>区分文件名大小写</p>
+
+<pre><code>  编辑.git/config -&gt; core.ignorecase = false或者使用git mv oldFileName newFileName
+</code></pre></li>
 <li><p>兼容不同平台的换行符</p>
 
 <p>  For Windows:</p>
@@ -2708,8 +2712,6 @@ git clean -f -d
 git archive #生成一个可供发布的压缩包
 git rev-list --max-count=1 HEAD #查看当前分支的最新rev
 </code></pre>
-
-<p><strong><em>ps: 以上部分参考自网上资料，如有侵权请联系superhj1987@126.com</em></strong></p>
 ]]></content>
   </entry>
   
