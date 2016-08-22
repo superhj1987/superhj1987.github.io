@@ -44,6 +44,10 @@ categories: git
  	- 在git命令中开启颜色显示
   			
   			git config --global color.ui true
+  			
+  	- 区分文件名大小写
+
+			编辑.git/config -> core.ignorecase = false或者使用git mv oldFileName newFileName
 
 	- 兼容不同平台的换行符
 
@@ -454,5 +458,3 @@ git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进�
 	git help #获取命令的帮助信息
 	git archive #生成一个可供发布的压缩包
 	git rev-list --max-count=1 HEAD #查看当前分支的最新rev
-	
-***ps: 以上部分参考自网上资料，如有侵权请联系superhj1987@126.com***

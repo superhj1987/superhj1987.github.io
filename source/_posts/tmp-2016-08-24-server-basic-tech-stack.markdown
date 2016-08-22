@@ -1,14 +1,14 @@
 ---
 layout: post
 title: "互联网后端基础技术栈"
-date: 2016-08-22 20:10:34 +0800
+date: 2016-08-24 23:10:34 +0800
 comments: true
 categories: work
 ---
 
-对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务应用的稳定、可靠、可维护呢？纵观真个互联网技术体系再结合公司的目前状况，必不可少或者起到关键作用的基础技术/组件如下图所示：
+对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务应用的稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况，必不可少或者起到关键作用的基础技术/组件如下图所示：
 
-![server-basic-tech-stack](/images/blog_images/server-basic-tech-stack.png)
+<a href="/images/blog_images/server-basic-tech-stack.png" target="_blank"><img src="/images/blog_images/server-basic-tech-stack.png"/></a>
 
 - Api网关
 - 后端基础框架
@@ -25,6 +25,8 @@ categories: work
 - 统一日志服务
 - 统一调度中心
 - 故障监控服务
+
+<!--more-->
 
 ## <a name='故障监控'></a>故障监控
 
