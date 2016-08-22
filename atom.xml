@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-22T17:31:01+08:00</updated>
+  <updated>2016-08-22T18:44:20+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -22,7 +22,7 @@
 
 <p>对于一个研发管理体系，其核心是围绕着产品的整个生命周期来进行的。因此，根据一个产品的生命周期，可以把研发体系划分为几个关键的环节，如图所示：</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/dev-system-overview.png" alt="dev-system-overview" /></p>
+<p><a href="http://www.rowkey.me/images/blog_images/dev-system-overview.png" target="_blank"><img src="http://www.rowkey.me/images/blog_images/dev-system-overview.png"/></a></p>
 
 <p>可知，即时沟通和技术提升虽然不属于研发流程中的某一个环节，但它们是贯穿整个研发体系不可或缺的一部分，有着不可替代的作用。此外，任务管理需要对任务做整个研发生命周期的管理，除了作为其中的一个关键环节，也是贯穿整个研发流程的。</p>
 
