@@ -175,13 +175,16 @@
     <loc>http://www.rowkey.me/blog/blog_index.html</loc>
   </url>
   <url>
-    <loc>http://www.rowkey.me/</loc>
-  </url>
-  <url>
     <loc>http://www.rowkey.me/blog/archives/</loc>
   </url>
   <url>
+    <loc>http://www.rowkey.me/</loc>
+  </url>
+  <url>
     <loc>http://www.rowkey.me/blog/categories/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/posts_to_write/thinking-in-nginx.html</loc>
   </url>
   <url>
     <loc>http://www.rowkey.me/blog/categories/java/</loc>
@@ -242,6 +245,18 @@
   </url>
   <url>
     <loc>http://www.rowkey.me/blog/categories/translate/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/2/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/3/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/4/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/5/</loc>
   </url>
   <url>
     <loc>http://www.rowkey.me/ace/build/css.html</loc>

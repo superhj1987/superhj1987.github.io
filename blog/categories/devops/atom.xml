@@ -4,7 +4,7 @@
   <title><![CDATA[Category: devops | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/devops/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-22T18:44:20+08:00</updated>
+  <updated>2016-08-23T10:54:09+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.rowkey.me/blog/2015/09/09/load-analysis/"/>
     <updated>2015-09-09T18:42:58+08:00</updated>
     <id>http://www.rowkey.me/blog/2015/09/09/load-analysis</id>
-    <content type="html"><![CDATA[<p><strong><em>&mdash;本文于2015.12.23号最新更新&mdash;</em></strong></p>
+    <content type="html"><![CDATA[<p><strong><em>&mdash;本文于2015.12.23最新更新&mdash;</em></strong></p>
 
 <p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
 
