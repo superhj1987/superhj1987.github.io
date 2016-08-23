@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-23T11:11:01+08:00</updated>
+  <updated>2016-08-23T11:13:43+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -51,7 +51,7 @@
 
 <p>简单来说，Scrum是依赖于三种角色、四种会议的自组织、信息透明化、成员平等的一种敏捷开发流程。更为详细的描述，可参见此篇文章：<a href="http://blog.devtang.com/2014/09/13/scrum-introduction/">http://blog.devtang.com/2014/09/13/scrum-introduction/</a>。</p>
 
-<p>除了Scrum之外，看板是最近兴起的另一种开发模式，在最近很火的美剧《硅谷》里面“魔笛手”就是采用的这种方式。看板将工作流程形象化，首先把工作细分成任务并根据需要将任务分为Pending、Analysis、Development、Test、Deploy等状态，然后根据任务的进行，在几种状态之间进行转换。对比Scrum，看板使用开发周期作为计划和过程改进的度量数据，不强调迭代的概念，也没有很强的时间期间概念，也不需要制定任何团队角色。对于看板方法论的详细介绍可见此篇文章：<a href="http://kanbanblog.com/explained/">http://kanbanblog.com/explained/</a>，<a href="http://www.jianshu.com/p/e44b1038c9cf">http://www.jianshu.com/p/e44b1038c9cf</a>这篇则做了比较形象具体的说明，对于看板做了比较形象的介绍)。这里有一点需要注意，Scrum和看板并非是对立的，它们是可以结合起来使用的。使用看板来管理每一次迭代的任务是一种可取也是很常见的精益实践。</p>
+<p>除了Scrum之外，看板是最近兴起的另一种开发模式，在最近很火的美剧《硅谷》里面“魔笛手”就是采用的这种方式。看板将工作流程形象化，首先把工作细分成任务并根据需要将任务分为Pending、Analysis、Development、Test、Deploy等状态，然后根据任务的进行，在几种状态之间进行转换。对比Scrum，看板使用开发周期作为计划和过程改进的度量数据，不强调迭代的概念，也没有很强的时间期间概念，也不需要制定任何团队角色。对于看板方法论的详细介绍可见此篇文章：<a href="http://kanbanblog.com/explained/">http://kanbanblog.com/explained/</a>，<a href="http://www.jianshu.com/p/e44b1038c9cf">http://www.jianshu.com/p/e44b1038c9cf</a>这篇则做了比较形象具体的说明。这里有一点需要注意，Scrum和看板并非是对立的，它们是可以结合起来使用的。使用看板来管理每一次迭代的任务是一种可取也是很常见的精益实践。</p>
 
 <p>依赖于任务管理方法论，市面上很多软件都做了相应的支撑，自己曾经使用过的任务管理软件如下：</p>
 
