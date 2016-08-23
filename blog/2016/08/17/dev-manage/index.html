@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="研发体系这点事 Aug 17th, 2016 Posted by 飒然Hang in work 几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中， &hellip;">
+  <meta name="description" content="研发体系这点事 Aug 17th, 2016 Posted by 飒然Hang in work &ndash;本文于2016.08.23最新更新&ndash; 几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -129,7 +129,9 @@
   </header>
 
 
-<div class="post-content"><p>几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中，也做过一些尝试。直到毕业后进入前东家，在几个项目的参与过程中，见到了大公司的研发管理是如何进行的。直至加入目前的公司，将研发体系梳理一遍，且学且抄且实践，对这一套东西算是有了一定的实践感悟。</p>
+<div class="post-content"><p><strong><em>&ndash;本文于2016.08.23最新更新&ndash;</em></strong></p>
+
+<p>几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中，也做过一些尝试。直到毕业后进入前东家，在几个项目的参与过程中，见到了大公司的研发管理是如何进行的。直至加入目前的公司，将研发体系梳理一遍，且学且抄且实践，对这一套东西算是有了一定的实践感悟。</p>
 
 <p>对于一个研发管理体系，其核心是围绕着产品的整个生命周期来进行的。因此，根据一个产品的生命周期，可以把研发体系划分为几个关键的环节，如图所示：</p>
 
@@ -160,6 +162,8 @@
 
 <p>简单来说，Scrum是依赖于三种角色、四种会议的自组织、信息透明化、成员平等的一种敏捷开发流程。更为详细的描述，可参见此篇文章：<a href="http://blog.devtang.com/2014/09/13/scrum-introduction/">http://blog.devtang.com/2014/09/13/scrum-introduction/</a>。</p>
 
+<p>除了Scrum之外，看板是最近兴起的另一种开发模式，在最近很火的美剧《硅谷》里面“魔笛手”就是采用的这种方式。看板将工作流程形象化，首先把工作细分成任务并根据需要将任务分为Pending、Analysis、Development、Test、Deploy等状态，然后根据任务的进行，在几种状态之间进行转换。对比Scrum，看板使用开发周期作为计划和过程改进的度量数据，不强调迭代的概念，也没有很强的时间期间概念，也不需要制定任何团队角色。对于看板方法论的详细介绍可见此篇文章：<a href="http://kanbanblog.com/explained/">http://kanbanblog.com/explained/</a>，<a href="http://www.jianshu.com/p/e44b1038c9cf">http://www.jianshu.com/p/e44b1038c9cf</a>这篇则做了比较形象具体的说明，对于看板做了比较形象的介绍)。这里有一点需要注意，Scrum和看板并非是对立的，它们是可以结合起来使用的。使用看板来管理每一次迭代的任务是一种可取也是很常见的精益实践。</p>
+
 <p>依赖于任务管理方法论，市面上很多软件都做了相应的支撑，自己曾经使用过的任务管理软件如下：</p>
 
 <ul>
@@ -167,7 +171,7 @@
 <li><a href="http://tower.im">Tower.im</a>: 这是一个任务管理云服务，界面设计的简单优雅，一目了然。很多小的私有项目，我都会用这个进行任务管理。类似的还有teambeation等。</li>
 <li><a href="http://www.atlassian.com/software/jira/">Jira</a>: 这款软件是商业版的任务管理软件，对于这一块做的是非常专业的，很多大公司都在使用。但是，它是收费的。所以，如果你要用，要么付钱，要么去破解。。。</li>
 <li><a href="http://www.zentao.net/">禅道</a>：这款软件最早是叫做bugfree, 是开源且主要针对Bug管理的，后面慢慢发展成现在的集任务管理、bug管理、团队管理等的项目管理软件，并开启了收费策略。总体来说，功能很全，也比较专业，但是ui上有种传统it系统的感觉，流程上也不具有现在敏捷开发的一些优势。</li>
-<li><a href="https://github.com/kanboard/kanboard">Kanboard</a>: 是实现了Kanban方法论(就类似美剧《硅谷》里面那种项目管理方式)的一个开的任务管理软件，是对scrum中任务看板的一种实现。简单的说就是将任务分为pending、analysis、Development、Test、Deploy几种状态，然后根据任务的进行，在几种状态之间进行转换。详细的可见此篇文章：<a href="http://kanbanblog.com/explained/">http://kanbanblog.com/explained/</a>。</li>
+<li><a href="https://github.com/kanboard/kanboard">Kanboard</a>: 是实现了Kanban方法论的任务管理软件。</li>
 </ul>
 
 
@@ -525,7 +529,7 @@
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="研发体系这点事 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/17/dev-manage/" data-content="几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中，也做过一些尝试。直到毕业后进入前东家，在几个项目的参与过程中，见到了大公司的研发管理是如何进行的。 &hellip;">
+<div class="ds-share flat" data-title="研发体系这点事 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/17/dev-manage/" data-content="&ndash;本文于2016.08.23最新更新&ndash; 几年前在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中，也做过一些尝试。 &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
