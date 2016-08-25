@@ -41,6 +41,8 @@ categories: Data-Mining
 
 对于内容的关键词提取，使用[结巴分词](https://github.com/fxsjy/jieba) + [TFIDF](http://www.ruanyifeng.com/blog/2013/03/tf-idf.html)即可。此外，也可以使用[TextRank](http://www.tuicool.com/articles/UZ77Z3)来提取内容关键词。
 
+这里需要注意的一点是对于关联标签的处理，比如用户的标签是足球，而内容的标签是德甲、英超，那么用户和内容是无法联系在一起的。最简单的方式是人工设置关联标签，此外也可以使用word2vec一类工具对标签做聚类处理，构建主题模型，将德甲、英超聚类到**足球**下面。
+
 ### 内容特征化
 
 内容特征化即给内容打标签。目前有两种方式：
