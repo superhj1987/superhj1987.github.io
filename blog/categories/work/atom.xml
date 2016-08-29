@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-29T18:45:36+08:00</updated>
+  <updated>2016-08-29T18:54:32+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,11 +14,11 @@
 
   
   <entry>
-    <title type="html"><![CDATA[互联网后端基础技术栈]]></title>
+    <title type="html"><![CDATA[我眼里的互联网后端公共基础设施]]></title>
     <link href="http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack/"/>
     <updated>2016-08-27T23:10:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack</id>
-    <content type="html"><![CDATA[<p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的高可用、稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/组件如下图所示：</p>
+    <content type="html"><![CDATA[<p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的高可用、稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/组件/设施如下图所示：</p>
 
 <p><a href="http://www.rowkey.me/images/blog_images/server_basic_stack/server-basic-tech-stack.png" target="_blank"><img src="http://www.rowkey.me/images/blog_images/server_basic_stack/server-basic-tech-stack.png"/></a></p>
 
@@ -38,7 +38,7 @@
 </ul>
 
 
-<p>搭建好以上的后端基础设施，通常能够支撑起很长一段时间的业务需求的。</p>
+<p>开发或者搭建好以上的后端基础设施，一般情况下是能够支撑很长一段时间内的业务的。</p>
 
 <!--more-->
 
