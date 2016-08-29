@@ -6,13 +6,13 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>我眼里的互联网后端基础设施 - 后端技术杂谈 | 飒然Hang</title>
+  <title>谈谈互联网后端基础设施 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="我眼里的互联网后端基础设施 Aug 27th, 2016 Posted by 飒然Hang in work 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的高可用、稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况， &hellip;">
+  <meta name="description" content="谈谈互联网后端基础设施 Aug 27th, 2016 Posted by 飒然Hang in work 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的高可用、稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -92,7 +92,7 @@
   
   <header>
     
-      <h1 class="post-title">我眼里的互联网后端基础设施</h1>
+      <h1 class="post-title">谈谈互联网后端基础设施</h1>
     
     
       <p class="post-meta">
@@ -441,14 +441,14 @@
 
 <p>离线和实时数据分析产生的一些报表是给数据分析师、产品经理参考使用的，但是很多情况下，线上的程序并不能满足这些需求方的需求。这时候就需要需求方自己对数据仓库进行查询统计。针对这些需求方，SQL上手容易、易描述等特点决定了其可能是一个最为合适的方式。因此提供一个SQL的即席查询工具能够大大提高数据分析师、产品经理的工作效率。Presto、Impala、Hive都是这种工具。如果想进一步提供给需求方更加直观的ui操作界面，可以搭建内部的<a href="https://github.com/cloudera/hue">Hue</a>。</p>
 
-<p><img src="/images/blog_images/server_basic_stack/hue.png" alt="hue" /></p>
+<p><img src="/images/blog_images/server_basic_stack/hue.jpg" alt="hue" /></p>
 
 <h2><a name='故障监控'></a>故障监控</h2>
 
 <p>对于面向用户的线上服务，发生故障是一件很严重的事情。因此，做好线上服务的故障检测告警是一件非常重要的事情。可以将故障监控分为以下两个层面的监控：</p>
 
 <ul>
-<li>系统监控：主要指的对主机的带宽、cpu、内存、硬盘、io等硬件资源的监控。这可以使用开源的nagios、cacti等开源软件进行监控。目前，市面上也有很多第三方服务能够提供对于主机资源的监控，如监控宝等。</li>
+<li>系统监控：主要指的对主机的带宽、cpu、内存、硬盘、io等硬件资源的监控。这可以使用开源的nagios、cacti等开源软件进行监控。目前，市面上也有很多第三方服务能够提供对于主机资源的监控，如监控宝等。对于分布式服务集群(如hadoop、storm、kafka、flume等集群)的监控则可以使用<a href="http://ganglia.github.io/">ganglia</a>。</li>
 <li>业务监控：是在主机资源层面以上的监控，比如app的pv、uv数据异常、交易失败等。需要业务中加入相关的监控代码，比如在异常抛出的地方，加一段日志记录。</li>
 </ul>
 
@@ -487,7 +487,7 @@
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="我眼里的互联网后端基础设施 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack/" data-content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的高可用、稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/组件/设施如下图所示： Api网关
+<div class="ds-share flat" data-title="谈谈互联网后端基础设施 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack/" data-content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的高可用、稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/组件/设施如下图所示： Api网关
 业务应用和后端基础框架
 缓存、 &hellip;">
     <div class="ds-share-inline">
@@ -520,7 +520,7 @@
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2016/08/27/server-basic-tech-stack/" data-title="我眼里的互联网后端基础设施"></div>
+<div class="ds-thread" data-thread-key="/blog/2016/08/27/server-basic-tech-stack/" data-title="谈谈互联网后端基础设施"></div>
 <!-- 多说评论框 end -->
 
 
@@ -589,7 +589,7 @@
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2016/08/27/server-basic-tech-stack/">我眼里的互联网后端基础设施</a>
+      	  <a href="/blog/2016/08/27/server-basic-tech-stack/">谈谈互联网后端基础设施</a>
       	</li>
     	
      	<li>
