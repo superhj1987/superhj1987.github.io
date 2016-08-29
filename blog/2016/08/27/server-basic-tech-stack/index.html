@@ -427,7 +427,7 @@
 
 <p>对于hadoop，传统的MR编写很复杂，也不利于维护，可以选择使用hive来用sql替代编写mr，但是前提务必要对hive的原理做到了解。可以参见美团的这篇博文来学习:<a href="http://tech.meituan.com/hive-sql-to-mapreduce.html">Hive SQL的编译过程</a>。而对于spark，也有类似hive的spark sql。</p>
 
-<p>此外，对于离线数据分析，还有一个很关键的就是数据倾斜问题。所谓数据倾斜指的是region数据分布不均，造成有的结点负载很低，而有些却负载很高，从而影响整体的性能。因此，处理好数据倾斜问题对于数据处理是很关键的。对于hive的数据倾斜，可见:<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/03/2842860.html">http://www.cnblogs.com/ggjucheng/archive/2013/01/03/2842860.html</a>。对于spark的倾斜问题，可见：<a href="http://mp.weixin.qq.com/s?__biz=MjM5NjQ5MTI5OA==&amp;mid=2651745207&amp;idx=1&amp;sn=3d70d59cede236eb1cb4f7374387a235&amp;scene=0#rd">http://mp.weixin.qq.com/s?__biz=MjM5NjQ5MTI5OA==&amp;mid=2651745207&amp;idx=1&amp;sn=3d70d59cede236eb1cb4f7374387a235&amp;scene=0#rd</a>。</p>
+<p>此外，对于离线数据分析，还有一个很关键的就是数据倾斜问题。所谓数据倾斜指的是region数据分布不均，造成有的结点负载很低，而有些却负载很高，从而影响整体的性能。因此，处理好数据倾斜问题对于数据处理是很关键的。对于hive的数据倾斜，可见:<a href="http://www.cnblogs.com/ggjucheng/archive/2013/01/03/2842860.html">hive大数据倾斜总结</a>。对于spark的倾斜问题，可见：<a href="http://mp.weixin.qq.com/s?__biz=MjM5NjQ5MTI5OA==&amp;mid=2651745207&amp;idx=1&amp;sn=3d70d59cede236eb1cb4f7374387a235&amp;scene=0#rd">Spark性能优化指南——高级篇</a>。</p>
 
 <h3>实时数据分析</h3>
 
@@ -466,7 +466,7 @@
 <p>故障告警之后，那么最最关键的就是应对了。对于创业公司来说，24小时待命是必备的素质，当遇到告警的时候，需要尽快对故障做出反应，找到问题所在，并能在可控时间内解决问题。对于故障问题的排查，基本上都是依赖于日志的。只要日志打的合理，一般情况下是能够很快定位到问题所在的，但是如果是分布式服务，并且日志数据量特别大的情况下，如何定位日志就成为了难题。这里有几个方案：</p>
 
 <ul>
-<li>建立ELK(Elastic+Logstash+Kibana)日志集中分析平台，便于快速搜索、定位日志。对于ELK的介绍，可以见：<a href="https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/">https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/</a></li>
+<li>建立ELK(Elastic+Logstash+Kibana)日志集中分析平台，便于快速搜索、定位日志。对于ELK的介绍，可以见：<a href="https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/">使用Elasticsearch + Logstash + Kibana搭建日志集中分析平台实践</a></li>
 <li>建立分布式请求追踪系统(也可以叫全链路监测系统)，对于分布式系统尤其是微服务架构，能够极大的方便在海量调用中快速定位并收集单个异常请求信息，也能快速定位一条请求链路的性能瓶颈。Google的<a href="http://www.cnblogs.com/LBSer/p/3390852.html?spm=5176.100239.blogcont58408.6.xuC3MP">Dapper</a>、唯品会的<a href="http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&amp;mid=2653547643&amp;idx=1&amp;sn=c06dc9b0f59e8ae3d2f9feb734da4459&amp;scene=1&amp;srcid=0808MaLgymxNlsh4Z31oWKUi#rd">Mercury</a>、阿里的<a href="https://bigbully.github.io/Dapper-translation/?spm=5176.100239.blogcont58408.7.xuC3MP">鹰眼</a>、新浪的<a href="http://ishare.iask.sina.com.cn/f/68869649.html">WatchMan</a>都是类似的思路。此外，<a href="https://www.zhihu.com/question/20292868">腾讯的染色日志机制</a>本质上也是在链路追踪之上根据响应信息做了染色机制。</li>
 </ul>
 
