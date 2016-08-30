@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-29T22:40:56+08:00</updated>
+  <updated>2016-08-30T16:37:54+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,11 +14,194 @@
 
   
   <entry>
+    <title type="html"><![CDATA[推荐系统杂谈]]></title>
+    <link href="http://www.rowkey.me/blog/2016/08/30/recommend-sys/"/>
+    <updated>2016-08-30T20:39:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/08/30/recommend-sys</id>
+    <content type="html"><![CDATA[<p>推荐系统是近些年非常火的技术，不管是电商类软件，还是新闻类app，都号称有精准的推荐系统能挖掘出你的兴趣爱好，给你推送你最感兴趣的内容。现象级的资讯类app“今日头条”就得益于此成为了势头非常猛的一款移动互联网软件。本文就针对推荐系统讲述一些相关概念和一些实践经验等。</p>
+
+<p>首先需要明确的就是推荐系统的目标，一般来说不外乎以下几个：</p>
+
+<ul>
+<li>用户满意性：首当其冲的，推荐系统主要就是为了满足用户的需求，因此准确率是评判一个推荐系统好坏的最关键指标。</li>
+<li>多样性：虽然推荐系统最主要还是满足用户的兴趣，但是也要兼顾内容的多样性，对于权重不同的兴趣都要做到兼顾。</li>
+<li>新颖性：用户看到的内容是那些他们之前没有听说过的物品。简单的做法就是在推荐列表去掉用户之前有过行为的那些内容。</li>
+<li>惊喜度：和新颖性类似，但新颖性只是用户没看到过的但是确实是和他行为是相关的，而惊喜度是用户既没有看过和他之前的行为也不相关，但用户看到后的确是喜欢的。</li>
+<li>实时性：推荐系统要根据用户的上下文来实时更新推荐内容，用户的兴趣也是随着时间而改变的，需要实时更新。</li>
+<li>推荐透明度：对于用户看到的最终结果，要让用户知道推荐此内容的原因。比如，“买过这本书的人同时也买过”、&#8221;你购买过的xx和此商品类似&#8221;。</li>
+<li>覆盖率：挖掘长尾内容也是推荐系统很重要的目标。因此，推荐的内容覆盖到的内容越多越好。</li>
+</ul>
+
+
+<p>基于这些目标，推荐系统应该包括四种推荐方式：</p>
+
+<ul>
+<li>热门推荐：就是热门排行榜的概念。这种推荐方式不仅仅在IT系统，在平常的生活中也是处处存在的。这应该是效果最好的一种推荐方式，毕竟热门推荐的物品都是位于曝光量比较高的位置的。</li>
+<li>人工推荐：人工干预的推荐内容。相比于依赖热门和算法来进行推荐。一些热点时事如世界杯、nba总决赛等就需要人工加入推荐列表。另一方面，热点新闻带来的推荐效果也是很高的。</li>
+<li>相关推荐：相关推荐有点类似于关联规则的个性化推荐，就是在你阅读一个内容的时候，会提示你阅读与此相关的内容。</li>
+<li>个性化推荐：基于用户的历史行为做出的内容推荐。也是本文主要讲述的内容。</li>
+</ul>
+
+
+<p>其中，前三者是和机器学习没有任何关系的，但却是推荐效果最好的三种方式。一般说来，这部分内容应该占到总的推荐内容的80%左右，另外20%则是对长尾内容的个性化推荐。</p>
+
+<!--more-->
+
+
+<h2>个性化推荐系统</h2>
+
+<p>个性化推荐是机器学习应用的一个典型场景。在本质上和搜索引擎是一样的，同样是为了解决信息过载的问题。搜索引擎某种意义上也是一个个性化推荐系统，但是其输入特征是可以从搜索关键字直接可以得到的。而一般的推荐系统，输入特征则是需要机器学习才能得到。</p>
+
+<p>个性化推荐系统一般由日志系统、推荐算法、内容展示UI三部分组成。</p>
+
+<ul>
+<li>日志系统：这是推荐系统的输入源，是一个推荐系统所有信息的源头。</li>
+<li>推荐算法：这是推荐系统的核心，根据输入数据得出最终的推荐结果的具体过程就在这里。</li>
+<li>内容展示UI：对于推荐结果如何展示，也是一个值得权衡的地方。以更好地满足推荐系统的目标，并能更好的收集用户的行为信息等。</li>
+</ul>
+
+
+<p>其中，个性化推荐中最为核心的推荐算法，目前比较流行的有以下几种：</p>
+
+<ul>
+<li>基于内容的推荐：根据内容本身的属性(特征向量)所作的推荐。</li>
+<li>基于关联规则的推荐：“啤酒与尿布”的方式，是一种动态的推荐，能够实时对用户的行为作出推荐。是基于物品之间的特征关联性所做的推荐，在某种情况下会退化为物品协同过滤推荐。</li>
+<li>协同过滤推荐：与基于关联规则的推荐相比是一种静态方式的推荐，是根据用户已有的历史行为作分析的基础上做的推荐。可分为物品协同过滤、用户协同过滤、基于模型的协同过滤。其中，基于模型的协同又可以分为以下几种类型：基于距离的协同过滤；基于矩阵分解的协同过滤，即Latent Factor Model(SVD)；基于图模型协同，即Graph，也叫社会网络图模型。</li>
+</ul>
+
+
+<p>个性化推荐系统的典型架构如下图所示：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/recommend-sys/recommend_sys_arch.png" alt="recommend-sys" /></p>
+
+<p>在线业务系统的日志接入数据高速公路，再由数据高速公路迅速运转到离线数据处理平台和在线流计算平台；离线数据处理平台周期性地以批处理方式加工过去一段时间的数据，得到人群标签和其他模型参数，存放在高速缓存中，供在线业务系统使用，与此同时，在线流计算平台实时对线上的日志数据做处理，对离线计算出的数据进行补充、修正等；在线业务系统综合离线特征和在线特征使用一定的逻辑得到输出供业务使用，产生的日志流入数据高速公路。</p>
+
+<p>基于此框架，个性化推荐系统的典型流程如下所示：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/recommend-sys/recommend-process.png" alt="recommend" /></p>
+
+<p>可知，一个推荐系统主要有以下模块组成：</p>
+
+<ul>
+<li>用户行为日志：此部分主要是用户行为日志的存储，属于数据统计的一部分, 存储在hive中。在此不做赘述。</li>
+<li>数据ETL-1：将用户日志转换为推荐算法所需要的数据格式。</li>
+<li>推荐算法：是个性化推荐最主要的部分，包括通过用户行为计算相关内容以及推荐结果等。</li>
+<li>数据ETL-2: 将推荐算法得到的结果进一步加工为存储模块的输入数据。</li>
+<li>用户画像存储：存储用户的偏好以及行为数据，如对内容关键字的偏好、点击过哪些内容等。</li>
+<li>推荐结果存储：存储各种推荐算法产生的推荐结果，可以分为两部分：{用户 : itemList}推荐结果，为用户推荐的内容列表；{item : itemList}推荐结果，与item相关的内容列表。</li>
+<li>服务调用模块：整合推荐结构，对外提供提供推荐的调用接口。</li>
+</ul>
+
+
+<h3>数据ETL-1</h3>
+
+<p>对原始的用户行为等数据进行清洗、加工，如字段、属性、格式化等，作为下一步推荐算法的输入。</p>
+
+<h3>推荐算法</h3>
+
+<p>对于个性化推荐系统来说，推荐算法应该是其最核心的部分。目前有很多流行的算法，比如：</p>
+
+<ul>
+<li>基于内容和用户画像的推荐：此种算法，可见之前的一篇文章：<a href="http://www.rowkey.me/blog/2016/04/07/up-recommend/">http://www.rowkey.me/blog/2016/04/07/up-recommend/</a>。</li>
+<li>基于矩阵分解的推荐: 基于SVD/ALS算法对用户进行内容推荐。相比起SVD，ALS更加适合解决稀疏矩阵的问题。Spark mlib中已经集成了对als算法的实现，需要做的就是在etl-1中把数据转换为als需要的数据格式以及调整als算法的各种参数。这里有一篇文章比较具体地描述了如何使用spark来做基于ALS的推荐：<a href="http://colobu.com/2015/11/30/movie-recommendation-for-douban-users-by-spark-mllib/">http://colobu.com/2015/11/30/movie-recommendation-for-douban-users-by-spark-mllib/</a>。</li>
+<li>用户&amp;物品协同过滤推荐：包括UserBased CF和ItemBased CF。对于这两者，需要根据业务的不同来选择不同的算法。当用户非常多的时候，考虑到维护用户矩阵的成本，一般是不推荐选择用户协同过滤的，而对于候选item很多的时候，则不推荐使用物品协同过滤。</li>
+</ul>
+
+
+<p>推荐算法的输出结果一般是一个用户对应一个item列表或者是一个item对应一个item列表。此部分主要考虑的是算法的时间复杂度，不管是哪一种算法，一旦用户或者内容数据上了百万级别，都需要通过分布式计算如MapReduce、Spark等来进行解决。</p>
+
+<p>推荐算法的基本流程如下图所示：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/recommend-sys/recommend-sys.png" style="width:400px"/></p>
+
+<h3>数据ETL-2</h3>
+
+<p>对推荐算法产生的结果进行清洗、格式化等，作为下一步存储模块的输入。</p>
+
+<h3>用户画像存储</h3>
+
+<p>存储用户的偏好以及行为数据等信息。对于偏好，采用标签量化来表示，是一种随着时间衰减的值。对于用户画像，是批量写入、实时读取，所以存储要着重考虑读的性能。可以选择使用Redis集群作为技术方案，能够最大满足读的性能，缺点是Redis的成本昂贵且不支持auto index。也可使用Hbase作为存储，使用<strong>ElasricSearch</strong>构建二级索引，以应对根据多种维度聚集用户的需求(比如过滤某一个标签下的所有用户)。</p>
+
+<h3>推荐结果存储</h3>
+
+<p>对各种推荐算法计算出的推荐结果的存储。存储空间要求大，格式复杂。对于存储的容量和读写性能要求都比较高。可以选择使用Redis集群作为此部分的存储方案。</p>
+
+<h3>服务调用</h3>
+
+<p>整合用户画像和推荐结果两部分数据，向外提供推荐调用的接口。主要是数据库IO调用开销。</p>
+
+<ol>
+<li>根据用户id，获取推荐的item列表。</li>
+<li>根据item，获取相关联的item列表。</li>
+<li>根据用户id, 获取用户画像。</li>
+</ol>
+
+
+<p>该模块需要采取一定的策略聚合多种推荐算法的推荐结果，直接面向业务。策略由于会随着面向的业务不同而不同，需要可配置化。同时也提供对外暴露用户画像的接口，使得业务方可以使用用户画像做针对性的处理。可以采用RPC机制对外暴露服务接口。</p>
+
+<h2>需要考虑的问题</h2>
+
+<p>对于一个推荐系统，结合其实现目标，还有一些需要注重考虑的问题。</p>
+
+<h3>实时性问题</h3>
+
+<p>由于计算用户、item矩阵或者进行矩阵分解是需要离线进行且比较耗时，因此协同的推荐算法是很难达到实时性的。实时部分的推荐主要依靠基于用户画像的推荐来进行。最终的推荐列表是根据一定的策略对这两部分进行聚合的结果。</p>
+
+<h3>时效性内容问题</h3>
+
+<p>时效性内容指的是那些与时间强相关的内容，比如新闻、时事等。如果一条10天前xx球员获得冠军的新闻现在被推荐了出来，可想用户肯定是莫名其妙或者是很失望的。因此，对于时效性内容，需要与普通的待推荐的内容区分开，做单独的推荐或者不走个性化推荐。</p>
+
+<h3>冷启动问题</h3>
+
+<p>不管使用何种推荐算法，都会面临冷启动问题：当用户是新用户，如何给用户推荐item呢？当内容是新内容，如何推荐给用户？</p>
+
+<ul>
+<li>对于新用户，可以采取的一种策略就是采用热门推荐或者人工推荐，把绝大多人关心的内容推荐出来。</li>
+<li>对于内容，可以将内容分为新内容池和待推荐内容池。新内容产生时，首先进入新内容池。每次推荐的时候，先从新内容池做候选推荐，并给此内容的传播度+1，直到其传播度大于一个阈值的时候，将其移至待推荐内容池。这样既可以解决新内容的冷启动问题也在一定程度上可以保证新内容的曝光量。</li>
+</ul>
+
+
+<h3>多样性问题</h3>
+
+<p>在基于用户画像的推荐算法中，取出用户的多个标签，然后根据相关度从不同的标签中取不同数量的内容，这样既兼顾了用户的多种兴趣也能够在一定程度上解决多样性的问题。</p>
+
+<p>如：用户具有tag:A B C D,相关度为wA wB wC wD，Total推荐为总共需要推荐的条数，那么</p>
+
+<pre><code>RecommendList(u) = A[Total推荐 * wA] + B[Total推荐 * wB] + C[Total推荐 * wC] + D[Total推荐 * wD]
+</code></pre>
+
+<h3>内容质量</h3>
+
+<p>不管是热门推荐、人工推荐还是取某一标签下的内容列表都牵扯到的一个问题就是：如何给内容排序？</p>
+
+<p>当用户对内容的喜好不一样，可以按照兴趣度来排序；但当无法区分兴趣度的时候(比如：用户是新用户；内容都是新内容；用户对于某一标签下的内容兴趣度一样)，可以使用内容质量来做排序。<strong>click/pv</strong>是一种评判内容质量的方式。此外，使用卷积神经网络相关算法也可以构建内容质量模型。</p>
+
+<h4>惊喜问题</h4>
+
+<p>推荐系统的惊喜目标一直是一个难题，被称作EE(Exploit &amp; Explore)问题，bandit算法是解决这个问题的一个派系，就是估计置信区间的做法，然后按照置信区间的上界来进行推荐，以UCB、LinUCB为代表的。简单点说就是先不考虑你喜不喜欢就把质量高的内容推荐给你，后面根据用户的行为反馈对推荐内容作调整。具体的可以参见此篇文章：<a href="https://mp.weixin.qq.com/s?__biz=MzA4OTk5OTQzMg==&amp;mid=2449231300&amp;idx=1&amp;sn=fe975d6af79596b5eaf576e5f65e8e06">推荐系统的苟且和远方</a>。</p>
+
+<h2>总结</h2>
+
+<p>借用<a href="http://itindex.net/detail/50820-%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F">推荐系统的那点事</a>一文的几句话做为结语：</p>
+
+<ul>
+<li>实力派的【算法工程师】往往都是ABC[always be coding]，这样的算法工程师才能根据实际问题建立模型或者建立规则库，是真正能解决问题的人。往往是一些有研究背景，经验丰富的研究员，更加重视工程，因为工程架构上一些恰当合理的设计，效果往往就能远远高过于模型算法优化。</li>
+<li>学院派的【算法工程师】往往是为了算法而算法，而不是为了解决推荐系统的问题去找最适合算法。这也是为什么大公司经常招了一些博士毕业的算法工程师后，不是研究算法而是让他们整天在那看数据报表？【因为发现算法没啥好研究，只能让他们在那看看报表找找规律了。】</li>
+<li>【几乎所有所谓的智能推荐算法都是花拳绣腿】</li>
+<li>当一个做推荐系统的部门开始重视【数据清理，数据标柱，效果评测，数据统计，数据分析】这些所谓的脏活累活，这样的推荐系统才会有救。</li>
+</ul>
+
+
+<p><strong><em>以上是推荐系统实践的一些经验</em></strong></p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[谈谈互联网后端基础设施]]></title>
     <link href="http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack/"/>
     <updated>2016-08-27T23:10:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack</id>
-    <content type="html"><![CDATA[<p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的高可用、稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/组件/设施如下图所示：</p>
+    <content type="html"><![CDATA[<p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：</p>
 
 <p><a href="http://www.rowkey.me/images/blog_images/server_basic_stack/server-basic-tech-stack.png" target="_blank"><img src="http://www.rowkey.me/images/blog_images/server_basic_stack/server-basic-tech-stack.png"/></a></p>
 
@@ -781,31 +964,31 @@
 
 <p>不要用在参数或者域中。<a href="http://blog.joda.org/2015/08/java-se-8-optional-pragmatic-approach.html">阅读这篇博文</a>可以看到如何正确使用Optional进行编码。幸运的是，IntelliJ IDEA可以打开inspections去检查你是否遵循了这些推荐规范。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
 
 <p>要尽早在Optional出现的地方对它进行处理。IntelliJ IDEA会阻止Optional出现在你代码的各个地方，所以记住一定要在Optional出现的地方就对他进行处理。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
 
 <h3>不能简单地调用get()方法</h3>
 
 <p>Optional是用来表示这个值是有可能为空的，让你做好应对的准备。因此，很重要的一点就是在使用这个值之前务必要检查其是否存在。简单地调用get方法而不是先调用isPresent可能会导致产生空指针异常。幸运的是，IntelliJ IDEA再一次提供了对此种方案的检查。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
 
 <h3>更加优雅的方案</h3>
 
 <p>如下代码，isPresent和get当然能够解决这个问题。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/OptionalSimple.png" alt="OptionalSimple.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalSimple.png" alt="OptionalSimple.png" /></p>
 
 <p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
 
 <p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调用。那么当这是个代价昂贵的方法时，那么使用lambda会带来更好的性能提升。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
 
 <h2>使用Lambda表达式</h2>
 
@@ -815,25 +998,25 @@
 
 <p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，也很容易把长的表达式重构成一个方法。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
 
 <p>当然，这些甚至牵扯到了方法引用(Method References)。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
 
 <h3>显式声明</h3>
 
 <p>在lambda表达式中是没有类型信息的，所以你会发现在参数中包含类型信息是非常有用的。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
 
 <p>如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，IntelljJ IDEA都会让你可以看到参数的类型信息。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
 
 <p>甚至lambda表示的函数接口也能看到。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
 
 <h2>设计Lambda表达式</h2>
 
@@ -845,7 +1028,7 @@
 
 <p>能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
 
 <h3>使用存在的函数接口</h3>
 
@@ -855,15 +1038,15 @@
 
 <p>如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Inteelij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
 
 <p>当方法太多时，也会提示你。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
 
 <p>当你把注解应用到一个类而不是接口时，也会发出提醒。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
 
 <p>Lambda表达式可以被用在任何有一个Single Abstract Method的接口中，但是它不能够应用到一个抽象类中。看起来没有啥逻辑，但它就是这样的。</p>
 
@@ -883,23 +1066,23 @@
 </ul>
 
 
-<p><img src="http://www.rowkey.me/images/blog_images/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
 
 <p>这样做也会让代码看起来很舒服。当然，如果这么做，会增加代码的行数。</p>
 
 <p>你可以修改一下格式化设置使点号对齐。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/StreamWrapping.png" alt="StreamWrapping.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamWrapping.png" alt="StreamWrapping.png" /></p>
 
 <h3>使用方法引用(Method References)</h3>
 
 <p>你可能需要一会儿才能习惯这个奇怪的语法。但是，当我们能够正确地使用，它确实能够提高程序的可阅读性。考虑下面的代码：</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
 
 <p>对比一下使用新引入的Objects类的辅助方法(helper methods)：</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
 
 <p>后面的代码能够更加明显地表明它想保存的值。IntelliJ IDEA会提示你何时一个lambda可以被替换成方法引用。</p>
 
@@ -907,15 +1090,15 @@
 
 <p>使用新的集合方法：forEach。IDEA会提示你。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
 
 <p>使用Streams API相比起使用循环和if语句更加清晰明了。例如：</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/StreamBefore.png" alt="StreamBefore.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamBefore.png" alt="StreamBefore.png" /></p>
 
 <p>IDEA会建议重构为：</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/StreamAfter.png" alt="StreamAfter.png" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamAfter.png" alt="StreamAfter.png" /></p>
 
 <p>我做的性能测试表示这个重构是令人惊奇的-无论性能是不变、提升还是变差，都是不能被预测的。因此，当你的应用对性能要求很苛刻的话，重构的时候务必做好测试。</p>
 
@@ -1399,7 +1582,7 @@ public static String randomString(int i){
 </ul>
 
 
-<p><img src="http://www.rowkey.me/images/blog_images/java.jpg" alt="java" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/javamm/java.jpg" alt="java" /></p>
 
 <p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
 
@@ -1439,7 +1622,7 @@ public static String randomString(int i){
 
 <p>Java的运行时内存组成如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
+<p><img src="http://www.rowkey.me/images/blog_images/javamm/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
 
 <p>其中，对于这各个部分有一些是线程私有的，其他则是线程共享的。</p>
 
@@ -1490,10 +1673,10 @@ public static String randomString(int i){
 <ol>
 <li><p>通过句柄访问</p>
 
-<p> <image src="http://www.rowkey.me/images/blog_images/access_object_handler.png" width="500px"/></p></li>
+<p> <image src="http://www.rowkey.me/images/blog_images/javamm/access_object_handler.png" width="500px"/></p></li>
 <li><p>直接指针</p>
 
-<p> <image src="http://www.rowkey.me/images/blog_images/access_direct.png" width="500px"/></p>
+<p> <image src="http://www.rowkey.me/images/blog_images/javamm/access_direct.png" width="500px"/></p>
 
 <p> 此种方式也是HotSpot虚拟机采用的方式。</p></li>
 </ol>
@@ -1622,7 +1805,7 @@ public static String randomString(int i){
 
 <p>HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。通常将对New Generation进行的回收称为Minor GC;对Old Generation进行的回收称为Major GC，但由于Major GC除并发GC外均需对整个堆以及Permanent Generation进行扫描和回收，因此又称为Full GC。</p>
 
-<p><image src="http://www.rowkey.me/images/blog_images/hotspot-gc.png" width="300px"/></p>
+<p><image src="http://www.rowkey.me/images/blog_images/javamm/hotspot-gc.png" width="300px"/></p>
 
 <ul>
 <li>Eden区是分配对象的区域。</li>
@@ -1696,7 +1879,7 @@ public static String randomString(int i){
 
 <h3>3.2 HotSpot垃圾收集器</h3>
 
-<p><image src="http://www.rowkey.me/images/blog_images/hotspot-collector.png" width="300px"/></p>
+<p><image src="http://www.rowkey.me/images/blog_images/javamm/hotspot-collector.png" width="300px"/></p>
 
 <p>上图即为HotSpot虚拟机的垃圾收集器组成。</p>
 
@@ -1714,11 +1897,11 @@ public static String randomString(int i){
 
 <p>收集前：</p>
 
-<p><image src="http://www.rowkey.me/images/blog_images/serial_before.png" width="400px"/></p>
+<p><image src="http://www.rowkey.me/images/blog_images/javamm/serial_before.png" width="400px"/></p>
 
 <p>收集后：</p>
 
-<p><image src="http://www.rowkey.me/images/blog_images/serial_after.png" width="400px"/></p>
+<p><image src="http://www.rowkey.me/images/blog_images/javamm/serial_after.png" width="400px"/></p>
 
 <h4>ParNew收集器</h4>
 
@@ -1733,7 +1916,7 @@ public static String randomString(int i){
 
 <p>对比Serial收集器如下图所示：</p>
 
-<p><image src="http://www.rowkey.me/images/blog_images/parnew.png" width="400px"/></p>
+<p><image src="http://www.rowkey.me/images/blog_images/javamm/parnew.png" width="400px"/></p>
 
 <h4>Parallel Scavenge收集器</h4>
 
@@ -1790,7 +1973,7 @@ public static String randomString(int i){
 
 <p>对比serial old收集器如下图所示：</p>
 
-<p><image src="http://www.rowkey.me/images/blog_images/cms.png" width="400px"/></p>
+<p><image src="http://www.rowkey.me/images/blog_images/javamm/cms.png" width="400px"/></p>
 
 <p>CMS有以下的缺点：</p>
 
@@ -1816,7 +1999,7 @@ public static String randomString(int i){
 </ul>
 
 
-<p><image src="http://www.rowkey.me/images/blog_images/g1.png" width="500px"/></p>
+<p><image src="http://www.rowkey.me/images/blog_images/javamm/g1.png" width="500px"/></p>
 
 <h3>3.3 调优经验</h3>
 
@@ -3741,95 +3924,6 @@ TIME_WAIT 28322
 <li><p>版本的数量</p>
 
 <p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
-</ol>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[kafka学习笔记 - Consumer开发的一些关键点]]></title>
-    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-consumer/"/>
-    <updated>2015-05-30T22:00:18+08:00</updated>
-    <id>http://www.rowkey.me/blog/2015/05/30/kafka-consumer</id>
-    <content type="html"><![CDATA[<p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
-
-<h2>一. 消费过的数据无法再次消费</h2>
-
-<p>在user level上，一旦消费过topic里的数据，那么就无法再次用同一个groupid消费同一组数据。如果想要再次消费数据，要么换另一个groupid，要么使用镜像：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/kafka-consumer-1.jpg" alt="pic" /></p>
-
-<p>此外，low level的api提供了一些机制去设置partion和offset。</p>
-
-<h2>二. offset管理</h2>
-
-<p>kafka会记录offset到zk中。但是，zk client api对zk的频繁写入是一个低效的操作。0.8.2 kafka引入了native offset storage，将offset管理从zk移出，并且可以做到水平扩展。其原理就是利用了kafka的compacted topic，offset以consumer group,topic与partion的组合作为key直接提交到compacted topic中。同时Kafka又在内存中维护了<consumer group,topic,partition>的三元组来维护最新的offset信息，consumer来取最新offset信息的时候直接内存里拿即可。当然，kafka允许你快速的checkpoint最新的offset信息到磁盘上。</p>
-
-<h2>三. stream</h2>
-
-<p>This API is centered around iterators, implemented by the KafkaStream class. Each KafkaStream represents the stream of messages from one or more partitions on one or more servers. Each stream is used for single threaded processing, so the client can provide the number of desired streams in the create call. Thus a stream may represent the merging of multiple server partitions (to correspond to the number of processing threads), but each partition only goes to one stream.</p>
-
-<p>根据官方文档所说，stream即指的是来自一个或多个服务器上的一个或者多个partition的消息。每一个stream都对应一个单线程处理。因此，client能够设置满足自己需求的stream数目。总之，一个stream也许代表了多个服务器partion的消息的聚合，但是每一个partition都只能到一个stream。</p>
-
-<h2>四. consumer和partition</h2>
-
-<ol>
-<li>如果consumer比partition多，是浪费，因为kafka的设计是在一个partition上是不允许并发的，所以consumer数不要大于partition数</li>
-<li>如果consumer比partition少，一个consumer会对应于多个partitions，这里主要合理分配consumer数和partition数，否则会导致partition里面的数据被取的不均匀</li>
-<li>如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同</li>
-<li>增减consumer，broker，partition会导致rebalance，所以rebalance后consumer对应的partition会发生变化</li>
-<li>High-level接口中获取不到数据的时候是会block的</li>
-</ol>
-
-
-<p>负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该再开 Consumer 进程，进程内线程数同样和分区数一致。（多谢 @shadyxu 指出）</p>
-
-<h2>五. high-level的consumer工具</h2>
-
-<ol>
-<li><p>bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker &ndash;group pv</p>
-
-<p> 可以看到当前group offset的状况。</p></li>
-<li><p>bin/kafka-run-class.sh kafka.tools.UpdateOffsetsInZK earliest config/consumer.properties  page_visits</p>
-
-<pre><code> 3个参数， 
- [earliest | latest]，表示将offset置到哪里 
- consumer.properties ，这里是配置文件的路径 
- topic，topic名，这里是page_visits
-</code></pre></li>
-</ol>
-
-
-<h2>六. SimpleConsumer</h2>
-
-<p>kafka的low-level接口，使用场景：</p>
-
-<ol>
-<li>读取一个消息多次。</li>
-<li>在一个进程中仅仅消费某一个topic中几个partition的数据.</li>
-<li>管理事务以确保一个消息处理且仅仅被处理一次。</li>
-</ol>
-
-
-<p>用这个接口需要注意一下几点：</p>
-
-<ol>
-<li>在应用中必须跟踪记录offset以确保能够确定上次消费到的位置。</li>
-<li>必须设置哪一个broker是要操作的topic和partition的leader。</li>
-<li>必须自己控制broker的leader的改变。</li>
-</ol>
-
-
-<p>使用步骤：</p>
-
-<ol>
-<li>找出一个active状态的broker并且找出哪一个broker是那些topic和partition的leader，必须知道读哪个topic的哪个partition。</li>
-<li>找到负责该partition的broker leader，从而找到存有该partition副本的那个broker。</li>
-<li>自己去写request并fetch数据。</li>
-<li>获取数据。</li>
-<li>需要识别和处理broker leader的改变。</li>
 </ol>
 
 ]]></content>

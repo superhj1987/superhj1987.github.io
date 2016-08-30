@@ -142,7 +142,7 @@
 </ul>
 
 
-<p><img src="/images/blog_images/java.jpg" alt="java" /></p>
+<p><img src="/images/blog_images/javamm/java.jpg" alt="java" /></p>
 
 <p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
 
@@ -182,7 +182,7 @@
 
 <p>Java的运行时内存组成如下图所示：</p>
 
-<p><img src="/images/blog_images/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
+<p><img src="/images/blog_images/javamm/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
 
 <p>其中，对于这各个部分有一些是线程私有的，其他则是线程共享的。</p>
 
@@ -233,10 +233,10 @@
 <ol>
 <li><p>通过句柄访问</p>
 
-<p> <image src="/images/blog_images/access_object_handler.png" width="500px"/></p></li>
+<p> <image src="/images/blog_images/javamm/access_object_handler.png" width="500px"/></p></li>
 <li><p>直接指针</p>
 
-<p> <image src="/images/blog_images/access_direct.png" width="500px"/></p>
+<p> <image src="/images/blog_images/javamm/access_direct.png" width="500px"/></p>
 
 <p> 此种方式也是HotSpot虚拟机采用的方式。</p></li>
 </ol>
@@ -365,7 +365,7 @@
 
 <p>HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。通常将对New Generation进行的回收称为Minor GC;对Old Generation进行的回收称为Major GC，但由于Major GC除并发GC外均需对整个堆以及Permanent Generation进行扫描和回收，因此又称为Full GC。</p>
 
-<p><image src="/images/blog_images/hotspot-gc.png" width="300px"/></p>
+<p><image src="/images/blog_images/javamm/hotspot-gc.png" width="300px"/></p>
 
 <ul>
 <li>Eden区是分配对象的区域。</li>
@@ -439,7 +439,7 @@
 
 <h3>3.2 HotSpot垃圾收集器</h3>
 
-<p><image src="/images/blog_images/hotspot-collector.png" width="300px"/></p>
+<p><image src="/images/blog_images/javamm/hotspot-collector.png" width="300px"/></p>
 
 <p>上图即为HotSpot虚拟机的垃圾收集器组成。</p>
 
@@ -457,11 +457,11 @@
 
 <p>收集前：</p>
 
-<p><image src="/images/blog_images/serial_before.png" width="400px"/></p>
+<p><image src="/images/blog_images/javamm/serial_before.png" width="400px"/></p>
 
 <p>收集后：</p>
 
-<p><image src="/images/blog_images/serial_after.png" width="400px"/></p>
+<p><image src="/images/blog_images/javamm/serial_after.png" width="400px"/></p>
 
 <h4>ParNew收集器</h4>
 
@@ -476,7 +476,7 @@
 
 <p>对比Serial收集器如下图所示：</p>
 
-<p><image src="/images/blog_images/parnew.png" width="400px"/></p>
+<p><image src="/images/blog_images/javamm/parnew.png" width="400px"/></p>
 
 <h4>Parallel Scavenge收集器</h4>
 
@@ -533,7 +533,7 @@
 
 <p>对比serial old收集器如下图所示：</p>
 
-<p><image src="/images/blog_images/cms.png" width="400px"/></p>
+<p><image src="/images/blog_images/javamm/cms.png" width="400px"/></p>
 
 <p>CMS有以下的缺点：</p>
 
@@ -559,7 +559,7 @@
 </ul>
 
 
-<p><image src="/images/blog_images/g1.png" width="500px"/></p>
+<p><image src="/images/blog_images/javamm/g1.png" width="500px"/></p>
 
 <h3>3.3 调优经验</h3>
 
@@ -759,6 +759,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2016/08/30/recommend-sys/">推荐系统杂谈</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2016/08/27/server-basic-tech-stack/">谈谈互联网后端基础设施</a>
       	</li>
     	
@@ -772,10 +776,6 @@
     	
      	<li>
       	  <a href="/blog/2016/08/03/so-java-7-answers/">[译]StackOverflow: 你没见过的七个最好的Java答案</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a>
       	</li>
     	
 	</ul>
