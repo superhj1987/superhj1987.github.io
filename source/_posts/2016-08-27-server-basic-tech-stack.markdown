@@ -6,7 +6,7 @@ comments: true
 categories: work
 ---
 
-对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的高可用、稳定、可靠、可维护呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/组件/设施如下图所示：
+对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：
 
 <a href="/images/blog_images/server_basic_stack/server-basic-tech-stack.png" target="_blank"><img src="/images/blog_images/server_basic_stack/server-basic-tech-stack.png"/></a>
 

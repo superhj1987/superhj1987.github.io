@@ -13,7 +13,7 @@ categories: java
 * [三. 垃圾收集](#三. 垃圾收集)
 * [四. Java7、8带来的一些变化](#四. Java7、8带来的一些变化)
 
-![java](/images/blog_images/java.jpg)
+![java](/images/blog_images/javamm/java.jpg)
 
 对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。
 
@@ -46,7 +46,7 @@ categories: java
 
 Java的运行时内存组成如下图所示：
 
-![java-runtime-memory.jpg](/images/blog_images/java-runtime-memory.jpg)
+![java-runtime-memory.jpg](/images/blog_images/javamm/java-runtime-memory.jpg)
 
 其中，对于这各个部分有一些是线程私有的，其他则是线程共享的。
 
@@ -91,12 +91,12 @@ Java是面向对象的一种编程语言，那么如何通过引用来访问对�
 
 1. 通过句柄访问
 
-	<image src="/images/blog_images/access_object_handler.png" width="500px"/>
+	<image src="/images/blog_images/javamm/access_object_handler.png" width="500px"/>
 
 
 2. 直接指针
 
-	<image src="/images/blog_images/access_direct.png" width="500px"/>
+	<image src="/images/blog_images/javamm/access_direct.png" width="500px"/>
 
 	此种方式也是HotSpot虚拟机采用的方式。
 	
@@ -196,7 +196,7 @@ Java是面向对象的一种编程语言，那么如何通过引用来访问对�
 
 HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。通常将对New Generation进行的回收称为Minor GC;对Old Generation进行的回收称为Major GC，但由于Major GC除并发GC外均需对整个堆以及Permanent Generation进行扫描和回收，因此又称为Full GC。
 
-<image src="/images/blog_images/hotspot-gc.png" width="300px"/>
+<image src="/images/blog_images/javamm/hotspot-gc.png" width="300px"/>
 
 - Eden区是分配对象的区域。
 - Survivor是minor/younger gc后存储存活对象的区域。
@@ -249,7 +249,7 @@ Old Generation的GC有以下四种：
 
 ### 3.2 HotSpot垃圾收集器
 
-<image src="/images/blog_images/hotspot-collector.png" width="300px"/>
+<image src="/images/blog_images/javamm/hotspot-collector.png" width="300px"/>
 
 上图即为HotSpot虚拟机的垃圾收集器组成。
 
@@ -264,11 +264,11 @@ Old Generation的GC有以下四种：
 
 收集前：
 
-<image src="/images/blog_images/serial_before.png" width="400px"/>
+<image src="/images/blog_images/javamm/serial_before.png" width="400px"/>
 
 收集后：
 
-<image src="/images/blog_images/serial_after.png" width="400px"/>
+<image src="/images/blog_images/javamm/serial_after.png" width="400px"/>
 
 #### ParNew收集器
 
@@ -280,7 +280,7 @@ Old Generation的GC有以下四种：
 
 对比Serial收集器如下图所示：
 
-<image src="/images/blog_images/parnew.png" width="400px"/>
+<image src="/images/blog_images/javamm/parnew.png" width="400px"/>
 
 #### Parallel Scavenge收集器
 
@@ -322,7 +322,7 @@ Old Generation的GC有以下四种：
 
 对比serial old收集器如下图所示：
 
-<image src="/images/blog_images/cms.png" width="400px"/>
+<image src="/images/blog_images/javamm/cms.png" width="400px"/>
 
 CMS有以下的缺点：
 
@@ -342,7 +342,7 @@ G1算法在Java6中还是试验性质的，在Java7中正式引入，但还未�
 - -XX:+UseG1GC可以打开此垃圾回收器
 - -XX:MaxGCPauseMillis=200可以设置最大GC停顿时间，当然JVM并不保证一定能够达到，只是尽力。
 
-<image src="/images/blog_images/g1.png" width="500px"/>
+<image src="/images/blog_images/javamm/g1.png" width="500px"/>
 
 ### 3.3 调优经验
 
