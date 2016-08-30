@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-08-30T16:47:01+08:00</updated>
+  <updated>2016-08-30T17:27:05+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -173,7 +173,7 @@
 
 <h3>消息队列</h3>
 
-<p>软件的组织结构，从开始的面向组件到SOA、SAAS是一个逐渐演变的过程。到了今天SOA盛行的时代，你都不好意思说自己的系统只是单一的一个系统而没有解耦成一个个service。当然，小的系统的确没有去做SOA的必要性，但一个复杂的系统拆成一个个service做微服务架构确实是不得不做的事情。</p>
+<p>软件的组织结构，从开始的面向组件到SOA、SAAS是一个逐渐演变的过程。而到了今天微服务盛行的时代，你都不好意思说自己的系统只是单一的一个系统而没有解耦成一个个service。当然，小的系统的确没有拆分的必要性，但一个复杂的系统拆成一个个service做微服务架构确实是不得不做的事情。</p>
 
 <p>那么问题就来了，service之间的通信如何来做呢？使用什么协议？通过什么方式调用？都是需要考虑的问题。</p>
 
