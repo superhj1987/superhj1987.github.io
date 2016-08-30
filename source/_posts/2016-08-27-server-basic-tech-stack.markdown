@@ -54,7 +54,7 @@ categories: work
 - IOC框架：ioc带来的好处无须多言。目前Java中最为流行的Spring自诞生就天然支持IOC。
 - ORM框架：MyBatis是目前最为流行的orm框架。此外，Spring ORM中提供的JdbcTemplate也很不错。当然，对于分库分表、主从分离这些需求，一般就需要实现自己的ORM框架来支持了，像阿里的tddl。此外，为了在服务层面统一解决分库分表、主从分离、主备切换、缓存、故障恢复等问题，很多公司都是有自己的数据库中间件的，比如阿里的Cobar、360的Atlas、网易的DDB、开源的MyCat等。
 - 缓存框架：缓存框架主要指的是对redis、memcached这些缓存服务器的操作统一封装，一般使用Spring的RedisTemplate即可，也可以使用jedis做自己的封装，支持客户端分布式方案、主从等。
-- JavaEE应用性能检测框架：对于线上的JavaEE应用，需要有一个统一的框架集成到每一个业务中检测每一个请求、方法调用、jdbc连接、redis连接等的耗时、状态等。[jwebap](http://www.oschina.net/p/jwebap)是一个可以使用的性能检测工具。但已经很多年没有更新也没有人维护，因此基于此项目做二次开发是很必要的。
+- JavaEE应用性能检测框架：对于线上的JavaEE应用，需要有一个统一的框架集成到每一个业务中检测每一个请求、方法调用、jdbc连接、redis连接等的耗时、状态等。[jwebap](http://www.oschina.net/p/jwebap)是一个可以使用的性能检测工具，但由于其已经很多年没有更新，有可能的话建议基于此项目做二次开发。
 
 一般来说，以上几个框架即可以完成一个后端应用的雏形。
 
