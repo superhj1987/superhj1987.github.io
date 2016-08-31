@@ -283,6 +283,8 @@
 
 <p>更为详细的对于搜索引擎的工程化实践可以参考有赞工程师的这篇文章：<a href="http://www.cnblogs.com/hsydj/p/5303050.html">有赞搜索引擎实践(工程篇)</a></p>
 
+<p>另外，搜索引擎还可以用在数据的多维分析上，就是<a href="https://www.growingio.com/">GrowingIO</a>、<a href="https://mixpanel.com/">MixPanel</a>中的可以任意维度查询数据报表的功能。当然，<a href="http://druid.io/">druid</a>也许是一个更好的实现多维分析的方案，官方也有其与es的比较：<a href="http://druid.io/docs/latest/comparisons/druid-vs-elasticsearch.html">http://druid.io/docs/latest/comparisons/druid-vs-elasticsearch.html</a>。</p>
+
 <h3>消息队列</h3>
 
 <p>软件的组织结构，从开始的面向组件到SOA、SAAS是一个逐渐演变的过程。而到了今天微服务盛行的时代，你都不好意思说自己的系统只是单一的一个系统而没有解耦成一个个service。当然，小的系统的确没有拆分的必要性，但一个复杂的系统拆成一个个service做微服务架构确实是不得不做的事情。</p>
@@ -421,6 +423,8 @@
 <li><p>传输：通过消息队列将数据传输到数据处理服务中。对于日志来说，通常选择kafka这种消息队列即可。</p></li>
 </ul>
 
+
+<p>此外，这里还有一个关键的技术就是数据库和数据仓库间的数据同步问题，即将需要分析的数据从数据库中同步到诸如hive这种数据仓库时使用的方案。比较简单的、用的也比较多的可以使用<a href="http://hortonworks.com/apache/sqoop/">sqoop</a>进行基于时间戳的数据同步，此外，阿里开源的<a href="https://github.com/alibaba/canal">canal</a>实现了基于binlog增量同步，更加适合通用的同步场景，但是基于canal你还是需要做不少的业务开发工作的。推荐另一款国人开源的<a href="http://git.oschina.net/qiangzigege/MySQL-Binlog">MySQL-Binlog</a>，原理和canal类似，默认提供了任务的后台管理功能，只需要实现接收到binlog后的处理逻辑即可。</p>
 
 <h3>离线数据分析</h3>
 
