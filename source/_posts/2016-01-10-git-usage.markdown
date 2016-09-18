@@ -458,3 +458,5 @@ git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进�
 	git help #获取命令的帮助信息
 	git archive #生成一个可供发布的压缩包
 	git rev-list --max-count=1 HEAD #查看当前分支的最新rev
+	git filter-branch -f --env-filter "GIT_AUTHOR_NAME='Newname'; GIT_AUTHOR_EMAIL='newemail'; GIT_COMMITTER_NAME='Newname'; GIT_COMMITTER_EMAIL='newemail';" HEAD #可以修改历史记录中的作者名字和邮箱
+	git filter-branch --index-filter 'git rm --cached --ignore-unmatch *.sql' # 删除sql文件的历史记录
