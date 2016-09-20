@@ -12,6 +12,8 @@ categories: java
 
 那么，BTrace这么神奇的功能是如何实现的呢？既然这是个开源的代码，那么直接从代码找原理。BTrace代码开源在<https://github.com/btraceio/btrace>。
 
+<!--more-->
+
 总体来说，BTrace是基于动态字节码修改技术(Hotswap)来实现运行时java程序的跟踪和替换。大体的原理可以用下面的公式描述：
     
     Client(Java compile api + attach api) + Agent（脚本解析引擎 + ASM + JDK6 Instumentation） + Socket
