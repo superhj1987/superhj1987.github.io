@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-09-20T23:34:27+08:00</updated>
+  <updated>2016-09-20T23:37:42+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -23,6 +23,9 @@
 <p>后来听同事提到了BTrace这个工具，于是去尝试了一下。BTrace是SUN Kenai云计算开发平台下的一个开源项目，旨在为java提供安全可靠的动态跟踪分析工具。江南白衣的这篇文章<a href="http://calvin1978.blogcn.com/articles/btrace1.html">http://calvin1978.blogcn.com/articles/btrace1.html</a>做了比较详细的描述。</p>
 
 <p>那么，BTrace这么神奇的功能是如何实现的呢？既然这是个开源的代码，那么直接从代码找原理。BTrace代码开源在<a href="https://github.com/btraceio/btrace">https://github.com/btraceio/btrace</a>。</p>
+
+<!--more-->
+
 
 <p>总体来说，BTrace是基于动态字节码修改技术(Hotswap)来实现运行时java程序的跟踪和替换。大体的原理可以用下面的公式描述：</p>
 
