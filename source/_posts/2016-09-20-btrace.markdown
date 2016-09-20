@@ -16,13 +16,15 @@ categories: java
     
     Client(Java compile api + attach api) + Agent（脚本解析引擎 + ASM + JDK6 Instumentation） + Socket
 
-BTrace的入口类在<https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Main.java>中。在其main方法中，可以看到起最终的核心逻辑是在<https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Client.java>中。方法调用如下：- client.compile
+BTrace的入口类在<https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Main.java>中。在其main方法中，可以看到起最终的核心逻辑是在<https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Client.java>中。方法调用如下：
+
+- client.compile
 - client.attach
 - client.submit
 
 ## Client
 
-这一部分主要在client.compile方法中，使用的是Java compile api，将我们传递的java源文件便以为.class文件，当然你如果使用btracec提前编译了源代码，那么这里就不会有这一步。
+首先是client.compile方法，使用的是Java compile api，将我们传递的java源文件编译为.class文件，当然你如果使用btracec提前编译了源代码，那么这里就不会有这一步。
 
 针对官方脚本的一个例子：
 
@@ -44,15 +46,13 @@ BTrace的入口类在<https://github.com/btraceio/btrace/blob/master/src/share/c
 
 client端在编译完脚本之后，进行了一次字节码修改，但是仅仅是做了一些兼容性，例如域访问控制器、简写等。
 
-接着使用的是java的attach api将agent动态attach到目标jvm进程中。BTrace依赖最基本的就是java agent，通常有两种方式：动态attach；在目标jvm启动之前添加agent参数。
-
-可见client的attach方法中：
+接着client.attach中使用java的attach api将agent动态attach到目标jvm进程中(ava agent，通常有两种方式添加到jvm进程中：动态attach；在目标jvm启动之前添加agent参数)。
 
     VirtualMachine vm  = VirtualMachine.attach(pid);
     ...
     vm.loadAgent(agentPath, agentArgs);
 
-最后client的submit方法，会向agent发送监控命令以及传动对应code的字节码。
+最后client的submit方法，会向agent发送监控命令以及传递对应code的字节码。
 
 ## Agent
 
@@ -71,9 +71,9 @@ client都是通过socket来进行的。当agent接收到监控命令后，主要
 - 重写类：遍历当前所有的class,根据正则找到匹配的类，用asm重写
 - 替换类：替换掉原来的class
 
-agent接受到client发来的监控指令以及对应的参数后，会load所有的class,根据正则去匹配指定的类和方法，并使用脚本解析引擎去处理发送过来的字节码然后使用ASM将脚本里标注的类java.lang.Thread的字节码重写，植入跟踪代码或新的逻辑。在上面那个例子中，Java.lang.Thread这个类的字节码被重写了，并在start方法体尾部植入了func方法的调用。
+agent接受到client发来的监控指令以及对应的参数后，会load所有的class,根据正则去匹配指定的类和方法，并使用脚本解析引擎去处理发送过来的字节码然后使用ASM将脚本里标注的类java.lang.Thread的字节码重写，植入跟踪代码或新的逻辑。在上面那个例子中，Java.lang.Thread这个类的字节码被重写并在start方法体尾部植入了func方法的调用。
 
-这里是利用的instrumentation的retransformClasses，将原始字节码替换掉。btrace使用的transfomer见<https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/runtime/BTraceTransformer.java>。如下：
+BTrace的agent利用instrumentation的retransformClasses方法将原始字节码替换掉，使用的transfomer见<https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/runtime/BTraceTransformer.java>。如下：
 
     new ClassFileTransformer() {
         public byte[] transform(ClassLoader l, String className, Class c， ProtectionDomain pd, byte[] b) throws IllegalClassFormatException {
@@ -81,4 +81,8 @@ agent接受到client发来的监控指令以及对应的参数后，会load所�
         }
     }, true);
 
-其中，在agent的agentmain中通过handleNewClient方法中启动一个异步线程进行class transformer，异步线程中调用<https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Client.java>中的retransformLoaded()进行最终的transform。
+其中，在agent的agentmain中通过handleNewClient方法启动一个异步线程进行class transformer，而在这个异步线程中最终是通过调用<https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Client.java>中的retransformLoaded()来进行的。
+
+## 总结
+
+其实BTrace就是使用了java attach api附加agent.jar，然后使用脚本解析引擎+asm来重写指定类的字节码，再使用instrument实现对原有类的替换。借鉴这些，我们也完全可以实现自己的动态追踪工具。
