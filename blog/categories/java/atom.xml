@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-09-19T21:42:54+08:00</updated>
+  <updated>2016-09-20T23:19:37+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,98 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[BTrace原理浅析]]></title>
+    <link href="http://www.rowkey.me/blog/2016/09/20/btrace/"/>
+    <updated>2016-09-20T21:39:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/09/20/btrace</id>
+    <content type="html"><![CDATA[<p>之前在看agentzh的此篇博文<a href="http://openresty.org/posts/dynamic-tracing/">动态追踪技术漫谈</a>时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。在公司内部的JavaEE性能检测框架中，我们使用了asm做字节码注入来做线上性能的监测，沿着这个思路，如果要做到动态追踪应该是需要做字节码注入的，但是额外的一点是需要动态加载字节码替换掉原有的类的。此外，性能监测框架是需要耦合到业务应用中的，无法做到一个监测工具的灵活性。</p>
+
+<p>后来听同事提到了BTrace这个工具，于是去尝试了一下。BTrace是SUN Kenai云计算开发平台下的一个开源项目，旨在为java提供安全可靠的动态跟踪分析工具。江南白衣的这篇文章<a href="http://calvin1978.blogcn.com/articles/btrace1.html">http://calvin1978.blogcn.com/articles/btrace1.html</a>做了比较详细的描述。</p>
+
+<p>那么，BTrace这么神奇的功能是如何实现的呢？既然这是个开源的代码，那么直接从代码找原理。BTrace代码开源在<a href="https://github.com/btraceio/btrace">https://github.com/btraceio/btrace</a>。</p>
+
+<p>总体来说，BTrace是基于动态字节码修改技术(Hotswap)来实现运行时java程序的跟踪和替换。大体的原理可以用下面的公式描述：</p>
+
+<pre><code>Client(Java compile api + attach api) + Agent（脚本解析引擎 + ASM + JDK6 Instumentation） + Socket
+</code></pre>
+
+<p>BTrace的入口类在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Main.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Main.java</a>中。在其main方法中，可以看到起最终的核心逻辑是在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Client.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Client.java</a>中。方法调用如下：- client.compile
+- client.attach
+- client.submit</p>
+
+<h2>Client</h2>
+
+<p>这一部分主要在client.compile方法中，使用的是Java compile api，将我们传递的java源文件便以为.class文件，当然你如果使用btracec提前编译了源代码，那么这里就不会有这一步。</p>
+
+<p>针对官方脚本的一个例子：</p>
+
+<pre><code>import com.sun.btrace.annotations.*;
+import static com.sun.btrace.BTraceUtils.*;
+@BTrace
+public class HelloWorld {
+    @OnMethod(
+        clazz="java.lang.Thread",
+        method="start"
+    )
+    public static void func() {
+        println("about to start a thread!");
+    }
+}
+</code></pre>
+
+<p>@OnMethod告诉Btrace解析引擎需要代理的类和方法。
+这个例子的作用是当java.lang.Thread类的任意一个对象调用 start 方法后，会调用func方法。</p>
+
+<p>client端在编译完脚本之后，进行了一次字节码修改，但是仅仅是做了一些兼容性，例如域访问控制器、简写等。</p>
+
+<p>接着使用的是java的attach api将agent动态attach到目标jvm进程中。BTrace依赖最基本的就是java agent，通常有两种方式：动态attach；在目标jvm启动之前添加agent参数。</p>
+
+<p>可见client的attach方法中：</p>
+
+<pre><code>VirtualMachine vm  = VirtualMachine.attach(pid);
+...
+vm.loadAgent(agentPath, agentArgs);
+</code></pre>
+
+<p>最后client的submit方法，会向agent发送监控命令以及传动对应code的字节码。</p>
+
+<h2>Agent</h2>
+
+<p>BTrace的agent实现类就在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Main.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Main.java</a>中，具体的实现可以看其main方法，此agent的premain和agentmain方法都是调用了这个方法。这里需要注意的一点：必须要上jdk6，因为jdk5虽然已经有了instrument api，但是其仅仅支持premain方法，也就是仅仅支持在main方法运行之前执行一些动作，而jdk6后加入了agentmain方法和VirtualMachine，是可以在main方法运行后执行的(如果是通过命令行启动的，那么agentmain方法不会被调用)。此外，在jdk6之前，程序启动之后是无法再设置boot class加载路径和system class加载路径的。而jdk6之后，instrument新增的appendToBootstrapClassLoaderSearch和appendToSystemClassLoaderSearch是可以动态添加classpath的。</p>
+
+<p>agent被提交到目标jvm进程后，首先会添加boot classpath.</p>
+
+<pre><code>...
+inst.appendToBootstrapClassLoaderSearch(jf);
+...
+inst.appendToSystemClassLoaderSearch(jf);
+</code></pre>
+
+<p>接着开启一个serversocket等待client的连接。之后client和agent之间的数据通讯，比如生成.class发送到agent，agent将线上程序打印的数据回传给
+client都是通过socket来进行的。当agent接收到监控命令后，主要有以下两部分工作：</p>
+
+<ul>
+<li>重写类：遍历当前所有的class,根据正则找到匹配的类，用asm重写</li>
+<li>替换类：替换掉原来的class</li>
+</ul>
+
+
+<p>agent接受到client发来的监控指令以及对应的参数后，会load所有的class,根据正则去匹配指定的类和方法，并使用脚本解析引擎去处理发送过来的字节码然后使用ASM将脚本里标注的类java.lang.Thread的字节码重写，植入跟踪代码或新的逻辑。在上面那个例子中，Java.lang.Thread这个类的字节码被重写了，并在start方法体尾部植入了func方法的调用。</p>
+
+<p>这里是利用的instrumentation的retransformClasses，将原始字节码替换掉。btrace使用的transfomer见<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/runtime/BTraceTransformer.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/runtime/BTraceTransformer.java</a>。如下：</p>
+
+<pre><code>new ClassFileTransformer() {
+    public byte[] transform(ClassLoader l, String className, Class c， ProtectionDomain pd, byte[] b) throws IllegalClassFormatException {
+        // BTrace解析脚本，利用asm重写bytecode，然后classLoader加载
+    }
+}, true);
+</code></pre>
+
+<p>其中，在agent的agentmain中通过handleNewClient方法中启动一个异步线程进行class transformer，异步线程中调用<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Client.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Client.java</a>中的retransformLoaded()进行最终的transform。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
@@ -621,22 +713,6 @@ public static String randomString(int i){
 
 
 <p><strong><em>Ps:此文部分内容来自网上资料。</em></strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java后端工程师技能树]]></title>
-    <link href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/"/>
-    <updated>2016-06-17T22:59:44+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/06/17/java-skill-tree</id>
-    <content type="html"><![CDATA[<p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
-
-<p><strong>PS</strong>: 有同学指出tomcat不是web server是servlet容器，这一点图中的确不够严谨，因此更新了此技能树。其实tomcat引入了apr之后也是能够作为web server的(其实目前绝大多servlet容器都同时提供了web服务器的功能，只是性能之类的不好而已)，当然把tomcat直接做为web server的应用还不够广泛。目前，nginx+tomcat还是普遍的七层负载均衡构建集群的方案。此外，这里还牵扯到了servlet容器和应用服务器的一个区别，为什么tomcat只是servlet容器而不叫JavaEE应用服务器呢？这一点大家可以通过此链接了解一下:<a href="http://www.cnblogs.com/maydow/p/4821249.html">http://www.cnblogs.com/maydow/p/4821249.html</a>。当然，对于互联网领域目前的Java后端体系，weblogic、webspher这些应用服务器基本绝迹，因此并没有写在此技能树中。</p>
-
-<!--more-->
-
-
-<p><a href="//images/blog_images/java-skill-tree.png"><img src="//images/blog_images/java-skill-tree.png" alt="java-skill-tree" /></a></p>
 ]]></content>
   </entry>
   

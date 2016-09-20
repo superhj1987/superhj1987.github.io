@@ -6,13 +6,13 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>杂感一篇 - 后端技术杂谈 | 飒然Hang</title>
+  <title>BTrace原理浅析 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="杂感一篇 Jul 6th, 2013 Posted by 飒然Hang in life 最近两部关于青春的片子《致青春》和《中国合伙人》，对于前者这种爱情的东西，从某个时间段开始，我早已不再关注。后者讲述的奋斗、梦想，却是我特别想看一看的。虽然我知道成功学这东西， &hellip;">
+  <meta name="description" content="BTrace原理浅析 Sep 20th, 2016 Posted by 飒然Hang in java 之前在看agentzh的此篇博文动态追踪技术漫谈时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -20,7 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2013/07/06/no-name/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2016/09/20/btrace/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
@@ -92,7 +92,7 @@
   
   <header>
     
-      <h1 class="post-title">杂感一篇</h1>
+      <h1 class="post-title">BTrace原理浅析</h1>
     
     
       <p class="post-meta">
@@ -108,7 +108,7 @@
   
 
 
-<time datetime="2013-07-06T16:57:45+08:00" pubdate data-updated="true">Jul 6<sup>th</sup>, 2013</time>
+<time datetime="2016-09-20T21:39:34+08:00" pubdate data-updated="true">Sep 20<sup>th</sup>, 2016</time>
         
         
   
@@ -118,7 +118,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/life/'>life</a>
+    <a class='category' href='/blog/categories/java/'>java</a>
   
 </span>
 
@@ -129,11 +129,90 @@
   </header>
 
 
-<div class="post-content"><p>最近两部关于青春的片子《致青春》和《中国合伙人》，对于前者这种爱情的东西，从某个时间段开始，我早已不再关注。后者讲述的奋斗、梦想，却是我特别想看一看的。虽然我知道成功学这东西，完全是一群成功了的人在吹嘘当年自己有多苦逼，后来变得多NB。但是他们的成功却的确能触动自己心里的那根神经，唤起自己当初的激情。</p>
+<div class="post-content"><p>之前在看agentzh的此篇博文<a href="http://openresty.org/posts/dynamic-tracing/">动态追踪技术漫谈</a>时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。在公司内部的JavaEE性能检测框架中，我们使用了asm做字节码注入来做线上性能的监测，沿着这个思路，如果要做到动态追踪应该是需要做字节码注入的，但是额外的一点是需要动态加载字节码替换掉原有的类的。此外，性能监测框架是需要耦合到业务应用中的，无法做到一个监测工具的灵活性。</p>
 
-<p>十几年前，自己无意之中说出的一句话，到现在也算一直坚持了下来。虽然没有功成名就，但到现在还是不至于令自己失望的。平淡的日子往往让自己忘了自己当初的梦想，也忘了走向它的这条路。今天看《中国合伙人》这部影片又像当初看《社交网络》一样让自己全身瞬间充满了能量，同时也让自己拷问着自己：还坚持当初的梦想吗？正在为梦想努力吗？努力有收获吗？其实，现实中大多数人在说自己梦想的时候都能侃侃而谈，而真正能付诸于努力的人却寥寥可数。为梦想而努力，结果不一定是成功，但没有为此而努力过，那也许会成为一辈子最大的憾事。</p>
+<p>后来听同事提到了BTrace这个工具，于是去尝试了一下。BTrace是SUN Kenai云计算开发平台下的一个开源项目，旨在为java提供安全可靠的动态跟踪分析工具。江南白衣的这篇文章<a href="http://calvin1978.blogcn.com/articles/btrace1.html">http://calvin1978.blogcn.com/articles/btrace1.html</a>做了比较详细的描述。</p>
 
-<p>电影里三个人的友情是让我感触颇深的另一个地方。人的一生会不停地结交到各种朋友，但最后真正能称得上<strong>朋友</strong>的人其实就那么几个人。和他们在一起，你会很确定不管你怎么样，他们都不会嫌弃你；不管你跟他们说了什么话，他们也不会介意。心情不好的时候，一个电话，他们不管有多忙也会立马赶到你的身旁。其实，以前的自己挺自私的，有点像孟晓峻，自从经历了某些事情之后，我才体会到友情是多么的珍贵，也才弥足珍惜现在的朋友们。</p>
+<p>那么，BTrace这么神奇的功能是如何实现的呢？既然这是个开源的代码，那么直接从代码找原理。BTrace代码开源在<a href="https://github.com/btraceio/btrace">https://github.com/btraceio/btrace</a>。</p>
+
+<p>总体来说，BTrace是基于动态字节码修改技术(Hotswap)来实现运行时java程序的跟踪和替换。大体的原理可以用下面的公式描述：</p>
+
+<pre><code>Client(Java compile api + attach api) + Agent（脚本解析引擎 + ASM + JDK6 Instumentation） + Socket
+</code></pre>
+
+<p>BTrace的入口类在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Main.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Main.java</a>中。在其main方法中，可以看到起最终的核心逻辑是在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Client.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Client.java</a>中。方法调用如下：- client.compile
+- client.attach
+- client.submit</p>
+
+<h2>Client</h2>
+
+<p>这一部分主要在client.compile方法中，使用的是Java compile api，将我们传递的java源文件便以为.class文件，当然你如果使用btracec提前编译了源代码，那么这里就不会有这一步。</p>
+
+<p>针对官方脚本的一个例子：</p>
+
+<pre><code>import com.sun.btrace.annotations.*;
+import static com.sun.btrace.BTraceUtils.*;
+@BTrace
+public class HelloWorld {
+    @OnMethod(
+        clazz="java.lang.Thread",
+        method="start"
+    )
+    public static void func() {
+        println("about to start a thread!");
+    }
+}
+</code></pre>
+
+<p>@OnMethod告诉Btrace解析引擎需要代理的类和方法。
+这个例子的作用是当java.lang.Thread类的任意一个对象调用 start 方法后，会调用func方法。</p>
+
+<p>client端在编译完脚本之后，进行了一次字节码修改，但是仅仅是做了一些兼容性，例如域访问控制器、简写等。</p>
+
+<p>接着使用的是java的attach api将agent动态attach到目标jvm进程中。BTrace依赖最基本的就是java agent，通常有两种方式：动态attach；在目标jvm启动之前添加agent参数。</p>
+
+<p>可见client的attach方法中：</p>
+
+<pre><code>VirtualMachine vm  = VirtualMachine.attach(pid);
+...
+vm.loadAgent(agentPath, agentArgs);
+</code></pre>
+
+<p>最后client的submit方法，会向agent发送监控命令以及传动对应code的字节码。</p>
+
+<h2>Agent</h2>
+
+<p>BTrace的agent实现类就在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Main.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Main.java</a>中，具体的实现可以看其main方法，此agent的premain和agentmain方法都是调用了这个方法。这里需要注意的一点：必须要上jdk6，因为jdk5虽然已经有了instrument api，但是其仅仅支持premain方法，也就是仅仅支持在main方法运行之前执行一些动作，而jdk6后加入了agentmain方法和VirtualMachine，是可以在main方法运行后执行的(如果是通过命令行启动的，那么agentmain方法不会被调用)。此外，在jdk6之前，程序启动之后是无法再设置boot class加载路径和system class加载路径的。而jdk6之后，instrument新增的appendToBootstrapClassLoaderSearch和appendToSystemClassLoaderSearch是可以动态添加classpath的。</p>
+
+<p>agent被提交到目标jvm进程后，首先会添加boot classpath.</p>
+
+<pre><code>...
+inst.appendToBootstrapClassLoaderSearch(jf);
+...
+inst.appendToSystemClassLoaderSearch(jf);
+</code></pre>
+
+<p>接着开启一个serversocket等待client的连接。之后client和agent之间的数据通讯，比如生成.class发送到agent，agent将线上程序打印的数据回传给
+client都是通过socket来进行的。当agent接收到监控命令后，主要有以下两部分工作：</p>
+
+<ul>
+<li>重写类：遍历当前所有的class,根据正则找到匹配的类，用asm重写</li>
+<li>替换类：替换掉原来的class</li>
+</ul>
+
+
+<p>agent接受到client发来的监控指令以及对应的参数后，会load所有的class,根据正则去匹配指定的类和方法，并使用脚本解析引擎去处理发送过来的字节码然后使用ASM将脚本里标注的类java.lang.Thread的字节码重写，植入跟踪代码或新的逻辑。在上面那个例子中，Java.lang.Thread这个类的字节码被重写了，并在start方法体尾部植入了func方法的调用。</p>
+
+<p>这里是利用的instrumentation的retransformClasses，将原始字节码替换掉。btrace使用的transfomer见<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/runtime/BTraceTransformer.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/runtime/BTraceTransformer.java</a>。如下：</p>
+
+<pre><code>new ClassFileTransformer() {
+    public byte[] transform(ClassLoader l, String className, Class c， ProtectionDomain pd, byte[] b) throws IllegalClassFormatException {
+        // BTrace解析脚本，利用asm重写bytecode，然后classLoader加载
+    }
+}, true);
+</code></pre>
+
+<p>其中，在agent的agentmain中通过handleNewClient方法中启动一个异步线程进行class transformer，异步线程中调用<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Client.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Client.java</a>中的retransformLoaded()进行最终的transform。</p>
 </div>
 
 
@@ -149,7 +228,7 @@
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="杂感一篇 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2013/07/06/no-name/" data-content="最近两部关于青春的片子《致青春》和《中国合伙人》，对于前者这种爱情的东西，从某个时间段开始，我早已不再关注。后者讲述的奋斗、梦想，却是我特别想看一看的。虽然我知道成功学这东西，完全是一群成功了的人在吹嘘当年自己有多苦逼，后来变得多NB。但是他们的成功却的确能触动自己心里的那根神经， &hellip;">
+<div class="ds-share flat" data-title="BTrace原理浅析 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/09/20/btrace/" data-content="之前在看agentzh的此篇博文动态追踪技术漫谈时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。在公司内部的JavaEE性能检测框架中，我们使用了asm做字节码注入来做线上性能的监测，沿着这个思路， &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
@@ -170,10 +249,8 @@
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2013/11/11/web-security-notes/" title="上一篇: 《白帽子讲Web安全》读书笔记">&laquo; 《白帽子讲Web安全》读书笔记 </a>
       
-      
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2013/05/13/no-name/" title="下一篇: 无题">无题 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2016/08/30/recommend-sys/" title="下一篇: 推荐系统杂谈">推荐系统杂谈 &raquo;</a>
       
     </div>
   </footer>
@@ -182,7 +259,7 @@
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2013/07/06/no-name/" data-title="杂感一篇"></div>
+<div class="ds-thread" data-thread-key="/blog/2016/09/20/btrace/" data-title="BTrace原理浅析"></div>
 <!-- 多说评论框 end -->
 
 

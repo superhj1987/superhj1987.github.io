@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-09-19T21:42:54+08:00</updated>
+  <updated>2016-09-20T23:19:37+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,98 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[BTrace原理浅析]]></title>
+    <link href="http://www.rowkey.me/blog/2016/09/20/btrace/"/>
+    <updated>2016-09-20T21:39:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/09/20/btrace</id>
+    <content type="html"><![CDATA[<p>之前在看agentzh的此篇博文<a href="http://openresty.org/posts/dynamic-tracing/">动态追踪技术漫谈</a>时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。在公司内部的JavaEE性能检测框架中，我们使用了asm做字节码注入来做线上性能的监测，沿着这个思路，如果要做到动态追踪应该是需要做字节码注入的，但是额外的一点是需要动态加载字节码替换掉原有的类的。此外，性能监测框架是需要耦合到业务应用中的，无法做到一个监测工具的灵活性。</p>
+
+<p>后来听同事提到了BTrace这个工具，于是去尝试了一下。BTrace是SUN Kenai云计算开发平台下的一个开源项目，旨在为java提供安全可靠的动态跟踪分析工具。江南白衣的这篇文章<a href="http://calvin1978.blogcn.com/articles/btrace1.html">http://calvin1978.blogcn.com/articles/btrace1.html</a>做了比较详细的描述。</p>
+
+<p>那么，BTrace这么神奇的功能是如何实现的呢？既然这是个开源的代码，那么直接从代码找原理。BTrace代码开源在<a href="https://github.com/btraceio/btrace">https://github.com/btraceio/btrace</a>。</p>
+
+<p>总体来说，BTrace是基于动态字节码修改技术(Hotswap)来实现运行时java程序的跟踪和替换。大体的原理可以用下面的公式描述：</p>
+
+<pre><code>Client(Java compile api + attach api) + Agent（脚本解析引擎 + ASM + JDK6 Instumentation） + Socket
+</code></pre>
+
+<p>BTrace的入口类在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Main.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Main.java</a>中。在其main方法中，可以看到起最终的核心逻辑是在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Client.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/client/Client.java</a>中。方法调用如下：- client.compile
+- client.attach
+- client.submit</p>
+
+<h2>Client</h2>
+
+<p>这一部分主要在client.compile方法中，使用的是Java compile api，将我们传递的java源文件便以为.class文件，当然你如果使用btracec提前编译了源代码，那么这里就不会有这一步。</p>
+
+<p>针对官方脚本的一个例子：</p>
+
+<pre><code>import com.sun.btrace.annotations.*;
+import static com.sun.btrace.BTraceUtils.*;
+@BTrace
+public class HelloWorld {
+    @OnMethod(
+        clazz="java.lang.Thread",
+        method="start"
+    )
+    public static void func() {
+        println("about to start a thread!");
+    }
+}
+</code></pre>
+
+<p>@OnMethod告诉Btrace解析引擎需要代理的类和方法。
+这个例子的作用是当java.lang.Thread类的任意一个对象调用 start 方法后，会调用func方法。</p>
+
+<p>client端在编译完脚本之后，进行了一次字节码修改，但是仅仅是做了一些兼容性，例如域访问控制器、简写等。</p>
+
+<p>接着使用的是java的attach api将agent动态attach到目标jvm进程中。BTrace依赖最基本的就是java agent，通常有两种方式：动态attach；在目标jvm启动之前添加agent参数。</p>
+
+<p>可见client的attach方法中：</p>
+
+<pre><code>VirtualMachine vm  = VirtualMachine.attach(pid);
+...
+vm.loadAgent(agentPath, agentArgs);
+</code></pre>
+
+<p>最后client的submit方法，会向agent发送监控命令以及传动对应code的字节码。</p>
+
+<h2>Agent</h2>
+
+<p>BTrace的agent实现类就在<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Main.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Main.java</a>中，具体的实现可以看其main方法，此agent的premain和agentmain方法都是调用了这个方法。这里需要注意的一点：必须要上jdk6，因为jdk5虽然已经有了instrument api，但是其仅仅支持premain方法，也就是仅仅支持在main方法运行之前执行一些动作，而jdk6后加入了agentmain方法和VirtualMachine，是可以在main方法运行后执行的(如果是通过命令行启动的，那么agentmain方法不会被调用)。此外，在jdk6之前，程序启动之后是无法再设置boot class加载路径和system class加载路径的。而jdk6之后，instrument新增的appendToBootstrapClassLoaderSearch和appendToSystemClassLoaderSearch是可以动态添加classpath的。</p>
+
+<p>agent被提交到目标jvm进程后，首先会添加boot classpath.</p>
+
+<pre><code>...
+inst.appendToBootstrapClassLoaderSearch(jf);
+...
+inst.appendToSystemClassLoaderSearch(jf);
+</code></pre>
+
+<p>接着开启一个serversocket等待client的连接。之后client和agent之间的数据通讯，比如生成.class发送到agent，agent将线上程序打印的数据回传给
+client都是通过socket来进行的。当agent接收到监控命令后，主要有以下两部分工作：</p>
+
+<ul>
+<li>重写类：遍历当前所有的class,根据正则找到匹配的类，用asm重写</li>
+<li>替换类：替换掉原来的class</li>
+</ul>
+
+
+<p>agent接受到client发来的监控指令以及对应的参数后，会load所有的class,根据正则去匹配指定的类和方法，并使用脚本解析引擎去处理发送过来的字节码然后使用ASM将脚本里标注的类java.lang.Thread的字节码重写，植入跟踪代码或新的逻辑。在上面那个例子中，Java.lang.Thread这个类的字节码被重写了，并在start方法体尾部植入了func方法的调用。</p>
+
+<p>这里是利用的instrumentation的retransformClasses，将原始字节码替换掉。btrace使用的transfomer见<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/runtime/BTraceTransformer.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/runtime/BTraceTransformer.java</a>。如下：</p>
+
+<pre><code>new ClassFileTransformer() {
+    public byte[] transform(ClassLoader l, String className, Class c， ProtectionDomain pd, byte[] b) throws IllegalClassFormatException {
+        // BTrace解析脚本，利用asm重写bytecode，然后classLoader加载
+    }
+}, true);
+</code></pre>
+
+<p>其中，在agent的agentmain中通过handleNewClient方法中启动一个异步线程进行class transformer，异步线程中调用<a href="https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Client.java">https://github.com/btraceio/btrace/blob/master/src/share/classes/com/sun/btrace/agent/Client.java</a>中的retransformLoaded()进行最终的transform。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[推荐系统杂谈]]></title>
@@ -3861,87 +3953,6 @@ TIME_WAIT 28322
 
 本文部分参考自网络相关资料，由于时间太久，无法追朔原作者。如有侵权，请联系superhj1987@126.com
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Hbase关键的几个点]]></title>
-    <link href="http://www.rowkey.me/blog/2015/06/10/hbase-about/"/>
-    <updated>2015-06-10T10:59:59+08:00</updated>
-    <id>http://www.rowkey.me/blog/2015/06/10/hbase-about</id>
-    <content type="html"><![CDATA[<h2>一. 什么时候需要HBase</h2>
-
-<ol>
-<li><p>半结构化或非结构化数据</p>
-
-<p> 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要增加存储比如一个用户的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加.</p></li>
-<li><p>记录非常稀疏</p>
-
-<p> RDBMS的行有多少列是固定的，为null的列浪费了存储空间。而如上文提到的，HBase为null的Column不会被存储，这样既节省了空间又提高了读性能。</p></li>
-<li><p>多版本数据</p>
-
-<p> 根据Row key和Column key定位到的Value可以有任意数量的版本值，因此对于需要存储变动历史记录的数据，用HBase就非常方便了。对于某一值，业务上一般只需要最新的值，但有时可能需要查询到历史值。</p></li>
-<li><p>超大数据量</p>
-
-<p> 当数据量越来越大，RDBMS数据库撑不住了，就出现了读写分离策略，通过一个Master专门负责写操作，多个Slave负责读操作，服务器成本倍增。随着压力增加，Master撑不住了，这时就要分库了，把关联不大的数据分开部署，一些join查询不能用了，需要借助中间层。随着数据量的进一步增加，一个表的记录越来越大，查询就变得很慢，于是又得搞分表，比如按ID取模分成多个表以减少单个表的记录数。经历过这些事的人都知道过程是多么的折腾。采用HBase就简单了，只需要加机器即可，HBase会自动水平切分扩展，跟Hadoop的无缝集成保障了其数据可靠性（HDFS）和海量数据分析的高性能（MapReduce）</p></li>
-</ol>
-
-
-<h2>二. HTable一些基本概念</h2>
-
-<ol>
-<li><p>Row key</p>
-
-<p> 行主键， HBase不支持条件查询和Order by等查询，读取记录只能按Row key（及其range）或全表扫描，因此Row key需要根据业务来设计以利用其存储排序特性（Table按Row key字典序排序如1,10,100,11,2）提高性能。</p></li>
-<li><p>Column Family（列族）</p>
-
-<p> 在表创建时声明，每个Column Family为一个存储单元。</p></li>
-<li><p>Column（列）</p>
-
-<p> HBase的每个列都属于一个列族，以列族名为前缀，如列article:title和article:content属于article列族，author:name和author:nickname属于author列族。</p>
-
-<p> Column不用创建表时定义即可以动态新增，同一Column Family的Columns会群聚在一个存储单元上，并依Column key排序，因此设计时应将具有相同I/O特性的Column设计在一个Column Family上以提高性能。</p></li>
-<li><p>Timestamp</p>
-
-<p> HBase通过row和column确定一份数据，这份数据的值可能有多个版本，不同版本的值按照时间倒序排序，即最新的数据排在最前面，查询时默认返回最新版本。Timestamp默认为系统当前时间（精确到毫秒），也可以在写入数据时指定该值。</p></li>
-<li><p>Value</p>
-
-<p> 每个值通过4个键唯一索引，tableName+RowKey+ColumnKey+Timestamp=>value</p></li>
-<li><p>存储类型</p>
-
-<ul>
-<li>TableName 是字符串</li>
-<li>RowKey 和 ColumnName 是二进制值（Java 类型 byte[]）</li>
-<li>Timestamp 是一个 64 位整数（Java 类型 long）</li>
-<li>value 是一个字节数组（Java类型 byte[]）。</li>
-</ul>
-</li>
-</ol>
-
-
-<p>将HTable的存储结构理解为</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
-
-<p>即HTable按Row key自动排序，每个Row包含任意数量个Columns，Columns之间按Column key自动排序，每个Column包含任意数量个Values。理解该存储结构将有助于查询结果的迭代。</p>
-
-<h2>三. 模式设计应遵循的原则</h2>
-
-<ol>
-<li><p>列族的数量以及列族的势</p>
-
-<p> 列族的数量越少越好，牵扯到了hbase的flushing；同一个表中不同列族所存储的记录数量的差别也需要考虑（列族的势），会造成记录数量少的列族的数据分散在多个region上，影响查询效率。</p></li>
-<li><p>行键的设计</p>
-
-<p> 避免使用时序或者单调（递增/递减）行键，否则会导致连续到来的数据会被分配到统一region中。</p></li>
-<li><p>尽量最小化行键和列族的大小</p>
-
-<p> 避免hbase的索引过大，加重系统存储的负担</p></li>
-<li><p>版本的数量</p>
-
-<p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
-</ol>
-
 ]]></content>
   </entry>
   
