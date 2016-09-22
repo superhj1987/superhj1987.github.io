@@ -502,7 +502,7 @@ git whatchanged [file]
 
 git blame [file] #显示指定文件由谁何时修改过
 
-git log -p [file] #显示指定文件相关额每一次diff
+git log -p [file] #显示指定文件相关的每一次diff
 
 git show [commit] #显示每次提交的元数据和内容变化
 git show --name-only [commit] #显示某次提交发生变化的文件
@@ -534,9 +534,11 @@ git log master..feature #从master分支fork到feature分支后发生的变化
 git log -- xxx.java #--告诉后面是文件名不是分支名
 
 git log --grep="xxx" #按提交信息来过滤提交
+git log &lt;last release&gt; HEAD --grep feature #仅仅显示本次发布新增加的功能。
 
 git log -S "xxx"(-G"&lt;regex&gt;") #根据内容(源代码)来过滤提交
 git log --pretty=format:"&lt;string&gt;" #自定义输出格式，占位符：%cn-作者名字 %h-缩略标识 %cd-提价日期
+git log &lt;last tag&gt; HEAD --pretty=format:%s #显示上次发布后的变动，每个commit占据一行
 </code></pre>
 
 <h2><a name="revert"></a>撤销</h2>
