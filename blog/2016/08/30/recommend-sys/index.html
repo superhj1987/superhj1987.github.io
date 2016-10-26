@@ -183,7 +183,7 @@
 
 <p>个性化推荐系统的典型架构如下图所示：</p>
 
-<p><img src="/images/blog_images/recommend-sys/recommend_sys_arch.png" alt="recommend-sys" /></p>
+<p><img src="/images/blog_images/recommend-sys/recommend-sys-arch.png" alt="recommend-sys" /></p>
 
 <p>在线业务系统的日志接入数据高速公路，再由数据高速公路迅速运转到离线数据处理平台和在线流计算平台；离线数据处理平台周期性地以批处理方式加工过去一段时间的数据，得到人群标签和其他模型参数，存放在高速缓存中，供在线业务系统使用，与此同时，在线流计算平台实时对线上的日志数据做处理，对离线计算出的数据进行补充、修正等；在线业务系统综合离线特征和在线特征使用一定的逻辑得到输出供业务使用，产生的日志流入数据高速公路。</p>
 
