@@ -238,14 +238,14 @@ Old Generation的GC有以下四种：
 - Minor GC时的悲观策略
 - Minor GC后在Eden上分配内存仍然失败
 - 执行Heap Dump时
-- 外部调用System.gc,可通过-XX:+DisableExplicitGC来禁止
+- 外部调用System.gc,可通过-XX:+DisableExplicitGC来禁止,。这里需要注意的是禁用System.gc()会引起使用NIO时的OOM，所以此选项慎重使用。具体可见：<http://hllvm.group.iteye.com/group/topic/27945>。
 
 对于CMS而言触发机制为:
 
-- 当Old Generation空间使用到一定比率时触发;HopSpot V1.6中默认是92%，可通过PrintCMSInitiationStatistics(此参数在V1.5中不能用)来查看这个值到底是多少;可通过CMSInitiatingOccupancyFaction来强制指定，默认值并不是复制在这个值上，是根据如下公式计算出来的:((100 -MinHeapFreeRatio) +(double)(CMSTriggerRatio* MinHeapFreeRatio) / 100.0)/ 100.0;MinHeapFreeRatio默认值：40 CMSTriggerRatio默认值：80
-- 当Permanent Generation采用CMS收集且空间使用到一定比率触发;Permanent Generation采用CMS收集需设置：-XX:+CMSClassUnloadingEnabled Hotspot V1.6中默认为92%;可通过CMSInitiatingPermOccupancyFraction来强制指定，同样，它是根据如下公式计算出来的：((100 -MinHeapFreeRatio) +(double)(CMSTriggerPermRatio* MinHeapFreeRatio) / 100.0)/ 100.0;MinHeapFreeRatio默认值：40 CMSTriggerPermRatio默认值：80
-- Hotspot根据成本计算决定是否需要执行CMS  GC;可通过-XX:+UseCmsInitiatingOccupancyOnly来去掉这个动态执行的策略。
-- 外部调用System.gc，且设置了ExplicitGCIInvokesConcurrent;需要注意，在hotspot 6中，在这种情况下如果应用同时使用了NIO，可能会出现bug。
+- 当Old Generation空间使用到一定比率时触发，HopSpot V1.6中默认是92%，可通过PrintCMSInitiationStatistics(此参数在V1.5中不能用)来查看这个值到底是多少，通过CMSInitiatingOccupancyFaction来强制指定。默认值是根据如下公式计算出来的:((100 -MinHeapFreeRatio) +(double)(CMSTriggerRatio* MinHeapFreeRatio) / 100.0)/ 100.0，MinHeapFreeRatio默认值为40，CMSTriggerRatio默认值为80。
+- 当Permanent Generation采用CMS收集且空间使用到一定比率触发，Permanent Generation采用CMS收集需设置：-XX:+CMSClassUnloadingEnabled。 Hotspot V1.6中默认为92%，可通过CMSInitiatingPermOccupancyFraction来强制指定。同样，它是根据如下公式计算出来的：((100 -MinHeapFreeRatio) +(double)(CMSTriggerPermRatio* MinHeapFreeRatio) / 100.0)/ 100.0，MinHeapFreeRatio默认值为40，CMSTriggerPermRatio默认值为80。
+- Hotspot根据成本计算决定是否需要执行CMS GC，可通过-XX:+UseCmsInitiatingOccupancyOnly来去掉这个动态执行的策略。
+- 外部调用System.gc，且设置了ExplicitGCIInvokesConcurrent或者ExplicitGCInvokesConcurrentAndUnloadsClasses。
 
 ### 3.2 HotSpot垃圾收集器
 
