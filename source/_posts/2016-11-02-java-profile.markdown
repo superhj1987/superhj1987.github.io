@@ -13,7 +13,6 @@ categories: java
 * [性能调优](#性能调优)
 * [其他优化建议](#其他优化建议)
 * [JVM参数进阶](#JVM参数进阶)
-* [参考资料](#参考资料)
 
 对于调优这个事情来说，一般就是三个过程：
 
@@ -48,14 +47,9 @@ Java调优也不外乎这三步。
 2. 对Java代码进行基准性能测试：可以使用JMH来进行，[[译]使用JMH进行微基准测试：不要猜，要测试！](http://www.hollischuang.com/archives/1072)。
 3. HotSpot VM相关知识：<http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html>
 	
-
 ## <a name='性能分析'></a>性能分析
 
-在系统层面能够影响应用性能的一般包括三个因素：CPU、内存和IO，可以从这三方面进行程序的性能瓶颈分析：
-
-- CPU分析
-- 内存分析
-- IO分析
+在系统层面能够影响应用性能的一般包括三个因素：CPU、内存和IO，可以从这三方面进行程序的性能瓶颈分析。
 
 ### CPU分析
 
@@ -85,7 +79,6 @@ Java调优也不外乎这三步。
 
 ![jstat](/images/blog_images/profile/vmstat.jpg)
 
-
 ### 内存分析
 
 对Java应用来说，内存主要是由堆外内存和堆内内存组成。
@@ -107,13 +100,10 @@ Java调优也不外乎这三步。
     以上使用不当很容易造成：
     
     - 频繁GC -> Stop the world，使你的应用响应变慢
-    - OOM，直接造成内存溢出错误使得程序退出
-
-    对于其中的OOM，又可以分为以下几种：
-    
-    - Heap space：堆内存不足
-    - PermGen space：永久代内存不足
-    - Native thread：本地线程没有足够内存可分配
+    - OOM，直接造成内存溢出错误使得程序退出。OOM又可以分为以下几种：
+    	- Heap space：堆内存不足
+    	- PermGen space：永久代内存不足
+    	- Native thread：本地线程没有足够内存可分配
 
     排查堆内存问题的常用工具是jmap，是jdk自带的。一些常用用法如下：
     
@@ -122,7 +112,7 @@ Java调优也不外乎这三步。
     - 把heap里所有对象都dump下来，无论对象是死是活：jmap -dump:format=b,file=xxx.hprof <pid>
     - 先做一次full GC，再dump，只包含仍然存活的对象信息：jmap -dump:format=b,live,file=xxx.hprof <pid>
         
-    此外，不管是使用jmap还是在OOM时产生的dump文件，一般是需要使用MAT(MEMORY ANALYZER TOOL)来分析的，可以看到具体的堆栈和内存中对象的信息。
+    此外，不管是使用jmap还是在OOM时产生的dump文件，一般是需要使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析的，可以看到具体的堆栈和内存中对象的信息。
     
 ### IO分析
 
@@ -159,6 +149,8 @@ Java调优也不外乎这三步。
         
         irq的序号， 在各自cpu上发生中断的次数，可编程中断控制器，设备名称（request_irq的dev_name字段）
         
+    通过查看网卡设备的终端情况可以判断网络io的状况。
+        
 ### 其他分析工具
 
 上面已经讲了一些系统自带的分析工具。除此之外，还有一些第三方工具或者框架可以更加方便我们对Java应用性能的排查、分析、定位等。
@@ -189,11 +181,7 @@ Java调优也不外乎这三步。
 
 ## <a name='性能调优'></a>性能调优
 
-与性能分析相对应，性能调优也主要分为三部分：
-
-- CPU调优
-- 内存调优
-- IO调优
+与性能分析相对应，性能调优同样分为三部分。
 
 ### CPU调优
 
@@ -231,18 +219,19 @@ Java调优也不外乎这三步。
 
 代码上，也需要注意：
 
-- 释放不必要的引用（ ThreadLocal，流关闭）
-- 使用对象池，避免无节制创建对象，造成频繁gc，但也要谨慎使用，除非像连接池、线程池这种创建资源消耗较大的场景
-- 缓存失效算法，可以考虑使用SoftReference、WeakReference的使用
+- 避免保存重复的String对象，同时也需要小心String.subString()与String.intern()的使用
+- 尽量不要使用finalizer
+- 释放不必要的引用：ThreadLocal使用完记得释放以防止内存泄漏，各种stream使用完也记得close。
+- 使用对象池避免无节制创建对象，造成频繁gc。但不要随便使用对象池，除非像连接池、线程池这种初始化/创建资源消耗较大的场景，
+- 缓存失效算法，可以考虑使用SoftReference、WeakReference保存缓存对象
 - 谨慎热部署/加载的使用，尤其是动态加载类等
-- 小心使用String.subString()与String.intern() (永久堆）
 - 不要用Log4j输出文件名、行号，因为Log4j通过打印线程堆栈实现，生成大量String。此外，使用log4j时，建议此种经典用法，先判断对应级别的日志是否打开，再做操作，否则也会生成大量String。
 			
 		if (logger.isInfoEnabled()) {
             logger.info(msg);
        	}
 
-### IO优化
+### IO调优
 
 文件IO上需要注意：
 
@@ -301,8 +290,8 @@ jvm的参数设置一直是比较理不清的地方，很多时候都搞不清�
 
     当Java应用启动后，定位到了是GC造成的性能问题，但是你启动的时候并没有加入打印gc的参数，很多时候的做法就是重新加参数然后重启应用。但这样会造成一定时间的服务不可用。最佳的做法是能够在不重启应用的情况下，动态设置参数。使用jinfo可以做到这一点(本质上还是基于jmx的)。
     
-    - jinfo -flag [+/-][flagName] [pid] #启用/禁止某个参数
-    - jinfo -flag [flagName=value] [pid] #设置某个参数
+    	jinfo -flag [+/-][flagName] [pid] #启用/禁止某个参数
+    	jinfo -flag [flagName=value] [pid] #设置某个参数
 
     对于上述的gc的情况，就可以使用以下命令打开heap dump并设置dump路径。
     
@@ -315,7 +304,7 @@ jvm的参数设置一直是比较理不清的地方，很多时候都搞不清�
         jinfo -flag -HeapDumpBeforeFullGC [pid] 
         jinfo -flag -HeapDumpAfterFullGC [pid]
         
-    其他的类似。
+    其他的参数设置类似。
     
 3. -verbose:gc 与 -XX:+PrintGCDetails
 
