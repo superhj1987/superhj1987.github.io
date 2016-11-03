@@ -1,0 +1,818 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Java调优经验谈 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="Java调优经验谈 Nov 20th, 2016 Posted by 飒然Hang in java 目录 调优准备
+性能分析
+性能调优
+其他优化建议
+JVM参数进阶
+参考资料 对于调优这个事情来说，一般就是三个过程： 性能监控：问题没有发生，你并不知道你需要调优什么？此时需要一些系统、 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2016/11/20/java-profile/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+
+  
+
+</head>
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+    display: none !important
+  }
+  div#ujian_BtnDiv{
+    display: none !important
+  }
+</style>
+<!-- cnzz统计 -->
+<script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="about-nav" href="/about_me.html">关于我</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">Java调优经验谈</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-20T19:29:34+08:00" pubdate data-updated="true">Nov 20<sup>th</sup>, 2016</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E8%B0%83%E4%BC%98%E5%87%86%E5%A4%87">调优准备</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90">性能分析</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98">性能调优</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE">其他优化建议</a></li>
+<li><a href="#JVM%E5%8F%82%E6%95%B0%E8%BF%9B%E9%98%B6">JVM参数进阶</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+
+
+<p>对于调优这个事情来说，一般就是三个过程：</p>
+
+<ul>
+<li>性能监控：问题没有发生，你并不知道你需要调优什么？此时需要一些系统、应用的监控工具来发现问题。</li>
+<li>性能分析：问题已经发生，但是你并不知道问题到底出在哪里。此时就需要使用工具、经验对系统、应用进行瓶颈分析，以求定位到问题原因。</li>
+<li>性能调优：经过上一步的分析定位到了问题所在，需要对问题进行解决，使用代码、配置等手段进行优化。</li>
+</ul>
+
+
+<p>Java调优也不外乎这三步。</p>
+
+<p>此外，本文所讲的性能分析、调优等是抛开以下因素的：</p>
+
+<ul>
+<li>系统底层环境：硬件、操作系统等</li>
+<li>数据结构和算法的使用</li>
+<li>外部系统如数据库、缓存的使用</li>
+<li>Java中一些Api的使用，如Random、StringBuilder等。</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2><a name='调优准备'></a>调优准备</h2>
+
+<p>调优是需要做好准备工作的，毕竟每一个应用的业务目标都不尽相同，性能瓶颈也不会总在同一个点上。在业务应用层面，我们需要：</p>
+
+<ul>
+<li>需要了解系统的总体架构，明确压力方向。比如系统的哪一个接口、模块是使用率最高的，面临高并发的挑战。</li>
+<li>需要构建测试环境来测试应用的性能，使用ab、loadrunner、jmeter都可以。</li>
+<li>对关键业务数据量进行分析，这里主要指的是对一些数据的量化分析，如数据库一天的数据量有多少；缓存的数据量有多大等</li>
+<li>了解系统的响应速度、吞吐量、TPS、QPS等指标需求，比如秒杀系统的相应速度和QPS是要求非常高的。</li>
+<li>了解系统相关软件的版本、模式和参数等，有时候限于应用依赖服务的版本、模式等，性能也会受到一定的影响。</li>
+</ul>
+
+
+<p>此外，我们还需要了解Java相关的一些知识：</p>
+
+<ol>
+<li>Java内存相关：这一部分可以参见<a href="http://www.rowkey.me/blog/2016/05/07/javamm/">谈谈Java内存管理</a>一文</li>
+<li>对Java代码进行基准性能测试：可以使用JMH来进行，<a href="http://www.hollischuang.com/archives/1072">[译]使用JMH进行微基准测试：不要猜，要测试！</a>。</li>
+<li>HotSpot VM相关知识：<a href="http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html">http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html</a></li>
+</ol>
+
+
+<h2><a name='性能分析'></a>性能分析</h2>
+
+<p>在系统层面能够影响应用性能的一般包括三个因素：CPU、内存和IO，可以从这三方面进行程序的性能瓶颈分析：</p>
+
+<ul>
+<li>CPU分析</li>
+<li>内存分析</li>
+<li>IO分析</li>
+</ul>
+
+
+<h3>CPU分析</h3>
+
+<p>当程序响应变慢的时候，首先使用top、vmstat、ps等命令查看系统的cpu使用率是否有异常，从而可以判断出是否是cpu繁忙造成的性能问题。其中，主要通过us（用户进程所占的%）这个数据来看异常的进程信息。当us接近100%甚至更高时，可以确定是cpu繁忙造成的响应缓慢。一般说来，cpu繁忙的原因有以下几个：</p>
+
+<ul>
+<li>线程中有无限空循环、无阻塞、正则匹配或者单纯的计算</li>
+<li>发生了频繁的gc</li>
+<li>多线程的上下文切换</li>
+</ul>
+
+
+<p>确定好cpu使用率最高的进程之后就可以使用jstack来打印出异常进程的堆栈信息：</p>
+
+<p><strong>jstack [pid]</strong></p>
+
+<p><img src="/images/blog_images/profile/jstack.jpg" alt="jstack" /></p>
+
+<p>接下来需要注意的一点是，Linux下所有线程最终还是以轻量级进程的形式存在系统中的，而使用jstack只能打印出进程的信息，这些信息里面包含了此进程下面所有线程(轻量级进程-LWP)的堆栈信息。因此，进一步的需要确定是哪一个线程耗费了大量cpu，此时可以使用top -p [processId]来查看，也可以直接通过ps -Le来显示所有进程,包括LWP的资源耗费信息。最后，通过在jstack的输出文件中查找对应的lwp的id即可以定位到相应的堆栈信息。其中需要注意的是线程的状态：RUNNABLE、WAITING等。对于Runnable的进程需要注意是否有耗费cpu的计算。对于Waiting的线程一般是锁的等待操作。</p>
+
+<p>也可以使用jstat来查看对应进程的gc信息，以判断是否是gc造成了cpu繁忙。</p>
+
+<p><strong>jstat -gcutil [pid]</strong></p>
+
+<p><img src="/images/blog_images/profile/jstat.jpg" alt="jstat" /></p>
+
+<p>还可以通过vmstat，通过观察内核状态的上下文切换(cs)次数，来判断是否是上下文切换造成的cpu繁忙。</p>
+
+<p><strong>vmstat 1 5</strong></p>
+
+<p><img src="/images/blog_images/profile/vmstat.jpg" alt="jstat" /></p>
+
+<h3>内存分析</h3>
+
+<p>对Java应用来说，内存主要是由堆外内存和堆内内存组成。</p>
+
+<ol>
+<li><p>堆外内存</p>
+
+<p> 堆外内存主要是JNI、Deflater/Inflater、DirectByteBuffer（nio中会用到）使用的。对于这种堆外内存的分析，还是需要先通过vmstat、sar、top、pidstat等查看swap和物理内存的消耗状况再做判断的。此外，对于JNI、Deflater这种调用可以通过<a href="http://www.oschina.net/p/perftools">Google-preftools</a>来追踪资源使用状况。</p></li>
+<li><p>堆内内存</p>
+
+<p> 此部分内存为Java应用主要的内存区域。通常与这部分内存性能相关的有：</p>
+
+<ul>
+<li>创建的对象：这个是存储在堆中的，需要控制好对象的数量和大小，尤其是大的对象很容易进入老年代</li>
+<li>全局集合：全局集合通常是生命周期比较长的，因此需要特别注意全局集合的使用</li>
+<li>缓存：缓存选用的数据结构不同，会很大程序影响内存的大小和gc</li>
+<li>ClassLoader：主要是动态加载类容易造成永久代内存不足</li>
+<li>多线程：线程分配会占用本地内存，过多的线程也会造成内存不足</li>
+</ul>
+
+
+<p> 以上使用不当很容易造成：</p>
+
+<ul>
+<li>频繁GC -> Stop the world，使你的应用响应变慢</li>
+<li>OOM，直接造成内存溢出错误使得程序退出</li>
+</ul>
+
+
+<p> 对于其中的OOM，又可以分为以下几种：</p>
+
+<ul>
+<li>Heap space：堆内存不足</li>
+<li>PermGen space：永久代内存不足</li>
+<li>Native thread：本地线程没有足够内存可分配</li>
+</ul>
+
+
+<p> 排查堆内存问题的常用工具是jmap，是jdk自带的。一些常用用法如下：</p>
+
+<ul>
+<li>查看jvm内存使用状况：jmap -heap <pid></li>
+<li>查看jvm内存存活的对象：jmap -histo:live <pid></li>
+<li>把heap里所有对象都dump下来，无论对象是死是活：jmap -dump:format=b,file=xxx.hprof <pid></li>
+<li>先做一次full GC，再dump，只包含仍然存活的对象信息：jmap -dump:format=b,live,file=xxx.hprof <pid></li>
+</ul>
+
+
+<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，一般是需要使用MAT(MEMORY ANALYZER TOOL)来分析的，可以看到具体的堆栈和内存中对象的信息。</p></li>
+</ol>
+
+
+<h3>IO分析</h3>
+
+<p>通常与应用性能相关的包括：文件IO和网络IO。</p>
+
+<ol>
+<li><p>文件IO</p>
+
+<p> 可以使用系统工具pidstat、iostat、vmstat来查看io的状况。这里可以看一张使用vmstat的结果图。</p>
+
+<p> <img src="/images/blog_images/profile/io.png" alt="" /></p>
+
+<p> 这里主要注意bi和bo这两个值，分别表示输入字节数和输出字节数，由此可以判定io繁忙状况。进一步的可以通过使用strace工具定位对文件io的系统调用。通常，造成文件io性能差的原因不外乎：</p>
+
+<ul>
+<li>大量的随机读写</li>
+<li>设备慢</li>
+<li>文件太大</li>
+</ul>
+</li>
+<li><p>网络IO</p>
+
+<p> 查看网络io状况，一般使用的是netstat工具。可以查看所有连接的状况、数目、端口信息等。例如：当time_wait或者close_wait连接过多时，会影响应用的相应速度。</p>
+
+<pre><code> netstat -anp
+</code></pre>
+
+<p> <img src="/images/blog_images/profile/netstat.png" alt="" /></p>
+
+<p> 此外，还可以使用tcpdump来具体分析网络io的数据。当然，tcpdump出的文件直接打开是一堆二进制的数据，可以使用wireshark阅读具体的连接以及其中数据的内容。</p>
+
+<pre><code> tcpdump -i eth0 -w tmp.cap -tnn dst port 8080 #监听8080端口的网络请求并打印日志到tmp.cap中
+</code></pre>
+
+<p> 还可以通过查看/proc/interrupts来获取当前系统使用的中断的情况。</p>
+
+<p> <img src="/images/blog_images/profile/interrupts.png" alt="" /></p>
+
+<p> 各个列依次是：</p>
+
+<pre><code> irq的序号， 在各自cpu上发生中断的次数，可编程中断控制器，设备名称（request_irq的dev_name字段）
+</code></pre></li>
+</ol>
+
+
+<h3>其他分析工具</h3>
+
+<p>上面已经讲了一些系统自带的分析工具。除此之外，还有一些第三方工具或者框架可以更加方便我们对Java应用性能的排查、分析、定位等。</p>
+
+<ul>
+<li><p>Btrace
+  这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考<a href="http://calvin1978.blogcn.com/articles/btrace1.html">Btrace入门到熟练小工完全指南</a>。</p></li>
+<li><p>VisualVM</p>
+
+<p>  这个工具应该是Java开发者们非常熟悉的一款java应用监测工具，原理是通过jmx接口来连接jvm进程，从而能够看到jvm上的线程、内存、类等信息。
+  <img src="/images/blog_images/profile/visualvm.png" alt="" />
+  如果想进一步查看gc情况，可以安装visual gc插件。此外，visualvm也有btrace的插件，可以可视化直观的编写btrace代码并查看输出日志。
+  与VisualVm类似的，jconsole也是通过jmx查看远程jvm信息的一款工具，更进一步的，通过它还可以显示具体的线程堆栈信息以及内存中各个年代的占用情况，也支持直接远程执行MBEAN。当然，visualvm通过安装jconsole插件也可以拥有这些功能。
+  <img src="/images/blog_images/profile/jconsole.png" alt="" />
+  但由于这俩工具都是需要ui界面的，因此一般都是通过本地远程连接服务器jvm进程。服务器环境下，一般并不用此种方式。</p></li>
+<li><p>Jwebap</p>
+
+<p>  <a href="http://www.oschina.net/p/jwebap">Jwebap</a>是一款JavaEE性能检测框架，基于asm增强字节码实现。支持：http请求、jdbc连接、method的调用轨迹跟踪以及次数、耗时的统计。由此可以获取最耗时的请求、方法，并可以查看jdbc连接的次数、是否关闭等。但此项目是2006年的一个项目，已经将近10年没有更新。根据笔者使用，已经不支持jdk7编译的应用。如果要使用，建议基于原项目二次开发，同时也可以加入对redis连接的轨迹跟踪。当然，基于字节码增强的原理，也可以实现自己的JavaEE性能监测框架。</p>
+
+<p>  <img src="/images/blog_images/profile/jwebap.png" alt="" /></p>
+
+<p>  上图来自笔者公司二次开发过的jwebap，已经支持jdk8和redis连接追踪。</p></li>
+<li><p>useful-scripts</p>
+
+<p>  这里有一个本人参与的开源的项目：<a href="https://github.com/superhj1987/useful-scripts">https://github.com/superhj1987/useful-scripts</a>，封装了很多常用的性能分析命令，比如上文讲的打印繁忙java线程堆栈信息，只需要执行一个脚本即可。</p></li>
+</ul>
+
+
+<h2><a name='性能调优'></a>性能调优</h2>
+
+<p>与性能分析相对应，性能调优也主要分为三部分：</p>
+
+<ul>
+<li>CPU调优</li>
+<li>内存调优</li>
+<li>IO调优</li>
+</ul>
+
+
+<h3>CPU调优</h3>
+
+<ul>
+<li>不要存在一直运行的线程(无限while循环)，可以使用sleep休眠一段时间。这种情况普遍存在于一些pull方式消费数据的场景下，当一次pull没有拿到数据的时候建议sleep一下，再做下一次pull。</li>
+<li>轮询的时候可以使用wait/notify机制</li>
+<li>避免循环、正则表达式匹配、计算过多，包括使用String的format、split、replace方法(可以使用apache的commons-lang里的StringUtils对应的方法)，使用正则去判断邮箱格式(有时候会造成死循环)、序列/反序列化等。</li>
+<li>结合jvm和代码，避免产生频繁的gc，尤其是full GC。</li>
+</ul>
+
+
+<p>此外，使用多线程的时候，还需要注意以下几点：</p>
+
+<ul>
+<li>使用线程池，减少线程数以及线程的切换</li>
+<li>多线程对于锁的竞争可以考虑减小锁的粒度(使用ReetrantLock)、拆分锁(类似ConcurrentHashMap分bucket上锁), 或者使用CAS、ThreadLocal、不可变对象等无锁技术。此外，多线程代码的编写最好使用jdk提供的并发包、Executors框架以及ForkJoin等，此外<a href="http://ifeve.com/disruptor-getting-started/">Discuptor</a>和<a href="http://ifeve.com/introducing-actors-akka-notes-part-1/">Actor</a>在合适的场景也可以使用。</li>
+</ul>
+
+
+<h3>内存调优</h3>
+
+<p>内存的调优主要就是对jvm的调优。</p>
+
+<ul>
+<li>合理设置各个代的大小。避免新生代设置过小(不够用，经常minor gc并进入老年代)以及过大(会产生碎片)，同样也要避免Survivor设置过大和过小。</li>
+<li>选择合适的GC策略。需要根据不同的场景选择合适的gc策略。这里需要说的是，cms并非全能的。除非特别需要再设置，毕竟cms的新生代回收策略parnew并非最快的，且cms会产生碎片。此外，G1直到jdk8的出现也并没有得到广泛应用，并不建议使用。</li>
+</ul>
+
+
+<p>其中，对于第一点，具体的还有一点建议：</p>
+
+<ul>
+<li><strong>年轻代大小选择</strong>：响应时间优先的应用，尽可能设大，直到接近系统的最低响应时间限制（根据实际情况选择）。在此种情况下，年轻代收集发生gc的频率是最小的。同时，也能够减少到达年老代的对象。吞吐量优先的应用，也尽可能的设置大，因为对响应时间没有要求，垃圾收集可以并行进行，建议适合8CPU以上的应用使用。</li>
+<li><strong>年老代大小选择</strong>：响应时间优先的应用，年老代一般都是使用并发收集器，所以其大小需要小心设置，一般要考虑并发会话率和会话持续时间等一些参数。如果堆设置小了，会造成内存碎片、高回收频率以及应用暂停而使用传统的标记清除方式；如果堆大了，则需要较长的收集时间。最优化的方案，一般需要参考以下数据获得：
+
+<ul>
+<li>并发垃圾收集信息</li>
+<li>持久代并发收集次数</li>
+<li>传统GC信息</li>
+<li>花在年轻代和年老代回收上的时间比例</li>
+</ul>
+
+
+<p>  一般吞吐量优先的应用都应该有一个很大的年轻代和一个较小的年老代。这样可以尽可能回收掉大部分短期对象，减少中期的对象，而年老代存放长期存活对象。</p></li>
+</ul>
+
+
+<p>此外，<strong>较小堆引起的碎片问题</strong>：因为年老代的并发收集器使用标记、清除算法，所以不会对堆进行压缩。当收集器回收时，会把相邻的空间进行合并，这样可以分配给较大的对象。但是，当堆空间较小时，运行一段时间以后，就会出现“碎片”，如果并发收集器找不到足够的空间，那么并发收集器将会停止，然后使用传统的标记、清除方式进行回收。如果出现“碎片”，可能需要进行如下配置：-XX:+UseCMSCompactAtFullCollection，使用并发收集器时，开启对年老代的压缩。同时使用-XX:CMSFullGCsBeforeCompaction=xx设置多少次Full GC后，对年老代进行压缩。</p>
+
+<p>其余对于jvm的优化问题可见后面<strong>JVM参数进阶</strong>一节。</p>
+
+<p>代码上，也需要注意：</p>
+
+<ul>
+<li>释放不必要的引用（ ThreadLocal，流关闭）</li>
+<li>使用对象池，避免无节制创建对象，造成频繁gc，但也要谨慎使用，除非像连接池、线程池这种创建资源消耗较大的场景</li>
+<li>缓存失效算法，可以考虑使用SoftReference、WeakReference的使用</li>
+<li>谨慎热部署/加载的使用，尤其是动态加载类等</li>
+<li>小心使用String.subString()与String.intern() (永久堆）</li>
+<li><p>不要用Log4j输出文件名、行号，因为Log4j通过打印线程堆栈实现，生成大量String。此外，使用log4j时，建议此种经典用法，先判断对应级别的日志是否打开，再做操作，否则也会生成大量String。</p>
+
+<pre><code>  if (logger.isInfoEnabled()) {
+      logger.info(msg);
+  }
+</code></pre></li>
+</ul>
+
+
+<h3>IO优化</h3>
+
+<p>文件IO上需要注意：</p>
+
+<ul>
+<li>考虑使用异步写入代替同步写入，可以借鉴redis的aof机制。</li>
+<li>利用缓存，减少随机读</li>
+<li>尽量批量写入，减少io次数和寻址</li>
+<li>使用数据库代替文件存储</li>
+</ul>
+
+
+<p>网络IO上需要注意：</p>
+
+<ul>
+<li>和文件IO类似，使用异步IO、多路复用IO/事件驱动IO代替同步阻塞IO</li>
+<li>批量进行网络IO,减少IO次数</li>
+<li>使用缓存，减少对网络数据的读取</li>
+<li>使用协程: <a href="http://colobu.com/2016/07/14/Java-Fiber-Quasar/">Quasar</a></li>
+</ul>
+
+
+<h2><a name='其他优化建议'></a>其他优化建议</h2>
+
+<ul>
+<li>算法、逻辑上是程序性能的首要，遇到性能问题，应该首先优化程序的逻辑处理</li>
+<li>优先考虑使用返回值而不是异常表示错误</li>
+<li>查看自己的代码是否对内联是友好的: <a href="http://www.infoq.com/cn/articles/Java-Application-Hostile-to-JIT-Compilation">你的Java代码对JIT编译友好么？</a></li>
+</ul>
+
+
+<p>此外，jdk7、8在jvm的性能上做了一些增强：</p>
+
+<ul>
+<li>JDK7的<a href="http://rednaxelafx.iteye.com/blog/1022095">多层编译（tiered compilation）支持</a>，可以考虑通过-XX:+TieredCompilation开启，以优化编译效率。</li>
+<li>Compressed Oops-压缩指针在jdk7中的server模式下已经默认开启</li>
+<li>Zero-Based Compressed Ordinary Object Pointers：当使用了上述的压缩指针时，在64位jvm上，会要求操作系统保留从一个虚拟地址0开始的内存。如果操作系统支持这种请求，那么就开启了Zero-Based Compressed Oops。这样可以使得无须在java堆的基地址添加任何地址补充即可把一个32位对象的偏移解码成64位指针。</li>
+<li>逃逸分析(Escape Analysis): Server模式的编译器会根据代码的情况，来判断相关对象的逃逸类型，从而决定是否在堆中分配空间，是否进行标量替换(在栈上分配原子类型局部变量)。此外，也可以根据调用情况来决定是否自动消除同步控制，如StringBuffer。这个特性从Java SE 6u23开始就默认开启。</li>
+<li>NUMA Collector Enhancements：这个重要针对的是The Parallel Scavenger垃圾回收器。使其能够利用NUMA (Non Uniform Memory Access，即每一个处理器核心都有本地内存，能够低延迟、高带宽访问) 架构的机器的优势来更快的进行gc。可以通过-XX:+UseNUMA开启支持。</li>
+</ul>
+
+
+<p><strong>此外，网上还有很多过时的建议，不要再盲目跟随</strong>:</p>
+
+<ul>
+<li>变量用完设置为null，加快内存回收，这种用法大部分情况下并没有意义。一种情况除外：如果有个Java方法没有被JIT编译但里面仍然有代码会执行比较长时间，那么在那段会执行长时间的代码前显式将不需要的引用类型局部变量置null是可取的。具体的可以见R大的解释：<a href="https://www.zhihu.com/question/48059457/answer/113538171">https://www.zhihu.com/question/48059457/answer/113538171</a></li>
+<li>方法参数设置为final，这种用法也没有太大的意义，尤其在jdk8中引入了effective final，会自动识别final变量。</li>
+</ul>
+
+
+<h2><a name='JVM参数进阶'></a>JVM参数进阶</h2>
+
+<p>jvm的参数设置一直是比较理不清的地方，很多时候都搞不清都有哪些参数可以配置，参数是什么意思，为什么要这么配置等。这里主要针对这些做一些常识性的说明以及对一些容易让人进入陷阱的参数做一些解释。</p>
+
+<p><strong><em>以下所有都是针对Oracle/Sun JDK 6来讲</em></strong></p>
+
+<ol>
+<li><p>启动参数默认值</p>
+
+<p> Java有很多的启动参数，而且很多版本都并不一样。但是现在网上充斥着各种资料，如果不加辨别的全部使用，很多是没有效果或者本来就是默认值的。一般的，我们可以通过使用java -XX:+PrintFlagsInitial来查看所有可以设置的参数以及其默认值。也可以在程序启动的时候加入-XX:+PrintCommandLineFlags来查看与默认值不相同的启动参数。如果想查看所有启动参数(包括和默认值相同的)，可以使用-XX:+PrintFlagsFinal。
+ <img src="/images/blog_images/profile/flags-1.png" alt="" />
+ <img src="/images/blog_images/profile/flags-2.png" alt="" /></p>
+
+<p> 输出里“=”表示使用的是初始默认值，而“:=”表示使用的不是初始默认值，可能是命令行传进来的参数、配置文件里的参数或者是<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/ergonomics.html">ergonomics</a>自动选择了别的值。</p>
+
+<p> 此外，还可以使用jinfo命令显示启动的参数。</p>
+
+<ul>
+<li>jinfo -flags [pid] #查看目前启动使用的有效参数</li>
+<li>jinfo -flag [flagName] [pid] #查看对应参数的值</li>
+</ul>
+
+
+<p> <strong>这里需要指出的是，当你配置jvm参数时，最好是先通过以上命令查看对应参数的默认值再确定是否需要设置。也最好不要配置你搞不清用途的参数，毕竟默认值的设置是有它的合理之处的。</strong></p></li>
+<li><p>动态设置参数</p>
+
+<p> 当Java应用启动后，定位到了是GC造成的性能问题，但是你启动的时候并没有加入打印gc的参数，很多时候的做法就是重新加参数然后重启应用。但这样会造成一定时间的服务不可用。最佳的做法是能够在不重启应用的情况下，动态设置参数。使用jinfo可以做到这一点(本质上还是基于jmx的)。</p>
+
+<ul>
+<li>jinfo -flag [+/-][flagName] [pid] #启用/禁止某个参数</li>
+<li>jinfo -flag [flagName=value] [pid] #设置某个参数</li>
+</ul>
+
+
+<p> 对于上述的gc的情况，就可以使用以下命令打开heap dump并设置dump路径。</p>
+
+<pre><code> jinfo -flag +HeapDumpBeforeFullGC [pid] 
+ jinfo -flag +HeapDumpAfterFullGC [pid]
+ jinfo -flag HeapDumpPath=/home/dump/dir [pid]
+</code></pre>
+
+<p> 同样的也可以动态关闭。</p>
+
+<pre><code> jinfo -flag -HeapDumpBeforeFullGC [pid] 
+ jinfo -flag -HeapDumpAfterFullGC [pid]
+</code></pre>
+
+<p> 其他的类似。</p></li>
+<li><p>-verbose:gc 与 -XX:+PrintGCDetails</p>
+
+<p> 很多gc推荐设置都同时设置了这两个参数，其实，只要打开了-XX:+PrintGCDetails，前面的选项也会同时打开，无须重复设置。</p></li>
+<li><p>-XX:+DisableExplicitGC</p>
+
+<p> 这个参数的作用就是使得system.gc变为空调用，很多推荐设置里面都是建议开启的。但是，如果你用到了NIO或者其他使用到堆外内存的情况，使用此选项会造成oom。可以用XX:+ExplicitGCInvokesConcurrent或XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses(配合CMS使用，使得system.gc触发一次并发gc)代替。</p>
+
+<p> 此外，还有一个比较有意思的地方。如果你不设置此选项的话，当你使用了RMI的时候，会周期性地来一次full gc。这个现象是由于分布式gc造成的，为RMI服务。具体的可见此链接内容中与dgc相关的：<a href="http://docs.oracle.com/javase/6/docs/technotes/guides/rmi/sunrmiproperties.html">http://docs.oracle.com/javase/6/docs/technotes/guides/rmi/sunrmiproperties.html</a></p></li>
+<li><p>MaxDirectMemorySize</p>
+
+<p> 此参数是设置的堆外内存的上限值。当不设置的时候为-1，此值为-Xmx减去一个survivor space的预留大小。</p></li>
+<li><p>由于遗留原因，作用相同的参数</p>
+
+<ul>
+<li>-Xss 与 -XX:ThreadStackSize</li>
+<li>-Xmn 与 -XX:NewSize，此外这里需要注意的是设置了-Xmn的话，NewRatio就没作用了。</li>
+</ul>
+</li>
+<li><p>-XX:MaxTenuringThreshold</p>
+
+<p> 使用工具查看此值默认值为15，但是选择了CMS的时候，此值会变成4。当此值设置为0时，所有eden里的活对象在经历第一次minor GC的时候就会直接晋升到old gen，survivor space直接就没用。</p></li>
+<li><p>-XX:HeapDumpPath</p>
+
+<p> 使用此参数可以指定-XX:+HeapDumpBeforeFullGC、-XX:+HeapDumpAfterFullGC、-XX:+HeapDumpOnOutOfMemoryError触发heap dump文件的存储位置。</p></li>
+</ol>
+
+
+<h2><a name='参考资料'></a>参考资料</h2>
+
+<ul>
+<li><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/vm/performance-enhancements-7.html">Java HotSpot™ Virtual Machine Performance Enhancements</a></li>
+<li><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html">Java HotSpot Virtual Machine Garbage Collection Tuning Guide </a></li>
+<li><a href="http://hllvm.group.iteye.com/group/topic/27945">[HotSpot VM] JVM调优的&#8221;标准参数&#8221;的各种陷阱</a></li>
+</ul>
+
+</div>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+
+     <!-- 多说分享 start-->
+<div class="ds-share flat" data-title="Java调优经验谈 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/11/20/java-profile/" data-content="目录 调优准备
+性能分析
+性能调优
+其他优化建议
+JVM参数进阶
+参考资料 对于调优这个事情来说，一般就是三个过程： 性能监控：问题没有发生，你并不知道你需要调优什么？此时需要一些系统、应用的监控工具来发现问题。
+性能分析：问题已经发生，但是你并不知道问题到底出在哪里。此时就需要使用工具、 &hellip;">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      	
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+<!-- 多说分享 end-->
+ 
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2016/09/20/btrace/" title="下一篇: BTrace原理浅析">BTrace原理浅析 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<!-- 多说评论框 start -->
+<a name="ds-thread"></a>
+<div class="ds-thread" data-thread-key="/blog/2016/11/20/java-profile/" data-title="Java调优经验谈"></div>
+<!-- 多说评论框 end -->
+
+
+ 
+     <!-- UJian Button BEGIN -->
+<div class="ujian-hook"></div>
+<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
+<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
+<!-- UJian Button END -->
+ 
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget">
+    原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=1&isWeibo=0&isFans=0&uid=1307023714&verifier=cc8c1592&dpc=1"></iframe>
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2016/11/20/java-profile/">Java调优经验谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/09/20/btrace/">BTrace原理浅析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/08/30/recommend-sys/">推荐系统杂谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/08/27/server-basic-tech-stack/">谈谈互联网后端基础设施</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2016/08/17/dev-manage/">研发体系这点事</a>
+      	</li>
+    	
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最热文章</h3>
+	<ul class="widget-list">
+	<!-- 多说热评文章 start -->
+	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+	<!-- 多说热评文章 end -->
+	</ul>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">最新评论</h3>
+	<!-- 多说最新评论 start -->
+	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
+<!-- 多说最新评论 end -->
+</section>
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2016 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+</script>
+<script type="text/javascript">
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+var duoshuoQuery = {short_name:"rowkey"};
+(function() {
+  var ds = document.createElement('script');
+  ds.type = 'text/javascript';ds.async = true;
+  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+  ds.charset = 'UTF-8';
+  (document.getElementsByTagName('head')[0] 
+   || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+<!-- 多说公共JS代码 end -->
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-10-31T11:11:28+08:00</updated>
+  <updated>2016-11-03T15:21:54+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,449 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java调优经验谈]]></title>
+    <link href="http://www.rowkey.me/blog/2016/11/20/java-profile/"/>
+    <updated>2016-11-20T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/11/20/java-profile</id>
+    <content type="html"><![CDATA[<h2>目录</h2>
+
+<ul>
+<li><a href="#%E8%B0%83%E4%BC%98%E5%87%86%E5%A4%87">调优准备</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90">性能分析</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98">性能调优</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE">其他优化建议</a></li>
+<li><a href="#JVM%E5%8F%82%E6%95%B0%E8%BF%9B%E9%98%B6">JVM参数进阶</a></li>
+<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
+</ul>
+
+
+<p>对于调优这个事情来说，一般就是三个过程：</p>
+
+<ul>
+<li>性能监控：问题没有发生，你并不知道你需要调优什么？此时需要一些系统、应用的监控工具来发现问题。</li>
+<li>性能分析：问题已经发生，但是你并不知道问题到底出在哪里。此时就需要使用工具、经验对系统、应用进行瓶颈分析，以求定位到问题原因。</li>
+<li>性能调优：经过上一步的分析定位到了问题所在，需要对问题进行解决，使用代码、配置等手段进行优化。</li>
+</ul>
+
+
+<p>Java调优也不外乎这三步。</p>
+
+<p>此外，本文所讲的性能分析、调优等是抛开以下因素的：</p>
+
+<ul>
+<li>系统底层环境：硬件、操作系统等</li>
+<li>数据结构和算法的使用</li>
+<li>外部系统如数据库、缓存的使用</li>
+<li>Java中一些Api的使用，如Random、StringBuilder等。</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2><a name='调优准备'></a>调优准备</h2>
+
+<p>调优是需要做好准备工作的，毕竟每一个应用的业务目标都不尽相同，性能瓶颈也不会总在同一个点上。在业务应用层面，我们需要：</p>
+
+<ul>
+<li>需要了解系统的总体架构，明确压力方向。比如系统的哪一个接口、模块是使用率最高的，面临高并发的挑战。</li>
+<li>需要构建测试环境来测试应用的性能，使用ab、loadrunner、jmeter都可以。</li>
+<li>对关键业务数据量进行分析，这里主要指的是对一些数据的量化分析，如数据库一天的数据量有多少；缓存的数据量有多大等</li>
+<li>了解系统的响应速度、吞吐量、TPS、QPS等指标需求，比如秒杀系统的相应速度和QPS是要求非常高的。</li>
+<li>了解系统相关软件的版本、模式和参数等，有时候限于应用依赖服务的版本、模式等，性能也会受到一定的影响。</li>
+</ul>
+
+
+<p>此外，我们还需要了解Java相关的一些知识：</p>
+
+<ol>
+<li>Java内存相关：这一部分可以参见<a href="http://www.rowkey.me/blog/2016/05/07/javamm/">谈谈Java内存管理</a>一文</li>
+<li>对Java代码进行基准性能测试：可以使用JMH来进行，<a href="http://www.hollischuang.com/archives/1072">[译]使用JMH进行微基准测试：不要猜，要测试！</a>。</li>
+<li>HotSpot VM相关知识：<a href="http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html">http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html</a></li>
+</ol>
+
+
+<h2><a name='性能分析'></a>性能分析</h2>
+
+<p>在系统层面能够影响应用性能的一般包括三个因素：CPU、内存和IO，可以从这三方面进行程序的性能瓶颈分析：</p>
+
+<ul>
+<li>CPU分析</li>
+<li>内存分析</li>
+<li>IO分析</li>
+</ul>
+
+
+<h3>CPU分析</h3>
+
+<p>当程序响应变慢的时候，首先使用top、vmstat、ps等命令查看系统的cpu使用率是否有异常，从而可以判断出是否是cpu繁忙造成的性能问题。其中，主要通过us（用户进程所占的%）这个数据来看异常的进程信息。当us接近100%甚至更高时，可以确定是cpu繁忙造成的响应缓慢。一般说来，cpu繁忙的原因有以下几个：</p>
+
+<ul>
+<li>线程中有无限空循环、无阻塞、正则匹配或者单纯的计算</li>
+<li>发生了频繁的gc</li>
+<li>多线程的上下文切换</li>
+</ul>
+
+
+<p>确定好cpu使用率最高的进程之后就可以使用jstack来打印出异常进程的堆栈信息：</p>
+
+<p><strong>jstack [pid]</strong></p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/profile/jstack.jpg" alt="jstack" /></p>
+
+<p>接下来需要注意的一点是，Linux下所有线程最终还是以轻量级进程的形式存在系统中的，而使用jstack只能打印出进程的信息，这些信息里面包含了此进程下面所有线程(轻量级进程-LWP)的堆栈信息。因此，进一步的需要确定是哪一个线程耗费了大量cpu，此时可以使用top -p [processId]来查看，也可以直接通过ps -Le来显示所有进程,包括LWP的资源耗费信息。最后，通过在jstack的输出文件中查找对应的lwp的id即可以定位到相应的堆栈信息。其中需要注意的是线程的状态：RUNNABLE、WAITING等。对于Runnable的进程需要注意是否有耗费cpu的计算。对于Waiting的线程一般是锁的等待操作。</p>
+
+<p>也可以使用jstat来查看对应进程的gc信息，以判断是否是gc造成了cpu繁忙。</p>
+
+<p><strong>jstat -gcutil [pid]</strong></p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/profile/jstat.jpg" alt="jstat" /></p>
+
+<p>还可以通过vmstat，通过观察内核状态的上下文切换(cs)次数，来判断是否是上下文切换造成的cpu繁忙。</p>
+
+<p><strong>vmstat 1 5</strong></p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/profile/vmstat.jpg" alt="jstat" /></p>
+
+<h3>内存分析</h3>
+
+<p>对Java应用来说，内存主要是由堆外内存和堆内内存组成。</p>
+
+<ol>
+<li><p>堆外内存</p>
+
+<p> 堆外内存主要是JNI、Deflater/Inflater、DirectByteBuffer（nio中会用到）使用的。对于这种堆外内存的分析，还是需要先通过vmstat、sar、top、pidstat等查看swap和物理内存的消耗状况再做判断的。此外，对于JNI、Deflater这种调用可以通过<a href="http://www.oschina.net/p/perftools">Google-preftools</a>来追踪资源使用状况。</p></li>
+<li><p>堆内内存</p>
+
+<p> 此部分内存为Java应用主要的内存区域。通常与这部分内存性能相关的有：</p>
+
+<ul>
+<li>创建的对象：这个是存储在堆中的，需要控制好对象的数量和大小，尤其是大的对象很容易进入老年代</li>
+<li>全局集合：全局集合通常是生命周期比较长的，因此需要特别注意全局集合的使用</li>
+<li>缓存：缓存选用的数据结构不同，会很大程序影响内存的大小和gc</li>
+<li>ClassLoader：主要是动态加载类容易造成永久代内存不足</li>
+<li>多线程：线程分配会占用本地内存，过多的线程也会造成内存不足</li>
+</ul>
+
+
+<p> 以上使用不当很容易造成：</p>
+
+<ul>
+<li>频繁GC -> Stop the world，使你的应用响应变慢</li>
+<li>OOM，直接造成内存溢出错误使得程序退出</li>
+</ul>
+
+
+<p> 对于其中的OOM，又可以分为以下几种：</p>
+
+<ul>
+<li>Heap space：堆内存不足</li>
+<li>PermGen space：永久代内存不足</li>
+<li>Native thread：本地线程没有足够内存可分配</li>
+</ul>
+
+
+<p> 排查堆内存问题的常用工具是jmap，是jdk自带的。一些常用用法如下：</p>
+
+<ul>
+<li>查看jvm内存使用状况：jmap -heap <pid></li>
+<li>查看jvm内存存活的对象：jmap -histo:live <pid></li>
+<li>把heap里所有对象都dump下来，无论对象是死是活：jmap -dump:format=b,file=xxx.hprof <pid></li>
+<li>先做一次full GC，再dump，只包含仍然存活的对象信息：jmap -dump:format=b,live,file=xxx.hprof <pid></li>
+</ul>
+
+
+<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，一般是需要使用MAT(MEMORY ANALYZER TOOL)来分析的，可以看到具体的堆栈和内存中对象的信息。</p></li>
+</ol>
+
+
+<h3>IO分析</h3>
+
+<p>通常与应用性能相关的包括：文件IO和网络IO。</p>
+
+<ol>
+<li><p>文件IO</p>
+
+<p> 可以使用系统工具pidstat、iostat、vmstat来查看io的状况。这里可以看一张使用vmstat的结果图。</p>
+
+<p> <img src="http://www.rowkey.me/images/blog_images/profile/io.png" alt="" /></p>
+
+<p> 这里主要注意bi和bo这两个值，分别表示输入字节数和输出字节数，由此可以判定io繁忙状况。进一步的可以通过使用strace工具定位对文件io的系统调用。通常，造成文件io性能差的原因不外乎：</p>
+
+<ul>
+<li>大量的随机读写</li>
+<li>设备慢</li>
+<li>文件太大</li>
+</ul>
+</li>
+<li><p>网络IO</p>
+
+<p> 查看网络io状况，一般使用的是netstat工具。可以查看所有连接的状况、数目、端口信息等。例如：当time_wait或者close_wait连接过多时，会影响应用的相应速度。</p>
+
+<pre><code> netstat -anp
+</code></pre>
+
+<p> <img src="http://www.rowkey.me/images/blog_images/profile/netstat.png" alt="" /></p>
+
+<p> 此外，还可以使用tcpdump来具体分析网络io的数据。当然，tcpdump出的文件直接打开是一堆二进制的数据，可以使用wireshark阅读具体的连接以及其中数据的内容。</p>
+
+<pre><code> tcpdump -i eth0 -w tmp.cap -tnn dst port 8080 #监听8080端口的网络请求并打印日志到tmp.cap中
+</code></pre>
+
+<p> 还可以通过查看/proc/interrupts来获取当前系统使用的中断的情况。</p>
+
+<p> <img src="http://www.rowkey.me/images/blog_images/profile/interrupts.png" alt="" /></p>
+
+<p> 各个列依次是：</p>
+
+<pre><code> irq的序号， 在各自cpu上发生中断的次数，可编程中断控制器，设备名称（request_irq的dev_name字段）
+</code></pre></li>
+</ol>
+
+
+<h3>其他分析工具</h3>
+
+<p>上面已经讲了一些系统自带的分析工具。除此之外，还有一些第三方工具或者框架可以更加方便我们对Java应用性能的排查、分析、定位等。</p>
+
+<ul>
+<li><p>Btrace
+  这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考<a href="http://calvin1978.blogcn.com/articles/btrace1.html">Btrace入门到熟练小工完全指南</a>。</p></li>
+<li><p>VisualVM</p>
+
+<p>  这个工具应该是Java开发者们非常熟悉的一款java应用监测工具，原理是通过jmx接口来连接jvm进程，从而能够看到jvm上的线程、内存、类等信息。
+  <img src="http://www.rowkey.me/images/blog_images/profile/visualvm.png" alt="" />
+  如果想进一步查看gc情况，可以安装visual gc插件。此外，visualvm也有btrace的插件，可以可视化直观的编写btrace代码并查看输出日志。
+  与VisualVm类似的，jconsole也是通过jmx查看远程jvm信息的一款工具，更进一步的，通过它还可以显示具体的线程堆栈信息以及内存中各个年代的占用情况，也支持直接远程执行MBEAN。当然，visualvm通过安装jconsole插件也可以拥有这些功能。
+  <img src="http://www.rowkey.me/images/blog_images/profile/jconsole.png" alt="" />
+  但由于这俩工具都是需要ui界面的，因此一般都是通过本地远程连接服务器jvm进程。服务器环境下，一般并不用此种方式。</p></li>
+<li><p>Jwebap</p>
+
+<p>  <a href="http://www.oschina.net/p/jwebap">Jwebap</a>是一款JavaEE性能检测框架，基于asm增强字节码实现。支持：http请求、jdbc连接、method的调用轨迹跟踪以及次数、耗时的统计。由此可以获取最耗时的请求、方法，并可以查看jdbc连接的次数、是否关闭等。但此项目是2006年的一个项目，已经将近10年没有更新。根据笔者使用，已经不支持jdk7编译的应用。如果要使用，建议基于原项目二次开发，同时也可以加入对redis连接的轨迹跟踪。当然，基于字节码增强的原理，也可以实现自己的JavaEE性能监测框架。</p>
+
+<p>  <img src="http://www.rowkey.me/images/blog_images/profile/jwebap.png" alt="" /></p>
+
+<p>  上图来自笔者公司二次开发过的jwebap，已经支持jdk8和redis连接追踪。</p></li>
+<li><p>useful-scripts</p>
+
+<p>  这里有一个本人参与的开源的项目：<a href="https://github.com/superhj1987/useful-scripts">https://github.com/superhj1987/useful-scripts</a>，封装了很多常用的性能分析命令，比如上文讲的打印繁忙java线程堆栈信息，只需要执行一个脚本即可。</p></li>
+</ul>
+
+
+<h2><a name='性能调优'></a>性能调优</h2>
+
+<p>与性能分析相对应，性能调优也主要分为三部分：</p>
+
+<ul>
+<li>CPU调优</li>
+<li>内存调优</li>
+<li>IO调优</li>
+</ul>
+
+
+<h3>CPU调优</h3>
+
+<ul>
+<li>不要存在一直运行的线程(无限while循环)，可以使用sleep休眠一段时间。这种情况普遍存在于一些pull方式消费数据的场景下，当一次pull没有拿到数据的时候建议sleep一下，再做下一次pull。</li>
+<li>轮询的时候可以使用wait/notify机制</li>
+<li>避免循环、正则表达式匹配、计算过多，包括使用String的format、split、replace方法(可以使用apache的commons-lang里的StringUtils对应的方法)，使用正则去判断邮箱格式(有时候会造成死循环)、序列/反序列化等。</li>
+<li>结合jvm和代码，避免产生频繁的gc，尤其是full GC。</li>
+</ul>
+
+
+<p>此外，使用多线程的时候，还需要注意以下几点：</p>
+
+<ul>
+<li>使用线程池，减少线程数以及线程的切换</li>
+<li>多线程对于锁的竞争可以考虑减小锁的粒度(使用ReetrantLock)、拆分锁(类似ConcurrentHashMap分bucket上锁), 或者使用CAS、ThreadLocal、不可变对象等无锁技术。此外，多线程代码的编写最好使用jdk提供的并发包、Executors框架以及ForkJoin等，此外<a href="http://ifeve.com/disruptor-getting-started/">Discuptor</a>和<a href="http://ifeve.com/introducing-actors-akka-notes-part-1/">Actor</a>在合适的场景也可以使用。</li>
+</ul>
+
+
+<h3>内存调优</h3>
+
+<p>内存的调优主要就是对jvm的调优。</p>
+
+<ul>
+<li>合理设置各个代的大小。避免新生代设置过小(不够用，经常minor gc并进入老年代)以及过大(会产生碎片)，同样也要避免Survivor设置过大和过小。</li>
+<li>选择合适的GC策略。需要根据不同的场景选择合适的gc策略。这里需要说的是，cms并非全能的。除非特别需要再设置，毕竟cms的新生代回收策略parnew并非最快的，且cms会产生碎片。此外，G1直到jdk8的出现也并没有得到广泛应用，并不建议使用。</li>
+</ul>
+
+
+<p>其中，对于第一点，具体的还有一点建议：</p>
+
+<ul>
+<li><strong>年轻代大小选择</strong>：响应时间优先的应用，尽可能设大，直到接近系统的最低响应时间限制（根据实际情况选择）。在此种情况下，年轻代收集发生gc的频率是最小的。同时，也能够减少到达年老代的对象。吞吐量优先的应用，也尽可能的设置大，因为对响应时间没有要求，垃圾收集可以并行进行，建议适合8CPU以上的应用使用。</li>
+<li><strong>年老代大小选择</strong>：响应时间优先的应用，年老代一般都是使用并发收集器，所以其大小需要小心设置，一般要考虑并发会话率和会话持续时间等一些参数。如果堆设置小了，会造成内存碎片、高回收频率以及应用暂停而使用传统的标记清除方式；如果堆大了，则需要较长的收集时间。最优化的方案，一般需要参考以下数据获得：
+
+<ul>
+<li>并发垃圾收集信息</li>
+<li>持久代并发收集次数</li>
+<li>传统GC信息</li>
+<li>花在年轻代和年老代回收上的时间比例</li>
+</ul>
+
+
+<p>  一般吞吐量优先的应用都应该有一个很大的年轻代和一个较小的年老代。这样可以尽可能回收掉大部分短期对象，减少中期的对象，而年老代存放长期存活对象。</p></li>
+</ul>
+
+
+<p>此外，<strong>较小堆引起的碎片问题</strong>：因为年老代的并发收集器使用标记、清除算法，所以不会对堆进行压缩。当收集器回收时，会把相邻的空间进行合并，这样可以分配给较大的对象。但是，当堆空间较小时，运行一段时间以后，就会出现“碎片”，如果并发收集器找不到足够的空间，那么并发收集器将会停止，然后使用传统的标记、清除方式进行回收。如果出现“碎片”，可能需要进行如下配置：-XX:+UseCMSCompactAtFullCollection，使用并发收集器时，开启对年老代的压缩。同时使用-XX:CMSFullGCsBeforeCompaction=xx设置多少次Full GC后，对年老代进行压缩。</p>
+
+<p>其余对于jvm的优化问题可见后面<strong>JVM参数进阶</strong>一节。</p>
+
+<p>代码上，也需要注意：</p>
+
+<ul>
+<li>释放不必要的引用（ ThreadLocal，流关闭）</li>
+<li>使用对象池，避免无节制创建对象，造成频繁gc，但也要谨慎使用，除非像连接池、线程池这种创建资源消耗较大的场景</li>
+<li>缓存失效算法，可以考虑使用SoftReference、WeakReference的使用</li>
+<li>谨慎热部署/加载的使用，尤其是动态加载类等</li>
+<li>小心使用String.subString()与String.intern() (永久堆）</li>
+<li><p>不要用Log4j输出文件名、行号，因为Log4j通过打印线程堆栈实现，生成大量String。此外，使用log4j时，建议此种经典用法，先判断对应级别的日志是否打开，再做操作，否则也会生成大量String。</p>
+
+<pre><code>  if (logger.isInfoEnabled()) {
+      logger.info(msg);
+  }
+</code></pre></li>
+</ul>
+
+
+<h3>IO优化</h3>
+
+<p>文件IO上需要注意：</p>
+
+<ul>
+<li>考虑使用异步写入代替同步写入，可以借鉴redis的aof机制。</li>
+<li>利用缓存，减少随机读</li>
+<li>尽量批量写入，减少io次数和寻址</li>
+<li>使用数据库代替文件存储</li>
+</ul>
+
+
+<p>网络IO上需要注意：</p>
+
+<ul>
+<li>和文件IO类似，使用异步IO、多路复用IO/事件驱动IO代替同步阻塞IO</li>
+<li>批量进行网络IO,减少IO次数</li>
+<li>使用缓存，减少对网络数据的读取</li>
+<li>使用协程: <a href="http://colobu.com/2016/07/14/Java-Fiber-Quasar/">Quasar</a></li>
+</ul>
+
+
+<h2><a name='其他优化建议'></a>其他优化建议</h2>
+
+<ul>
+<li>算法、逻辑上是程序性能的首要，遇到性能问题，应该首先优化程序的逻辑处理</li>
+<li>优先考虑使用返回值而不是异常表示错误</li>
+<li>查看自己的代码是否对内联是友好的: <a href="http://www.infoq.com/cn/articles/Java-Application-Hostile-to-JIT-Compilation">你的Java代码对JIT编译友好么？</a></li>
+</ul>
+
+
+<p>此外，jdk7、8在jvm的性能上做了一些增强：</p>
+
+<ul>
+<li>JDK7的<a href="http://rednaxelafx.iteye.com/blog/1022095">多层编译（tiered compilation）支持</a>，可以考虑通过-XX:+TieredCompilation开启，以优化编译效率。</li>
+<li>Compressed Oops-压缩指针在jdk7中的server模式下已经默认开启</li>
+<li>Zero-Based Compressed Ordinary Object Pointers：当使用了上述的压缩指针时，在64位jvm上，会要求操作系统保留从一个虚拟地址0开始的内存。如果操作系统支持这种请求，那么就开启了Zero-Based Compressed Oops。这样可以使得无须在java堆的基地址添加任何地址补充即可把一个32位对象的偏移解码成64位指针。</li>
+<li>逃逸分析(Escape Analysis): Server模式的编译器会根据代码的情况，来判断相关对象的逃逸类型，从而决定是否在堆中分配空间，是否进行标量替换(在栈上分配原子类型局部变量)。此外，也可以根据调用情况来决定是否自动消除同步控制，如StringBuffer。这个特性从Java SE 6u23开始就默认开启。</li>
+<li>NUMA Collector Enhancements：这个重要针对的是The Parallel Scavenger垃圾回收器。使其能够利用NUMA (Non Uniform Memory Access，即每一个处理器核心都有本地内存，能够低延迟、高带宽访问) 架构的机器的优势来更快的进行gc。可以通过-XX:+UseNUMA开启支持。</li>
+</ul>
+
+
+<p><strong>此外，网上还有很多过时的建议，不要再盲目跟随</strong>:</p>
+
+<ul>
+<li>变量用完设置为null，加快内存回收，这种用法大部分情况下并没有意义。一种情况除外：如果有个Java方法没有被JIT编译但里面仍然有代码会执行比较长时间，那么在那段会执行长时间的代码前显式将不需要的引用类型局部变量置null是可取的。具体的可以见R大的解释：<a href="https://www.zhihu.com/question/48059457/answer/113538171">https://www.zhihu.com/question/48059457/answer/113538171</a></li>
+<li>方法参数设置为final，这种用法也没有太大的意义，尤其在jdk8中引入了effective final，会自动识别final变量。</li>
+</ul>
+
+
+<h2><a name='JVM参数进阶'></a>JVM参数进阶</h2>
+
+<p>jvm的参数设置一直是比较理不清的地方，很多时候都搞不清都有哪些参数可以配置，参数是什么意思，为什么要这么配置等。这里主要针对这些做一些常识性的说明以及对一些容易让人进入陷阱的参数做一些解释。</p>
+
+<p><strong><em>以下所有都是针对Oracle/Sun JDK 6来讲</em></strong></p>
+
+<ol>
+<li><p>启动参数默认值</p>
+
+<p> Java有很多的启动参数，而且很多版本都并不一样。但是现在网上充斥着各种资料，如果不加辨别的全部使用，很多是没有效果或者本来就是默认值的。一般的，我们可以通过使用java -XX:+PrintFlagsInitial来查看所有可以设置的参数以及其默认值。也可以在程序启动的时候加入-XX:+PrintCommandLineFlags来查看与默认值不相同的启动参数。如果想查看所有启动参数(包括和默认值相同的)，可以使用-XX:+PrintFlagsFinal。
+ <img src="http://www.rowkey.me/images/blog_images/profile/flags-1.png" alt="" />
+ <img src="http://www.rowkey.me/images/blog_images/profile/flags-2.png" alt="" /></p>
+
+<p> 输出里“=”表示使用的是初始默认值，而“:=”表示使用的不是初始默认值，可能是命令行传进来的参数、配置文件里的参数或者是<a href="https://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/ergonomics.html">ergonomics</a>自动选择了别的值。</p>
+
+<p> 此外，还可以使用jinfo命令显示启动的参数。</p>
+
+<ul>
+<li>jinfo -flags [pid] #查看目前启动使用的有效参数</li>
+<li>jinfo -flag [flagName] [pid] #查看对应参数的值</li>
+</ul>
+
+
+<p> <strong>这里需要指出的是，当你配置jvm参数时，最好是先通过以上命令查看对应参数的默认值再确定是否需要设置。也最好不要配置你搞不清用途的参数，毕竟默认值的设置是有它的合理之处的。</strong></p></li>
+<li><p>动态设置参数</p>
+
+<p> 当Java应用启动后，定位到了是GC造成的性能问题，但是你启动的时候并没有加入打印gc的参数，很多时候的做法就是重新加参数然后重启应用。但这样会造成一定时间的服务不可用。最佳的做法是能够在不重启应用的情况下，动态设置参数。使用jinfo可以做到这一点(本质上还是基于jmx的)。</p>
+
+<ul>
+<li>jinfo -flag [+/-][flagName] [pid] #启用/禁止某个参数</li>
+<li>jinfo -flag [flagName=value] [pid] #设置某个参数</li>
+</ul>
+
+
+<p> 对于上述的gc的情况，就可以使用以下命令打开heap dump并设置dump路径。</p>
+
+<pre><code> jinfo -flag +HeapDumpBeforeFullGC [pid] 
+ jinfo -flag +HeapDumpAfterFullGC [pid]
+ jinfo -flag HeapDumpPath=/home/dump/dir [pid]
+</code></pre>
+
+<p> 同样的也可以动态关闭。</p>
+
+<pre><code> jinfo -flag -HeapDumpBeforeFullGC [pid] 
+ jinfo -flag -HeapDumpAfterFullGC [pid]
+</code></pre>
+
+<p> 其他的类似。</p></li>
+<li><p>-verbose:gc 与 -XX:+PrintGCDetails</p>
+
+<p> 很多gc推荐设置都同时设置了这两个参数，其实，只要打开了-XX:+PrintGCDetails，前面的选项也会同时打开，无须重复设置。</p></li>
+<li><p>-XX:+DisableExplicitGC</p>
+
+<p> 这个参数的作用就是使得system.gc变为空调用，很多推荐设置里面都是建议开启的。但是，如果你用到了NIO或者其他使用到堆外内存的情况，使用此选项会造成oom。可以用XX:+ExplicitGCInvokesConcurrent或XX:+ExplicitGCInvokesConcurrentAndUnloadsClasses(配合CMS使用，使得system.gc触发一次并发gc)代替。</p>
+
+<p> 此外，还有一个比较有意思的地方。如果你不设置此选项的话，当你使用了RMI的时候，会周期性地来一次full gc。这个现象是由于分布式gc造成的，为RMI服务。具体的可见此链接内容中与dgc相关的：<a href="http://docs.oracle.com/javase/6/docs/technotes/guides/rmi/sunrmiproperties.html">http://docs.oracle.com/javase/6/docs/technotes/guides/rmi/sunrmiproperties.html</a></p></li>
+<li><p>MaxDirectMemorySize</p>
+
+<p> 此参数是设置的堆外内存的上限值。当不设置的时候为-1，此值为-Xmx减去一个survivor space的预留大小。</p></li>
+<li><p>由于遗留原因，作用相同的参数</p>
+
+<ul>
+<li>-Xss 与 -XX:ThreadStackSize</li>
+<li>-Xmn 与 -XX:NewSize，此外这里需要注意的是设置了-Xmn的话，NewRatio就没作用了。</li>
+</ul>
+</li>
+<li><p>-XX:MaxTenuringThreshold</p>
+
+<p> 使用工具查看此值默认值为15，但是选择了CMS的时候，此值会变成4。当此值设置为0时，所有eden里的活对象在经历第一次minor GC的时候就会直接晋升到old gen，survivor space直接就没用。</p></li>
+<li><p>-XX:HeapDumpPath</p>
+
+<p> 使用此参数可以指定-XX:+HeapDumpBeforeFullGC、-XX:+HeapDumpAfterFullGC、-XX:+HeapDumpOnOutOfMemoryError触发heap dump文件的存储位置。</p></li>
+</ol>
+
+
+<h2><a name='参考资料'></a>参考资料</h2>
+
+<ul>
+<li><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/vm/performance-enhancements-7.html">Java HotSpot™ Virtual Machine Performance Enhancements</a></li>
+<li><a href="http://docs.oracle.com/javase/8/docs/technotes/guides/vm/gctuning/index.html">Java HotSpot Virtual Machine Garbage Collection Tuning Guide </a></li>
+<li><a href="http://hllvm.group.iteye.com/group/topic/27945">[HotSpot VM] JVM调优的&#8221;标准参数&#8221;的各种陷阱</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[BTrace原理浅析]]></title>
@@ -3617,354 +4060,6 @@ git filter-branch --index-filter 'git rm --cached --ignore-unmatch *.sql' # 删�
 <a href="http://www.oschina.net/news/50222/git-code-platforms">http://www.oschina.net/news/50222/git-code-platforms</a></p>
 
 <p>其实，开发工具这种东西，选择最适合自己以及自己团队的才是上上之选。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[系统负载能力浅析]]></title>
-    <link href="http://www.rowkey.me/blog/2015/09/09/load-analysis/"/>
-    <updated>2015-09-09T18:42:58+08:00</updated>
-    <id>http://www.rowkey.me/blog/2015/09/09/load-analysis</id>
-    <content type="html"><![CDATA[<p><strong><em>&mdash;本文于2015.12.23最新更新&mdash;</em></strong></p>
-
-<p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
-
-<p>那么，何为系统负载能力？怎么衡量？相关因素有哪些？又如何优化呢？</p>
-
-<!--more-->
-
-
-<h2>一. 衡量指标</h2>
-
-<p>用什么来衡量一个系统的负载能力呢？有一个概念叫做每秒请求数（Requests per second），指的是每秒能够成功处理请求的数目。比如说，你可以配置tomcat服务器的maxConnection为无限大，但是受限于服务器系统或者硬件限制，很多请求是不会在一定的时间内得到响应的，这并不作为一个成功的请求，其中成功得到响应的请求数即为每秒请求数，反应出系统的负载能力。</p>
-
-<p>通常的，对于一个系统，增加并发用户数量时每秒请求数量也会增加。然而，我们最终会达到这样一个点，此时并发用户数量开始“压倒”服务器。如果继续增加并发用户数量，每秒请求数量开始下降，而反应时间则会增加。这个并发用户数量开始“压倒”服务器的临界点非常重要，此时的并发用户数量可以认为是当前系统的最大负载能力。</p>
-
-<h2>二. 相关因素</h2>
-
-<p>一般的，和系统并发访问量相关的几个因素如下：</p>
-
-<ul>
-<li>带宽</li>
-<li>硬件配置</li>
-<li>系统配置</li>
-<li>应用服务器配置</li>
-<li>程序逻辑</li>
-<li>系统架构</li>
-</ul>
-
-
-<p>其中，带宽和硬件配置是决定系统负载能力的决定性因素。这些只能依靠扩展和升级提高。我们需要重点关注的是在一定带宽和硬件配置的基础上，怎么使系统的负载能力达到最大。</p>
-
-<h3>2.1 带宽</h3>
-
-<p>毋庸置疑，带宽是决定系统负载能力的一个至关重要的因素，就好比水管一样，细的水管同一时间通过的水量自然就少（这个比喻解释带宽可能不是特别合适）。一个系统的带宽首先就决定了这个系统的负载能力，其单位为Mbps,表示数据的发送速度。</p>
-
-<h3>2.2 硬件配置</h3>
-
-<p>系统部署所在的服务器的硬件决定了一个系统的最大负载能力，也是上限。一般说来，以下几个配置起着关键作用：</p>
-
-<ul>
-<li>cpu频率/核数：cpu频率关系着cpu的运算速度，核数则影响线程调度、资源分配的效率。</li>
-<li>内存大小以及速度：内存越大，那么可以在内存中运行的数据也就越大，速度自然而然就快；内存的速度从原来的几百hz到现在几千hz，决定了数据读取存储的速度。</li>
-<li>硬盘速度：传统的硬盘是使用磁头进行寻址的，io速度比较慢，使用了SSD的硬盘，其寻址速度大大较快。</li>
-</ul>
-
-
-<p>很多系统的架构设计、系统优化，最终都会加上这么一句：使用ssd存储解决了这些问题。</p>
-
-<p>可见，硬件配置是决定一个系统的负载能力的最关键因素。</p>
-
-<h3>2.3 系统配置</h3>
-
-<p>一般来说，目前后端系统都是部署在Linux主机上的。所以抛开win系列不谈，对于Linux系统来说一般有以下配置关系着系统的负载能力。</p>
-
-<ul>
-<li>文件描述符数限制：Linux中所有东西都是文件，一个socket就对应着一个文件描述符，因此系统配置的最大打开文件数以及单个进程能够打开的最大文件数就决定了socket的数目上限。</li>
-<li>进程/线程数限制: 对于apache使用的prefork等多进程模式，其负载能力由进程数目所限制。对tomcat多线程模式则由线程数所限制。</li>
-<li>tcp内核参数：网络应用的底层自然离不开tcp/ip，Linux内核有一些与此相关的配置也决定了系统的负载能力。</li>
-</ul>
-
-
-<h4>2.3.1 文件描述符数限制</h4>
-
-<ul>
-<li><p>系统最大打开文件描述符数：/proc/sys/fs/file-max中保存了这个数目,修改此值</p>
-
-<pre><code>  临时性
-      echo 1000000 &gt; /proc/sys/fs/file-max
-  永久性：在/etc/sysctl.conf中设置
-      fs.file-max = 1000000
-</code></pre></li>
-<li><p>进程最大打开文件描述符数：这个是配单个进程能够打开的最大文件数目。可以通过ulimit -n查看/修改。如果想要永久修改，则需要修改/etc/security/limits.conf中的nofile。</p></li>
-</ul>
-
-
-<p>通过读取/proc/sys/fs/file-nr可以看到当前使用的文件描述符总数。另外，对于文件描述符的配置，需要注意以下几点：</p>
-
-<ul>
-<li>所有进程打开的文件描述符数不能超过/proc/sys/fs/file-max</li>
-<li>单个进程打开的文件描述符数不能超过user limit中nofile的soft limit</li>
-<li>nofile的soft limit不能超过其hard limit</li>
-<li>nofile的hard limit不能超过/proc/sys/fs/nr_open</li>
-</ul>
-
-
-<h4>2.3.2 进程/线程数限制</h4>
-
-<ul>
-<li>进程数限制：ulimit -u可以查看/修改单个用户能够打开的最大进程数。/etc/security/limits.conf中的noproc则是系统的最大进程数。</li>
-<li><p>线程数限制</p>
-
-<ul>
-<li>可以通过/proc/sys/kernel/threads-max查看系统总共可以打开的最大线程数。</li>
-<li>单个进程的最大线程数和PTHREAD_THREADS_MAX有关，此限制可以在/usr/include/bits/local_lim.h中查看,但是如果想要修改的话，需要重新编译。</li>
-<li>这里需要提到一点的是，Linux内核2.4的线程实现方式为linux threads，是轻量级进程，都会首先创建一个管理线程，线程数目的大小是受PTHREAD_THREADS_MAX影响的。但Linux2.6内核的线程实现方式为NPTL,是一个改进的LWP实现，最大一个区别就是，线程公用进程的pid（tgid），线程数目大小只受制于资源。</li>
-<li>线程数的大小还受线程栈大小的制约：使用ulimit -s可以查看/修改线程栈的大小，即每开启一个新的线程需要分配给此线程的一部分内存。减小此值可以增加可以打开的线程数目。</li>
-</ul>
-</li>
-</ul>
-
-
-<h4>2.3.3 tcp内核参数</h4>
-
-<p>在一台服务器CPU和内存资源额定有限的情况下，最大的压榨服务器的性能，是最终的目的。在节省成本的情况下，可以考虑修改Linux的内核TCP/IP参数，来最大的压榨服务器的性能。如果通过修改内核参数也无法解决的负载问题，也只能考虑升级服务器了，这是硬件所限，没有办法的事。</p>
-
-<pre><code>netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
-</code></pre>
-
-<p>使用上面的命令，可以得到当前系统的各个状态的网络连接的数目。如下：</p>
-
-<pre><code>LAST_ACK 13
-SYN_RECV 468
-ESTABLISHED 90
-FIN_WAIT1 259
-FIN_WAIT2 40
-CLOSING 34
-TIME_WAIT 28322
-</code></pre>
-
-<p>这里，TIME_WAIT的连接数是需要注意的一点。此值过高会占用大量连接，影响系统的负载能力。需要调整参数，以尽快的释放time_wait连接。</p>
-
-<p>一般tcp相关的内核参数在/etc/sysctl.conf文件中。为了能够尽快释放time_wait状态的连接，可以做以下配置：</p>
-
-<ul>
-<li>net.ipv4.tcp_syncookies = 1 //表示开启SYN Cookies。当出现SYN等待队列溢出时，启用cookies来处理，可防范少量SYN攻击，默认为0，表示关闭；</li>
-<li>net.ipv4.tcp_tw_reuse = 1 //表示开启重用。允许将TIME-WAIT sockets重新用于新的TCP连接，默认为0，表示关闭；</li>
-<li>net.ipv4.tcp_tw_recycle = 1 //表示开启TCP连接中TIME-WAIT sockets的快速回收，默认为0，表示关闭；</li>
-<li>net.ipv4.tcp_fin_timeout = 30 //修改系統默认的 TIMEOUT 时间。</li>
-</ul>
-
-
-<p>这里需要注意的一点就是当打开了tcp_tw_recycle，就会检查时间戳，移动环境下的发来的包的时间戳有些时候是乱跳的，会把带了“倒退”的时间戳的包当作是“recycle的tw连接的重传数据，不是新的请求”，于是丢掉不回包，造成大量丢包。另外，当前面有LVS，并且采用的是NAT机制时，开启tcp_tw_recycle会造成一些异常，可见：<a href="http://www.pagefault.info/?p=416">http://www.pagefault.info/?p=416</a>。如果这种情况下仍然需要开启此选项，那么可以考虑设置net.ipv4.tcp_timestamps=0，忽略掉报文的时间戳即可。</p>
-
-<p>此外，还可以通过优化tcp/ip的可使用端口的范围，进一步提升负载能力。，如下：</p>
-
-<ul>
-<li>net.ipv4.tcp_keepalive_time = 1200 //表示当keepalive起用的时候，TCP发送keepalive消息的频度。缺省是2小时，改为20分钟。</li>
-<li>net.ipv4.ip_local_port_range = 10000 65000 //表示用于向外连接的端口范围。缺省情况下很小：32768到61000，改为10000到65000。（注意：这里不要将最低值设的太低，否则可能会占用掉正常的端口！）</li>
-<li>net.ipv4.tcp_max_syn_backlog = 8192 //表示SYN队列的长度，默认为1024，加大队列长度为8192，可以容纳更多等待连接的网络连接数。</li>
-<li>net.ipv4.tcp_max_tw_buckets = 5000 //表示系统同时保持TIME_WAIT的最大数量，如果超过这个数字，TIME_WAIT将立刻被清除并打印警告信息。默认为180000，改为5000。对于Apache、Nginx等服务器，上几行的参数可以很好地减少TIME_WAIT套接字数量，但是对于Squid，效果却不大。此项参数可以控制TIME_WAIT的最大数量，避免Squid服务器被大量的TIME_WAIT拖死。</li>
-</ul>
-
-
-<h3>2.4 应用服务器配置</h3>
-
-<p>说到应用服务器配置，这里需要提到应用服务器的几种工作模式,也叫并发策略。</p>
-
-<ul>
-<li>multi process:多进程方式，一个进程处理一个请求。</li>
-<li>prefork：类似于多进程的方式，但是会预先fork出一些进程供后续使用，是一种进程池的理念。</li>
-<li>worker：一个线程对应一个请求，相比多进程的方式，消耗资源变少，但同时一个线程的崩溃会引起整个进程的崩溃，稳定性不如多进程。</li>
-<li>master/worker：采用的是非阻塞IO的方式，只有两种进程：worker和master,master负责worker进程的创建、管理等，worker进程采用基于事件驱动的多路复用IO处理请求。mater进程只需要一个，woker进程根据cpu核数设置数目。</li>
-</ul>
-
-
-<p>前三者是传统应用服务器apache和tomcat采用的方式，最后一种是nginx采用的方式。当然这里需要注意的是应用服务器和nginx这种做反向代理服务器（暂且忽略nginx+cgi做应用服务器的功能）的区别。应用服务器是需要处理应用逻辑的，有时候是耗cup资源的；而反向代理主要用作IO，是IO密集型的应用。使用事件驱动的这种网络模型，比较适合IO密集型应用，而并不适合CPU密集型应用。对于后者，多进程/线程则是一个更好地选择。</p>
-
-<p>当然，由于nginx采用的基于事件驱动的多路IO复用的模型，其作为反向代理服务器时，可支持的并发是非常大的。淘宝tengine团队曾有一个测试结果是“24G内存机器上，处理并发请求可达200万”。</p>
-
-<h4>2.4.1 nginx/tengine</h4>
-
-<p>ngixn是目前使用最广泛的反向代理软件，而tengine是阿里开源的一个加强版nginx,其基本实现了nginx收费版本的一些功能，如：主动健康检查、session sticky等。对于nginx的配置，需要注意的有这么几点：</p>
-
-<ul>
-<li>worker数目要和cpu（核）的数目相适应</li>
-<li>keepalive timout要设置适当</li>
-<li>worker_rlimit_nofile最大文件描述符要增大</li>
-<li>upstream可以使用http 1.1的keepalive</li>
-</ul>
-
-
-<p>典型配置可见：<a href="https://github.com/superhj1987/awesome-config/blob/master/nginx/nginx.conf">https://github.com/superhj1987/awesome-config/blob/master/nginx/nginx.conf</a></p>
-
-<h4>2.4.2 tomcat</h4>
-
-<p>tomcat的关键配置总体上有两大块：jvm参数配置和connector参数配置。</p>
-
-<ul>
-<li><p>jvm参数配置：</p>
-
-<ul>
-<li>堆的最小值：Xms</li>
-<li>堆的最大值：Xmx</li>
-<li>新生代大小: Xmn</li>
-<li>永久代大小: XX:PermSize：</li>
-<li>永久代最大大小: XX:MaxPermSize：</li>
-<li>栈大小：-Xss或-XX:ThreadStackSize</li>
-</ul>
-
-
-<p>  这里对于栈大小有一点需要注意的是：在Linux x64上ThreadStackSize的默认值就是1024KB，给Java线程创建栈会用这个参数指定的大小。如果把-Xss或者-XX:ThreadStackSize设为0，就是使用“系统默认值”。而在Linux x64上HotSpot VM给Java栈定义的“系统默认”大小也是1MB。所以普通Java线程的默认栈大小怎样都是1MB。这里有一个需要注意的地方就是java的栈大小和之前提到过的操作系统的操作系统栈大小（ulimit -s）：这个配置只影响进程的初始线程；后续用pthread_create创建的线程都可以指定栈大小。HotSpot VM为了能精确控制Java线程的栈大小，特意不使用进程的初始线程（primordial thread）作为Java线程。</p>
-
-<p>  其他还要根据业务场景，选择使用那种垃圾回收器，回收的策略。另外，当需要保留GC信息时，也需要做一些设置。</p>
-
-<p>  典型配置可见：<a href="https://github.com/superhj1987/awesome-config/blob/master/tomcat/java_opts.conf">https://github.com/superhj1987/awesome-config/blob/master/tomcat/java_opts.conf</a></p></li>
-<li><p>connector参数配置</p>
-
-<ul>
-<li>protocol: 有三个选项：bio；nio；apr。建议使用apr选项，性能为最高。</li>
-<li>connectionTimeout：连接的超时时间</li>
-<li>maxThreads：最大线程数，此值限制了bio的最大连接数</li>
-<li>minSpareThreads: 最大空闲线程数</li>
-<li>acceptCount：可以接受的最大请求数目（未能得到处理的请求排队）</li>
-<li>maxConnection: 使用nio或者apr时，最大连接数受此值影响。</li>
-</ul>
-
-
-<p>  典型配置可见：<a href="https://github.com/superhj1987/awesome-config/blob/master/tomcat/connector.conf">https://github.com/superhj1987/awesome-config/blob/master/tomcat/connector.conf</a></p>
-
-<p>  一般的当一个进程有500个线程在跑的话，那性能已经是很低很低了。Tomcat默认配置的最大请求数是150。当某个应用拥有250个以上并发的时候，应考虑应用服务器的集群。</p>
-
-<p>  另外，并非是无限调大maxTreads和maxConnection就能无限调高并发能力的。线程越多，那么cpu花费在线程调度上的时间越多，同时，内存消耗也就越大，那么就极大影响处理用户的请求。受限于硬件资源，并发值是需要设置合适的值的。</p></li>
-</ul>
-
-
-<p>对于tomcat这里有一个争论就是：<strong><em>使用大内存tomcat好还是多个小的tomcat集群好？</em></strong>（针对64位服务器以及tomcat来说）</p>
-
-<p>其实，这个要根据业务场景区别对待的。通常，大内存tomcat有以下问题：</p>
-
-<ul>
-<li>一旦发生full gc，那么会非常耗时</li>
-<li>一旦gc，dump出的堆快照太大，无法分析</li>
-</ul>
-
-
-<p>因此，如果可以保证一定程度上程序的对象大部分都是朝生夕死的，老年代不会发生gc,那么使用大内存tomcat也是可以的。但是在伸缩性和高可用却比不上使用小内存（相对来说）tomcat集群。</p>
-
-<p>使用小内存tomcat集群则有以下优势：</p>
-
-<ul>
-<li>可以根据系统的负载调整tc的数量，以达到资源的最大利用率，</li>
-<li>可以防止单点故障。</li>
-</ul>
-
-
-<h4>2.4.3 数据库</h4>
-
-<h5>mysql</h5>
-
-<p>mysql是目前最常用的关系型数据库，支持复杂的查询。但是其负载能力一般，很多时候一个系统的瓶颈就发生在mysql这一点，当然有时候也和sql语句的效率有关。比如，牵扯到联表的查询一般说来效率是不会太高的。</p>
-
-<p>影响数据库性能的因素一般有以下几点：</p>
-
-<ul>
-<li>硬件配置：这个无需多说</li>
-<li>数据库设置：max_connection的一些配置会影响数据库的连接数</li>
-<li>数据表的设计：使用冗余字段避免联表查询；使用索引提高查询效率</li>
-<li>查询语句是否合理：这个牵扯到的是个人的编码素质。比如，查询符合某个条件的记录，我见过有人把记录全部查出来，再去逐条对比</li>
-<li>引擎的选择：myisam和innodb两者的适用场景不同，不存在绝对的优劣</li>
-</ul>
-
-
-<p>抛开以上因素，当数据量单表突破千万甚至百万时（和具体的数据有关），需要对mysql数据库进行优化，一种常见的方案就是分表：</p>
-
-<ul>
-<li>垂直分表：在列维度的拆分</li>
-<li>水平分表：行维度的拆分</li>
-</ul>
-
-
-<p>此外，对于数据库，可以使用读写分离的方式提高性能，尤其是对那种读频率远大于写频率的业务场景。这里一般采用master/slave的方式实现读写分离，前面用程序控制或者加一个proxy层。可以选择使用MySQL Proxy，编写lua脚本来实现基于proxy的mysql读写分离；也可以通过程序来控制，根据不同的sql语句选择相应的数据库来操作，这个也是笔者公司目前在用的方案。由于此方案和业务强绑定，是很难有一个通用的方案的，其中比较成熟的是阿里的TDDL，但是由于未全部开源且对其他组件有依赖性，不推荐使用。</p>
-
-<p>现在很多大的公司对这些分表、主从分离、分布式都基于mysql做了自己的二次开发，形成了自己公司的一套分布式数据库系统。比如阿里的<a href="https://github.com/alibaba/cobar">Cobar</a>、网易的DDB、360的Atlas等。当然，很多大公司也研发了自己的mysql分支，比较出名的就是姜承尧带领研发的InnoSQL。</p>
-
-<h5>redis</h5>
-
-<p>当然，对于系统中并发很高并且访问很频繁的数据，关系型数据库还是不能妥妥应对。这时候就需要缓存数据库出马以隔离对mysql的访问,防止mysql崩溃。</p>
-
-<p>其中，redis是目前用的比较多的缓存数据库（当然，也有直接把redis当做数据库使用的）。redis是单线程基于内存的数据库，读写性能远远超过mysql。一般情况下，对redis做读写分离主从同步就可以应对大部分场景的应用。但是这样的方案缺少ha，尤其对于分布式应用，是不可接受的。目前，redis集群的实现方案有以下几个：</p>
-
-<ul>
-<li>redis cluster:这是一种去中心化的方案，是redis的官方实现。是一种非常“重”的方案，已经不是Redis单实例的“简单、可依赖”了。目前应用案例还很少，貌似国内的芒果台用了，结局不知道如何。</li>
-<li><a href="https://github.com/twitter/twemproxy">twemproxy</a>：这是twitter开源的redis和memcached的proxy方案。比较成熟，目前的应用案例比较多，但也有一些缺陷，尤其在运维方面。比如无法平滑的扩容/缩容，运维不友好等。</li>
-<li><a href="https://github.com/wandoulabs/codis">codis</a>: 这个是豌豆荚开源的redis proxy方案，能够兼容twemproxy，并且对其做了很多改进。由豌豆荚于2014年11月开源，基于Go和C开发。现已广泛用于豌豆荚的各种Redis业务场景。现在比Twemproxy快近100%。目前据我所知除了豌豆荚之外，hulu也在使用这套方案。当然，其升级项目<a href="https://github.com/reborndb/reborn">reborndb</a>号称比codis还要厉害。</li>
-</ul>
-
-
-<h3>2.5 系统架构</h3>
-
-<p>影响性能的系统架构一般会有这几方面：</p>
-
-<ul>
-<li>负载均衡</li>
-<li>同步 or 异步</li>
-<li>28原则</li>
-</ul>
-
-
-<h4>2.5.1 负载均衡</h4>
-
-<p>负载均衡在服务端领域中是一个很关键的技术。可以分为以下两种：</p>
-
-<ul>
-<li>硬件负载均衡</li>
-<li>软件负载均衡</li>
-</ul>
-
-
-<p>其中，硬件负载均衡的性能无疑是最优的，其中以F5为代表。但是，与高性能并存的是其成本的昂贵。所以对于很多初创公司来说，一般是选用软件负载均衡的方案。</p>
-
-<p>软件负载均衡中又可以分为四层负载均衡和七层负载均衡。
-上文在应用服务器配置部分讲了nginx的反向代理功能即七层的一种成熟解决方案，主要针对的是七层http协议（虽然最新的发布版本已经支持四层负载均衡）。对于四层负载均衡，目前应用最广泛的是lvs。其是阿里的章文嵩博士带领的团队所研发的一款linux下的负载均衡软件，本质上是基于iptables实现的。分为三种工作模式：</p>
-
-<ul>
-<li>NAT: 修改数据包destination ip，in和out都要经过lvs。</li>
-<li>DR：修改数据包mac地址，lvs和realserver需要在一个vlan。</li>
-<li>IP TUUNEL：修改数据包destination ip和源ip，realserver需要支持ip tunnel协议。lvs和realserver不需要在一个vlan。</li>
-</ul>
-
-
-<p>三种模式各有优缺点，目前还有阿里开源的一个FULL NAT是在NAT原来的DNAT上加入了SNAT的功能。</p>
-
-<p>此外，haproxy也是一款常用的负载均衡软件。但限于对此使用较少，在此不做讲述。</p>
-
-<h4>2.5.2 同步 or 异步</h4>
-
-<p>对于一个系统，很多业务需要面对使用同步机制或者是异步机制的选择。比如，对于一篇帖子，一个用户对其分享后，需要记录用户的分享记录。如果你使用同步模式（分享的同时记录此行为），那么响应速度肯定会受到影响。而如果你考虑到分享过后，用户并不会立刻去查看自己的分享记录，牺牲这一点时效性，可以先完成分享的动作，然后异步记录此行为，会提高分享请求的响应速度（当然，这里可能会有事务准确性的问题）。有时候在某些业务逻辑上，在充分理解用户诉求的基础上，是可以牺牲某些特性来满足用户需求的。</p>
-
-<p>这里值得一提的是，很多时候对于一个业务流程，是可以拆开划分为几个步骤的，然后有些步骤完全可以异步并发执行，能够极大提高处理速度。</p>
-
-<h4>2.5.3 28原则</h4>
-
-<p>对于一个系统，20%的功能会带来80%的流量。这就是28原则的意思，当然也是我自己的一种表述。因此在设计系统的时候，对于80%的功能，其面对的请求压力是很小的，是没有必要进行过度设计的。但是对于另外20%的功能则是需要设计再设计、reivew再review，能够做负载均衡就做负载均衡，能够缓存就缓存，能够做分布式就分布式，能够把流程拆开异步化就异步化。</p>
-
-<p>当然，这个原则适用于生活中很多事物。</p>
-
-<h2>三. 一般架构</h2>
-
-<p>一般的Java后端系统应用架构如下图所示：LVS+Nginx+Tomcat+MySql/DDB+Redis/Codis</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/web-arch.png" alt="web-arch" /></p>
-
-<p>其中，虚线部分是数据库层，采用的是主从模式。也可以使用redis cluster(codis等)以及mysql cluster(Cobar等)来替换。</p>
-
-<pre><code>如需转载，请注明来自: http://superhj1987.github.com
-
-版权声明：本文为博主原创文章，未经博主允许不得转载
-
-本文部分参考自网络相关资料，由于时间太久，无法追朔原作者。如有侵权，请联系superhj1987@126.com
-</code></pre>
 ]]></content>
   </entry>
   
