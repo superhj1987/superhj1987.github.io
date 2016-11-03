@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-03T15:25:26+08:00</updated>
+  <updated>2016-11-03T15:38:45+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -181,7 +181,7 @@
 
 <p> <img src="//images/blog_images/profile/io.png" alt="" /></p>
 
-<p> 这里主要注意bi和bo这两个值，分别表示输入字节数和输出字节数，由此可以判定io繁忙状况。进一步的可以通过使用strace工具定位对文件io的系统调用。通常，造成文件io性能差的原因不外乎：</p>
+<p> 这里主要注意bi和bo这两个值，分别表示块设备每秒接收的块数量和块设备每秒发送的块数量，由此可以判定io繁忙状况。进一步的可以通过使用strace工具定位对文件io的系统调用。通常，造成文件io性能差的原因不外乎：</p>
 
 <ul>
 <li>大量的随机读写</li>
