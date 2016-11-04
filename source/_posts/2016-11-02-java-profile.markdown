@@ -156,10 +156,7 @@ Java调优也不外乎这三步。
         
 ### 其他分析工具
 
-上面已经讲了一些系统自带的分析工具。除此之外，还有一些第三方工具或者框架可以更加方便我们对Java应用性能的排查、分析、定位等。
-
-- Btrace
-    这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考[Btrace入门到熟练小工完全指南](http://calvin1978.blogcn.com/articles/btrace1.html)。
+上面分别针对CPU、内存以及IO讲了一些系统/JDK自带的分析工具。除此之外，还有一些综合分析工具或者框架可以更加方便我们对Java应用性能的排查、分析、定位等。
     
 - VisualVM
     
@@ -169,6 +166,15 @@ Java调优也不外乎这三步。
     与VisualVm类似的，jconsole也是通过jmx查看远程jvm信息的一款工具，更进一步的，通过它还可以显示具体的线程堆栈信息以及内存中各个年代的占用情况，也支持直接远程执行MBEAN。当然，visualvm通过安装jconsole插件也可以拥有这些功能。
     ![](/images/blog_images/profile/jconsole.png)
     但由于这俩工具都是需要ui界面的，因此一般都是通过本地远程连接服务器jvm进程。服务器环境下，一般并不用此种方式。
+    
+- Java Mission Control(jmc)
+
+	此工具是jdk7 u40开始自带的，原来是JRockit上的工具，是一款采样型的集诊断、分析和监控与一体的非常强大的工具。<https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm>
+	
+	![](/images/blog_images/profile/jmc.png)
+
+- Btrace
+    这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考[Btrace入门到熟练小工完全指南](http://calvin1978.blogcn.com/articles/btrace1.html)。
 
 - Jwebap
 
