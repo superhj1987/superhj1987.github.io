@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-04T11:14:49+08:00</updated>
+  <updated>2016-11-04T11:41:29+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -83,6 +83,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 <li><p>xjc: 主要用于根据XML schema文件生成对应的Java类。</p></li>
 </ul>
 
+
+<h2>参考资料</h2>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/toc.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/toc.html</a></p>
 ]]></content>
   </entry>
   
@@ -284,11 +288,9 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
 <h3>其他分析工具</h3>
 
-<p>上面已经讲了一些系统自带的分析工具。除此之外，还有一些第三方工具或者框架可以更加方便我们对Java应用性能的排查、分析、定位等。</p>
+<p>上面分别针对CPU、内存以及IO讲了一些系统/JDK自带的分析工具。除此之外，还有一些综合分析工具或者框架可以更加方便我们对Java应用性能的排查、分析、定位等。</p>
 
 <ul>
-<li><p>Btrace
-  这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考<a href="http://calvin1978.blogcn.com/articles/btrace1.html">Btrace入门到熟练小工完全指南</a>。</p></li>
 <li><p>VisualVM</p>
 
 <p>  这个工具应该是Java开发者们非常熟悉的一款java应用监测工具，原理是通过jmx接口来连接jvm进程，从而能够看到jvm上的线程、内存、类等信息。
@@ -297,6 +299,13 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
   与VisualVm类似的，jconsole也是通过jmx查看远程jvm信息的一款工具，更进一步的，通过它还可以显示具体的线程堆栈信息以及内存中各个年代的占用情况，也支持直接远程执行MBEAN。当然，visualvm通过安装jconsole插件也可以拥有这些功能。
   <img src="http://www.rowkey.me/images/blog_images/profile/jconsole.png" alt="" />
   但由于这俩工具都是需要ui界面的，因此一般都是通过本地远程连接服务器jvm进程。服务器环境下，一般并不用此种方式。</p></li>
+<li><p>Java Mission Control(jmc)</p>
+
+<p>  此工具是jdk7 u40开始自带的，原来是JRockit上的工具，是一款采样型的集诊断、分析和监控与一体的非常强大的工具。<a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a></p>
+
+<p>  <img src="http://www.rowkey.me/images/blog_images/profile/jmc.png" alt="" /></p></li>
+<li><p>Btrace
+  这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考<a href="http://calvin1978.blogcn.com/articles/btrace1.html">Btrace入门到熟练小工完全指南</a>。</p></li>
 <li><p>Jwebap</p>
 
 <p>  <a href="http://www.oschina.net/p/jwebap">Jwebap</a>是一款JavaEE性能检测框架，基于asm增强字节码实现。支持：http请求、jdbc连接、method的调用轨迹跟踪以及次数、耗时的统计。由此可以获取最耗时的请求、方法，并可以查看jdbc连接的次数、是否关闭等。但此项目是2006年的一个项目，已经将近10年没有更新。根据笔者使用，已经不支持jdk7编译的应用。如果要使用，建议基于原项目二次开发，同时也可以加入对redis连接的轨迹跟踪。当然，基于字节码增强的原理，也可以实现自己的JavaEE性能监测框架。</p>
