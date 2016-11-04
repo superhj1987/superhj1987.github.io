@@ -46,6 +46,7 @@ Java调优也不外乎这三步。
 1. Java内存相关：这一部分可以参见[谈谈Java内存管理](http://www.rowkey.me/blog/2016/05/07/javamm/)一文
 2. 对Java代码进行基准性能测试：可以使用JMH来进行，[[译]使用JMH进行微基准测试：不要猜，要测试！](http://www.hollischuang.com/archives/1072)。
 3. HotSpot VM相关知识：<http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html>
+4. jdk自带各种java工具：<http://www.rowkey.me/blog/2016/11/03/jdk-tools/>
 	
 ## <a name='性能分析'></a>性能分析
 
@@ -112,7 +113,9 @@ Java调优也不外乎这三步。
     - 把heap里所有对象都dump下来，无论对象是死是活：jmap -dump:format=b,file=xxx.hprof <pid>
     - 先做一次full GC，再dump，只包含仍然存活的对象信息：jmap -dump:format=b,live,file=xxx.hprof <pid>
         
-    此外，不管是使用jmap还是在OOM时产生的dump文件，一般是需要使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析的，可以看到具体的堆栈和内存中对象的信息。
+    此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，并启动web端口供浏览器浏览。
+    
+    ![](/images/blog_images/profile/jhat.png)
     
 ### IO分析
 
