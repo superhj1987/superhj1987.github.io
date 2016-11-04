@@ -265,8 +265,8 @@ Java调优也不外乎这三步。
 
 此外，jdk7、8在jvm的性能上做了一些增强：
 
-- JDK7的[多层编译（tiered compilation）支持](http://rednaxelafx.iteye.com/blog/1022095)，可以考虑通过-XX:+TieredCompilation开启，以优化编译效率。
-- Compressed Oops-压缩指针在jdk7中的server模式下已经默认开启
+- 通过-XX:+TieredCompilation开启JDK7的[多层编译（tiered compilation）支持](http://rednaxelafx.iteye.com/blog/1022095)。多层编译结合了客户端C1编译器和服务端C2编译器的优点(客户端编译能够快速启动和及时优化，服务器端编译可以提供更多的高级优化)，是一个非常高效利用资源的切面方案。在开始时先进行低层次的编译，同时收集信息，在后期再进一步进行高层次的编译进行高级优化。
+- Compressed Oops：压缩指针在jdk7中的server模式下已经默认开启。
 - Zero-Based Compressed Ordinary Object Pointers：当使用了上述的压缩指针时，在64位jvm上，会要求操作系统保留从一个虚拟地址0开始的内存。如果操作系统支持这种请求，那么就开启了Zero-Based Compressed Oops。这样可以使得无须在java堆的基地址添加任何地址补充即可把一个32位对象的偏移解码成64位指针。
 - 逃逸分析(Escape Analysis): Server模式的编译器会根据代码的情况，来判断相关对象的逃逸类型，从而决定是否在堆中分配空间，是否进行标量替换(在栈上分配原子类型局部变量)。此外，也可以根据调用情况来决定是否自动消除同步控制，如StringBuffer。这个特性从Java SE 6u23开始就默认开启。
 - NUMA Collector Enhancements：这个重要针对的是The Parallel Scavenger垃圾回收器。使其能够利用NUMA (Non Uniform Memory Access，即每一个处理器核心都有本地内存，能够低延迟、高带宽访问) 架构的机器的优势来更快的进行gc。可以通过-XX:+UseNUMA开启支持。
