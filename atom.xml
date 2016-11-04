@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-03T22:56:10+08:00</updated>
+  <updated>2016-11-04T11:14:49+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,79 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JDK自带工具概览]]></title>
+    <link href="http://www.rowkey.me/blog/2016/11/03/jdk-tools/"/>
+    <updated>2016-11-03T22:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/11/03/jdk-tools</id>
+    <content type="html"><![CDATA[<p>在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。</p>
+
+<p>笔者的开发环境是：OS X EI Captian 10.11.6</p>
+
+<p>JDK版本：</p>
+
+<pre><code>java version "1.8.0_92"
+Java(TM) SE Runtime Environment (build 1.8.0_92-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
+</code></pre>
+
+<p>JAVA_HOME/bin下的工具截图如下：</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/jdk-tools.png" alt="" /></p>
+
+<!--more-->
+
+
+<ul>
+<li><p>appletviewer: 用于运行并浏览applet小程序。</p></li>
+<li><p>extcheck: 扩展检测工具，主要用于检测指定jar文件与当前已安装的Java SDK扩展之间是否存在版本冲突。</p></li>
+<li><p>idlj: IDL转Java编译器(IDL-to-Java Compiler)，用于为指定的IDL文件生成Java绑定。IDL意即接口定义语言(Interface Definition Language)。</p></li>
+<li><p>jar: jar文件管理工具，主要用于打包压缩、解压jar文件。</p></li>
+<li><p>jarsigner: jar密匙签名工具。</p></li>
+<li><p>java: Java运行工具，用于运行.class字节码文件或.jar文件。</p></li>
+<li><p>javac: Java编译工具(Java Compiler)，用于编译Java源代码文件。</p></li>
+<li><p>javadoc: Java文档工具，主要用于根据Java源代码中的注释信息生成HTML格式的API帮助文档。</p></li>
+<li><p>javafxpackager: JavaFX包装器，用于执行与封装或签名JavaFX应用有关的任务。JDK 8u20已经迁移此工具到javapackager。</p></li>
+<li><p>javah: Java头文件工具，用于根据Java类生成C/C++头文件和源文件(主要用于JNI开发领域)。</p></li>
+<li><p>javap: Java反编译工具，主要用于根据Java字节码文件反汇编为Java源代码文件。</p></li>
+<li><p>javapackager: 执行针对Java应用程序和JavaFX应用程序的打包和签名的任务。包含了javafxpackager的功能。</p></li>
+<li><p>jcmd: Java 命令行(Java Command)，用于向正在运行的JVM发送诊断命令请求。</p></li>
+<li><p>jconsole: 图形化用户界面的监测工具，主要用于监测并显示运行于Java平台上的应用程序的性能和资源占用等信息。</p></li>
+<li><p>jdeps: 用于分析Java class的依赖关系.</p></li>
+<li><p>jdb: Java调试工具(Java Debugger)，主要用于对Java应用进行断点调试。</p></li>
+<li><p>jhat: Java堆分析工具(Java Heap Analysis Tool)，用于分析Java堆内存中的对象信息。</p></li>
+<li><p>jinfo: Java配置信息工具(Java Configuration Information)，用于打印指定Java进程、核心文件或远程调试服务器的配置信息。</p></li>
+<li><p>jjs: 对Nashorn引擎的调用。<a href="http://www.infoq.com/cn/articles/nashorn">Nashorn</a>是基于Java实现一个轻量级高性能的JavaScript运行环境。</p></li>
+<li><p>jmap: Java内存映射工具(Java Memory Map)，主要用于打印指定Java进程、核心文件或远程调试服务器的共享对象内存映射或堆内存细节。</p></li>
+<li><p>jmc: Java任务控制工具(Java Mission Control)，主要用于HotSpot JVM的生产时间监测、分析、诊断。开发者可以使用jmc命令来创建JMC工具。 <a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a></p></li>
+<li><p>jps: JVM进程状态工具(JVM Process Status Tool)，用于显示目标系统上的HotSpot JVM的Java进程信息。</p></li>
+<li><p>jrunscript: Java命令行脚本外壳工具(command line script shell)，主要用于解释执行javascript、groovy、ruby等脚本语言。</p></li>
+<li><p>jsadebugd: Java可用性代理调试守护进程(Java Serviceability Agent Debug Daemon)，主要用于附加到指定的Java进程、核心文件，或充当一个调试服务器。</p></li>
+<li><p>jstack: Java堆栈跟踪工具，主要用于打印指定Java进程、核心文件或远程调试服务器的Java线程的堆栈跟踪信息。</p></li>
+<li><p>jstat: JVM统计监测工具(JVM Statistics Monitoring Tool)，主要用于监测并显示JVM的性能统计信息，包括gc统计信息。</p></li>
+<li><p>jstatd: jstatd(VM jstatd Daemon)工具是一个RMI服务器应用，用于监测HotSpot JVM的创建和终止，并提供一个接口，允许远程监测工具附加到运行于本地主机的JVM上。</p></li>
+<li><p>jvisualvm: JVM监测、故障排除、分析工具，主要以图形化界面的方式提供运行于指定虚拟机的Java应用程序的详细信息。</p></li>
+<li><p>keytool: 密钥和证书管理工具，主要用于密钥和证书的创建、修改、删除等。主要用于获取或缓存Kerberos协议的票据授权票据。允许用户查看本地凭据缓存和密钥表中的条目(用于Kerberos协议)。Kerberos密钥表管理工具，允许用户管理存储于本地密钥表中的主要名称和服务密钥。</p></li>
+<li><p>native2ascii: 本地编码到ASCII编码的转换器(Native-to-ASCII Converter)，用于&#8221;任意受支持的字符编码&#8221;和与之对应的&#8221;ASCII编码和(或)Unicode转义&#8221;之间的相互转换。</p></li>
+<li><p>orbd: 对象请求代理守护进程(Object Request Broker Daemon)，它使客户端能够透明地定位和调用位于CORBA环境的服务器上的持久对象。</p></li>
+<li><p>pack200: JAR文件打包压缩工具，它可以利用Java类特有的结构，对普通JAR文件进行高效压缩，以便于能够更快地进行网络传输。这是微软提供的对象包装程序，用于对象安装包。</p></li>
+<li><p>policytool: 策略工具，用于管理用户策略文件(.java.policy)。</p></li>
+<li><p>rmic: Java RMI 编译器，为使用JRMP或IIOP协议的远程对象生成stub、skeleton、和tie类，也用于生成OMG IDL。</p></li>
+<li><p>rmid: Java RMI 激活系统守护进程，rmid启动激活系统守护进程，允许在虚拟机中注册或激活对象。</p></li>
+<li><p>rmiregistry: Java 远程对象注册表，用于在当前主机的指定端口上创建并启动一个远程对象注册表。</p></li>
+<li><p>schemagen: XML schema生成器，用于生成XML schema文件。</p></li>
+<li><p>serialver: 序列版本命令，用于生成并返回serialVersionUID。</p></li>
+<li><p>servertool: Java IDL 服务器工具，用于注册、取消注册、启动和终止持久化的服务器。</p></li>
+<li><p>tnameserv: Java IDL瞬时命名服务。</p></li>
+<li><p>unpack200: JAR文件解压工具，将一个由pack200打包的文件解压提取为JAR文件。</p></li>
+<li><p>wsgen: XML Web Service 2.0的Java API，生成用于JAX-WS Web Service的JAX-WS便携式产物。</p></li>
+<li><p>wsimport: XML Web Service 2.0的Java API，主要用于根据服务端发布的wsdl文件生成客户端存根及框架</p></li>
+<li><p>xjc: 主要用于根据XML schema文件生成对应的Java类。</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java调优经验谈]]></title>
@@ -72,6 +145,7 @@
 <li>Java内存相关：这一部分可以参见<a href="http://www.rowkey.me/blog/2016/05/07/javamm/">谈谈Java内存管理</a>一文</li>
 <li>对Java代码进行基准性能测试：可以使用JMH来进行，<a href="http://www.hollischuang.com/archives/1072">[译]使用JMH进行微基准测试：不要猜，要测试！</a>。</li>
 <li>HotSpot VM相关知识：<a href="http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html">http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html</a></li>
+<li>jdk自带各种java工具：<a href="http://www.rowkey.me/blog/2016/11/03/jdk-tools/">http://www.rowkey.me/blog/2016/11/03/jdk-tools/</a></li>
 </ol>
 
 
@@ -156,7 +230,9 @@
 </ul>
 
 
-<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，一般是需要使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析的，可以看到具体的堆栈和内存中对象的信息。</p></li>
+<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，并启动web端口供浏览器浏览。</p>
+
+<p> <img src="http://www.rowkey.me/images/blog_images/profile/jhat.png" alt="" /></p></li>
 </ol>
 
 
@@ -4022,29 +4098,6 @@ git filter-branch --index-filter 'git rm --cached --ignore-unmatch *.sql' # 删�
 <li>备注：继鬼吹灯、盗墓笔记之后，又一部让我恨不得一口气看完的小说</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[搭建自己的github]]></title>
-    <link href="http://www.rowkey.me/blog/2015/11/13/your-own-github/"/>
-    <updated>2015-11-13T10:27:40+08:00</updated>
-    <id>http://www.rowkey.me/blog/2015/11/13/your-own-github</id>
-    <content type="html"><![CDATA[<p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
-
-<p>记得几年前由于项目的需要，曾尝试自己去搭建一套git服务给项目组使用，折腾了好久，才总算搭建了一个基础的系统, 刚刚能用，权限控制都没有(<a href="http://srhang.iteye.com/blog/1339110">http://srhang.iteye.com/blog/1339110</a>)。但最终因为git的上手门槛有点高，还是选择了svn。后来随着github的兴起，git才如火如荼地在国内火了起来。许多大的互联网公司，也都开始把项目由svn转到git。但如果仅仅是搭建一个git服务，那么github这种网站提供的可视化ui带来的便捷却也不复存在了。对于一些小的有钱的团队，使用github的收费私人repository倒也是一种解决办法。但是，对于大部分公司来说，还是不会把公司内部的代码放到这种公共服务上的。这种需求场景下，就诞生了很多github的克隆实现，以方便部署内网的github。</p>
-
-<!--more-->
-
-
-<p>说到github的克隆实现，最出名的莫过于<a href="https://gitlab.com">gitlab</a>。这是一个ROR的实现，应该是目前市面上最成熟的一个github克隆项目，功能也是最丰富的。它在原来最基础的git库管理、权限管理、用户管理的基础上又加入了诸如code review、ci等极大方便开发者的功能。基本把github克隆了一遍，还加上了github没有的功能。功能强大倒是强大，但是gitlab本身的部署非常复杂，需要安装很多依赖包和依赖组件，整个过程非常痛苦。虽然现在提供了集成安装包，但对操作系统又有要求，比如要求CentOS 6以上，CentOs 5的用户就享受不了这个便利了。。。一想到这么多事情，对于我这种懒人来说，还是没有选择gitlab。</p>
-
-<p>在前东家的时候，git项目是从gitlab迁移到了gitbucket（其中的原因当然不仅仅是因为gitlab部署的繁琐）。说起<a href="https://gitbucket.github.io/gitbucket-news/">gitbucket</a>，在百度上也搜不出什么信息来。能搜到的估计也就github库的地址和其他一些简单介绍。这个项目是日本的同行使用scala开发的一个github克隆。所以，抛开编程方面，对于java系的程序员还是比较友好的，部署也只需要把war包往tomcat之类的容器里一扔就ok。这个对比gitlab那可是天壤之别。而谈到二次开发，scala语言的学习曲线还是非常陡的，所以对比起来，貌似gitlab的二次开发相比较起来还是容易一些的（gitlab的二次开发没参与过，这里只是猜测）。当然，gitbucket是一个相对年轻的项目，对比gitlab，功能还显得比较单薄，bug也不少。我自己在使用的过程中，fix过几个小bug并提交到了项目的主分支，但是还有不少bug被公司的同事吐槽中（实在没时间专门fix这个）。另外，不得不说的是，gitbucket的markdown解析引擎，作者不知道什么原因从之前的一个叫pegdown的替换成了自己实现的markedj，让我们公司的一堆md文档都显示的各种乱，实在无语。。。不得不去clone了markedj的代码，fix了其中的一些bug，部署在我们内网的maven库里。bug虽然挺多，但比起gitlab来，还是喜欢gitbucket部署升级的简单（去官网下个war包，扔到tomcat里，恭喜你，你就拥有了自己的github）。当然，也有纯粹个人对jvm系语言的偏爱的原因^_^。</p>
-
-<p>其实，除了gitlab和gitbucket还有很多github的克隆实现。这篇文章列出了很多并做了简单介绍:
-<a href="http://www.oschina.net/news/50222/git-code-platforms">http://www.oschina.net/news/50222/git-code-platforms</a></p>
-
-<p>其实，开发工具这种东西，选择最适合自己以及自己团队的才是上上之选。</p>
 ]]></content>
   </entry>
   

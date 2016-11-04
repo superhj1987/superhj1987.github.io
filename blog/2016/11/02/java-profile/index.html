@@ -187,6 +187,7 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 <li>Java内存相关：这一部分可以参见<a href="http://www.rowkey.me/blog/2016/05/07/javamm/">谈谈Java内存管理</a>一文</li>
 <li>对Java代码进行基准性能测试：可以使用JMH来进行，<a href="http://www.hollischuang.com/archives/1072">[译]使用JMH进行微基准测试：不要猜，要测试！</a>。</li>
 <li>HotSpot VM相关知识：<a href="http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html">http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html</a></li>
+<li>jdk自带各种java工具：<a href="http://www.rowkey.me/blog/2016/11/03/jdk-tools/">http://www.rowkey.me/blog/2016/11/03/jdk-tools/</a></li>
 </ol>
 
 
@@ -271,7 +272,9 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 </ul>
 
 
-<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，一般是需要使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析的，可以看到具体的堆栈和内存中对象的信息。</p></li>
+<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，并启动web端口供浏览器浏览。</p>
+
+<p> <img src="/images/blog_images/profile/jhat.png" alt="" /></p></li>
 </ol>
 
 
@@ -594,6 +597,8 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
     
     <div class="meta">
       
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2016/11/03/jdk-tools/" title="上一篇: JDK自带工具概览">&laquo; JDK自带工具概览 </a>
+      
       
         <a class="basic-alignment right" style="float:right !important" href="/blog/2016/09/20/btrace/" title="下一篇: BTrace原理浅析">BTrace原理浅析 &raquo;</a>
       
@@ -673,6 +678,10 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2016/11/03/jdk-tools/">JDK自带工具概览</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2016/11/02/java-profile/">Java调优经验谈</a>
       	</li>
     	
@@ -686,10 +695,6 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
     	
      	<li>
       	  <a href="/blog/2016/08/27/server-basic-tech-stack/">谈谈互联网后端基础设施</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2016/08/17/dev-manage/">研发体系这点事</a>
       	</li>
     	
 	</ul>

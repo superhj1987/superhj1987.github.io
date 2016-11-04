@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-03T22:56:10+08:00</updated>
+  <updated>2016-11-04T11:14:49+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,79 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JDK自带工具概览]]></title>
+    <link href="http://www.rowkey.me/blog/2016/11/03/jdk-tools/"/>
+    <updated>2016-11-03T22:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/11/03/jdk-tools</id>
+    <content type="html"><![CDATA[<p>在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。</p>
+
+<p>笔者的开发环境是：OS X EI Captian 10.11.6</p>
+
+<p>JDK版本：</p>
+
+<pre><code>java version "1.8.0_92"
+Java(TM) SE Runtime Environment (build 1.8.0_92-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
+</code></pre>
+
+<p>JAVA_HOME/bin下的工具截图如下：</p>
+
+<p><img src="//images/blog_images/jdk-tools.png" alt="" /></p>
+
+<!--more-->
+
+
+<ul>
+<li><p>appletviewer: 用于运行并浏览applet小程序。</p></li>
+<li><p>extcheck: 扩展检测工具，主要用于检测指定jar文件与当前已安装的Java SDK扩展之间是否存在版本冲突。</p></li>
+<li><p>idlj: IDL转Java编译器(IDL-to-Java Compiler)，用于为指定的IDL文件生成Java绑定。IDL意即接口定义语言(Interface Definition Language)。</p></li>
+<li><p>jar: jar文件管理工具，主要用于打包压缩、解压jar文件。</p></li>
+<li><p>jarsigner: jar密匙签名工具。</p></li>
+<li><p>java: Java运行工具，用于运行.class字节码文件或.jar文件。</p></li>
+<li><p>javac: Java编译工具(Java Compiler)，用于编译Java源代码文件。</p></li>
+<li><p>javadoc: Java文档工具，主要用于根据Java源代码中的注释信息生成HTML格式的API帮助文档。</p></li>
+<li><p>javafxpackager: JavaFX包装器，用于执行与封装或签名JavaFX应用有关的任务。JDK 8u20已经迁移此工具到javapackager。</p></li>
+<li><p>javah: Java头文件工具，用于根据Java类生成C/C++头文件和源文件(主要用于JNI开发领域)。</p></li>
+<li><p>javap: Java反编译工具，主要用于根据Java字节码文件反汇编为Java源代码文件。</p></li>
+<li><p>javapackager: 执行针对Java应用程序和JavaFX应用程序的打包和签名的任务。包含了javafxpackager的功能。</p></li>
+<li><p>jcmd: Java 命令行(Java Command)，用于向正在运行的JVM发送诊断命令请求。</p></li>
+<li><p>jconsole: 图形化用户界面的监测工具，主要用于监测并显示运行于Java平台上的应用程序的性能和资源占用等信息。</p></li>
+<li><p>jdeps: 用于分析Java class的依赖关系.</p></li>
+<li><p>jdb: Java调试工具(Java Debugger)，主要用于对Java应用进行断点调试。</p></li>
+<li><p>jhat: Java堆分析工具(Java Heap Analysis Tool)，用于分析Java堆内存中的对象信息。</p></li>
+<li><p>jinfo: Java配置信息工具(Java Configuration Information)，用于打印指定Java进程、核心文件或远程调试服务器的配置信息。</p></li>
+<li><p>jjs: 对Nashorn引擎的调用。<a href="http://www.infoq.com/cn/articles/nashorn">Nashorn</a>是基于Java实现一个轻量级高性能的JavaScript运行环境。</p></li>
+<li><p>jmap: Java内存映射工具(Java Memory Map)，主要用于打印指定Java进程、核心文件或远程调试服务器的共享对象内存映射或堆内存细节。</p></li>
+<li><p>jmc: Java任务控制工具(Java Mission Control)，主要用于HotSpot JVM的生产时间监测、分析、诊断。开发者可以使用jmc命令来创建JMC工具。 <a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a></p></li>
+<li><p>jps: JVM进程状态工具(JVM Process Status Tool)，用于显示目标系统上的HotSpot JVM的Java进程信息。</p></li>
+<li><p>jrunscript: Java命令行脚本外壳工具(command line script shell)，主要用于解释执行javascript、groovy、ruby等脚本语言。</p></li>
+<li><p>jsadebugd: Java可用性代理调试守护进程(Java Serviceability Agent Debug Daemon)，主要用于附加到指定的Java进程、核心文件，或充当一个调试服务器。</p></li>
+<li><p>jstack: Java堆栈跟踪工具，主要用于打印指定Java进程、核心文件或远程调试服务器的Java线程的堆栈跟踪信息。</p></li>
+<li><p>jstat: JVM统计监测工具(JVM Statistics Monitoring Tool)，主要用于监测并显示JVM的性能统计信息，包括gc统计信息。</p></li>
+<li><p>jstatd: jstatd(VM jstatd Daemon)工具是一个RMI服务器应用，用于监测HotSpot JVM的创建和终止，并提供一个接口，允许远程监测工具附加到运行于本地主机的JVM上。</p></li>
+<li><p>jvisualvm: JVM监测、故障排除、分析工具，主要以图形化界面的方式提供运行于指定虚拟机的Java应用程序的详细信息。</p></li>
+<li><p>keytool: 密钥和证书管理工具，主要用于密钥和证书的创建、修改、删除等。主要用于获取或缓存Kerberos协议的票据授权票据。允许用户查看本地凭据缓存和密钥表中的条目(用于Kerberos协议)。Kerberos密钥表管理工具，允许用户管理存储于本地密钥表中的主要名称和服务密钥。</p></li>
+<li><p>native2ascii: 本地编码到ASCII编码的转换器(Native-to-ASCII Converter)，用于&#8221;任意受支持的字符编码&#8221;和与之对应的&#8221;ASCII编码和(或)Unicode转义&#8221;之间的相互转换。</p></li>
+<li><p>orbd: 对象请求代理守护进程(Object Request Broker Daemon)，它使客户端能够透明地定位和调用位于CORBA环境的服务器上的持久对象。</p></li>
+<li><p>pack200: JAR文件打包压缩工具，它可以利用Java类特有的结构，对普通JAR文件进行高效压缩，以便于能够更快地进行网络传输。这是微软提供的对象包装程序，用于对象安装包。</p></li>
+<li><p>policytool: 策略工具，用于管理用户策略文件(.java.policy)。</p></li>
+<li><p>rmic: Java RMI 编译器，为使用JRMP或IIOP协议的远程对象生成stub、skeleton、和tie类，也用于生成OMG IDL。</p></li>
+<li><p>rmid: Java RMI 激活系统守护进程，rmid启动激活系统守护进程，允许在虚拟机中注册或激活对象。</p></li>
+<li><p>rmiregistry: Java 远程对象注册表，用于在当前主机的指定端口上创建并启动一个远程对象注册表。</p></li>
+<li><p>schemagen: XML schema生成器，用于生成XML schema文件。</p></li>
+<li><p>serialver: 序列版本命令，用于生成并返回serialVersionUID。</p></li>
+<li><p>servertool: Java IDL 服务器工具，用于注册、取消注册、启动和终止持久化的服务器。</p></li>
+<li><p>tnameserv: Java IDL瞬时命名服务。</p></li>
+<li><p>unpack200: JAR文件解压工具，将一个由pack200打包的文件解压提取为JAR文件。</p></li>
+<li><p>wsgen: XML Web Service 2.0的Java API，生成用于JAX-WS Web Service的JAX-WS便携式产物。</p></li>
+<li><p>wsimport: XML Web Service 2.0的Java API，主要用于根据服务端发布的wsdl文件生成客户端存根及框架</p></li>
+<li><p>xjc: 主要用于根据XML schema文件生成对应的Java类。</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java调优经验谈]]></title>
@@ -72,6 +145,7 @@
 <li>Java内存相关：这一部分可以参见<a href="http://www.rowkey.me/blog/2016/05/07/javamm/">谈谈Java内存管理</a>一文</li>
 <li>对Java代码进行基准性能测试：可以使用JMH来进行，<a href="http://www.hollischuang.com/archives/1072">[译]使用JMH进行微基准测试：不要猜，要测试！</a>。</li>
 <li>HotSpot VM相关知识：<a href="http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html">http://www.oracle.com/technetwork/cn/java/javase/tech/index-jsp-136373-zhs.html</a></li>
+<li>jdk自带各种java工具：<a href="http://www.rowkey.me/blog/2016/11/03/jdk-tools/">http://www.rowkey.me/blog/2016/11/03/jdk-tools/</a></li>
 </ol>
 
 
@@ -156,7 +230,9 @@
 </ul>
 
 
-<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，一般是需要使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析的，可以看到具体的堆栈和内存中对象的信息。</p></li>
+<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，并启动web端口供浏览器浏览。</p>
+
+<p> <img src="//images/blog_images/profile/jhat.png" alt="" /></p></li>
 </ol>
 
 
@@ -828,235 +904,6 @@ public static String randomString(int i){
 <h2>总结</h2>
 
 <p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java后端工程师学习大纲]]></title>
-    <link href="http://www.rowkey.me/blog/2016/06/27/java-backend-study/"/>
-    <updated>2016-06-27T21:39:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/06/27/java-backend-study</id>
-    <content type="html"><![CDATA[<p>之前自己总结过的<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>，其涵盖的技术点比较全面，并非一朝一夕能够全部覆盖到的。对于一些还没有入门或者刚刚入门的Java后端工程师，如果一下子需要学习如此多的知识，想必很多人会望而却步。</p>
-
-<p>本文截取了技能树中的一些关键技能点，并辅以学习资料和书籍推荐，做为Java后端工程师的一个入门或者入职学习计划，基本上涵盖了一个合格的Java后端工程师必备的技能点，是一个相对完整的从基础到高级的修炼过程。当然，这只是一个大纲性指引的东西，也主要针对的是Java后端这个职位，并不会面面俱到，也不会很详细的讲述。毕竟其中每一个知识点深入下去都是可以成书的。另外，像数据结构、计算机网络等计算机科学基础知识，我认为是从事计算机专业的人必备的知识点，因此并不包括在内。如果要一个很全的知识点可以移步<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>。</p>
-
-<p><strong>本大纲于2016.07.07最新更新</strong>^_^&hellip;</p>
-
-<!--more-->
-
-
-<h2>一. Git版本管理+Maven工程管理</h2>
-
-<p><a href="http://weibo.com/p/1001643874239169320051">微博新兵训练营课程——环境与工具</a></p>
-
-<h2>二. Java编程</h2>
-
-<h3>书籍</h3>
-
-<ul>
-<li><a href="https://book.douban.com/subject/3146174/">《Java核心技术(卷1)》</a>：学习java必备的黄皮书，入门推荐书籍</li>
-<li><a href="https://book.douban.com/subject/3360866/">《Java核心技术(卷2)》</a>：黄皮书之高级特性</li>
-<li><a href="https://book.douban.com/subject/10484692/">《Java并发编程实战》</a>: 对java并发库讲得非常透彻</li>
-<li><a href="https://book.douban.com/subject/3360807/">《Effective Java》</a>：Java之父高司令都称赞的一本java进阶书籍</li>
-<li><a href="https://book.douban.com/subject/26274206/">《写给大忙人看的Java SE 8》</a>:涵盖了java8带来以及java7中被略过的新的java特性，值得一看</li>
-</ul>
-
-
-<h3>资料</h3>
-
-<ul>
-<li>Socket编程: <a href="http://ifeve.com/java-socket/">http://ifeve.com/java-socket/</a></li>
-<li>NIO: <a href="http://ifeve.com/java-nio-all/">http://ifeve.com/java-nio-all/</a></li>
-<li>序列化: <a href="http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/">http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/</a></li>
-<li>RPC框架: <a href="http://dubbo.io">http://dubbo.io</a></li>
-<li>并发编程：<a href="http://ifeve.com/java-concurrency-constructs/">http://ifeve.com/java-concurrency-constructs/</a></li>
-</ul>
-
-
-<h2>三. 开发框架</h2>
-
-<ul>
-<li>Spring: <a href="http://www.open-open.com/doc/view/5407635b943d410c9cfde409c90450b7">跟开涛学Spring3</a></li>
-<li>Spring MVC: <a href="http://www.cnblogs.com/kaitao/archive/2012/07/16/2593441.html">跟开涛学SpringMvc</a></li>
-<li>MyBatis: <a href="http://www.yihaomen.com/article/java/302.htm">MyBatis实战教程</a> <a href="http://limingnihao.iteye.com/blog/781671">MyBatis学习</a></li>
-</ul>
-
-
-<p>对于这些框架或者是一些常用的软件，个人最推崇的还是阅读<strong>官方文档</strong>来学习。当然，看这些资料能让你入门地更加快速一些。</p>
-
-<p>更进一步的，在学会使用之后，去阅读这些框架或软件的源码是必不可少的一步。阅读源码的一种比较好的步骤如下：</p>
-
-<ul>
-<li>1) 先阅读架构文档</li>
-<li>2) 根据架构，将源码文件以模块（或上下层级）分类</li>
-<li>3) 从最独立（依赖性最小）的模块代码读起</li>
-<li>4) 阅读该模块功能文档</li>
-<li>5) 阅读该模块源代码</li>
-<li>6) 一边阅读一边整理「调用关系表」</li>
-<li>7) goto 3</li>
-</ul>
-
-
-<h2>四. 性能优化与诊断-系统</h2>
-
-<p><a href="https://book.douban.com/subject/4027746/">《Linux服务器性能调整》</a></p>
-
-<p>学习内容：</p>
-
-<ul>
-<li>Linux概述</li>
-<li>性能分析工具</li>
-<li>系统调优</li>
-<li>Linux服务器应用的性能特征</li>
-<li>调优案例分析</li>
-</ul>
-
-
-<h2>五. 性能优化与诊断-JVM</h2>
-
-<ul>
-<li><p><a href="https://book.douban.com/subject/25828043/">《Java性能优化权威指南》</a></p>
-
-<p>  学习内容：</p>
-
-<ul>
-<li>JVM概述</li>
-<li>JVM性能监控</li>
-<li>JVM性能剖析与工具</li>
-<li>JVM参数与调优步骤</li>
-<li>JVM调优案例分析</li>
-</ul>
-</li>
-<li><p><a href="https://book.douban.com/subject/24722612/">《深入理解Java虚拟机(第二版)》</a></p></li>
-</ul>
-
-
-<h2>六. 消息中间件</h2>
-
-<h3>JMS</h3>
-
-<p>最为经典，也比较简单的一个消息中间件规范，ActiveMQ是其一个实现。但由于自身的一些局限，不再推荐使用。</p>
-
-<ul>
-<li>大规模分布式消息中间件简介：<a href="http://blog.csdn.net/huyiyang2010/article/details/5969944">http://blog.csdn.net/huyiyang2010/article/details/5969944</a></li>
-<li>JMS Overview: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html</a></li>
-<li>Basic JMS API Concepts: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html</a></li>
-<li>The JMS API Programming Model: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html">http://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html</a></li>
-<li>Creating Robust JMS Applications:<a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncfu.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncfu.html</a></li>
-<li>Using the JMS API in Java EE Applications: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html</a></li>
-<li>Further Information about JMS: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html</a></li>
-</ul>
-
-
-<h3>RabbitMQ</h3>
-
-<p>RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。适用于需要事务管理、对消息丢失很敏感的应用场景。对比kafka来看，RabbitMQ更为强调消息的可靠性、事务等。通过阅读官方文档学习即可：<a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
-
-<h3>Kafka</h3>
-
-<p>基于日志的消息队列，首推当然是官方文档: <a href="http://kafka.apache.org/documentation.html">http://kafka.apache.org/documentation.html</a></p>
-
-<ul>
-<li><p><a href="http://www.orchome.com/kafka/index">kafka中文教程</a>：比较不错的中文教程</p>
-
-<p>  学习内容：</p>
-
-<ul>
-<li>开始学习kafka</li>
-<li>入门</li>
-<li>接口</li>
-<li>配置</li>
-<li>设计</li>
-<li>实现</li>
-<li>什么是kafka</li>
-<li>什么场景下使用kafka</li>
-</ul>
-</li>
-<li><p><a href="https://github.com/superhj1987/kafka-study">kafka-study</a>: 笔者在学习kafka时的一些笔记</p></li>
-</ul>
-
-
-<h2>七. OAuth认证技术</h2>
-
-<h3>原理</h3>
-
-<p>OAuth是目前最为流行的第三方认证技术，即如何为第三方应用提供基于自己系统帐户体系的认证。目前，微博、微信、QQ、Facebook、Twitter基本上都是通过此协议让第三方应用集成的。简单的介绍可见百度百科简介: <a href="http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_">OAuth</a>。</p>
-
-<p>此外，这里有一篇博文讲的比较详细：<a href="https://www.baidu.com/link?url=dsh9gFpNCLJSQoBq13Pw_nND3XvhBEfuuWQIyDpSDahpKPARnW2b950PgL0ywr8f&amp;wd=&amp;eqid=921a63a50002869300000004577e6e05">OAuth的机制原理讲解及开发流程</a>。</p>
-
-<h3>开源实现</h3>
-
-<ul>
-<li>Google oauth core：<a href="http://oauth.net/code/">http://oauth.net/code/</a></li>
-<li>Spring oauth: <a href="http://projects.spring.io/spring-security-oauth/">http://projects.spring.io/spring-security-oauth/</a></li>
-</ul>
-
-
-<h2>八. Redis设计与实现</h2>
-
-<ul>
-<li><p><a href="http://redisdoc.com/">Redis命令</a>: 使用当然要看这份权威文档，也是平常开发中最常用的参考资料。</p></li>
-<li><p><a href="http://redisbook.com/">Redis设计与实现</a>：可以通过此文档来学习Redis的原理。当然，自己去看redis的源代码更是不错的选择。</p>
-
-<p>  学习内容：</p>
-
-<ul>
-<li>常用命令以及数据结构</li>
-<li>内部数据结构</li>
-<li>内存映射数据库结构</li>
-<li>redis数据类型</li>
-<li>功能的实现</li>
-<li>内部运作机制</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>九. 数据相关</h2>
-
-<h3>理论基础</h3>
-
-<ul>
-<li><a href="http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx">MapReduce</a>: 分布式计算的鼻祖，当然谷歌现在推出了新的计算模型。</li>
-<li><a href="http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx">GFS</a>: 分布式存储技术，开源实现为HDFS</li>
-<li><a href="http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx">Bigtable</a>: 稀疏大型数据库(列数据库)技术，开源实现为HBASE。</li>
-</ul>
-
-
-<p>作为业界良心的google还有其他许多先进的分布式技术，其论文也非常值得去研读。可以通过此链接获取一些论文的内容：<a href="http://www.chinacloud.cn/show.aspx?id=14382&amp;cid=11">http://www.chinacloud.cn/show.aspx?id=14382&amp;cid=11</a></p>
-
-<h3>实时计算</h3>
-
-<ul>
-<li><a href="https://book.douban.com/subject/26312249/">《Storm分布式实时计算模式》</a>：虽然twitter推出了新一代的Heron，但Storm仍是目前应用最为广泛的实时计算技术。</li>
-<li><a href="https://spark.apache.org/streaming/">Spark streaming: </a>：Spark带来了基于批处理的实时流计算技术，对比Storm各有优劣。</li>
-</ul>
-
-
-<h3>离线计算</h3>
-
-<ul>
-<li><a href="https://book.douban.com/subject/26206050/">《Hadoop权威指南》</a>：无须多言，Haoop是大数据必须要学习的技术，涵盖了HDFS+HBase+MapReduce。</li>
-<li><a href="https://book.douban.com/subject/25791255/">《Hive编程指南》</a>：Hive降低了MapReduce程序编写的复杂度。</li>
-<li><a href="https://book.douban.com/subject/26616244/">《Spark快速大数据分析》</a>： Spark引进的基于RDD的计算模型大大提高了离线计算的性能，相对于MR来说是更为领先的离线计算技术。</li>
-</ul>
-
-
-<h3>Lambda架构</h3>
-
-<p>大数据领域的经典架构方案，融合了离线和实时计算模型，对外能够提供稳定可靠的数据。对此架构的剖析可见此篇文章：<a href="http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln">Linkedln技术高管Jay Kreps：Lambda架构剖析</a></p>
-
-<h3>机器学习</h3>
-
-<p>除了个性化推荐系统之外，CTR预估、广告推荐、预测模型都是机器学习的应用场景。</p>
-
-<ul>
-<li><a href="https://book.douban.com/subject/10769749/">《推荐系统实践》</a></li>
-<li><a href="https://book.douban.com/subject/26596778/">《计算广告》</a></li>
-<li><a href="https://book.douban.com/subject/3288908/">《集体智慧》</a></li>
-<li><a href="https://book.douban.com/subject/26708119/">《机器学习》</a></li>
-</ul>
-
 ]]></content>
   </entry>
   
