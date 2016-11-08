@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-08T20:17:00+08:00</updated>
+  <updated>2016-11-09T00:08:49+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -123,7 +123,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 <li>系统底层环境：硬件、操作系统等</li>
 <li>数据结构和算法的使用</li>
 <li>外部系统如数据库、缓存的使用</li>
-<li>Java中一些Api的使用，如Random、StringBuilder等。</li>
 </ul>
 
 
@@ -138,7 +137,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 <li>需要了解系统的总体架构，明确压力方向。比如系统的哪一个接口、模块是使用率最高的，面临高并发的挑战。</li>
 <li>需要构建测试环境来测试应用的性能，使用ab、loadrunner、jmeter都可以。</li>
 <li>对关键业务数据量进行分析，这里主要指的是对一些数据的量化分析，如数据库一天的数据量有多少；缓存的数据量有多大等</li>
-<li>了解系统的响应速度、吞吐量、TPS、QPS等指标需求，比如秒杀系统的相应速度和QPS是要求非常高的。</li>
+<li>了解系统的响应速度、吞吐量、TPS、QPS等指标需求，比如秒杀系统对响应速度和QPS的要求是非常高的。</li>
 <li>了解系统相关软件的版本、模式和参数等，有时候限于应用依赖服务的版本、模式等，性能也会受到一定的影响。</li>
 </ul>
 
@@ -234,7 +233,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 </ul>
 
 
-<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，并启动web端口供浏览器浏览。</p>
+<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，会启动web端口供开发者使用浏览器浏览堆内对象的信息。</p>
 
 <p> <img src="http://www.rowkey.me/images/blog_images/profile/jhat.png" alt="" /></p></li>
 </ol>
@@ -304,8 +303,9 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 <p>  此工具是jdk7 u40开始自带的，原来是JRockit上的工具，是一款采样型的集诊断、分析和监控与一体的非常强大的工具。<a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a></p>
 
 <p>  <img src="http://www.rowkey.me/images/blog_images/profile/jmc.png" alt="" /></p></li>
-<li><p>Btrace
-  这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考<a href="http://calvin1978.blogcn.com/articles/btrace1.html">Btrace入门到熟练小工完全指南</a>。</p></li>
+<li><p>Btrace</p>
+
+<p>  这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考<a href="http://calvin1978.blogcn.com/articles/btrace1.html">Btrace入门到熟练小工完全指南</a>。</p></li>
 <li><p>Jwebap</p>
 
 <p>  <a href="http://www.oschina.net/p/jwebap">Jwebap</a>是一款JavaEE性能检测框架，基于asm增强字节码实现。支持：http请求、jdbc连接、method的调用轨迹跟踪以及次数、耗时的统计。由此可以获取最耗时的请求、方法，并可以查看jdbc连接的次数、是否关闭等。但此项目是2006年的一个项目，已经将近10年没有更新。根据笔者使用，已经不支持jdk7编译的应用。如果要使用，建议基于原项目二次开发，同时也可以加入对redis连接的轨迹跟踪。当然，基于字节码增强的原理，也可以实现自己的JavaEE性能监测框架。</p>
