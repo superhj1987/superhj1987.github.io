@@ -12,7 +12,11 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Nginx负载均衡 Aug 27th, 2014 Posted by 飒然Hang in nginx 一、特点 1.1 应用情况 Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20% &hellip;">
+  <meta name="description" content="Nginx负载均衡 Aug 27th, 2014 Posted by 飒然Hang in nginx 目录 一 特点
+二 负载均衡
+三 动态负载均衡
+四 优势和劣势
+五 Tengine 本文最新更新于2016.11.01 一 特点 1.1 应用情况 Nginx做为一个强大的Web服务器软件， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -20,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2014/08/27/nginx-loabbalance/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2014/08/27/nginx-loadbalance/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
@@ -129,21 +133,34 @@
   </header>
 
 
-<div class="post-content"><h2>一、特点</h2>
+<div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E4%B8%80%20%E7%89%B9%E7%82%B9">一 特点</a></li>
+<li><a href="#%E4%BA%8C%20%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">二 负载均衡</a></li>
+<li><a href="#%E4%B8%89%20%E5%8A%A8%E6%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">三 动态负载均衡</a></li>
+<li><a href="#%E5%9B%9B%20%E4%BC%98%E5%8A%BF%E5%92%8C%E5%8A%A3%E5%8A%BF">四 优势和劣势</a></li>
+<li><a href="#%E4%BA%94%20Tengine">五 Tengine</a></li>
+</ul>
+
+
+<p><strong><em>本文最新更新于2016.11.01</em></strong></p>
+
+<h2><a name='一 特点'></a>一 特点</h2>
 
 <h3>1.1 应用情况</h3>
 
 <p>Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。据Netcraft统计，世界上最繁忙的网站中有11.48%使用Nginx作为其服务器或者代理服务器。基于反向代理的功能，Nginx作为负载均衡主要有以下几点理由：</p>
 
 <ol>
-<li><p>高并发连接</p></li>
-<li><p>内存消耗少</p></li>
-<li><p>配置文件非常简单</p></li>
-<li><p>成本低廉</p></li>
-<li><p>支持Rewrite重写规则</p></li>
-<li><p>内置的健康检查功能</p></li>
-<li><p>节省带宽</p></li>
-<li><p>稳定性高</p></li>
+<li>高并发连接</li>
+<li>内存消耗少</li>
+<li>配置文件非常简单</li>
+<li>成本低廉</li>
+<li>支持Rewrite重写规则</li>
+<li>内置的健康检查功能</li>
+<li>节省带宽</li>
+<li>稳定性高</li>
 </ol>
 
 
@@ -152,7 +169,9 @@
 
 <h3>1.2 架构</h3>
 
-<p><img src="/images/blog_images/ngx_arch.jpg" alt="" /></p>
+<p><img src="/images/blog_images/nginx/ngx_arch.jpg" alt="" /></p>
+
+<p>上图为来自官方的一张总体架构图。</p>
 
 <p>nginx在启动后，会以daemon的方式在后台运行，后台进程包含一个master进程和多个worker进程。工作进程以非特权用户运行。</p>
 
@@ -172,7 +191,7 @@
 
 <p>Nginx的高并发，官方测试支持5万并发连接。实际生产环境能到2-3万并发连接数。10000个非活跃的HTTP keep-alive 连接仅占用约2.5MB内存。三万并发连接下，10个Nginx进程，消耗内存150M。淘宝tengine团队说测试结果是“24G内存机器上，处理并发请求可达200万”。</p>
 
-<h2>二、负载均衡</h2>
+<h2><a name='二 负载均衡'></a>二 负载均衡</h2>
 
 <h3>2.1 协议支持</h3>
 
@@ -183,10 +202,13 @@
 <p>此外，nginx本身也逐渐在完善对其他协议的支持：</p>
 
 <ul>
-<li><p>Nginx 1.3.13 开发版支持WebSocket代理。</p></li>
-<li><p>Nginx 1.3.15开发版支持SPDY。</p></li>
+<li>nginx 1.4.0对Websocket和SPDY都做了正式的支持。</li>
+<li>nginx 1.6.0对SPDY 3.1的正式支持</li>
+<li>nginx 1.10.0正式支持HTTP/2</li>
 </ul>
 
+
+<p>目前，nginx最新稳定版为1.10.2，主线开发版本已经到了1.11.5。Tengine最新版本则继承到了nginx的1.6.2版本。</p>
 
 <h3>2.2 均衡策略</h3>
 
@@ -197,24 +219,23 @@
 
 <p> 轮询的原理很简单，首先我们介绍一下轮询的基本流程。如下是处理一次请求的流程图：</p>
 
-<p> <img src="/images/blog_images/ngx_wr_process.jpg" alt="" /></p>
+<p> <img src="/images/blog_images/nginx/ngx_wr.png" alt="" /></p>
 
 <p> 图中有两点需要注意，第一，如果可以把加权轮询算法分为先深搜索和先广搜索，那么nginx采用的是先深搜索算法，即将首先将请求都分给高权重的机器，直到该机器的权值降到了比其他机器低，才开始将请求分给下一个高权重的机器；第二，当所有后端机器都down掉时，nginx会立即将所有机器的标志位清成初始状态，以避免造成所有的机器都处在timeout的状态，从而导致整个前端被夯住。</p></li>
 <li><p>ip hash</p>
 
 <p> ip hash是nginx内置的另一个负载均衡的策略，流程和轮询很类似，只是其中的算法和具体的策略有些变化，如下图所示：</p>
 
-<p> <img src="/images/blog_images/ngx_iphash_process.jpg" alt="" /></p>
+<p> <img src="/images/blog_images/nginx/ngx_iphash.png" alt="" /></p>
 
 <p> ip hash算法的核心实现如下：</p>
 
-<p> <pre>
- for(i = 0;i &lt; 3;i++){
-     hash = (hash * 113 + iphp->addr[i]) % 6271;
- }</p>
+<pre><code> for(i = 0;i &lt; 3;i++){
+     hash = (hash * 113 + iphp-&gt;addr[i]) % 6271; 
+ }
 
-<p> p = hash % iphp->rrp.peers->number;
- </pre></p>
+ p = hash % iphp-&gt;rrp.peers-&gt;number;     
+</code></pre>
 
 <p> 从代码中可以看出，hash值既与ip有关又与后端机器的数量有关。经过测试，上述算法可以连续产生1045个互异的value，这是该算法的硬限制。对此nginx使用了保护机制，当经过20次hash仍然找不到可用的机器时，算法退化成轮询。因此，从本质上说，ip hash算法是一种变相的轮询算法，如果两个ip的初始hash值恰好相同，那么来自这两个ip的请求将永远落在同一台服务器上，这为均衡性埋下了很深的隐患。</p></li>
 <li><p>fair</p>
@@ -223,6 +244,9 @@
 <li><p>通用hash、一致性hash</p>
 
 <p> 这两种也是扩展策略，在具体的实现上有些差别，通用hash比较简单，可以以nginx内置的变量为key进行hash，一致性hash采用了nginx内置的一致性hash环，可以支持memcache。</p></li>
+<li><p>session_sticky</p>
+
+<p> 此种策略就是一次会话内的请求都会落到同一个结点上。在做分布式架构时可以使用，但是当一个结点挂掉时，会话信息同时也会丢失,如果使用session同步方案同步session信息到所有结点的话代价又会很高，慎重使用此方案。nginx默认不支持此种策略，tengine提供了支持: <a href="http://tengine.taobao.org/document_cn/http_upstream_session_sticky_cn.html">http://tengine.taobao.org/document_cn/http_upstream_session_sticky_cn.html</a>.</p></li>
 </ol>
 
 
@@ -231,56 +255,33 @@
 <ol>
 <li><p>HTTP</p>
 
-<pre><code> http {
+<pre><code> upstream upstream_test{  
+     server 192.168.0.1:8080;
+     server 192.168.0.2:8080;
 
-     upstream  www.s135.com  {
+     #ip_hash;
+     keepalive 30;
 
-       server   192.168.1.2:80;
+     ## tengine config
+     #check interval=300 rise=10 fall=10 timeout=100 type=http port=80;
+     #check_http_send "GET / HTTP/1.0\r\n\r\n";
+     #check_http_expect_alive http_2xx http_3xx;
 
-       server   192.168.1.3:80;
+     ## tengine config
+     #session_sticky cookie=cookieTest mode=insert;
+ }  
 
-     }
+ location / {
 
-
-
-     server{
-
-       listen  80;
-
-       server_name  www.s135.com;
-
-
-
-       location / {
-
-                proxy_pass        http://www.s135.com;
-
-                proxy_set_header   Host             $host;
-
-                proxy_set_header   X-Real-IP        $remote_addr;
-
-                proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
-
-       }
-
-
-
-       location /nginx_status {
-
-                stub_status on;
-
-                access_log off;
-
-                allow 192.168.1.1;#设置为可访问该状态信息的ip
-
-                deny all;
-
-       }
-
-     }
+     proxy_pass         http://upstream_test;
+     proxy_set_header   Host             $host;
+     proxy_set_header   X-Real-IP        $remote_addr;
+     proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
 
  }
-</code></pre></li>
+</code></pre>
+
+<p> 对于nginx更为具体的配置可参考：<a href="https://github.com/superhj1987/awesome-config/blob/master/nginx/nginx.conf">https://github.com/superhj1987/awesome-config/blob/master/nginx/nginx.conf</a></p></li>
 <li><p>TCP - ngx_tcp_proxy_module</p>
 
 <pre><code> tcp {
@@ -289,9 +290,9 @@
 
          # simple round-robin
 
-         server 192.168.0.1:80;
+         server 192.168.0.1:8080;
 
-         server 192.168.0.2:80;
+         server 192.168.0.2:8080;
 
 
 
@@ -326,7 +327,7 @@
 </ol>
 
 
-<h2>三、动态负载均衡</h2>
+<h2><a name='三 动态负载均衡'></a>三 动态负载均衡</h2>
 
 <h3>3.1 自身监控</h3>
 
@@ -336,7 +337,7 @@
 
 <p>Nginx属于典型的微内核设计，其内核非常简洁和优雅，同时具有非常高的可扩展性。如下图所示：</p>
 
-<p><img src="/images/blog_images/ngx_micro.jpg" alt="" /></p>
+<p><img src="/images/blog_images/nginx/ngx_micro.png" alt="" /></p>
 
 <p>Nginx是纯C语言的实现，其可扩展性在于其模块化的设计。目前，Nginx已经有很多的第三方模块，大大扩展了自身的功能。nginx_lua_module可以将Lua语言嵌入到Nginx配置中，从而利用Lua极大增强了Nginx本身的编程能力，甚至可以不用配合其它脚本语言（如PHP或Python等），只靠Nginx本身就可以实现复杂业务的处理。</p>
 
@@ -344,63 +345,61 @@
 
 <p>nginx的配置架构如下图所示：</p>
 
-<p><img src="/images/blog_images/ngx_config.jpg" alt="" /></p>
+<p><img src="/images/blog_images/nginx/ngx_config.png" alt="" /></p>
 
 <p>Nginx支持热部署，几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动。能够在不间断服务的情况下，对软件版本进行进行升级。Nginx的配置文件非常简单，风格跟程序一样通俗易懂，能够支持perl语法。使用nginx –s reload可以在运行时加载配置文件，便于运行时扩容/减容。重新加载配置时，master进程发送命令给当前正在运行的worker进程worker进程接到命令后会在处理完当前任务后退出。同时，master进程会启动新的worker进程来接管工作。</p>
 
-<h2>四、优势和劣势</h2>
+<h2><a name='四 优势和劣势'></a>四 优势和劣势</h2>
 
 <h3>4.1 优势</h3>
 
 <ol>
-<li><p>可以很好地进行http 的头处理</p></li>
-<li><p>对http协议以及https的良好支持</p></li>
-<li><p>有足够的第三方插件供使用</p></li>
-<li><p>支持热部署，更改后端是平滑的</p></li>
+<li>可以很好地进行http 的头处理</li>
+<li>对http协议以及https的良好支持</li>
+<li>有足够的第三方插件供使用</li>
+<li>支持热部署，更改后端是平滑的</li>
 </ol>
 
 
 <h3>4.2 劣势</h3>
 
 <ol>
-<li><p>缺少对session的支持</p></li>
-<li><p>对四层tcp的支持不够好</p></li>
-<li><p>post请求写文件系统，造成500 error</p></li>
-<li><p>缺乏主动的后端服务器健康监测</p></li>
-<li><p>默认的监控界面统计信息不全</p></li>
+<li>缺少对session的支持</li>
+<li>对四层tcp的支持不够好</li>
+<li>post请求写文件系统，造成500 error</li>
+<li>缺乏主动的后端服务器健康监测</li>
+<li>默认的监控界面统计信息不全</li>
 </ol>
 
 
-<h2>五、Tengine</h2>
+<h2><a name='五 Tengine'></a>五 Tengine</h2>
+
+<p>Tengine是淘宝基于nginx开源代码二次开发一款服务器软件，在继承了nginx的特性以外，提供了一些nginx商业版才有的功能。基本上同步于nginx的更新，目前最新的版本已经继承了nginx 1.6.2稳定版。</p>
 
 <h3>5.1 特性</h3>
 
+<p>tengine的特性包括但不限于：</p>
+
 <ol>
-<li><p>继承Nginx-1.2.9的所有特性，100%兼容Nginx的配置；</p></li>
-<li><p>动态模块加载（DSO）支持。加入一个模块不再需要重新编译整个Tengine；</p></li>
-<li><p>输入过滤器机制支持。通过使用这种机制Web应用防火墙的编写更为方便；</p></li>
-<li><p>动态脚本语言Lua支持。扩展功能非常高效简单；</p></li>
-<li><p>支持管道（pipe）和syslog（本地和远端）形式的日志以及日志抽样；</p></li>
-<li><p>组合多个CSS、JavaScript文件的访问请求变成一个请求；</p></li>
-<li><p>更加强大的负载均衡能力，包括一致性hash模块、会话保持模块，还可以对后端的服务器进行主动健康检查，根据服务器状态自动上线下线；</p></li>
-<li><p>自动根据CPU数目设置进程个数和绑定CPU亲缘性；</p></li>
-<li><p>监控系统的负载和资源占用从而对系统进行保护；</p></li>
-<li><p>显示对运维人员更友好的出错信息，便于定位出错机器；</p></li>
-<li><p>更强大的防攻击（访问速度限制）模块；</p></li>
-<li><p>更方便的命令行参数，如列出编译的模块列表、支持的指令等；</p></li>
-<li><p>可以根据访问文件类型设置过期时间；</p></li>
+<li>更友好的运维信息显示</li>
+<li>动态模块加载机制</li>
+<li>自动根据CPU数目设置进程个数和绑定CPU亲缘性</li>
+<li>更方便的命令行参数，如列出编译的模块列表、支持的指令等</li>
+<li>更加强大的负载均衡能力，包括一致性hash模块、会话保持模块，还可以对后端的服务器进行主动健康检查，根据服务器状态自动上线下线</li>
+<li>动态脚本语言Lua支持。扩展功能非常高效简单</li>
+<li>输入过滤器机制支持。通过使用这种机制Web应用防火墙的编写更为方便</li>
 </ol>
 
 
 <h3>5.2 负载均衡</h3>
 
-<p>负载均衡方面，Tengine主要有以下几个特点，基本上弥补了 nginx在负载均衡方面的欠缺：</p>
+<p>负载均衡方面，Tengine主要有以下几个特点，基本上弥补了nginx在负载均衡方面的欠缺：</p>
 
 <ol>
-<li><p>支持一致性Hash模块</p></li>
-<li><p>会话保持模块</p></li>
-<li><p>对后端服务器的主动健康检查。</p></li>
-<li><p>增加了请求体不缓存到磁盘的机制</p></li>
+<li>支持一致性Hash模块</li>
+<li>会话保持模块</li>
+<li>对后端服务器的主动健康检查。</li>
+<li>增加了请求体不缓存到磁盘的机制</li>
 </ol>
 
 </div>
@@ -418,7 +417,11 @@
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="Nginx负载均衡 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2014/08/27/nginx-loabbalance/" data-content="一、特点 1.1 应用情况 Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。 &hellip;">
+<div class="ds-share flat" data-title="Nginx负载均衡 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2014/08/27/nginx-loadbalance/" data-content="目录 一 特点
+二 负载均衡
+三 动态负载均衡
+四 优势和劣势
+五 Tengine 本文最新更新于2016.11.01 一 特点 1.1 应用情况 Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20% &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
@@ -451,7 +454,7 @@
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2014/08/27/nginx-loabbalance/" data-title="Nginx负载均衡"></div>
+<div class="ds-thread" data-thread-key="/blog/2014/08/27/nginx-loadbalance/" data-title="Nginx负载均衡"></div>
 <!-- 多说评论框 end -->
 
 
