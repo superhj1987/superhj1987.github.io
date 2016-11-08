@@ -27,7 +27,6 @@ Java调优也不外乎这三步。
 - 系统底层环境：硬件、操作系统等
 - 数据结构和算法的使用
 - 外部系统如数据库、缓存的使用
-- Java中一些Api的使用，如Random、StringBuilder等。
 
 <!--more-->
 
@@ -38,7 +37,7 @@ Java调优也不外乎这三步。
 - 需要了解系统的总体架构，明确压力方向。比如系统的哪一个接口、模块是使用率最高的，面临高并发的挑战。
 - 需要构建测试环境来测试应用的性能，使用ab、loadrunner、jmeter都可以。
 - 对关键业务数据量进行分析，这里主要指的是对一些数据的量化分析，如数据库一天的数据量有多少；缓存的数据量有多大等
-- 了解系统的响应速度、吞吐量、TPS、QPS等指标需求，比如秒杀系统的相应速度和QPS是要求非常高的。
+- 了解系统的响应速度、吞吐量、TPS、QPS等指标需求，比如秒杀系统对响应速度和QPS的要求是非常高的。
 - 了解系统相关软件的版本、模式和参数等，有时候限于应用依赖服务的版本、模式等，性能也会受到一定的影响。
 
 此外，我们还需要了解Java相关的一些知识：
@@ -113,7 +112,7 @@ Java调优也不外乎这三步。
     - 把heap里所有对象都dump下来，无论对象是死是活：jmap -dump:format=b,file=xxx.hprof <pid>
     - 先做一次full GC，再dump，只包含仍然存活的对象信息：jmap -dump:format=b,live,file=xxx.hprof <pid>
         
-    此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，并启动web端口供浏览器浏览。
+    此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，会启动web端口供开发者使用浏览器浏览堆内对象的信息。
     
     ![](/images/blog_images/profile/jhat.png)
     
@@ -174,6 +173,7 @@ Java调优也不外乎这三步。
 	![](/images/blog_images/profile/jmc.png)
 
 - Btrace
+
     这里不得不提的是btrace这个神器，它使用java attach api+ java agent + instrument api能够实现jvm的动态追踪。在不重启应用的情况下可以加入拦截类的方法以打印日志等。具体的用法可以参考[Btrace入门到熟练小工完全指南](http://calvin1978.blogcn.com/articles/btrace1.html)。
 
 - Jwebap
