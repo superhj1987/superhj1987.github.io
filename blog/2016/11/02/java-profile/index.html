@@ -225,6 +225,8 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 
 <p><img src="/images/blog_images/profile/vmstat.jpg" alt="jstat" /></p>
 
+<p>此外，有时候可能会由jit引起一些cpu飚高的情形，如大量方法编译等。这里可以使用-XX:+PrintCompilation这个参数输出jit编译情况，以排查jit编译引起的cpu问题。</p>
+
 <h3>内存分析</h3>
 
 <p>对Java应用来说，内存主要是由堆外内存和堆内内存组成。</p>
@@ -464,7 +466,7 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 <p>此外，jdk7、8在jvm的性能上做了一些增强：</p>
 
 <ul>
-<li>通过-XX:+TieredCompilation开启JDK7的<a href="http://rednaxelafx.iteye.com/blog/1022095">多层编译（tiered compilation）支持</a>。多层编译结合了客户端C1编译器和服务端C2编译器的优点(客户端编译能够快速启动和及时优化，服务器端编译可以提供更多的高级优化)，是一个非常高效利用资源的切面方案。在开始时先进行低层次的编译，同时收集信息，在后期再进一步进行高层次的编译进行高级优化。</li>
+<li>通过-XX:+TieredCompilation开启JDK7的<a href="http://rednaxelafx.iteye.com/blog/1022095">多层编译（tiered compilation）支持</a>。多层编译结合了客户端C1编译器和服务端C2编译器的优点(客户端编译能够快速启动和及时优化，服务器端编译可以提供更多的高级优化)，是一个非常高效利用资源的切面方案。在开始时先进行低层次的编译，同时收集信息，在后期再进一步进行高层次的编译进行高级优化。<strong>需要注意的一点：</strong>这个参数会消耗比较多的内存资源，因为同一个方法被编译了多次，存在多份native内存拷贝，建议把code cache调大一点儿（-XX:+ReservedCodeCacheSize，InitialCodeCacheSize）。否则有可能由于code cache不足，jit编译的时候不停的尝试清理code cache，丢弃无用方法，消耗大量资源在jit线程上。</li>
 <li>Compressed Oops：压缩指针在jdk7中的server模式下已经默认开启。</li>
 <li>Zero-Based Compressed Ordinary Object Pointers：当使用了上述的压缩指针时，在64位jvm上，会要求操作系统保留从一个虚拟地址0开始的内存。如果操作系统支持这种请求，那么就开启了Zero-Based Compressed Oops。这样可以使得无须在java堆的基地址添加任何地址补充即可把一个32位对象的偏移解码成64位指针。</li>
 <li>逃逸分析(Escape Analysis): Server模式的编译器会根据代码的情况，来判断相关对象的逃逸类型，从而决定是否在堆中分配空间，是否进行标量替换(在栈上分配原子类型局部变量)。此外，也可以根据调用情况来决定是否自动消除同步控制，如StringBuffer。这个特性从Java SE 6u23开始就默认开启。</li>
