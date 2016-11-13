@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="JDK自带工具概览 Nov 3rd, 2016 在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。 笔者的开发环境是：OS X EI &hellip;">
+  <meta name="description" content="[译]使用Groovy的AST Transformation做DSL操作 Nov 12th, 2016 最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build.gradle的语法是groovy的。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -89,6 +89,59 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/11/12/groovy-ast/">[译]使用Groovy的AST Transformation做DSL操作</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-12T21:21:34+08:00" pubdate data-updated="true">Nov 12<sup>th</sup>, 2016</time>
+        
+        <a data-thread-key="/blog/2016/11/12/groovy-ast/" href="/blog/2016/11/12/groovy-ast/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build.gradle的语法是groovy的。但这次再怎么看也觉得里面的好多语法都和以前用过的groovy都联系不到一起。各种懵逼状态。。。后来阅读了这篇文章，算是解答了一些疑问：<a href="http://www.cnblogs.com/CloudTeng/p/3418072.html">http://www.cnblogs.com/CloudTeng/p/3418072.html</a>。但是对于下面这种写法，还是不知道是怎么回事：</p>
+
+<pre><code>task copyFile(type: Copy){
+    from 'xml'
+    into 'destination'
+}
+</code></pre>
+
+<p>copyFile做为task名称竟然不是一个字符串，阅读了groovy的文档也没发现字符串可以省略引号的说明(php中引号倒是可以省略），此外一个方法后面跟一个参数然后这个参数又跟着一个括号，这又是什么语法。。。凭直觉觉得这里的copyFile应该是一个方法，但是这时候copyFile还没有定义啊。。。</p>
+
+<p>带着以上疑问，去翻了一下groovy的官方文档，凭感觉觉得gradle是利用了groovy的ast trasnfomation，也就是抽象语法树转换(故名思议，也就是能够转换groovy的语法树从而创造自己的一套语法)。那么到底是不是这样呢？<a href="http://blog.csdn.net/zxhoo/article/details/29830529">http://blog.csdn.net/zxhoo/article/details/29830529</a>给出了解释并证明了这个结论。但是groovy的ast transformation到底是什么东西呢？国外有一篇博客给出了比较清晰明了的讲述：<a href="http://www.tuicool.com/articles/VN7Vvq">http://www.tuicool.com/articles/VN7Vvq</a>。此文即对此篇博文的翻译。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/11/12/groovy-ast/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -590,49 +643,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/06/19/java-tips/">Java开发的几个注意点</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-06-19T20:59:44+08:00" pubdate data-updated="true">Jun 19<sup>th</sup>, 2016</time>
-        
-        <a data-thread-key="/blog/2016/06/19/java-tips/" href="/blog/2016/06/19/java-tips/#ds-thread" class="ds-thread-count"></a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/06/19/java-tips/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -693,11 +703,13 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
 		
 </section><section class="widget">
-<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=1&isWeibo=0&isFans=0&uid=1307023714&verifier=cc8c1592&dpc=1"></iframe>
-</section><section class="widget">
 	<h3 class="widget-title">最新文章</h3>
 	<ul class="widget-list">
 		
+     	<li>
+      	  <a href="/blog/2016/11/12/groovy-ast/">[译]使用Groovy的AST Transformation做DSL操作</a>
+      	</li>
+    	
      	<li>
       	  <a href="/blog/2016/11/03/jdk-tools/">JDK自带工具概览</a>
       	</li>
@@ -712,10 +724,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2016/08/30/recommend-sys/">推荐系统杂谈</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2016/08/27/server-basic-tech-stack/">谈谈互联网后端基础设施</a>
       	</li>
     	
 	</ul>

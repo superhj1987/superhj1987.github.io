@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Nginx源码分析之启动过程 Sep 24th, 2014 nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ &hellip;">
+  <meta name="description" content="ShellShock这点事 Sep 29th, 2014 前言 在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接： &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -89,6 +89,51 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2014/09/29/shell-shock/">ShellShock这点事</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-09-29T21:49:46+08:00" pubdate data-updated="true">Sep 29<sup>th</sup>, 2014</time>
+        
+        <a data-thread-key="/blog/2014/09/29/shell-shock/" href="/blog/2014/09/29/shell-shock/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>前言</h2>
+
+<p>在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接：<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271">CVE-2014-6271</a> 、<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-7169">CVE-2014-7169</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7186">CVE-2014-7186</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7187">CVE-2014-7187</a>、<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6277">CVE-2014-6277</a>。世界上Linux服务器的占有份额是很大的，而bash又是Linux不可或缺的一个部分。可想而知，这个漏洞的破坏力有多大。这个从名字上就可以看出来，ShellShock是医学上的一种严重的疾病，中文叫做“弹震症”，指的是受到爆炸冲击后导致浑身颤抖、思维混乱等症状。这个命名很形象地反映了问题的严重性。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/09/29/shell-shock/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -594,156 +639,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2013/05/02/android-image-load/">Android异步加载图片</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-02T20:02:50+08:00" pubdate data-updated="true">May 2<sup>nd</sup>, 2013</time>
-        
-        <a data-thread-key="/blog/2013/05/02/android-image-load/" href="/blog/2013/05/02/android-image-load/#ds-thread" class="ds-thread-count"></a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>对于Android中的异步加载图片，自己总结了两种方式，如下：</p>
-
-<p>1.<pre>
-/<em>*
- * 异步读取图片，需要传递三个参数：Imageview imageView,String imagePath,int maxNumpixels<br/>
- * @author Bryant
- </em>/<br/>
-public class AsyncLoadImage extends AsyncTask&lt;Object, Object, Void> {<br/>
-    @Override<br/>
-    protected Void doInBackground(Object&hellip; params) {</p>
-
-<pre><code>    try {  
-        ImageView imageView=(ImageView) params[0];  
-        String path=(String) params[1];  
-        int maxNumOfPixels = (Integer)params[2];
-
-        Bitmap bm = CompressPicture.compress(path,maxNumOfPixels);
-
-        publishProgress(new Object[] {imageView, bm});  
-    }catch (Exception e) {  
-        e.printStackTrace();  
-    }  
-
-    return null;
-}  
-
-protected void onProgressUpdate(Object... progress) {  
-    ImageView imageView = (ImageView) progress[0];  
-    Bitmap bm = (Bitmap) progress[1];
-    if(bm != null){
-        imageView.setImageBitmap(bm); 
-    }
-
-}  
-</code></pre>
-
-<p>}<br/>
-</pre></p>
-
-<ol>
-<li></li>
-</ol>
-
-
-<pre>
-/**
- * 图片异步加载
- * @author Bryant
- *
- */
-public class AsyncImageLoader {
-    private Map<String, SoftReference<Bitmap>> imageCache=new HashMap<String, SoftReference<Bitmap>>();
-    private int maxNumPixels;
-    
-    public Bitmap loadBitmap(final String imagePath,int maxNumPixels,final ImageCallback callback){
-        this.maxNumPixels = maxNumPixels;
-        
-        if(imageCache.containsKey(imagePath)){
-            SoftReference<Bitmap> softReference=imageCache.get(imagePath);
-            if(softReference.get()!=null){
-                return softReference.get();
-            }
-        }
-        final Handler handler=new Handler(){
-            @Override
-            public void handleMessage(Message msg) {
-                callback.imageLoaded((Bitmap) msg.obj, imagePath);
-            }
-        };
-        new Thread(){
-            public void run() {
-                Bitmap bitmap=loadImageFromPath(imagePath);
-                imageCache.put(imagePath, new SoftReference<Bitmap>(bitmap));
-                handler.sendMessage(handler.obtainMessage(0,bitmap));
-            };
-        }.start();
-        return null;
-    }
-    
-    protected Bitmap loadImageFromPath(String imagePath) {
-        try {
-            return CompressPicture.compress(imagePath, maxNumPixels);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public interface ImageCallback{
-        public void imageLoaded(Bitmap imageBitmap,String imagePath);
-    }
-}
-</pre>
-
-
-<p>经过实际使用，AsyncImageLoader的效率比较高，但是调用比较麻烦。
-调用示例：</p>
-
-<pre>
-private AsyncImageLoader imageLoader = new AsyncImageLoader();
-imageLoader.loadBitmap(imagePath,maxNumPixels, new ImageCallback() {
-    public void imageLoaded(Bitmap imageBitmap, String imagePath) {
-        imageView.setImageBitmap(imageBitmap);
-    }
-}); 
-</pre>
-
-
-<p>AsyncLoadImage调用较简单，调用示例如下：</p>
-
-<pre>
-new AsyncLoadImage().execute(new Object[]{imageView,imagePath,maxNumPixels});
-</pre>
-
-</div>
-  
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -806,11 +701,13 @@ new AsyncLoadImage().execute(new Object[]{imageView,imagePath,maxNumPixels});
 			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
 		
 </section><section class="widget">
-<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=1&isWeibo=0&isFans=0&uid=1307023714&verifier=cc8c1592&dpc=1"></iframe>
-</section><section class="widget">
 	<h3 class="widget-title">最新文章</h3>
 	<ul class="widget-list">
 		
+     	<li>
+      	  <a href="/blog/2016/11/12/groovy-ast/">[译]使用Groovy的AST Transformation做DSL操作</a>
+      	</li>
+    	
      	<li>
       	  <a href="/blog/2016/11/03/jdk-tools/">JDK自带工具概览</a>
       	</li>
@@ -825,10 +722,6 @@ new AsyncLoadImage().execute(new Object[]{imageView,imagePath,maxNumPixels});
     	
      	<li>
       	  <a href="/blog/2016/08/30/recommend-sys/">推荐系统杂谈</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2016/08/27/server-basic-tech-stack/">谈谈互联网后端基础设施</a>
       	</li>
     	
 	</ul>
