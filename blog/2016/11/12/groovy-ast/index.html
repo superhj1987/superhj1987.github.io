@@ -6,13 +6,13 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>[译]使用Groovy的AST Transformation做DSL操作 - 后端技术杂谈 | 飒然Hang</title>
+  <title>[译]使用Groovy的AST Transformation实现DSL - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="[译]使用Groovy的AST Transformation做DSL操作 Nov 12th, 2016 Posted by 飒然Hang in java 最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build. &hellip;">
+  <meta name="description" content="[译]使用Groovy的AST Transformation实现DSL Nov 12th, 2016 Posted by 飒然Hang in java 最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build. &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -92,7 +92,7 @@
   
   <header>
     
-      <h1 class="post-title">[译]使用Groovy的AST Transformation做DSL操作</h1>
+      <h1 class="post-title">[译]使用Groovy的AST Transformation实现DSL</h1>
     
     
       <p class="post-meta">
@@ -139,7 +139,7 @@
 
 <p>copyFile做为task名称竟然不是一个字符串，阅读了groovy的文档也没发现字符串可以省略引号的说明(php中引号倒是可以省略），此外一个方法后面跟一个参数然后这个参数又跟着一个括号，这又是什么语法。。。凭直觉觉得这里的copyFile应该是一个方法，但是这时候copyFile还没有定义啊。。。</p>
 
-<p>带着以上疑问，去翻了一下groovy的官方文档，凭感觉觉得gradle是利用了groovy的ast trasnfomation，也就是抽象语法树转换(故名思议，也就是能够转换groovy的语法树从而创造自己的一套语法)。那么到底是不是这样呢？<a href="http://blog.csdn.net/zxhoo/article/details/29830529">http://blog.csdn.net/zxhoo/article/details/29830529</a>给出了解释并证明了这个结论。但是groovy的ast transformation到底是什么东西呢？国外有一篇博客给出了比较清晰明了的讲述：<a href="http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy">http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy</a>。此文即对此篇博文的翻译。</p>
+<p>带着以上疑问，去翻了一下groovy的官方文档，凭感觉觉得gradle是利用了groovy的ast trasnfomation，也就是抽象语法树转换(故名思议，也就是能够转换groovy的语法树从而创造自己的一套语法)。那么到底是不是这样呢？<a href="http://blog.csdn.net/zxhoo/article/details/29830529">http://blog.csdn.net/zxhoo/article/details/29830529</a>给出了解释并证明了这个结论。但是groovy的ast transformation到底是什么东西呢？国外有一篇博客给出了比较清晰明了的讲述：<a href="http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy">http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy</a>。以下即对此篇博文的翻译。</p>
 
 <!--more-->
 
@@ -313,7 +313,7 @@ class Parser {
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="[译]使用Groovy的AST Transformation做DSL操作 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/11/12/groovy-ast/" data-content="最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build.gradle的语法是groovy的。但这次再怎么看也觉得里面的好多语法都和以前用过的groovy都联系不到一起。各种懵逼状态。。。后来阅读了这篇文章， &hellip;">
+<div class="ds-share flat" data-title="[译]使用Groovy的AST Transformation实现DSL - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/11/12/groovy-ast/" data-content="最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build.gradle的语法是groovy的。但这次再怎么看也觉得里面的好多语法都和以前用过的groovy都联系不到一起。各种懵逼状态。。。后来阅读了这篇文章， &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
@@ -344,7 +344,7 @@ class Parser {
 
 <!-- 多说评论框 start -->
 <a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2016/11/12/groovy-ast/" data-title="[译]使用Groovy的AST Transformation做DSL操作"></div>
+<div class="ds-thread" data-thread-key="/blog/2016/11/12/groovy-ast/" data-title="[译]使用Groovy的AST Transformation实现DSL"></div>
 <!-- 多说评论框 end -->
 
 
@@ -413,7 +413,7 @@ class Parser {
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2016/11/12/groovy-ast/">[译]使用Groovy的AST Transformation做DSL操作</a>
+      	  <a href="/blog/2016/11/12/groovy-ast/">[译]使用Groovy的AST Transformation实现DSL</a>
       	</li>
     	
      	<li>
