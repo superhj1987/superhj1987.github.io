@@ -130,7 +130,7 @@
 
 <p>copyFile做为task名称竟然不是一个字符串，阅读了groovy的文档也没发现字符串可以省略引号的说明(php中引号倒是可以省略），此外一个方法后面跟一个参数然后这个参数又跟着一个括号，这又是什么语法。。。凭直觉觉得这里的copyFile应该是一个方法，但是这时候copyFile还没有定义啊。。。</p>
 
-<p>带着以上疑问，去翻了一下groovy的官方文档，凭感觉觉得gradle是利用了groovy的ast trasnfomation，也就是抽象语法树转换(故名思议，也就是能够转换groovy的语法树从而创造自己的一套语法)。那么到底是不是这样呢？<a href="http://blog.csdn.net/zxhoo/article/details/29830529">http://blog.csdn.net/zxhoo/article/details/29830529</a>给出了解释并证明了这个结论。但是groovy的ast transformation到底是什么东西呢？国外有一篇博客给出了比较清晰明了的讲述：<a href="http://www.tuicool.com/articles/VN7Vvq">http://www.tuicool.com/articles/VN7Vvq</a>。此文即对此篇博文的翻译。</p>
+<p>带着以上疑问，去翻了一下groovy的官方文档，凭感觉觉得gradle是利用了groovy的ast trasnfomation，也就是抽象语法树转换(故名思议，也就是能够转换groovy的语法树从而创造自己的一套语法)。那么到底是不是这样呢？<a href="http://blog.csdn.net/zxhoo/article/details/29830529">http://blog.csdn.net/zxhoo/article/details/29830529</a>给出了解释并证明了这个结论。但是groovy的ast transformation到底是什么东西呢？国外有一篇博客给出了比较清晰明了的讲述：<a href="http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy">http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy</a>。此文即对此篇博文的翻译。</p>
 
 </div>
   
