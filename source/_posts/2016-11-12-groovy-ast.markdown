@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[译]使用Groovy的AST Transformation做DSL操作"
+title: "[译]使用Groovy的AST Transformation实现DSL"
 date: 2016-11-12 21:21:34 +0800
 comments: true
 categories: java
@@ -15,7 +15,7 @@ categories: java
 
 copyFile做为task名称竟然不是一个字符串，阅读了groovy的文档也没发现字符串可以省略引号的说明(php中引号倒是可以省略），此外一个方法后面跟一个参数然后这个参数又跟着一个括号，这又是什么语法。。。凭直觉觉得这里的copyFile应该是一个方法，但是这时候copyFile还没有定义啊。。。
 
-带着以上疑问，去翻了一下groovy的官方文档，凭感觉觉得gradle是利用了groovy的ast trasnfomation，也就是抽象语法树转换(故名思议，也就是能够转换groovy的语法树从而创造自己的一套语法)。那么到底是不是这样呢？<http://blog.csdn.net/zxhoo/article/details/29830529>给出了解释并证明了这个结论。但是groovy的ast transformation到底是什么东西呢？国外有一篇博客给出了比较清晰明了的讲述：<http://www.tuicool.com/articles/VN7Vvq>。此文即对此篇博文的翻译。
+带着以上疑问，去翻了一下groovy的官方文档，凭感觉觉得gradle是利用了groovy的ast trasnfomation，也就是抽象语法树转换(故名思议，也就是能够转换groovy的语法树从而创造自己的一套语法)。那么到底是不是这样呢？<http://blog.csdn.net/zxhoo/article/details/29830529>给出了解释并证明了这个结论。但是groovy的ast transformation到底是什么东西呢？国外有一篇博客给出了比较清晰明了的讲述：<http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy>。以下即对此篇博文的翻译。
 
 <!--more-->
 
@@ -88,9 +88,9 @@ Groovy提供了访问抽象语法树并转换它的方法。一个AST是编译�
 1. 当遇到like, use, db, customers, add, transform, fn params等常量时，visitConstantExpression(...)会被调用。根据已经定义的transformations map(第四行)，相应的值会被简单重新赋值。(18行)
 2. 当调用函数时，visitArgumentlistExpression会被调用。在我的例子中db.customers.transform(...)和db.customers.add(...)是函数调用并且整个所有的参数都被传给了visitArgumentlistExpression方法。在GStringExpression出现的时候将它转换为了ConstantExpression(30行)。
 
-接下来的代码是如何使用上面的代码做转换。
+接下来看看如何使用上面的代码。
 
-Reader读取所有的DSL文件，在的例子中，我们把它们叫做delta文件。对于每一个deleta文件，我创建了一个新的GroovyShell并让它去解析代码(delta文件中的)。这里的shell用我自定义的AST transformer做了相应的配置。shell解析出一个对象并传递给Parser。这样Pardser得到的结点，其中的GString已经全被转换为了普通String，'use'也已经被转换为了'using'方法。
+Reader读取所有的DSL文件，在的例子中，我们把它们叫做delta文件。对于每一个deleta文件，我创建了一个新的GroovyShell并让它去解析代码(delta文件中的)。这里的shell用我自定义的AST transformer做了相应的配置。shell解析出一个对象并传递给Parser。这样Pardser得到的结点其中的GString已经全被转换为了普通String，'use'也已经被转换为了'using'方法。
 
     @Slf4j
     public class Reader {
@@ -131,7 +131,7 @@ Reader读取所有的DSL文件，在的例子中，我们把它们叫做delta文
       }
     }
 
-下面的是Parser的代码。In here is the using(db) method that gets called after the custom transformation is applied. An astute reader may have noticed how I intercept property access using the getProperty method (a part of the the Groovy MOP - Meta-Object Protocol feature) to change the database context.这里在自定义转换之后调用using(db)。聪明的读者会发现我是如何使用getProperty(Groovy元对象协议编程的一部分，和invokeMethod、methodmissing类似)来拦截住对象方法的访问来改变数据库上下文的。
+下面是Parser的代码。在自定义ast转换应用之后调用using(db)。这里聪明的读者会发现我是如何使用getProperty(Groovy元对象协议编程的一部分，和invokeMethod、methodmissing类似)来拦截住对象属性的访问来改变数据库上下文的。
 
     @Slf4j
     class Parser {
