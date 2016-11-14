@@ -87,7 +87,7 @@ Java调优也不外乎这三步。
 
 1. 堆外内存
 
-    堆外内存主要是JNI、Deflater/Inflater、DirectByteBuffer（nio中会用到）使用的。对于这种堆外内存的分析，还是需要先通过vmstat、sar、top、pidstat等查看swap和物理内存的消耗状况再做判断的。此外，对于JNI、Deflater这种调用可以通过[Google-preftools](http://www.oschina.net/p/perftools)来追踪资源使用状况。
+    堆外内存主要是JNI、Deflater/Inflater、DirectByteBuffer（nio中会用到）使用的。对于这种堆外内存的分析，还是需要先通过vmstat、sar、top、pidstat(这里的sar,pidstat以及iostat都是[sysstat](http://sebastien.godard.pagesperso-orange.fr/documentation.html)软件套件的一部分，需要单独安装)等查看swap和物理内存的消耗状况再做判断的。此外，对于JNI、Deflater这种调用可以通过[Google-preftools](http://www.oschina.net/p/perftools)来追踪资源使用状况。
     
 2. 堆内内存
 
