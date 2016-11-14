@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-13T22:37:52+08:00</updated>
+  <updated>2016-11-14T19:31:05+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -373,7 +373,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 <ol>
 <li><p>堆外内存</p>
 
-<p> 堆外内存主要是JNI、Deflater/Inflater、DirectByteBuffer（nio中会用到）使用的。对于这种堆外内存的分析，还是需要先通过vmstat、sar、top、pidstat等查看swap和物理内存的消耗状况再做判断的。此外，对于JNI、Deflater这种调用可以通过<a href="http://www.oschina.net/p/perftools">Google-preftools</a>来追踪资源使用状况。</p></li>
+<p> 堆外内存主要是JNI、Deflater/Inflater、DirectByteBuffer（nio中会用到）使用的。对于这种堆外内存的分析，还是需要先通过vmstat、sar、top、pidstat(这里的sar,pidstat以及iostat都是<a href="http://sebastien.godard.pagesperso-orange.fr/documentation.html">sysstat</a>软件套件的一部分，需要单独安装)等查看swap和物理内存的消耗状况再做判断的。此外，对于JNI、Deflater这种调用可以通过<a href="http://www.oschina.net/p/perftools">Google-preftools</a>来追踪资源使用状况。</p></li>
 <li><p>堆内内存</p>
 
 <p> 此部分内存为Java应用主要的内存区域。通常与这部分内存性能相关的有：</p>

@@ -234,7 +234,7 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 <ol>
 <li><p>堆外内存</p>
 
-<p> 堆外内存主要是JNI、Deflater/Inflater、DirectByteBuffer（nio中会用到）使用的。对于这种堆外内存的分析，还是需要先通过vmstat、sar、top、pidstat等查看swap和物理内存的消耗状况再做判断的。此外，对于JNI、Deflater这种调用可以通过<a href="http://www.oschina.net/p/perftools">Google-preftools</a>来追踪资源使用状况。</p></li>
+<p> 堆外内存主要是JNI、Deflater/Inflater、DirectByteBuffer（nio中会用到）使用的。对于这种堆外内存的分析，还是需要先通过vmstat、sar、top、pidstat(这里的sar,pidstat以及iostat都是<a href="http://sebastien.godard.pagesperso-orange.fr/documentation.html">sysstat</a>软件套件的一部分，需要单独安装)等查看swap和物理内存的消耗状况再做判断的。此外，对于JNI、Deflater这种调用可以通过<a href="http://www.oschina.net/p/perftools">Google-preftools</a>来追踪资源使用状况。</p></li>
 <li><p>堆内内存</p>
 
 <p> 此部分内存为Java应用主要的内存区域。通常与这部分内存性能相关的有：</p>
