@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-14T19:31:05+08:00</updated>
+  <updated>2016-11-15T16:12:09+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -442,7 +442,7 @@
 </ul>
 
 
-<p>尤其对于一些相对复杂的功能来说，整理思路形成文档，不仅可以让自己逻辑清晰，也让后续维护的人能够更快地接手。当然，这些并不是死板要求的，应该根据实际的业务选择，不一定所有的文档都是必须的，也不一定要分开这几个文档写(可以将这些内容集成在一个文档中，这也是目前我经常采用的方式)。这些文档的范例可以见：<a href="https://github.com/superhj1987/pragmatic-java-developer/tree/master/document">https://github.com/superhj1987/pragmatic-java-developer/tree/master/document</a>。</p>
+<p>尤其对于一些相对复杂的功能来说，整理思路形成文档，不仅可以让自己逻辑清晰，也让后续维护的人能够更快地接手。当然，这些并不是死板要求的，应该根据实际的业务选择，不一定所有的文档都是必须的，也不一定要分开这几个文档写(可以将这些内容集成在一个文档中，这也是目前我经常采用的方式)。这些文档的范例可以见：<a href="https://github.com/superhj1987/awesome-tech-collections/tree/master/document">https://github.com/superhj1987/awesome-tech-collections/tree/master/document</a>。</p>
 
 <p>而对于文档撰写协作的方式，我自己经历过的有以下几种：</p>
 
