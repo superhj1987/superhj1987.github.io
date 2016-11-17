@@ -144,15 +144,15 @@ Java堆的DUMP
 </ul>
 
 
-<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优的工具以及惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
+<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优工具以及它们的惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
 
 <h2><a name='引言'></a>引言</h2>
 
-<p>在Java世界中，我们的很多开发工作从编码、调试到调优都是在使用GUI工具进行。我们经常尝试在本地构建一套和生产环境一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下我们是无法在本地重现线上问题的。例如，我们是没有权限获取线上真实客户端提交到服务端的数据的。</p>
+<p>在Java世界中，我们的很多开发工作从编码、调试到调优都在使用GUI工具。我们经常尝试在本地构建一套和线上一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下是无法在本地重现线上问题的。例如，我们没有权限获取真实客户端提交到线上服务端的数据。</p>
 
-<p>由于上文提到的问题，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也是无法有合适的方案来进行排查的。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
+<p>由此，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也不可能有合适的办法来进行排查。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
 
-<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据需求逐渐地安装其中的工具)。</p>
+<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据实际需求逐渐地安装其中的工具)。</p>
 
 </div>
   

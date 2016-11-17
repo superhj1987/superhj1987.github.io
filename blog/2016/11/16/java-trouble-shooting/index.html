@@ -153,15 +153,15 @@ Java堆的DUMP
 </ul>
 
 
-<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优的工具以及惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
+<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优工具以及它们的惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
 
 <h2><a name='引言'></a>引言</h2>
 
-<p>在Java世界中，我们的很多开发工作从编码、调试到调优都是在使用GUI工具进行。我们经常尝试在本地构建一套和生产环境一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下我们是无法在本地重现线上问题的。例如，我们是没有权限获取线上真实客户端提交到服务端的数据的。</p>
+<p>在Java世界中，我们的很多开发工作从编码、调试到调优都在使用GUI工具。我们经常尝试在本地构建一套和线上一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下是无法在本地重现线上问题的。例如，我们没有权限获取真实客户端提交到线上服务端的数据。</p>
 
-<p>由于上文提到的问题，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也是无法有合适的方案来进行排查的。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
+<p>由此，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也不可能有合适的办法来进行排查。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
 
-<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据需求逐渐地安装其中的工具)。</p>
+<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据实际需求逐渐地安装其中的工具)。</p>
 
 <!--more-->
 
@@ -170,7 +170,7 @@ Java堆的DUMP
 
 <h3><a name='获取正在运行的JVM列表'></a>获取正在运行的JVM列表</h3>
 
-<p>为了开始排查工作，我们首先需要获取正在运行的jvm进程列表，包括进程id、命令行参数等。有时候仅仅这一步就可以定位到问题，例如，同样的app被多启动一次在并发做同样的事情(破坏输出文件、重新打开sockets后者其他愚蠢的事情)。</p>
+<p>为了开始排查工作，我们首先需要获取正在运行的jvm进程列表，包括进程id、命令行参数等。有时候仅仅这一步就可以定位到问题，例如，同样的app实例被重复启动在并发做同样的事情(破坏输出文件、重新打开sockets或者其他愚蠢的事情)。</p>
 
 <p>使用<strong>jcmd</strong>不加任何参数即可获取jvm进程列表</p>
 
@@ -229,21 +229,21 @@ Options: (options must be specified using the &lt;key&gt; or &lt;key&gt;=&lt;val
 
 <h3><a name='Java堆的DUMP'></a>Java堆的DUMP</h3>
 
-<p>jcmd提供了输出HPROF格式的堆dump接口。运行<strong>jmcd <PID> GC.heap_dump <FILENAME></strong>即可。注意这里的FILENaME是相对于运行中的jvm目录在说的，因此推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
+<p>jcmd提供了输出HPROF格式的堆dump接口。运行<strong>jmcd <PID> GC.heap_dump <FILENAME></strong>即可。注意这里的FILENAME是相对于运行中的jvm目录来说的，因此避免找不到dump的文件，这里推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
 
 <p>在堆dump完成之后，你可以复制此文件到本地用VisualVM或者用jmc的JOverflow插件打开，进而通过分析堆的状况定位内存问题。</p>
 
 <p>需要注意的两点：</p>
 
 <ul>
-<li>还有很多可以打开分析hprof文件的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。</li>
+<li>还有很多可以打开hprof文件进行分析的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。</li>
 <li>同样可以使用<strong>jmap -dump:live,file=<FILE_NAME> <PID></strong>来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：<a href="http://openjdk.java.net/jeps/240">JEP 240</a>, <a href="http://openjdk.java.net/jeps/241">JEP 241</a>。</li>
 </ul>
 
 
 <h3><a name='分析类柱状图'></a>分析类柱状图</h3>
 
-<p>如果正在排查内存泄漏问题，你可能想要知道堆中某种类型的存活对象数目。例如，某一时刻某些类应该只有一个实例(单例模式)，但是此类的另外一个或者多个实例却已经到了老年代，但是它们不应该能被GC roots访问到。</p>
+<p>如果正在排查内存泄漏问题，你可能想要知道堆中某种类型的存活对象数目。例如，某一时刻某些类应该只有一个实例(单例模式)，但是此类的另外一个或者多个实例却已经到了老年代，但是事实上它们不应该能够被GC roots访问到。</p>
 
 <p>运行以下命令可以打印出类柱状图(同时也打印出存活对象的数目)：</p>
 
@@ -251,7 +251,7 @@ Options: (options must be specified using the &lt;key&gt; or &lt;key&gt;=&lt;val
 jmap -histo:live &lt;PID&gt;
 </code></pre>
 
-<p>输入如下：</p>
+<p>输出如下：</p>
 
 <pre><code>    num     #instances         #bytes  class name
 ----------------------------------------------
@@ -270,9 +270,9 @@ jmap -histo:live &lt;PID&gt;
   13:         21599        3859672  [Ljava.util.HashMap$Entry;
 </code></pre>
 
-<p>这里的以byte为单位的占用大小是浅的(shallow size)，并没有包括子对象的大小。其实很容易注意到char[]和String的统计数据：这俩的实例数目是差不多的，但是char[]的占用大小要大很多，这在于String并未包含下面的char[]的大小。</p>
+<p>这里的以byte为单位的占用大小是浅尺寸(shallow size)，并没有包括子对象的大小。其实这个事实很容易由char[]和String的统计数据注意到：这俩的实例数目是差不多的，但是char[]的占用大小要大很多，就是因为String并未包含下面的char[]的大小。</p>
 
-<p>有了类柱状图信息，你就可以grep/search类的名字从而获取存活实例的数目。如果你发现比期望的数目要大很多，你就可以做heap dump，然后用任意的heap分析工具来分析问题。</p>
+<p>有了类柱状图信息，你就可以grep/search类的名字从而获取存活实例的数目。如果你发现某些类的实例数量比期望要大很多，你就可以做heap dump，然后用任意的heap分析工具来分析问题。</p>
 
 <h3><a name='线程Dump'></a>线程Dump</h3>
 
