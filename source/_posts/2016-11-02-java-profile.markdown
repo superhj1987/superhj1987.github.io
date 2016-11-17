@@ -170,7 +170,7 @@ Java调优也不外乎这三步。
     
 - Java Mission Control(jmc)
 
-	此工具是jdk7 u40开始自带的，原来是JRockit上的工具，是一款采样型的集诊断、分析和监控与一体的非常强大的工具。<https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm>
+	此工具是jdk7 u40开始自带的，原来是JRockit上的工具，是一款采样型的集诊断、分析和监控与一体的非常强大的工具: <https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm>。但是此工具是基于JFR(jcmd <PID> JFR.start name=test duration=60s settings=template.jfc filename=output.jfr)的，而开启JFR需要商业证书：jcmd <PID> VM.unlock_commercial_features。
 	
 	![](/images/blog_images/profile/jmc.png)
 
