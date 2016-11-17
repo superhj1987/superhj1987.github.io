@@ -114,7 +114,7 @@ Java调优也不外乎这三步。
     - 把heap里所有对象都dump下来，无论对象是死是活：jmap -dump:format=b,file=xxx.hprof <pid>
     - 先做一次full GC，再dump，只包含仍然存活的对象信息：jmap -dump:format=b,live,file=xxx.hprof <pid>
         
-    此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，会启动web端口供开发者使用浏览器浏览堆内对象的信息。
+    此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件(启动web端口供开发者使用浏览器浏览堆内对象的信息)。此外，VisualVM也能够打开hprof文件，使用它的heap walker查看堆内存信息。
     
     ![](/images/blog_images/profile/jhat.png)
     
