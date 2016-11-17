@@ -340,7 +340,7 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
   但由于这俩工具都是需要ui界面的，因此一般都是通过本地远程连接服务器jvm进程。服务器环境下，一般并不用此种方式。</p></li>
 <li><p>Java Mission Control(jmc)</p>
 
-<p>  此工具是jdk7 u40开始自带的，原来是JRockit上的工具，是一款采样型的集诊断、分析和监控与一体的非常强大的工具。<a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a></p>
+<p>  此工具是jdk7 u40开始自带的，原来是JRockit上的工具，是一款采样型的集诊断、分析和监控与一体的非常强大的工具: <a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a>。但是此工具是基于JFR(jcmd <PID> JFR.start name=test duration=60s settings=template.jfc filename=output.jfr)的，而开启JFR需要商业证书：jcmd <PID> VM.unlock_commercial_features。</p>
 
 <p>  <img src="/images/blog_images/profile/jmc.png" alt="" /></p></li>
 <li><p>Btrace</p>
