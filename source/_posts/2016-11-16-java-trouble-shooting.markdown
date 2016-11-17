@@ -6,9 +6,20 @@ comments: true
 categories: java
 ---
 
+## 目录
+
+* [引言](#引言)
+* [问题排查场景](#问题排查场景)
+   * [获取正在运行的JVM列表](#获取正在运行的JVM列表)
+   * [Java堆的DUMP](#Java堆的DUMP)
+   * [分析类柱状图](#分析类柱状图)
+   * [线程Dump](#线程Dump)
+   * [运行Java飞行记录器(Java Flight Recorder)](#运行Java飞行记录器(Java Flight Recorder))
+   * [后记](#后记)
+
 最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇[Java调优经验谈](http://www.rowkey.me/blog/2016/11/02/java-profile/)。接着此篇文章，其实一直打算写写一些常用调优的工具以及惯常用法的。后来在<http://java-performance.info>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：[Java server application troubleshooting using JDK tools](http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/)。
 
-## 引言
+## <a name='引言'></a>引言
 
 在Java世界中，我们的很多开发工作从编码、调试到调优都是在使用GUI工具进行。我们经常尝试在本地构建一套和生产环境一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下我们是无法在本地重现线上问题的。例如，我们是没有权限获取线上真实客户端提交到服务端的数据的。
 
@@ -18,9 +29,9 @@ categories: java
 
 <!--more-->
 
-## 问题排查场景
+## <a name='问题排查场景'></a>问题排查场景
 
-### 获取正在运行的JVM列表
+### <a name='获取正在运行的JVM列表'></a>获取正在运行的JVM列表
 
 为了开始排查工作，我们首先需要获取正在运行的jvm进程列表，包括进程id、命令行参数等。有时候仅仅这一步就可以定位到问题，例如，同样的app被多启动一次在并发做同样的事情(破坏输出文件、重新打开sockets后者其他愚蠢的事情)。
 
@@ -75,7 +86,7 @@ categories: java
 	Options: (options must be specified using the <key> or <key>=<value> syntax)
 		-all : [optional] Dump all objects, including unreachable objects (BOOLEAN, false)	
 		
-### Java堆的DUMP
+### <a name='Java堆的DUMP'></a>Java堆的DUMP
 
 jcmd提供了输出HPROF格式的堆dump接口。运行**jmcd <PID> GC.heap_dump <FILENAME>**即可。注意这里的FILENaME是相对于运行中的jvm目录在说的，因此推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。
 
@@ -86,7 +97,7 @@ jcmd提供了输出HPROF格式的堆dump接口。运行**jmcd <PID> GC.heap_dump
 - 还有很多可以打开分析hprof文件的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。
 - 同样可以使用**jmap -dump:live,file=<FILE_NAME> <PID>**来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：[JEP 240](http://openjdk.java.net/jeps/240), [JEP 241](http://openjdk.java.net/jeps/241)。
 
-### 分析类柱状图
+### <a name='分析类柱状图'></a>分析类柱状图
 
 如果正在排查内存泄漏问题，你可能想要知道堆中某种类型的存活对象数目。例如，某一时刻某些类应该只有一个实例(单例模式)，但是此类的另外一个或者多个实例却已经到了老年代，但是它们不应该能被GC roots访问到。
 
@@ -117,7 +128,7 @@ jcmd提供了输出HPROF格式的堆dump接口。运行**jmcd <PID> GC.heap_dump
 
 有了类柱状图信息，你就可以grep/search类的名字从而获取存活实例的数目。如果你发现比期望的数目要大很多，你就可以做heap dump，然后用任意的heap分析工具来分析问题。
 
-### 线程Dump
+### <a name='线程Dump'></a>线程Dump
 
 很多时候，应用会呈现出“卡在那里”的情形。这里有很多种卡住的状况：死锁、cpu密集运算。为了定位到问题所在需要知道线程在做什么、持有了什么锁等等。
 
@@ -129,7 +140,7 @@ Java中有两种锁：sychronized和Object.wait/notifyAll方法的原始锁以�
 	jstack <PID>
 	jcmd <PID> Thread.print
 	
-### 运行Java飞行记录器(Java Flight Recorder)
+### <a name='运行Java飞行记录器(Java Flight Recorder)'></a>运行Java飞行记录器(Java Flight Recorder)
 
 上面讲到的工具都是作为快速的查看诊断工具的。如果要深入分析问题，可以选择使用内置的Java飞行记录器:[Java Mission Control](http://java-performance.info/oracle-java-mission-control-overview/)。
 
@@ -149,7 +160,7 @@ Java中有两种锁：sychronized和Object.wait/notifyAll方法的原始锁以�
 	
 一旦记录完成之后，就可以复制.jfr文件到你的工作环境使用jmc GUI来分析。它几乎包含了排查jvm问题需要的所有信息，包括堆dump时的异常信息。
 
-## 后记
+### <a name='后记'></a>后记
 
 本文基本上是对英文原文的翻译，主要描述了几个常见问题的排查场景。
 
