@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-17T17:20:33+08:00</updated>
+  <updated>2016-11-17T17:25:47+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -37,7 +37,7 @@
 
 <p>为了开始排查工作，我们首先需要获取正在运行的jvm进程列表，包括进程id、命令行参数等。有时候仅仅这一步就可以定位到问题，例如，同样的app被多启动一次在并发做同样的事情(破坏输出文件、重新打开sockets后者其他愚蠢的事情)。</p>
 
-<p>使用<code>jcmd</code>不加任何参数即可获取jvm进程列表</p>
+<p>使用<strong>jcmd</strong>不加任何参数即可获取jvm进程列表</p>
 
 <pre><code>25691 org.apache.catalina.startup.Bootstrap start
 20730 org.apache.catalina.startup.Bootstrap start
@@ -45,7 +45,7 @@
 3883 org.apache.catalina.startup.Bootstrap start
 </code></pre>
 
-<p>使用<code>jcmd &lt;PID&gt; help</code>能够获取某个jvm进程其他可用的诊断命令。例如：</p>
+<p>使用<strong>jcmd <PID> help</strong>能够获取某个jvm进程其他可用的诊断命令。例如：</p>
 
 <pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 help
 3883:
@@ -67,14 +67,14 @@ VM.version
 help
 </code></pre>
 
-<p>输入<code>jcmd &lt;PID&gt; &lt;COMMAND_NAME&gt;</code>可以运行一个诊断命令或者获取到参数错误信息。</p>
+<p>输入<strong>jcmd <PID> <COMMAND_NAME></strong>可以运行一个诊断命令或者获取到参数错误信息。</p>
 
 <pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 GC.heap_dump
 3883:
 java.lang.IllegalArgumentException: Missing argument for diagnostic command 
 </code></pre>
 
-<p>通过<code>jcmd &lt;PID&gt; help &lt;COMMAND_NAME&gt;</code>你能够获取此诊断命令更多的信息。如下是<code>GC.heap_dump</code>命令的help。</p>
+<p>通过<strong>jcmd <PID> help <COMMAND_NAME></strong>你能够获取此诊断命令更多的信息。如下是<strong>GC.heap_dump</strong>命令的help。</p>
 
 <pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 help GC.heap_dump
 3883:
@@ -94,7 +94,7 @@ Options: (options must be specified using the &lt;key&gt; or &lt;key&gt;=&lt;val
 
 <h3>Java堆的DUMP</h3>
 
-<p>jcmd提供了输出HPROF格式的堆dump接口。运行<code>jmcd &lt;PID&gt; GC.heap_dump &lt;FILENAME&gt;</code>即可。注意这里的FILENaME是相对于运行中的jvm目录在说的，因此推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
+<p>jcmd提供了输出HPROF格式的堆dump接口。运行<strong>jmcd <PID> GC.heap_dump <FILENAME></strong>即可。注意这里的FILENaME是相对于运行中的jvm目录在说的，因此推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
 
 <p>在堆dump完成之后，你可以复制此文件到本地用VisualVM或者用jmc的JOverflow插件打开，进而通过分析堆的状况定位内存问题。</p>
 
@@ -102,7 +102,7 @@ Options: (options must be specified using the &lt;key&gt; or &lt;key&gt;=&lt;val
 
 <ul>
 <li>还有很多可以打开分析hprof文件的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。</li>
-<li>同样可以使用<code>jmap -dump:live,file=&lt;FILE_NAME&gt; &lt;PID&gt;</code>来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：<a href="http://openjdk.java.net/jeps/240">JEP 240</a>, <a href="http://openjdk.java.net/jeps/241">JEP 241</a>。</li>
+<li>同样可以使用<strong>jmap -dump:live,file=<FILE_NAME> <PID></strong>来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：<a href="http://openjdk.java.net/jeps/240">JEP 240</a>, <a href="http://openjdk.java.net/jeps/241">JEP 241</a>。</li>
 </ul>
 
 
@@ -159,7 +159,7 @@ jcmd &lt;PID&gt; Thread.print
 <p>运行JFR需要三步：</p>
 
 <ol>
-<li><p>创建一个包含了你自己配置的JFR模板文件。运行<code>jmc</code>, 然后<code>Window-&gt;Flight Recording Template Manage</code>菜单。准备好档案后，就可以导出文件，并移动到要排查问题的环境中。</p></li>
+<li><p>创建一个包含了你自己配置的JFR模板文件。运行<strong>jmc</strong>, 然后<strong>Window->Flight Recording Template Manage</strong>菜单。准备好档案后，就可以导出文件，并移动到要排查问题的环境中。</p></li>
 <li><p>由于JFR需要JDK的商业证书，这一步需要解锁jdk的商业特性。</p>
 
 <pre><code> jcmd &lt;PID&gt; VM.unlock_commercial_features
@@ -169,7 +169,7 @@ jcmd &lt;PID&gt; Thread.print
 <pre><code> jcmd &lt;PID&gt; JFR.start name=test duration=60s settings=template.jfc filename=output.jfr
 </code></pre>
 
-<p> 上述命令立即启动JFR并开始使用<code>templayte.jfc</code>的配置收集60s的JVM信息，输出到<code>output.jfr</code>中。</p></li>
+<p> 上述命令立即启动JFR并开始使用<strong>templayte.jfc</strong>的配置收集60s的JVM信息，输出到<strong>output.jfr</strong>中。</p></li>
 </ol>
 
 
@@ -361,7 +361,7 @@ class Parser {
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[JDK自带工具概览]]></title>
+    <title type="html"><![CDATA[JDK自带工具之概览]]></title>
     <link href="http://www.rowkey.me/blog/2016/11/03/jdk-tools/"/>
     <updated>2016-11-03T22:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/11/03/jdk-tools</id>
