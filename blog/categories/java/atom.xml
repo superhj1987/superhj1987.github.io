@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-17T19:25:27+08:00</updated>
+  <updated>2016-11-17T19:34:32+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -44,7 +44,7 @@
 
 <p>由于上文提到的问题，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也是无法有合适的方案来进行排查的。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
 
-<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行的更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具。(原文作者貌似不建议安装jdk的发布版本，而是建议逐渐地根据需求安装这些)</p>
+<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据需求逐渐地安装其中的工具)。</p>
 
 <!--more-->
 
