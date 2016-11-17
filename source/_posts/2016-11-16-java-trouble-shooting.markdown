@@ -24,14 +24,14 @@ categories: java
 
 为了开始排查工作，我们首先需要获取正在运行的jvm进程列表，包括进程id、命令行参数等。有时候仅仅这一步就可以定位到问题，例如，同样的app被多启动一次在并发做同样的事情(破坏输出文件、重新打开sockets后者其他愚蠢的事情)。
 
-使用`jcmd`不加任何参数即可获取jvm进程列表
+使用**jcmd**不加任何参数即可获取jvm进程列表
 
 	25691 org.apache.catalina.startup.Bootstrap start
 	20730 org.apache.catalina.startup.Bootstrap start
 	26828 sun.tools.jcmd.JCmd
 	3883 org.apache.catalina.startup.Bootstrap start
 	
-使用`jcmd <PID> help`能够获取某个jvm进程其他可用的诊断命令。例如：
+使用**jcmd <PID> help**能够获取某个jvm进程其他可用的诊断命令。例如：
 
 	[root@test-172-16-0-34-ip ~]# jcmd 3883 help
 	3883:
@@ -52,13 +52,13 @@ categories: java
 	VM.version
 	help
 	
-输入`jcmd <PID> <COMMAND_NAME>`可以运行一个诊断命令或者获取到参数错误信息。
+输入**jcmd <PID> <COMMAND_NAME>**可以运行一个诊断命令或者获取到参数错误信息。
 
 	[root@test-172-16-0-34-ip ~]# jcmd 3883 GC.heap_dump
 	3883:
 	java.lang.IllegalArgumentException: Missing argument for diagnostic command	
 	
-通过`jcmd <PID> help <COMMAND_NAME>`你能够获取此诊断命令更多的信息。如下是`GC.heap_dump`命令的help。
+通过**jcmd <PID> help <COMMAND_NAME>**你能够获取此诊断命令更多的信息。如下是**GC.heap_dump**命令的help。
 
 	[root@test-172-16-0-34-ip ~]# jcmd 3883 help GC.heap_dump
 	3883:
@@ -77,14 +77,14 @@ categories: java
 		
 ### Java堆的DUMP
 
-jcmd提供了输出HPROF格式的堆dump接口。运行`jmcd <PID> GC.heap_dump <FILENAME>`即可。注意这里的FILENaME是相对于运行中的jvm目录在说的，因此推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。
+jcmd提供了输出HPROF格式的堆dump接口。运行**jmcd <PID> GC.heap_dump <FILENAME>**即可。注意这里的FILENaME是相对于运行中的jvm目录在说的，因此推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。
 
 在堆dump完成之后，你可以复制此文件到本地用VisualVM或者用jmc的JOverflow插件打开，进而通过分析堆的状况定位内存问题。
 
 需要注意的两点：
 
 - 还有很多可以打开分析hprof文件的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。
-- 同样可以使用`jmap -dump:live,file=<FILE_NAME> <PID>`来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：[JEP 240](http://openjdk.java.net/jeps/240), [JEP 241](http://openjdk.java.net/jeps/241)。
+- 同样可以使用**jmap -dump:live,file=<FILE_NAME> <PID>**来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：[JEP 240](http://openjdk.java.net/jeps/240), [JEP 241](http://openjdk.java.net/jeps/241)。
 
 ### 分析类柱状图
 
@@ -135,7 +135,7 @@ Java中有两种锁：sychronized和Object.wait/notifyAll方法的原始锁以�
 
 运行JFR需要三步：
 
-1. 创建一个包含了你自己配置的JFR模板文件。运行`jmc`, 然后`Window->Flight Recording Template Manage`菜单。准备好档案后，就可以导出文件，并移动到要排查问题的环境中。
+1. 创建一个包含了你自己配置的JFR模板文件。运行**jmc**, 然后**Window->Flight Recording Template Manage**菜单。准备好档案后，就可以导出文件，并移动到要排查问题的环境中。
 
 2. 由于JFR需要JDK的商业证书，这一步需要解锁jdk的商业特性。
 
@@ -145,7 +145,7 @@ Java中有两种锁：sychronized和Object.wait/notifyAll方法的原始锁以�
 	
 		jcmd <PID> JFR.start name=test duration=60s settings=template.jfc filename=output.jfr
 
-	上述命令立即启动JFR并开始使用`templayte.jfc`的配置收集60s的JVM信息，输出到`output.jfr`中。
+	上述命令立即启动JFR并开始使用**templayte.jfc**的配置收集60s的JVM信息，输出到**output.jfr**中。
 	
 一旦记录完成之后，就可以复制.jfr文件到你的工作环境使用jmc GUI来分析。它几乎包含了排查jvm问题需要的所有信息，包括堆dump时的异常信息。
 
