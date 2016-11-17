@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-17T11:15:47+08:00</updated>
+  <updated>2016-11-17T17:20:33+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,176 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[JDK自带工具之排查问题示例]]></title>
+    <link href="http://www.rowkey.me/blog/2016/11/16/java-trouble-shooting/"/>
+    <updated>2016-11-16T22:21:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/11/16/java-trouble-shooting</id>
+    <content type="html"><![CDATA[<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优的工具以及惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
+
+<h2>引言</h2>
+
+<p>在Java世界中，我们的很多开发工作从编码、调试到调优都是在使用GUI工具进行。我们经常尝试在本地构建一套和生产环境一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下我们是无法在本地重现线上问题的。例如，我们是没有权限获取线上真实客户端提交到服务端的数据的。</p>
+
+<p>由于上文提到的问题，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也是无法有合适的方案来进行排查的。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
+
+<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行的更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具。(原文作者貌似不建议安装jdk的发布版本，而是建议逐渐地根据需求安装这些)</p>
+
+<!--more-->
+
+
+<h2>问题排查场景</h2>
+
+<h3>获取正在运行的JVM列表</h3>
+
+<p>为了开始排查工作，我们首先需要获取正在运行的jvm进程列表，包括进程id、命令行参数等。有时候仅仅这一步就可以定位到问题，例如，同样的app被多启动一次在并发做同样的事情(破坏输出文件、重新打开sockets后者其他愚蠢的事情)。</p>
+
+<p>使用<code>jcmd</code>不加任何参数即可获取jvm进程列表</p>
+
+<pre><code>25691 org.apache.catalina.startup.Bootstrap start
+20730 org.apache.catalina.startup.Bootstrap start
+26828 sun.tools.jcmd.JCmd
+3883 org.apache.catalina.startup.Bootstrap start
+</code></pre>
+
+<p>使用<code>jcmd &lt;PID&gt; help</code>能够获取某个jvm进程其他可用的诊断命令。例如：</p>
+
+<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 help
+3883:
+The following commands are available:
+VM.commercial_features
+ManagementAgent.stop
+ManagementAgent.start_local
+ManagementAgent.start
+Thread.print
+GC.class_histogram
+GC.heap_dump
+GC.run_finalization
+GC.run
+VM.uptime
+VM.flags
+VM.system_properties
+VM.command_line
+VM.version
+help
+</code></pre>
+
+<p>输入<code>jcmd &lt;PID&gt; &lt;COMMAND_NAME&gt;</code>可以运行一个诊断命令或者获取到参数错误信息。</p>
+
+<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 GC.heap_dump
+3883:
+java.lang.IllegalArgumentException: Missing argument for diagnostic command 
+</code></pre>
+
+<p>通过<code>jcmd &lt;PID&gt; help &lt;COMMAND_NAME&gt;</code>你能够获取此诊断命令更多的信息。如下是<code>GC.heap_dump</code>命令的help。</p>
+
+<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 help GC.heap_dump
+3883:
+GC.heap_dump
+Generate a HPROF format dump of the Java heap.
+
+Impact: High: Depends on Java heap size and content. Request a full GC unless the '-all' option is specified.
+
+Syntax : GC.heap_dump [options] &lt;filename&gt;
+
+Arguments:
+    filename :  Name of the dump file (STRING, no default value)
+
+Options: (options must be specified using the &lt;key&gt; or &lt;key&gt;=&lt;value&gt; syntax)
+    -all : [optional] Dump all objects, including unreachable objects (BOOLEAN, false)  
+</code></pre>
+
+<h3>Java堆的DUMP</h3>
+
+<p>jcmd提供了输出HPROF格式的堆dump接口。运行<code>jmcd &lt;PID&gt; GC.heap_dump &lt;FILENAME&gt;</code>即可。注意这里的FILENaME是相对于运行中的jvm目录在说的，因此推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
+
+<p>在堆dump完成之后，你可以复制此文件到本地用VisualVM或者用jmc的JOverflow插件打开，进而通过分析堆的状况定位内存问题。</p>
+
+<p>需要注意的两点：</p>
+
+<ul>
+<li>还有很多可以打开分析hprof文件的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。</li>
+<li>同样可以使用<code>jmap -dump:live,file=&lt;FILE_NAME&gt; &lt;PID&gt;</code>来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：<a href="http://openjdk.java.net/jeps/240">JEP 240</a>, <a href="http://openjdk.java.net/jeps/241">JEP 241</a>。</li>
+</ul>
+
+
+<h3>分析类柱状图</h3>
+
+<p>如果正在排查内存泄漏问题，你可能想要知道堆中某种类型的存活对象数目。例如，某一时刻某些类应该只有一个实例(单例模式)，但是此类的另外一个或者多个实例却已经到了老年代，但是它们不应该能被GC roots访问到。</p>
+
+<p>运行以下命令可以打印出类柱状图(同时也打印出存活对象的数目)：</p>
+
+<pre><code>jcmd &lt;PID&gt; GC.class_histogram
+jmap -histo:live &lt;PID&gt;
+</code></pre>
+
+<p>输入如下：</p>
+
+<pre><code>    num     #instances         #bytes  class name
+----------------------------------------------
+   1:         37083       48318152  [B
+   2:        235781       22496784  [C
+   3:        103958       16069448  &lt;constMethodKlass&gt;
+   4:        482361       15435552  java.util.HashMap$Entry
+   5:        103958       14152480  &lt;methodKlass&gt;
+   6:          9576       11192168  &lt;constantPoolKlass&gt;
+   7:        186264       10430784  com.mysql.jdbc.ConnectionPropertiesImpl$BooleanConnectionProperty
+   8:        274109        8771488  java.util.Hashtable$Entry
+   9:          9576        7210152  &lt;instanceKlassKlass&gt;
+  10:          7972        6404256  &lt;constantPoolCacheKlass&gt;
+  11:        229637        5511288  java.lang.String
+  12:         48471        5428752  java.net.SocksSocketImpl
+  13:         21599        3859672  [Ljava.util.HashMap$Entry;
+</code></pre>
+
+<p>这里的以byte为单位的占用大小是浅的(shallow size)，并没有包括子对象的大小。其实很容易注意到char[]和String的统计数据：这俩的实例数目是差不多的，但是char[]的占用大小要大很多，这在于String并未包含下面的char[]的大小。</p>
+
+<p>有了类柱状图信息，你就可以grep/search类的名字从而获取存活实例的数目。如果你发现比期望的数目要大很多，你就可以做heap dump，然后用任意的heap分析工具来分析问题。</p>
+
+<h3>线程Dump</h3>
+
+<p>很多时候，应用会呈现出“卡在那里”的情形。这里有很多种卡住的状况：死锁、cpu密集运算。为了定位到问题所在需要知道线程在做什么、持有了什么锁等等。</p>
+
+<p>Java中有两种锁：sychronized和Object.wait/notifyAll方法的原始锁以及java5引入的java.util.concurrent锁。这俩种锁的不同之处主要在于前者是限制在你进入synchronies块的地方的栈帧(stack frame)中，并且会一直在线程dump中存在。后者却并不限制在栈帧中-你可以在一个方法中进入锁，在另一方法中解锁。因此，thread dump有时候并没有包含这些信息。尽管如此，还是应该使用thread dump来查看线程信息排查问题。</p>
+
+<p>这里有三种方法可以打印应用的thread dump。</p>
+
+<pre><code>kill -3 &lt;PID&gt; #仅限Linux平台
+jstack &lt;PID&gt;
+jcmd &lt;PID&gt; Thread.print
+</code></pre>
+
+<h3>运行Java飞行记录器(Java Flight Recorder)</h3>
+
+<p>上面讲到的工具都是作为快速的查看诊断工具的。如果要深入分析问题，可以选择使用内置的Java飞行记录器:<a href="http://java-performance.info/oracle-java-mission-control-overview/">Java Mission Control</a>。</p>
+
+<p>运行JFR需要三步：</p>
+
+<ol>
+<li><p>创建一个包含了你自己配置的JFR模板文件。运行<code>jmc</code>, 然后<code>Window-&gt;Flight Recording Template Manage</code>菜单。准备好档案后，就可以导出文件，并移动到要排查问题的环境中。</p></li>
+<li><p>由于JFR需要JDK的商业证书，这一步需要解锁jdk的商业特性。</p>
+
+<pre><code> jcmd &lt;PID&gt; VM.unlock_commercial_features
+</code></pre></li>
+<li><p>最后你就可以启动JFR。</p>
+
+<pre><code> jcmd &lt;PID&gt; JFR.start name=test duration=60s settings=template.jfc filename=output.jfr
+</code></pre>
+
+<p> 上述命令立即启动JFR并开始使用<code>templayte.jfc</code>的配置收集60s的JVM信息，输出到<code>output.jfr</code>中。</p></li>
+</ol>
+
+
+<p>一旦记录完成之后，就可以复制.jfr文件到你的工作环境使用jmc GUI来分析。它几乎包含了排查jvm问题需要的所有信息，包括堆dump时的异常信息。</p>
+
+<h2>后记</h2>
+
+<p>本文基本上是对英文原文的翻译，主要描述了几个常见问题的排查场景。</p>
+
+<p>不得不说的是，JDK自带的工具是非常强大的。用好了这些工具其实已经足以应付绝大多数的Java问题排查场景。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[译]使用Groovy的AST Transformation实现DSL]]></title>
@@ -412,7 +582,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 </ul>
 
 
-<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件，会启动web端口供开发者使用浏览器浏览堆内对象的信息。</p>
+<p> 此外，不管是使用jmap还是在OOM时产生的dump文件，可以使用Eclipse的MAT(MEMORY ANALYZER TOOL)来分析，可以看到具体的堆栈和内存中对象的信息。当然jdk自带的jhat也能够查看dump文件(启动web端口供开发者使用浏览器浏览堆内对象的信息)。此外，VisualVM也能够打开hprof文件，使用它的heap walker查看堆内存信息。</p>
 
 <p> <img src="//images/blog_images/profile/jhat.png" alt="" /></p></li>
 </ol>
@@ -804,182 +974,6 @@ client都是通过socket来进行的。当agent接收到监控命令后，主要
 <h2>总结</h2>
 
 <p>其实BTrace就是使用了java attach api附加agent.jar，然后使用脚本解析引擎+asm来重写指定类的字节码，再使用instrument实现对原有类的替换。借鉴这些，我们也完全可以实现自己的动态追踪工具。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
-    <link href="http://www.rowkey.me/blog/2016/08/03/java-8-top-tips/"/>
-    <updated>2016-08-03T22:30:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/08/03/java-8-top-tips</id>
-    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
-
-<p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
-
-<p>笔者已经使用Java8工作许多年，包括新的应用开发以及迁移旧的应用，感觉是时候总结Java8中一些有用东西的最佳实践。笔者个人不太喜欢“最佳实践”这个词，因为字面上传达了一种“one size fit all”的概念，当然，编码肯定不是这样的而是不同的场景有不同的解决方案。但是笔者觉得在如何使用Java 8让自己的生活变得更加容易上还是有一些特殊的经验值得分享的。</p>
-
-<!--more-->
-
-
-<h2>Optional</h2>
-
-<p>Optional是一个评价过低的特性，它可以显著的降低代码抛出NullPointerException的可能。它在边界代码(你正在使用的API或者你发布的API)中特别有用。</p>
-
-<p>但是对于它的不适当的使用和设计很容易使一个小的变动影响到很多的类，或者降低代码的可阅读性。这里有一些如何更加高效使用Optional的建议。</p>
-
-<h3>Optional应该仅仅用在返回类型中</h3>
-
-<p>不要用在参数或者域中。<a href="http://blog.joda.org/2015/08/java-se-8-optional-pragmatic-approach.html">阅读这篇博文</a>可以看到如何正确使用Optional进行编码。幸运的是，IntelliJ IDEA可以打开inspections去检查你是否遵循了这些推荐规范。</p>
-
-<p><img src="//images/blog_images/java8/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
-
-<p>要尽早在Optional出现的地方对它进行处理。IntelliJ IDEA会阻止Optional出现在你代码的各个地方，所以记住一定要在Optional出现的地方就对他进行处理。</p>
-
-<p><img src="//images/blog_images/java8/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
-
-<h3>不能简单地调用get()方法</h3>
-
-<p>Optional是用来表示这个值是有可能为空的，让你做好应对的准备。因此，很重要的一点就是在使用这个值之前务必要检查其是否存在。简单地调用get方法而不是先调用isPresent可能会导致产生空指针异常。幸运的是，IntelliJ IDEA再一次提供了对此种方案的检查。</p>
-
-<p><img src="//images/blog_images/java8/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
-
-<h3>更加优雅的方案</h3>
-
-<p>如下代码，isPresent和get当然能够解决这个问题。</p>
-
-<p><img src="//images/blog_images/java8/OptionalSimple.png" alt="OptionalSimple.png" /></p>
-
-<p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值。</p>
-
-<p><img src="//images/blog_images/java8/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
-
-<p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调用。那么当这是个代价昂贵的方法时，那么使用lambda会带来更好的性能提升。</p>
-
-<p><img src="//images/blog_images/java8/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
-
-<h2>使用Lambda表达式</h2>
-
-<p>Lambda表达式是Java8最主要的卖点。即使你现在用不到Java8，你也应该对它有了一些基本的了解。下面讲述了一种新的方式使用Java编程，虽然这并不是一个“最佳实践”，仅仅是一个使用的指导。</p>
-
-<h3>保持简短</h3>
-
-<p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，也很容易把长的表达式重构成一个方法。</p>
-
-<p><img src="//images/blog_images/java8/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
-
-<p>当然，这些甚至牵扯到了方法引用(Method References)。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
-
-<p><img src="//images/blog_images/java8/LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
-
-<h3>显式声明</h3>
-
-<p>在lambda表达式中是没有类型信息的，所以你会发现在参数中包含类型信息是非常有用的。</p>
-
-<p><img src="//images/blog_images/java8/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
-
-<p>如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，IntelljJ IDEA都会让你可以看到参数的类型信息。</p>
-
-<p><img src="//images/blog_images/java8/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
-
-<p>甚至lambda表示的函数接口也能看到。</p>
-
-<p><img src="//images/blog_images/java8/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
-
-<h2>设计Lambda表达式</h2>
-
-<p>我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List&lt;>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person\&lt;T>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。</p>
-
-<p>如果你发现自己处在这样一种境况，那么这里有一些提示。</p>
-
-<h3>IntelliJ IDEA能够帮助你引入函数参数</h3>
-
-<p>能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
-
-<p><img src="//images/blog_images/java8/LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
-
-<h3>使用存在的函数接口</h3>
-
-<p>随着开发者变得对Java8越来越熟悉，当使用Supplier和Consumer这些接口时，我们将会知道什么是我们所期望的，比如创建一个ErrorMessageCreator(例子)会是令人迷惑和浪费的。可以看一下<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">函数包</a>获取已经存在的那些函数接口。</p>
-
-<h3>给你的函数接口添加@FunctionalInterface</h3>
-
-<p>如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Inteelij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。</p>
-
-<p><img src="//images/blog_images/java8/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
-
-<p>当方法太多时，也会提示你。</p>
-
-<p><img src="//images/blog_images/java8/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
-
-<p>当你把注解应用到一个类而不是接口时，也会发出提醒。</p>
-
-<p><img src="//images/blog_images/java8/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
-
-<p>Lambda表达式可以被用在任何有一个Single Abstract Method的接口中，但是它不能够应用到一个抽象类中。看起来没有啥逻辑，但它就是这样的。</p>
-
-<h2>Streams</h2>
-
-<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Stream API</a>是Java8另一个最大的卖点，我认为我们到现在还是没有真的搞清楚这会如何改变我们的代码。这里有一些我自己发现很有用的东西。</p>
-
-<h3>将点号对齐</h3>
-
-<p>我个人比较喜欢对齐Stream操作。当然，你不需要非得这么做，但是我发现这样还是有很大好处的。</p>
-
-<ul>
-<li>一眼就看到所有的操作以及他们的顺序</li>
-<li>更容易调试(虽然Intellij IDEA提供了在一行中的lambda表达式中任意地方打断点的功能，但是将他们分隔成单独的行会更简单)</li>
-<li>可以很容易地注释掉一些操作以供测试</li>
-<li>很容易地插入peek()供调试或者测试</li>
-</ul>
-
-
-<p><img src="//images/blog_images/java8/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
-
-<p>这样做也会让代码看起来很舒服。当然，如果这么做，会增加代码的行数。</p>
-
-<p>你可以修改一下格式化设置使点号对齐。</p>
-
-<p><img src="//images/blog_images/java8/StreamWrapping.png" alt="StreamWrapping.png" /></p>
-
-<h3>使用方法引用(Method References)</h3>
-
-<p>你可能需要一会儿才能习惯这个奇怪的语法。但是，当我们能够正确地使用，它确实能够提高程序的可阅读性。考虑下面的代码：</p>
-
-<p><img src="//images/blog_images/java8/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
-
-<p>对比一下使用新引入的Objects类的辅助方法(helper methods)：</p>
-
-<p><img src="//images/blog_images/java8/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
-
-<p>后面的代码能够更加明显地表明它想保存的值。IntelliJ IDEA会提示你何时一个lambda可以被替换成方法引用。</p>
-
-<h3>当迭代一个集合，尽可能地使用Streams API</h3>
-
-<p>使用新的集合方法：forEach。IDEA会提示你。</p>
-
-<p><img src="//images/blog_images/java8/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
-
-<p>使用Streams API相比起使用循环和if语句更加清晰明了。例如：</p>
-
-<p><img src="//images/blog_images/java8/StreamBefore.png" alt="StreamBefore.png" /></p>
-
-<p>IDEA会建议重构为：</p>
-
-<p><img src="//images/blog_images/java8/StreamAfter.png" alt="StreamAfter.png" /></p>
-
-<p>我做的性能测试表示这个重构是令人惊奇的-无论性能是不变、提升还是变差，都是不能被预测的。因此，当你的应用对性能要求很苛刻的话，重构的时候务必做好测试。</p>
-
-<h3>当遍历数组时使用循环</h3>
-
-<p>使用Java8并不是意味着你必须到处都使用Stream和新的集合方法。IDEA会智能提示哪些地方可以转换为Stream操作，但是并不意味着你必须这么做。</p>
-
-<p>特别是当遍历一个保存基本数据类型的小数组时，使用loop循环的性能是更加好的，而且更加可阅读(至少对哪些Stream的新手来说是这样的)。</p>
-
-<p>以上的建议，并非是固定不变，也不是必须要遵守的。但是无论你倾向于继续使用loops做某些操作还是在能够使用的地方使用Stream API, 你都要做出你自己的决定。</p>
-
-<h2>总结</h2>
-
-<p>每天我都会发现新的东西，我推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
 ]]></content>
   </entry>
   
