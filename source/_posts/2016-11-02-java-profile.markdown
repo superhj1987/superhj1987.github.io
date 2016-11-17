@@ -231,7 +231,7 @@ Java调优也不外乎这三步。
 
 代码上，也需要注意：
 
-- 避免保存重复的String对象，同时也需要小心String.subString()与String.intern()的使用
+- 避免保存重复的String对象，同时也需要小心String.subString()与String.intern()的使用，尤其是后者其底层数据结构为StringTable，当字符串大量不重复时，会使得StringTable非常大(一个固定大小的hashmap，可以由参数-XX:StringTableSize=N设置大小)，从而影响young gc的速度。
 - 尽量不要使用finalizer
 - 释放不必要的引用：ThreadLocal使用完记得释放以防止内存泄漏，各种stream使用完也记得close。
 - 使用对象池避免无节制创建对象，造成频繁gc。但不要随便使用对象池，除非像连接池、线程池这种初始化/创建资源消耗较大的场景，
