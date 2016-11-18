@@ -132,7 +132,7 @@ jcmd提供了输出HPROF格式的堆dump接口。运行**jmcd <PID> GC.heap_dump
 
 很多时候，应用会呈现出“卡在那里”的情形。这里有很多种卡住的状况：死锁、cpu密集运算。为了定位到问题所在需要知道线程在做什么、持有了什么锁等等。
 
-Java中有两种锁：基于sychronized和Object.wait/notifyAll方法的原始锁以及java5引入的java.util.concurrent锁。这俩种锁的不同之处主要在于前者是限制在进入synchronied部分的地方的栈帧(stack frame)中的，并且会一直在线程dump中存在。后者却并不限制在栈帧中，你可以在一个方法中进入锁，在另一方法中解锁。因此，thread dump有时候并没有包含这些信息。尽管如此，还是应该使用thread dump来查看线程信息排查问题。
+Java中有两种锁：基于sychronized和Object.wait/notifyAll方法的原始锁以及java5引入的java.util.concurrent锁。这俩种锁的不同之处主要在于前者是限制在进入synchronized部分的地方的栈帧(stack frame)中的，并且会一直在线程dump中存在。后者却并不限制在栈帧中，你可以在一个方法中进入锁，在另一方法中解锁。因此，thread dump有时候并没有包含这些信息。尽管如此，还是应该使用thread dump来查看线程信息排查问题。
 
 这里有三种方法可以打印应用的thread dump。
 
