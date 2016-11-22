@@ -52,9 +52,10 @@ categories: work
 
 - MVC框架：从十年前流行的Struts1、2到现在最为推崇的SpringMVC、Jersey以及国人开发的JFinal、阿里的WebX等等，这些框架尤其是后面流行的这些都是各有千秋的。选型的主要因素是看你的团队是否有一个对某框架能够做二次开发、定制的人在。很多时候，针对这些通用的框架，你是需要做一些特定的开发才能满足特定的需求的。比如，很多团队传递参数使用的都是UnderScore的命名法(下划线连接单词)，但是Java中确是使用LowCamel命名的。对于SpringMVC，可以通过注解的alias来指定，但这样需要对每一个参数都要指定alias有点效率太低，此外ModelAttribute也不支持别名，更好的方式是在框架层面统一对参数做Camel命名的转换达到目的。
 - IOC框架：ioc带来的好处无须多言。目前Java中最为流行的Spring自诞生就天然支持IOC。
-- ORM框架：MyBatis是目前最为流行的orm框架。此外，Spring ORM中提供的JdbcTemplate也很不错。当然，对于分库分表、主从分离这些需求，一般就需要实现自己的ORM框架来支持了，像阿里的tddl。此外，为了在服务层面统一解决分库分表、主从分离、主备切换、缓存、故障恢复等问题，很多公司都是有自己的数据库中间件的，比如阿里的Cobar、360的Atlas、网易的DDB，还有官方提供的[MySQL Proxy](http://downloads.mysql.com/archives/proxy/)以及开源的[MyCat](https://github.com/MyCATApache/Mycat-Server)、[kingshard](https://github.com/flike/kingshard)和收费的[oneproxy](http://www.onexsoft.com/?page_id=3391)。目前，线上有一定规模使用的应该是kingshard，当然如果不缺钱也可以上oneproxy。
+- ORM框架：MyBatis是目前最为流行的orm框架。此外，Spring ORM中提供的JdbcTemplate也很不错。当然，对于分库分表、主从分离这些需求，一般就需要实现自己的ORM框架来支持了，像阿里的tddl。此外，为了在服务层面统一解决分库分表、主从分离、主备切换、缓存、故障恢复等问题，很多公司都是有自己的数据库中间件的，比如阿里的Cobar、360的Atlas、网易的DDB，还有官方提供的[MySQL Proxy](http://downloads.mysql.com/archives/proxy/)以及开源的[MyCat](https://github.com/MyCATApache/Mycat-Server)、[kingshard](https://github.com/flike/kingshard)和收费的[oneproxy](http://www.onexsoft.com/?page_id=3391)。目前，线上有一定规模使用的应该是kingshard，当然如果不缺钱也可以上oneproxy此外，当当的[sharding-jdbc](https://github.com/dangdangdotcom/sharding-jdbc)从datasource层面解决了分库分表、读写分离的问题，也是一个很好的方案。
 - 缓存框架：缓存框架主要指的是对redis、memcached这些缓存服务器的操作统一封装，一般使用Spring的RedisTemplate即可，也可以使用jedis做自己的封装，支持客户端分布式方案、主从等。
 - JavaEE应用性能检测框架：对于线上的JavaEE应用，需要有一个统一的框架集成到每一个业务中检测每一个请求、方法调用、jdbc连接、redis连接等的耗时、状态等。[jwebap](http://www.oschina.net/p/jwebap)是一个可以使用的性能检测工具，但由于其已经很多年没有更新，有可能的话建议基于此项目做二次开发。
+- 
 
 一般来说，以上几个框架即可以完成一个后端应用的雏形。
 
@@ -214,7 +215,7 @@ categories: work
 - 任务支持脚本、代码、url等多种形式
 - 任务执行的日志记录、故障报警
 
-对于Java的quartz这里需要说明一下：这个quartz需要和spring quartz区分，后者是spring对quartz框架的简单实现也是目前使用的最多的一种调度方式。但是，其并没有做高可用集群的支持。而quartz虽然有集群的支持，但是配置起来非常复杂。现在很多方案都是使用zookeeper来实现spring quartz集群的。这里有一个国人开源的[uncode-shcedule](http://git.oschina.net/uncode/uncode-schedule)对此实现的还不错，可以根据自己的业务需求做二次开发。
+对于Java的quartz这里需要说明一下：这个quartz需要和spring quartz区分，后者是spring对quartz框架的简单实现也是目前使用的最多的一种调度方式。但其并没有做高可用集群的支持。而quartz虽然有集群的支持，但是配置起来非常复杂。现在很多方案都是使用zookeeper来实现spring quartz集群的。这里有一个国人开源的[uncode-shcedule](http://git.oschina.net/uncode/uncode-schedule)对此实现的还不错，可以根据自己的业务需求做二次开发。此外，当当开源的[elastic-job](https://github.com/dangdangdotcom/elastic-job)则在此之上又加入了弹性资源利用等更为强大的功能。
 
 ## <a name='统一日志服务'></a>统一日志服务
 
