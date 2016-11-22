@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-11-22T15:11:46+08:00</updated>
+  <updated>2016-11-22T15:14:48+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1240,7 +1240,7 @@ client都是通过socket来进行的。当agent接收到监控命令后，主要
 <ul>
 <li>MVC框架：从十年前流行的Struts1、2到现在最为推崇的SpringMVC、Jersey以及国人开发的JFinal、阿里的WebX等等，这些框架尤其是后面流行的这些都是各有千秋的。选型的主要因素是看你的团队是否有一个对某框架能够做二次开发、定制的人在。很多时候，针对这些通用的框架，你是需要做一些特定的开发才能满足特定的需求的。比如，很多团队传递参数使用的都是UnderScore的命名法(下划线连接单词)，但是Java中确是使用LowCamel命名的。对于SpringMVC，可以通过注解的alias来指定，但这样需要对每一个参数都要指定alias有点效率太低，此外ModelAttribute也不支持别名，更好的方式是在框架层面统一对参数做Camel命名的转换达到目的。</li>
 <li>IOC框架：ioc带来的好处无须多言。目前Java中最为流行的Spring自诞生就天然支持IOC。</li>
-<li>ORM框架：MyBatis是目前最为流行的orm框架。此外，Spring ORM中提供的JdbcTemplate也很不错。当然，对于分库分表、主从分离这些需求，一般就需要实现自己的ORM框架来支持了，像阿里的tddl。此外，为了在服务层面统一解决分库分表、主从分离、主备切换、缓存、故障恢复等问题，很多公司都是有自己的数据库中间件的，比如阿里的Cobar、360的Atlas、网易的DDB，还有官方提供的<a href="http://downloads.mysql.com/archives/proxy/">MySQL Proxy</a>以及开源的<a href="https://github.com/MyCATApache/Mycat-Server">MyCat</a>、<a href="https://github.com/flike/kingshard">kingshard</a>和收费的<a href="http://www.onexsoft.com/?page_id=3391">oneproxy</a>。目前，线上有一定规模使用的应该是kingshard，当然如果不缺钱也可以上oneproxy此外，当当的<a href="https://github.com/dangdangdotcom/sharding-jdbc">sharding-jdbc</a>从datasource层面解决了分库分表、读写分离的问题，也是一个很好的方案。</li>
+<li>ORM框架：MyBatis是目前最为流行的orm框架。此外，Spring ORM中提供的JdbcTemplate也很不错。当然，对于分库分表、主从分离这些需求，一般就需要实现自己的ORM框架来支持了，像阿里的tddl、当当的<a href="https://github.com/dangdangdotcom/sharding-jdbc">sharding-jdbc</a>(从datasource层面解决了分库分表、读写分离的问题，对应用透明、零侵入)。此外，为了在服务层面统一解决分库分表、主从分离、主备切换、缓存、故障恢复等问题，很多公司都是有自己的数据库中间件的，比如阿里的Cobar、360的Atlas、网易的DDB，还有官方提供的<a href="http://downloads.mysql.com/archives/proxy/">MySQL Proxy</a>以及开源的<a href="https://github.com/MyCATApache/Mycat-Server">MyCat</a>、<a href="https://github.com/flike/kingshard">kingshard</a>和收费的<a href="http://www.onexsoft.com/?page_id=3391">oneproxy</a>。目前，线上有一定规模使用的应该是kingshard，当然如果不缺钱也可以上oneproxy。</li>
 <li>缓存框架：缓存框架主要指的是对redis、memcached这些缓存服务器的操作统一封装，一般使用Spring的RedisTemplate即可，也可以使用jedis做自己的封装，支持客户端分布式方案、主从等。
 
 <ul>
