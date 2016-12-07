@@ -6,6 +6,8 @@ comments: true
 categories: work
 ---
 
+***本文更新于2016.12.06,加入了Netflix组件部分***
+
 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：
 
 <a href="/images/blog_images/server_basic_stack/server-basic-tech-stack.png" target="_blank"><img src="/images/blog_images/server_basic_stack/server-basic-tech-stack.png"/></a>
@@ -22,6 +24,7 @@ categories: work
 * [统一日志服务](#统一日志服务)
 * [数据基础设施](#数据基础设施)
 * [故障监控](#故障监控)
+* [Netflix组件](#Netflix组件)
 
 这里的后端基础设施主要指的是应用在线上稳定运行需要依赖的关键组件/服务等。开发或者搭建好以上的后端基础设施，一般情况下是能够支撑很长一段时间内的业务的。此外，对于一个完整的架构来说，还有很多应用感知不到的系统基础服务，如负载均衡、自动化部署、系统安全等，并没有包含在本文的描述范围内。
 
@@ -283,6 +286,33 @@ categories: work
 
 - 建立ELK(Elastic+Logstash+Kibana)日志集中分析平台，便于快速搜索、定位日志。对于ELK的介绍，可以见：[使用Elasticsearch + Logstash + Kibana搭建日志集中分析平台实践](https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/)
 - 建立分布式请求追踪系统(也可以叫全链路监测系统)，对于分布式系统尤其是微服务架构，能够极大的方便在海量调用中快速定位并收集单个异常请求信息，也能快速定位一条请求链路的性能瓶颈。Google的[Dapper](http://www.cnblogs.com/LBSer/p/3390852.html?spm=5176.100239.blogcont58408.6.xuC3MP)、唯品会的[Mercury](http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&mid=2653547643&idx=1&sn=c06dc9b0f59e8ae3d2f9feb734da4459&scene=1&srcid=0808MaLgymxNlsh4Z31oWKUi#rd)、阿里的[鹰眼](https://bigbully.github.io/Dapper-translation/?spm=5176.100239.blogcont58408.7.xuC3MP)、新浪的[WatchMan](http://ishare.iask.sina.com.cn/f/68869649.html)都是类似的思路。此外，[腾讯的染色日志机制](https://www.zhihu.com/question/20292868)本质上也是在链路追踪之上根据响应信息做了染色机制。
+
+## <a name='Netflix组件'></a>Netflix组件
+
+近几年Netflix这个公司开源了其内部很多的服务，包括大数据、构建和交付工具、通用运行时服务和类库、数据持久化、安全等方面。
+等。这里面有很多都对应了我们上面说的一些基础设施：
+
+1. [zuul](https://github.com/Netflix/zuul/wiki)
+
+    这是netflix所有后端服务最前端的一道门，也就是我们上面说的Api网关, 主要包含了以下功能：
+
+    - 认证授权和安全：识别合法的外部请求，拒绝非法的。
+    - 监控：跟踪记录所有有意义的数据以便于给我们一个精确的产品视图。
+    - 动态路由：根据需要动态把请求路由到合适的后端服务上。
+    - 压力测试：渐进式的增加对集群的压力直到最大值。
+    - 限流：对每一种类型的请求都限定流量，拒绝超出的请求。
+    - 静态响应控制：对于某些请求直接在边缘返回而不转发到后端集群。
+    - 多区域弹性：在aws的多个region中进行请求路由。
+
+2. [Eureka](https://github.com/Netflix/eureka)
+    
+    是netflix的服务注册发现服务，类似于dubbo的功能。包括负载均衡和容错。
+
+3. [Hystrix](https://github.com/Netflix/hystrix)
+    
+    hystrix是一个类库。基于命令模式，实现依赖服务的容错、降级、隔离等。在依赖多个第三方服务的时候非常有用。此外，还可以通过自定义实现dubbo的filter来结合hystrxi和dubbo。
+
+此外，还有很多开源的服务可见: <https://github.com/Netflix>。 
 
 
 ***以上是本人实践的一些经验。由于知识有限，难免有纰漏，敬请指出。***
