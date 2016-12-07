@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="谈谈互联网后端基础设施 Aug 27th, 2016 Posted by 飒然Hang in work 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况， &hellip;">
+  <meta name="description" content="谈谈互联网后端基础设施 Aug 27th, 2016 Posted by 飒然Hang in work 本文更新于2016.12.06,加入了Netflix组件部分 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -129,7 +129,9 @@
   </header>
 
 
-<div class="post-content"><p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：</p>
+<div class="post-content"><p><strong><em>本文更新于2016.12.06,加入了Netflix组件部分</em></strong></p>
+
+<p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：</p>
 
 <p><a href="/images/blog_images/server_basic_stack/server-basic-tech-stack.png" target="_blank"><img src="/images/blog_images/server_basic_stack/server-basic-tech-stack.png"/></a></p>
 
@@ -146,6 +148,7 @@
 <li><a href="#%E7%BB%9F%E4%B8%80%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1">统一日志服务</a></li>
 <li><a href="#%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD">数据基础设施</a></li>
 <li><a href="#%E6%95%85%E9%9A%9C%E7%9B%91%E6%8E%A7">故障监控</a></li>
+<li><a href="#Netflix%E7%BB%84%E4%BB%B6">Netflix组件</a></li>
 </ul>
 
 
@@ -478,6 +481,37 @@
 </ul>
 
 
+<h2><a name='Netflix组件'></a>Netflix组件</h2>
+
+<p>近几年Netflix这个公司开源了其内部很多的服务，包括大数据、构建和交付工具、通用运行时服务和类库、数据持久化、安全等方面。
+等。这里面有很多都对应了我们上面说的一些基础设施：</p>
+
+<ol>
+<li><p><a href="https://github.com/Netflix/zuul/wiki">zuul</a></p>
+
+<p> 这是netflix所有后端服务最前端的一道门，也就是我们上面说的Api网关, 主要包含了以下功能：</p>
+
+<ul>
+<li>认证授权和安全：识别合法的外部请求，拒绝非法的。</li>
+<li>监控：跟踪记录所有有意义的数据以便于给我们一个精确的产品视图。</li>
+<li>动态路由：根据需要动态把请求路由到合适的后端服务上。</li>
+<li>压力测试：渐进式的增加对集群的压力直到最大值。</li>
+<li>限流：对每一种类型的请求都限定流量，拒绝超出的请求。</li>
+<li>静态响应控制：对于某些请求直接在边缘返回而不转发到后端集群。</li>
+<li>多区域弹性：在aws的多个region中进行请求路由。</li>
+</ul>
+</li>
+<li><p><a href="https://github.com/Netflix/eureka">Eureka</a></p>
+
+<p> 是netflix的服务注册发现服务，类似于dubbo的功能。包括负载均衡和容错。</p></li>
+<li><p><a href="https://github.com/Netflix/hystrix">Hystrix</a></p>
+
+<p> hystrix是一个类库。基于命令模式，实现依赖服务的容错、降级、隔离等。在依赖多个第三方服务的时候非常有用。此外，还可以通过自定义实现dubbo的filter来结合hystrxi和dubbo。</p></li>
+</ol>
+
+
+<p>此外，还有很多开源的服务可见: <a href="https://github.com/Netflix">https://github.com/Netflix</a>。</p>
+
 <p><strong><em>以上是本人实践的一些经验。由于知识有限，难免有纰漏，敬请指出。</em></strong></p>
 </div>
 
@@ -494,9 +528,7 @@
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="谈谈互联网后端基础设施 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack/" data-content="对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示： Api网关
-业务应用和后端基础框架
-缓存、数据库、 &hellip;">
+<div class="ds-share flat" data-title="谈谈互联网后端基础设施 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack/" data-content="本文更新于2016.12.06,加入了Netflix组件部分 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/ &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
