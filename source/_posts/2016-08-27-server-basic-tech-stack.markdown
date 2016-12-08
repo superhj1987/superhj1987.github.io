@@ -289,12 +289,11 @@ categories: work
 
 ## <a name='Netflix组件'></a>Netflix组件
 
-近几年Netflix这个公司开源了其内部很多的服务，包括大数据、构建和交付工具、通用运行时服务和类库、数据持久化、安全等方面。
-等。这里面有很多都对应了我们上面说的一些基础设施：
+近几年Netflix开源了其内部很多的服务：<https://github.com/Netflix>，包括大数据、构建交付工具、通用运行时服务类库、数据持久化、安全等。里面有一些对应了上面所说的基础设施：
 
 1. [zuul](https://github.com/Netflix/zuul/wiki)
 
-    这是netflix所有后端服务最前端的一道门，也就是我们上面说的Api网关, 主要包含了以下功能：
+    这是Netflix所有后端服务最前端的一道门，也就是我们上面说的Api网关, 主要包含了以下功能：
 
     - 认证授权和安全：识别合法的外部请求，拒绝非法的。
     - 监控：跟踪记录所有有意义的数据以便于给我们一个精确的产品视图。
@@ -306,13 +305,12 @@ categories: work
 
 2. [Eureka](https://github.com/Netflix/eureka)
     
-    是netflix的服务注册发现服务，类似于dubbo的功能。包括负载均衡和容错。
+    是Netflix的服务注册发现服务，类似于dubbo的功能。包括负载均衡和容错。
 
 3. [Hystrix](https://github.com/Netflix/hystrix)
     
-    hystrix是一个类库。基于命令模式，实现依赖服务的容错、降级、隔离等。在依赖多个第三方服务的时候非常有用。此外，还可以通过自定义实现dubbo的filter来结合hystrxi和dubbo。
+    hystrix是一个类库。基于命令模式，实现依赖服务的容错、降级、隔离等。在依赖多个第三方服务的时候非常有用。此外，还可以通过自定义实现dubbo的filter来给dubbo添加hystrix的特性支持。
 
-此外，还有很多开源的服务可见: <https://github.com/Netflix>。 
-
+此外，Netflix的这些开源组件统称做Netflix oss，现在很火的Spring cloud很多部分都是在这些组件基础上实现的，提供了一整套分布式系统解决方案，涵盖了做分布式微服务需要的服务发现、服务容错、负载均衡、权限控制等。当然，如果你直接选用docker的话，那么K8s本身也提供了这些东西。
 
 ***以上是本人实践的一些经验。由于知识有限，难免有纰漏，敬请指出。***
