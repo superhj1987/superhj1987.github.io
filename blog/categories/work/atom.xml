@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-12-08T09:56:05+08:00</updated>
+  <updated>2016-12-17T15:44:04+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -366,7 +366,7 @@
 
 <ul>
 <li>建立ELK(Elastic+Logstash+Kibana)日志集中分析平台，便于快速搜索、定位日志。对于ELK的介绍，可以见：<a href="https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/">使用Elasticsearch + Logstash + Kibana搭建日志集中分析平台实践</a></li>
-<li>建立分布式请求追踪系统(也可以叫全链路监测系统)，对于分布式系统尤其是微服务架构，能够极大的方便在海量调用中快速定位并收集单个异常请求信息，也能快速定位一条请求链路的性能瓶颈。Google的<a href="http://www.cnblogs.com/LBSer/p/3390852.html?spm=5176.100239.blogcont58408.6.xuC3MP">Dapper</a>、唯品会的<a href="http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&amp;mid=2653547643&amp;idx=1&amp;sn=c06dc9b0f59e8ae3d2f9feb734da4459&amp;scene=1&amp;srcid=0808MaLgymxNlsh4Z31oWKUi#rd">Mercury</a>、阿里的<a href="https://bigbully.github.io/Dapper-translation/?spm=5176.100239.blogcont58408.7.xuC3MP">鹰眼</a>、新浪的<a href="http://ishare.iask.sina.com.cn/f/68869649.html">WatchMan</a>都是类似的思路。此外，<a href="https://www.zhihu.com/question/20292868">腾讯的染色日志机制</a>本质上也是在链路追踪之上根据响应信息做了染色机制。</li>
+<li>建立分布式请求追踪系统(也可以叫全链路监测系统)，对于分布式系统尤其是<strong>微服务架构</strong>，能够极大的方便在海量调用中快速定位并收集单个异常请求信息，也能快速定位一条请求链路的性能瓶颈。唯品会的<a href="http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&amp;mid=2653547643&amp;idx=1&amp;sn=c06dc9b0f59e8ae3d2f9feb734da4459&amp;scene=1&amp;srcid=0808MaLgymxNlsh4Z31oWKUi#rd">Mercury</a>、阿里的<a href="https://bigbully.github.io/Dapper-translation">鹰眼</a>、新浪的<a href="http://ishare.iask.sina.com.cn/f/68869649.html">WatchMan</a>、Twitter开源的<a href="https://github.com/openzipkin/zipkin">Zipkin</a>基本都是基于Google的<a href="http://www.cnblogs.com/LBSer/p/3390852.html">Dapper</a>论文而来。此外，<a href="https://www.zhihu.com/question/20292868">腾讯的染色日志机制</a>本质上也是在链路追踪之上根据响应信息做了染色机制。Apache正在孵化中的<a href="http://htrace.incubator.apache.org/">HTrace</a>则是针对大的分布式系统诸如hdfs文件系统、hbase存储引擎而设计的分布式追踪方案。这里需要提到的一点是，如果你的微服务实现使用了Spring cloud，那么<a href="http://cloud.spring.io/spring-cloud-sleuth/">Spring Cloud Sleuth</a>则是最佳的分布式跟踪实现方案。</li>
 </ul>
 
 
