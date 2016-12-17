@@ -293,7 +293,7 @@ categories: work
 
 近几年Netflix开源了其内部很多的服务：<https://github.com/Netflix>，包括大数据、构建交付工具、通用运行时服务类库、数据持久化、安全等。里面有一些对应了上面所说的基础设施：
 
-1. [zuul](https://github.com/Netflix/zuul/wiki)
+- [zuul](https://github.com/Netflix/zuul/wiki)
 
     这是Netflix所有后端服务最前端的一道门，也就是我们上面说的Api网关, 主要包含了以下功能：
 
@@ -305,11 +305,11 @@ categories: work
     - 静态响应控制：对于某些请求直接在边缘返回而不转发到后端集群。
     - 多区域弹性：在aws的多个region中进行请求路由。
 
-2. [Eureka](https://github.com/Netflix/eureka)
+- [Eureka](https://github.com/Netflix/eureka)
     
     是Netflix的服务注册发现服务，类似于dubbo的功能。包括负载均衡和容错。
 
-3. [Hystrix](https://github.com/Netflix/hystrix)
+- [Hystrix](https://github.com/Netflix/hystrix)
     
     hystrix是一个类库。基于命令模式，实现依赖服务的容错、降级、隔离等。在依赖多个第三方服务的时候非常有用。此外，还可以通过自定义实现dubbo的filter来给dubbo添加hystrix的特性支持。
 
