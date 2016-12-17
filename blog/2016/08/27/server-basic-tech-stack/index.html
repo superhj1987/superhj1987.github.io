@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="谈谈互联网后端基础设施 Aug 27th, 2016 Posted by 飒然Hang in work 本文更新于2016.12.06,加入了Netflix组件部分 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护 &hellip;">
+  <meta name="description" content="谈谈互联网后端基础设施 Aug 27th, 2016 Posted by 飒然Hang in work 本文更新于2016.12.12, 加入了扩展章节 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？ &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -129,7 +129,7 @@
   </header>
 
 
-<div class="post-content"><p><strong><em>本文更新于2016.12.06,加入了Netflix组件部分</em></strong></p>
+<div class="post-content"><p><strong><em>本文更新于2016.12.12, 加入了扩展章节</em></strong></p>
 
 <p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：</p>
 
@@ -148,7 +148,7 @@
 <li><a href="#%E7%BB%9F%E4%B8%80%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1">统一日志服务</a></li>
 <li><a href="#%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD">数据基础设施</a></li>
 <li><a href="#%E6%95%85%E9%9A%9C%E7%9B%91%E6%8E%A7">故障监控</a></li>
-<li><a href="#Netflix%E7%BB%84%E4%BB%B6">Netflix组件</a></li>
+<li><a href="#%E6%89%A9%E5%B1%95">扩展</a></li>
 </ul>
 
 
@@ -481,7 +481,9 @@
 </ul>
 
 
-<h2><a name='Netflix组件'></a>Netflix组件</h2>
+<h2><a name='扩展'></a>扩展</h2>
+
+<h3>一. NetFlix</h3>
 
 <p>近几年Netflix开源了其内部很多的服务：<a href="https://github.com/Netflix">https://github.com/Netflix</a>，包括大数据、构建交付工具、通用运行时服务类库、数据持久化、安全等。里面有一些对应了上面所说的基础设施：</p>
 
@@ -509,7 +511,30 @@
 </ol>
 
 
-<p>此外，Netflix的这些开源组件统称做Netflix oss，现在很火的Spring cloud很多部分都是在这些组件基础上实现的，提供了一整套分布式系统解决方案，涵盖了做分布式微服务需要的服务发现、服务容错、负载均衡、权限控制等。当然，如果你直接选用docker的话，那么K8s本身也提供了这些东西。</p>
+<p>此外，Netflix的这些开源组件统称做Netflix oss，提供了一整套分布式系统解决方案，涵盖了做分布式微服务需要的服务发现、服务容错、负载均衡、权限控制等。当然，如果你直接选用docker的话，那么K8s本身也提供了这些东西。</p>
+
+<h3>二. Spring Cloud</h3>
+
+<p><a href="http://projects.spring.io/spring-cloud/">Spring cloud</a>给我们构建分布式系统提供了一整套开发工具和框架，基本上也涵盖了本文讲述的各个组件，其子项目<a href="http://cloud.spring.io/spring-cloud-netflix/">Spring Cloud Netflix</a>则能够集成Netflix的各个组件。现在很多公司和团队都是基于Spring cloud这一套东西在做微服务实现的。不过，spring cloud包含很多子项目，想要吃透这些得花不小的成本。</p>
+
+<ul>
+<li><p>Spring Cloud Config</p>
+
+<p>  统一配置中心，类似于前文说过的disconf,不过其配置文件时存储在版本管理系统如git、svn上的。其配置的实时在线更新则需要依赖Spring Cloud Bus。</p></li>
+<li><p>Spring Cloud Security</p>
+
+<p>  提供了oauth2客户端的负载均衡以及认证header等安全服务，可以做为Api网关的实现。</p></li>
+<li><p>Spring Cloud Consul/Zookeepr</p>
+
+<p>  服务统一发现、注册、配置服务。类似于dubbo。</p></li>
+<li><p>Spring Cloud Bus</p>
+
+<p>  提供了服务之间通信的分布式消息事件总线，主要用来在集群中传播状态改变（如配置改动）。</p></li>
+<li><p>Spring Cloud Sleuth</p>
+
+<p>  分布式跟踪系统, 能够追踪单次请求的链路轨迹以及耗时等信息。</p></li>
+</ul>
+
 
 <p><strong><em>以上是本人实践的一些经验。由于知识有限，难免有纰漏，敬请指出。</em></strong></p>
 </div>
@@ -527,7 +552,7 @@
 
 
      <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="谈谈互联网后端基础设施 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack/" data-content="本文更新于2016.12.06,加入了Netflix组件部分 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/ &hellip;">
+<div class="ds-share flat" data-title="谈谈互联网后端基础设施 - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2016/08/27/server-basic-tech-stack/" data-content="本文更新于2016.12.12, 加入了扩展章节 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示： &hellip;">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	
