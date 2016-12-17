@@ -285,7 +285,7 @@ categories: work
 故障告警之后，那么最最关键的就是应对了。对于创业公司来说，24小时待命是必备的素质，当遇到告警的时候，需要尽快对故障做出反应，找到问题所在，并能在可控时间内解决问题。对于故障问题的排查，基本上都是依赖于日志的。只要日志打的合理，一般情况下是能够很快定位到问题所在的，但是如果是分布式服务，并且日志数据量特别大的情况下，如何定位日志就成为了难题。这里有几个方案：
 
 - 建立ELK(Elastic+Logstash+Kibana)日志集中分析平台，便于快速搜索、定位日志。对于ELK的介绍，可以见：[使用Elasticsearch + Logstash + Kibana搭建日志集中分析平台实践](https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/)
-- 建立分布式请求追踪系统(也可以叫全链路监测系统)，对于分布式系统尤其是微服务架构，能够极大的方便在海量调用中快速定位并收集单个异常请求信息，也能快速定位一条请求链路的性能瓶颈。Google的[Dapper](http://www.cnblogs.com/LBSer/p/3390852.html?spm=5176.100239.blogcont58408.6.xuC3MP)、唯品会的[Mercury](http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&mid=2653547643&idx=1&sn=c06dc9b0f59e8ae3d2f9feb734da4459&scene=1&srcid=0808MaLgymxNlsh4Z31oWKUi#rd)、阿里的[鹰眼](https://bigbully.github.io/Dapper-translation/?spm=5176.100239.blogcont58408.7.xuC3MP)、新浪的[WatchMan](http://ishare.iask.sina.com.cn/f/68869649.html)都是类似的思路。此外，[腾讯的染色日志机制](https://www.zhihu.com/question/20292868)本质上也是在链路追踪之上根据响应信息做了染色机制。
+- 建立分布式请求追踪系统(也可以叫全链路监测系统)，对于分布式系统尤其是**微服务架构**，能够极大的方便在海量调用中快速定位并收集单个异常请求信息，也能快速定位一条请求链路的性能瓶颈。唯品会的[Mercury](http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&mid=2653547643&idx=1&sn=c06dc9b0f59e8ae3d2f9feb734da4459&scene=1&srcid=0808MaLgymxNlsh4Z31oWKUi#rd)、阿里的[鹰眼](https://bigbully.github.io/Dapper-translation)、新浪的[WatchMan](http://ishare.iask.sina.com.cn/f/68869649.html)、Twitter开源的[Zipkin](https://github.com/openzipkin/zipkin)基本都是基于Google的[Dapper](http://www.cnblogs.com/LBSer/p/3390852.html)论文而来。此外，[腾讯的染色日志机制](https://www.zhihu.com/question/20292868)本质上也是在链路追踪之上根据响应信息做了染色机制。Apache正在孵化中的[HTrace](http://htrace.incubator.apache.org/)则是针对大的分布式系统诸如hdfs文件系统、hbase存储引擎而设计的分布式追踪方案。这里需要提到的一点是，如果你的微服务实现使用了Spring cloud，那么[Spring Cloud Sleuth](http://cloud.spring.io/spring-cloud-sleuth/)则是最佳的分布式跟踪实现方案。
 
 ## <a name='Netflix组件'></a>Netflix组件
 
@@ -314,3 +314,5 @@ categories: work
 此外，Netflix的这些开源组件统称做Netflix oss，现在很火的Spring cloud很多部分都是在这些组件基础上实现的，提供了一整套分布式系统解决方案，涵盖了做分布式微服务需要的服务发现、服务容错、负载均衡、权限控制等。当然，如果你直接选用docker的话，那么K8s本身也提供了这些东西。
 
 ***以上是本人实践的一些经验。由于知识有限，难免有纰漏，敬请指出。***
+
+
