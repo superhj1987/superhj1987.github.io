@@ -6,7 +6,7 @@ comments: true
 categories: work
 ---
 
-***本文更新于2016.12.06,加入了Netflix组件部分***
+***本文更新于2016.12.12, 加入了扩展章节***
 
 对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：
 
@@ -24,7 +24,7 @@ categories: work
 * [统一日志服务](#统一日志服务)
 * [数据基础设施](#数据基础设施)
 * [故障监控](#故障监控)
-* [Netflix组件](#Netflix组件)
+* [扩展](#扩展)
 
 这里的后端基础设施主要指的是应用在线上稳定运行需要依赖的关键组件/服务等。开发或者搭建好以上的后端基础设施，一般情况下是能够支撑很长一段时间内的业务的。此外，对于一个完整的架构来说，还有很多应用感知不到的系统基础服务，如负载均衡、自动化部署、系统安全等，并没有包含在本文的描述范围内。
 
@@ -287,7 +287,9 @@ categories: work
 - 建立ELK(Elastic+Logstash+Kibana)日志集中分析平台，便于快速搜索、定位日志。对于ELK的介绍，可以见：[使用Elasticsearch + Logstash + Kibana搭建日志集中分析平台实践](https://xiequan.info/%E4%BD%BF%E7%94%A8elasticsearch-logstash-kibana%E6%90%AD%E5%BB%BA%E6%97%A5%E5%BF%97%E9%9B%86%E4%B8%AD%E5%88%86%E6%9E%90%E5%B9%B3%E5%8F%B0%E5%AE%9E%E8%B7%B5/)
 - 建立分布式请求追踪系统(也可以叫全链路监测系统)，对于分布式系统尤其是**微服务架构**，能够极大的方便在海量调用中快速定位并收集单个异常请求信息，也能快速定位一条请求链路的性能瓶颈。唯品会的[Mercury](http://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&mid=2653547643&idx=1&sn=c06dc9b0f59e8ae3d2f9feb734da4459&scene=1&srcid=0808MaLgymxNlsh4Z31oWKUi#rd)、阿里的[鹰眼](https://bigbully.github.io/Dapper-translation)、新浪的[WatchMan](http://ishare.iask.sina.com.cn/f/68869649.html)、Twitter开源的[Zipkin](https://github.com/openzipkin/zipkin)基本都是基于Google的[Dapper](http://www.cnblogs.com/LBSer/p/3390852.html)论文而来。此外，[腾讯的染色日志机制](https://www.zhihu.com/question/20292868)本质上也是在链路追踪之上根据响应信息做了染色机制。Apache正在孵化中的[HTrace](http://htrace.incubator.apache.org/)则是针对大的分布式系统诸如hdfs文件系统、hbase存储引擎而设计的分布式追踪方案。这里需要提到的一点是，如果你的微服务实现使用了Spring cloud，那么[Spring Cloud Sleuth](http://cloud.spring.io/spring-cloud-sleuth/)则是最佳的分布式跟踪实现方案。
 
-## <a name='Netflix组件'></a>Netflix组件
+## <a name='扩展'></a>扩展
+
+### 一. NetFlix
 
 近几年Netflix开源了其内部很多的服务：<https://github.com/Netflix>，包括大数据、构建交付工具、通用运行时服务类库、数据持久化、安全等。里面有一些对应了上面所说的基础设施：
 
@@ -311,8 +313,32 @@ categories: work
     
     hystrix是一个类库。基于命令模式，实现依赖服务的容错、降级、隔离等。在依赖多个第三方服务的时候非常有用。此外，还可以通过自定义实现dubbo的filter来给dubbo添加hystrix的特性支持。
 
-此外，Netflix的这些开源组件统称做Netflix oss，现在很火的Spring cloud很多部分都是在这些组件基础上实现的，提供了一整套分布式系统解决方案，涵盖了做分布式微服务需要的服务发现、服务容错、负载均衡、权限控制等。当然，如果你直接选用docker的话，那么K8s本身也提供了这些东西。
+此外，Netflix的这些开源组件统称做Netflix oss，提供了一整套分布式系统解决方案，涵盖了做分布式微服务需要的服务发现、服务容错、负载均衡、权限控制等。当然，如果你直接选用docker的话，那么K8s本身也提供了这些东西。
 
+### 二. Spring Cloud
+
+[Spring cloud](http://projects.spring.io/spring-cloud/)给我们构建分布式系统提供了一整套开发工具和框架，基本上也涵盖了本文讲述的各个组件，其子项目[Spring Cloud Netflix](http://cloud.spring.io/spring-cloud-netflix/)则能够集成Netflix的各个组件。现在很多公司和团队都是基于Spring cloud这一套东西在做微服务实现的。不过，spring cloud包含很多子项目，想要吃透这些得花不小的成本。
+
+- Spring Cloud Config
+
+    统一配置中心，类似于前文说过的disconf,不过其配置文件时存储在版本管理系统如git、svn上的。其配置的实时在线更新则需要依赖Spring Cloud Bus。
+    
+- Spring Cloud Security
+
+    提供了oauth2客户端的负载均衡以及认证header等安全服务，可以做为Api网关的实现。
+    
+- Spring Cloud Consul/Zookeepr
+
+    服务统一发现、注册、配置服务。类似于dubbo。
+
+- Spring Cloud Bus
+
+    提供了服务之间通信的分布式消息事件总线，主要用来在集群中传播状态改变（如配置改动）。
+    
+- Spring Cloud Sleuth
+
+    分布式跟踪系统, 能够追踪单次请求的链路轨迹以及耗时等信息。
+    
 ***以上是本人实践的一些经验。由于知识有限，难免有纰漏，敬请指出。***
 
 
