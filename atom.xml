@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-12-17T16:16:05+08:00</updated>
+  <updated>2016-12-19T12:05:01+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -3839,6 +3839,10 @@ tomcat的bio connector，采用的是线程池来避免对于每一个客户端�
 
 <pre><code>  git config --global user.name [username]
   git config --global user.email [email]
+</code></pre></li>
+<li><p>修改git的message编辑器为vim（其他的亦可）</p>
+
+<pre><code>  git config –global core.editor vim
 </code></pre></li>
 <li><p>在git命令中开启颜色显示</p>
 
