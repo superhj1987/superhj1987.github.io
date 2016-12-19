@@ -41,6 +41,10 @@ categories: git
   			git config --global user.name [username]
   			git config --global user.email [email]
 
+  	- 修改git的message编辑器为vim（其他的亦可）
+
+  			git config –global core.editor vim
+
  	- 在git命令中开启颜色显示
   			
   			git config --global color.ui true
