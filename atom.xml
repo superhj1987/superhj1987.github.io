@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2016-12-19T12:05:01+08:00</updated>
+  <updated>2016-12-20T22:13:31+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -112,7 +112,7 @@ Options: (options must be specified using the &lt;key&gt; or &lt;key&gt;=&lt;val
 
 <h3><a name='Java堆的DUMP'></a>Java堆的DUMP</h3>
 
-<p>jcmd提供了输出HPROF格式的堆dump接口。运行<strong>jmcd <PID> GC.heap_dump <FILENAME></strong>即可。注意这里的FILENAME是相对于运行中的jvm目录来说的，因此避免找不到dump的文件，这里推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
+<p>jcmd提供了输出HPROF格式的堆dump接口。运行<strong>jcmd <PID> GC.heap_dump <FILENAME></strong>即可。注意这里的FILENAME是相对于运行中的jvm目录来说的，因此避免找不到dump的文件，这里推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
 
 <p>在堆dump完成之后，你可以复制此文件到本地用VisualVM或者用jmc的JOverflow插件打开，进而通过分析堆的状况定位内存问题。</p>
 
