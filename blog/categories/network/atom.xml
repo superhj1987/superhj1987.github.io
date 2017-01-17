@@ -4,7 +4,7 @@
   <title><![CDATA[Category: network | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-01-17T21:30:19+08:00</updated>
+  <updated>2017-01-17T21:38:07+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -184,7 +184,7 @@ tomcat的bio connector，采用的是线程池来避免对于每一个客户端�
 
 <h3>AIO</h3>
 
-<p>JDK1.7引入NIO2.0，提供了异步文件通道和异步套接字通道的实现。其底层在windows上是通过IOCP，在Linux上是通过epoll来实现的(LinuxAsynchronousChannelProvider.java)。</p>
+<p>JDK1.7引入NIO2.0，提供了异步文件通道和异步套接字通道的实现。其底层在windows上是通过IOCP，在Linux上是通过epoll来实现的(LinuxAsynchronousChannelProvider.java,UnixAsynchronousServerSocketChannelImpl.java)。</p>
 
 <ul>
 <li>创建AsynchronousServerSocketChannel，绑定监听端口</li>
