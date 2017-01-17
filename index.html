@@ -12,13 +12,20 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="JDK自带工具之问题排查场景示例 Nov 16th, 2016 目录 引言
-问题排查场景 获取正在运行的JVM列表
-Java堆的DUMP
-分析类柱状图
-线程Dump
-运行Java飞行记录器(Java Flight Recorder))
-后记 最近看到了大量关于java性能调优、故障排查的文章， &hellip;">
+  <meta name="description" content="一些架构设计原则 Jan 16th, 2017 冗余设计/N+1设计
+无状态设计
+可回滚
+可禁用/可熔断
+可追踪
+监控设计
+资源隔离
+多活数据中心
+成熟可控的技术
+异步设计
+缓存设计
+水平扩展
+快速迭代、小步试错-小的构建和部署
+自动化 先挖个坑，后续有时间补充详尽 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -95,6 +102,62 @@ Java堆的DUMP
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/01/16/arch-spec/">一些架构设计原则</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-01-16T22:21:34+08:00" pubdate data-updated="true">Jan 16<sup>th</sup>, 2017</time>
+        
+        <a data-thread-key="/blog/2017/01/16/arch-spec/" href="/blog/2017/01/16/arch-spec/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><ol>
+<li><p>冗余设计/N+1设计</p></li>
+<li><p>无状态设计</p></li>
+<li><p>可回滚</p></li>
+<li><p>可禁用/可熔断</p></li>
+<li><p>可追踪</p></li>
+<li><p>监控设计</p></li>
+<li><p>资源隔离</p></li>
+<li><p>多活数据中心</p></li>
+<li><p>成熟可控的技术</p></li>
+<li><p>异步设计</p></li>
+<li><p>缓存设计</p></li>
+<li><p>水平扩展</p></li>
+<li><p>快速迭代、小步试错-小的构建和部署</p></li>
+<li><p>自动化</p></li>
+</ol>
+
+
+<p><strong><em>先挖个坑，后续有时间补充详尽</em></strong></p>
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -629,51 +692,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/08/03/so-java-7-answers/">[译]StackOverflow: 你没见过的七个最好的Java答案</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-08-03T20:30:34+08:00" pubdate data-updated="true">Aug 3<sup>rd</sup>, 2016</time>
-        
-        <a data-thread-key="/blog/2016/08/03/so-java-7-answers/" href="/blog/2016/08/03/so-java-7-answers/#ds-thread" class="ds-thread-count"></a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>原文：<a href="https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you">https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you</a></p>
-
-<p>StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案，同时我们也会从中学习到很多新的东西。这篇文章是在我们审阅了so上最流行的Java问题以及答案后从中挑出来的。即使你是一个有丰富经验的开发者，也能从中学到不少东西。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/08/03/so-java-7-answers/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -740,6 +758,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2017/01/16/arch-spec/">一些架构设计原则</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2016/11/16/java-trouble-shooting/">JDK自带工具之问题排查场景示例</a>
       	</li>
     	
@@ -753,10 +775,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2016/11/02/java-profile/">Java调优经验谈</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2016/09/20/btrace/">BTrace原理浅析</a>
       	</li>
     	
 	</ul>
@@ -820,7 +838,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2016 - 飒然Hang -
+	Copyright &copy; 2017 - 飒然Hang -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 
