@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-01-17T15:03:42+08:00</updated>
+  <updated>2017-01-17T18:11:02+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,25 +18,12 @@
     <link href="http://www.rowkey.me/blog/2017/01/16/arch-spec/"/>
     <updated>2017-01-16T22:21:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/01/16/arch-spec</id>
-    <content type="html"><![CDATA[<ol>
-<li><p>冗余设计/N+1设计</p></li>
-<li><p>无状态设计</p></li>
-<li><p>可回滚</p></li>
-<li><p>可禁用/可熔断</p></li>
-<li><p>可追踪</p></li>
-<li><p>监控设计</p></li>
-<li><p>资源隔离</p></li>
-<li><p>多活数据中心</p></li>
-<li><p>成熟可控的技术</p></li>
-<li><p>异步设计</p></li>
-<li><p>缓存设计</p></li>
-<li><p>水平扩展</p></li>
-<li><p>快速迭代、小步试错-小的构建和部署</p></li>
-<li><p>自动化</p></li>
-</ol>
-
+    <content type="html"><![CDATA[<p><img src="http://www.rowkey.me/images/blog_images/arch-spec.png" alt="" /></p>
 
 <p><strong><em>先挖个坑，后续有时间补充详尽</em></strong></p>
+
+<!--more-->
+
 ]]></content>
   </entry>
   
