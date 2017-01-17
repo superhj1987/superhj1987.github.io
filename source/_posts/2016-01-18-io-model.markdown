@@ -144,7 +144,7 @@ NIO的实现流程，类似于select：
 
 ### AIO
 
-JDK1.7引入NIO2.0，提供了异步文件通道和异步套接字通道的实现。其底层在windows上是通过IOCP，在Linux上是通过epoll来实现的(LinuxAsynchronousChannelProvider.java)。
+JDK1.7引入NIO2.0，提供了异步文件通道和异步套接字通道的实现。其底层在windows上是通过IOCP，在Linux上是通过epoll来实现的(LinuxAsynchronousChannelProvider.java,UnixAsynchronousServerSocketChannelImpl.java)。
 
 - 创建AsynchronousServerSocketChannel，绑定监听端口
 - 调用AsynchronousServerSocketChannel的accpet方法，传入自己实现的CompletionHandler。包括上一步，都是非阻塞的
