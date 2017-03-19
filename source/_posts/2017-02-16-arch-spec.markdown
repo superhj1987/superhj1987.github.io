@@ -1,13 +1,13 @@
 ---
 layout: post
 title: "一些架构设计原则"
-date: 2017-01-16 22:21:34 +0800
+date: 2017-02-16 22:21:34 +0800
 comments: true
 categories: java
 ---
 
 ![](/images/blog_images/arch-spec.png)
 
-***先挖个坑，后续有时间补充详尽***
+***先挖个坑，后续有时间对每一点进行详细阐述***
 
 <!--more-->
