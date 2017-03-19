@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-19T17:55:32+08:00</updated>
+  <updated>2017-03-19T18:03:04+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -64,7 +64,7 @@
 </ul>
 
 
-<p>还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以<code>jar:file</code>开头的，并不能用此方式处理。</p>
+<p>还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以<strong><em>jar:file</em></strong>开头的，并不能用此方式处理。</p>
 ]]></content>
   </entry>
   
