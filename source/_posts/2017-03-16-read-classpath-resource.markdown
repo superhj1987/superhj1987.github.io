@@ -34,18 +34,19 @@ categories: java
 
 此外，有些场景是需要获取到类路径下的资源路径信息的，可以选用以下三种方法：
 
-- A: `ClassLoader.getResource(String classpathFilePath)`
+- ClassLoader.getResource(String classpathFilePath)`
 
-	> A方法的加载过程类似`双亲委派机制`，当父加载器无法获取到资源时，自己才去尝试获取。但需要注意的是以`/`开头的资源是在类加载器目录下的资源，并非指的是当前应用的类加载路径下的资源。如果资源是位于classpath下的不要以`/`开头。
+    此方法的加载过程类似“双亲委派机制”，当父加载器无法获取到资源时，自己才去尝试获取。但需要注意的是以 / 开头的资源是在类加载器目录下的资源，并非指的是当前应用的类加载路径下的资源。如果资源是位于classpath下的不要以 / 开头。
 	
-- B: `Class<?>.getResource(String classpathFilePath)`
+- `Class<?>.getResource(String classpathFilePath)`
 
-	> B方法最终还是对A方法的调用。不同的是，A方法会对传入的路径参数做处理，并且会尝试去获取类加载器。
-	- 当路径信息不以`/`开头时，A方法获取的是相对于当前类的相对资源
-	- 当路径信息以`/`开头时，则获取的是当前应用类加载路径下的资源。
-
-- C: `Class<?>.getProtectionDomain().getCodeBase.getLocation()`
+    此方法最终还是对上面的方法的调用。不同的是，此方法会对传入的路径参数做处理，并且会尝试去获取类加载器。
 	
-	> C方法获取的是此类所处于的保护域的路径信息，当位于jar包中时，返回的是jar包的路径信息，非jar包则返回的是应用的类加载路径的地址。此方法的一个常见使用场景就是使用嵌入式jetty或者tomcat时对于webappBase的设置。
+    - 当路径信息不以 / 开头时，获取的是相对于当前类所在路径的相对资源
+    - 当路径信息以 / 开头时，则获取的是当前应用类加载路径下的资源
+
+- `Class<?>.getProtectionDomain().getCodeBase.getLocation()`
+	
+    此方法获取的是此类所处于的保护域的路径信息，当位于jar包中时，返回的是jar包的路径信息，非jar包则返回的是应用的类加载路径的地址。此方法的一个常见使用场景就是使用嵌入式jetty或者tomcat时对于webappBase的设置。
 
 还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以`jar:file`开头的，并不能用此方式处理。

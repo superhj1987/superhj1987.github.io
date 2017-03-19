@@ -8,6 +8,4 @@ categories: java
 
 ![](/images/blog_images/arch-spec.png)
 
-***先挖个坑，后续有时间对每一点进行详细阐述***
-
-<!--more-->
+***后续会对每一点进行详细阐述***
