@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="工作总结@2014 Jan 15th, 2015 突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。 对自己来说，今年最大的事情莫过于离开一座城市，到达另一座城市，开始了新的职业生涯。 进入新的公司，一个创业公司，截然不同的运作方式让我一开始有点措手不及。相比之前在大公司， &hellip;">
+  <meta name="description" content="关于SpringMVC中model的attribute无法指定别名的解决方案 Jan 21st, 2015 最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。 Url: http://localhost:8080/api/test?user_name=testUser &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -89,6 +89,80 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/">关于SpringMVC中model的attribute无法指定别名的解决方案</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-21T12:00:00+08:00" pubdate data-updated="true">Jan 21<sup>st</sup>, 2015</time>
+        
+        <a data-thread-key="/blog/2015/01/21/springm-mvc-model-attribute-alias/" href="/blog/2015/01/21/springm-mvc-model-attribute-alias/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+
+<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
+
+<p><strong>Controller</strong>:</p>
+
+<pre>
+@Controller
+@RequestMapping("/api")
+public class ApiController extends BaseController {
+
+    @RequestMapping(value = "/test", headers = "Accept=application/json")
+    public void authUser(ModelMap modelMap, Account acc) {
+        ResultPack.packOk(modelMap);
+    }
+}
+
+public class Account{
+    private static final long serialVersionUID = 750752375611621980L;
+
+    private long id;
+    private String userName;
+    private String password;
+    private AccountType type = AccountType.ADMIN;
+    private long timeTag;
+    private int status = 1;
+    ...
+    ...
+}
+</pre>
+
+
+<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
+
+<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
+
+<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -605,62 +679,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2013/11/11/web-security-notes/">《白帽子讲Web安全》读书笔记</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-11T21:30:20+08:00" pubdate data-updated="true">Nov 11<sup>th</sup>, 2013</time>
-        
-        <a data-thread-key="/blog/2013/11/11/web-security-notes/" href="/blog/2013/11/11/web-security-notes/#ds-thread" class="ds-thread-count"></a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
-
-<p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
-
-<h3>一、世界观安全</h3>
-
-<ol>
-<li>黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客，后者则指的是工作在反黑客领域的安全技术专家。</li>
-<li>安全问题的本质是信任的问题。并且安全是一个持续的过程，并不存在所谓的银弹。</li>
-<li>安全三要素：机密性、完整性、可用性</li>
-<li>一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。</li>
-<li>白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/11/11/web-security-notes/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -729,7 +747,11 @@
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2017/01/16/arch-spec/">一些架构设计原则</a>
+      	  <a href="/blog/2017/03/16/read-classpath-resource/">如何读取ClassPath下的资源</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2017/02/16/arch-spec/">一些架构设计原则</a>
       	</li>
     	
      	<li>
@@ -742,10 +764,6 @@
     	
      	<li>
       	  <a href="/blog/2016/11/03/jdk-tools/">JDK自带工具之概览</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2016/11/02/java-profile/">Java调优经验谈</a>
       	</li>
     	
 	</ul>

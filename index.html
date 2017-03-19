@@ -12,12 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="一些架构设计原则 Jan 16th, 2017 先挖个坑，后续有时间补充详尽 继续阅读 &rarr; JDK自带工具之问题排查场景示例 Nov 16th, 2016 目录 引言
-问题排查场景 获取正在运行的JVM列表
-Java堆的DUMP
-分析类柱状图
-线程Dump
-运行Java飞行记录器( &hellip;">
+  <meta name="description" content="如何读取ClassPath下的资源 Mar 16th, 2017 最近在写一些公共组件时，碰到了需要读取classpath下文件的场景。也突然想起其实之前有很多场景牵扯到读取类加载路径下的文件内容、路径，包括非jar包和jar包中的。总结一下，以备后续使用。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -100,7 +95,7 @@ Java堆的DUMP
         
   <header>
     
-      <h2 class="post-title"><a href="/blog/2017/01/16/arch-spec/">一些架构设计原则</a></h2>
+      <h2 class="post-title"><a href="/blog/2017/03/16/read-classpath-resource/">如何读取ClassPath下的资源</a></h2>
     
     
       <p class="post-meta">
@@ -116,9 +111,91 @@ Java堆的DUMP
   
 
 
-<time datetime="2017-01-16T22:21:34+08:00" pubdate data-updated="true">Jan 16<sup>th</sup>, 2017</time>
+<time datetime="2017-03-16T22:21:34+08:00" pubdate data-updated="true">Mar 16<sup>th</sup>, 2017</time>
         
-        <a data-thread-key="/blog/2017/01/16/arch-spec/" href="/blog/2017/01/16/arch-spec/#ds-thread" class="ds-thread-count"></a>
+        <a data-thread-key="/blog/2017/03/16/read-classpath-resource/" href="/blog/2017/03/16/read-classpath-resource/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近在写一些公共组件时，碰到了需要读取classpath下文件的场景。也突然想起其实之前有很多场景牵扯到读取类加载路径下的文件内容、路径，包括非jar包和jar包中的。总结一下，以备后续使用。</p>
+
+<p>由于获取类路径下的资源文件的都是基于URL的，因此这里需要先讲述一下URL的概念。URL(Uniform Resource Locator)即统一资源定位器，指向互联网资源的指针，是一种具体的资源。其一般的形式，如：</p>
+
+<p><code>scheme:[//host][:port]/[path][?query][#fragment]</code></p>
+
+<p>其中scheme包括：http、https、file、jar等。</p>
+
+<p>这里需要区分URL和URI。URI, Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。其一般形式：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>[scheme:][//authority][path][?query][#fragment]
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中，authority为[user-info@]host[:port]</p>
+
+<p>可见，URL是一种具体的URI，只不过其scheme是非空的，它不仅仅标识一个资源，也能定位一个资源（即通过url能够访问到这个资源），因此其必须是绝对地址，即使是相对url，其本质也是相对于某绝对url来讲的，也是一个绝对地址。而URI可以是绝对的也可以是相对的，只要能够标识即可。</p>
+
+<p>此外，URL和URI的不同之处还在于前者不提供对标准RFC2396规定的特殊字符的转义，因此需要调用者自己对URL各组成部分进行encode。而java.net.URI则会提供转义功能。这两者可以通过URI.toURL()和URL.toURI()来互相转换。</p>
+
+<p>这里需要指出的是，如果是想直接读取类路径下的资源的内容，那么使用下面的方法是万能的。</p>
+
+<p><code>ClassLoader.getResourceAsStream(String classpathRecourcePath)</code></p>
+
+<p>需要注意的是有时候jar包中的类并非和你应用的类使用的是同一类加载器(写intellij插件的时候就会存在这种问题)，这时候需要选择对应的ClassLoader。</p>
+
+<p>此外，有些场景是需要获取到类路径下的资源路径信息的，可以选用以下三种方法：</p>
+
+<ul>
+<li><p>A: <code>ClassLoader.getResource(String classpathFilePath)</code></p>
+
+<blockquote><p>A方法的加载过程类似<code>双亲委派机制</code>，当父加载器无法获取到资源时，自己才去尝试获取。但需要注意的是以<code>/</code>开头的资源是在类加载器目录下的资源，并非指的是当前应用的类加载路径下的资源。如果资源是位于classpath下的不要以<code>/</code>开头。</p></blockquote></li>
+<li><p>B: <code>Class&lt;?&gt;.getResource(String classpathFilePath)</code></p>
+
+<blockquote><p>B方法最终还是对A方法的调用。不同的是，A方法会对传入的路径参数做处理，并且会尝试去获取类加载器。
+  - 当路径信息不以<code>/</code>开头时，A方法获取的是相对于当前类的相对资源
+  - 当路径信息以<code>/</code>开头时，则获取的是当前应用类加载路径下的资源。</p></blockquote></li>
+<li><p>C: <code>Class&lt;?&gt;.getProtectionDomain().getCodeBase.getLocation()</code></p>
+
+<blockquote><p>C方法获取的是此类所处于的保护域的路径信息，当位于jar包中时，返回的是jar包的路径信息，非jar包则返回的是应用的类加载路径的地址。此方法的一个常见使用场景就是使用嵌入式jetty或者tomcat时对于webappBase的设置。</p></blockquote></li>
+</ul>
+
+
+<p>还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以<code>jar:file</code>开头的，并不能用此方式处理。</p>
+</div>
+  
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/02/16/arch-spec/">一些架构设计原则</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-02-16T22:21:34+08:00" pubdate data-updated="true">Feb 16<sup>th</sup>, 2017</time>
+        
+        <a data-thread-key="/blog/2017/02/16/arch-spec/" href="/blog/2017/02/16/arch-spec/#ds-thread" class="ds-thread-count"></a>
         
       </p>
     
@@ -127,13 +204,13 @@ Java堆的DUMP
 
   <div class="post-content"><p><img src="/images/blog_images/arch-spec.png" alt="" /></p>
 
-<p><strong><em>先挖个坑，后续有时间补充详尽</em></strong></p>
+<p><strong><em>先挖个坑，后续有时间对每一点进行详细阐述</em></strong></p>
 
 </div>
   
   
     <footer>
-      <a rel="full-article" href="/blog/2017/01/16/arch-spec/">继续阅读 &rarr;</a>
+      <a rel="full-article" href="/blog/2017/02/16/arch-spec/">继续阅读 &rarr;</a>
     </footer>
   
 
@@ -626,53 +703,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/08/03/java-8-top-tips/">[译]Java8 Top Tips</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-08-03T22:30:34+08:00" pubdate data-updated="true">Aug 3<sup>rd</sup>, 2016</time>
-        
-        <a data-thread-key="/blog/2016/08/03/java-8-top-tips/" href="/blog/2016/08/03/java-8-top-tips/#ds-thread" class="ds-thread-count"></a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
-
-<p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
-
-<p>笔者已经使用Java8工作许多年，包括新的应用开发以及迁移旧的应用，感觉是时候总结Java8中一些有用东西的最佳实践。笔者个人不太喜欢“最佳实践”这个词，因为字面上传达了一种“one size fit all”的概念，当然，编码肯定不是这样的而是不同的场景有不同的解决方案。但是笔者觉得在如何使用Java 8让自己的生活变得更加容易上还是有一些特殊的经验值得分享的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/08/03/java-8-top-tips/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -739,7 +769,11 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2017/01/16/arch-spec/">一些架构设计原则</a>
+      	  <a href="/blog/2017/03/16/read-classpath-resource/">如何读取ClassPath下的资源</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2017/02/16/arch-spec/">一些架构设计原则</a>
       	</li>
     	
      	<li>
@@ -752,10 +786,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2016/11/03/jdk-tools/">JDK自带工具之概览</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2016/11/02/java-profile/">Java调优经验谈</a>
       	</li>
     	
 	</ul>

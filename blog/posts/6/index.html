@@ -6,13 +6,14 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: git - 后端技术杂谈 | 飒然Hang</title>
+  <title>后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Category: git">
+  <meta name="description" content="Java学习笔记 Jul 13th, 2010 代码点与代码单元 codePoint codeUnit
+这里当字符串中有辅助字符时，代码点是两个代码单元，需要以下遍历： int cp = sentence.codePointAt(i); if(Character. &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -20,7 +21,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/categories/git/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/posts/6/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
@@ -86,69 +87,148 @@
   <div id="body">
     <div class="container">
     	<div class="col-group">
-			<div class="col-8" id="main">
-  <div class="res-cons">
-  <article class="post clearfix">
-  
+			  <div class="col-8" id="main">
+    <div class="res-cons">
+    
+    
+    
+      <article class="post">
+        
   <header>
-    <h1 class="post-title">Category: Git</h1>
+    
+      <h2 class="post-title"><a href="/blog/2010/07/13/java-notes/">Java学习笔记</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-13T21:39:34+08:00" pubdate data-updated="true">Jul 13<sup>th</sup>, 2010</time>
+        
+        <a data-thread-key="/blog/2010/07/13/java-notes/" href="/blog/2010/07/13/java-notes/#ds-thread" class="ds-thread-count"></a>
+        
+      </p>
     
   </header>
-  
-  <script type="text/javascript">
-$(document).ready(function(){
-	$("#nav-menu a").removeClass("current");
-	$("#nav-menu .categories-nav").addClass("current");
-});
-</script>
-<div style="padding-top:20px"><a href="/blog/categories/git/atom.xml">http://www.rowkey.me/blog/categories/git/atom.xml</a></div>
-<div id="archives" class="category">
 
 
+  <div class="post-content"><ol>
+<li><p>代码点与代码单元 codePoint codeUnit
+这里当字符串中有辅助字符时，代码点是两个代码单元，需要以下遍历：
+ <pre>
+ int cp = sentence.codePointAt(i);
+ if(Character.isSupplementaryCodePoint(cp)){
+      i += 2;
+ }else{
+      i++;
+ }
+ </pre></p></li>
+<li><p>String类对象->不可变字符串
+不能修改字符串中的字符：编译器可以将字符串共享，以此带来高效率。</p></li>
+<li>当将一个字符串与一个非字符串的值进行拼接时，后者将被转换成字符串。</li>
+<li>任何一个对象都可以转换成字符串。</li>
+<li>检测两字符串是否相等，而不区分大小写，可用equalsIgnoreCase()方法</li>
+<li>Java中允许一个数组长度为0，不同于null。</li>
+<li>Java中的多维数组实际上是数组的数组。</li>
+<li>一个对象变量实际上是一个对象指针。</li>
+<li>用clone()方法获得对象的完整拷贝。</li>
+<li>不能编写返回引用可变对象的访问器方法。</li>
+<li>一个方法可以访问所属类的所有对象的私有数据。</li>
+<li>Sytem类中有一个setOut方法是一个本地方法，不是用Java语言实现的，可以绕过Java的存取控制机制(out是final的)。</li>
+<li>每个类都可以有一个main方法，可用来进行单元测试。</li>
+<li>一个方法不能修改一个基本数据；
+一个方法可以改变一个对象参数的状态；
+一个方法不能让对象参数引用一个新的对象。</li>
+<li>方法签名：方法名、参数类型。</li>
+<li><p>初始化块机制
+首先运行初始化快，然后才运行构造器的主体部分
+静态域初始化块：</p>
 
-  
-  <div class="al_year">2016</div>
+<pre><code>static{
+}
+</code></pre></li>
+<li><p>只能使用*导入一个包，如：</p>
 
-<div class="archives-post clearfix">
-  
-<h2><a href="/blog/2016/01/10/git-usage/">Git操作指南</a></h2>
-<div class="al_meta">
-<time datetime="2016-01-10T10:15:30+08:00" pubdate><span class='month'>Jan</span> <span class='day'>10</span> <span class='year'>2016</span></time>
+<pre><code>import java.util.*;
+</code></pre></li>
+<li><p>静态导入：静态方法、静态域</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/git/'>git</a></span>
-</footer>
+<pre><code>import static java.lang.System.*;
+</code></pre></li>
+<li><p>如果没有指定public或private，那么这个部分（类、方法或者变量）可被同一个包中的所有方法访问</p></li>
+<li>包作用域：默认情况下是包可见的</li>
+<li>包密封:(package sealing) jar文件密封包</li>
+<li>/<em>*…</em>/-&gt;文档注释 javadoc
+标记+自由格式，其中标记由”@”开始</li>
+<li>类设计技巧：
+
+<ul>
+<li>一定要将数据设为私有；</li>
+<li>一定要对数据初始化；</li>
+<li>不要在类中使用过多的基本数据类型；</li>
+<li>不是所有的域都需要独立的域访问器和域更改器；</li>
+<li>使用标准格式进行类的定义；</li>
+<li>将职责过多的类进行分解；</li>
+<li>类名和方法名要能够体现它们的职责。</li>
+</ul>
+</li>
+<li>Java中的所有继承都是公有继承：超类和子类</li>
+<li>覆盖（Override）子类使用super调用超类的方法以及构造器</li>
+<li>一个对象变量可以引用多种实际类型的现象叫做多态（Polymorphism）
+运行能够自动地选择调用的适当方法的现象称为动态绑定</li>
+<li>虚拟机预先为各个类创建了一个方法表</li>
+<li>在覆盖一个方法时，子类方法不能低于超类方法的可见性</li>
+<li>阻止继承的两种方法：final类的方法自动成为final方法（不包括域），final方法</li>
+<li>内联的概念：如果一个方法没有被覆盖并且很短，编译器就能够对它进行优化处理。</li>
+<li>强制类型转换：
+只能在继承层次内进行类型转换；
+在将超类转换成子类的前应使用instanceof进行检查</li>
+<li>抽象类可以包含非抽象方法，也可以不包含抽象方法。抽象方法充当着占位的角色，具体实现在子类中。
+抽象类不能被实例化
+只有子类实现了所有抽象方法，子类才不是抽象的了</li>
+<li>子类不能访问超类的私有域</li>
+<li>hashcode: 由对象导出的一个整型值
+每个对象都有一个默认的散列码，其值为对象的存储地址</li>
+<li>两个相等的对象要求必须返回一个相等的散列码</li>
+<li>自动打包规范要求boolean byte char=0:x;</li>
+<li>四个基本的抽象流类：InputStream OutputStream Reader Writer(这些对象由其他方法返回)</li>
+<li>注意流过滤器的运用</li>
+<li>对象序列化：ObjectOutputstream ObjectInputStream writeObject() readObject()
+类必须实现Serializable 接口</li>
+<li>Java使用SHA编码的前8字节作为类的指纹
+在序列化的过程中内存地址会被替换为序列号（唯一）</li>
+<li>流类关注的是文件内容，而File类关注的是文件在磁盘上的存储</li>
+</ol>
 
 </div>
-</div>
-
-
-
   
-  <div class="al_year">2015</div>
-
-<div class="archives-post clearfix">
   
-<h2><a href="/blog/2015/11/13/your-own-github/">搭建自己的github</a></h2>
-<div class="al_meta">
-<time datetime="2015-11-13T10:27:40+08:00" pubdate><span class='month'>Nov</span> <span class='day'>13</span> <span class='year'>2015</span></time>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/git/'>git</a></span>
-</footer>
 
-</div>
-</div>
-
-</div>
-  
-</article>
-
+      </article>
+    
+      <div class="page-navigator">
+        
+        
+            <a href="/blog/posts/5" class="prev"><<上一页</a>
+        
+        
+        <div class="center"><a href="/blog/archives">所有文章</a></div>
+      </div>
+     </div>
   </div>
-</div>
-
-<aside id="secondary">
-<div id="sidebar">
+    
+  <aside id="secondary">
+  <div id="sidebar">
   
     <section class="widget" style="font-size:9pt">
 <span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创文章，未经博主允许不得转载。
@@ -242,7 +322,7 @@ $(document).ready(function(){
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
   <ul id="gh_repos" class="widget-list">
-    <li class="loading">数据读取中...</li>
+    <li class="loading">数据读取中&#8230;</li>
   </ul>
   
   <script type="text/javascript">
@@ -275,10 +355,8 @@ $(document).ready(function(){
 	</ul>
 </section>
   
-</div>
-</aside>
-
-
+  </div>
+  </aside>
       	</div>
     </div>
   </div>
