@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-21T14:42:28+08:00</updated>
+  <updated>2017-03-21T14:44:11+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -24,7 +24,7 @@
 
 <p><code>scheme:[//host][:port][path][?query][#fragment]</code></p>
 
-<p>其中scheme包括：http、https、file、jar等。一个例子：file:/User/root/test.jar?time=123431212, 其中schema为file，path为/root/test.jar, query为time=123431212。</p>
+<p>scheme包括：http、https、file、jar等。一个例子：file:/User/root/test.jar?time=123431212, 其中：schema为file，path为/root/test.jar, query为time=123431212。</p>
 
 <p>这里需要区分URL和URI。URI, Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。其一般形式：</p>
 
