@@ -12,7 +12,7 @@ categories: java
 
 `scheme:[//host][:port][path][?query][#fragment]`
 
-其中scheme包括：http、https、file、jar等。一个例子：file:/User/root/test.jar?time=123431212, 其中schema为file，path为/root/test.jar, query为time=123431212。
+scheme包括：http、https、file、jar等。一个例子：file:/User/root/test.jar?time=123431212, 其中：schema为file，path为/root/test.jar, query为time=123431212。
 
 这里需要区分URL和URI。URI, Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。其一般形式：
 
