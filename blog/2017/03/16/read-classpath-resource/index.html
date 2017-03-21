@@ -133,16 +133,13 @@
 
 <p>由于获取类路径下的资源文件的都是基于URL的，因此这里需要先讲述一下URL的概念。URL(Uniform Resource Locator)即统一资源定位器，指向互联网资源的指针，是一种具体的资源。其一般的形式，如：</p>
 
-<p><code>scheme:[//host][:port]/[path][?query][#fragment]</code></p>
+<p><code>scheme:[//host][:port][path][?query][#fragment]</code></p>
 
-<p>其中scheme包括：http、https、file、jar等。</p>
+<p>其中scheme包括：http、https、file、jar等。一个例子：file:/User/root/test.jar?time=123431212, 其中schema为file，path为/root/test.jar, query为time=123431212。</p>
 
 <p>这里需要区分URL和URI。URI, Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。其一般形式：</p>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>[scheme:][//authority][path][?query][#fragment]
-</span></code></pre></td></tr></table></div></figure>
-
+<p><code>[scheme:][//authority][path][?query][#fragment]</code></p>
 
 <p>其中，authority为[user-info@]host[:port]</p>
 
