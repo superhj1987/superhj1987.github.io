@@ -10,16 +10,14 @@ categories: java
 
 由于获取类路径下的资源文件的都是基于URL的，因此这里需要先讲述一下URL的概念。URL(Uniform Resource Locator)即统一资源定位器，指向互联网资源的指针，是一种具体的资源。其一般的形式，如：
 
-`scheme:[//host][:port]/[path][?query][#fragment]`
+`scheme:[//host][:port][path][?query][#fragment]`
 
-其中scheme包括：http、https、file、jar等。
+其中scheme包括：http、https、file、jar等。一个例子：file:/User/root/test.jar?time=123431212, 其中schema为file，path为/root/test.jar, query为time=123431212。
 
 这里需要区分URL和URI。URI, Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。其一般形式：
 
-```
-[scheme:][//authority][path][?query][#fragment]
+`[scheme:][//authority][path][?query][#fragment]`
 
-```
 其中，authority为[user-info@]host[:port]
 
 可见，URL是一种具体的URI，只不过其scheme是非空的，它不仅仅标识一个资源，也能定位一个资源（即通过url能够访问到这个资源），因此其必须是绝对地址，即使是相对url，其本质也是相对于某绝对url来讲的，也是一个绝对地址。而URI可以是绝对的也可以是相对的，只要能够标识即可。
