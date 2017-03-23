@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-23T23:46:49+08:00</updated>
+  <updated>2017-03-23T23:50:44+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -102,7 +102,11 @@
 
 <h2>第三方工具</h2>
 
-<p><strong>====<a href="https://github.com/superhj1987/awesome-scripts/blob/master/README.md">awesome-scripts</a>====</strong></p>
+<p><strong>========<a href="https://github.com/superhj1987/awesome-scripts/blob/master/README.md">awesome-scripts</a>========</strong></p>
+
+<p>安装命令：</p>
+
+<p><code>curl -s "https://raw.githubusercontent.com/superhj1987/awesome-scripts/master/self-installer.sh" | bash -s</code></p>
 
 <ul>
 <li><p>显示最繁忙的java线程: -c &lt;要显示的线程栈数> -p &lt;指定的Java Process></p>
