@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-24T00:06:26+08:00</updated>
+  <updated>2017-03-24T00:08:57+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Git操作指南]]></title>
-    <link href="http://www.rowkey.me/blog/2016/01/10/git-usage/"/>
+    <title type="html"><![CDATA[Git CheatSheet]]></title>
+    <link href="http://www.rowkey.me/blog/2016/01/10/git-cheatsheet/"/>
     <updated>2016-01-10T10:15:30+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/01/10/git-usage</id>
+    <id>http://www.rowkey.me/blog/2016/01/10/git-cheatsheet</id>
     <content type="html"><![CDATA[<p><strong><em>ps:本指南会持续更新</em></strong></p>
 
 <p>其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。</p>
