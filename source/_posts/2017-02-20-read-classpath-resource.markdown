@@ -8,6 +8,8 @@ categories: java
 
 最近在写一些公共组件时，碰到了需要读取classpath下文件的场景。也突然想起其实之前有很多场景牵扯到读取类加载路径下的文件内容、路径，包括非jar包和jar包中的。总结一下，以备后续使用。
 
+<!--more-->
+
 由于获取类路径下的资源文件的都是基于URL的，因此这里需要先讲述一下URL的概念。URL(Uniform Resource Locator)即统一资源定位器，指向互联网资源的指针，是一种具体的资源。其一般的形式，如：
 
 `scheme:[//host][:port][path][?query][#fragment]`
