@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-21T14:44:11+08:00</updated>
+  <updated>2017-03-23T23:46:49+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,160 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java调优CheatSheet]]></title>
+    <link href="http://www.rowkey.me/blog/2017/03/23/java-profile-cheatsheet/"/>
+    <updated>2017-03-23T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/03/23/java-profile-cheatsheet</id>
+    <content type="html"><![CDATA[<p>包含调优java程序的各种命令以及jvm配置示例。</p>
+
+<h2>常用Shell命令</h2>
+
+<ul>
+<li><p>查看网络状况</p>
+
+<blockquote><p>netstat -n | awk &lsquo;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&rsquo;</p></blockquote></li>
+<li><p>使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存。</p>
+
+<pre><code>  #!/bin/bash
+  for i in `ps -ef | egrep -v "awk|$0" | awk '/'$1'/{print $2}'`
+  do
+      mymem=`cat /proc/$i/status 2&gt; /dev/null | grep VmRSS | awk '{print $2" " $3}'`
+      cpu=`top -n 1 -b |awk '/'$i'/{print $9}'`
+  done
+</code></pre></li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>常用JDK命令</h2>
+
+<ul>
+<li><p>查看jvm内存使用状况</p>
+
+<blockquote><p>jmap -heap <pid></p></blockquote></li>
+<li><p>查看jvm内存存活的对象：</p>
+
+<blockquote><p>jcmd <pid> GC.class_histogram</p>
+
+<p>jmap -histo:live <pid></p></blockquote></li>
+<li><p>把heap里所有对象都dump下来，无论对象是死是活</p>
+
+<blockquote><p>jmap -dump:format=b,file=xxx.hprof <pid></p></blockquote></li>
+<li><p>先做一次full GC，再dump，只包含仍然存活的对象信息：</p>
+
+<blockquote><p>jcmd <PID> GC.heap_dump <FILENAME></p>
+
+<p>jmap -dump:format=b,live,file=xxx.hprof</p></blockquote></li>
+<li><p>查看jvm进程</p>
+
+<blockquote><p>jps</p>
+
+<p>jcmd -l</p></blockquote></li>
+<li><p>查看类的一些信息，如字节码的版本号、常量池等</p>
+
+<blockquote><p>javap -verbose classname</p></blockquote></li>
+<li><p>查看进程的gc情况</p>
+
+<blockquote><p>jstat -gcutil [pid] (显示总体情况)</p>
+
+<p>jstat -gc [pid] 1000 10（每隔1秒刷新一次 一共10次）</p></blockquote></li>
+<li><p>查看目前jvm启动的参数</p>
+
+<blockquote><p>jinfo -flags [pid] #有效参数</p>
+
+<p>jcmd [pid] VM.flags #所有参数</p></blockquote></li>
+<li><p>查看对应参数的值</p>
+
+<blockquote><p>jinfo -flag [flagName] [pid]</p></blockquote></li>
+<li><p>启用/禁止某个参数</p>
+
+<blockquote><p>jinfo -flag [+/-][flagName] [pid]</p></blockquote></li>
+<li><p>设置某个参数</p>
+
+<blockquote><p>jinfo -flag [flagName=value] [pid]</p></blockquote></li>
+<li><p>查看所有可以设置的参数以及其默认值</p>
+
+<blockquote><p>java -XX:+PrintFlagsInitial</p></blockquote></li>
+<li><p>Java线程dump</p>
+
+<blockquote><p>jstack [pid] #-m参数可以打印出native栈的信息</p>
+
+<p>jcmd <PID> Thread.print</p>
+
+<p>kill -3 [pid]</p></blockquote></li>
+</ul>
+
+
+<h2>第三方工具</h2>
+
+<p><strong>====<a href="https://github.com/superhj1987/awesome-scripts/blob/master/README.md">awesome-scripts</a>====</strong></p>
+
+<ul>
+<li><p>显示最繁忙的java线程: -c &lt;要显示的线程栈数> -p &lt;指定的Java Process></p>
+
+<blockquote><p>opscipts show-busy-java-threads [-c] [-p]</p></blockquote></li>
+<li><p>使用greys跟踪方法耗时</p>
+
+<blockquote><p>opscripts greys <PID>[@IP:PORT]</p>
+
+<p><strong><em>ga?:</em></strong> trace [class] [method]</p></blockquote></li>
+<li><p>显示当前cpu和内存使用状况，包括全局和各个进程的。</p>
+
+<blockquote><p>opscripts show-cpu-and-memory</p></blockquote></li>
+<li><p>进入jvm调试交互命令行，包含对java栈、堆、线程、gc等状态的查看</p>
+
+<blockquote><p>opscripts jvm [pid]</p></blockquote></li>
+</ul>
+
+
+<h2>JVM配置示例</h2>
+
+<pre><code>-server #64位机器下默认
+-Xms6000M #最小堆大小
+-Xmx6000M #最大堆大小
+-Xmn500M #新生代大小
+-Xss256K #栈大小
+-XX:PermSize=500M (JDK7)
+-XX:MaxPermSize=500M (JDK7)
+-XX:MetaspaceSize=128m  （JDK8）
+-XX:MaxMetaspaceSize=512m（JDK8）
+-XX:SurvivorRatio=65536
+-XX:MaxTenuringThreshold=0 #晋升到老年代需要的存活次数,设置为0时，survivor区失去作用，一次minor gc，eden中存活的对象就会进入老年代，默认是15，使用CMS时默认是4
+-Xnoclassgc #不做类的gc
+#-XX:+PrintCompilation #输出jit编译情况，慎用
+-XX:+TieredCompilation #启用多层编译，jd8默认开启
+-XX:CICompilerCount=4 #编译器数目增加
+-XX:-UseBiasedLocking #取消偏向锁
+-XX:AutoBoxCacheMax=20000 #自动装箱的缓存数量，如int默认缓存为-128~127
+-Djava.security.egd=file:/dev/./urandom #替代默认的/dev/random阻塞生成因子
+-XX:+AlwaysPreTouch #启动时访问并置零内存页面，大堆时效果比较好
+-XX:-UseCounterDecay #禁止JIT调用计数器衰减。默认情况下，每次GC时会对调用计数器进行砍半的操作，导致有些方法一直是个温热，可能永远都达不到C2编译的1万次的阀值。
+-XX:ParallelRefProcEnabled=true # 默认为false，并行的处理Reference对象，如WeakReference
+-XX:+DisableExplicitGC #此参数会影响使用堆外内存，会造成oom，如果使用NIO,请慎重开启
+#-XX:+UseParNewGC #此参数其实在设置了cms后默认会启用，可以不用设置
+-XX:+UseConcMarkSweepGC #使用cms垃圾回收器
+#-XX:+UseCMSCompactAtFullCollection #是否在fullgc是做一次压缩以整理碎片，默认启用
+-XX:CMSFullGCsBeforeCompaction=0 #full gc触发压缩的次数
+#-XX:+CMSClassUnloadingEnabled #如果类加载不频繁，也没有大量使用String.intern方法，不建议打开此参数，况且jdk7后string pool已经移动到了堆中。开启此项的话，即使设置了Xnoclassgc也会进行class的gc, 但是某种情况下会造成bug：https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwjR16Wf6MHQAhWLrVQKHfLdCe4QFgg8MAQ&amp;url=https%3A%2F%2Fblogs.oracle.com%2Fpoonam%2Fentry%2Fjvm_hang_with_cms_collector&amp;usg=AFQjCNFNtkw6jHM-uyz-Wjri3LtAVXWJ8g&amp;sig2=BFxSfHc-AIek18fEhY07mg。
+#-XX:+CMSParallelRemarkEnabled #并行标记, 默认开启, 可以不用设置
+#-XX:+CMSScavengeBeforeRemark #强制remark之前开始一次minor gc，减少remark的暂停时间，但是在remark之后也将立即开始又一次minor gc
+-XX:CMSInitiatingOccupancyFraction=90 #触发full gc的内存使用百分比
+-XX:+PrintClassHistogram #打印类统计信息
+-XX:+PrintHeapAtGC #打印gc前后的heap信息
+-XX:+PrintGCDetails #以下都是为了记录gc日志
+-XX:+PrintGCDateStamps
+-XX:+PrintGCApplicationStoppedTime #打印清晰的GC停顿时间外，还可以打印其他的停顿时间，比如取消偏向锁，class 被agent redefine，code deoptimization等等
+-XX:+PrintTenuringDistribution #打印晋升到老年代的年龄自动调整的情况(并行垃圾回收器启用UseAdaptiveSizePolicy参数的情况下以及其他垃圾回收期也会动态调整，从最开始的MaxTenuringThreshold变成占用当前堆50%的age)
+#-XX:+UseAdaptiveSizePolicy # 此参数在并行回收器时是默认开启的会根据应用运行状况做自我调整，如MaxTenuringThreshold、survivor区大小等，其他情况下最好不要开启
+#-XX:StringTableSize #字符串常量池表大小(hashtable的buckets的数目)，java 6u30之前无法修改固定为1009，后面的版本默认为60013，可以通过此参数设置
+-Xloggc:/home/logs/gc.log
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何读取ClassPath下的资源]]></title>
@@ -440,83 +594,6 @@ class Parser {
   }
 }
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JDK自带工具之概览]]></title>
-    <link href="http://www.rowkey.me/blog/2016/11/03/jdk-tools/"/>
-    <updated>2016-11-03T22:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/11/03/jdk-tools</id>
-    <content type="html"><![CDATA[<p>在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。</p>
-
-<p>笔者的开发环境是：OS X EI Captian 10.11.6</p>
-
-<p>JDK版本：</p>
-
-<pre><code>java version "1.8.0_92"
-Java(TM) SE Runtime Environment (build 1.8.0_92-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
-</code></pre>
-
-<p>JAVA_HOME/bin下的工具截图如下：</p>
-
-<p><img src="//images/blog_images/jdk-tools.png" alt="" /></p>
-
-<!--more-->
-
-
-<ul>
-<li><p>appletviewer: 用于运行并浏览applet小程序。</p></li>
-<li><p>extcheck: 扩展检测工具，主要用于检测指定jar文件与当前已安装的Java SDK扩展之间是否存在版本冲突。</p></li>
-<li><p>idlj: IDL转Java编译器(IDL-to-Java Compiler)，用于为指定的IDL文件生成Java绑定。IDL意即接口定义语言(Interface Definition Language)。</p></li>
-<li><p>jar: jar文件管理工具，主要用于打包压缩、解压jar文件。</p></li>
-<li><p>jarsigner: jar密匙签名工具。</p></li>
-<li><p>java: Java运行工具，用于运行.class字节码文件或.jar文件。</p></li>
-<li><p>javac: Java编译工具(Java Compiler)，用于编译Java源代码文件。</p></li>
-<li><p>javadoc: Java文档工具，主要用于根据Java源代码中的注释信息生成HTML格式的API帮助文档。</p></li>
-<li><p>javafxpackager: JavaFX包装器，用于执行与封装或签名JavaFX应用有关的任务。JDK 8u20已经迁移此工具到javapackager。</p></li>
-<li><p>javah: Java头文件工具，用于根据Java类生成C/C++头文件和源文件(主要用于JNI开发领域)。</p></li>
-<li><p>javap: Java反编译工具，主要用于根据Java字节码文件反汇编为Java源代码文件。</p></li>
-<li><p>javapackager: 执行针对Java应用程序和JavaFX应用程序的打包和签名的任务。包含了javafxpackager的功能。</p></li>
-<li><p>jcmd: Java 命令行(Java Command)，用于向正在运行的JVM发送诊断命令请求。</p></li>
-<li><p>jconsole: 图形化用户界面的监测工具，主要用于监测并显示运行于Java平台上的应用程序的性能和资源占用等信息。</p></li>
-<li><p>jdeps: 用于分析Java class的依赖关系.</p></li>
-<li><p>jdb: Java调试工具(Java Debugger)，主要用于对Java应用进行断点调试。</p></li>
-<li><p>jhat: Java堆分析工具(Java Heap Analysis Tool)，用于分析Java堆内存中的对象信息。</p></li>
-<li><p>jinfo: Java配置信息工具(Java Configuration Information)，用于打印指定Java进程、核心文件或远程调试服务器的配置信息。</p></li>
-<li><p>jjs: 对Nashorn引擎的调用。<a href="http://www.infoq.com/cn/articles/nashorn">Nashorn</a>是基于Java实现一个轻量级高性能的JavaScript运行环境。</p></li>
-<li><p>jmap: Java内存映射工具(Java Memory Map)，主要用于打印指定Java进程、核心文件或远程调试服务器的共享对象内存映射或堆内存细节。</p></li>
-<li><p>jmc: Java任务控制工具(Java Mission Control)，主要用于HotSpot JVM的生产时间监测、分析、诊断。开发者可以使用jmc命令来创建JMC工具。 <a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a></p></li>
-<li><p>jps: JVM进程状态工具(JVM Process Status Tool)，用于显示目标系统上的HotSpot JVM的Java进程信息。</p></li>
-<li><p>jrunscript: Java命令行脚本外壳工具(command line script shell)，主要用于解释执行javascript、groovy、ruby等脚本语言。</p></li>
-<li><p>jsadebugd: Java可用性代理调试守护进程(Java Serviceability Agent Debug Daemon)，主要用于附加到指定的Java进程、核心文件，或充当一个调试服务器。</p></li>
-<li><p>jstack: Java堆栈跟踪工具，主要用于打印指定Java进程、核心文件或远程调试服务器的Java线程的堆栈跟踪信息。</p></li>
-<li><p>jstat: JVM统计监测工具(JVM Statistics Monitoring Tool)，主要用于监测并显示JVM的性能统计信息，包括gc统计信息。</p></li>
-<li><p>jstatd: jstatd(VM jstatd Daemon)工具是一个RMI服务器应用，用于监测HotSpot JVM的创建和终止，并提供一个接口，允许远程监测工具附加到运行于本地主机的JVM上。</p></li>
-<li><p>jvisualvm: JVM监测、故障排除、分析工具，主要以图形化界面的方式提供运行于指定虚拟机的Java应用程序的详细信息。</p></li>
-<li><p>keytool: 密钥和证书管理工具，主要用于密钥和证书的创建、修改、删除等。主要用于获取或缓存Kerberos协议的票据授权票据。允许用户查看本地凭据缓存和密钥表中的条目(用于Kerberos协议)。Kerberos密钥表管理工具，允许用户管理存储于本地密钥表中的主要名称和服务密钥。</p></li>
-<li><p>native2ascii: 本地编码到ASCII编码的转换器(Native-to-ASCII Converter)，用于&#8221;任意受支持的字符编码&#8221;和与之对应的&#8221;ASCII编码和(或)Unicode转义&#8221;之间的相互转换。</p></li>
-<li><p>orbd: 对象请求代理守护进程(Object Request Broker Daemon)，它使客户端能够透明地定位和调用位于CORBA环境的服务器上的持久对象。</p></li>
-<li><p>pack200: JAR文件打包压缩工具，它可以利用Java类特有的结构，对普通JAR文件进行高效压缩，以便于能够更快地进行网络传输。这是微软提供的对象包装程序，用于对象安装包。</p></li>
-<li><p>policytool: 策略工具，用于管理用户策略文件(.java.policy)。</p></li>
-<li><p>rmic: Java RMI 编译器，为使用JRMP或IIOP协议的远程对象生成stub、skeleton、和tie类，也用于生成OMG IDL。</p></li>
-<li><p>rmid: Java RMI 激活系统守护进程，rmid启动激活系统守护进程，允许在虚拟机中注册或激活对象。</p></li>
-<li><p>rmiregistry: Java 远程对象注册表，用于在当前主机的指定端口上创建并启动一个远程对象注册表。</p></li>
-<li><p>schemagen: XML schema生成器，用于生成XML schema文件。</p></li>
-<li><p>serialver: 序列版本命令，用于生成并返回serialVersionUID。</p></li>
-<li><p>servertool: Java IDL 服务器工具，用于注册、取消注册、启动和终止持久化的服务器。</p></li>
-<li><p>tnameserv: Java IDL瞬时命名服务。</p></li>
-<li><p>unpack200: JAR文件解压工具，将一个由pack200打包的文件解压提取为JAR文件。</p></li>
-<li><p>wsgen: XML Web Service 2.0的Java API，生成用于JAX-WS Web Service的JAX-WS便携式产物。</p></li>
-<li><p>wsimport: XML Web Service 2.0的Java API，主要用于根据服务端发布的wsdl文件生成客户端存根及框架</p></li>
-<li><p>xjc: 主要用于根据XML schema文件生成对应的Java类。</p></li>
-</ul>
-
-
-<h2>参考资料</h2>
-
-<p><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/toc.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/toc.html</a></p>
 ]]></content>
   </entry>
   
