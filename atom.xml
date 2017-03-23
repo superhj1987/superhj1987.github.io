@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-23T23:59:49+08:00</updated>
+  <updated>2017-03-24T00:06:26+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -169,6 +169,8 @@
 <span class='line-number'>37</span>
 <span class='line-number'>38</span>
 <span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
 </pre></td><td class='code'><pre><code class=''><span class='line'>-server #64位机器下默认
 </span><span class='line'>-Xms6000M #最小堆大小
 </span><span class='line'>-Xmx6000M #最大堆大小
@@ -207,6 +209,8 @@
 </span><span class='line'>-XX:+PrintTenuringDistribution #打印晋升到老年代的年龄自动调整的情况(并行垃圾回收器启用UseAdaptiveSizePolicy参数的情况下以及其他垃圾回收期也会动态调整，从最开始的MaxTenuringThreshold变成占用当前堆50%的age)
 </span><span class='line'>#-XX:+UseAdaptiveSizePolicy # 此参数在并行回收器时是默认开启的会根据应用运行状况做自我调整，如MaxTenuringThreshold、survivor区大小等，其他情况下最好不要开启
 </span><span class='line'>#-XX:StringTableSize #字符串常量池表大小(hashtable的buckets的数目)，java 6u30之前无法修改固定为1009，后面的版本默认为60013，可以通过此参数设置
+</span><span class='line'>-XX:GCTimeLimit=98 #gc占用时间超过多少抛出OutOfMemoryError
+</span><span class='line'>-XX:GCHeapFreeLimit=2 #gc回收后小于百分之多少抛出OutOfMemoryError
 </span><span class='line'>-Xloggc:/home/logs/gc.log</span></code></pre></td></tr></table></div></figure>
 
 ]]></content>
