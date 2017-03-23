@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "如何读取ClassPath下的资源"
-date: 2017-03-16 22:21:34 +0800
+date: 2017-02-20 22:21:34 +0800
 comments: true
 categories: java
 ---
