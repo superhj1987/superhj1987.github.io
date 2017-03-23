@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Git操作指南"
+title: "Git CheatSheet"
 date: 2016-01-10 10:15:30 +0800
 comments: true
 categories: git
