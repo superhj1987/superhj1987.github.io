@@ -484,8 +484,8 @@
 <li>新生代并行收集器</li>
 <li>采用Copy算法</li>
 <li>主要关注的是达到可控制的吞吐量，“吞吐量优先”</li>
-<li>-XX:MaxGCPauseMillis -XX:GCTimeRAtion两个参数精确控制吞吐量</li>
-<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略</li>
+<li>-XX:MaxGCPauseMillis -XX:GCTimeRation两个参数精确控制吞吐量</li>
+<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略，默认开启</li>
 <li>Server模式的默认新生代收集器</li>
 </ul>
 
@@ -517,7 +517,7 @@
 
 <ul>
 <li>-XX:UseConcMarkSweepGC 开启CMS收集器，(默认使用ParNew作为年轻代收集器，SerialOld作为收集失败的垃圾收集器)</li>
-<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，会和互联网应用。</li>
+<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，适合互联网应用。</li>
 </ul>
 
 
@@ -635,7 +635,7 @@
 <ul>
 <li>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</li>
 <li>Java7正式引入G1垃圾收集器用于替换CMS。</li>
-<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。</li>
+<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关，也可以通过MaxMeatSize设置，防止无限耗尽系统内存。</li>
 <li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
 </ul>
 

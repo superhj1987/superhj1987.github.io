@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-24T00:08:57+08:00</updated>
+  <updated>2017-03-24T10:46:24+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1146,10 +1146,13 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 </li>
 <li><p>-XX:MaxTenuringThreshold</p>
 
-<p> 使用工具查看此值默认值为15，但是选择了CMS的时候，此值会变成4。当此值设置为0时，所有eden里的活对象在经历第一次minor GC的时候就会直接晋升到old gen，survivor space直接就没用。</p></li>
+<p> 使用工具查看此值默认值为15，但是选择了CMS的时候，此值会变成4。当此值设置为0时，所有eden里的活对象在经历第一次minor GC的时候就会直接晋升到old gen，survivor space直接就没用。<strong>还有值得注意的一点，当使用并行回收器时，此值是没有作用的，并行回收器默认是自动调整这些参数以求达到吞吐量最大的。</strong>此外，即使是使用CMS等回收器，晋升到老年代的age也不是不变的，当某一age的对象的大小达到年轻代的50%时，这个age会被动态调整为晋升年龄。</p></li>
 <li><p>-XX:HeapDumpPath</p>
 
 <p> 使用此参数可以指定-XX:+HeapDumpBeforeFullGC、-XX:+HeapDumpAfterFullGC、-XX:+HeapDumpOnOutOfMemoryError触发heap dump文件的存储位置。</p></li>
+<li><p>-XX:+UseAdaptiveSizePolicy</p>
+
+<p> 此参数在并行回收器时是默认开启的，会根据应用运行状况做自我调整，如MaxTenuringThreshold、survivor区大小等。其中第一次晋升老年代的年龄以InitialTenuringThreshold（默认为7）开始，后续会自动调整。如果希望跟踪每次minor GC后新的存活周期的阈值，可在启动参数上增加：-XX:+PrintTenuringDistribution。如果想要可以配置这些参数，可以关闭此选项，但paralle的性能很难达到最佳。其他垃圾回收期则慎重开启此开关。</p></li>
 </ol>
 
 
@@ -3249,8 +3252,8 @@ public static String randomString(int i){
 <li>新生代并行收集器</li>
 <li>采用Copy算法</li>
 <li>主要关注的是达到可控制的吞吐量，“吞吐量优先”</li>
-<li>-XX:MaxGCPauseMillis -XX:GCTimeRAtion两个参数精确控制吞吐量</li>
-<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略</li>
+<li>-XX:MaxGCPauseMillis -XX:GCTimeRation两个参数精确控制吞吐量</li>
+<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略，默认开启</li>
 <li>Server模式的默认新生代收集器</li>
 </ul>
 
@@ -3282,7 +3285,7 @@ public static String randomString(int i){
 
 <ul>
 <li>-XX:UseConcMarkSweepGC 开启CMS收集器，(默认使用ParNew作为年轻代收集器，SerialOld作为收集失败的垃圾收集器)</li>
-<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，会和互联网应用。</li>
+<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，适合互联网应用。</li>
 </ul>
 
 
@@ -3400,7 +3403,7 @@ public static String randomString(int i){
 <ul>
 <li>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</li>
 <li>Java7正式引入G1垃圾收集器用于替换CMS。</li>
-<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关。</li>
+<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关，也可以通过MaxMeatSize设置，防止无限耗尽系统内存。</li>
 <li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
 </ul>
 
