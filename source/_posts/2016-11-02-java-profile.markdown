@@ -339,11 +339,16 @@ jvm的参数设置一直是比较理不清的地方，很多时候都搞不清�
 
 7. -XX:MaxTenuringThreshold 
 
-    使用工具查看此值默认值为15，但是选择了CMS的时候，此值会变成4。当此值设置为0时，所有eden里的活对象在经历第一次minor GC的时候就会直接晋升到old gen，survivor space直接就没用。
+    使用工具查看此值默认值为15，但是选择了CMS的时候，此值会变成4。当此值设置为0时，所有eden里的活对象在经历第一次minor GC的时候就会直接晋升到old gen，survivor space直接就没用。**还有值得注意的一点，当使用并行回收器时，此值是没有作用的，并行回收器默认是自动调整这些参数以求达到吞吐量最大的。**此外，即使是使用CMS等回收器，晋升到老年代的age也不是不变的，当某一age的对象的大小达到年轻代的50%时，这个age会被动态调整为晋升年龄。
     
 8. -XX:HeapDumpPath
 
     使用此参数可以指定-XX:+HeapDumpBeforeFullGC、-XX:+HeapDumpAfterFullGC、-XX:+HeapDumpOnOutOfMemoryError触发heap dump文件的存储位置。
+    
+9. -XX:+UseAdaptiveSizePolicy 
+
+	此参数在并行回收器时是默认开启的，会根据应用运行状况做自我调整，如MaxTenuringThreshold、survivor区大小等。其中第一次晋升老年代的年龄以InitialTenuringThreshold（默认为7）开始，后续会自动调整。如果希望跟踪每次minor GC后新的存活周期的阈值，可在启动参数上增加：-XX:+PrintTenuringDistribution。如果想要可以配置这些参数，可以关闭此选项，但paralle的性能很难达到最佳。其他垃圾回收期则慎重开启此开关。
+
     
 ## <a name='参考资料'></a>参考资料
 
