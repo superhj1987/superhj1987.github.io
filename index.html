@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Java调优CheatSheet Mar 23rd, 2017 包含调优java程序的各种命令以及jvm配置示例。 常用Shell命令 查看网络状况 netstat -n | awk &lsquo;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a &hellip;">
+  <meta name="description" content="JVM诊断调优CheatSheet Mar 23rd, 2017 包含诊断调优java应用的各种命令以及jvm配置示例。 常用Shell命令 查看网络状况 netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}' &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -95,7 +95,7 @@
         
   <header>
     
-      <h2 class="post-title"><a href="/blog/2017/03/23/java-profile-cheatsheet/">Java调优CheatSheet</a></h2>
+      <h2 class="post-title"><a href="/blog/2017/03/23/java-profile-cheatsheet/">JVM诊断调优CheatSheet</a></h2>
     
     
       <p class="post-meta">
@@ -120,14 +120,15 @@
   </header>
 
 
-  <div class="post-content"><p>包含调优java程序的各种命令以及jvm配置示例。</p>
+  <div class="post-content"><p>包含诊断调优java应用的各种命令以及jvm配置示例。</p>
 
 <h2>常用Shell命令</h2>
 
 <ul>
 <li><p>查看网络状况</p>
 
-<blockquote><p>netstat -n | awk &lsquo;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&rsquo;</p></blockquote></li>
+<pre><code>  netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+</code></pre></li>
 <li><p>使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存。</p>
 
 <pre><code>  #!/bin/bash
@@ -719,7 +720,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2017/03/23/java-profile-cheatsheet/">Java调优CheatSheet</a>
+      	  <a href="/blog/2017/03/23/java-profile-cheatsheet/">JVM诊断调优CheatSheet</a>
       	</li>
     	
      	<li>

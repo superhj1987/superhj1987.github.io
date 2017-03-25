@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-24T10:46:24+08:00</updated>
+  <updated>2017-03-25T09:46:39+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,18 +14,19 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Java调优CheatSheet]]></title>
+    <title type="html"><![CDATA[JVM诊断调优CheatSheet]]></title>
     <link href="http://www.rowkey.me/blog/2017/03/23/java-profile-cheatsheet/"/>
     <updated>2017-03-23T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/03/23/java-profile-cheatsheet</id>
-    <content type="html"><![CDATA[<p>包含调优java程序的各种命令以及jvm配置示例。</p>
+    <content type="html"><![CDATA[<p>包含诊断调优java应用的各种命令以及jvm配置示例。</p>
 
 <h2>常用Shell命令</h2>
 
 <ul>
 <li><p>查看网络状况</p>
 
-<blockquote><p>netstat -n | awk &lsquo;/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}&rsquo;</p></blockquote></li>
+<pre><code>  netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+</code></pre></li>
 <li><p>使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存。</p>
 
 <pre><code>  #!/bin/bash
