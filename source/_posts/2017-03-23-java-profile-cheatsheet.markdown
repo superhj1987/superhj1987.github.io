@@ -1,18 +1,18 @@
 ---
 layout: post
-title: "Java调优CheatSheet"
+title: "JVM诊断调优CheatSheet"
 date: 2017-03-23 19:29:34 +0800
 comments: true
 categories: java
 ---
 
-包含调优java程序的各种命令以及jvm配置示例。
+包含诊断调优java应用的各种命令以及jvm配置示例。
 
 ## 常用Shell命令
 
 - 查看网络状况
 
-	> netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+		netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
 	
 - 使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存。
 
