@@ -156,35 +156,42 @@
 <h2>常用JDK命令</h2>
 
 <ul>
-<li><p>查看jvm内存使用状况</p>
+<li><p>查看类的一些信息，如字节码的版本号、常量池等</p>
 
-<blockquote><p>jmap -heap <pid></p></blockquote></li>
-<li><p>查看jvm内存存活的对象：</p>
-
-<blockquote><p>jcmd <pid> GC.class_histogram</p>
-
-<p>jmap -histo:live <pid></p></blockquote></li>
-<li><p>把heap里所有对象都dump下来，无论对象是死是活</p>
-
-<blockquote><p>jmap -dump:format=b,file=xxx.hprof <pid></p></blockquote></li>
-<li><p>先做一次full GC，再dump，只包含仍然存活的对象信息：</p>
-
-<blockquote><p>jcmd <PID> GC.heap_dump <FILENAME></p>
-
-<p>jmap -dump:format=b,live,file=xxx.hprof</p></blockquote></li>
+<blockquote><p>javap -verbose classname</p></blockquote></li>
 <li><p>查看jvm进程</p>
 
 <blockquote><p>jps</p>
 
 <p>jcmd -l</p></blockquote></li>
-<li><p>查看类的一些信息，如字节码的版本号、常量池等</p>
-
-<blockquote><p>javap -verbose classname</p></blockquote></li>
 <li><p>查看进程的gc情况</p>
 
 <blockquote><p>jstat -gcutil [pid] (显示总体情况)</p>
 
 <p>jstat -gc [pid] 1000 10（每隔1秒刷新一次 一共10次）</p></blockquote></li>
+<li><p>查看jvm内存使用状况</p>
+
+<blockquote><p>jmap -heap [pid]</p></blockquote></li>
+<li><p>查看jvm内存存活的对象：</p>
+
+<blockquote><p>jcmd [pid] GC.class_histogram</p>
+
+<p>jmap -histo:live [pid]</p></blockquote></li>
+<li><p>把heap里所有对象都dump下来，无论对象是死是活</p>
+
+<blockquote><p>jmap -dump:format=b,file=xxx.hprof [pid]</p></blockquote></li>
+<li><p>先做一次full GC，再dump，只包含仍然存活的对象信息：</p>
+
+<blockquote><p>jcmd [PID] GC.heap_dump [FILENAME]</p>
+
+<p>jmap -dump:format=b,live,file=xxx.hprof [pid]</p></blockquote></li>
+<li><p>线程dump</p>
+
+<blockquote><p>jstack [pid] #-m参数可以打印出native栈的信息</p>
+
+<p>jcmd <PID> Thread.print</p>
+
+<p>kill -3 [pid]</p></blockquote></li>
 <li><p>查看目前jvm启动的参数</p>
 
 <blockquote><p>jinfo -flags [pid] #有效参数</p>
@@ -202,13 +209,6 @@
 <li><p>查看所有可以设置的参数以及其默认值</p>
 
 <blockquote><p>java -XX:+PrintFlagsInitial</p></blockquote></li>
-<li><p>Java线程dump</p>
-
-<blockquote><p>jstack [pid] #-m参数可以打印出native栈的信息</p>
-
-<p>jcmd <PID> Thread.print</p>
-
-<p>kill -3 [pid]</p></blockquote></li>
 </ul>
 
 
