@@ -291,6 +291,7 @@ categories: git
 
 	git branch [branch-name] 新建分支,但仍然停留在当前分支
 	git branch [branch] [commit] 新建一个分支，指向指定commit
+	git branch -m <old_branch_name> <new_branch_name> 重命名分支
 	git checkout [branch-name] 切换到分支
 	git checkout -b [branch-name] 新建+切换到该分支
 	git checkout -b [branch1] [branch2] 基于branch2新建branch1分支，并切换
