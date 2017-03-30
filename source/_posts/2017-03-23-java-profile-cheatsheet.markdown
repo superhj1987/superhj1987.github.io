@@ -28,35 +28,42 @@ categories: java
 
 ## 常用JDK命令
 
-- 查看jvm内存使用状况
-	> jmap -heap <pid>
+- 查看类的一些信息，如字节码的版本号、常量池等
+	> javap -verbose classname
 
-- 查看jvm内存存活的对象：
-	> jcmd <pid> GC.class_histogram 
-	>
-	> jmap -histo:live <pid>
-
-- 把heap里所有对象都dump下来，无论对象是死是活
-	> jmap -dump:format=b,file=xxx.hprof <pid>
-
-- 先做一次full GC，再dump，只包含仍然存活的对象信息：
-	> jcmd <PID> GC.heap_dump <FILENAME> 
-	>
-	> jmap -dump:format=b,live,file=xxx.hprof
 - 查看jvm进程
-	
 	> jps  
 	>
 	> jcmd -l
-
-- 查看类的一些信息，如字节码的版本号、常量池等
-	> javap -verbose classname
 
 - 查看进程的gc情况
 	> jstat -gcutil [pid] (显示总体情况)     
 	>
 	> jstat -gc [pid] 1000 10（每隔1秒刷新一次 一共10次）
-	
+
+- 查看jvm内存使用状况
+	> jmap -heap [pid]
+
+- 查看jvm内存存活的对象：
+	> jcmd [pid] GC.class_histogram 
+	>
+	> jmap -histo:live [pid]
+
+- 把heap里所有对象都dump下来，无论对象是死是活
+	> jmap -dump:format=b,file=xxx.hprof [pid]
+
+- 先做一次full GC，再dump，只包含仍然存活的对象信息：
+	> jcmd [PID] GC.heap_dump [FILENAME]
+	>
+	> jmap -dump:format=b,live,file=xxx.hprof [pid]
+
+- 线程dump
+	> jstack [pid] #-m参数可以打印出native栈的信息 
+	>
+	> jcmd <PID> Thread.print 
+	>
+	> kill -3 [pid]
+
 - 查看目前jvm启动的参数
 
 	> jinfo -flags [pid] #有效参数
@@ -75,13 +82,6 @@ categories: java
 
 - 查看所有可以设置的参数以及其默认值
 	> java -XX:+PrintFlagsInitial
-
-- Java线程dump
-	> jstack [pid] #-m参数可以打印出native栈的信息 
-	>
-	> jcmd <PID> Thread.print 
-	>
-	> kill -3 [pid]
 	
 ## 第三方工具
 
