@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-03-30T11:34:32+08:00</updated>
+  <updated>2017-03-30T13:55:24+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -341,6 +341,7 @@ git branch --no-merge#查看为合并到当前分支的分支
 
 git branch [branch-name] 新建分支,但仍然停留在当前分支
 git branch [branch] [commit] 新建一个分支，指向指定commit
+git branch -m &lt;old_branch_name&gt; &lt;new_branch_name&gt; 重命名分支
 git checkout [branch-name] 切换到分支
 git checkout -b [branch-name] 新建+切换到该分支
 git checkout -b [branch1] [branch2] 基于branch2新建branch1分支，并切换
