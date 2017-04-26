@@ -70,7 +70,7 @@ Lambda表达式是Java8最主要的卖点。即使你现在用不到Java8，你�
 
 ![LambdaExplicitParamTypes.png](/images/blog_images/java8/LambdaExplicitParamTypes.png)
 
-如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，IntelljJ IDEA都会让你可以看到参数的类型信息。
+如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，Intellij IDEA都会让你可以看到参数的类型信息。
 
 ![LambdaParamTypes.png](/images/blog_images/java8/LambdaParamTypes.png)
 
@@ -81,7 +81,7 @@ Lambda表达式是Java8最主要的卖点。即使你现在用不到Java8，你�
 
 ## 设计Lambda表达式
 
-我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List<>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person\<T\>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。
+我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List<>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person<T>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。
 
 如果你发现自己处在这样一种境况，那么这里有一些提示。
 
@@ -97,7 +97,7 @@ Lambda表达式是Java8最主要的卖点。即使你现在用不到Java8，你�
 
 ### 给你的函数接口添加@FunctionalInterface
 
-如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Inteelij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。
+如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Intellij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。
 
 ![LambdaFunctionalInterfaceNoMethod.png](/images/blog_images/java8/LambdaFunctionalInterfaceNoMethod.png)
 
