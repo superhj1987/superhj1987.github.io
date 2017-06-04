@@ -396,7 +396,7 @@ tomcat的bio connector，采用的是线程池来避免对于每一个客户端�
 <script>
 var cloudTieConfig = {
   url: document.location.href, 
-  sourceId: "",
+  sourceId: "/blog/2016/01/18/io-model/",
   productKey: "730342eca8c34b4aac81b1a4f32948cc",
   target: "cloud-tie-wrapper"
 };
@@ -487,6 +487,13 @@ Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true)
 <section class="widget">
 	<div id="hot-news-wrap"></div>
 </section>
+<script>var yunModuleEnv = true;</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+  var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";  
+  var yunHotNewsWrap = "hot-news-wrap";   //放置的DOM节点ID 或 样式类
+  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2hvdF9uZXdzX3NjcmlwdC5odG1s", true);
+</script>
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
   <ul id="gh_repos" class="widget-list">
