@@ -338,24 +338,6 @@
  -->
  <div class="share"  style='margin-bottom:15px'>
 
-
-     <!-- 多说分享 start-->
-<div class="ds-share flat" data-title="JVM诊断调优CheatSheet - 后端技术杂谈 | 飒然Hang" data-url="http://www.rowkey.me/blog/2017/03/23/java-profile-cheatsheet/" data-content="包含诊断调优java应用的各种命令以及jvm配置示例。 常用Shell命令 查看网络状况 netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}' 使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存 &hellip;">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">
-      	
-      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-      	
-      </ul>
-      <div class="ds-share-icons-more">
-      </div>
-    </div>
- </div>
-<!-- 多说分享 end-->
- 
 </div>
 
     
@@ -369,20 +351,18 @@
 </article>
 
 
-<!-- 多说评论框 start -->
-<a name="ds-thread"></a>
-<div class="ds-thread" data-thread-key="/blog/2017/03/23/java-profile-cheatsheet/" data-title="JVM诊断调优CheatSheet"></div>
-<!-- 多说评论框 end -->
-
-
- 
-     <!-- UJian Button BEGIN -->
-<div class="ujian-hook"></div>
-<script type="text/javascript">var ujian_config = {num:8,showType:4};</script>
-<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?uid=901552"></script>
-<a href="http://www.ujian.cc" style="border:0;"><img src="http://img.ujian.cc/pixel.png" alt="友荐云推荐" style="border:0;padding:0;margin:0;" /></a>
-<!-- UJian Button END -->
- 
+<div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "730342eca8c34b4aac81b1a4f32948cc",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
 
   </div>
 </div>
@@ -538,19 +518,6 @@ $(function(){
 		appendId: 'footer'
 	});
 });
-</script>
-<script type="text/javascript">
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-var duoshuoQuery = {short_name:"rowkey"};
-(function() {
-  var ds = document.createElement('script');
-  ds.type = 'text/javascript';ds.async = true;
-  ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-  ds.charset = 'UTF-8';
-  (document.getElementsByTagName('head')[0] 
-   || document.getElementsByTagName('body')[0]).appendChild(ds);
-})();
-<!-- 多说公共JS代码 end -->
 </script>
 
   </footer>
