@@ -24,7 +24,6 @@
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
-  <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 
@@ -148,6 +147,13 @@ The path to be used for all session cookies created for this context. If set, th
 <p>其实这个项目在部署运行中，出现过各种问题，因此也做过很多架构的变动。到目前还是不能让人满意，只能在后续的维护中继续改进了。</p>
 </div>
 
+<!-- JavaScript 配置 -->
+<script>var yunModuleEnv = true;</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+  var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";
+  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
+</script>
 
   <footer class="post-footer">
     
@@ -175,6 +181,17 @@ The path to be used for all session cookies created for this context. If set, th
 
 
 <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "730342eca8c34b4aac81b1a4f32948cc",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
 
   </div>
 </div>
@@ -262,6 +279,13 @@ The path to be used for all session cookies created for this context. If set, th
 		<div id="hot-news-wrap"></div>
 	</ul>
 </section>
+<script>var yunModuleEnv = true;</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+  var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";  
+  var yunHotNewsWrap = "hot-news-wrap";   //放置的DOM节点ID 或 样式类
+  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2hvdF9uZXdzX3NjcmlwdC5odG1s", true);
+</script>
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
   <ul id="gh_repos" class="widget-list">
@@ -321,24 +345,6 @@ $(function(){
 		appendId: 'footer'
 	});
 });
-</script>
-<script>
-var yunModuleEnv = true;
-</script>
-<script>
-	var cloudTieConfig = {
-			url: "/blog/2012/08/15/terracotta/", 
-			sourceId: "",
-			productKey: "730342eca8c34b4aac81b1a4f32948cc",
-			target: "cloud-tie-wrapper"
-	};
-	var yunManualLoad = true;
-  	var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";  
-  	
-  	var yunHotNewsWrap = "hot-news-wrap";   //放置的DOM节点ID 或 样式类
-  	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2hvdF9uZXdzX3NjcmlwdC5odG1s", true);
-
-  	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
 </script>
 
   </footer>

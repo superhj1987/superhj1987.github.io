@@ -24,7 +24,6 @@
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
-  <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 
@@ -202,6 +201,13 @@
 <p>接下来，再回到wrapIterator，此function是对iterator的封装。执行后返回的是一个匿名function。其明确的参数只有一个err。当err不为空的时候，直接执行callback function。否则从index为1开始取出参数列表，并把iterator的下一个function包装之后push到args中（如果没有下一个function了则push回调函数）。接下来，则执行当前的iterator，执行的参数是下一个iterator function（作为这一步的回调函数）以及参数（如果当前的iterator被调用时传递了其他参数）。这样在当前iterator中回调下一个iterator，依次迭代执行，直至执行完所有function和callback。</p>
 </div>
 
+<!-- JavaScript 配置 -->
+<script>var yunModuleEnv = true;</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+  var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";
+  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
+</script>
 
   <footer class="post-footer">
     
@@ -229,6 +235,17 @@
 
 
 <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "730342eca8c34b4aac81b1a4f32948cc",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
 
   </div>
 </div>
@@ -316,6 +333,13 @@
 		<div id="hot-news-wrap"></div>
 	</ul>
 </section>
+<script>var yunModuleEnv = true;</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+  var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";  
+  var yunHotNewsWrap = "hot-news-wrap";   //放置的DOM节点ID 或 样式类
+  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2hvdF9uZXdzX3NjcmlwdC5odG1s", true);
+</script>
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
   <ul id="gh_repos" class="widget-list">
@@ -375,24 +399,6 @@ $(function(){
 		appendId: 'footer'
 	});
 });
-</script>
-<script>
-var yunModuleEnv = true;
-</script>
-<script>
-	var cloudTieConfig = {
-			url: "/blog/2014/08/22/node-async-analysis/", 
-			sourceId: "",
-			productKey: "730342eca8c34b4aac81b1a4f32948cc",
-			target: "cloud-tie-wrapper"
-	};
-	var yunManualLoad = true;
-  	var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";  
-  	
-  	var yunHotNewsWrap = "hot-news-wrap";   //放置的DOM节点ID 或 样式类
-  	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2hvdF9uZXdzX3NjcmlwdC5odG1s", true);
-
-  	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
 </script>
 
   </footer>

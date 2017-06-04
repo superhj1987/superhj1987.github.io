@@ -24,7 +24,6 @@
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
-  <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 
@@ -137,6 +136,13 @@
 <p>电影里三个人的友情是让我感触颇深的另一个地方。人的一生会不停地结交到各种朋友，但最后真正能称得上<strong>朋友</strong>的人其实就那么几个人。和他们在一起，你会很确定不管你怎么样，他们都不会嫌弃你；不管你跟他们说了什么话，他们也不会介意。心情不好的时候，一个电话，他们不管有多忙也会立马赶到你的身旁。其实，以前的自己挺自私的，有点像孟晓峻，自从经历了某些事情之后，我才体会到友情是多么的珍贵，也才弥足珍惜现在的朋友们。</p>
 </div>
 
+<!-- JavaScript 配置 -->
+<script>var yunModuleEnv = true;</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+  var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";
+  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
+</script>
 
   <footer class="post-footer">
     
@@ -164,6 +170,17 @@
 
 
 <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+var cloudTieConfig = {
+  url: document.location.href, 
+  sourceId: "",
+  productKey: "730342eca8c34b4aac81b1a4f32948cc",
+  target: "cloud-tie-wrapper"
+};
+var yunManualLoad = true;
+Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
+</script>
 
   </div>
 </div>
@@ -251,6 +268,13 @@
 		<div id="hot-news-wrap"></div>
 	</ul>
 </section>
+<script>var yunModuleEnv = true;</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
+<script>
+  var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";  
+  var yunHotNewsWrap = "hot-news-wrap";   //放置的DOM节点ID 或 样式类
+  Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2hvdF9uZXdzX3NjcmlwdC5odG1s", true);
+</script>
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
   <ul id="gh_repos" class="widget-list">
@@ -310,24 +334,6 @@ $(function(){
 		appendId: 'footer'
 	});
 });
-</script>
-<script>
-var yunModuleEnv = true;
-</script>
-<script>
-	var cloudTieConfig = {
-			url: "/blog/2013/07/06/no-name/", 
-			sourceId: "",
-			productKey: "730342eca8c34b4aac81b1a4f32948cc",
-			target: "cloud-tie-wrapper"
-	};
-	var yunManualLoad = true;
-  	var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";  
-  	
-  	var yunHotNewsWrap = "hot-news-wrap";   //放置的DOM节点ID 或 样式类
-  	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2hvdF9uZXdzX3NjcmlwdC5odG1s", true);
-
-  	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
 </script>
 
   </footer>
