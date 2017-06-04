@@ -9,7 +9,6 @@
       <p class="post-meta">
         {% include post/date.html %}{{ time }}
         {% if index %}
-        <a data-thread-key="{{ post.url }}" href="{{ root_url }}{{ post.url }}#ds-thread" class="ds-thread-count"></a>
         {% else %}
         {% include post/author.html %} in {% include post/categories.html %}
         {% endif %}

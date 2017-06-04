@@ -83,12 +83,9 @@ delicious_count: 3
 disqus_short_name:
 disqus_show_comment_count: false
 
-duoshuo_share: true
 weibo_share: false
 # weibo_user: superhj1987
 linkedin_user: superhj1987
-
-ujian: true
 
 page.sidebar: false
 post.sidebar: false
