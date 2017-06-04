@@ -25,6 +25,7 @@ Intent it = new Intent( &hellip;">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 
@@ -307,17 +308,6 @@ startActivity(intent);
 
 
 <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
-<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
-<script>
-var cloudTieConfig = {
-  url: document.location.href, 
-  sourceId: "",
-  productKey: "730342eca8c34b4aac81b1a4f32948cc",
-  target: "cloud-tie-wrapper"
-};
-var yunManualLoad = true;
-Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true);
-</script>
 
   </div>
 </div>
@@ -402,17 +392,8 @@ Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vcGMvbGl2ZXNjcmlwdC5odG1s", true)
 <section class="widget">
 	<h3 class="widget-title">最热文章</h3>
 	<ul class="widget-list">
-	<!-- 多说热评文章 start -->
-	<div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
-	<!-- 多说热评文章 end -->
+		<div id="hot-news-wrap"></div>
 	</ul>
-</section>
-
-<section class="widget">
-	<h3 class="widget-title">最新评论</h3>
-	<!-- 多说最新评论 start -->
-	<div class="ds-recent-comments" data-num-items="5" data-show-avatars="1" data-show-time="1" data-show-title="1" data-show-admin="1" data-excerpt-length="70"></div>
-<!-- 多说最新评论 end -->
 </section>
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
@@ -473,6 +454,24 @@ $(function(){
 		appendId: 'footer'
 	});
 });
+</script>
+<script>
+var yunModuleEnv = true;
+</script>
+<script>
+	var cloudTieConfig = {
+			url: "/blog/2011/02/08/android-intent/", 
+			sourceId: "",
+			productKey: "730342eca8c34b4aac81b1a4f32948cc",
+			target: "cloud-tie-wrapper"
+	};
+	var yunManualLoad = true;
+  	var yunTieProductKey = "730342eca8c34b4aac81b1a4f32948cc";  
+  	
+  	var yunHotNewsWrap = "hot-news-wrap";   //放置的DOM节点ID 或 样式类
+  	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2hvdF9uZXdzX3NjcmlwdC5odG1s", true);
+
+  	Tie.loader("aHR0cHM6Ly9hcGkuZ2VudGllLjE2My5jb20vZXh0ZW5kL2xpc3Rfam9pbl9zY3JpcHQuaHRtbA==", true);
 </script>
 
   </footer>
