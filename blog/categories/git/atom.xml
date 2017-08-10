@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-06-04T21:57:16+08:00</updated>
+  <updated>2017-08-10T14:34:34+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -54,12 +54,12 @@
 <li><p>下面的命令将修改/home/[username]/.gitconfig文件，也就是说下面的配置只对每一个ssh的用户可见，所以每个人都需要做。</p>
 
 <ul>
-<li><p>提交代码的log里面会显示提交者的信息</p>
+<li><p>修改提交者的信息</p>
 
 <pre><code>  git config --global user.name [username]
   git config --global user.email [email]
 </code></pre></li>
-<li><p>修改git的message编辑器为vim（其他的亦可）</p>
+<li><p>修改git的message编辑器为vim</p>
 
 <pre><code>  git config –global core.editor vim
 </code></pre></li>
@@ -235,7 +235,7 @@
 <p>  最后提交的时候，该文件就不再纳入版本管理了。
   如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f（即 force的首字母），以防误删除文件后丢失修改的内容。</p>
 
-<p>  另外一种情况是，我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。换句话说，仅是从跟踪清单中删除。比如一些 编译文件，不小心纳入仓库后，要移除跟踪但不删除文件，以便稍后在 .gitignore 文件中补上，用 &ndash;cached 选项即可：</p>
+<p>  另外一种情况是，我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。换句话说，仅是从跟踪清单中删除。比如一些编译文件，不小心纳入仓库后，要移除跟踪但不删除文件，以便稍后在 .gitignore 文件中补上，用 &ndash;cached 选项即可：</p>
 
 <pre><code>  git rm --cached [file]
 </code></pre>
@@ -245,7 +245,7 @@
 <pre><code>  git rm log/\*.log
 </code></pre>
 
-<p>  注意到星号 * 之前的反斜杠 \，因为 Git 有它自己的文件模式扩展匹配方式，所以我们不用 shell 来帮忙展开（译注：实际上不加反斜杠也可以运行，只不过按照 shell扩展的话，仅仅删除指定目录下的文件而不会递归匹配。上面的例子本来就指定了目录，所以效果等同，但下面的例子就会用递归方式匹配，所以必须加反斜杠。此命令删除所有 log/ 目录下扩展名为 .log 的文件。类似的比如：</p>
+<p>  注意到星号 * 之前的反斜杠 \，因为 Git 有它自己的文件模式扩展匹配方式，所以我们不用 shell 来帮忙展开。实际上不加反斜杠也可以运行，只不过按照shell扩展的话，仅仅删除指定目录下的文件而不会递归匹配。上面的例子本来就指定了目录，所以效果等同，但下面的例子就会用递归方式匹配，所以必须加反斜杠。比如：</p>
 
 <pre><code>  git rm \*~
 </code></pre>
@@ -280,7 +280,7 @@ git reset --hard 版本号 // 回滚
 <ol>
 <li><p>查看当前的远程库</p>
 
-<p> 要查看当前配置有哪些远程仓库，可以用 git remote 命令，它会列出每个远程库的简短名字。在克隆完某个项目后，至少可以看到一个名为 origin 的远程库，也可以加上 -v 选项git remote -v（译注：此为 &ndash;verbose 的简写，取首字母），显示对应的克隆地址。</p></li>
+<p> 要查看当前配置有哪些远程仓库，可以用 git remote 命令，它会列出每个远程库的简短名字。在克隆完某个项目后，至少可以看到一个名为 origin 的远程库，也可以加上 -v 选项git remote -v，显示对应的克隆地址。</p></li>
 <li><p>添加远程仓库</p>
 
 <p> 要添加一个新的远程仓库，可以指定一个简单的名字，以便将来引用，运行 git remote add [shortname] [url]</p></li>
