@@ -55,7 +55,7 @@ categories: java
     - 7.2 Java网络编程
     - 7.3 Java并发编程
     - 7.4 Java开发武器
-    - 7.5 NewJava
+    - 7.5 New Java
     - 7.6 总结
 
 * 第八章 性能调优
