@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-11T16:57:46+08:00</updated>
+  <updated>2017-08-11T17:08:32+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -89,7 +89,7 @@
 <li>7.2 Java网络编程</li>
 <li>7.3 Java并发编程</li>
 <li>7.4 Java开发武器</li>
-<li>7.5 NewJava</li>
+<li>7.5 New Java</li>
 <li>7.6 总结</li>
 </ul>
 </li>
@@ -111,6 +111,8 @@
 </li>
 </ul>
 
+
+<p>其中的部分内容，会在此书正式出版后陆续放出。</p>
 
 <p><strong>希望这本书会给想要学习Java后端开发的同学或者还未形成自己技术体系的Java工程师们带来帮助。</strong></p>
 
