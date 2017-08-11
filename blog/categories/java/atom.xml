@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-11T16:51:31+08:00</updated>
+  <updated>2017-08-11T16:54:07+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -23,6 +23,9 @@
 <p>《Java工程师修炼之道》一书主要内容是Java后端工程师必备的基本技能大纲。内容主要来自于公司内的后端工程师学习计划、自己以前的一些博客文章和自己从业以来积累的知识库。但由于后端工程师的每一个技能点都具有一定的深度，都不是一两篇文章就能讲述清楚的，因此本书不可能对每一个技能点都讲的特别透彻。</p>
 
 <p>本书可以看做是一本Java工程师的入职指南，也可以看做一本串联Java后端技能点的参考手册。对其中每一个技能点的学习，推荐通过他们的官方文档来深入学习，此外，本书也给出了自己觉得有价值的参考学习书籍。</p>
+
+<!--more-->
+
 
 <p>初步的目录如下：</p>
 
