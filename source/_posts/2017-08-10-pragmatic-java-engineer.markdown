@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Java工程师修炼之道"
+title: "《Java工程师修炼之道》内容概览"
 date: 2017-08-10 19:29:34 +0800
 comments: true
 categories: java
