@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "在Java中提升函数以更好地"函数式"编程
+title: "在Java中提升函数以更好地“函数式”编程"
 date: 2017-08-18 19:29:34 +0800
 comments: true
 categories: java
