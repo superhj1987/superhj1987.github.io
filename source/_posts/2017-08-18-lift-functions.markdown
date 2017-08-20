@@ -74,3 +74,5 @@ public Optional<Double> divideFirstTwo(NumberProvider numberProvider, Math math)
     return lift(math::divide).apply(numberProvider.getNumber(), numberProvider.getNumber());
 }
 ```
+
+**ps: 此文内容来自<https://dzone.com/articles/lifting-functions-to-work-with-monads-in-java?edition=311409&edition=0&utm_source=Zone%20Newsletter&utm_medium=email&utm_campaign=java%202017-08-01>，加入了本人的理解和认知。**
