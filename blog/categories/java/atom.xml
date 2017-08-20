@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-20T22:23:27+08:00</updated>
+  <updated>2017-08-20T22:29:01+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,74 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[在Java中提升函数以更好地“函数式”编程]]></title>
+    <link href="http://www.rowkey.me/blog/2017/08/18/lift-functions/"/>
+    <updated>2017-08-18T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/08/18/lift-functions</id>
+    <content type="html"><![CDATA[<p>Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。Lambda表达式、Optional和Stream只是函数式编程的冰山一角。这也导致了<a href="https://github.com/vavr-io/vavr">varvr</a>和<a href="https://github.com/functionaljava/functionaljava">functionlajava</a>这些类库的出现，他们都源于Haskell这个纯函数式编程语言。</p>
+
+<p>如果想要更加地“函数式”编程，那么首先要注意的是不要过早的中断monad(一种设计模式，表示将一个运算过程通过函数拆解成互相连接的多个步骤。只要提供下一步运算所需的函数，整个运算就会自动进行下去, Optional、Stream都是monad)，比如，很多人经常会在还不需要的时候就调用了Optional.get()和Stream.collect()提前终止monad。本文主要讲述如何通过提升方法来使得代码更&#8221;函数式&#8221;。</p>
+
+<p>假设有一个接口可以对数字进行计算。</p>
+
+<pre><code>public interface Math {
+    int multiply(int a, int b);
+    double divide(int a, int b);
+    ..
+}
+</code></pre>
+
+<p>我们要使用这个接口来对使用Optional做包装的数字做计算。</p>
+
+<pre><code>public interface NumberProvider {
+    Optional&lt;Integer&gt; getNumber();
+}
+</code></pre>
+
+<p>接着我们来实现一个方法能够返回两个数字相除的结果，结果用Optional包装。如果这两个数字有一个为空则返回空Optional。如下：</p>
+
+<pre><code>public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math math) {
+    Optional&lt;Integer&gt; first = numberProvider.getNumber();
+    Optional&lt;Integer&gt; second = numberProvider.getNumber();
+    if(first.isPresent() &amp;&amp; second.isPresent()) {
+        double result = math.divide(first.get(), second.get());
+        return Optional.of(result);
+    } else {
+        return Optional.empty();
+    }
+}
+</code></pre>
+
+<p>上面的代码非常不优雅，有大量的代码都是在做Optional的包装和解包装。可以让上面的代码变得更加“函数式”，如下：</p>
+
+<pre><code>public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math math) {
+    return numberProvider.getNumber()
+           .flatMap(first -&gt; numberProvider.getNumber()
+                                     .map(second -&gt; math.divide(first, second)));
+}
+</code></pre>
+
+<p>这样代码少了很多，也优雅了很多。先调用第一个Optional的flatMap，再在lambda中调用第二个Optional的map，进一步可以抽取出一个提升方法：</p>
+
+<pre><code>public interface Optionals {
+    static &lt;R, T, Z&gt; BiFunction&lt;Optional&lt;T&gt;, Optional&lt;R&gt;, Optional&lt;Z&gt;&gt; lift(BiFunction&lt;? super T, ? super R, ? extends Z&gt; function) {
+        return (left, right) -&gt; left.flatMap(leftVal -&gt; right.map(rightVal -&gt; function.apply(leftVal, rightVal)));
+    }
+}
+</code></pre>
+
+<p>如上，可知这个方法提升能够提升任何具有两个Optional参数、一个Optional结果的函数，使得被提升的函数具有Optional的一个特性：如果一个参数是空的，那么结果就是空的。如果JDK抽取flatMap和map到一个公共接口，如Monad，那么我们可以为Java Monad的每一个实例(Stream、Optional、自己的实现类)实现一个公共的提升函数。但现实是我们不得不为每一个实例都复制粘贴上面的代码。最终的divideFirstTwo代码如下：</p>
+
+<pre><code>import static com.ps.functional.monad.optional.Optionals.lift;
+...
+public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math math) {
+    return lift(math::divide).apply(numberProvider.getNumber(), numberProvider.getNumber());
+}
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[《Java工程师修炼之道》内容概览]]></title>
@@ -362,194 +430,6 @@
     <content type="html"><![CDATA[<p><img src="//images/blog_images/arch-spec.png" alt="" /></p>
 
 <p><strong><em>后续会对每一点进行详细阐述</em></strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JDK自带工具之问题排查场景示例]]></title>
-    <link href="http://www.rowkey.me/blog/2016/11/16/java-trouble-shooting/"/>
-    <updated>2016-11-16T22:21:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/11/16/java-trouble-shooting</id>
-    <content type="html"><![CDATA[<h2>目录</h2>
-
-<ul>
-<li><a href="#%E5%BC%95%E8%A8%80">引言</a></li>
-<li><a href="#%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%9C%BA%E6%99%AF">问题排查场景</a>
-
-<ul>
-<li><a href="#%E8%8E%B7%E5%8F%96%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84JVM%E5%88%97%E8%A1%A8">获取正在运行的JVM列表</a></li>
-<li><a href="#Java%E5%A0%86%E7%9A%84DUMP">Java堆的DUMP</a></li>
-<li><a href="#%E5%88%86%E6%9E%90%E7%B1%BB%E6%9F%B1%E7%8A%B6%E5%9B%BE">分析类柱状图</a></li>
-<li><a href="#%E7%BA%BF%E7%A8%8BDump">线程Dump</a></li>
-<li><a href="#%E8%BF%90%E8%A1%8CJava%E9%A3%9E%E8%A1%8C%E8%AE%B0%E5%BD%95%E5%99%A8(Java%20Flight%20Recorder">运行Java飞行记录器(Java Flight Recorder)</a>)</li>
-<li><a href="#%E5%90%8E%E8%AE%B0">后记</a></li>
-</ul>
-</li>
-</ul>
-
-
-<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优工具以及它们的惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
-
-<h2><a name='引言'></a>引言</h2>
-
-<p>在Java世界中，我们的很多开发工作从编码、调试到调优都在使用GUI工具。我们经常尝试在本地构建一套和线上一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下是无法在本地重现线上问题的。例如，我们没有权限获取真实客户端提交到线上服务端的数据。</p>
-
-<p>由此，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也不可能有合适的办法来进行排查。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
-
-<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据实际需求逐渐地安装其中的工具)。</p>
-
-<!--more-->
-
-
-<h2><a name='问题排查场景'></a>问题排查场景</h2>
-
-<h3><a name='获取正在运行的JVM列表'></a>获取正在运行的JVM列表</h3>
-
-<p>为了开始排查工作，我们首先需要获取正在运行的jvm进程列表，包括进程id、命令行参数等。有时候仅仅这一步就可以定位到问题，例如，同样的app实例被重复启动在并发做同样的事情(破坏输出文件、重新打开sockets或者其他愚蠢的事情)。</p>
-
-<p>使用<strong>jcmd</strong>不加任何参数即可获取jvm进程列表</p>
-
-<pre><code>25691 org.apache.catalina.startup.Bootstrap start
-20730 org.apache.catalina.startup.Bootstrap start
-26828 sun.tools.jcmd.JCmd
-3883 org.apache.catalina.startup.Bootstrap start
-</code></pre>
-
-<p>使用<strong>jcmd <PID> help</strong>能够获取某个jvm进程其他可用的诊断命令。例如：</p>
-
-<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 help
-3883:
-The following commands are available:
-VM.commercial_features
-ManagementAgent.stop
-ManagementAgent.start_local
-ManagementAgent.start
-Thread.print
-GC.class_histogram
-GC.heap_dump
-GC.run_finalization
-GC.run
-VM.uptime
-VM.flags
-VM.system_properties
-VM.command_line
-VM.version
-help
-</code></pre>
-
-<p>输入<strong>jcmd <PID> <COMMAND_NAME></strong>可以运行一个诊断命令或者获取到参数错误信息。</p>
-
-<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 GC.heap_dump
-3883:
-java.lang.IllegalArgumentException: Missing argument for diagnostic command 
-</code></pre>
-
-<p>通过<strong>jcmd <PID> help <COMMAND_NAME></strong>你能够获取此诊断命令更多的信息。如下是<strong>GC.heap_dump</strong>命令的help。</p>
-
-<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 help GC.heap_dump
-3883:
-GC.heap_dump
-Generate a HPROF format dump of the Java heap.
-
-Impact: High: Depends on Java heap size and content. Request a full GC unless the '-all' option is specified.
-
-Syntax : GC.heap_dump [options] &lt;filename&gt;
-
-Arguments:
-    filename :  Name of the dump file (STRING, no default value)
-
-Options: (options must be specified using the &lt;key&gt; or &lt;key&gt;=&lt;value&gt; syntax)
-    -all : [optional] Dump all objects, including unreachable objects (BOOLEAN, false)  
-</code></pre>
-
-<h3><a name='Java堆的DUMP'></a>Java堆的DUMP</h3>
-
-<p>jcmd提供了输出HPROF格式的堆dump接口。运行<strong>jcmd <PID> GC.heap_dump <FILENAME></strong>即可。注意这里的FILENAME是相对于运行中的jvm目录来说的，因此避免找不到dump的文件，这里推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
-
-<p>在堆dump完成之后，你可以复制此文件到本地用VisualVM或者用jmc的JOverflow插件打开，进而通过分析堆的状况定位内存问题。</p>
-
-<p>需要注意的两点：</p>
-
-<ul>
-<li>还有很多可以打开hprof文件进行分析的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。</li>
-<li>同样可以使用<strong>jmap -dump:live,file=<FILE_NAME> <PID></strong>来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：<a href="http://openjdk.java.net/jeps/240">JEP 240</a>, <a href="http://openjdk.java.net/jeps/241">JEP 241</a>。</li>
-</ul>
-
-
-<h3><a name='分析类柱状图'></a>分析类柱状图</h3>
-
-<p>如果正在排查内存泄漏问题，你可能想要知道堆中某种类型的存活对象数目。例如，某一时刻某些类应该只有一个实例(单例模式)，但是此类的另外一个或者多个实例却已经到了老年代，但是事实上它们不应该能够被GC roots访问到。</p>
-
-<p>运行以下命令可以打印出类柱状图(同时也打印出存活对象的数目)：</p>
-
-<pre><code>jcmd &lt;PID&gt; GC.class_histogram
-jmap -histo:live &lt;PID&gt;
-</code></pre>
-
-<p>输出如下：</p>
-
-<pre><code>    num     #instances         #bytes  class name
-----------------------------------------------
-   1:         37083       48318152  [B
-   2:        235781       22496784  [C
-   3:        103958       16069448  &lt;constMethodKlass&gt;
-   4:        482361       15435552  java.util.HashMap$Entry
-   5:        103958       14152480  &lt;methodKlass&gt;
-   6:          9576       11192168  &lt;constantPoolKlass&gt;
-   7:        186264       10430784  com.mysql.jdbc.ConnectionPropertiesImpl$BooleanConnectionProperty
-   8:        274109        8771488  java.util.Hashtable$Entry
-   9:          9576        7210152  &lt;instanceKlassKlass&gt;
-  10:          7972        6404256  &lt;constantPoolCacheKlass&gt;
-  11:        229637        5511288  java.lang.String
-  12:         48471        5428752  java.net.SocksSocketImpl
-  13:         21599        3859672  [Ljava.util.HashMap$Entry;
-</code></pre>
-
-<p>这里的以byte为单位的占用大小是浅尺寸(shallow size)，并没有包括子对象的大小。其实这个事实很容易由char[]和String的统计数据注意到：这俩的实例数目是差不多的，但是char[]的占用大小要大很多，就是因为String并未包含下面的char[]的大小。</p>
-
-<p>有了类柱状图信息，你就可以grep/search类的名字从而获取存活实例的数目。如果你发现某些类的实例数量比期望要大很多，你就可以做heap dump，然后用任意的heap分析工具来分析问题。</p>
-
-<h3><a name='线程Dump'></a>线程Dump</h3>
-
-<p>很多时候，应用会呈现出“卡在那里”的情形。这里有很多种卡住的状况：死锁、cpu密集运算。为了定位到问题所在需要知道线程在做什么、持有了什么锁等等。</p>
-
-<p>Java中有两种锁：基于sychronized和Object.wait/notifyAll方法的原始锁以及java5引入的java.util.concurrent锁。这俩种锁的不同之处主要在于前者是限制在进入synchronized部分的地方的栈帧(stack frame)中的，并且会一直在线程dump中存在。后者却并不限制在栈帧中，你可以在一个方法中进入锁，在另一方法中解锁。因此，thread dump有时候并没有包含这些信息。尽管如此，还是应该使用thread dump来查看线程信息排查问题。</p>
-
-<p>这里有三种方法可以打印应用的thread dump。</p>
-
-<pre><code>kill -3 &lt;PID&gt; #仅限Linux平台
-jstack &lt;PID&gt;
-jcmd &lt;PID&gt; Thread.print
-</code></pre>
-
-<h3><a name='运行Java飞行记录器(Java Flight Recorder)'></a>运行Java飞行记录器(Java Flight Recorder)</h3>
-
-<p>上面讲到的工具都是作为快速的查看诊断工具的。如果要深入分析问题，可以选择使用内置的Java飞行记录器:<a href="http://java-performance.info/oracle-java-mission-control-overview/">Java Mission Control</a>。</p>
-
-<p>运行JFR需要三步：</p>
-
-<ol>
-<li><p>创建一个包含了你自己配置的JFR模板文件。运行<strong>jmc</strong>, 然后<strong>Window->Flight Recording Template Manage</strong>菜单。准备好档案后，就可以导出文件，并移动到要排查问题的环境中。</p></li>
-<li><p>由于JFR需要JDK的商业证书，这一步需要解锁jdk的商业特性。</p>
-
-<pre><code> jcmd &lt;PID&gt; VM.unlock_commercial_features
-</code></pre></li>
-<li><p>最后你就可以启动JFR。</p>
-
-<pre><code> jcmd &lt;PID&gt; JFR.start name=test duration=60s settings=template.jfc filename=output.jfr
-</code></pre>
-
-<p> 上述命令立即启动JFR并开始使用<strong>templayte.jfc</strong>的配置收集60s的JVM信息，输出到<strong>output.jfr</strong>中。</p></li>
-</ol>
-
-
-<p>一旦记录完成之后，就可以复制.jfr文件到你的工作环境使用jmc GUI来分析。它几乎包含了排查jvm问题需要的所有信息，包括堆dump时的异常信息。</p>
-
-<h3><a name='后记'></a>后记</h3>
-
-<p>本文基本上是对英文原文的翻译，主要描述了几个常见问题的排查场景。</p>
-
-<p>不得不说的是，JDK自带的工具是非常强大的。用好了这些工具其实已经足以应付绝大多数的Java问题排查场景。</p>
 ]]></content>
   </entry>
   

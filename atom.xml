@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-20T22:23:27+08:00</updated>
+  <updated>2017-08-20T22:29:01+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,9 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Lift Functions]]></title>
+    <title type="html"><![CDATA[在Java中提升函数以更好地“函数式”编程]]></title>
     <link href="http://www.rowkey.me/blog/2017/08/18/lift-functions/"/>
-    <updated>2017-08-18T00:00:00+08:00</updated>
+    <updated>2017-08-18T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/08/18/lift-functions</id>
     <content type="html"><![CDATA[<p>Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。Lambda表达式、Optional和Stream只是函数式编程的冰山一角。这也导致了<a href="https://github.com/vavr-io/vavr">varvr</a>和<a href="https://github.com/functionaljava/functionaljava">functionlajava</a>这些类库的出现，他们都源于Haskell这个纯函数式编程语言。</p>
 
