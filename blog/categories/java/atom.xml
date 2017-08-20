@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-20T22:49:29+08:00</updated>
+  <updated>2017-08-20T23:01:49+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -81,6 +81,8 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
     return lift(math::divide).apply(numberProvider.getNumber(), numberProvider.getNumber());
 }
 </code></pre>
+
+<p><strong>ps: 此文内容来自<a href="https://dzone.com/articles/lifting-functions-to-work-with-monads-in-java?edition=311409&amp;edition=0&amp;utm_source=Zone%20Newsletter&amp;utm_medium=email&amp;utm_campaign=java%202017-08-01">https://dzone.com/articles/lifting-functions-to-work-with-monads-in-java?edition=311409&amp;edition=0&amp;utm_source=Zone%20Newsletter&amp;utm_medium=email&amp;utm_campaign=java%202017-08-01</a>，加入了本人的理解和认知。</strong></p>
 ]]></content>
   </entry>
   
