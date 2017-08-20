@@ -96,12 +96,13 @@ categories: git
 
 5. 配置密钥
 
-		ssh-keygen -t rsa -C superhj1987@126.com #生成密钥
+		ssh-keygen -t rsa -C superhj1987@126.com #生成密钥，把公钥复制到git服务器上
 		ssh -T git@github.com #测试是否成功
-
-		ssh-add ~/.ssh/private-key-name #添加私钥到ssh-agent中
+	
+		#使用ssh-agent管理密码，避免后续需要身份验证的地方需要输入密码
+		ssh-add -K private_key_path #添添加私钥到ssh-agent中，使用-K参数将密钥加入到密钥链中
 		ssh-add -l  #查看当前计算机中存储的密钥
-		ssh-add -d pub_key #将私钥从ssh-agent删除
+		ssh-add -d public_key_path #将对应的私钥从ssh-agent删除
 
 ## <a name="repo"></a>取得项目的 Git 仓库
 
