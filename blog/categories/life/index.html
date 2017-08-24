@@ -10,6 +10,8 @@
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
   <meta name="description" content="Category: life">
@@ -23,7 +25,10 @@
   <link rel="canonical" href="http://www.rowkey.me/blog/categories/life/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
-  <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/stylesheets/comment.css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
   <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
   <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
 
@@ -40,6 +45,26 @@
 </style>
 <!-- cnzz统计 -->
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
 <body   >
   <header id="header" class="clearfix">    <div class="container">
         <div class="col-group">
@@ -222,8 +247,32 @@ $(document).ready(function(){
 </section>
 <section class="widget">
 	<h3 class="widget-title">最新评论</h3>
-	<div id="uyan_newcmt_unit"></div>
+	<div id="recent-comments"></div>
 </section>
+<style type="text/css">
+#recent-comments .comment-widget-meta {
+    position: relative;
+    top: -25px;
+    left: 60px;
+    width: 250px;
+    overflow: hidden;
+}
+#recent-comments .comment-widget-content {
+    color: #000000 !important;
+}
+</style>
+<script type="text/javascript">
+   var opt = {
+       type: "github",
+       user: "superhj1987",
+       repo: "superhj1987.github.io",
+       recent_comments_target: "#recent-comments",
+       count: 5,
+       client_id: "528dd6945e3a48c2a954",
+       client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+   };
+   getRecentCommentsList(opt);
+</script>
 
 
 <section>
@@ -286,7 +335,6 @@ $(function(){
 	});
 });
 </script>
-<script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=901552"></script>
 
   </footer>
   
