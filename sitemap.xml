@@ -296,21 +296,6 @@
     <loc>http://www.rowkey.me/blog/categories/translate/</loc>
   </url>
   <url>
-    <loc>http://www.rowkey.me/blog/posts/2/</loc>
-  </url>
-  <url>
-    <loc>http://www.rowkey.me/blog/posts/3/</loc>
-  </url>
-  <url>
-    <loc>http://www.rowkey.me/blog/posts/4/</loc>
-  </url>
-  <url>
-    <loc>http://www.rowkey.me/blog/posts/5/</loc>
-  </url>
-  <url>
-    <loc>http://www.rowkey.me/blog/posts/6/</loc>
-  </url>
-  <url>
     <loc>http://www.rowkey.me/ace/build/css.html</loc>
     <lastmod>2014-11-06T19:21:20+08:00</lastmod>
   </url>
@@ -869,6 +854,22 @@
   <url>
     <loc>http://www.rowkey.me/ace/index.html</loc>
     <lastmod>2014-12-02T18:08:22+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/arch-ppt/index.html</loc>
+    <lastmod>2017-08-24T11:52:47+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/arch-ppt/js/mixjs/research/load-test.html</loc>
+    <lastmod>2017-08-24T11:49:01+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/arch-ppt/js/mixjs/research/loadjs.html</loc>
+    <lastmod>2017-08-24T11:49:01+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/arch-ppt/js/mixjs/research/userAgent.html</loc>
+    <lastmod>2017-08-24T11:49:01+08:00</lastmod>
   </url>
   <url>
     <loc>http://www.rowkey.me/main.html</loc>

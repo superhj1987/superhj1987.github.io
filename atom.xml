@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-24T11:23:57+08:00</updated>
+  <updated>2017-08-24T11:55:41+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,29 +18,34 @@
     <link href="http://www.rowkey.me/blog/2017/08/24/arch/"/>
     <updated>2017-08-24T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/08/24/arch</id>
-    <content type="html"><![CDATA[<p>之前写的《架构设计原则》一文由于时间问题一直没有把坑填上。最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述。</p>
+    <content type="html"><![CDATA[<p>之前开头的《架构设计原则》一文一直没有把坑填上。而最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述，正好算是对此文的完成和补充。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/arch/arch-2.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-3.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-4.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-5.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-6.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-7.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-8.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-9.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-10.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-11.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-12.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-13.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-14.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-15.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-16.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-17.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-18.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-19.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-20.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-21.png" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-22.png" alt="" /></p>
+<p><a href="http://www.rowkey.me/arch-ppt/index.html">PPT</a></p>
+
+<!--more-->
+
+
+<p><img src="http://www.rowkey.me/images/blog_images/arch/arch-2.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-3.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-4.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-5.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-6.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-7.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-8.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-9.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-10.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-11.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-12.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-13.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-14.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-15.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-16.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-17.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-18.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-19.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-20.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-21.jpeg" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-22.jpeg" alt="" /></p>
 ]]></content>
   </entry>
   

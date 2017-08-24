@@ -1,0 +1,396 @@
+<!--
+    Powered By nodePPT - This is probably the best web presentation tool so far!
+    version: 1.4.2
+    site: https://github.com/ksky521/nodePPT
+    date: 
+-->
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>架构这点事 - By 飒然Hang</title>
+    <link rel="stylesheet" media="all" href="./css/nodeppt.css">
+    <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="./css/phone.css">
+    
+    <link rel="stylesheet" href="./js/highlight/styles/monokai_sublime.css">
+    <link rel="stylesheet" href="./css/font-awesome.css">
+    
+<link rel="stylesheet" href="./css/theme.moon.css">
+</head>
+<body>
+<div class="slides">
+    <slides id="container">
+        <slide class="slide"><section class="slide-wrapper"><article class="flexbox vcenter">
+<h1>架构这点事</h1>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>什么是架构</h2>
+
+</hgroup><article>
+
+<ul>
+<li>部门的人力分配、项目规划</li>
+<li>建筑设计中楼层规划、功能性设施规划</li>
+<li>城市的道路布局、功能性建筑设计、娱乐设施设计</li>
+<li>国家的城市规划、高速公路规划、高铁线路规划</li>
+</ul>
+<blockquote>
+<p>All is 架构！！！</p>
+</blockquote>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>架构的本质</h2>
+<ul>
+<li>核心生命周期：拆分之后主体不变的子生命周期</li>
+<li>非核心生命周期：拆分之后主体改变的子生命周期</li>
+</ul>
+<img src="./media/15033322304619.jpg" alt="">
+<blockquote>
+<p>架构的本质在于不断拆分生命周期（树形结构），使得业务可以做到空间上并行。拆出来的每一个生命周期都有自己的边界，不会影响到其他生命周期，各自的变化都在自己的生命周期内确定，即为高内聚。</p>
+</blockquote>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>软件架构</h2>
+
+</hgroup><article>
+
+<blockquote>
+<p>软件生命周期： 软件开发生命周期 + 软件运行生命周期（软件访问、软件功能、软件监控）</p>
+</blockquote>
+<img src="./media/15033719545748.jpg" alt="">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>架构流程概述</h2>
+
+</hgroup><article>
+
+<ol>
+<li>业务架构：俯视架构，包括业务规则、业务模块和业务流程。主要是对整个系统的业务进行拆分，对领域模型进行设计，把现实中的业务转化成抽象的对象。</li>
+<li>技术架构：剖面架构，是硬件到应用的抽象，包括抽象层和编程接口。技术架构和业务架构是相辅相成的关系，业务架构的每一个部分都有其技术架构，系统的架构需要先做好这两部分。</li>
+<li>数据架构：存储架构，主要指的是数据结构的设计。决定了应用数据源的特性，是业务架构和技术架构的基础。</li>
+<li>部署架构：拓扑架构，包括系统部署了几个结点、结点之间的关系、服务器的高可用、容错性、网络接口与协议等。决定了应用如何运行、运行的性能、可维护性、可扩展性等，是所有架构的基础。</li>
+<li>组织架构：团队架构，包括项目的组织形式、人员构成、职责等，是上面所有架构的保障设施。良好的组织架构能够保证其他架构的有效实施和推进。</li>
+</ol>
+<blockquote>
+<p>架构随着业务、负载的变化需要不断的梳理和重构，推进架构的演进。</p>
+</blockquote>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>业务架构</h2>
+
+</hgroup><article>
+
+<p><strong>俯视视角</strong></p>
+<img src="./media/15033267584101.jpg" alt="">
+<ul>
+<li>业务执行是应用的核心模块，是应用的主要功能。</li>
+<li>数据分析是应用的辅助模块，有助于对应用做数据驱动化研发、商业智能研究、改善用户体验。</li>
+<li>系统管理是应用的基础部分，做好系统的部署、各项指标的监控、关键数据的备份等有助于应用快速迭代部署和稳定运行。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>技术架构 - 概览</h2>
+
+</hgroup><article>
+
+<p><strong>剖面视角</strong></p>
+<img src="./media/15033278402091.jpg" alt="">
+<ul>
+<li>业务数据源、数据的规则引擎和分析规则支撑起了交互界面的呈现</li>
+<li>基础设施、通用服务构建起了底层的业务逻辑</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>技术架构 - 具体</h2>
+
+</hgroup><article>
+
+<img src="./media/15034030726245.jpg" alt="">
+<ul>
+<li>UI和应用都属于应用层，即提供具体的业务实现。其中UI是视图层的主要表现形式。</li>
+<li>应用和服务属于控制逻辑和访问通道，其中服务则是主要的业务逻辑所在，其可以提供服务接口，供应用调用。</li>
+<li>核心、驱动和数据构成了数据层，是对业务中所有相关数据的操作逻辑，是模型层。其中，核心可以对外提供接口，供服务调用。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>架构的演化</h2>
+
+</hgroup><article>
+
+<img src="./media/15035011771856.jpg" alt="">
+<ul>
+<li>单体应用架构，所有逻辑都在应用和核心模块中，包括业务逻辑、数据操作等。</li>
+<li>通过数据驱动统一数据操作接口，屏蔽数据源的差异，可以根据资源进行垂直分区。</li>
+<li>解耦各个模块以服务的形式对外提供api接口，形成分布式服务架构。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>部署架构</h2>
+
+</hgroup><article>
+
+<img src="./media/15035014237399.jpg" alt="">
+<ul>
+<li>UI交互界面单独部署，包括web、app等形式</li>
+<li>应用单独部署为一个结点或者集群</li>
+<li>服务、核心以及驱动做为整体进行部署</li>
+<li>数据源单独部署</li>
+<li>一个简单的应用/服务集群: LVS(使用keepalived做主备) + Nginx(反向代理) + Tomcat(业务容器)</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>数据架构</h2>
+
+</hgroup><article>
+
+<img src="./media/15033300895934.jpg" alt="">
+<ul>
+<li>交互界面呈现出来的数据交互逻辑、数据流向决定了业务的主要数据设计</li>
+<li>原始的业务数据、日志和统计需要的数据支撑了数据分析需要的报表输出</li>
+<li>实时信息在一定的规则和状态机引擎下可以提供出实时状态监测等仪表盘功能</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>数据的五个属性</h2>
+
+</hgroup><article>
+
+<ul>
+<li>访问频率：读写频率；只读且经常被访问的数据可以冗余多份</li>
+<li>对一致性的要求，如实时统计用redis，非实时可以进入队列异步运算</li>
+<li>访问权限：API设计，PO -&gt; VO</li>
+<li>数据重要性：不可丢失、允许部分丢失、只是缓存</li>
+<li>数据保密性：内部可以明文、内部不可明文、可以对外公开</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>数据设计</h2>
+
+</hgroup><article>
+
+<ul>
+<li>充分理解交互UI，需要知道哪些数据界面关联，哪些数据可以缓存。</li>
+<li>充分理解业务，要搞清楚哪些数据需要记录以及数据之间的关系。</li>
+<li>数据库设计需要注意存储效率：<ul>
+<li>减少事务</li>
+<li>减少联表查询</li>
+<li>适当使用索引</li>
+<li>考虑使用缓存</li>
+<li>...</li>
+</ul>
+</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>什么是架构师</h2>
+
+</hgroup><article>
+
+<ul>
+<li>生命周期识别，合理拆分生命周期</li>
+<li>识别问题和问题的主体, 切忌把解决方案当问题, 发现问题永远比解决问题更加重要!!!</li>
+<li>关注业务技术，保障业务增长</li>
+<li><strong>保障架构执行！！！</strong></li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>架构师必备素质</h2>
+
+</hgroup><article>
+
+<ul>
+<li>精通某种技术，能够从本质上类比，触类旁通其他技术。</li>
+<li>平等对待所有技术，只有合适与不合适，没有喜欢与不喜欢。</li>
+<li>视野开阔，了解不同技术的优缺点, 知道可以直接用哪个开源项目来满足这样那样的需求，能够辨别是否需要造轮子。</li>
+<li>精通设计模式，但又不泛用。</li>
+<li>把系统拆分成多个子系统或模块，模块之间尽量松耦合，使得原先只能串行的开发任务，可以并行开展，可以通过投入更多人力来缩短工期。</li>
+<li>能清楚地知道系统的瓶颈在什么地方，不断地定位技术难度、研发进度、性能、内存等各方面的瓶颈，不断调整骨干力量解决瓶颈，在风险爆发之前就消除隐患。</li>
+<li>能够预料到需求可能产生怎样的变化，做好前瞻性设计。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>架构原则 - 概览</h2>
+
+</hgroup><article>
+
+<img src="./media/arch-spec.png" alt="">
+
+</article></section></slide>
+<slide class="slide" style='font-size:9pt'><section class="slide-wrapper"><hgroup>
+<h2>架构原则 - 1</h2>
+
+</hgroup><article>
+
+<ul>
+<li><strong>避免过度设计</strong>：最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。</li>
+<li><strong>冗余设计</strong>：对服务、数据库的做结点冗余，保证服务的高可用。通过数据库主从模式、应用集群来实现。</li>
+<li><strong>多活数据中心</strong>：为了容灾，从根本上保障应用的高可用性。需要构建多活的数据中心，以防止一个数据中心由于不可控因素出现故障后，引起整个系统的不可用。</li>
+<li><strong>无状态设计</strong>：api、接口等的设计不能有前后依赖关系，一个资源不受其他资源改动的影响。无状态的系统才能更好地进行扩展。如果非得有状态，则要么客户端管理状态，要么服务端用分布式缓存管理状态。</li>
+<li><strong>可回滚</strong>：对于任何业务尤其是关键业务，都具有恢复机制。可以使用基于日志的WAL、基于事件的Event sourcing等来实现可回滚。</li>
+<li><strong>可禁用/自我保护</strong>：具有限流机制，当上游的流量超过自身的负载能力时，能够拒绝溢出的请求。可以通过手动开关或者自动开关（监测异常流量行为），在应用前端挡住流量。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide" style='font-size:9pt'><section class="slide-wrapper"><hgroup>
+<h2>架构原则 - 2</h2>
+
+</hgroup><article>
+
+<ul>
+<li><strong>问题可追踪</strong>：当系统出现问题时，能够定位请求的轨迹、每一步的请求信息等。分布式链路追踪系统即解决的此方面的问题。</li>
+<li><strong>可监控</strong>：可监控是保障系统能够稳定运行的关键。包括对业务逻辑的监控、应用进程的监控以及应用依赖的CPU、硬盘等系统资源的监控。每一个系统都需要做好这几个层面的监控。</li>
+<li><strong>故障隔离</strong>：将系统依赖的资源(线程、CPU)和服务隔离开来能够使得某个服务的故障不会影响其他服务的调用。通过线程池或者分散部署结点可以对故障进行隔离。</li>
+<li><strong>成熟可控的技术选型</strong>：使用市面上主流、成熟、文档、支持资源多的技术，选择合适的而非最火的技术实现系统。</li>
+<li><strong>梯级存储</strong>：内存-&gt;SSD硬盘-&gt;传统硬盘-&gt;磁带，可以根据数据的重要性和生命周期对数据进行分级存储。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide" style='font-size:9pt'><section class="slide-wrapper"><hgroup>
+<h2>架构原则 - 3</h2>
+
+</hgroup><article>
+
+<ul>
+<li><strong>缓存设计</strong>：隔离请求与后端逻辑、存储，是就近原则的一种机制。包括客户端缓存（预先下发资源）、nginx缓存、本地缓存以及分布式缓存。</li>
+<li><strong>异步设计</strong>：对于调用方不关注结果或者允许结果延时返回的接口，采用队列进行异步响应能够很大程度提高系统性能；调用其他服务的时候不去等待服务方返回结果直接返回，同样能够提升系统响应性能。异步队列也是解决分布式事务的常用手段。</li>
+<li><strong>前瞻性设计</strong>：根据行业经验和预判，提前把可扩展性、后向兼容性设计好。</li>
+<li><strong>水平扩展</strong>：相比起垂直扩展，能够通过堆机器解决问题是最优先考虑的问题，系统的负载能力也才能接近无限扩展。此外，基于<strong>云计算</strong>技术根据系统的负载能够自动调整容量能够在节省成本的同时保证服务的可用性。</li>
+<li><strong>小步构建和发布</strong>：快速迭代项目，快速试错。不能有跨度时间过长的项目规划。</li>
+<li><strong>自动化</strong>：打包、测试的自动化称为持续集成，部署的自动化称为持续部署。自动化机制是快速迭代和试错的基础保证。</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide" style='font-size:9pt'><section class="slide-wrapper"><hgroup>
+<h2>架构原则 - 可扩展</h2>
+
+</hgroup><article>
+
+<img src="./media/15033846714727.jpg" alt="">
+<ul>
+<li>X轴，水平复制或克隆，面向目标，如数据库读写分离、复制表、replication等，将单体应用或者以来的服务做冗余，通过负载均衡提高系统负载能力。</li>
+<li>Y轴，面向功能/服务，如垂直应用、分布式服务等，就是讲单体应用注解根据功能进行拆分成小的应用或者服务。</li>
+<li>Z轴，面向资源，如数据库水平分库等，对资源做分片，将压力分散到不同的结点上。</li>
+</ul>
+<blockquote>
+<p>DID: 20倍设计、3倍实施、1.5倍部署。</p>
+</blockquote>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>系统响应性能提升五板斧</h2>
+
+</hgroup><article>
+
+<ul>
+<li><strong>异步</strong>：队列缓冲、异步请求</li>
+<li><strong>并发</strong>：利用多CPU多线程执行业务逻辑</li>
+<li><strong>就近原则</strong>：缓存、梯度存储</li>
+<li><strong>减少IO</strong>：合并细粒度接口为粗粒度接口、频繁的覆盖操作可以只做最后一次操作</li>
+<li><strong>分区</strong>：频繁访问的数据集规模保持在合理的范围</li>
+</ul>
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><article>
+<h2>参考资料</h2>
+<ul>
+<li>《架构真经》 by 陈斌</li>
+<li>《聊聊架构》 by 王概凯</li>
+<li>《架构师的第一课》 by 蔡学镛</li>
+</ul>
+
+</article></section></slide>
+        
+
+        <!-- <slide class="slide logoslide dark nobackground">
+            <article class="flexbox vcenter">
+                <h2 style="color: white;">Powered By nodePPT v1.4.2</h2>
+            </article>
+        </slide> -->
+        <div class="slideTip" id="tip"></div>
+    </slides>
+</div>
+<canvas id="drawBoard" class="draw-board" width="900" height="700"></canvas>
+<div class="progress"><span id="progress"></span></div>
+<div id="_buttons">
+    <div class="_btn-box" id="_btn-box" style="display:none;">
+        <button class="fa fa-arrow-circle-left" id="_btn-prev"></button>
+        <button class="fa fa-arrow-circle-right" id="_btn-next"></button>
+        <button class="fa fa-paint-brush" id="_btn-brush"></button>
+        <button class="fa fa-compress" id="_btn-overview" data-toggle="fa fa-expand"></button>
+    </div>
+    <button class="fa fa-bars" id="_btn-bar"  data-toggle="fa fa-close"></button>
+</div>
+<script src="./js/mixjs/lib/mix.0.3.0.min.js"></script>
+<script>
+var base = location.protocol + '//' + location.host;
+
+var path = (location.pathname + '#').split('/').filter(function(v){
+    return !!v;
+});
+path.pop();
+path = path.join('/');
+MixJS.config({
+    baseURL: [ base, path, 'js'].join('/')+'/'
+});
+
+</script>
+<script src="./js/mixjs/lib/event/broadcast.js"></script>
+<script src="./js/nodeppt.js"></script>
+<script>
+Slide.init({
+    containerID: 'container',
+    drawBoardID: 'drawBoard',
+    slideClass: '.slide',
+    buildClass: '.build',
+    progressID: 'progress',
+    transition: 'move',
+    width: 1100,
+    dir: './',
+    
+    //打开下面的注释就开启postMessage方式
+    //访问网址127.0.0.1:8080/ppt/demo#client
+    control:{
+        type: 'postMessage',
+        args:{
+            isControl:  false
+        }
+    },
+    
+    tipID: 'tip'
+});
+MixJS.loadJS('highlight/highlight.pack.js',function(){
+    hljs.tabReplace = '  ';
+    hljs.initHighlightingOnLoad();
+});
+</script>
+<script src="./js/demo.js"></script>
+<link rel="stylesheet" href="./css/demo.css">
+<link rel="stylesheet" href="./my.css">
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  config: ["TeX-AMS-MML_HTMLorMML.js"],
+  tex2jax: {inlineMath: [['\\(','\\)']]}});
+  //['$','$'], 避免货币价格冲突
+</script>
+<script type="text/javascript" src="./js/mathjax/MathJax.js"></script>
+
+<!--placeholder-->
+</body>
+</html>
