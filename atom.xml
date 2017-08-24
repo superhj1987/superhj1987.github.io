@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-24T11:55:41+08:00</updated>
+  <updated>2017-08-24T12:05:24+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -544,7 +544,7 @@
     <id>http://www.rowkey.me/blog/2017/01/15/arch-spec</id>
     <content type="html"><![CDATA[<p><img src="http://www.rowkey.me/images/blog_images/arch-spec.png" alt="" /></p>
 
-<p><strong><em>后续会对每一点进行详细阐述</em></strong></p>
+<p>详细见：<a href="http://www.rowkey.me/blog/2017/08/24/arch/">谈谈架构</a></p>
 ]]></content>
   </entry>
   
