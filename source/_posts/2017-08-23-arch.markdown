@@ -8,7 +8,7 @@ categories: java
 
 之前开头的《架构设计原则》一文一直没有把坑填上。而最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述，正好算是对此文的完成和补充。
 
-[PPT](/arch-ppt/index.html)
+<a href="/arch-ppt/index.html" target="_blank">PPT观看</a>
 
 <!--more-->
 
