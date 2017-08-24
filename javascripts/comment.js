@@ -216,6 +216,9 @@ var _renderRecentCommentList = function _renderRecentCommentList(comments, count
     var i = 0;
     var render_count = 0;
     var comment_list = '';
+    if(!!comments && comments.length > 0){
+        $(recent_comments_target).empty();
+    }
     _getRecentCommentList(comment_list, i, render_count, count, comments, function (comment_list) {
         $(recent_comments_target).append(comment_list);
     });
