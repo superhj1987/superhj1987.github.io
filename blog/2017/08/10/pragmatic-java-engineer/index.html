@@ -39,32 +39,32 @@
   span#cnzz_stat_icon_1257166229{
     display: none !important
   }
-  div#ujian_BtnDiv{
-    display: none !important
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-meta {
+    position: relative;
+    top: 0px !important;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
   }
 </style>
 <!-- cnzz统计 -->
 <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-<script type="text/javascript">
-  marked.setOptions({
-  highlight: function (code, lang) {
-     return hljs.highlightAuto(code).value;
-  }
-  });
-  function Highlighting(){
-    var markdowns = document.getElementsByClassName('markdown');
-    for(var i=0;i<markdowns.length;i++){
-       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
-    }
-  }
-  window.addEventListener('DOMContentLoaded', Highlighting, false);
-  window.addEventListener('load', Highlighting, false);
-</script>
-<script src="/javascripts/comment.js"></script>
 <body   >
   <header id="header" class="clearfix">    <div class="container">
         <div class="col-group">
@@ -297,40 +297,6 @@
 
 <h2>评论</h2>
 <div id="comment-thread"></div>
-<style type="text/css">
-  .btnComment{
-    color: #fff;
-    background-color: #006dcc;
-    background-image: linear-gradient(to bottom,#08c,#04c);
-    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
-    padding: 4px 12px;
-    margin-bottom: 0;
-    font-size: 14px;
-    line-height: 20px;
-    vertical-align: middle;
-    cursor: pointer;
-    border-radius: 4px;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
-    display: inline-block;
-    text-align: center;
-  }
-</style>
-<script type="text/javascript">
-   var opt = {
-       type: "github",
-       user: "superhj1987",
-       repo: "superhj1987.github.io",
-       no_comment: "还没有评论",
-       go_to_comment: "点击评论",
-       issue_title: "《Java工程师修炼之道》内容概览",
-       btn_class: "btnComment",
-       comments_target: "#comment-thread",
-       loading_target: "#loading-spin",
-       client_id: "528dd6945e3a48c2a954",
-       client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
-   };
-   getComments(opt);
-</script>
 
   </div>
 </div>
@@ -363,7 +329,10 @@
 </script><!--公告-->
 <section class="widget">
     原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
-</section><section class="widget" id="social">
+</section>
+
+微信公众号：
+<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" /><section class="widget" id="social">
 		
 		
 			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
@@ -413,29 +382,8 @@
 </section>
 <section class="widget">
 	<h3 class="widget-title">最新评论</h3>
-	<div id="recent-comments"></div>
+	<div id="recent-comments">暂无</div>
 </section>
-<style type="text/css">
-#recent-comments .comment-widget-meta {
-    position: relative;
-    top: 0px !important;
-}
-#recent-comments .comment-widget-content {
-    color: #000000 !important;
-}
-</style>
-<script type="text/javascript">
-   var opt = {
-       type: "github",
-       user: "superhj1987",
-       repo: "superhj1987.github.io",
-       recent_comments_target: "#recent-comments",
-       count: 5,
-       client_id: "528dd6945e3a48c2a954",
-       client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
-   };
-   getRecentCommentsList(opt);
-</script>
 
 
 <section>
@@ -491,12 +439,56 @@
 </div>
 <link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.6/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/timeago.js/3.0.2/timeago.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
 <script type="text/javascript">
 $(function(){
 	$.scrollUp({
 		appendId: 'footer'
 	});
 });
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "《Java工程师修炼之道》内容概览",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getRecentCommentsList(opt);
 </script>
 
   </footer>
