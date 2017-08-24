@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-23T11:42:12+08:00</updated>
+  <updated>2017-08-24T11:23:57+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[谈谈架构]]></title>
+    <link href="http://www.rowkey.me/blog/2017/08/24/arch/"/>
+    <updated>2017-08-24T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/08/24/arch</id>
+    <content type="html"><![CDATA[<p>之前写的《架构设计原则》一文由于时间问题一直没有把坑填上。最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述。</p>
+
+<p><img src="http://www.rowkey.me/images/blog_images/arch/arch-2.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-3.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-4.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-5.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-6.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-7.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-8.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-9.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-10.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-11.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-12.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-13.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-14.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-15.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-16.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-17.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-18.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-19.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-20.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-21.png" alt="" />
+<img src="http://www.rowkey.me/images/blog_images/arch/arch-22.png" alt="" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[在Java中提升函数以更好地“函数式”编程]]></title>
@@ -3635,114 +3666,6 @@ public static String randomString(int i){
 <li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[基于内容和用户画像的个性化推荐]]></title>
-    <link href="http://www.rowkey.me/blog/2016/04/07/up-recommend/"/>
-    <updated>2016-04-07T14:59:44+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/04/07/up-recommend</id>
-    <content type="html"><![CDATA[<p>目前比较流行的个性化推荐算法有以下几种：</p>
-
-<ul>
-<li>基于内容的推荐：根据内容本身的属性(特征向量)所作的推荐。</li>
-<li>基于关联规则的推荐：“啤酒与尿布”的方式，是一种动态的推荐，能够实时对用户的行为作出推荐。是基于物品之间的特征关联性所做的推荐，在某种情况下会退化为物品协同过滤推荐。</li>
-<li>协同过滤推荐：与基于关联规则的推荐相比是一种静态方式的推荐，是根据用户已有的历史行为作分析的基础上做的推荐。可分为物品协同过滤、用户协同过滤、基于模型的协同过滤。其中，基于模型的协同又可以分为以下几种类型：基于距离的协同过滤；基于矩阵分解的协同过滤，即Latent Factor Model(SVD)或者ALS；基于图模型协同，即Graph，也叫社会网络图模型。</li>
-</ul>
-
-
-<p>本文所讲述的基于内容和用户画像的个性化推荐属于第一种。对于此种推荐，有两个实体：内容和用户，因此需要有一个联系这两者的东西，即为标签。内容转换为标签即为内容特征化，用户则称为用户特征化。对于此种推荐，主要分为以下几个关键部分：</p>
-
-<ul>
-<li>标签库</li>
-<li>内容特征化</li>
-<li>用户特征化</li>
-<li>隐语义推荐</li>
-</ul>
-
-
-<p>综合上面讲述的各个部分即可实现一个基于内容和用户画像的个性化推荐系统。如下图所示：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/up-recommend.png" alt="uc_interest" /></p>
-
-<!--more-->
-
-
-<h3>标签库</h3>
-
-<p>标签是联系用户与物品、内容以及物品、内容之间的纽带，也是反应用户兴趣的重要数据源。标签库的最终用途在于对用户进行行为、属性标记。是将其他实体转换为计算机可以理解的语言关键的一步。</p>
-
-<p>标签库则是对标签进行聚合的系统，包括对标签的管理、更新等。</p>
-
-<p>一般来说，标签是以层级的形式组织的。可以有一级维度、二级维度等。</p>
-
-<p>标签的来源主要有：</p>
-
-<ul>
-<li>已有内容的标签</li>
-<li>网络抓取流行标签</li>
-<li>对运营的内容进行关键词提取</li>
-</ul>
-
-
-<p>对于内容的关键词提取，使用<a href="https://github.com/fxsjy/jieba">结巴分词</a> + <a href="http://www.ruanyifeng.com/blog/2013/03/tf-idf.html">TFIDF</a>即可。此外，也可以使用<a href="http://www.tuicool.com/articles/UZ77Z3">TextRank</a>来提取内容关键词。</p>
-
-<p>这里需要注意的一点是对于关联标签的处理，比如用户的标签是足球，而内容的标签是德甲、英超，那么用户和内容是无法联系在一起的。最简单的方式是人工设置关联标签，此外也可以使用word2vec一类工具对标签做聚类处理，构建主题模型，将德甲、英超聚类到<strong>足球</strong>下面。</p>
-
-<h3>内容特征化</h3>
-
-<p>内容特征化即给内容打标签。目前有两种方式：</p>
-
-<ul>
-<li>人工打标签</li>
-<li>机器自动打标签</li>
-</ul>
-
-
-<p>针对机器自动打标签，需要采取机器学习的相关算法来实现，即针对一系列给定的标签，给内容选取其中匹配度最高的几个标签。这不同于通常的分类和聚类算法。可以采取使用分词 + <a href="http://www.cnblogs.com/wowarsenal/p/3293586.html">Word2Vec</a>来实现，过程如下：</p>
-
-<ul>
-<li>将文本语料进行分词，以空格,tab隔开都可以，使用结巴分词。</li>
-<li>使用word2vec训练词的相似度模型。</li>
-<li>使用tfidf提取内容的关键词A,B,C。</li>
-<li>遍历每一个标签，计算关键词与此标签的相似度之和。</li>
-<li>取出TopN相似度最高的标签即为此内容的标签。</li>
-</ul>
-
-
-<p>此外，可以使用文本主题挖掘相关技术，对内容进行特征化。这也分为两种情况:</p>
-
-<ol>
-<li>通用情况下，只是为了效果优化的特征提取，那么可以使用非监督学习的主题模型算法。如LSA、PLSI和GaP模型或者LDA模型。</li>
-<li>在和业务强相关时，需要在业务特定的标签体系下给内容打上适合的标签。这时候需要使用的是监督学习的主题模型。如sLDA、HSLDA等。</li>
-</ol>
-
-
-<h3>用户特征化</h3>
-
-<p>用户特征化即为用户打标签。通过用户的行为日志和一定的模型算法得到用户的每个标签的权重。</p>
-
-<ul>
-<li>用户对内容的行为：点赞、不感兴趣、点击、浏览。对用户的反馈行为如<strong>点赞</strong>赋予权值1，<strong>不感兴趣</strong>赋予-1；对于用户的浏览行为，则可使用<strong>点击/浏览</strong>作为权值。</li>
-<li>对内容发生的行为可以认为对此内容所带的标签的行为。</li>
-<li>用户的兴趣是时间衰减的，即离当前时间越远的兴趣比重越低。时间衰减函数使用<strong>1/[log(t)+1]</strong>, t为事件发生的时间距离当前时间的大小。</li>
-<li>要考虑到热门内容会干预用户的标签，需要对热门内容进行降权。使用<strong>click/pv</strong>作为用户浏览行为权值即可达到此目的。</li>
-<li>此外，还需要考虑噪声的干扰，如标题党等。</li>
-</ul>
-
-
-<p>另，在非业务强相关的情况下，还可以考虑使用LSA主题模型等矩阵分解的方式对用户进行标签化。</p>
-
-<h3>隐语义推荐</h3>
-
-<p>有了内容特征和用户特征，可以使用<a href="http://blog.csdn.net/harryhuang1990/article/details/9924377">隐语义模型</a>进行推荐。这里可以使用其简化形式，以达到实时计算的目的。</p>
-
-<p>用户对于某一个内容的兴趣度(可以认为是CTR)：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/uc_interest.jpg" alt="uc_interest" /></p>
-
-<p>其中i=1&hellip;N是内容c具有的标签，m(ci)指的内容c和标签i的关联度(可以简单认为是1),n(ui)指的是用户u的标签i的权重值,当用户不具有此标签时n(ui)=0，q&copy;指的是内容c的质量，可以使用点击率(click/pv)表示。</p>
 ]]></content>
   </entry>
   

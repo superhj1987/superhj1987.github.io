@@ -12,7 +12,7 @@
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <![endif]-->
   
-  <meta name="description" content="在Java中提升函数以更好地“函数式”编程 Aug 18th, 2017 Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。Lambda表达式、Optional和Stream只是函数式编程的冰山一角。 &hellip;">
+  <meta name="description" content="谈谈架构 Aug 24th, 2017 之前写的《架构设计原则》一文由于时间问题一直没有把坑填上。最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述。 在Java中提升函数以更好地“函数式”编程 Aug 18th, 2017 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -89,6 +89,65 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/08/24/arch/">谈谈架构</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-08-24T19:29:34+08:00" pubdate data-updated="true">Aug 24<sup>th</sup>, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>之前写的《架构设计原则》一文由于时间问题一直没有把坑填上。最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述。</p>
+
+<p><img src="/images/blog_images/arch/arch-2.png" alt="" />
+<img src="/images/blog_images/arch/arch-3.png" alt="" />
+<img src="/images/blog_images/arch/arch-4.png" alt="" />
+<img src="/images/blog_images/arch/arch-5.png" alt="" />
+<img src="/images/blog_images/arch/arch-6.png" alt="" />
+<img src="/images/blog_images/arch/arch-7.png" alt="" />
+<img src="/images/blog_images/arch/arch-8.png" alt="" />
+<img src="/images/blog_images/arch/arch-9.png" alt="" />
+<img src="/images/blog_images/arch/arch-10.png" alt="" />
+<img src="/images/blog_images/arch/arch-11.png" alt="" />
+<img src="/images/blog_images/arch/arch-12.png" alt="" />
+<img src="/images/blog_images/arch/arch-13.png" alt="" />
+<img src="/images/blog_images/arch/arch-14.png" alt="" />
+<img src="/images/blog_images/arch/arch-15.png" alt="" />
+<img src="/images/blog_images/arch/arch-16.png" alt="" />
+<img src="/images/blog_images/arch/arch-17.png" alt="" />
+<img src="/images/blog_images/arch/arch-18.png" alt="" />
+<img src="/images/blog_images/arch/arch-19.png" alt="" />
+<img src="/images/blog_images/arch/arch-20.png" alt="" />
+<img src="/images/blog_images/arch/arch-21.png" alt="" />
+<img src="/images/blog_images/arch/arch-22.png" alt="" /></p>
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -568,52 +627,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/09/20/btrace/">BTrace原理浅析</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-09-20T21:39:34+08:00" pubdate data-updated="true">Sep 20<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>之前在看agentzh的此篇博文<a href="http://openresty.org/posts/dynamic-tracing/">动态追踪技术漫谈</a>时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。在公司内部的JavaEE性能检测框架中，我们使用了asm做字节码注入来做线上性能的监测，沿着这个思路，如果要做到动态追踪应该是需要做字节码注入的，但是额外的一点是需要动态加载字节码替换掉原有的类的。此外，性能监测框架是需要耦合到业务应用中的，无法做到一个监测工具的灵活性。</p>
-
-<p>后来听同事提到了BTrace这个工具，于是去尝试了一下。BTrace是SUN Kenai云计算开发平台下的一个开源项目，旨在为java提供安全可靠的动态跟踪分析工具。江南白衣的这篇文章<a href="http://calvin1978.blogcn.com/articles/btrace1.html">http://calvin1978.blogcn.com/articles/btrace1.html</a>做了比较详细的描述。</p>
-
-<p>那么，BTrace这么神奇的功能是如何实现的呢？既然这是个开源的代码，那么直接从代码找原理。BTrace代码开源在<a href="https://github.com/btraceio/btrace">https://github.com/btraceio/btrace</a>。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/09/20/btrace/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -680,6 +693,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2017/08/24/arch/">谈谈架构</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2017/08/18/lift-functions/">在Java中提升函数以更好地“函数式”编程</a>
       	</li>
     	
@@ -693,10 +710,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2017/02/20/read-classpath-resource/">如何读取ClassPath下的资源</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2017/01/15/arch-spec/">一些架构设计原则</a>
       	</li>
     	
 	</ul>

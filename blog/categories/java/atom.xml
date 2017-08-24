@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-23T11:42:12+08:00</updated>
+  <updated>2017-08-24T11:23:57+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[谈谈架构]]></title>
+    <link href="http://www.rowkey.me/blog/2017/08/24/arch/"/>
+    <updated>2017-08-24T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/08/24/arch</id>
+    <content type="html"><![CDATA[<p>之前写的《架构设计原则》一文由于时间问题一直没有把坑填上。最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述。</p>
+
+<p><img src="//images/blog_images/arch/arch-2.png" alt="" />
+<img src="//images/blog_images/arch/arch-3.png" alt="" />
+<img src="//images/blog_images/arch/arch-4.png" alt="" />
+<img src="//images/blog_images/arch/arch-5.png" alt="" />
+<img src="//images/blog_images/arch/arch-6.png" alt="" />
+<img src="//images/blog_images/arch/arch-7.png" alt="" />
+<img src="//images/blog_images/arch/arch-8.png" alt="" />
+<img src="//images/blog_images/arch/arch-9.png" alt="" />
+<img src="//images/blog_images/arch/arch-10.png" alt="" />
+<img src="//images/blog_images/arch/arch-11.png" alt="" />
+<img src="//images/blog_images/arch/arch-12.png" alt="" />
+<img src="//images/blog_images/arch/arch-13.png" alt="" />
+<img src="//images/blog_images/arch/arch-14.png" alt="" />
+<img src="//images/blog_images/arch/arch-15.png" alt="" />
+<img src="//images/blog_images/arch/arch-16.png" alt="" />
+<img src="//images/blog_images/arch/arch-17.png" alt="" />
+<img src="//images/blog_images/arch/arch-18.png" alt="" />
+<img src="//images/blog_images/arch/arch-19.png" alt="" />
+<img src="//images/blog_images/arch/arch-20.png" alt="" />
+<img src="//images/blog_images/arch/arch-21.png" alt="" />
+<img src="//images/blog_images/arch/arch-22.png" alt="" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[在Java中提升函数以更好地“函数式”编程]]></title>
@@ -424,17 +455,6 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 
 
 <p>还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以<strong><em>jar:file</em></strong>开头的，并不能用此方式处理。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一些架构设计原则]]></title>
-    <link href="http://www.rowkey.me/blog/2017/01/15/arch-spec/"/>
-    <updated>2017-01-15T22:21:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/01/15/arch-spec</id>
-    <content type="html"><![CDATA[<p><img src="//images/blog_images/arch-spec.png" alt="" /></p>
-
-<p><strong><em>后续会对每一点进行详细阐述</em></strong></p>
 ]]></content>
   </entry>
   
