@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-08-24T23:17:49+08:00</updated>
+  <updated>2017-08-24T23:26:52+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -20,7 +20,7 @@
     <id>http://www.rowkey.me/blog/2017/08/24/arch</id>
     <content type="html"><![CDATA[<p>之前开头的《架构设计原则》一文一直没有把坑填上。而最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述，正好算是对此文的完成和补充。</p>
 
-<p><a href="//arch-ppt/index.html">PPT</a></p>
+<p><a href="http://www.rowkey.me/arch-ppt/index.html" target="_blank">PPT观看</a></p>
 
 <!--more-->
 
