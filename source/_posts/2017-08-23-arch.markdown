@@ -1,0 +1,35 @@
+---
+layout: post
+title: "谈谈架构"
+date: 2017-08-24 19:29:34 +0800
+comments: true
+categories: java
+---
+
+之前开头的《架构设计原则》一文一直没有把坑填上。而最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述，正好算是对此文的完成和补充。
+
+[PPT](/arch-ppt/index.html)
+
+<!--more-->
+
+![](/images/blog_images/arch/arch-2.jpeg)
+![](/images/blog_images/arch/arch-3.jpeg)
+![](/images/blog_images/arch/arch-4.jpeg)
+![](/images/blog_images/arch/arch-5.jpeg)
+![](/images/blog_images/arch/arch-6.jpeg)
+![](/images/blog_images/arch/arch-7.jpeg)
+![](/images/blog_images/arch/arch-8.jpeg)
+![](/images/blog_images/arch/arch-9.jpeg)
+![](/images/blog_images/arch/arch-10.jpeg)
+![](/images/blog_images/arch/arch-11.jpeg)
+![](/images/blog_images/arch/arch-12.jpeg)
+![](/images/blog_images/arch/arch-13.jpeg)
+![](/images/blog_images/arch/arch-14.jpeg)
+![](/images/blog_images/arch/arch-15.jpeg)
+![](/images/blog_images/arch/arch-16.jpeg)
+![](/images/blog_images/arch/arch-17.jpeg)
+![](/images/blog_images/arch/arch-18.jpeg)
+![](/images/blog_images/arch/arch-19.jpeg)
+![](/images/blog_images/arch/arch-20.jpeg)
+![](/images/blog_images/arch/arch-21.jpeg)
+![](/images/blog_images/arch/arch-22.jpeg)
