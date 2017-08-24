@@ -252,7 +252,7 @@ var _renderHTML = function _renderHTML(params) {
     }
     var issue_url = void 0;
     if (!comments_url) {
-        issue_url = addr + "/" + username + "/" + repo + "/issues/new?title=" + issue_title + "#issue_body";
+        issue_url = addr + username + "/" + repo + "/issues/new?title=" + issue_title + "#issue_body";
     } else {
         issue_url = comments_url.replace(api_addr, addr).replace('comments', '') + '#new_comment_field';
     }
