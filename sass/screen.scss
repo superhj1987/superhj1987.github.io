@@ -305,6 +305,9 @@ textarea {
 }
 .post {
     padding:10px 0 30px;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow: hidden;
 }
 .post-title {
     margin:0;
@@ -609,7 +612,8 @@ td.code {
     }
     .res-cons {
         width:auto;
-        margin-right:0
+        margin-right:0;
+        padding-right: 0px !important;
     }
     #secondary {
         display:none
