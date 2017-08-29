@@ -300,11 +300,11 @@
 </hgroup><article>
 
 <ul>
-<li><strong>异步</strong>：队列缓冲、异步请求</li>
-<li><strong>并发</strong>：利用多CPU多线程执行业务逻辑</li>
-<li><strong>就近原则</strong>：缓存、梯度存储</li>
-<li><strong>减少IO</strong>：合并细粒度接口为粗粒度接口、频繁的覆盖操作可以只做最后一次操作</li>
-<li><strong>分区</strong>：频繁访问的数据集规模保持在合理的范围</li>
+<li><strong>异步</strong>：队列缓冲、异步请求。</li>
+<li><strong>并发</strong>：利用多CPU多线程执行业务逻辑。</li>
+<li><strong>就近原则</strong>：缓存、梯度存储。</li>
+<li><strong>减少IO</strong>：合并细粒度接口为粗粒度接口、频繁的覆盖操作可以只做最后一次操作。这里一个需要特别注意的地方: <strong>代码中务必不要在循环中调用外部服务，更好的做法是使用粗粒度批量接口在循环外面只进行一次请求。</strong></li>
+<li><strong>分区</strong>：频繁访问的数据集规模保持在合理的范围。</li>
 </ul>
 
 </article></section></slide>
