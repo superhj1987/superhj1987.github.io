@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-01T17:54:16+08:00</updated>
+  <updated>2017-09-01T19:14:45+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -3139,71 +3139,71 @@ public static String randomString(int i){
 </ul>
 
 
-<h2>13. Java编码时的注意点</h2>
+<h2>13. Java编码注意点</h2>
 
-<ol>
+<ul>
 <li><p>谨慎对待Java的循环遍历</p>
 
-<p> 对于集合类如List的遍历可以使用两种方式，如下：</p>
+<p>  对于集合类如List的遍历可以使用两种方式，如下：</p>
 
-<pre><code class="`"> private final List&lt;User&gt; userList;
- for(User u : userList) {    
-     ...
- }
+<pre><code class="``">  private final List&lt;User&gt; userList;
+  for(User u : userList) {    
+      ...
+  }
 
- private final List&lt;User&gt; userList;
- for(int i = 0;i &lt; userList.size() ; i++) {   
-     User u = userList.get(i); 
-     ...
- }
+  private final List&lt;User&gt; userList;
+  for(int i = 0;i &lt; userList.size() ; i++) {   
+      User u = userList.get(i); 
+      ...
+  }
 </code></pre>
 
-<p> 前者多了创建迭代器的开销，但是取元素的时候是O(1)复杂度(getNext、hasNext())。后者没有迭代器的开销，能够节省一部分开销，但是获取元素的地方会因List的具体实现类不同而不同，如LinkedList就会为O(n)、ArrayList为O(1)。要根据业务目标来选择合适的用法。</p></li>
+<p>  前者多了创建迭代器的开销，但是取元素的时候是O(1)复杂度(getNext、hasNext())。后者没有迭代器的开销，能够节省一部分开销，但是获取元素的地方会因List的具体实现类不同而不同，如LinkedList就会为O(n)、ArrayList为O(1)。要根据业务目标来选择合适的用法。</p></li>
 <li><p>在初始化的时候预估集合的大小</p>
 
-<p> 这个主要是对HashMap说的。对于HashMap来说主要有两个影响性能的因素：初始大小和加载因子，当哈希表的大小达到初始大小和加载因子的乘积的时候，哈希表会进行rehash操作会影响性能。因此在初始化HashMap时要尽量能够预估其大小并做设置，如：</p>
+<p>  这个主要是对HashMap说的。对于HashMap来说主要有两个影响性能的因素：初始大小和加载因子，当哈希表的大小达到初始大小和加载因子的乘积的时候，哈希表会进行rehash操作会影响性能。因此在初始化HashMap时要尽量能够预估其大小并做设置，如：</p>
 
-<pre><code class="`"> new HashMap&lt;String, User&gt;((int)Math.ceil(userList.size() / 0.7)); 
+<pre><code class="``">  new HashMap&lt;String, User&gt;((int)Math.ceil(userList.size() / 0.7)); 
 </code></pre></li>
 <li><p>延迟表达式的计算</p>
 
-<p> Java中，如果方法的参数是一个表达式，那么都会在方法调用之前进行计算。因此，对于一些非常耗资源的操作，要尽量让其延迟化计算。如：</p>
+<p>  Java中，如果方法的参数是一个表达式，那么都会在方法调用之前进行计算。因此，对于一些非常耗资源的操作，要尽量让其延迟化计算。如：</p>
 
-<pre><code class="`"> class User{
-     private String name;
-     private Address address;
+<pre><code class="``">  class User{
+      private String name;
+      private Address address;
 
-     public int compareTo(User other){
-          return ComparisonChain.start()
-             .compare(this.name, other.getName())
-             .compare(this.address.toString(), user1.getAddress().toString())
-             .result();
-     }
- }
+      public int compareTo(User other){
+           return ComparisonChain.start()
+              .compare(this.name, other.getName())
+              .compare(this.address.toString(), user1.getAddress().toString())
+              .result();
+      }
+  }
 </code></pre>
 
-<p> 使用guava的ComparisonChain能够在第一个非0比较结果时就结束整个比较操作，但上面的代码中address的toString方法仍然会执行。可以通过使用单独的Comparator来使其延迟计算。</p>
+<p>  使用guava的ComparisonChain能够在第一个非0比较结果时就结束整个比较操作，但上面的代码中address的toString方法仍然会执行。可以通过使用单独的Comparator来使其延迟计算。</p>
 
-<pre><code class="`"> return ComparisonChain.start()
-             .compare(this.name, other.getName())
-             .compare(this.address, user1.getAddress(), new Comparator&lt;Address&gt;(){
-                 @Override
-                 public int compare(Address a1, Address a2) {
-                     return a1.toString().compareTo(a2.toString());
-                 }
-             })
-             .result();
+<pre><code class="``">  return ComparisonChain.start()
+              .compare(this.name, other.getName())
+              .compare(this.address, user1.getAddress(), new Comparator&lt;Address&gt;(){
+                  @Override
+                  public int compare(Address a1, Address a2) {
+                      return a1.toString().compareTo(a2.toString());
+                  }
+              })
+              .result();
 </code></pre></li>
 <li><p>提前编译正则表达式</p>
 
-<p> Java中的正则表达式运算是非常耗资源的，因此JDK中有正则参数的方法调用都最好提前编译正则表达式。如String的replaceAll方法，其第一个参数是一个正则表达式，可以通过缓存Pattern来避免每次都创建模式。</p>
+<p>  Java中的正则表达式运算是非常耗资源的，因此JDK中有正则参数的方法调用都最好提前编译正则表达式。如String的replaceAll方法，其第一个参数是一个正则表达式，可以通过缓存Pattern来避免每次都创建模式。</p>
 
-<pre><code class="`"> private final Pattern pattern = Pattern.compile(_regex); //全局缓存
- ...
- pattern.matcher(“text”).replaceAll("replaceMent"); 
- ...
+<pre><code class="``">  private final Pattern pattern = Pattern.compile("&lt;regx&gt;"); //全局缓存
+  ...
+  pattern.matcher(“&lt;text&gt;”).replaceAll("&lt;replacement&gt;"); 
+  ...
 </code></pre></li>
-</ol>
+</ul>
 
 ]]></content>
   </entry>
