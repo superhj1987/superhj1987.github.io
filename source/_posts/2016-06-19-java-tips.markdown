@@ -84,7 +84,7 @@ categories: java
 
 ## 13. Java编码时的注意点
 
-1. 谨慎对待Java的循环遍历
+- 谨慎对待Java的循环遍历
 
     对于集合类如List的遍历可以使用两种方式，如下：
 
@@ -103,7 +103,7 @@ categories: java
 
     前者多了创建迭代器的开销，但是取元素的时候是O(1)复杂度(getNext、hasNext())。后者没有迭代器的开销，能够节省一部分开销，但是获取元素的地方会因List的具体实现类不同而不同，如LinkedList就会为O(n)、ArrayList为O(1)。要根据业务目标来选择合适的用法。
 
-1. 在初始化的时候预估集合的大小
+- 在初始化的时候预估集合的大小
 
     这个主要是对HashMap说的。对于HashMap来说主要有两个影响性能的因素：初始大小和加载因子，当哈希表的大小达到初始大小和加载因子的乘积的时候，哈希表会进行rehash操作会影响性能。因此在初始化HashMap时要尽量能够预估其大小并做设置，如：
 
@@ -111,7 +111,7 @@ categories: java
     new HashMap<String, User>((int)Math.ceil(userList.size() / 0.7)); 
     ```
 
-1. 延迟表达式的计算
+- 延迟表达式的计算
     
     Java中，如果方法的参数是一个表达式，那么都会在方法调用之前进行计算。因此，对于一些非常耗资源的操作，要尽量让其延迟化计算。如：
 
@@ -127,8 +127,6 @@ categories: java
                 .result();
         }
     }
-
-   
     ```
 
     使用guava的ComparisonChain能够在第一个非0比较结果时就结束整个比较操作，但上面的代码中address的toString方法仍然会执行。可以通过使用单独的Comparator来使其延迟计算。
@@ -145,14 +143,13 @@ categories: java
                 .result();
     ```
 
-1. 提前编译正则表达式
+- 提前编译正则表达式
 
     Java中的正则表达式运算是非常耗资源的，因此JDK中有正则参数的方法调用都最好提前编译正则表达式。如String的replaceAll方法，其第一个参数是一个正则表达式，可以通过缓存Pattern来避免每次都创建模式。
 
     ```
-    private final Pattern pattern = Pattern.compile(_regex); //全局缓存
+    private final Pattern pattern = Pattern.compile("<regx>"); //全局缓存
     ...
-    pattern.matcher(“text”).replaceAll("replaceMent"); 
+    pattern.matcher(“<text>”).replaceAll("<replacement>"); 
     ...
     ```
-
