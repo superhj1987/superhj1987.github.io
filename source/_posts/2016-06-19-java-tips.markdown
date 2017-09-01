@@ -82,7 +82,7 @@ categories: java
 - 缓存
 
 
-## 13. Java编码时的注意点
+## 13. Java编码注意点
 
 - 谨慎对待Java的循环遍历
 
