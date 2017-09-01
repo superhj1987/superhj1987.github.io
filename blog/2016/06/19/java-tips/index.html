@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Java开发的几个注意点 - 后端技术杂谈 | 飒然Hang</title>
+  <title>Java开发Tips - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Java开发的几个注意点 Jun 19th, 2016 Posted by 飒然Hang in java 在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方， &hellip;">
+  <meta name="description" content="Java开发Tips Jun 19th, 2016 Posted by 飒然Hang in java 在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -117,7 +117,7 @@
   
   <header>
     
-      <h1 class="post-title">Java开发的几个注意点</h1>
+      <h1 class="post-title">Java开发Tips</h1>
     
     
       <p class="post-meta">
@@ -239,7 +239,72 @@
 </ul>
 
 
-<p><strong><em>Ps:此文部分内容来自网上资料。</em></strong></p>
+<h2>13. Java编码时的注意点</h2>
+
+<ol>
+<li><p>谨慎对待Java的循环遍历</p>
+
+<p> 对于集合类如List的遍历可以使用两种方式，如下：</p>
+
+<pre><code class="`"> private final List&lt;User&gt; userList;
+ for(User u : userList) {    
+     ...
+ }
+
+ private final List&lt;User&gt; userList;
+ for(int i = 0;i &lt; userList.size() ; i++) {   
+     User u = userList.get(i); 
+     ...
+ }
+</code></pre>
+
+<p> 前者多了创建迭代器的开销，但是取元素的时候是O(1)复杂度(getNext、hasNext())。后者没有迭代器的开销，能够节省一部分开销，但是获取元素的地方会因List的具体实现类不同而不同，如LinkedList就会为O(n)、ArrayList为O(1)。要根据业务目标来选择合适的用法。</p></li>
+<li><p>在初始化的时候预估集合的大小</p>
+
+<p> 这个主要是对HashMap说的。对于HashMap来说主要有两个影响性能的因素：初始大小和加载因子，当哈希表的大小达到初始大小和加载因子的乘积的时候，哈希表会进行rehash操作会影响性能。因此在初始化HashMap时要尽量能够预估其大小并做设置，如：</p>
+
+<pre><code class="`"> new HashMap&lt;String, User&gt;((int)Math.ceil(userList.size() / 0.7)); 
+</code></pre></li>
+<li><p>延迟表达式的计算</p>
+
+<p> Java中，如果方法的参数是一个表达式，那么都会在方法调用之前进行计算。因此，对于一些非常耗资源的操作，要尽量让其延迟化计算。如：</p>
+
+<pre><code class="`"> class User{
+     private String name;
+     private Address address;
+
+     public int compareTo(User other){
+          return ComparisonChain.start()
+             .compare(this.name, other.getName())
+             .compare(this.address.toString(), user1.getAddress().toString())
+             .result();
+     }
+ }
+</code></pre>
+
+<p> 使用guava的ComparisonChain能够在第一个非0比较结果时就结束整个比较操作，但上面的代码中address的toString方法仍然会执行。可以通过使用单独的Comparator来使其延迟计算。</p>
+
+<pre><code class="`"> return ComparisonChain.start()
+             .compare(this.name, other.getName())
+             .compare(this.address, user1.getAddress(), new Comparator&lt;Address&gt;(){
+                 @Override
+                 public int compare(Address a1, Address a2) {
+                     return a1.toString().compareTo(a2.toString());
+                 }
+             })
+             .result();
+</code></pre></li>
+<li><p>提前编译正则表达式</p>
+
+<p> Java中的正则表达式运算是非常耗资源的，因此JDK中有正则参数的方法调用都最好提前编译正则表达式。如String的replaceAll方法，其第一个参数是一个正则表达式，可以通过缓存Pattern来避免每次都创建模式。</p>
+
+<pre><code class="`"> private final Pattern pattern = Pattern.compile(_regex); //全局缓存
+ ...
+ pattern.matcher(“text”).replaceAll("replaceMent"); 
+ ...
+</code></pre></li>
+</ol>
+
 </div>
 
 
@@ -444,7 +509,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "Java开发的几个注意点",
+   issue_title: "Java开发Tips",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
