@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-01T19:38:53+08:00</updated>
+  <updated>2017-09-04T17:15:08+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,331 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[更好地使用Java8中的方法引用]]></title>
+    <link href="http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work/"/>
+    <updated>2017-09-02T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work</id>
+    <content type="html"><![CDATA[<p>在Java8中，使用方法引用非常简单，如String::isEmpty，但无法使用它否定的方法引用。本文内容即如何解决此问题使得我们能够更加全面地使用方法引用。</p>
+
+<p>首先看一个使用方法引用的例子：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Stream.of("A", "", "B").filter(String::isEmpty).count()</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面代码的输出为1，即空字符串的数目。如果我们想要获取非空字符串的数目，就不能直接使用方法引用了。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Stream.of("A", "", "B").filter(s -&gt; !s.isEmpty()).count()</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Java8中的Predicate，有predicate.negate()可以转换为断言的否定形式，但String::isEmpty却无法这么做(String::isEmpty.negate()或者!String::isEmpty)。因为方法引用并不是一个lambda或者函数接口，它能够被解析为一个或者多个函数接口。如，String::isEmpty至少可以被解析如下：</p>
+
+<ul>
+<li><code>Predicate&lt;String&gt;</code></li>
+<li><code>Function&lt;String, Boolean&gt;</code></li>
+</ul>
+
+
+<p>为了解决上述的问题，我们可以通过某种机制显式地将方法引用转换为一个函数接口：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public static &lt;T&gt; Predicate&lt;T&gt; as(Predicate&lt;T&gt; predicate) {
+</span><span class='line'>    return predicate;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>通过使用一个静态方法，接受方法引用参数，返回一个函数接口，即可实现方法引用到函数接口的转换。接着，我们就可以使用方法引用来实现上面例子中的获取非空字符串的数目。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Stream.of("A", "", "B").filter(as(String::isEmpty).negate()).count();</span></code></pre></td></tr></table></div></figure>
+
+
+<p>进一步还能使用各种组合的Predicate。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>.filter(as(String::isEmpty).negate().and("A"::equals))</span></code></pre></td></tr></table></div></figure>
+
+
+<p>由于一个方法引用可能会被解析为多种函数接口，因此如果我们实现很多参数不同的as方法，那么很容易造成混淆。更好的方式则是在方法名中加入函数参数的类型来区分。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+<span class='line-number'>68</span>
+<span class='line-number'>69</span>
+<span class='line-number'>70</span>
+<span class='line-number'>71</span>
+<span class='line-number'>72</span>
+<span class='line-number'>73</span>
+<span class='line-number'>74</span>
+<span class='line-number'>75</span>
+<span class='line-number'>76</span>
+<span class='line-number'>77</span>
+<span class='line-number'>78</span>
+<span class='line-number'>79</span>
+<span class='line-number'>80</span>
+<span class='line-number'>81</span>
+<span class='line-number'>82</span>
+<span class='line-number'>83</span>
+<span class='line-number'>84</span>
+<span class='line-number'>85</span>
+<span class='line-number'>86</span>
+<span class='line-number'>87</span>
+<span class='line-number'>88</span>
+<span class='line-number'>89</span>
+<span class='line-number'>90</span>
+<span class='line-number'>91</span>
+<span class='line-number'>92</span>
+<span class='line-number'>93</span>
+<span class='line-number'>94</span>
+<span class='line-number'>95</span>
+<span class='line-number'>96</span>
+<span class='line-number'>97</span>
+<span class='line-number'>98</span>
+<span class='line-number'>99</span>
+<span class='line-number'>100</span>
+<span class='line-number'>101</span>
+<span class='line-number'>102</span>
+<span class='line-number'>103</span>
+<span class='line-number'>104</span>
+<span class='line-number'>105</span>
+<span class='line-number'>106</span>
+<span class='line-number'>107</span>
+<span class='line-number'>108</span>
+<span class='line-number'>109</span>
+<span class='line-number'>110</span>
+<span class='line-number'>111</span>
+<span class='line-number'>112</span>
+<span class='line-number'>113</span>
+<span class='line-number'>114</span>
+<span class='line-number'>115</span>
+<span class='line-number'>116</span>
+<span class='line-number'>117</span>
+<span class='line-number'>118</span>
+<span class='line-number'>119</span>
+<span class='line-number'>120</span>
+<span class='line-number'>121</span>
+<span class='line-number'>122</span>
+<span class='line-number'>123</span>
+<span class='line-number'>124</span>
+<span class='line-number'>125</span>
+<span class='line-number'>126</span>
+<span class='line-number'>127</span>
+<span class='line-number'>128</span>
+<span class='line-number'>129</span>
+<span class='line-number'>130</span>
+<span class='line-number'>131</span>
+<span class='line-number'>132</span>
+<span class='line-number'>133</span>
+<span class='line-number'>134</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import java.util.function.*;
+</span><span class='line'>
+</span><span class='line'>public class FunctionCastUtil {
+</span><span class='line'>    public static &lt;T, U&gt; BiConsumer&lt;T, U&gt; asBiConsumer(BiConsumer&lt;T, U&gt; biConsumer) {
+</span><span class='line'>        return biConsumer;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T, U, R&gt; BiFunction&lt;T, U, R&gt; asBiFunction(BiFunction&lt;T, U, R&gt; biFunction) {
+</span><span class='line'>        return biFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; BinaryOperator&lt;T&gt; asBinaryOperator(BinaryOperator&lt;T&gt; binaryOperator) {
+</span><span class='line'>        return binaryOperator;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T, U&gt; BiPredicate&lt;T, U&gt; asBiPredicate(BiPredicate&lt;T, U&gt; biPredicate) {
+</span><span class='line'>        return biPredicate;
+</span><span class='line'>    }
+</span><span class='line'>    public static BooleanSupplier asBooleanSupplier(BooleanSupplier booleanSupplier) {
+</span><span class='line'>        return booleanSupplier;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; Consumer&lt;T&gt; asConsumer(Consumer&lt;T&gt; consumer) {
+</span><span class='line'>        return consumer;
+</span><span class='line'>    }
+</span><span class='line'>    public static DoubleBinaryOperator asDoubleBinaryOperator(DoubleBinaryOperator doubleBinaryOperator) {
+</span><span class='line'>        return doubleBinaryOperator;
+</span><span class='line'>    }
+</span><span class='line'>    public static DoubleConsumer asDoubleConsumer(DoubleConsumer doubleConsumer) {
+</span><span class='line'>        return doubleConsumer;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;R&gt; DoubleFunction&lt;R&gt; asDoubleFunction(DoubleFunction&lt;R&gt; doubleFunction) {
+</span><span class='line'>        return doubleFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static DoublePredicate asDoublePredicate(DoublePredicate doublePredicate) {
+</span><span class='line'>        return doublePredicate;
+</span><span class='line'>    }
+</span><span class='line'>    public static DoubleToIntFunction asDoubleToIntFunction(DoubleToIntFunction doubleToIntFunctiontem) {
+</span><span class='line'>        return doubleToIntFunctiontem;
+</span><span class='line'>    }
+</span><span class='line'>    public static DoubleToLongFunction asDoubleToLongFunction(DoubleToLongFunction doubleToLongFunction) {
+</span><span class='line'>        return doubleToLongFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static DoubleUnaryOperator asDoubleUnaryOperator(DoubleUnaryOperator doubleUnaryOperator) {
+</span><span class='line'>        return doubleUnaryOperator;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T, R&gt; Function&lt;T, R&gt; asFunction(Function&lt;T, R&gt; function) {
+</span><span class='line'>        return function;
+</span><span class='line'>    }
+</span><span class='line'>    public static IntBinaryOperator asIntBinaryOperator(IntBinaryOperator intBinaryOperator) {
+</span><span class='line'>        return intBinaryOperator;
+</span><span class='line'>    }
+</span><span class='line'>    public static IntConsumer asIntConsumer(IntConsumer intConsumer) {
+</span><span class='line'>        return intConsumer;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;R&gt; IntFunction&lt;R&gt; asIntFunction(IntFunction&lt;R&gt; intFunction) {
+</span><span class='line'>        return intFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static IntPredicate asIntPredicate(IntPredicate intPredicate) {
+</span><span class='line'>        return intPredicate;
+</span><span class='line'>    }
+</span><span class='line'>    public static IntSupplier asIntSupplier(IntSupplier intSupplier) {
+</span><span class='line'>        return intSupplier;
+</span><span class='line'>    }
+</span><span class='line'>    public static IntToDoubleFunction asIntToDoubleFunction(IntToDoubleFunction intToDoubleFunction) {
+</span><span class='line'>        return intToDoubleFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static IntToLongFunction asIntToLongFunction(IntToLongFunction intToLongFunction) {
+</span><span class='line'>        return intToLongFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static IntUnaryOperator asIntUnaryOperator(IntUnaryOperator intUnaryOperator) {
+</span><span class='line'>        return intUnaryOperator;
+</span><span class='line'>    }
+</span><span class='line'>    public static LongBinaryOperator asLongBinaryOperator(LongBinaryOperator longBinaryOperator) {
+</span><span class='line'>        return longBinaryOperator;
+</span><span class='line'>    }
+</span><span class='line'>    public static LongConsumer asLongConsumer(LongConsumer longConsumer) {
+</span><span class='line'>        return longConsumer;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;R&gt; LongFunction&lt;R&gt; asLongFunction(LongFunction&lt;R&gt; longFunction) {
+</span><span class='line'>        return longFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static LongPredicate asLongPredicate(LongPredicate longPredicate) {
+</span><span class='line'>        return longPredicate;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; LongSupplier asLongSupplier(LongSupplier longSupplier) {
+</span><span class='line'>        return longSupplier;
+</span><span class='line'>    }
+</span><span class='line'>    public static LongToDoubleFunction asLongToDoubleFunction(LongToDoubleFunction longToDoubleFunction) {
+</span><span class='line'>        return longToDoubleFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static LongToIntFunction asLongToIntFunction(LongToIntFunction longToIntFunction) {
+</span><span class='line'>        return longToIntFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static LongUnaryOperator asLongUnaryOperator(LongUnaryOperator longUnaryOperator) {
+</span><span class='line'>        return longUnaryOperator;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; ObjDoubleConsumer&lt;T&gt; asObjDoubleConsumer(ObjDoubleConsumer&lt;T&gt; objDoubleConsumer) {
+</span><span class='line'>        return objDoubleConsumer;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; ObjIntConsumer&lt;T&gt; asObjIntConsumer(ObjIntConsumer&lt;T&gt; objIntConsumer) {
+</span><span class='line'>        return objIntConsumer;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; ObjLongConsumer&lt;T&gt; asObjLongConsumer(ObjLongConsumer&lt;T&gt; objLongConsumer) {
+</span><span class='line'>        return objLongConsumer;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; Predicate&lt;T&gt; asPredicate(Predicate&lt;T&gt; predicate) {
+</span><span class='line'>        return predicate;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; Supplier&lt;T&gt; asSupplier(Supplier&lt;T&gt; supplier) {
+</span><span class='line'>        return supplier;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T, U&gt; ToDoubleBiFunction&lt;T, U&gt; asToDoubleBiFunction(ToDoubleBiFunction&lt;T, U&gt; toDoubleBiFunction) {
+</span><span class='line'>        return toDoubleBiFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; ToDoubleFunction&lt;T&gt; asToDoubleFunction(ToDoubleFunction&lt;T&gt; toDoubleFunction) {
+</span><span class='line'>        return toDoubleFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T, U&gt; ToIntBiFunction&lt;T, U&gt; asToIntBiFunction(ToIntBiFunction&lt;T, U&gt; toIntBiFunction) {
+</span><span class='line'>        return toIntBiFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; ToIntFunction&lt;T&gt; asToIntFunction(ToIntFunction&lt;T&gt; ioIntFunction) {
+</span><span class='line'>        return ioIntFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T, U&gt; ToLongBiFunction&lt;T, U&gt; asToLongBiFunction(ToLongBiFunction&lt;T, U&gt; toLongBiFunction) {
+</span><span class='line'>        return toLongBiFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; ToLongFunction&lt;T&gt; asToLongFunction(ToLongFunction&lt;T&gt; toLongFunction) {
+</span><span class='line'>        return toLongFunction;
+</span><span class='line'>    }
+</span><span class='line'>    public static &lt;T&gt; UnaryOperator&lt;T&gt; asUnaryOperator(UnaryOperator&lt;T&gt; unaryOperator) {
+</span><span class='line'>        return unaryOperator;
+</span><span class='line'>    }
+</span><span class='line'>    private FunctionCastUtil() {
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>Stream.of("A", "", "B").filter(asPredicate(String::isEmpty).negate()).count();</span></code></pre></td></tr></table></div></figure>
+
+
+<p>英文原文：<a href="https://dzone.com/articles/put-your-java-8-method-references-to-work">https://dzone.com/articles/put-your-java-8-method-references-to-work</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[谈谈架构]]></title>
@@ -3221,521 +3546,6 @@ public static String randomString(int i){
 
 
 <p><a href="http://www.rowkey.me/images/blog_images/java-skill-tree.png"><img src="http://www.rowkey.me/images/blog_images/java-skill-tree.png" alt="java-skill-tree" /></a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[谈谈Java内存管理]]></title>
-    <link href="http://www.rowkey.me/blog/2016/05/07/javamm/"/>
-    <updated>2016-05-07T14:59:44+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/05/07/javamm</id>
-    <content type="html"><![CDATA[<h2>目录</h2>
-
-<ul>
-<li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
-<li><a href="#%E4%BA%8C.%20Jvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B">二. Jvm虚拟机内存简介</a></li>
-<li><a href="#%E4%B8%89.%20%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">三. 垃圾收集</a></li>
-<li><a href="#%E5%9B%9B.%20Java7%E3%80%818%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%98%E5%8C%96">四. Java7、8带来的一些变化</a></li>
-</ul>
-
-
-<p><img src="http://www.rowkey.me/images/blog_images/javamm/java.jpg" alt="java" /></p>
-
-<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
-
-<!--more-->
-
-
-<h2><a name='一. 背景知识'></a>一. 背景知识</h2>
-
-<p>根据网络可以找到的资料以及笔者能够打听到的消息，目前国内外著名的几个大型互联网公司的语言选型概括如下：</p>
-
-<ol>
-<li>Google: C/C++ Go Python Java JavaScript，不得不提的是Google贡献给java社区的guava包质量非常高，非常值得学习和使用。</li>
-<li>Youtube、豆瓣: Python</li>
-<li>Fackbook、Yahoo、Flickr、新浪：<strong>php</strong>(优化过的php vm)</li>
-<li>网易、阿里、搜狐: Java、PHP、Node.js</li>
-<li>Twitter: Ruby->Java,之所以如此就在于与Jvm相比，Ruby的runtime是非常慢的。并且Ruby的应用比起Java还是比较小众的。不过最近twitter有往scala上迁移的趋势。</li>
-</ol>
-
-
-<p>可见，虽然最近这些年很多言论都号称java已死或者不久即死，但是Java的语言应用占有率一直居高不下。与高性能的C/C++相比，Java具有gc机制，并且没有那让人望而生畏的指针，上手门槛相对较低；而与上手成本更低的PHP、Ruby等脚本语言来说，又比这些脚本语言有性能上的优势(这里暂时忽略FB自己开发的HHVM)。</p>
-
-<p>对于Java来说，最终是要依靠字节码运行在jvm上的。目前，常见的jvm有以下几种：</p>
-
-<ul>
-<li>Sun HotSpot</li>
-<li>BEA Jrockit</li>
-<li>IBM J9</li>
-<li>Dalvik(Android)</li>
-</ul>
-
-
-<p>其中以HotSpot应用最广泛。目前sun jdk的最新版本已经到了8，但鉴于新版的jdk使用并未普及，因此本文仅仅针对HotSpot虚拟机的jdk6来讲。</p>
-
-<h2><a name='二. Jvm虚拟机内存简介'></a>二. Jvm虚拟机内存简介</h2>
-
-<h3>2.1 Java运行时内存区</h3>
-
-<p>Java的运行时内存组成如下图所示：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/javamm/java-runtime-memory.jpg" alt="java-runtime-memory.jpg" /></p>
-
-<p>其中，对于这各个部分有一些是线程私有的，其他则是线程共享的。</p>
-
-<p><strong>线程私有的如下：</strong></p>
-
-<ul>
-<li><p>程序计数器</p>
-
-<p>  当前线程所执行的字节码的行号指示器</p></li>
-<li><p>Java虚拟机栈</p>
-
-<p>  Java方法执行的内存模型，每个方法被执行时都会创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息。</p>
-
-<ul>
-<li>每个线程都有自己独立的栈空间</li>
-<li>线程栈只存基本类型和对象地址</li>
-<li>方法中局部变量在线程空间中</li>
-</ul>
-</li>
-<li><p>本地方法栈</p>
-
-<p>  Native方法服务。在HotSpot虚拟机中和Java虚拟机栈合二为一。</p></li>
-</ul>
-
-
-<p><strong>线程共享的如下：</strong></p>
-
-<ul>
-<li><p>Java堆</p>
-
-<p>  存放对象实例，几乎所有的对象实例以及其属性都在这里分配内存。</p></li>
-<li><p>方法区</p>
-
-<p>  存储已经被虚拟机加载的类信息、常量、静态变量、JIT编译后的代码等数据。</p></li>
-<li><p>运行时常量池</p>
-
-<p>  方法区的一部分。用于存放编译期生成的各种字面量和符号引用。</p></li>
-<li><p>直接内存</p>
-
-<p>  NIO、Native函数直接分配的堆外内存。DirectBuffer引用也会使用此部分内存。</p></li>
-</ul>
-
-
-<h3>2.2 对象访问</h3>
-
-<p>Java是面向对象的一种编程语言，那么如何通过引用来访问对象呢？一般有两种方式：</p>
-
-<ol>
-<li><p>通过句柄访问</p>
-
-<p> <image src="http://www.rowkey.me/images/blog_images/javamm/access_object_handler.png" width="500px"/></p></li>
-<li><p>直接指针</p>
-
-<p> <image src="http://www.rowkey.me/images/blog_images/javamm/access_direct.png" width="500px"/></p>
-
-<p> 此种方式也是HotSpot虚拟机采用的方式。</p></li>
-</ol>
-
-
-<h3>2.3 内存溢出</h3>
-
-<p>在JVM申请内存的过程中，会遇到无法申请到足够内存，从而导致内存溢出的情况。一般有以下几种情况：</p>
-
-<ul>
-<li>虚拟机栈和本地方法栈溢出
-
-<ul>
-<li>StackOverflowError: 线程请求的栈深度大于虚拟机所允许的最大深度(循环递归)</li>
-<li>OutOfMemoryError: 虚拟机在扩展栈是无法申请到足够的内存空间，一般可以通过不停地创建线程引起此种情况</li>
-</ul>
-</li>
-<li>Java堆溢出: 当创建大量对象并且对象生命周期都很长的情况下，会引发OutOfMemoryError</li>
-<li>运行时常量区溢出：OutOfMemoryError:PermGen space，这里一个典型的例子就是String的intern方法，当大量字符串使用intern时，会触发此内存溢出</li>
-<li>方法区溢出：方法区存放Class等元数据信息，如果产生大量的类(使用cglib)，那么就会引发此内存溢出，OutOfMemoryError:PermGen space，在使用Hibernate等框架时会容易引起此种情况。</li>
-</ul>
-
-
-<h2><a name='三. 垃圾收集'></a>三. 垃圾收集</h2>
-
-<h3>3.1 理论基础</h3>
-
-<p>在通常情况下，我们掌握java的内存管理就是为了应对网站/服务访问慢，慢的原因一般有以下几点：</p>
-
-<ul>
-<li>内存：垃圾收集占用cpu；放入了太多数据，造成内存泄露(java也是有这种问题的^_^)</li>
-<li>线程死锁</li>
-<li>I/O速度太慢</li>
-<li>依赖的其他服务响应太慢</li>
-<li>复杂的业务逻辑或者算法造成响应的缓慢</li>
-</ul>
-
-
-<p>其中，垃圾收集对性能的影响一般有以下几个：</p>
-
-<ul>
-<li>内存泄露</li>
-<li>程序暂停</li>
-<li>程序吞吐量显著下降</li>
-<li>响应时间变慢</li>
-</ul>
-
-
-<h4>垃圾收集的一些基本概念</h4>
-
-<ul>
-<li>Concurrent Collector:收集的同时可运行其他的工作进程</li>
-<li>Parallel Collector: 使用多CPU进行垃圾收集</li>
-<li>Stop-the-word(STW):收集时必须暂停其他所有的工作进程</li>
-<li>Sticky-reference-count：对于使用“引用计数”（reference count）算法的GC，如果对象的计数器溢出，则起不到标记某个对象是垃圾的作用了，这种错误称为sticky-reference-count problem，通常可以增加计数器的bit数来减少出现这个问题的几率，但是那样会占用更多空间。一般如果GC算法能迅速清理完对象，也不容易出现这个问题。</li>
-<li>Mutator：mutate的中文是变异，在GC中即是指一种JVM程序，专门更新对象的状态的，也就是让对象“变异”成为另一种类型，比如变为垃圾。</li>
-<li>On-the-fly：用来描述某个GC的类型：on-the-fly reference count garbage collector。此GC不用标记而是通过引用计数来识别垃圾。</li>
-<li>Generational gc：这是一种相对于传统的“标记-清理”技术来说，比较先进的gc，特点是把对象分成不同的generation，即分成几代人，有年轻的，有年老的。这类gc主要是利用计算机程序的一个特点，即“越年轻的对象越容易死亡”，也就是存活的越久的对象越有机会存活下去（姜是老的辣）。</li>
-</ul>
-
-
-<h4>吞吐量与响应时间</h4>
-
-<p>牵扯到垃圾收集，还需要搞清楚吞吐量与响应时间的含义</p>
-
-<ul>
-<li>吞吐量是对单位时间内完成的工作量的量度。如：每分钟的 Web 服务器请求数量</li>
-<li>响应时间是提交请求和返回该请求的响应之间使用的时间。如：访问Web页面花费的时间</li>
-</ul>
-
-
-<p>吞吐量与访问时间的关系很复杂，有时可能以响应时间为代价而得到较高的吞吐量，而有时候又要以吞吐量为代价得到较好的响应时间。而在其他情况下，一个单独的更改可能对两者都有提高。通常，平均响应时间越短，系统吞吐量越大；平均响应时间越长，系统吞吐量越小；
-但是，系统吞吐量越大， 未必平均响应时间越短；因为在某些情况（例如，不增加任何硬件配置）吞吐量的增大，有时会把平均响应时间作为牺牲，来换取一段时间处理更多的请求。</p>
-
-<p>针对于Java的垃圾回收来说，不同的垃圾回收器会不同程度地影响这两个指标。例如：并行的垃圾收集器，其保证的是吞吐量，会在一定程度上牺牲响应时间。而并发的收集器，则主要保证的是请求的响应时间。</p>
-
-<h4>GC的流程</h4>
-
-<ul>
-<li>找出堆中活着的对象</li>
-<li>释放死对象占用的资源</li>
-<li>定期调整活对象的位置</li>
-</ul>
-
-
-<h4>GC算法</h4>
-
-<ul>
-<li>Mark-Sweep 标记-清除</li>
-<li>Mark-Sweep-Compact 标记-整理</li>
-<li><p>Copying Collector 复制算法</p></li>
-<li><p>Mark-标记</p>
-
-<p> 从&#8221;GC roots&#8221;开始扫描(这里的roots包括线程栈、静态常量等)，给能够沿着roots到达的对象标记为&#8221;live&#8221;,最终所有能够到达的对象都被标记为&#8221;live&#8221;,而无法到达的对象则为&#8221;dead&#8221;。效率和存活对象的数量是线性相关的。</p></li>
-<li><p>Sweep-清除</p>
-
-<p> 扫描堆，定位到所有&#8221;dead&#8221;对象，并清理掉。效率和堆的大小是线性相关的。</p></li>
-<li><p>Compact-压缩</p>
-
-<p> 对于对象的清除，会产生一些内存碎片，这时候就需要对这些内存进行压缩、整理。包括：relocate(将存货的对象移动到一起，从而释放出连续的可用内存)、remap(收集所有的对象引用指向新的对象地址)。效率和存活对象的数量是线性相关的。</p></li>
-<li><p>Copy-复制</p>
-
-<p> 将内存分为&#8221;from&#8221;和&#8221;to&#8221;两个区域，垃圾回收时，将from区域的存活对象整体复制到to区域中。效率和存活对象的数量是线性相关的。</p></li>
-</ul>
-
-
-<p>其中，Copy对比Mark-sweep</p>
-
-<ol>
-<li>内存消耗：copy需要两倍的最大live set内存；mark-sweep则只需要一倍。</li>
-<li>效率上：copy与live set成线性相关，效率高；mark-sweep则与堆大小线性相关，效率较低。</li>
-</ol>
-
-
-<h4>分代收集</h4>
-
-<p>分代收集是目前比较先进的垃圾回收方案。有以下几个相关理论</p>
-
-<ul>
-<li>分代假设：大部分对象的寿命很短，“朝生夕死”，重点放在对年青代对象的收集，而且年青代通常只占整个空间的一小部分。</li>
-<li>把年青代里活的很长的对象移动到老年代。</li>
-<li>只有当老年代满了才去收集。</li>
-<li>收集效率明显比不分代高。</li>
-</ul>
-
-
-<p>HotSpot虚拟机的分代收集，分为一个Eden区、两个Survivor去以及Old Generation/Tenured区，其中Eden以及Survivor共同组成New Generatiton/Young space。通常将对New Generation进行的回收称为Minor GC;对Old Generation进行的回收称为Major GC，但由于Major GC除并发GC外均需对整个堆以及Permanent Generation进行扫描和回收，因此又称为Full GC。</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/javamm/hotspot-gc.png" width="300px"/></p>
-
-<ul>
-<li>Eden区是分配对象的区域。</li>
-<li>Survivor是minor/younger gc后存储存活对象的区域。</li>
-<li>Tenured区域存储长时间存活的对象。</li>
-</ul>
-
-
-<p>分代收集中典型的垃圾收集算法组合描述如下：</p>
-
-<ul>
-<li>年青代通常使用Copy算法收集，会stop the world</li>
-<li>老年代收集一般采用Mark-sweep-compact, 有可能会stop the world，也可以是concurrent或者部分concurrent。</li>
-</ul>
-
-
-<p>那么何时进行Minor GC、何时进行Major GC? 一般的过程如下：</p>
-
-<ul>
-<li>对象在Eden Space完成内存分配</li>
-<li>当Eden Space满了，再创建对象，会因为申请不到空间，触发Minor GC，进行New(Eden + S0 或 Eden S1) Generation进行垃圾回收</li>
-<li>Minor GC时，Eden Space不能被回收的对象被放入到空的Survivor（S0或S1，Eden肯定会被清空），另一个Survivor里不能被GC回收的对象也会被放入这个Survivor，始终保证一个Survivor是空的</li>
-<li>在Step3时，如果发现Survivor区满了，则这些对象被copy到old区，或者Survivor并没有满，但是有些对象已经足够Old，也被放入Old Space。</li>
-<li>当Old Space被放满之后，进行Full GC</li>
-</ul>
-
-
-<p>但这个具体还要看JVM是采用的哪种GC方案。</p>
-
-<p>New Generation的GC有以下三种：</p>
-
-<ul>
-<li>Serial</li>
-<li>ParallelScavenge</li>
-<li>ParNew</li>
-</ul>
-
-
-<p>对于上述三种GC方案均是在Eden Space分配不下时，触发GC。</p>
-
-<p>Old Generation的GC有以下四种：</p>
-
-<ul>
-<li>Serial Old</li>
-<li>Parallel</li>
-<li>CMS</li>
-</ul>
-
-
-<p>对于Serial Old, Parallel Old而言触发机制为</p>
-
-<ul>
-<li>Old Generation空间不足</li>
-<li>Permanent Generation空间不足</li>
-<li>Minor GC时的悲观策略</li>
-<li>Minor GC后在Eden上分配内存仍然失败</li>
-<li>执行Heap Dump时</li>
-<li>外部调用System.gc,可通过-XX:+DisableExplicitGC来禁止,。这里需要注意的是禁用System.gc()会引起使用NIO时的OOM，所以此选项慎重使用。具体可见：<a href="http://hllvm.group.iteye.com/group/topic/27945">http://hllvm.group.iteye.com/group/topic/27945</a>。</li>
-</ul>
-
-
-<p>对于CMS而言触发机制为:</p>
-
-<ul>
-<li>当Old Generation空间使用到一定比率时触发，HopSpot V1.6中默认是92%，可通过PrintCMSInitiationStatistics(此参数在V1.5中不能用)来查看这个值到底是多少，通过CMSInitiatingOccupancyFaction来强制指定。默认值是根据如下公式计算出来的:((100 -MinHeapFreeRatio) +(double)(CMSTriggerRatio* MinHeapFreeRatio) / 100.0)/ 100.0，MinHeapFreeRatio默认值为40，CMSTriggerRatio默认值为80。</li>
-<li>当Permanent Generation采用CMS收集且空间使用到一定比率触发，Permanent Generation采用CMS收集需设置：-XX:+CMSClassUnloadingEnabled。 Hotspot V1.6中默认为92%，可通过CMSInitiatingPermOccupancyFraction来强制指定。同样，它是根据如下公式计算出来的：((100 -MinHeapFreeRatio) +(double)(CMSTriggerPermRatio* MinHeapFreeRatio) / 100.0)/ 100.0，MinHeapFreeRatio默认值为40，CMSTriggerPermRatio默认值为80。</li>
-<li>Hotspot根据成本计算决定是否需要执行CMS GC，可通过-XX:+UseCmsInitiatingOccupancyOnly来去掉这个动态执行的策略。</li>
-<li>外部调用System.gc，且设置了ExplicitGCIInvokesConcurrent或者ExplicitGCInvokesConcurrentAndUnloadsClasses。</li>
-</ul>
-
-
-<h3>3.2 HotSpot垃圾收集器</h3>
-
-<p><image src="http://www.rowkey.me/images/blog_images/javamm/hotspot-collector.png" width="300px"/></p>
-
-<p>上图即为HotSpot虚拟机的垃圾收集器组成。</p>
-
-<h4>Serial收集器</h4>
-
-<ul>
-<li>-XX:+UserSerialGC参数打开此收集器</li>
-<li>Client模式下新生代默认的收集器。</li>
-<li>较长的stop the world时间</li>
-<li>简单而高效</li>
-</ul>
-
-
-<p>此收集器的一个工作流程如下如所示：</p>
-
-<p>收集前：</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/javamm/serial_before.png" width="400px"/></p>
-
-<p>收集后：</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/javamm/serial_after.png" width="400px"/></p>
-
-<h4>ParNew收集器</h4>
-
-<ul>
-<li>-XX:+UserParNewGC</li>
-<li>+UseConcuMarkSweepGC时默认开启</li>
-<li>Serial收集器的多线程版本</li>
-<li>默认线程数与CPU数目相同</li>
-<li>-XX:ParrallelGCThreads指定线程数目</li>
-</ul>
-
-
-<p>对比Serial收集器如下图所示：</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/javamm/parnew.png" width="400px"/></p>
-
-<h4>Parallel Scavenge收集器</h4>
-
-<ul>
-<li>新生代并行收集器</li>
-<li>采用Copy算法</li>
-<li>主要关注的是达到可控制的吞吐量，“吞吐量优先”</li>
-<li>-XX:MaxGCPauseMillis -XX:GCTimeRation两个参数精确控制吞吐量</li>
-<li>-XX:UseAdaptiveSizePolicy GC自适应调节策略，默认开启</li>
-<li>Server模式的默认新生代收集器</li>
-</ul>
-
-
-<h4>Serial Old收集器</h4>
-
-<ul>
-<li>Serial的老年代版本</li>
-<li>Client模式的默认老年代收集器</li>
-<li>CMS收集器的后备预案，Concurrent Mode Failure时使用</li>
-<li>-XX:+UseSerialGC开启此收集器</li>
-</ul>
-
-
-<h4>Parallel Old收集器</h4>
-
-<ul>
-<li>-XX:+UseParallelGC -XX:+UseParallelOldGC启用此收集器</li>
-<li>Server模式的默认老年代收集器</li>
-<li>Parallel Scavenge的老年代版本，使用多线程和&#8221;mark-sweep&#8221;算法</li>
-<li>关注点在吞吐量以及CPU资源敏感的场合使用</li>
-<li>一般使用Parallel Scavenge + Parallel Old可以达到最大吞吐量保证</li>
-</ul>
-
-
-<h4>CMS收集器</h4>
-
-<p>并发低停顿收集器</p>
-
-<ul>
-<li>-XX:UseConcMarkSweepGC 开启CMS收集器，(默认使用ParNew作为年轻代收集器，SerialOld作为收集失败的垃圾收集器)</li>
-<li>以获取最短回收停顿时间为目标的收集器，重视响应速度，希望系统停顿时间最短，适合互联网应用。</li>
-</ul>
-
-
-<p>四个步骤：</p>
-
-<ul>
-<li>初始标记 Stop the world: 只标记GC roots能直接关联到的对象，速度很快。</li>
-<li>并发标记：进行GC roots tracing，与用户线程并发进行</li>
-<li>重新标记 Stop the world：修正并发标记期间因程序继续运行导致变动的标记记录</li>
-<li>并发清除</li>
-</ul>
-
-
-<p>对比serial old收集器如下图所示：</p>
-
-<p><image src="http://www.rowkey.me/images/blog_images/javamm/cms.png" width="400px"/></p>
-
-<p>CMS有以下的缺点：</p>
-
-<ul>
-<li>CMS是唯一不进行compact的垃圾收集器，当cms释放了垃圾对象占用的内存后，它不会把活动对象移动到老年代的一端</li>
-<li>对CPU资源非常敏感。不会导致线程停顿，但会导致程序变慢，总吞吐量降低。CPU核越多越不明显</li>
-<li>无法处理浮动垃圾。可能出现“concurrent Mode Failure”失败， 导致另一次full GC ,可以通过调整-XX:CMSInitiatingOccupancyFraction来控制内存占用达到多少时触发gc</li>
-<li>大量空间碎片。这个可以通过设置-XX:UseCMSCompacAtFullCollection(是否在full gc时开启compact)以及-XX:CMSFullGCsBeforeCompaction(在进行compact前full gc的次数)</li>
-</ul>
-
-
-<h4>G1收集器</h4>
-
-<p>G1算法在Java6中还是试验性质的，在Java7中正式引入，但还未被广泛运用到生产环境中。它的特点如下：</p>
-
-<ul>
-<li>使用标记-清理算法</li>
-<li>不会产生碎片</li>
-<li>可预测的停顿时间</li>
-<li>化整为零：将整个Java堆划分为多个大小相等的独立区域</li>
-<li>-XX:+UseG1GC可以打开此垃圾回收器</li>
-<li>-XX:MaxGCPauseMillis=200可以设置最大GC停顿时间，当然JVM并不保证一定能够达到，只是尽力。</li>
-</ul>
-
-
-<p><image src="http://www.rowkey.me/images/blog_images/javamm/g1.png" width="500px"/></p>
-
-<h3>3.3 调优经验</h3>
-
-<ul>
-<li>需要打开gc日志并读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamp -Xloggc:$CATALINA_BASE/logs/gc.log</li>
-<li>垃圾回收的最佳状态是只有young gc，也就是避免生命周期很长的对象的存在。</li>
-<li>从young gc开始，尽量给年青代大点的内存，避免full gc</li>
-<li>注意Survivor大小</li>
-<li>注意内存墙：4G~5G</li>
-</ul>
-
-
-<h4>GC日志简介</h4>
-
-<p>1403682.561: [GC [PSYoungGen: 1375104K->11376K(1386176K)] 4145665K->2782002K(4182400K), 0.0174410 secs] [Times: user=0.27 sys=0.00, real=0.02 secs]</p>
-
-<ul>
-<li>1403682.561：发生的时间点，JVM运行的时间长度，以度为单位，也可以格式化成固定的时间格式(使用-XX:+PrintGCDateStamps)</li>
-<li>PSYoungGen：发生了何种类型的GC，此处代表发生了年轻代的GC</li>
-<li>1375104K：回收前的大小</li>
-<li>11376K：回收后的大小</li>
-<li>1386176K：YOUNG代的大小</li>
-<li>4145665 K：回收前总的占用大小</li>
-<li>2782002K：回收后的占用大小</li>
-<li>4182400K：总占用大小</li>
-<li>0.0174410：垃圾收集停顿时间</li>
-<li>0.27和0.00：代表在用户态(user)和系统状(sys)的CPU运行时间</li>
-<li>0.02 secs：代表实际的GC的运行时间</li>
-</ul>
-
-
-<p>注：上面实际GC的运行时间小于用户态和系统态的时间总和，是由于前者仅指CPU的运行时间，包括等待或IO阻塞的时间，而现在的GC是采用多线程收集的，同时机器也是多个CPU，因此，大部分是二者之和要比前面的值大。如果是采用串形化收集器的话，二者时间几乎相差不多。</p>
-
-<h4>老年代使用建议</h4>
-
-<ul>
-<li>Parallel GC(-XX:+UseParallel[Old]GC)
-
-<ul>
-<li>Parallel GC的minor GC时间是最快的， CMS的young gc要比parallel慢， 因为内存碎片</li>
-<li>可以保证最大的吞吐量</li>
-</ul>
-</li>
-<li><strong>确实有必要才改成CMS或G1(for old gen collections)</strong></li>
-</ul>
-
-
-<h4>开发建议</h4>
-
-<ul>
-<li>小对象allocate的代价很小，通常10个CPU指令；收集掉新对象也非常廉价；不用担心活的很短的小对象</li>
-<li>大对象分配的代价以及初始化的代价很大；不同大小的大对象可能导致java堆碎片，尤其是CMS, ParallelGC 或 G1还好；尽量避免分配大对象</li>
-<li>避免改变数据结构大小，如避免改变数组或array backed collections / containers的大小;对象构建（初始化）时最好显式批量定数组大小;改变大小导致不必要的对象分配，可能导致java堆碎片</li>
-<li>对象池可能潜在的问题
-
-<ul>
-<li>增加了活对象的数量，可能增加GC时间</li>
-<li>访问（多线程）对象池需要锁，可能带来可扩展性的问题</li>
-<li>小心过于频繁的对象池访问</li>
-</ul>
-</li>
-</ul>
-
-
-<h4>GC的庞氏骗局</h4>
-
-<p>虽然GC在大多数情况下还是正常的，但有时候JVM也会发生欺骗你的场景， JVM不停的在垃圾回收，可是每次回收完后堆却还是满的，很明显程序内存被使用完了，已经无法正常工作了，但JVM就是不抛出OutOfMemoryError(OOM)这个异常来告诉程序员内部发出了什么，只是不停的做老好人尝试帮我们做垃圾回收，把服务器的资源耗光了。</p>
-
-<p>出现这种现象的一种典型情况就是GC的GCTimeLimit和GCHeapFreeLimit参数设置不合适。GCTimeLimit的默认值是98%，也就是说如果大于等于98%的时间都用花在GC上，则会抛出OutOfMemoryError。GCHeapFreeLimit是回收后可用堆的大小，默认值是2%，也就是说只要有多余2%的内存可用就认为此次gc是成功的。如果GCTimeLimit设置过大或者GCHeapFreeLimit设置过小那么就会造成GC的庞式骗局，不停地进行垃圾回收。</p>
-
-<h2><a name='四. Java7、8带来的一些变化'></a>四. Java7、8带来的一些变化</h2>
-
-<ul>
-<li>Java7带来的内存方面的一个很大的改变就是String常量池从Perm区移动到了Heap中。调用String的intern方法时，如果存在堆中的对象，则会直接保存对象的引用，而不会重新创建对象。</li>
-<li>Java7正式引入G1垃圾收集器用于替换CMS。</li>
-<li>Java8中，取消掉了方法区(永久代)，使用“元空间”替代，元空间只与系统内存相关，也可以通过MaxMeatSize设置，防止无限耗尽系统内存。</li>
-<li>Java 8 update 20所引入的一个很棒的优化就是G1回收器中的字符串去重（String deduplication）。由于字符串(包括它们内部的char[]数组）占用了大多数的堆空间，这项新的优化旨在使得G1回收器能识别出堆中那些重复出现的字符串并将它们指向同一个内部的char[]数组，以避免同一个字符串的多份拷贝，那样堆的使用效率会变得很低。可以使用-XX:+UseStringDeduplication这个JVM参数来试一下这个特性。</li>
-</ul>
-
 ]]></content>
   </entry>
   

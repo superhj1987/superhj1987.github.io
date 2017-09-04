@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-01T19:38:53+08:00</updated>
+  <updated>2017-09-04T17:15:08+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,190 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[更好地使用Java8中的方法引用]]></title>
+    <link href="http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work/"/>
+    <updated>2017-09-02T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work</id>
+    <content type="html"><![CDATA[<p>在Java8中，使用方法引用非常简单，如String::isEmpty，但无法使用它否定的方法引用。本文内容即如何解决此问题使得我们能够更加全面地使用方法引用。</p>
+
+<p>首先看一个使用方法引用的例子：</p>
+
+<pre><code>Stream.of("A", "", "B").filter(String::isEmpty).count()
+</code></pre>
+
+<p>上面代码的输出为1，即空字符串的数目。如果我们想要获取非空字符串的数目，就不能直接使用方法引用了。</p>
+
+<pre><code>Stream.of("A", "", "B").filter(s -&gt; !s.isEmpty()).count()
+</code></pre>
+
+<p>Java8中的Predicate，有predicate.negate()可以转换为断言的否定形式，但String::isEmpty却无法这么做(String::isEmpty.negate()或者!String::isEmpty)。因为方法引用并不是一个lambda或者函数接口，它能够被解析为一个或者多个函数接口。如，String::isEmpty至少可以被解析如下：</p>
+
+<ul>
+<li><code>Predicate&lt;String&gt;</code></li>
+<li><code>Function&lt;String, Boolean&gt;</code></li>
+</ul>
+
+
+<p>为了解决上述的问题，我们可以通过某种机制显式地将方法引用转换为一个函数接口：</p>
+
+<pre><code>public static &lt;T&gt; Predicate&lt;T&gt; as(Predicate&lt;T&gt; predicate) {
+    return predicate;
+}
+</code></pre>
+
+<p>通过使用一个静态方法，接受方法引用参数，返回一个函数接口，即可实现方法引用到函数接口的转换。接着，我们就可以使用方法引用来实现上面例子中的获取非空字符串的数目。</p>
+
+<pre><code>Stream.of("A", "", "B").filter(as(String::isEmpty).negate()).count();
+</code></pre>
+
+<p>进一步还能使用各种组合的Predicate。</p>
+
+<pre><code>.filter(as(String::isEmpty).negate().and("A"::equals))
+</code></pre>
+
+<p>由于一个方法引用可能会被解析为多种函数接口，因此如果我们实现很多参数不同的as方法，那么很容易造成混淆。更好的方式则是在方法名中加入函数参数的类型来区分。</p>
+
+<pre><code>import java.util.function.*;
+
+public class FunctionCastUtil {
+    public static &lt;T, U&gt; BiConsumer&lt;T, U&gt; asBiConsumer(BiConsumer&lt;T, U&gt; biConsumer) {
+        return biConsumer;
+    }
+    public static &lt;T, U, R&gt; BiFunction&lt;T, U, R&gt; asBiFunction(BiFunction&lt;T, U, R&gt; biFunction) {
+        return biFunction;
+    }
+    public static &lt;T&gt; BinaryOperator&lt;T&gt; asBinaryOperator(BinaryOperator&lt;T&gt; binaryOperator) {
+        return binaryOperator;
+    }
+    public static &lt;T, U&gt; BiPredicate&lt;T, U&gt; asBiPredicate(BiPredicate&lt;T, U&gt; biPredicate) {
+        return biPredicate;
+    }
+    public static BooleanSupplier asBooleanSupplier(BooleanSupplier booleanSupplier) {
+        return booleanSupplier;
+    }
+    public static &lt;T&gt; Consumer&lt;T&gt; asConsumer(Consumer&lt;T&gt; consumer) {
+        return consumer;
+    }
+    public static DoubleBinaryOperator asDoubleBinaryOperator(DoubleBinaryOperator doubleBinaryOperator) {
+        return doubleBinaryOperator;
+    }
+    public static DoubleConsumer asDoubleConsumer(DoubleConsumer doubleConsumer) {
+        return doubleConsumer;
+    }
+    public static &lt;R&gt; DoubleFunction&lt;R&gt; asDoubleFunction(DoubleFunction&lt;R&gt; doubleFunction) {
+        return doubleFunction;
+    }
+    public static DoublePredicate asDoublePredicate(DoublePredicate doublePredicate) {
+        return doublePredicate;
+    }
+    public static DoubleToIntFunction asDoubleToIntFunction(DoubleToIntFunction doubleToIntFunctiontem) {
+        return doubleToIntFunctiontem;
+    }
+    public static DoubleToLongFunction asDoubleToLongFunction(DoubleToLongFunction doubleToLongFunction) {
+        return doubleToLongFunction;
+    }
+    public static DoubleUnaryOperator asDoubleUnaryOperator(DoubleUnaryOperator doubleUnaryOperator) {
+        return doubleUnaryOperator;
+    }
+    public static &lt;T, R&gt; Function&lt;T, R&gt; asFunction(Function&lt;T, R&gt; function) {
+        return function;
+    }
+    public static IntBinaryOperator asIntBinaryOperator(IntBinaryOperator intBinaryOperator) {
+        return intBinaryOperator;
+    }
+    public static IntConsumer asIntConsumer(IntConsumer intConsumer) {
+        return intConsumer;
+    }
+    public static &lt;R&gt; IntFunction&lt;R&gt; asIntFunction(IntFunction&lt;R&gt; intFunction) {
+        return intFunction;
+    }
+    public static IntPredicate asIntPredicate(IntPredicate intPredicate) {
+        return intPredicate;
+    }
+    public static IntSupplier asIntSupplier(IntSupplier intSupplier) {
+        return intSupplier;
+    }
+    public static IntToDoubleFunction asIntToDoubleFunction(IntToDoubleFunction intToDoubleFunction) {
+        return intToDoubleFunction;
+    }
+    public static IntToLongFunction asIntToLongFunction(IntToLongFunction intToLongFunction) {
+        return intToLongFunction;
+    }
+    public static IntUnaryOperator asIntUnaryOperator(IntUnaryOperator intUnaryOperator) {
+        return intUnaryOperator;
+    }
+    public static LongBinaryOperator asLongBinaryOperator(LongBinaryOperator longBinaryOperator) {
+        return longBinaryOperator;
+    }
+    public static LongConsumer asLongConsumer(LongConsumer longConsumer) {
+        return longConsumer;
+    }
+    public static &lt;R&gt; LongFunction&lt;R&gt; asLongFunction(LongFunction&lt;R&gt; longFunction) {
+        return longFunction;
+    }
+    public static LongPredicate asLongPredicate(LongPredicate longPredicate) {
+        return longPredicate;
+    }
+    public static &lt;T&gt; LongSupplier asLongSupplier(LongSupplier longSupplier) {
+        return longSupplier;
+    }
+    public static LongToDoubleFunction asLongToDoubleFunction(LongToDoubleFunction longToDoubleFunction) {
+        return longToDoubleFunction;
+    }
+    public static LongToIntFunction asLongToIntFunction(LongToIntFunction longToIntFunction) {
+        return longToIntFunction;
+    }
+    public static LongUnaryOperator asLongUnaryOperator(LongUnaryOperator longUnaryOperator) {
+        return longUnaryOperator;
+    }
+    public static &lt;T&gt; ObjDoubleConsumer&lt;T&gt; asObjDoubleConsumer(ObjDoubleConsumer&lt;T&gt; objDoubleConsumer) {
+        return objDoubleConsumer;
+    }
+    public static &lt;T&gt; ObjIntConsumer&lt;T&gt; asObjIntConsumer(ObjIntConsumer&lt;T&gt; objIntConsumer) {
+        return objIntConsumer;
+    }
+    public static &lt;T&gt; ObjLongConsumer&lt;T&gt; asObjLongConsumer(ObjLongConsumer&lt;T&gt; objLongConsumer) {
+        return objLongConsumer;
+    }
+    public static &lt;T&gt; Predicate&lt;T&gt; asPredicate(Predicate&lt;T&gt; predicate) {
+        return predicate;
+    }
+    public static &lt;T&gt; Supplier&lt;T&gt; asSupplier(Supplier&lt;T&gt; supplier) {
+        return supplier;
+    }
+    public static &lt;T, U&gt; ToDoubleBiFunction&lt;T, U&gt; asToDoubleBiFunction(ToDoubleBiFunction&lt;T, U&gt; toDoubleBiFunction) {
+        return toDoubleBiFunction;
+    }
+    public static &lt;T&gt; ToDoubleFunction&lt;T&gt; asToDoubleFunction(ToDoubleFunction&lt;T&gt; toDoubleFunction) {
+        return toDoubleFunction;
+    }
+    public static &lt;T, U&gt; ToIntBiFunction&lt;T, U&gt; asToIntBiFunction(ToIntBiFunction&lt;T, U&gt; toIntBiFunction) {
+        return toIntBiFunction;
+    }
+    public static &lt;T&gt; ToIntFunction&lt;T&gt; asToIntFunction(ToIntFunction&lt;T&gt; ioIntFunction) {
+        return ioIntFunction;
+    }
+    public static &lt;T, U&gt; ToLongBiFunction&lt;T, U&gt; asToLongBiFunction(ToLongBiFunction&lt;T, U&gt; toLongBiFunction) {
+        return toLongBiFunction;
+    }
+    public static &lt;T&gt; ToLongFunction&lt;T&gt; asToLongFunction(ToLongFunction&lt;T&gt; toLongFunction) {
+        return toLongFunction;
+    }
+    public static &lt;T&gt; UnaryOperator&lt;T&gt; asUnaryOperator(UnaryOperator&lt;T&gt; unaryOperator) {
+        return unaryOperator;
+    }
+    private FunctionCastUtil() {
+    }
+}
+
+Stream.of("A", "", "B").filter(asPredicate(String::isEmpty).negate()).count();
+</code></pre>
+
+<p>英文原文：<a href="https://dzone.com/articles/put-your-java-8-method-references-to-work">https://dzone.com/articles/put-your-java-8-method-references-to-work</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[谈谈架构]]></title>
@@ -403,63 +587,6 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 -XX:GCHeapFreeLimit=2 #gc回收后小于百分之多少抛出OutOfMemoryError
 -Xloggc:/home/logs/gc.log
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何读取ClassPath下的资源]]></title>
-    <link href="http://www.rowkey.me/blog/2017/02/20/read-classpath-resource/"/>
-    <updated>2017-02-20T22:21:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/02/20/read-classpath-resource</id>
-    <content type="html"><![CDATA[<p>最近在写一些公共组件时，碰到了需要读取classpath下文件的场景。也突然想起其实之前有很多场景牵扯到读取类加载路径下的文件内容、路径，包括非jar包和jar包中的。总结一下，以备后续使用。</p>
-
-<!--more-->
-
-
-<p>由于获取类路径下的资源文件的都是基于URL的，因此这里需要先讲述一下URL的概念。URL(Uniform Resource Locator)即统一资源定位器，指向互联网资源的指针，是一种具体的资源。其一般的形式，如：</p>
-
-<p><code>scheme:[//host][:port][path][?query][#fragment]</code></p>
-
-<p>scheme包括：http、https、file、jar等。一个例子：file:/User/root/test.jar?time=123431212, 其中：schema为file，path为/root/test.jar, query为time=123431212。</p>
-
-<p>这里需要区分URL和URI。URI, Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。其一般形式：</p>
-
-<p><code>[scheme:][//authority][path][?query][#fragment]</code></p>
-
-<p>其中，authority为[user-info@]host[:port]</p>
-
-<p>可见，URL是一种具体的URI，只不过其scheme是非空的，它不仅仅标识一个资源，也能定位一个资源（即通过url能够访问到这个资源），因此其必须是绝对地址，即使是相对url，其本质也是相对于某绝对url来讲的，也是一个绝对地址。而URI可以是绝对的也可以是相对的，只要能够标识即可。</p>
-
-<p>此外，URL和URI的不同之处还在于前者不提供对标准RFC2396规定的特殊字符的转义，因此需要调用者自己对URL各组成部分进行encode。而java.net.URI则会提供转义功能。这两者可以通过URI.toURL()和URL.toURI()来互相转换。</p>
-
-<p>这里需要指出的是，如果是想直接读取类路径下的资源的内容，那么使用下面的方法是万能的。</p>
-
-<p><code>ClassLoader.getResourceAsStream(String classpathRecourcePath)</code></p>
-
-<p>需要注意的是有时候jar包中的类并非和你应用的类使用的是同一类加载器(写intellij插件的时候就会存在这种问题)，这时候需要选择对应的ClassLoader。</p>
-
-<p>此外，有些场景是需要获取到类路径下的资源路径信息的，可以选用以下三种方法：</p>
-
-<ul>
-<li><p>ClassLoader.getResource(String classpathFilePath)`</p>
-
-<p>  此方法的加载过程类似“双亲委派机制”，当父加载器无法获取到资源时，自己才去尝试获取。但需要注意的是以 / 开头的资源是在类加载器目录下的资源，并非指的是当前应用的类加载路径下的资源。如果资源是位于classpath下的不要以 / 开头。</p></li>
-<li><p><code>Class&lt;?&gt;.getResource(String classpathFilePath)</code></p>
-
-<p>  此方法最终还是对上面的方法的调用。不同的是，此方法会对传入的路径参数做处理，并且会尝试去获取类加载器。</p>
-
-<ul>
-<li>当路径信息不以 / 开头时，获取的是相对于当前类所在路径的相对资源</li>
-<li>当路径信息以 / 开头时，则获取的是当前应用类加载路径下的资源</li>
-</ul>
-</li>
-<li><p><code>Class&lt;?&gt;.getProtectionDomain().getCodeBase.getLocation()</code></p>
-
-<p>  此方法获取的是此类所处于的保护域的路径信息，当位于jar包中时，返回的是jar包的路径信息，非jar包则返回的是应用的类加载路径的地址。此方法的一个常见使用场景就是使用嵌入式jetty或者tomcat时对于webappBase的设置。</p></li>
-</ul>
-
-
-<p>还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以<strong><em>jar:file</em></strong>开头的，并不能用此方式处理。</p>
 ]]></content>
   </entry>
   
