@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-04T17:15:08+08:00</updated>
+  <updated>2017-09-04T18:25:57+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -19,6 +19,9 @@
     <updated>2017-09-02T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work</id>
     <content type="html"><![CDATA[<p>在Java8中，使用方法引用非常简单，如String::isEmpty，但无法使用它否定的方法引用。本文内容即如何解决此问题使得我们能够更加全面地使用方法引用。</p>
+
+<!--more-->
+
 
 <p>首先看一个使用方法引用的例子：</p>
 
