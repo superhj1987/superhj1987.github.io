@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "JDK自带工具之问题排查场景示例"
+title: "[译]JDK自带工具之问题排查场景示例"
 date: 2016-11-16 22:21:34 +0800
 comments: true
 categories: java
