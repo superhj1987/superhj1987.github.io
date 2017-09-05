@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-04T18:25:57+08:00</updated>
+  <updated>2017-09-05T15:03:53+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[更好地使用Java8中的方法引用]]></title>
+    <title type="html"><![CDATA[[译]更好地使用Java8中的方法引用]]></title>
     <link href="http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work/"/>
     <updated>2017-09-02T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work</id>
@@ -378,7 +378,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[在Java中提升函数以更好地“函数式”编程]]></title>
+    <title type="html"><![CDATA[[译]在Java中提升函数以更好地“函数式”编程]]></title>
     <link href="http://www.rowkey.me/blog/2017/08/18/lift-functions/"/>
     <updated>2017-08-18T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/08/18/lift-functions</id>
@@ -877,7 +877,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[JDK自带工具之问题排查场景示例]]></title>
+    <title type="html"><![CDATA[[译]JDK自带工具之问题排查场景示例]]></title>
     <link href="http://www.rowkey.me/blog/2016/11/16/java-trouble-shooting/"/>
     <updated>2016-11-16T22:21:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2016/11/16/java-trouble-shooting</id>
