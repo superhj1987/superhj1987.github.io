@@ -8,6 +8,8 @@ categories: java
 
 本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。
 
+<!--more-->
+
 1. 对列表/数组中的每个元素都乘以2
 
 	```
@@ -15,8 +17,6 @@ categories: java
 	int[] ia = range(1, 10).map(i -> i * 2).toArray();
 	List<Integer> result = range(1, 10).map(i -> i * 2).boxed().collect(toList());
    ```
-   
-<!--more-->
     
 2. 计算集合/数组中的数字之和
 
