@@ -9,7 +9,6 @@ footer: false
 $(document).ready(function(){
 	$("#nav-menu a").removeClass("current");
 	$("#nav-menu .categories-nav").addClass("current");
-    $(".post-title").hide();
 });
 
 </script>
