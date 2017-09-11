@@ -3,7 +3,7 @@ layout: post
 title: "[每周一译]Java中的十个\"单行代码编程\"(One Liner)"
 date: 2017-09-09 19:29:34 +0800
 comments: true
-categories: java
+categories: java translate
 ---
 
 本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。

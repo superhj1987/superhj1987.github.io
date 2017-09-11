@@ -11,6 +11,7 @@ $(document).ready(function(){
 	}else{
 		$("#nav-menu .categories-nav").addClass("current");
 	}
+	$(".post-title").text("{{ page.category | capitalize}}");
 });
 </script>
 <div style="padding-top:20px"><a href="{{ root_url }}/blog/categories/{{ page.category }}/atom.xml">{{ site.url }}{{ root_url }}/blog/categories/{{ page.category }}/atom.xml</a></div>
