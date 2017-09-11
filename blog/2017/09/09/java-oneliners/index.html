@@ -156,6 +156,9 @@
 
 <div class="post-content"><p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
 
+<!--more-->
+
+
 <ol>
 <li><p>对列表/数组中的每个元素都乘以2</p>
 
@@ -163,13 +166,6 @@
  int[] ia = range(1, 10).map(i -&gt; i * 2).toArray();
  List&lt;Integer&gt; result = range(1, 10).map(i -&gt; i * 2).boxed().collect(toList());
 </code></pre></li>
-</ol>
-
-
-<!--more-->
-
-
-<ol>
 <li><p>计算集合/数组中的数字之和</p>
 
 <pre><code class="`"> range(1, 1000).sum();

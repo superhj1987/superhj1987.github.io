@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-11T18:10:19+08:00</updated>
+  <updated>2017-09-11T18:24:01+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -20,6 +20,9 @@
     <id>http://www.rowkey.me/blog/2017/09/09/java-oneliners</id>
     <content type="html"><![CDATA[<p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
 
+<!--more-->
+
+
 <ol>
 <li><p>对列表/数组中的每个元素都乘以2</p>
 
@@ -27,13 +30,6 @@
  int[] ia = range(1, 10).map(i -&gt; i * 2).toArray();
  List&lt;Integer&gt; result = range(1, 10).map(i -&gt; i * 2).boxed().collect(toList());
 </code></pre></li>
-</ol>
-
-
-<!--more-->
-
-
-<ol>
 <li><p>计算集合/数组中的数字之和</p>
 
 <pre><code class="`"> range(1, 1000).sum();
