@@ -100,8 +100,9 @@
             <div>
                 <nav id="nav-menu" class="clearfix">
                     <a class="index-nav current" href="/">首页</a>
-<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
 <a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
 <a class="about-nav" href="/about_me.html">关于我</a>
                 </nav>
             </div>
@@ -123,7 +124,12 @@
   <script type="text/javascript">
 $(document).ready(function(){
 	$("#nav-menu a").removeClass("current");
-	$("#nav-menu .categories-nav").addClass("current");
+	var thisPath = location.pathname;
+	if(thisPath.indexOf("java") > -1){
+		$("#nav-menu .java-nav").addClass("current");
+	}else{
+		$("#nav-menu .categories-nav").addClass("current");
+	}
 });
 </script>
 <div style="padding-top:20px"><a href="/blog/categories/kafka/atom.xml">http://www.rowkey.me/blog/categories/kafka/atom.xml</a></div>
