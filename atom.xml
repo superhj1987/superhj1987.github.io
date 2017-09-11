@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-11T18:05:42+08:00</updated>
+  <updated>2017-09-11T18:10:19+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[[每周一译]Java中的十个"单行代码编程"(One Liner)]]></title>
-    <link href="http://www.rowkey.me/blog/2017/09/09/java8-oneliners/"/>
+    <link href="http://www.rowkey.me/blog/2017/09/09/java-oneliners/"/>
     <updated>2017-09-09T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/09/09/java8-oneliners</id>
+    <id>http://www.rowkey.me/blog/2017/09/09/java-oneliners</id>
     <content type="html"><![CDATA[<p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
 
 <ol>
