@@ -9,10 +9,12 @@ footer: false
 $(document).ready(function(){
 	$("#nav-menu a").removeClass("current");
 	$("#nav-menu .categories-nav").addClass("current");
+    $(".post-title").hide();
 });
+
 </script>
-<ul>
+<ul style="margin-left: -40px !important">
 {% for item in site.categories %}
-    <li><a href="/blog/categories/{{ item[0] }}/">{{ item[0] | capitalize }}</a> [ {{ item[1].size }} ]</li>
+    <li style="margin-bottom: 20px !important;margin-right:10px;font-size: 16px !important;width: 200px !important;display: inline-block !important;padding-left: 5px !important"><a href="/blog/categories/{{ item[0] }}/">{{ item[0] | capitalize }}</a> [ {{ item[1].size }} ]</li>
 {% endfor %}
 </ul>

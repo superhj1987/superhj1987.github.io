@@ -3,7 +3,7 @@ layout: post
 title: "[译]Java8 Top Tips"
 date: 2016-08-03 22:30:34 +0800
 comments: true
-categories: java translate
+categories: java translate java8
 ---
 
 原文：<https://dzone.com/articles/java-8-top-tips>

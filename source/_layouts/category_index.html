@@ -5,7 +5,12 @@ footer: false
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#nav-menu a").removeClass("current");
-	$("#nav-menu .categories-nav").addClass("current");
+	var thisPath = location.pathname;
+	if(thisPath.indexOf("java") > -1){
+		$("#nav-menu .java-nav").addClass("current");
+	}else{
+		$("#nav-menu .categories-nav").addClass("current");
+	}
 });
 </script>
 <div style="padding-top:20px"><a href="{{ root_url }}/blog/categories/{{ page.category }}/atom.xml">{{ site.url }}{{ root_url }}/blog/categories/{{ page.category }}/atom.xml</a></div>
