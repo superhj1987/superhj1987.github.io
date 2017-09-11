@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.rowkey.me/blog/2017/09/09/java8-oneliners/</loc>
+    <lastmod>2017-09-09T19:29:34+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work/</loc>
     <lastmod>2017-09-02T19:29:34+08:00</lastmod>
   </url>
@@ -861,7 +865,7 @@
   </url>
   <url>
     <loc>http://www.rowkey.me/arch-ppt/index.html</loc>
-    <lastmod>2017-08-30T16:29:54+08:00</lastmod>
+    <lastmod>2017-09-11T16:34:57+08:00</lastmod>
   </url>
   <url>
     <loc>http://www.rowkey.me/arch-ppt/js/mixjs/research/load-test.html</loc>

@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="[每周一译]更好地使用Java8中的方法引用 Sep 2nd, 2017 在Java8中，使用方法引用非常简单，如String::isEmpty，但无法使用它否定的方法引用。本文内容即如何解决此问题使得我们能够更加全面地使用方法引用。 继续阅读 &rarr; 谈谈架构 Aug 24th, &hellip;">
+  <meta name="description" content="[每周一译]Java中的十个&#8221;单行代码编程&#8221;(One Liner) Sep 9th, 2017 本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -114,6 +114,58 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/09/09/java8-oneliners/">[每周一译]Java中的十个&#8221;单行代码编程&#8221;(One Liner)</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-09-09T19:29:34+08:00" pubdate data-updated="true">Sep 9<sup>th</sup>, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
+
+<ol>
+<li><p>对列表/数组中的每个元素都乘以2</p>
+
+<pre><code class="`"> // Range是半开区间
+ int[] ia = range(1, 10).map(i -&gt; i * 2).toArray();
+ List&lt;Integer&gt; result = range(1, 10).map(i -&gt; i * 2).boxed().collect(toList());
+</code></pre></li>
+</ol>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2017/09/09/java8-oneliners/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -553,61 +605,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/11/03/jdk-tools/">JDK自带工具之概览</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-11-03T22:29:34+08:00" pubdate data-updated="true">Nov 3<sup>rd</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。</p>
-
-<p>笔者的开发环境是：OS X EI Captian 10.11.6</p>
-
-<p>JDK版本：</p>
-
-<pre><code>java version "1.8.0_92"
-Java(TM) SE Runtime Environment (build 1.8.0_92-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
-</code></pre>
-
-<p>JAVA_HOME/bin下的工具截图如下：</p>
-
-<p><img src="/images/blog_images/jdk-tools.png" alt="" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/11/03/jdk-tools/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -677,6 +674,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2017/09/09/java8-oneliners/">[每周一译]Java中的十个&#8221;单行代码编程&#8221;(One Liner)</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2017/09/02/java8-method-reference-work/">[每周一译]更好地使用Java8中的方法引用</a>
       	</li>
     	
@@ -690,10 +691,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2017/08/10/pragmatic-java-engineer/">《Java工程师修炼之道》内容概览</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2017/03/23/java-profile-cheatsheet/">JVM诊断调优CheatSheet</a>
       	</li>
     	
 	</ul>
