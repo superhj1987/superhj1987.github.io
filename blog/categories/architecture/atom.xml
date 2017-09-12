@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-11T23:31:09+08:00</updated>
+  <updated>2017-09-12T11:00:31+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -46,6 +46,17 @@
 <img src="//images/blog_images/arch/arch-20.jpeg" alt="" />
 <img src="//images/blog_images/arch/arch-21.jpeg" alt="" />
 <img src="//images/blog_images/arch/arch-22.jpeg" alt="" /></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[一些架构设计原则]]></title>
+    <link href="http://www.rowkey.me/blog/2017/01/15/arch-spec/"/>
+    <updated>2017-01-15T22:21:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/01/15/arch-spec</id>
+    <content type="html"><![CDATA[<p><img src="//images/blog_images/arch-spec.png" alt="" /></p>
+
+<p>详细见：<a href="http://www.rowkey.me/blog/2017/08/24/arch/">谈谈架构</a></p>
 ]]></content>
   </entry>
   
