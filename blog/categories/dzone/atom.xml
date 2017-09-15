@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: java8 | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/blog/categories/java8/atom.xml" rel="self"/>
+  <title><![CDATA[Category: dzone | 后端技术杂谈 | 飒然Hang]]></title>
+  <link href="http://www.rowkey.me/blog/categories/dzone/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
   <updated>2017-09-15T11:11:31+08:00</updated>
   <id>http://www.rowkey.me/</id>
@@ -12,6 +12,111 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[每周一译]Java中的十个"单行代码编程"(One Liner)]]></title>
+    <link href="http://www.rowkey.me/blog/2017/09/09/java-oneliners/"/>
+    <updated>2017-09-09T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/09/09/java-oneliners</id>
+    <content type="html"><![CDATA[<p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
+
+<!--more-->
+
+
+<ol>
+<li><p>对列表/数组中的每个元素都乘以2</p>
+
+<pre><code class="`"> // Range是半开区间
+ int[] ia = range(1, 10).map(i -&gt; i * 2).toArray();
+ List&lt;Integer&gt; result = range(1, 10).map(i -&gt; i * 2).boxed().collect(toList());
+</code></pre></li>
+<li><p>计算集合/数组中的数字之和</p>
+
+<pre><code class="`"> range(1, 1000).sum();
+ range(1, 1000).reduce(0, Integer::sum);
+ Stream.iterate(0, i -&gt; i + 1).limit(1000).reduce(0, Integer::sum);
+ IntStream.iterate(0, i -&gt; i + 1).limit(1000).reduce(0, Integer::sum);
+</code></pre></li>
+<li><p>验证字符串是否包含集合中的某一字符串</p>
+
+<pre><code class="`">final List&lt;String&gt; keywords = Arrays.asList("brown", "fox", "dog", "pangram");
+final String tweet = "The quick brown fox jumps over a lazy dog. #pangram http://www.rinkworks.com/words/pangrams.shtml";
+
+keywords.stream().anyMatch(tweet::contains);
+keywords.stream().reduce(false, (b, keyword) -&gt; b || tweet.contains(keyword), (l, r) -&gt; l || r);
+</code></pre></li>
+<li><p>读取文件内容</p>
+
+<blockquote><p>原作者认为try with resources也是一种单行代码编程。</p></blockquote>
+
+<pre><code class="`"> try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
+   String fileText = reader.lines().reduce("", String::concat);
+ }
+
+ try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
+   List&lt;String&gt; fileLines = reader.lines().collect(toCollection(LinkedList&lt;String&gt;::new));
+ }
+
+ try (Stream&lt;String&gt; lines = Files.lines(new File("data.txt").toPath(), Charset.defaultCharset())) {
+   List&lt;String&gt; fileLines = lines.collect(toCollection(LinkedList&lt;String&gt;::new));
+ }
+</code></pre></li>
+<li><p>输出歌曲《Happy Birthday to You!》 - 根据集合中不同的元素输出不同的字符串</p>
+
+<pre><code class="`"> range(1, 5).boxed().map(i -&gt; { out.print("Happy Birthday "); if (i == 3) return "dear NAME"; else return "to You"; }).forEach(out::println);
+</code></pre></li>
+<li><p>过滤并分组集合中的数字</p>
+
+<pre><code class="`"> Map&lt;String, List&lt;Integer&gt;&gt; result = Stream.of(49, 58, 76, 82, 88, 90).collect(groupingBy(forPredicate(i -&gt; i &gt; 60, "passed", "failed")));
+</code></pre></li>
+<li><p>获取并解析xml协议的Web Service</p>
+
+<pre><code class="`">FeedType feed = JAXB.unmarshal(new URL("http://search.twitter.com/search.atom?&amp;q=java8"), FeedType.class);
+JAXB.marshal(feed, System.out);
+</code></pre></li>
+<li><p>获得集合中最小/最大的数字</p>
+
+<pre><code class="`"> int min = Stream.of(14, 35, -7, 46, 98).reduce(Integer::min).get();
+ min = Stream.of(14, 35, -7, 46, 98).min(Integer::compare).get();
+ min = Stream.of(14, 35, -7, 46, 98).mapToInt(Integer::new).min();
+
+ int max = Stream.of(14, 35, -7, 46, 98).reduce(Integer::max).get();
+ max = Stream.of(14, 35, -7, 46, 98).max(Integer::compare).get();
+ max = Stream.of(14, 35, -7, 46, 98).mapToInt(Integer::new).max();
+</code></pre></li>
+<li><p>并行处理</p>
+
+<pre><code class="`"> long result = dataList.parallelStream().mapToInt(line -&gt; processItem(line)).sum();
+</code></pre></li>
+<li><p>集合上的各种查询(LINQ in Java)</p>
+
+<pre><code>List&lt;Album&gt; albums = Arrays.asList(unapologetic, tailgates, red);
+
+//筛选出至少有一个track评级4分以上的专辑，并按照名称排序后打印出来。
+albums.stream()
+  .filter(a -&gt; a.tracks.stream().anyMatch(t -&gt; (t.rating &gt;= 4)))
+  .sorted(comparing(album -&gt; album.name))
+  .forEach(album -&gt; System.out.println(album.name));
+
+//合并所有专辑的track
+List&lt;Track&gt; allTracks = albums.stream()
+  .flatMap(album -&gt; album.tracks.stream())
+  .collect(toList());
+
+//根据track的评分对所有track分组
+Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
+  .collect(groupingBy(Track::getRating));
+</code></pre></li>
+</ol>
+
+
+<p>原文: <a href="https://github.com/aruld/java-oneliners/wiki">https://github.com/aruld/java-oneliners/wiki</a></p>
+
+<hr />
+
+<p><strong><em>补充 by 飒然Hang</em></strong>: 上述的<strong>单行代码编程</strong>确实能够减少代码的字符数，也经常能够给人以高大上的感觉，但是在Java编程中字符其实是非常廉价的，尤其是现在诸如Intellij等IDE已经具有自动补充/生成代码、重构等智能化功能。如果仅仅是为了减少字符的数量，那么没必要刻意去追求<strong>单行代码编程</strong>。让你的代码易于阅读才是最关键的。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[每周一译]更好地使用Java8中的方法引用]]></title>
@@ -446,6 +551,118 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 <h2>总结</h2>
 
 <p>每天我都会发现新的东西，我推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[[译]StackOverflow: 你没见过的七个最好的Java答案]]></title>
+    <link href="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/"/>
+    <updated>2016-08-03T20:30:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/08/03/so-java-7-answers</id>
+    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you">https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you</a></p>
+
+<p>StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案，同时我们也会从中学习到很多新的东西。这篇文章是在我们审阅了so上最流行的Java问题以及答案后从中挑出来的。即使你是一个有丰富经验的开发者，也能从中学到不少东西。</p>
+
+<!--more-->
+
+
+<h2>分支预测</h2>
+
+<p>SO上最多投票的一个Java问题是：<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array">为什么处理一个排序数组要比非排序数组快的多</a>。为了回答这个问题，你需要使用分支预测(branch prediction)。分支预测是一种架构，旨在通过在真实的路径发生前猜测某一分支的下一步来提升处理过程。</p>
+
+<p>分支在这里即一个if语句。这样的话，如果是一个排序数组，那么分支预测将会进行，否则不会进行。<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array/11227902#11227902">Mysticial</a>(so上的一个回答者)试图使用铁路和火车来简单介绍这个概念。假设你在铁轨连接处要决定火车要走哪条路，你会选择左边还是右边？你可以拦住火车，然后问司机该往那里，但是这样会让整个过程变慢。因此你只能去猜正确的方向，那么如何去猜呢？最好的办法就是通过观察目前这个火车每次经过时的路线，推测出正确的方向。</p>
+
+<p>这就是分支预测：识别模式并使用它。</p>
+
+<p>不幸的是，这个问题的提问者是分支预测失败的受害者。因为他的分支没有任何可以识别出的模式，所以预测出的行为是随机的。</p>
+
+<h2>Java中的安全</h2>
+
+<p>另一个流行的Java问题是：<a href="http://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords-in-java">为什么在Java中有关密码的地方更加喜欢使用char[]而不是String</a>？其实原始的问题更加具体一些，就是问的在Swing中，password控件有一个getPassword方法(返回char[]而不是getText()返回的String)。</p>
+
+<p>其实这里不用惊讶-这是一个安全问题。String是不可变的，意味着一旦它被创建了，那么你就不可能去修改它。这也意味着在GC之前，你对这些数据不能做任何处理。因此，只要有人能够访问你的内存，那么String就有可能被他获取到。</p>
+
+<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据即使GC还没有进行也不会再在系统留下痕迹。</p>
+
+<h2>异常</h2>
+
+<p>即使很多开发者倾向于忽略对受检异常的处理，SO上仍然有很多关于异常的问题。其中一个最流行的问题是：什么是NullPointerException，我该怎么处理它？对此，我们并没有感到惊讶，因为这个问题也是<a href="http://blog.takipi.com/the-top-10-exceptions-types-in-production-java-applications-based-on-1b-events/">在生产环境的Java应用中排名第一的异常</a>。</p>
+
+<p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
+
+<h2>为什么这段代码使用随机字符串打印出了&#8221;hello world&#8221;</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
+
+<p>这个问题给出了下面的代码，并打印出了&#8221;hello world&#8221;。</p>
+
+<pre><code>System.out.println(randomString(-229985452) + " " + randomString(-147909649));
+
+public static String randomString(int i){
+    Random ran = new Random(i);
+    StringBuilder sb = new StringBuilder();
+    while (true)
+    {
+        int k = ran.nextInt(27);
+        if (k == 0)
+            break;
+
+        sb.append((char)('`' + k));
+    }
+
+    return sb.toString();
+}
+</code></pre>
+
+<p>其实，选择一组随机的整数并不是随机的。给定一个seed参数(在这个例子中是-229985452和-147909649), 那么每次随机，同样的seed则会产生同样的输出。</p>
+
+<p>Random(-229985452).nextInt(27)产生的前六个数字：8, 5, 12, 12, 15, 0</p>
+
+<p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
+
+<p>这样，最终输出的就是&#8221;hello world&#8221;。</p>
+
+<h2>为什么两个时间戳相减(in 1927)得出一个奇怪的结果？</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result">http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result</a></p>
+
+<pre><code>public static void main(String[] args) throws ParseException {
+    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
+    String str3 = "1927-12-31 23:54:07";  
+    String str4 = "1927-12-31 23:54:08";  
+    Date sDt3 = sf.parse(str3);  
+    Date sDt4 = sf.parse(str4);  
+    long ld3 = sDt3.getTime() /1000;  
+    long ld4 = sDt4.getTime() /1000;
+    System.out.println(ld4-ld3);
+}
+</code></pre>
+
+<p>按说上面的代码最后的结果应该是1，但实际的输出却是353。其实，这是一个时区的问题。1927年12月31号24:00，上海时间往回调整了5分钟52秒，因此&#8221;1927-12-31 23:54:08&#8221;发生了两次，Java将后面一次实例化成了本地的这个时间。因此和前一秒的差距成了353。</p>
+
+<p>我们需要指出，如果你试着来运行这段代码，结果并不一定是353。<a href="http://stackoverflow.com/a/6841479/5982245">Jon Skeet指出了这一点</a>，在时区数据库项目2014版中，这个改变的时间点改到了1900-12-31，因此成了344秒的差距。</p>
+
+<h2>无法被捕获的ChuckNorrisException</h2>
+
+<p>问题链接：<a href="http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception">http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception</a></p>
+
+<p>这里有一个很明显的问题：如果有exception被抛出，但是没有任何办法去catch，那么应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。</p>
+
+<p>答案是可以，但是这里有一个&#8221;但是&#8221;。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。<a href="http://stackoverflow.com/a/13883510/5982245">jtahlborn</a>给出了完整的解决办法。</p>
+
+<h2>哈希表</h2>
+
+<p>哈希表是另外一个在SO上流行的问题系列。许多用户都想要知道所有集合类之间的区别，什么时候该使用哪种集合。</p>
+
+<p>迭代顺序是主要考虑的因素。使用HashMap则忽略了所有的顺序信息，也就是获取元素的顺序和你插入元素的顺序是没有任何关系的；使用TreeMap则会得到一个排序好的迭代集合；使用LinkedHashMap则是一个FIFO的顺序。</p>
+
+<p>如果你还是对这些感到困惑，这里有一个相关说明的图表可以<a href="http://zeroturnaround.com/wp-content/uploads/2016/04/Java-Collections-cheat-sheet.png">参考</a>(Rebel Labs制作)。</p>
+
+<p><img src="//images/blog_images/Java-Collections-cheat-sheet.png" alt="Java-Collections-cheat-sheet" /></p>
+
+<h2>总结</h2>
+
+<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。</p>
 ]]></content>
   </entry>
   
