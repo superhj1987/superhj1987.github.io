@@ -3,7 +3,7 @@ layout: post
 title: "[每周一译]在Java中提升函数以更好地“函数式”编程"
 date: 2017-08-18 19:29:34 +0800
 comments: true
-categories: java java8 translate
+categories: java java8 translate dzone
 ---
 
 Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。Lambda表达式、Optional和Stream只是函数式编程的冰山一角。这也导致了[varvr](https://github.com/vavr-io/vavr)和[functionlajava](https://github.com/functionaljava/functionaljava)这些类库的出现，他们都源于Haskell这个纯函数式编程语言。

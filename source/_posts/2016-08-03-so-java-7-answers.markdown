@@ -3,7 +3,7 @@ layout: post
 title: "[译]StackOverflow: 你没见过的七个最好的Java答案"
 date: 2016-08-03 20:30:34 +0800
 comments: true
-categories: java translate
+categories: java translate dzone
 ---
 
 原文：<https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you>

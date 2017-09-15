@@ -3,7 +3,7 @@ layout: post
 title: "[每周一译]更好地使用Java8中的方法引用"
 date: 2017-09-02 19:29:34 +0800
 comments: true
-categories: java java8 translate
+categories: java java8 translate dzone
 ---
 
 在Java8中，使用方法引用非常简单，如String::isEmpty，但无法使用它否定的方法引用。本文内容即如何解决此问题使得我们能够更加全面地使用方法引用。

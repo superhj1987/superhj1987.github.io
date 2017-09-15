@@ -2,12 +2,18 @@
 layout: page
 title: "关于我"
 footer: false
-comments: true
+comments: false
 sharing: false
-ujian: false
 ---
 <style type="text/css">
-	.ds-meta,#sidebar #social{
+	#sidebar #social{
+		display:none !important;
+	}
+	#social{
+		width: 160px !important;
+		margin: 0 auto;
+	}
+	#imgQR{
 		display:none !important;
 	}
 </style>
@@ -28,4 +34,8 @@ $(document).ready(function(){
 	<li>觉得总结和分享是自我提高的一种很好的方式，于是写博客成了闲暇的一种爱好。</li>
 </ul>
 <div>
+<div style="text-align: center">
+<h3 style="margin: 0px !important">扫码关注公众号</h3>
+<img src="/images/blog_images/mp-qrcode.jpg" style="width:258px;margin:0 auto;display: block;"/>
+</div>
 {% include asides/social.html %}

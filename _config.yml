@@ -84,7 +84,7 @@ disqus_short_name:
 disqus_show_comment_count: false
 
 weibo_share: false
-# weibo_user: superhj1987
+weibo_user: superhj1987
 linkedin_user: superhj1987
 
 page.sidebar: false
