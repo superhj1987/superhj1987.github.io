@@ -1,20 +1,26 @@
 ---
 layout: page
-title: "关于我"
+title: "关于"
 footer: false
 comments: false
 sharing: false
 ---
 <style type="text/css">
-	#sidebar #social{
+	#sidebar #copyright,#sidebar #notice,#sidebar #social{
 		display:none !important;
 	}
 	#social{
 		width: 160px !important;
 		margin: 0 auto;
 	}
+	#notice{
+		text-align: center;
+	}
 	#imgQR{
-		display:none !important;
+		width: 258px !important;
+		margin:0 auto !important;
+		display: block !important;
+		padding: 0 !important;
 	}
 </style>
 <script type="text/javascript">
@@ -24,7 +30,7 @@ $(document).ready(function(){
 });
 </script>
 <div class="post-content">
-<b>飒然Hang</b>，架构师/后端工程师，working@中华万年历
+<div style="text-align: center;"><b>飒然Hang</b>，架构师/后端工程师，working@中华万年历</div>
 <ul>
 	<li>曾就职于网易杭州研究院，从事基础平台以及云计算相关技术的开发。</li>
 	<li>技术以后端为主，也有过单片机、嵌入式、前端、安卓等开发经验。</li>
@@ -34,8 +40,7 @@ $(document).ready(function(){
 	<li>觉得总结和分享是自我提高的一种很好的方式，于是写博客成了闲暇的一种爱好。</li>
 </ul>
 <div>
-<div style="text-align: center">
-<h3 style="margin: 0px !important">扫码关注公众号</h3>
-<img src="/images/blog_images/mp-qrcode.jpg" style="width:258px;margin:0 auto;display: block;"/>
-</div>
 {% include asides/social.html %}
+<br/>
+{% include asides/notice.html %}
+{% include asides/copyright.html %}

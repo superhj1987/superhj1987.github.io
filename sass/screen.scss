@@ -651,13 +651,16 @@ td.code {
         padding:12px 0
     }
     #nav-menu {
-        margin:10px 0 -1px
+        margin:10px 0 -1px;
     }
     #nav-menu a {
-        padding:0 11px;
+        padding:0 15px;
         line-height:27px;
         height:27px;
         font-size:13px
+    }
+    a.categories-nav{
+        display:none !important;
     }
 }
 @media print, screen and (max-width: 500px) {
