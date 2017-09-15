@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>关于我 - 后端技术杂谈 | 飒然Hang</title>
+  <title>关于 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="关于我 飒然Hang，架构师/后端工程师，working@中华万年历 曾就职于网易杭州研究院，从事基础平台以及云计算相关技术的开发。 技术以后端为主，也有过单片机、嵌入式、前端、安卓等开发经验。 目前主要从事系统架构、研发管理等工作，当然写代码这事肯定少不了。 喜欢研究各种框架和开源软件的实现， &hellip;">
+  <meta name="description" content="关于 飒然Hang，架构师/后端工程师，working@中华万年历 曾就职于网易杭州研究院，从事基础平台以及云计算相关技术的开发。 技术以后端为主，也有过单片机、嵌入式、前端、安卓等开发经验。 目前主要从事系统架构、研发管理等工作，当然写代码这事肯定少不了。 喜欢研究各种框架和开源软件的实现， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -100,7 +100,7 @@
 <a class="dzone-nav" href="/blog/categories/dzone">DZone译文</a>
 <a class="categories-nav" href="/blog/categories">分类</a>
 <a class="archives-nav" href="/blog/archives">归档</a>
-<a class="about-nav" href="/about_me.html">关于我</a>
+<a class="about-nav" href="/about_me.html">关于</a>
                 </nav>
             </div>
         </div>
@@ -114,20 +114,26 @@
   <article class="post clearfix">
   
   <header>
-    <h1 class="post-title">关于我</h1>
+    <h1 class="post-title">关于</h1>
     
   </header>
   
   <style type="text/css">
-	#sidebar #social{
+	#sidebar #copyright,#sidebar #notice,#sidebar #social{
 		display:none !important;
 	}
 	#social{
 		width: 160px !important;
 		margin: 0 auto;
 	}
+	#notice{
+		text-align: center;
+	}
 	#imgQR{
-		display:none !important;
+		width: 258px !important;
+		margin:0 auto !important;
+		display: block !important;
+		padding: 0 !important;
 	}
 </style>
 <script type="text/javascript">
@@ -137,7 +143,7 @@ $(document).ready(function(){
 });
 </script>
 <div class="post-content">
-<b>飒然Hang</b>，架构师/后端工程师，working@中华万年历
+<div style="text-align: center;"><b>飒然Hang</b>，架构师/后端工程师，working@中华万年历</div>
 <ul>
 	<li>曾就职于网易杭州研究院，从事基础平台以及云计算相关技术的开发。</li>
 	<li>技术以后端为主，也有过单片机、嵌入式、前端、安卓等开发经验。</li>
@@ -147,10 +153,6 @@ $(document).ready(function(){
 	<li>觉得总结和分享是自我提高的一种很好的方式，于是写博客成了闲暇的一种爱好。</li>
 </ul>
 <div>
-<div style="text-align: center">
-<h3 style="margin: 0px !important">扫码关注公众号</h3>
-<img src="/images/blog_images/mp-qrcode.jpg" style="width:258px;margin:0 auto;display: block;"/>
-</div>
 <section class="widget" id="social">
 		
 		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
@@ -174,6 +176,18 @@ $(document).ready(function(){
 			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
 		
 </section>
+<br/>
+<!--公告-->
+<section class="widget" id="notice">
+	<div style="margin-bottom: 10px">
+		<h3 style="margin: 0px !important">扫码关注公众号</h3>
+		<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" id="imgQR"/>
+	</div>
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+</section>
+<section class="widget" style="font-size:9pt" id="copyright">
+<span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。
+</section>
   
 </article>
 
@@ -183,8 +197,8 @@ $(document).ready(function(){
 <aside id="secondary">
 <div id="sidebar">
   
-    <section class="widget" style="font-size:9pt">
-<span style="font-weight:bold">版权声明：</span>本博客所有文章皆为博主原创或者翻译文章，采用 <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享 4.0</a> 国际许可协议共享，转载务必注明作者和原文链接。
+    <section class="widget" style="font-size:9pt" id="copyright">
+<span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。
 </section><section class="widget">
     <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
     <div class="content">
@@ -206,14 +220,13 @@ $(document).ready(function(){
     return false;
   }
 </script><!--公告-->
-<section class="widget">
-    原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
-</section>
-
-<div id="imgQR">
-微信公众号：
-<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" />
-</div><section class="widget" id="social">
+<section class="widget" id="notice">
+	<div style="margin-bottom: 10px">
+		<h3 style="margin: 0px !important">扫码关注公众号</h3>
+		<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" id="imgQR"/>
+	</div>
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+</section><section class="widget" id="social">
 		
 		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
 		
@@ -354,7 +367,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "关于我",
+   issue_title: "关于",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
