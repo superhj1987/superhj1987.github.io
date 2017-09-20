@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-20T19:21:17+08:00</updated>
+  <updated>2017-09-20T19:26:13+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[[每周一译]Java中9个处理Exception的最佳实践]]></title>
+    <title type="html"><![CDATA[[译]Java中9个处理Exception的最佳实践]]></title>
     <link href="http://www.rowkey.me/blog/2017/09/17/java-exception/"/>
     <updated>2017-09-17T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/17/java-exception</id>
@@ -246,7 +246,7 @@ public void wrapException(String input) throws MyBusinessException {
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[每周一译]Java中的十个"单行代码编程"(One Liner)]]></title>
+    <title type="html"><![CDATA[[译]Java中的十个"单行代码编程"(One Liner)]]></title>
     <link href="http://www.rowkey.me/blog/2017/09/09/java-oneliners/"/>
     <updated>2017-09-09T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/09/java-oneliners</id>
@@ -351,7 +351,7 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[每周一译]更好地使用Java8中的方法引用]]></title>
+    <title type="html"><![CDATA[[译]更好地使用Java8中的方法引用]]></title>
     <link href="http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work/"/>
     <updated>2017-09-02T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work</id>
@@ -538,7 +538,7 @@ Stream.of("A", "", "B").filter(asPredicate(String::isEmpty).negate()).count();
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[[每周一译]在Java中提升函数以更好地“函数式”编程]]></title>
+    <title type="html"><![CDATA[[译]在Java中提升函数以更好地“函数式”编程]]></title>
     <link href="http://www.rowkey.me/blog/2017/08/18/lift-functions/"/>
     <updated>2017-08-18T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/08/18/lift-functions</id>
