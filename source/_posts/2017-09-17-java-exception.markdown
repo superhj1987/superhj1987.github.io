@@ -14,7 +14,7 @@ categories: java translate dzone
 
 ## 1. 在Finall块中使清理资源或者使用try-with-resource语句
 
-当使用向InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。
+当使用类似InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。
 
 ```
 public void doNotCloseResourceInTry() {
