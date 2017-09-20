@@ -4,7 +4,7 @@
   <title><![CDATA[Category: dzone | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/dzone/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-20T18:50:03+08:00</updated>
+  <updated>2017-09-20T19:21:17+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -27,7 +27,7 @@
 
 <h2>1. 在Finall块中使清理资源或者使用try-with-resource语句</h2>
 
-<p>当使用向InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。</p>
+<p>当使用类似InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。</p>
 
 <pre><code>public void doNotCloseResourceInTry() {
     FileInputStream inputStream = null;
