@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[每周一译]Java中的十个\"单行代码编程\"(One Liner)"
+title: "[译]Java中的十个\"单行代码编程\"(One Liner)"
 date: 2017-09-09 19:29:34 +0800
 comments: true
 categories: java translate dzone

@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[每周一译]更好地使用Java8中的方法引用"
+title: "[译]更好地使用Java8中的方法引用"
 date: 2017-09-02 19:29:34 +0800
 comments: true
 categories: java java8 translate dzone

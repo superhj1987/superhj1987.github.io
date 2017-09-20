@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[每周一译]Java中9个处理Exception的最佳实践"
+title: "[译]Java中9个处理Exception的最佳实践"
 date: 2017-09-17 19:29:34 +0800
 comments: true
 categories: java translate dzone
