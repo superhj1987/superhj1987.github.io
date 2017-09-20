@@ -4,7 +4,7 @@
   <title><![CDATA[Category: dzone | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/dzone/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-15T18:03:42+08:00</updated>
+  <updated>2017-09-20T18:39:19+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,238 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[每周一译]Java中9个处理Exception的最佳实践]]></title>
+    <link href="http://www.rowkey.me/blog/2017/09/17/java-exception/"/>
+    <updated>2017-09-17T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/09/17/java-exception</id>
+    <content type="html"><![CDATA[<p>在Java中处理异常并不是一个简单的事情。不仅仅初学者很难理解，即使一些有经验的开发者也需要花费很多时间来思考如何处理异常，包括需要处理哪些异常，怎样处理等等。这也是绝大多数开发团队都会制定一些规则来规范对异常的处理的原因。而团队之间的这些规范往往是截然不同的。</p>
+
+<p>本文给出几个被很多团队使用的异常处理最佳实践。</p>
+
+<!--more-->
+
+
+<h2>1. 在Finall块中使清理资源或者使用try-with-resource语句</h2>
+
+<p>当使用向InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。</p>
+
+<pre><code>public void doNotCloseResourceInTry() {
+    FileInputStream inputStream = null;
+    try {
+        File file = new File("./tmp.txt");
+        inputStream = new FileInputStream(file);
+        // use the inputStream to read a file
+        // do NOT do this
+        inputStream.close();
+    } catch (FileNotFoundException e) {
+        log.error(e);
+    } catch (IOException e) {
+        log.error(e);
+    }
+}
+</code></pre>
+
+<p>上述代码在没有任何exception的时候运行时没有问题的。但是当try块中的语句抛出异常或者自己实现的代码抛出异常，那么久不会执行最后的关闭语句，从而资源也无法释放。</p>
+
+<p>合理的做法则是将所有清理的代码都放到finally块中或者使用try-with-resource语句。</p>
+
+<pre><code>public void closeResourceInFinally() {
+    FileInputStream inputStream = null;
+    try {
+        File file = new File("./tmp.txt");
+        inputStream = new FileInputStream(file);
+        // use the inputStream to read a file
+    } catch (FileNotFoundException e) {
+        log.error(e);
+    } finally {
+        if (inputStream != null) {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                log.error(e);
+            }
+        }
+    }
+}
+
+public void automaticallyCloseResource() {
+    File file = new File("./tmp.txt");
+    try (FileInputStream inputStream = new FileInputStream(file);) {
+        // use the inputStream to read a file
+    } catch (FileNotFoundException e) {
+        log.error(e);
+    } catch (IOException e) {
+        log.error(e);
+    }
+}
+</code></pre>
+
+<h2>2. 指定具体的异常</h2>
+
+<p>尽可能的使用最具体的异常来声明方法，这样才能使得代码更容易理解。</p>
+
+<pre><code>public void doNotDoThis() throws Exception {
+    ...
+}
+public void doThis() throws NumberFormatException {
+    ...
+}
+</code></pre>
+
+<h2>3. 对异常进行文档说明</h2>
+
+<p>当在方法上声明抛出异常时，也需要进行文档说明。和前面的一点一样，都是为了给调用者提供尽可能多的信息，从而可以更好地避免/处理异常。</p>
+
+<p>在Javadoc中加入throws声明，并且描述抛出异常的场景。</p>
+
+<pre><code>/**
+ * This method does something extremely useful ...
+ *
+ * @param input
+ * @throws MyBusinessException if ... happens
+ */
+public void doSomething(String input) throws MyBusinessException {
+    ...
+}
+</code></pre>
+
+<h2>4. 抛出异常的时候包含描述信息</h2>
+
+<p>在抛出异常时，需要尽可能精确地描述问题和相关信息，这样无论是打印到日志中还是监控工具中，都能够更容易被人阅读被定位具体信息、错误的严重程度等。</p>
+
+<p>但这里并不是说你要对错误信息长篇大论，因为本来Exception的类名就能够反映错误的原因，因此只需要用一到两句话描述即可。</p>
+
+<pre><code>try {
+    new Long("xyz");
+} catch (NumberFormatException e) {
+    log.error(e);
+}
+</code></pre>
+
+<p>NumberFormatException即告诉了这个异常是格式化错误，异常的额外信息只需要提供这个错误字符串即可。当异常的名称不够明显的时候，则需要提供尽可能具体的错误信息。</p>
+
+<h2>5. 首先捕获最具体的异常</h2>
+
+<p>现在很多IDE都能智能提示这个最佳实践，当你试图首先捕获最笼统的异常时，会提示<code>不能达到的代码</code>。</p>
+
+<p>当有多个catch块中，按照捕获顺序只有第一个匹配到的catch块才能执行。因此，如果先捕获IllegalArgumentException，那么则无法运行到对NumberFormatException的捕获。</p>
+
+<pre><code>public void catchMostSpecificExceptionFirst() {
+    try {
+        doSomething("A message");
+    } catch (NumberFormatException e) {
+        log.error(e);
+    } catch (IllegalArgumentException e) {
+        log.error(e)
+    }
+}
+</code></pre>
+
+<h2>6. 不要捕获Throwable</h2>
+
+<p>Throwable是所有异常和错误的父类。你可以在catch语句中捕获，但是永远不要这么做。</p>
+
+<p>如果catch了throwable，那么不仅仅会捕获所有exception，还会捕获error。而error是表明无法恢复的jvm错误。因此除非绝对肯定能够处理或者被要求处理error，不要捕获throwable。</p>
+
+<pre><code>public void doNotCatchThrowable() {
+    try {
+        // do something
+    } catch (Throwable t) {
+        // don't do this!
+    }
+}
+</code></pre>
+
+<h2>7. 不要忽略异常</h2>
+
+<p>很多时候，开发者很有自信不会抛出异常，因此写了一个catch块，但是没有做任何处理或者日志。</p>
+
+<pre><code>
+public void doNotIgnoreExceptions() {
+    try {
+        // do something
+    } catch (NumberFormatException e) {
+        // this will never happen
+    }
+}
+</code></pre>
+
+<p>但现实是经常会出现无法预料的异常或者无法确定这里的代码未来是不是会改动(删除了阻止异常抛出的代码)，而此时异常由于被捕获了，因此无法拿到足够的错误信息来定位问题。</p>
+
+<p>合理的做法是至少要记录异常的信息。</p>
+
+<pre><code>public void logAnException() {
+    try {
+        // do something
+    } catch (NumberFormatException e) {
+        log.error("This should never happen: " + e);
+    }
+}
+</code></pre>
+
+<h2>8. 不要记录并抛出异常</h2>
+
+<p>可以发现很多代码甚至类库中都会有捕获异常、日志记录并再次抛出的逻辑。如下：</p>
+
+<pre><code>try {
+    new Long("xyz");
+} catch (NumberFormatException e) {
+    log.error(e);
+    throw e;
+}
+</code></pre>
+
+<p>这个处理逻辑看着是合理的。但这经常会给同一个异常输出多条日志。如下：</p>
+
+<pre><code>17:44:28,945 ERROR TestExceptionHandling:65 - java.lang.NumberFormatException: For input string: "xyz"
+Exception in thread "main" java.lang.NumberFormatException: For input string: "xyz"
+at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+at java.lang.Long.parseLong(Long.java:589)
+at java.lang.Long.(Long.java:965)
+at com.stackify.example.TestExceptionHandling.logAndThrowException(TestExceptionHandling.java:63)
+at com.stackify.example.TestExceptionHandling.main(TestExceptionHandling.java:58)
+</code></pre>
+
+<p>如上所示，后面的日志也没有附加更有用的信息。如果想要提供更加有用的信息，那么可以将异常包装为自定义异常。</p>
+
+<pre><code>
+public void wrapException(String input) throws MyBusinessException {
+    try {
+        // do something
+    } catch (NumberFormatException e) {
+        throw new MyBusinessException("A message that describes the error.", e);
+    }
+}
+</code></pre>
+
+<p>因此，仅仅当想要处理异常时才去捕获，否则只需要在方法签名中声明让调用者去处理。</p>
+
+<h2>9. 包装异常时不要去处理此异常</h2>
+
+<p>捕获标准异常并包装为自定义异常是一个很常见的做法。这样可以添加更为具体的异常信息并能够做针对的异常处理。</p>
+
+<p>需要注意的是，包装异常时，一定要把原始的异常设置为cause(Exception有构造方法可以传入cause)。否则，丢失了原始的异常信息会让错误的分析变得困难。</p>
+
+<pre><code>public void wrapException(String input) throws MyBusinessException {
+    try {
+        // do something
+    } catch (NumberFormatException e) {
+        throw new MyBusinessException("A message that describes the error.", e);
+    }
+}
+</code></pre>
+
+<h2>总结</h2>
+
+<p>综上可知，当抛出或者捕获异常时，这里有很多不一样的东西需要考虑。其中的许多点都是为了提升代码的可阅读性或者api的可用性。</p>
+
+<p>异常不仅仅是一个错误控制机制，也是一个沟通媒介，因此与你的协作者讨论这些最佳实践并制定一些规范能够让每个人都理解通用的概念并且能够按照同样的方式使用它们。</p>
+
+<p>原文链接: <a href="https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java">https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[每周一译]Java中的十个"单行代码编程"(One Liner)]]></title>
@@ -551,118 +783,6 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 <h2>总结</h2>
 
 <p>每天我都会发现新的东西，我推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[译]StackOverflow: 你没见过的七个最好的Java答案]]></title>
-    <link href="http://www.rowkey.me/blog/2016/08/03/so-java-7-answers/"/>
-    <updated>2016-08-03T20:30:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/08/03/so-java-7-answers</id>
-    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you">https://dzone.com/articles/stackoverflow-7-of-the-best-java-answers-that-you</a></p>
-
-<p>StackOverflow(后边简称so)发展到目前，已经成为了全球开发者的金矿。它能够帮助我们找到在各个领域遇到的问题的最有用的解决方案，同时我们也会从中学习到很多新的东西。这篇文章是在我们审阅了so上最流行的Java问题以及答案后从中挑出来的。即使你是一个有丰富经验的开发者，也能从中学到不少东西。</p>
-
-<!--more-->
-
-
-<h2>分支预测</h2>
-
-<p>SO上最多投票的一个Java问题是：<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array">为什么处理一个排序数组要比非排序数组快的多</a>。为了回答这个问题，你需要使用分支预测(branch prediction)。分支预测是一种架构，旨在通过在真实的路径发生前猜测某一分支的下一步来提升处理过程。</p>
-
-<p>分支在这里即一个if语句。这样的话，如果是一个排序数组，那么分支预测将会进行，否则不会进行。<a href="http://stackoverflow.com/questions/11227809/why-is-it-faster-to-process-a-sorted-array-than-an-unsorted-array/11227902#11227902">Mysticial</a>(so上的一个回答者)试图使用铁路和火车来简单介绍这个概念。假设你在铁轨连接处要决定火车要走哪条路，你会选择左边还是右边？你可以拦住火车，然后问司机该往那里，但是这样会让整个过程变慢。因此你只能去猜正确的方向，那么如何去猜呢？最好的办法就是通过观察目前这个火车每次经过时的路线，推测出正确的方向。</p>
-
-<p>这就是分支预测：识别模式并使用它。</p>
-
-<p>不幸的是，这个问题的提问者是分支预测失败的受害者。因为他的分支没有任何可以识别出的模式，所以预测出的行为是随机的。</p>
-
-<h2>Java中的安全</h2>
-
-<p>另一个流行的Java问题是：<a href="http://stackoverflow.com/questions/8881291/why-is-char-preferred-over-string-for-passwords-in-java">为什么在Java中有关密码的地方更加喜欢使用char[]而不是String</a>？其实原始的问题更加具体一些，就是问的在Swing中，password控件有一个getPassword方法(返回char[]而不是getText()返回的String)。</p>
-
-<p>其实这里不用惊讶-这是一个安全问题。String是不可变的，意味着一旦它被创建了，那么你就不可能去修改它。这也意味着在GC之前，你对这些数据不能做任何处理。因此，只要有人能够访问你的内存，那么String就有可能被他获取到。</p>
-
-<p>这也就是为什么要使用char数组。你可以显示地清除数据或者覆盖它。这样密码这种敏感数据即使GC还没有进行也不会再在系统留下痕迹。</p>
-
-<h2>异常</h2>
-
-<p>即使很多开发者倾向于忽略对受检异常的处理，SO上仍然有很多关于异常的问题。其中一个最流行的问题是：什么是NullPointerException，我该怎么处理它？对此，我们并没有感到惊讶，因为这个问题也是<a href="http://blog.takipi.com/the-top-10-exceptions-types-in-production-java-applications-based-on-1b-events/">在生产环境的Java应用中排名第一的异常</a>。</p>
-
-<p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
-
-<h2>为什么这段代码使用随机字符串打印出了&#8221;hello world&#8221;</h2>
-
-<p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
-
-<p>这个问题给出了下面的代码，并打印出了&#8221;hello world&#8221;。</p>
-
-<pre><code>System.out.println(randomString(-229985452) + " " + randomString(-147909649));
-
-public static String randomString(int i){
-    Random ran = new Random(i);
-    StringBuilder sb = new StringBuilder();
-    while (true)
-    {
-        int k = ran.nextInt(27);
-        if (k == 0)
-            break;
-
-        sb.append((char)('`' + k));
-    }
-
-    return sb.toString();
-}
-</code></pre>
-
-<p>其实，选择一组随机的整数并不是随机的。给定一个seed参数(在这个例子中是-229985452和-147909649), 那么每次随机，同样的seed则会产生同样的输出。</p>
-
-<p>Random(-229985452).nextInt(27)产生的前六个数字：8, 5, 12, 12, 15, 0</p>
-
-<p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
-
-<p>这样，最终输出的就是&#8221;hello world&#8221;。</p>
-
-<h2>为什么两个时间戳相减(in 1927)得出一个奇怪的结果？</h2>
-
-<p>问题链接：<a href="http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result">http://stackoverflow.com/questions/6841333/why-is-subtracting-these-two-times-in-1927-giving-a-strange-result</a></p>
-
-<pre><code>public static void main(String[] args) throws ParseException {
-    SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");  
-    String str3 = "1927-12-31 23:54:07";  
-    String str4 = "1927-12-31 23:54:08";  
-    Date sDt3 = sf.parse(str3);  
-    Date sDt4 = sf.parse(str4);  
-    long ld3 = sDt3.getTime() /1000;  
-    long ld4 = sDt4.getTime() /1000;
-    System.out.println(ld4-ld3);
-}
-</code></pre>
-
-<p>按说上面的代码最后的结果应该是1，但实际的输出却是353。其实，这是一个时区的问题。1927年12月31号24:00，上海时间往回调整了5分钟52秒，因此&#8221;1927-12-31 23:54:08&#8221;发生了两次，Java将后面一次实例化成了本地的这个时间。因此和前一秒的差距成了353。</p>
-
-<p>我们需要指出，如果你试着来运行这段代码，结果并不一定是353。<a href="http://stackoverflow.com/a/6841479/5982245">Jon Skeet指出了这一点</a>，在时区数据库项目2014版中，这个改变的时间点改到了1900-12-31，因此成了344秒的差距。</p>
-
-<h2>无法被捕获的ChuckNorrisException</h2>
-
-<p>问题链接：<a href="http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception">http://stackoverflow.com/questions/13883166/uncatchable-chucknorrisexception</a></p>
-
-<p>这里有一个很明显的问题：如果有exception被抛出，但是没有任何办法去catch，那么应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。</p>
-
-<p>答案是可以，但是这里有一个&#8221;但是&#8221;。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。<a href="http://stackoverflow.com/a/13883510/5982245">jtahlborn</a>给出了完整的解决办法。</p>
-
-<h2>哈希表</h2>
-
-<p>哈希表是另外一个在SO上流行的问题系列。许多用户都想要知道所有集合类之间的区别，什么时候该使用哪种集合。</p>
-
-<p>迭代顺序是主要考虑的因素。使用HashMap则忽略了所有的顺序信息，也就是获取元素的顺序和你插入元素的顺序是没有任何关系的；使用TreeMap则会得到一个排序好的迭代集合；使用LinkedHashMap则是一个FIFO的顺序。</p>
-
-<p>如果你还是对这些感到困惑，这里有一个相关说明的图表可以<a href="http://zeroturnaround.com/wp-content/uploads/2016/04/Java-Collections-cheat-sheet.png">参考</a>(Rebel Labs制作)。</p>
-
-<p><img src="//images/blog_images/Java-Collections-cheat-sheet.png" alt="Java-Collections-cheat-sheet" /></p>
-
-<h2>总结</h2>
-
-<p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。</p>
 ]]></content>
   </entry>
   

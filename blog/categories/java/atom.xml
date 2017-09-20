@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-15T18:03:42+08:00</updated>
+  <updated>2017-09-20T18:39:19+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,238 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[每周一译]Java中9个处理Exception的最佳实践]]></title>
+    <link href="http://www.rowkey.me/blog/2017/09/17/java-exception/"/>
+    <updated>2017-09-17T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/09/17/java-exception</id>
+    <content type="html"><![CDATA[<p>在Java中处理异常并不是一个简单的事情。不仅仅初学者很难理解，即使一些有经验的开发者也需要花费很多时间来思考如何处理异常，包括需要处理哪些异常，怎样处理等等。这也是绝大多数开发团队都会制定一些规则来规范对异常的处理的原因。而团队之间的这些规范往往是截然不同的。</p>
+
+<p>本文给出几个被很多团队使用的异常处理最佳实践。</p>
+
+<!--more-->
+
+
+<h2>1. 在Finall块中使清理资源或者使用try-with-resource语句</h2>
+
+<p>当使用向InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。</p>
+
+<pre><code>public void doNotCloseResourceInTry() {
+    FileInputStream inputStream = null;
+    try {
+        File file = new File("./tmp.txt");
+        inputStream = new FileInputStream(file);
+        // use the inputStream to read a file
+        // do NOT do this
+        inputStream.close();
+    } catch (FileNotFoundException e) {
+        log.error(e);
+    } catch (IOException e) {
+        log.error(e);
+    }
+}
+</code></pre>
+
+<p>上述代码在没有任何exception的时候运行时没有问题的。但是当try块中的语句抛出异常或者自己实现的代码抛出异常，那么久不会执行最后的关闭语句，从而资源也无法释放。</p>
+
+<p>合理的做法则是将所有清理的代码都放到finally块中或者使用try-with-resource语句。</p>
+
+<pre><code>public void closeResourceInFinally() {
+    FileInputStream inputStream = null;
+    try {
+        File file = new File("./tmp.txt");
+        inputStream = new FileInputStream(file);
+        // use the inputStream to read a file
+    } catch (FileNotFoundException e) {
+        log.error(e);
+    } finally {
+        if (inputStream != null) {
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                log.error(e);
+            }
+        }
+    }
+}
+
+public void automaticallyCloseResource() {
+    File file = new File("./tmp.txt");
+    try (FileInputStream inputStream = new FileInputStream(file);) {
+        // use the inputStream to read a file
+    } catch (FileNotFoundException e) {
+        log.error(e);
+    } catch (IOException e) {
+        log.error(e);
+    }
+}
+</code></pre>
+
+<h2>2. 指定具体的异常</h2>
+
+<p>尽可能的使用最具体的异常来声明方法，这样才能使得代码更容易理解。</p>
+
+<pre><code>public void doNotDoThis() throws Exception {
+    ...
+}
+public void doThis() throws NumberFormatException {
+    ...
+}
+</code></pre>
+
+<h2>3. 对异常进行文档说明</h2>
+
+<p>当在方法上声明抛出异常时，也需要进行文档说明。和前面的一点一样，都是为了给调用者提供尽可能多的信息，从而可以更好地避免/处理异常。</p>
+
+<p>在Javadoc中加入throws声明，并且描述抛出异常的场景。</p>
+
+<pre><code>/**
+ * This method does something extremely useful ...
+ *
+ * @param input
+ * @throws MyBusinessException if ... happens
+ */
+public void doSomething(String input) throws MyBusinessException {
+    ...
+}
+</code></pre>
+
+<h2>4. 抛出异常的时候包含描述信息</h2>
+
+<p>在抛出异常时，需要尽可能精确地描述问题和相关信息，这样无论是打印到日志中还是监控工具中，都能够更容易被人阅读被定位具体信息、错误的严重程度等。</p>
+
+<p>但这里并不是说你要对错误信息长篇大论，因为本来Exception的类名就能够反映错误的原因，因此只需要用一到两句话描述即可。</p>
+
+<pre><code>try {
+    new Long("xyz");
+} catch (NumberFormatException e) {
+    log.error(e);
+}
+</code></pre>
+
+<p>NumberFormatException即告诉了这个异常是格式化错误，异常的额外信息只需要提供这个错误字符串即可。当异常的名称不够明显的时候，则需要提供尽可能具体的错误信息。</p>
+
+<h2>5. 首先捕获最具体的异常</h2>
+
+<p>现在很多IDE都能智能提示这个最佳实践，当你试图首先捕获最笼统的异常时，会提示<code>不能达到的代码</code>。</p>
+
+<p>当有多个catch块中，按照捕获顺序只有第一个匹配到的catch块才能执行。因此，如果先捕获IllegalArgumentException，那么则无法运行到对NumberFormatException的捕获。</p>
+
+<pre><code>public void catchMostSpecificExceptionFirst() {
+    try {
+        doSomething("A message");
+    } catch (NumberFormatException e) {
+        log.error(e);
+    } catch (IllegalArgumentException e) {
+        log.error(e)
+    }
+}
+</code></pre>
+
+<h2>6. 不要捕获Throwable</h2>
+
+<p>Throwable是所有异常和错误的父类。你可以在catch语句中捕获，但是永远不要这么做。</p>
+
+<p>如果catch了throwable，那么不仅仅会捕获所有exception，还会捕获error。而error是表明无法恢复的jvm错误。因此除非绝对肯定能够处理或者被要求处理error，不要捕获throwable。</p>
+
+<pre><code>public void doNotCatchThrowable() {
+    try {
+        // do something
+    } catch (Throwable t) {
+        // don't do this!
+    }
+}
+</code></pre>
+
+<h2>7. 不要忽略异常</h2>
+
+<p>很多时候，开发者很有自信不会抛出异常，因此写了一个catch块，但是没有做任何处理或者日志。</p>
+
+<pre><code>
+public void doNotIgnoreExceptions() {
+    try {
+        // do something
+    } catch (NumberFormatException e) {
+        // this will never happen
+    }
+}
+</code></pre>
+
+<p>但现实是经常会出现无法预料的异常或者无法确定这里的代码未来是不是会改动(删除了阻止异常抛出的代码)，而此时异常由于被捕获了，因此无法拿到足够的错误信息来定位问题。</p>
+
+<p>合理的做法是至少要记录异常的信息。</p>
+
+<pre><code>public void logAnException() {
+    try {
+        // do something
+    } catch (NumberFormatException e) {
+        log.error("This should never happen: " + e);
+    }
+}
+</code></pre>
+
+<h2>8. 不要记录并抛出异常</h2>
+
+<p>可以发现很多代码甚至类库中都会有捕获异常、日志记录并再次抛出的逻辑。如下：</p>
+
+<pre><code>try {
+    new Long("xyz");
+} catch (NumberFormatException e) {
+    log.error(e);
+    throw e;
+}
+</code></pre>
+
+<p>这个处理逻辑看着是合理的。但这经常会给同一个异常输出多条日志。如下：</p>
+
+<pre><code>17:44:28,945 ERROR TestExceptionHandling:65 - java.lang.NumberFormatException: For input string: "xyz"
+Exception in thread "main" java.lang.NumberFormatException: For input string: "xyz"
+at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+at java.lang.Long.parseLong(Long.java:589)
+at java.lang.Long.(Long.java:965)
+at com.stackify.example.TestExceptionHandling.logAndThrowException(TestExceptionHandling.java:63)
+at com.stackify.example.TestExceptionHandling.main(TestExceptionHandling.java:58)
+</code></pre>
+
+<p>如上所示，后面的日志也没有附加更有用的信息。如果想要提供更加有用的信息，那么可以将异常包装为自定义异常。</p>
+
+<pre><code>
+public void wrapException(String input) throws MyBusinessException {
+    try {
+        // do something
+    } catch (NumberFormatException e) {
+        throw new MyBusinessException("A message that describes the error.", e);
+    }
+}
+</code></pre>
+
+<p>因此，仅仅当想要处理异常时才去捕获，否则只需要在方法签名中声明让调用者去处理。</p>
+
+<h2>9. 包装异常时不要去处理此异常</h2>
+
+<p>捕获标准异常并包装为自定义异常是一个很常见的做法。这样可以添加更为具体的异常信息并能够做针对的异常处理。</p>
+
+<p>需要注意的是，包装异常时，一定要把原始的异常设置为cause(Exception有构造方法可以传入cause)。否则，丢失了原始的异常信息会让错误的分析变得困难。</p>
+
+<pre><code>public void wrapException(String input) throws MyBusinessException {
+    try {
+        // do something
+    } catch (NumberFormatException e) {
+        throw new MyBusinessException("A message that describes the error.", e);
+    }
+}
+</code></pre>
+
+<h2>总结</h2>
+
+<p>综上可知，当抛出或者捕获异常时，这里有很多不一样的东西需要考虑。其中的许多点都是为了提升代码的可阅读性或者api的可用性。</p>
+
+<p>异常不仅仅是一个错误控制机制，也是一个沟通媒介，因此与你的协作者讨论这些最佳实践并制定一些规范能够让每个人都理解通用的概念并且能够按照同样的方式使用它们。</p>
+
+<p>原文链接: <a href="https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java">https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[每周一译]Java中的十个"单行代码编程"(One Liner)]]></title>
@@ -496,169 +728,6 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 <p>扫码下载：</p>
 
 <p><img src="//images/blog_images/bibi-url.png" alt="" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JVM诊断调优CheatSheet]]></title>
-    <link href="http://www.rowkey.me/blog/2017/03/23/java-profile-cheatsheet/"/>
-    <updated>2017-03-23T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/03/23/java-profile-cheatsheet</id>
-    <content type="html"><![CDATA[<p>包含诊断调优java应用的各种命令以及jvm配置示例。</p>
-
-<h2>常用Shell命令</h2>
-
-<ul>
-<li><p>查看网络状况</p>
-
-<pre><code>  netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
-</code></pre></li>
-<li><p>使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存。</p>
-
-<pre><code>  #!/bin/bash
-  for i in `ps -ef | egrep -v "awk|$0" | awk '/'$1'/{print $2}'`
-  do
-      mymem=`cat /proc/$i/status 2&gt; /dev/null | grep VmRSS | awk '{print $2" " $3}'`
-      cpu=`top -n 1 -b |awk '/'$i'/{print $9}'`
-  done
-</code></pre></li>
-</ul>
-
-
-<!--more-->
-
-
-<h2>常用JDK命令</h2>
-
-<ul>
-<li><p>查看类的一些信息，如字节码的版本号、常量池等</p>
-
-<blockquote><p>javap -verbose classname</p></blockquote></li>
-<li><p>查看jvm进程</p>
-
-<blockquote><p>jps</p>
-
-<p>jcmd -l</p></blockquote></li>
-<li><p>查看进程的gc情况</p>
-
-<blockquote><p>jstat -gcutil [pid] (显示总体情况)</p>
-
-<p>jstat -gc [pid] 1000 10（每隔1秒刷新一次 一共10次）</p></blockquote></li>
-<li><p>查看jvm内存使用状况</p>
-
-<blockquote><p>jmap -heap [pid]</p></blockquote></li>
-<li><p>查看jvm内存存活的对象：</p>
-
-<blockquote><p>jcmd [pid] GC.class_histogram</p>
-
-<p>jmap -histo:live [pid]</p></blockquote></li>
-<li><p>把heap里所有对象都dump下来，无论对象是死是活</p>
-
-<blockquote><p>jmap -dump:format=b,file=xxx.hprof [pid]</p></blockquote></li>
-<li><p>先做一次full GC，再dump，只包含仍然存活的对象信息：</p>
-
-<blockquote><p>jcmd [PID] GC.heap_dump [FILENAME]</p>
-
-<p>jmap -dump:format=b,live,file=xxx.hprof [pid]</p></blockquote></li>
-<li><p>线程dump</p>
-
-<blockquote><p>jstack [pid] #-m参数可以打印出native栈的信息</p>
-
-<p>jcmd <PID> Thread.print</p>
-
-<p>kill -3 [pid]</p></blockquote></li>
-<li><p>查看目前jvm启动的参数</p>
-
-<blockquote><p>jinfo -flags [pid] #有效参数</p>
-
-<p>jcmd [pid] VM.flags #所有参数</p></blockquote></li>
-<li><p>查看对应参数的值</p>
-
-<blockquote><p>jinfo -flag [flagName] [pid]</p></blockquote></li>
-<li><p>启用/禁止某个参数</p>
-
-<blockquote><p>jinfo -flag [+/-][flagName] [pid]</p></blockquote></li>
-<li><p>设置某个参数</p>
-
-<blockquote><p>jinfo -flag [flagName=value] [pid]</p></blockquote></li>
-<li><p>查看所有可以设置的参数以及其默认值</p>
-
-<blockquote><p>java -XX:+PrintFlagsInitial</p></blockquote></li>
-</ul>
-
-
-<h2>第三方工具</h2>
-
-<p><strong>========<a href="https://github.com/superhj1987/awesome-scripts/blob/master/README.md">awesome-scripts</a>========</strong></p>
-
-<p><strong>安装:</strong></p>
-
-<p><code>curl -s "https://raw.githubusercontent.com/superhj1987/awesome-scripts/master/self-installer.sh" | bash -s</code></p>
-
-<p><strong>使用：</strong></p>
-
-<ul>
-<li><p>显示最繁忙的java线程: -c &lt;要显示的线程栈数> -p &lt;指定的Java Process></p>
-
-<blockquote><p>opscipts show-busy-java-threads [-c] [-p]</p></blockquote></li>
-<li><p>使用greys跟踪方法耗时</p>
-
-<blockquote><p>opscripts greys <PID>[@IP:PORT]</p>
-
-<p><strong><em>ga?:</em></strong> trace [class] [method]</p></blockquote></li>
-<li><p>显示当前cpu和内存使用状况，包括全局和各个进程的。</p>
-
-<blockquote><p>opscripts show-cpu-and-memory</p></blockquote></li>
-<li><p>进入jvm调试交互命令行，包含对java栈、堆、线程、gc等状态的查看</p>
-
-<blockquote><p>opscripts jvm [pid]</p></blockquote></li>
-</ul>
-
-
-<h2>JVM配置示例</h2>
-
-<pre><code>-server #64位机器下默认
--Xms6000M #最小堆大小
--Xmx6000M #最大堆大小
--Xmn500M #新生代大小
--Xss256K #栈大小
--XX:PermSize=500M (JDK7)
--XX:MaxPermSize=500M (JDK7)
--XX:MetaspaceSize=128m  （JDK8）
--XX:MaxMetaspaceSize=512m（JDK8）
--XX:SurvivorRatio=65536
--XX:MaxTenuringThreshold=0 #晋升到老年代需要的存活次数,设置为0时，survivor区失去作用，一次minor gc，eden中存活的对象就会进入老年代，默认是15，使用CMS时默认是4
--Xnoclassgc #不做类的gc
-#-XX:+PrintCompilation #输出jit编译情况，慎用
--XX:+TieredCompilation #启用多层编译，jd8默认开启
--XX:CICompilerCount=4 #编译器数目增加
--XX:-UseBiasedLocking #取消偏向锁
--XX:AutoBoxCacheMax=20000 #自动装箱的缓存数量，如int默认缓存为-128~127
--Djava.security.egd=file:/dev/./urandom #替代默认的/dev/random阻塞生成因子
--XX:+AlwaysPreTouch #启动时访问并置零内存页面，大堆时效果比较好
--XX:-UseCounterDecay #禁止JIT调用计数器衰减。默认情况下，每次GC时会对调用计数器进行砍半的操作，导致有些方法一直是个温热，可能永远都达不到C2编译的1万次的阀值。
--XX:ParallelRefProcEnabled=true # 默认为false，并行的处理Reference对象，如WeakReference
--XX:+DisableExplicitGC #此参数会影响使用堆外内存，会造成oom，如果使用NIO,请慎重开启
-#-XX:+UseParNewGC #此参数其实在设置了cms后默认会启用，可以不用设置
--XX:+UseConcMarkSweepGC #使用cms垃圾回收器
-#-XX:+UseCMSCompactAtFullCollection #是否在fullgc是做一次压缩以整理碎片，默认启用
--XX:CMSFullGCsBeforeCompaction=0 #full gc触发压缩的次数
-#-XX:+CMSClassUnloadingEnabled #如果类加载不频繁，也没有大量使用String.intern方法，不建议打开此参数，况且jdk7后string pool已经移动到了堆中。开启此项的话，即使设置了Xnoclassgc也会进行class的gc, 但是某种情况下会造成bug：https://www.google.com/url?sa=t&amp;rct=j&amp;q=&amp;esrc=s&amp;source=web&amp;cd=5&amp;cad=rja&amp;uact=8&amp;ved=0ahUKEwjR16Wf6MHQAhWLrVQKHfLdCe4QFgg8MAQ&amp;url=https%3A%2F%2Fblogs.oracle.com%2Fpoonam%2Fentry%2Fjvm_hang_with_cms_collector&amp;usg=AFQjCNFNtkw6jHM-uyz-Wjri3LtAVXWJ8g&amp;sig2=BFxSfHc-AIek18fEhY07mg。
-#-XX:+CMSParallelRemarkEnabled #并行标记, 默认开启, 可以不用设置
-#-XX:+CMSScavengeBeforeRemark #强制remark之前开始一次minor gc，减少remark的暂停时间，但是在remark之后也将立即开始又一次minor gc
--XX:CMSInitiatingOccupancyFraction=90 #触发full gc的内存使用百分比
--XX:+PrintClassHistogram #打印类统计信息
--XX:+PrintHeapAtGC #打印gc前后的heap信息
--XX:+PrintGCDetails #以下都是为了记录gc日志
--XX:+PrintGCDateStamps
--XX:+PrintGCApplicationStoppedTime #打印清晰的GC停顿时间外，还可以打印其他的停顿时间，比如取消偏向锁，class 被agent redefine，code deoptimization等等
--XX:+PrintTenuringDistribution #打印晋升到老年代的年龄自动调整的情况(并行垃圾回收器启用UseAdaptiveSizePolicy参数的情况下以及其他垃圾回收期也会动态调整，从最开始的MaxTenuringThreshold变成占用当前堆50%的age)
-#-XX:+UseAdaptiveSizePolicy # 此参数在并行回收器时是默认开启的会根据应用运行状况做自我调整，如MaxTenuringThreshold、survivor区大小等，其他情况下最好不要开启
-#-XX:StringTableSize #字符串常量池表大小(hashtable的buckets的数目)，java 6u30之前无法修改固定为1009，后面的版本默认为60013，可以通过此参数设置
--XX:GCTimeLimit=98 #gc占用时间超过多少抛出OutOfMemoryError
--XX:GCHeapFreeLimit=2 #gc回收后小于百分之多少抛出OutOfMemoryError
--Xloggc:/home/logs/gc.log
-</code></pre>
 ]]></content>
   </entry>
   

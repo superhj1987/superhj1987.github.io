@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-15T18:03:42+08:00</updated>
+  <updated>2017-09-20T18:39:19+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,360 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[[每周一译]Java中9个处理Exception的最佳实践]]></title>
+    <link href="http://www.rowkey.me/blog/2017/09/17/java-exception/"/>
+    <updated>2017-09-17T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/09/17/java-exception</id>
+    <content type="html"><![CDATA[<p>在Java中处理异常并不是一个简单的事情。不仅仅初学者很难理解，即使一些有经验的开发者也需要花费很多时间来思考如何处理异常，包括需要处理哪些异常，怎样处理等等。这也是绝大多数开发团队都会制定一些规则来规范对异常的处理的原因。而团队之间的这些规范往往是截然不同的。</p>
+
+<p>本文给出几个被很多团队使用的异常处理最佳实践。</p>
+
+<!--more-->
+
+
+<h2>1. 在Finall块中使清理资源或者使用try-with-resource语句</h2>
+
+<p>当使用向InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void doNotCloseResourceInTry() {
+</span><span class='line'>    FileInputStream inputStream = null;
+</span><span class='line'>    try {
+</span><span class='line'>        File file = new File("./tmp.txt");
+</span><span class='line'>        inputStream = new FileInputStream(file);
+</span><span class='line'>        // use the inputStream to read a file
+</span><span class='line'>        // do NOT do this
+</span><span class='line'>        inputStream.close();
+</span><span class='line'>    } catch (FileNotFoundException e) {
+</span><span class='line'>        log.error(e);
+</span><span class='line'>    } catch (IOException e) {
+</span><span class='line'>        log.error(e);
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上述代码在没有任何exception的时候运行时没有问题的。但是当try块中的语句抛出异常或者自己实现的代码抛出异常，那么久不会执行最后的关闭语句，从而资源也无法释放。</p>
+
+<p>合理的做法则是将所有清理的代码都放到finally块中或者使用try-with-resource语句。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void closeResourceInFinally() {
+</span><span class='line'>    FileInputStream inputStream = null;
+</span><span class='line'>    try {
+</span><span class='line'>        File file = new File("./tmp.txt");
+</span><span class='line'>        inputStream = new FileInputStream(file);
+</span><span class='line'>        // use the inputStream to read a file
+</span><span class='line'>    } catch (FileNotFoundException e) {
+</span><span class='line'>        log.error(e);
+</span><span class='line'>    } finally {
+</span><span class='line'>        if (inputStream != null) {
+</span><span class='line'>            try {
+</span><span class='line'>                inputStream.close();
+</span><span class='line'>            } catch (IOException e) {
+</span><span class='line'>                log.error(e);
+</span><span class='line'>            }
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>public void automaticallyCloseResource() {
+</span><span class='line'>    File file = new File("./tmp.txt");
+</span><span class='line'>    try (FileInputStream inputStream = new FileInputStream(file);) {
+</span><span class='line'>        // use the inputStream to read a file
+</span><span class='line'>    } catch (FileNotFoundException e) {
+</span><span class='line'>        log.error(e);
+</span><span class='line'>    } catch (IOException e) {
+</span><span class='line'>        log.error(e);
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>2. 指定具体的异常</h2>
+
+<p>尽可能的使用最具体的异常来声明方法，这样才能使得代码更容易理解。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void doNotDoThis() throws Exception {
+</span><span class='line'>    ...
+</span><span class='line'>}
+</span><span class='line'>public void doThis() throws NumberFormatException {
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>3. 对异常进行文档说明</h2>
+
+<p>当在方法上声明抛出异常时，也需要进行文档说明。和前面的一点一样，都是为了给调用者提供尽可能多的信息，从而可以更好地避免/处理异常。</p>
+
+<p>在Javadoc中加入throws声明，并且描述抛出异常的场景。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>/**
+</span><span class='line'> * This method does something extremely useful ...
+</span><span class='line'> *
+</span><span class='line'> * @param input
+</span><span class='line'> * @throws MyBusinessException if ... happens
+</span><span class='line'> */
+</span><span class='line'>public void doSomething(String input) throws MyBusinessException {
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>4. 抛出异常的时候包含描述信息</h2>
+
+<p>在抛出异常时，需要尽可能精确地描述问题和相关信息，这样无论是打印到日志中还是监控工具中，都能够更容易被人阅读被定位具体信息、错误的严重程度等。</p>
+
+<p>但这里并不是说你要对错误信息长篇大论，因为本来Exception的类名就能够反映错误的原因，因此只需要用一到两句话描述即可。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>try {
+</span><span class='line'>    new Long("xyz");
+</span><span class='line'>} catch (NumberFormatException e) {
+</span><span class='line'>    log.error(e);
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>NumberFormatException即告诉了这个异常是格式化错误，异常的额外信息只需要提供这个错误字符串即可。当异常的名称不够明显的时候，则需要提供尽可能具体的错误信息。</p>
+
+<h2>5. 首先捕获最具体的异常</h2>
+
+<p>现在很多IDE都能智能提示这个最佳实践，当你试图首先捕获最笼统的异常时，会提示<code>不能达到的代码</code>。</p>
+
+<p>当有多个catch块中，按照捕获顺序只有第一个匹配到的catch块才能执行。因此，如果先捕获IllegalArgumentException，那么则无法运行到对NumberFormatException的捕获。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void catchMostSpecificExceptionFirst() {
+</span><span class='line'>    try {
+</span><span class='line'>        doSomething("A message");
+</span><span class='line'>    } catch (NumberFormatException e) {
+</span><span class='line'>        log.error(e);
+</span><span class='line'>    } catch (IllegalArgumentException e) {
+</span><span class='line'>        log.error(e)
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>6. 不要捕获Throwable</h2>
+
+<p>Throwable是所有异常和错误的父类。你可以在catch语句中捕获，但是永远不要这么做。</p>
+
+<p>如果catch了throwable，那么不仅仅会捕获所有exception，还会捕获error。而error是表明无法恢复的jvm错误。因此除非绝对肯定能够处理或者被要求处理error，不要捕获throwable。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void doNotCatchThrowable() {
+</span><span class='line'>    try {
+</span><span class='line'>        // do something
+</span><span class='line'>    } catch (Throwable t) {
+</span><span class='line'>        // don't do this!
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>7. 不要忽略异常</h2>
+
+<p>很多时候，开发者很有自信不会抛出异常，因此写了一个catch块，但是没有做任何处理或者日志。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>public void doNotIgnoreExceptions() {
+</span><span class='line'>    try {
+</span><span class='line'>        // do something
+</span><span class='line'>    } catch (NumberFormatException e) {
+</span><span class='line'>        // this will never happen
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>但现实是经常会出现无法预料的异常或者无法确定这里的代码未来是不是会改动(删除了阻止异常抛出的代码)，而此时异常由于被捕获了，因此无法拿到足够的错误信息来定位问题。</p>
+
+<p>合理的做法是至少要记录异常的信息。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void logAnException() {
+</span><span class='line'>    try {
+</span><span class='line'>        // do something
+</span><span class='line'>    } catch (NumberFormatException e) {
+</span><span class='line'>        log.error("This should never happen: " + e);
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>8. 不要记录并抛出异常</h2>
+
+<p>可以发现很多代码甚至类库中都会有捕获异常、日志记录并再次抛出的逻辑。如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>try {
+</span><span class='line'>    new Long("xyz");
+</span><span class='line'>} catch (NumberFormatException e) {
+</span><span class='line'>    log.error(e);
+</span><span class='line'>    throw e;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这个处理逻辑看着是合理的。但这经常会给同一个异常输出多条日志。如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>17:44:28,945 ERROR TestExceptionHandling:65 - java.lang.NumberFormatException: For input string: "xyz"
+</span><span class='line'>Exception in thread "main" java.lang.NumberFormatException: For input string: "xyz"
+</span><span class='line'>at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+</span><span class='line'>at java.lang.Long.parseLong(Long.java:589)
+</span><span class='line'>at java.lang.Long.(Long.java:965)
+</span><span class='line'>at com.stackify.example.TestExceptionHandling.logAndThrowException(TestExceptionHandling.java:63)
+</span><span class='line'>at com.stackify.example.TestExceptionHandling.main(TestExceptionHandling.java:58)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如上所示，后面的日志也没有附加更有用的信息。如果想要提供更加有用的信息，那么可以将异常包装为自定义异常。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>public void wrapException(String input) throws MyBusinessException {
+</span><span class='line'>    try {
+</span><span class='line'>        // do something
+</span><span class='line'>    } catch (NumberFormatException e) {
+</span><span class='line'>        throw new MyBusinessException("A message that describes the error.", e);
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>因此，仅仅当想要处理异常时才去捕获，否则只需要在方法签名中声明让调用者去处理。</p>
+
+<h2>9. 包装异常时不要去处理此异常</h2>
+
+<p>捕获标准异常并包装为自定义异常是一个很常见的做法。这样可以添加更为具体的异常信息并能够做针对的异常处理。</p>
+
+<p>需要注意的是，包装异常时，一定要把原始的异常设置为cause(Exception有构造方法可以传入cause)。否则，丢失了原始的异常信息会让错误的分析变得困难。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void wrapException(String input) throws MyBusinessException {
+</span><span class='line'>    try {
+</span><span class='line'>        // do something
+</span><span class='line'>    } catch (NumberFormatException e) {
+</span><span class='line'>        throw new MyBusinessException("A message that describes the error.", e);
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>总结</h2>
+
+<p>综上可知，当抛出或者捕获异常时，这里有很多不一样的东西需要考虑。其中的许多点都是为了提升代码的可阅读性或者api的可用性。</p>
+
+<p>异常不仅仅是一个错误控制机制，也是一个沟通媒介，因此与你的协作者讨论这些最佳实践并制定一些规范能够让每个人都理解通用的概念并且能够按照同样的方式使用它们。</p>
+
+<p>原文链接: <a href="https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java">https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[每周一译]Java中的十个"单行代码编程"(One Liner)]]></title>
@@ -3477,165 +3831,6 @@ public static String randomString(int i){
 <li><a href="https://book.douban.com/subject/26596778/">《计算广告》</a></li>
 <li><a href="https://book.douban.com/subject/3288908/">《集体智慧》</a></li>
 <li><a href="https://book.douban.com/subject/26708119/">《机器学习》</a></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java开发Tips]]></title>
-    <link href="http://www.rowkey.me/blog/2016/06/19/java-tips/"/>
-    <updated>2016-06-19T20:59:44+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/06/19/java-tips</id>
-    <content type="html"><![CDATA[<p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
-
-<!--more-->
-
-
-<h2>1. 将一些需要变动的配置写在属性文件中</h2>
-
-<p>比如，没有把一些需要并发执行时使用的线程数设置成可在属性文件中配置。那么你的程序无论在DEV环境中，还是TEST环境中，都可以顺畅无阻地运行，但是一旦部署在PROD上，把它作为多线程程序处理更大的数据集时，就会抛出IOException，原因也许是线上环境并发造成也许是其他。如果线程数目可以在属性文件中配置，那么使它成为一个单线程应用程序就变得十分容易了。我们不再需要为了解决问题而反复地部署和测试应用了。这种方法也同样适用于配置 URL、服务器和端口号等。</p>
-
-<p>这里推荐使用属性文件外化这些配置，文件格式使用properties、yaml、hocon、json都可以。下面的类实现了对这些格式的文件的spring注入支持，包括占位符支持。</p>
-
-<p><a href="https://github.com/superhj1987/awesome-libs/blob/master/src/main/java/me/rowkey/libs/spring/config/AwesomePropertyPlaceholderConfigurer.java">https://github.com/superhj1987/awesome-libs/blob/master/src/main/java/me/rowkey/libs/spring/config/AwesomePropertyPlaceholderConfigurer.java</a></p>
-
-<h2>2. 测试中尽可能模拟线上环境</h2>
-
-<p>生产过程中一个典型的场景就是只使用1到3个帐户进行测试，而这个数量本应是1000到2000个的。在做性能测试时，使用的数据必须是真实并且未经裁剪的。不贴近真实环境的性能测试，可能会带来不可预料的性能、拓展和多线程问题。这里也可以采取预发布环境的方式来解决部分问题。</p>
-
-<h2>3. 对于所有外部调用以及内部服务都要做容错处理</h2>
-
-<p>不管是RPC调用还是对于第三方服务的调用，都不能想当然的认为可用性是100%的。不允许出现服务调用超时和重试，将会对应用程序的稳定性和性能造成不利的影响。</p>
-
-<h2>4. 安全设计上一个系统要遵循最小权限原则</h2>
-
-<p>网络服务随处可见，从而使得黑客可以轻易地利用它进行拒绝服务攻击。所以，设计系统时，需要遵循“最小权限”原则，采用白名单等方式。</p>
-
-<h2>5. 需要提供以下文档</h2>
-
-<ol>
-<li>编写单元测试文档并使其拥有良好的代码覆盖率。</li>
-<li>高层次的设计图：描述了所有的组件，交互和结构。</li>
-<li>详细的设计图：具体到代码层面的设计，以及一些关键逻辑的流程。</li>
-<li>系统组成文档：说明系统的所有组成文件、配置文件等。</li>
-<li>数据库层面的dml以及ddl文档，尤其是sql查询语句需要经过dba或者核心开发人员的review才能够上线。</li>
-</ol>
-
-
-<p>不仅仅对于传统的开发流程，即使对于敏捷开发，这些文档也是必不可少的，否则在后续的维护、交接上会带来很大的不便。</p>
-
-<h2>6. 做好系统关键功能的监控、错误恢复、备份等</h2>
-
-<p>对于系统一些至关重要的功能模块要做好对其的监控，防止其影响系统的运行,造成不可估算的损失。另外，如果可以，监控到故障后去去试图恢复，恢复失败再发送告警。对于一些很重要的数据文件，还要做到冗余备份，防止发生一些突然故障造成数据丢失。</p>
-
-<h2>7. 数据库设计时设计一些便于追踪历史、整理的列</h2>
-
-<p>比如create_time、update_time可以说明记录的创建和更新时间。create_by、update_by可以说明记录是由谁创建和更新的。</p>
-
-<p>此外，删除记录有时候并非真正删除，这时需要设计表示此记录状态的列，如可以取‘Active’或‘Inactive’的 ‘status’列。</p>
-
-<h2>8. 制定好项目回滚计划</h2>
-
-<p>新的功能上线时，如果发生故障，没有一份回滚计划，那么可能会手忙脚乱而造成线上服务一段时间不可用。有一个良好的回滚计划，可以让你能够有条不紊的执行相关操作，在可控时间内将系统恢复到一个可运行的状态。</p>
-
-<h2>9. 项目上线前要做好量化分析</h2>
-
-<p>对于项目中用到的内存、数据库、文件、缓存等，要做好量化分析。预估出未来一段时间的空间占用，给运维分配机器时一个参考。防止，由于数据量增长过快，导致存储不够。这一点是非常重要的，不然很容易造成线上服务不可用。</p>
-
-<h2>10. 制定好系统的部署计划。</h2>
-
-<p>系统部署的平台是一个至关重要的部分。对于部署平台的描述，不能仅限于一台服务器、两个数据库这个层面，至少需要包括</p>
-
-<ul>
-<li>操作系统的特定版本，JVM等。</li>
-<li>有多少内存（包括物理内存，JVM堆内存，JVM栈内存和JVM永久代的空间）。</li>
-<li>CPU（内核数）。</li>
-<li>负载均衡器，需要的节点数、节点类型，比如是Active-Standby型还是Active-Active型。</li>
-<li>文件系统要求，例如，你的应用程序可能会收集生成的日志并将其保存很长的周期，之后才进行归档。这样的话，你就需要有足够的硬盘空间。</li>
-</ul>
-
-
-<h2>11. 选择最合适的工具/技术</h2>
-
-<p>很多情况下，开发者会在生产系统中使用一门想要学习的语言或某种工具。通常这不是最好的选择。比如，为已经实际上是关系型的数据使用NoSQL数据库。不管是语言还是工具，都有其适用的场景。不能求新，也不能以“自我”为标准。</p>
-
-<h2>12. 在一些关键技术领域具有充足的知识储备。</h2>
-
-<ul>
-<li>设计模式</li>
-<li>JVM调优</li>
-<li>多线程“并发问题”</li>
-<li>事务问题，包括分布式事务</li>
-<li>性能问题，包括GC、计算等</li>
-<li>缓存</li>
-</ul>
-
-
-<h2>13. Java编码注意点</h2>
-
-<ul>
-<li><p>谨慎对待Java的循环遍历</p>
-
-<p>  对于集合类如List的遍历可以使用两种方式，如下：</p>
-
-<pre><code class="``">  private final List&lt;User&gt; userList;
-  for(User u : userList) {    
-      ...
-  }
-
-  private final List&lt;User&gt; userList;
-  for(int i = 0;i &lt; userList.size() ; i++) {   
-      User u = userList.get(i); 
-      ...
-  }
-</code></pre>
-
-<p>  前者多了创建迭代器的开销，但是取元素的时候是O(1)复杂度(getNext、hasNext())。后者没有迭代器的开销，能够节省一部分开销，但是获取元素的地方会因List的具体实现类不同而不同，如LinkedList就会为O(n)、ArrayList为O(1)。要根据业务目标来选择合适的用法。</p></li>
-<li><p>在初始化的时候预估集合的大小</p>
-
-<p>  这个主要是对HashMap说的。对于HashMap来说主要有两个影响性能的因素：初始大小和加载因子，当哈希表的大小达到初始大小和加载因子的乘积的时候，哈希表会进行rehash操作会影响性能。因此在初始化HashMap时要尽量能够预估其大小并做设置，如：</p>
-
-<pre><code class="``">  new HashMap&lt;String, User&gt;((int)Math.ceil(userList.size() / 0.7)); 
-</code></pre></li>
-<li><p>延迟表达式的计算</p>
-
-<p>  Java中，如果方法的参数是一个表达式，那么都会在方法调用之前进行计算。因此，对于一些非常耗资源的操作，要尽量让其延迟化计算。如：</p>
-
-<pre><code class="``">  class User{
-      private String name;
-      private Address address;
-
-      public int compareTo(User other){
-           return ComparisonChain.start()
-              .compare(this.name, other.getName())
-              .compare(this.address.toString(), user1.getAddress().toString())
-              .result();
-      }
-  }
-</code></pre>
-
-<p>  使用guava的ComparisonChain能够在第一个非0比较结果时就结束整个比较操作，但上面的代码中address的toString方法仍然会执行。可以通过使用单独的Comparator来使其延迟计算。</p>
-
-<pre><code class="``">  return ComparisonChain.start()
-              .compare(this.name, other.getName())
-              .compare(this.address, user1.getAddress(), new Comparator&lt;Address&gt;(){
-                  @Override
-                  public int compare(Address a1, Address a2) {
-                      return a1.toString().compareTo(a2.toString());
-                  }
-              })
-              .result();
-</code></pre></li>
-<li><p>提前编译正则表达式</p>
-
-<p>  Java中的正则表达式运算是非常耗资源的，因此JDK中有正则参数的方法调用都最好提前编译正则表达式。如String的replaceAll方法，其第一个参数是一个正则表达式，可以通过缓存Pattern来避免每次都创建模式。</p>
-
-<pre><code class="``">  private final Pattern pattern = Pattern.compile("&lt;regx&gt;"); //全局缓存
-  ...
-  pattern.matcher(“&lt;text&gt;”).replaceAll("&lt;replacement&gt;"); 
-  ...
-</code></pre></li>
 </ul>
 
 ]]></content>
