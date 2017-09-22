@@ -325,7 +325,7 @@
 
 <h2>5. 首先捕获最具体的异常</h2>
 
-<p>现在很多IDE都能智能提示这个最佳实践，当你试图首先捕获最笼统的异常时，会提示<code>不能达到的代码</code>。</p>
+<p>现在很多IDE都能智能提示这个最佳实践，当你试图首先捕获最笼统的异常时，会提示<strong><em>不能达到的代码</em></strong>。</p>
 
 <p>当有多个catch块中，按照捕获顺序只有第一个匹配到的catch块才能执行。因此，如果先捕获IllegalArgumentException，那么则无法运行到对NumberFormatException的捕获。</p>
 
