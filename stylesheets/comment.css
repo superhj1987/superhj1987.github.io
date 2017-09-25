@@ -339,6 +339,7 @@
   position: relative;
   top: -5px;
   left: -15px;
+  min-height:60px !important;
 }
 
 #recent-comments .comment-widget-user{
