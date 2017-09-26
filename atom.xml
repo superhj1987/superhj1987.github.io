@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-25T17:01:51+08:00</updated>
+  <updated>2017-09-26T10:28:12+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java9来了]]></title>
+    <link href="http://www.rowkey.me/blog/2017/09/22/java9/"/>
+    <updated>2017-09-22T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/09/22/java9</id>
+    <content type="html"><![CDATA[<p>2017.9.21，Java9终于正式发布。其带来了诸如模块化、REPL环境、集合工厂方法等一系列有用的新特性。本文列出一些链接，可以通过阅读相关的内容来了解学习Java9。</p>
+
+<h2>官方资料</h2>
+
+<ul>
+<li><a href="http://jdk.java.net/9/">JD9下载</a></li>
+<li><a href="http://openjdk.java.net/projects/jdk9/">Java9新特性</a></li>
+<li><a href="https://docs.oracle.com/javase/9/">Oracle的JDK文档</a></li>
+<li><a href="http://mail.openjdk.java.net/pipermail/announce/2017-September/000230.html">Mark Reinhold的JDK9发布声明</a> [Mark Reinhold是Oracle的Java平台首席架构师]</li>
+<li><a href="https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-7744EF96-5899-4FB2-B34E-86D49B2E89B6">迁移到Java9的提示</a></li>
+<li><a href="https://blogs.oracle.com/theaquarium/java-ee-8-is-final-and-glassfish-50-is-released">JavaEE 8和GlassFish发布</a></li>
+</ul>
+
+
+<h2>第三方资料</h2>
+
+<ul>
+<li><a href="https://dzone.com/articles/java-9-besides-modules">Java9中除了模块化的其他新特性介绍</a></li>
+<li><a href="https://dzone.com/articles/java-9-and-intellij-idea">Java 9 and IntelliJ IDEA</a></li>
+<li>Java9对旧版本应用的支持: <a href="https://dzone.com/articles/yes-you-can-java-9-for-the-legacy-developer">https://dzone.com/articles/yes-you-can-java-9-for-the-legacy-developer</a>、<a href="https://dzone.com/articles/the-legacy-developers-guide-to-java-9">https://dzone.com/articles/the-legacy-developers-guide-to-java-9</a></li>
+<li>Java9模块化开发：<a href="https://dzone.com/articles/java-9-modularity-jigsaw">第一部分</a>、<a href="https://dzone.com/articles/java-9-modular-development-part-2">第二部分</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[译]Java中9个处理Exception的最佳实践]]></title>
@@ -3606,235 +3637,6 @@ public static String randomString(int i){
 <h2>总结</h2>
 
 <p>对于Java，其实关键的不在于你懂多少，而是在于你可以一直学到更多的东西。StackOverflow不仅在code上的一些问题可以帮助我们，也有助于我们回过头来去深入地学习一些我们已经知道的知识。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java后端工程师学习大纲]]></title>
-    <link href="http://www.rowkey.me/blog/2016/06/27/java-backend-study/"/>
-    <updated>2016-06-27T21:39:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/06/27/java-backend-study</id>
-    <content type="html"><![CDATA[<p>之前自己总结过的<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>，其涵盖的技术点比较全面，并非一朝一夕能够全部覆盖到的。对于一些还没有入门或者刚刚入门的Java后端工程师，如果一下子需要学习如此多的知识，想必很多人会望而却步。</p>
-
-<p>本文截取了技能树中的一些关键技能点，并辅以学习资料和书籍推荐，做为Java后端工程师的一个入门或者入职学习计划，基本上涵盖了一个合格的Java后端工程师必备的技能点，是一个相对完整的从基础到高级的修炼过程。当然，这只是一个大纲性指引的东西，也主要针对的是Java后端这个职位，并不会面面俱到，也不会很详细的讲述。毕竟其中每一个知识点深入下去都是可以成书的。另外，像数据结构、计算机网络等计算机科学基础知识，我认为是从事计算机专业的人必备的知识点，因此并不包括在内。如果要一个很全的知识点可以移步<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>。</p>
-
-<p><strong>本大纲于2016.07.07最新更新</strong>^_^&hellip;</p>
-
-<!--more-->
-
-
-<h2>一. Git版本管理+Maven工程管理</h2>
-
-<p><a href="http://weibo.com/p/1001643874239169320051">微博新兵训练营课程——环境与工具</a></p>
-
-<h2>二. Java编程</h2>
-
-<h3>书籍</h3>
-
-<ul>
-<li><a href="https://book.douban.com/subject/3146174/">《Java核心技术(卷1)》</a>：学习java必备的黄皮书，入门推荐书籍</li>
-<li><a href="https://book.douban.com/subject/3360866/">《Java核心技术(卷2)》</a>：黄皮书之高级特性</li>
-<li><a href="https://book.douban.com/subject/10484692/">《Java并发编程实战》</a>: 对java并发库讲得非常透彻</li>
-<li><a href="https://book.douban.com/subject/3360807/">《Effective Java》</a>：Java之父高司令都称赞的一本java进阶书籍</li>
-<li><a href="https://book.douban.com/subject/26274206/">《写给大忙人看的Java SE 8》</a>:涵盖了java8带来以及java7中被略过的新的java特性，值得一看</li>
-</ul>
-
-
-<h3>资料</h3>
-
-<ul>
-<li>Socket编程: <a href="http://ifeve.com/java-socket/">http://ifeve.com/java-socket/</a></li>
-<li>NIO: <a href="http://ifeve.com/java-nio-all/">http://ifeve.com/java-nio-all/</a></li>
-<li>序列化: <a href="http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/">http://ifeve.com/java-io-s-objectinputstream-objectoutputstream/</a></li>
-<li>RPC框架: <a href="http://dubbo.io">http://dubbo.io</a></li>
-<li>并发编程：<a href="http://ifeve.com/java-concurrency-constructs/">http://ifeve.com/java-concurrency-constructs/</a></li>
-</ul>
-
-
-<h2>三. 开发框架</h2>
-
-<ul>
-<li>Spring: <a href="http://www.open-open.com/doc/view/5407635b943d410c9cfde409c90450b7">跟开涛学Spring3</a></li>
-<li>Spring MVC: <a href="http://www.cnblogs.com/kaitao/archive/2012/07/16/2593441.html">跟开涛学SpringMvc</a></li>
-<li>MyBatis: <a href="http://www.yihaomen.com/article/java/302.htm">MyBatis实战教程</a> <a href="http://limingnihao.iteye.com/blog/781671">MyBatis学习</a></li>
-</ul>
-
-
-<p>对于这些框架或者是一些常用的软件，个人最推崇的还是阅读<strong>官方文档</strong>来学习。当然，看这些资料能让你入门地更加快速一些。</p>
-
-<p>更进一步的，在学会使用之后，去阅读这些框架或软件的源码是必不可少的一步。阅读源码的一种比较好的步骤如下：</p>
-
-<ul>
-<li>1) 先阅读架构文档</li>
-<li>2) 根据架构，将源码文件以模块（或上下层级）分类</li>
-<li>3) 从最独立（依赖性最小）的模块代码读起</li>
-<li>4) 阅读该模块功能文档</li>
-<li>5) 阅读该模块源代码</li>
-<li>6) 一边阅读一边整理「调用关系表」</li>
-<li>7) goto 3</li>
-</ul>
-
-
-<h2>四. 性能优化与诊断-系统</h2>
-
-<p><a href="https://book.douban.com/subject/4027746/">《Linux服务器性能调整》</a></p>
-
-<p>学习内容：</p>
-
-<ul>
-<li>Linux概述</li>
-<li>性能分析工具</li>
-<li>系统调优</li>
-<li>Linux服务器应用的性能特征</li>
-<li>调优案例分析</li>
-</ul>
-
-
-<h2>五. 性能优化与诊断-JVM</h2>
-
-<ul>
-<li><p><a href="https://book.douban.com/subject/25828043/">《Java性能优化权威指南》</a></p>
-
-<p>  学习内容：</p>
-
-<ul>
-<li>JVM概述</li>
-<li>JVM性能监控</li>
-<li>JVM性能剖析与工具</li>
-<li>JVM参数与调优步骤</li>
-<li>JVM调优案例分析</li>
-</ul>
-</li>
-<li><p><a href="https://book.douban.com/subject/24722612/">《深入理解Java虚拟机(第二版)》</a></p></li>
-</ul>
-
-
-<h2>六. 消息中间件</h2>
-
-<h3>JMS</h3>
-
-<p>最为经典，也比较简单的一个消息中间件规范，ActiveMQ是其一个实现。但由于自身的一些局限，不再推荐使用。</p>
-
-<ul>
-<li>大规模分布式消息中间件简介：<a href="http://blog.csdn.net/huyiyang2010/article/details/5969944">http://blog.csdn.net/huyiyang2010/article/details/5969944</a></li>
-<li>JMS Overview: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdr.html</a></li>
-<li>Basic JMS API Concepts: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncdx.html</a></li>
-<li>The JMS API Programming Model: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html">http://docs.oracle.com/javaee/6/tutorial/doc/bnceh.html</a></li>
-<li>Creating Robust JMS Applications:<a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncfu.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncfu.html</a></li>
-<li>Using the JMS API in Java EE Applications: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncgl.html</a></li>
-<li>Further Information about JMS: <a href="http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html">http://docs.oracle.com/javaee/6/tutorial/doc/bncgu.html</a></li>
-</ul>
-
-
-<h3>RabbitMQ</h3>
-
-<p>RabbitMQ是AMQP(The Advanced Message Queuing Protocol)协议的实现。适用于需要事务管理、对消息丢失很敏感的应用场景。对比kafka来看，RabbitMQ更为强调消息的可靠性、事务等。通过阅读官方文档学习即可：<a href="http://www.rabbitmq.com/documentation.html">官方文档</a></p>
-
-<h3>Kafka</h3>
-
-<p>基于日志的消息队列，首推当然是官方文档: <a href="http://kafka.apache.org/documentation.html">http://kafka.apache.org/documentation.html</a></p>
-
-<ul>
-<li><p><a href="http://www.orchome.com/kafka/index">kafka中文教程</a>：比较不错的中文教程</p>
-
-<p>  学习内容：</p>
-
-<ul>
-<li>开始学习kafka</li>
-<li>入门</li>
-<li>接口</li>
-<li>配置</li>
-<li>设计</li>
-<li>实现</li>
-<li>什么是kafka</li>
-<li>什么场景下使用kafka</li>
-</ul>
-</li>
-<li><p><a href="https://github.com/superhj1987/kafka-study">kafka-study</a>: 笔者在学习kafka时的一些笔记</p></li>
-</ul>
-
-
-<h2>七. OAuth认证技术</h2>
-
-<h3>原理</h3>
-
-<p>OAuth是目前最为流行的第三方认证技术，即如何为第三方应用提供基于自己系统帐户体系的认证。目前，微博、微信、QQ、Facebook、Twitter基本上都是通过此协议让第三方应用集成的。简单的介绍可见百度百科简介: <a href="http://baike.baidu.com/link?url=Atszf_5BaipVU0_H2Gy8qZ9K0W9WnnmEmRwl6SXkHJyrbB5-GxZ_Kc57hjaCEfF-0wGkcblothOuji0Cabwvu_">OAuth</a>。</p>
-
-<p>此外，这里有一篇博文讲的比较详细：<a href="https://www.baidu.com/link?url=dsh9gFpNCLJSQoBq13Pw_nND3XvhBEfuuWQIyDpSDahpKPARnW2b950PgL0ywr8f&amp;wd=&amp;eqid=921a63a50002869300000004577e6e05">OAuth的机制原理讲解及开发流程</a>。</p>
-
-<h3>开源实现</h3>
-
-<ul>
-<li>Google oauth core：<a href="http://oauth.net/code/">http://oauth.net/code/</a></li>
-<li>Spring oauth: <a href="http://projects.spring.io/spring-security-oauth/">http://projects.spring.io/spring-security-oauth/</a></li>
-</ul>
-
-
-<h2>八. Redis设计与实现</h2>
-
-<ul>
-<li><p><a href="http://redisdoc.com/">Redis命令</a>: 使用当然要看这份权威文档，也是平常开发中最常用的参考资料。</p></li>
-<li><p><a href="http://redisbook.com/">Redis设计与实现</a>：可以通过此文档来学习Redis的原理。当然，自己去看redis的源代码更是不错的选择。</p>
-
-<p>  学习内容：</p>
-
-<ul>
-<li>常用命令以及数据结构</li>
-<li>内部数据结构</li>
-<li>内存映射数据库结构</li>
-<li>redis数据类型</li>
-<li>功能的实现</li>
-<li>内部运作机制</li>
-</ul>
-</li>
-</ul>
-
-
-<h2>九. 数据相关</h2>
-
-<h3>理论基础</h3>
-
-<ul>
-<li><a href="http://blog.csdn.net/active1001/archive/2007/07/02/1675920.aspx">MapReduce</a>: 分布式计算的鼻祖，当然谷歌现在推出了新的计算模型。</li>
-<li><a href="http://blog.csdn.net/xuleicsu/archive/2005/11/10/526386.aspx">GFS</a>: 分布式存储技术，开源实现为HDFS</li>
-<li><a href="http://blog.csdn.net/accesine960/archive/2006/02/09/595628.aspx">Bigtable</a>: 稀疏大型数据库(列数据库)技术，开源实现为HBASE。</li>
-</ul>
-
-
-<p>作为业界良心的google还有其他许多先进的分布式技术，其论文也非常值得去研读。可以通过此链接获取一些论文的内容：<a href="http://www.chinacloud.cn/show.aspx?id=14382&amp;cid=11">http://www.chinacloud.cn/show.aspx?id=14382&amp;cid=11</a></p>
-
-<h3>实时计算</h3>
-
-<ul>
-<li><a href="https://book.douban.com/subject/26312249/">《Storm分布式实时计算模式》</a>：虽然twitter推出了新一代的Heron，但Storm仍是目前应用最为广泛的实时计算技术。</li>
-<li><a href="https://spark.apache.org/streaming/">Spark streaming: </a>：Spark带来了基于批处理的实时流计算技术，对比Storm各有优劣。</li>
-</ul>
-
-
-<h3>离线计算</h3>
-
-<ul>
-<li><a href="https://book.douban.com/subject/26206050/">《Hadoop权威指南》</a>：无须多言，Haoop是大数据必须要学习的技术，涵盖了HDFS+HBase+MapReduce。</li>
-<li><a href="https://book.douban.com/subject/25791255/">《Hive编程指南》</a>：Hive降低了MapReduce程序编写的复杂度。</li>
-<li><a href="https://book.douban.com/subject/26616244/">《Spark快速大数据分析》</a>： Spark引进的基于RDD的计算模型大大提高了离线计算的性能，相对于MR来说是更为领先的离线计算技术。</li>
-</ul>
-
-
-<h3>Lambda架构</h3>
-
-<p>大数据领域的经典架构方案，融合了离线和实时计算模型，对外能够提供稳定可靠的数据。对此架构的剖析可见此篇文章：<a href="http://www.csdn.net/article/2014-07-08/2820562-Lambda-Linkedln">Linkedln技术高管Jay Kreps：Lambda架构剖析</a></p>
-
-<h3>机器学习</h3>
-
-<p>除了个性化推荐系统之外，CTR预估、广告推荐、预测模型都是机器学习的应用场景。</p>
-
-<ul>
-<li><a href="https://book.douban.com/subject/10769749/">《推荐系统实践》</a></li>
-<li><a href="https://book.douban.com/subject/26596778/">《计算广告》</a></li>
-<li><a href="https://book.douban.com/subject/3288908/">《集体智慧》</a></li>
-<li><a href="https://book.douban.com/subject/26708119/">《机器学习》</a></li>
-</ul>
-
 ]]></content>
   </entry>
   

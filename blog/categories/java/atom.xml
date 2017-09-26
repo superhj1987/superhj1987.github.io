@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-09-25T17:01:51+08:00</updated>
+  <updated>2017-09-26T10:28:12+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java9来了]]></title>
+    <link href="http://www.rowkey.me/blog/2017/09/22/java9/"/>
+    <updated>2017-09-22T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/09/22/java9</id>
+    <content type="html"><![CDATA[<p>2017.9.21，Java9终于正式发布。其带来了诸如模块化、REPL环境、集合工厂方法等一系列有用的新特性。本文列出一些链接，可以通过阅读相关的内容来了解学习Java9。</p>
+
+<h2>官方资料</h2>
+
+<ul>
+<li><a href="http://jdk.java.net/9/">JD9下载</a></li>
+<li><a href="http://openjdk.java.net/projects/jdk9/">Java9新特性</a></li>
+<li><a href="https://docs.oracle.com/javase/9/">Oracle的JDK文档</a></li>
+<li><a href="http://mail.openjdk.java.net/pipermail/announce/2017-September/000230.html">Mark Reinhold的JDK9发布声明</a> [Mark Reinhold是Oracle的Java平台首席架构师]</li>
+<li><a href="https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-7744EF96-5899-4FB2-B34E-86D49B2E89B6">迁移到Java9的提示</a></li>
+<li><a href="https://blogs.oracle.com/theaquarium/java-ee-8-is-final-and-glassfish-50-is-released">JavaEE 8和GlassFish发布</a></li>
+</ul>
+
+
+<h2>第三方资料</h2>
+
+<ul>
+<li><a href="https://dzone.com/articles/java-9-besides-modules">Java9中除了模块化的其他新特性介绍</a></li>
+<li><a href="https://dzone.com/articles/java-9-and-intellij-idea">Java 9 and IntelliJ IDEA</a></li>
+<li>Java9对旧版本应用的支持: <a href="https://dzone.com/articles/yes-you-can-java-9-for-the-legacy-developer">https://dzone.com/articles/yes-you-can-java-9-for-the-legacy-developer</a>、<a href="https://dzone.com/articles/the-legacy-developers-guide-to-java-9">https://dzone.com/articles/the-legacy-developers-guide-to-java-9</a></li>
+<li>Java9模块化开发：<a href="https://dzone.com/articles/java-9-modularity-jigsaw">第一部分</a>、<a href="https://dzone.com/articles/java-9-modular-development-part-2">第二部分</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[[译]Java中9个处理Exception的最佳实践]]></title>
@@ -609,127 +640,6 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 </code></pre>
 
 <p><strong>ps: 此文内容来自<a href="https://dzone.com/articles/lifting-functions-to-work-with-monads-in-java?edition=311409&amp;edition=0&amp;utm_source=Zone%20Newsletter&amp;utm_medium=email&amp;utm_campaign=java%202017-08-01">https://dzone.com/articles/lifting-functions-to-work-with-monads-in-java?edition=311409&amp;edition=0&amp;utm_source=Zone%20Newsletter&amp;utm_medium=email&amp;utm_campaign=java%202017-08-01</a>，加入了本人的理解和认知。</strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[《Java工程师修炼之道》内容概览]]></title>
-    <link href="http://www.rowkey.me/blog/2017/08/10/pragmatic-java-engineer/"/>
-    <updated>2017-08-10T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/08/10/pragmatic-java-engineer</id>
-    <content type="html"><![CDATA[<p>最近几个月由于工作和正在筹备《Java工程师修炼之道》一书的原因一直没有写新的文章。不过，忙里偷闲，自己陆续读完了《格鲁夫给经理人的第一课》、《架构真经》、《聊聊架构》这几本书，收获了不少干货，之前自己挖坑的《一些架构设计原则》一文后面会尽快填上。本文则先介绍一下《Java工程师修炼之道》一书^_^。</p>
-
-<p>《Java工程师修炼之道》一书主要内容是Java后端工程师必备的基本技能大纲。内容主要来自于公司内的后端工程师学习计划、自己以前的一些博客文章和自己从业以来积累的知识库。但由于后端工程师的每一个技能点都具有一定的深度，都不是一两篇文章就能讲述清楚的，因此本书不可能对每一个技能点都讲的特别透彻。</p>
-
-<p>本书可以看做是一本Java工程师的入职指南，也可以看做一本串联Java后端技能点的参考手册。对其中每一个技能点的学习，推荐通过他们的官方文档来深入学习，此外，本书也给出了自己觉得有价值的参考学习书籍。</p>
-
-<!--more-->
-
-
-<p>初步的目录如下：</p>
-
-<ul>
-<li><p>第一章 后端技术导言</p>
-
-<ul>
-<li>1.1 后端基础设施</li>
-<li>1.2 Java后端技术概览</li>
-<li>1.3 如何学习后端技术</li>
-</ul>
-</li>
-<li><p>第二章 Java项目工程化</p>
-
-<ul>
-<li>2.1 项目构建</li>
-<li>2.2 代码版本协作</li>
-<li>2.3 代码质量</li>
-</ul>
-</li>
-<li><p>第三章 开发框架</p>
-
-<ul>
-<li>3.1 依赖注入</li>
-<li>3.2 对象关系映射</li>
-<li>3.3 日志</li>
-<li>3.4 Web MVC</li>
-</ul>
-</li>
-<li><p>第四章 Spring</p>
-
-<ul>
-<li>4.1 Spring Core</li>
-<li>4.2 数据操作</li>
-<li>4.3 Spring Boot</li>
-<li>4.4 常用组件</li>
-<li>4.5 总结</li>
-</ul>
-</li>
-<li><p>第五章 数据存储</p>
-
-<ul>
-<li>5.1 关系型数据库</li>
-<li>5.2 NoSQL数据库</li>
-<li>5.3 缓存</li>
-<li>5.4 搜索引擎</li>
-</ul>
-</li>
-<li><p>第六章 数据通信</p>
-
-<ul>
-<li>6.1 RESTful</li>
-<li>6.2 RPC</li>
-<li>6.3 消息队列</li>
-</ul>
-</li>
-<li><p>第七章 Java编程进阶</p>
-
-<ul>
-<li>7.1 Java内存管理</li>
-<li>7.2 Java网络编程</li>
-<li>7.3 Java并发编程</li>
-<li>7.4 Java开发武器</li>
-<li>7.5 New Java</li>
-<li>7.6 总结</li>
-</ul>
-</li>
-<li><p>第八章 性能调优</p>
-
-<ul>
-<li>8.1 调优准备</li>
-<li>8.2 性能分析</li>
-<li>8.3 性能调优</li>
-</ul>
-</li>
-<li><p>第九章 安全技术</p>
-
-<ul>
-<li>9.1 Java加密</li>
-<li>9.2 HTTPS</li>
-<li>9.3 Web安全</li>
-</ul>
-</li>
-</ul>
-
-
-<p>其中的部分内容，会在此书正式出版后陆续放出。</p>
-
-<p><strong>希望这本书会给想要学习Java后端开发的同学或者还未形成自己技术体系的Java工程师们带来帮助。</strong></p>
-
-<p>题外的，再给我们的新产品打一个广告。</p>
-
-<p>哔哔是一个对话式故事阅读app，对话式故事也叫话本，一个故事就类似于微信的一段对话，形式如下：</p>
-
-<p><img src="//images/blog_images/bibi.png" alt="" /></p>
-
-<p>区别于其他阅读类app，我们还重视社交关系的维护以及故事的直播。</p>
-
-<p><img src="//images/blog_images/bibi-live.png" alt="" /></p>
-
-<p>此外，我们已经吸引了大量优秀故事创作者在我们平台上贡献内容。故事类型丰富多样，故事内容千奇百怪。爱讲段子的段子手能够在这里凭借自己段子的魅力俘获万千粉丝，获得打赏；爱看故事的童鞋也可以在这里追随各种故事达人，看他们直播讲故事/段子，给自己喜欢的作者送礼物。</p>
-
-<p>扫码下载：</p>
-
-<p><img src="//images/blog_images/bibi-url.png" alt="" /></p>
 ]]></content>
   </entry>
   
