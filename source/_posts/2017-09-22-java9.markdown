@@ -1,0 +1,24 @@
+---
+layout: post
+title: "Java9来了"
+date: 2017-09-22 19:29:34 +0800
+comments: true
+categories: java
+---
+
+2017.9.21，Java9终于正式发布。其带来了诸如模块化、REPL环境、集合工厂方法等一系列有用的新特性。本文列出一些链接，可以通过阅读相关的内容来了解学习Java9。
+
+## 官方资料
+
+- [JD9下载](http://jdk.java.net/9/)
+- [Java9新特性](http://openjdk.java.net/projects/jdk9/)
+- [Oracle的JDK文档](https://docs.oracle.com/javase/9/)
+- [Mark Reinhold的JDK9发布声明](http://mail.openjdk.java.net/pipermail/announce/2017-September/000230.html) [Mark Reinhold是Oracle的Java平台首席架构师]
+- [迁移到Java9的提示](https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-7744EF96-5899-4FB2-B34E-86D49B2E89B6)
+- [JavaEE 8和GlassFish发布](https://blogs.oracle.com/theaquarium/java-ee-8-is-final-and-glassfish-50-is-released)
+
+## 第三方资料
+- [Java9中除了模块化的其他新特性介绍](https://dzone.com/articles/java-9-besides-modules)
+- [Java 9 and IntelliJ IDEA](https://dzone.com/articles/java-9-and-intellij-idea)
+- Java9对旧版本应用的支持: <https://dzone.com/articles/yes-you-can-java-9-for-the-legacy-developer>、<https://dzone.com/articles/the-legacy-developers-guide-to-java-9>
+- Java9模块化开发：[第一部分](https://dzone.com/articles/java-9-modularity-jigsaw)、[第二部分](https://dzone.com/articles/java-9-modular-development-part-2)
