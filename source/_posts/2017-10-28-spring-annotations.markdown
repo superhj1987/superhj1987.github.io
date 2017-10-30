@@ -12,7 +12,7 @@ categories: java
 
 <!--more-->
 
-## 核心注解
+## 一. 核心注解
 
 ### @Required
 
@@ -104,7 +104,7 @@ public class SpringCoreConfig {
 
 此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件呢、本地环境变量、系统属性等)的值注入到bean的属性中。此注解的注入时发生在AutowiredAnnotationBeanPostProcessor中。
 
-## Spring中的Stereotype注解
+## 二. Stereotype注解
 
 ### @Component
 
@@ -124,7 +124,7 @@ public class SpringCoreConfig {
 
 此注解有自动翻译的特性，例如：当此种component抛出了一个异常，那么会有一个handler来处理此异常，无需使用try-catch块。
 
-## Spring Boot注解
+## 三. Spring Boot注解
 
 ### @EnableAutoConfiguration
 
@@ -140,7 +140,7 @@ public class SpringCoreConfig {
 - @EnableAutoConfiguration
 - @ComponentScan
 
-## Spring MVC和REST注解
+## 四. Spring MVC和REST注解
 
 ### @Controller
 
@@ -322,13 +322,13 @@ public PUser getUser() {}
 public class UserController {}
 ```
 
-## Spring 数据访问注解
+## 五. 数据访问注解
 
 ### @Transactional
 
 此注解使用在接口定义、接口中的方法、类定义或者类中的public方法上。需要注意的是此注解并不激活事务行为，它仅仅是一个元数据，会被一些运行时基础设施来消费。
 
-## 任务执行、调度注解
+## 六. 任务执行、调度注解
 
 ### @Scheduled
 
@@ -353,7 +353,7 @@ public void schedulg() {
 
 使用此注解的方法的返回类型可以是Void也可是返回值。但是返回值的类型必须是一个Future。
 
-## Spring测试注解
+## 七. 测试注解
 
 ### @ContextConfiguration
 
