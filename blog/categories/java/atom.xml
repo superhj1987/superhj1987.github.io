@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-10-25T10:05:45+08:00</updated>
+  <updated>2017-10-30T19:23:25+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,365 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Spring注解概览]]></title>
+    <link href="http://www.rowkey.me/blog/2017/10/28/spring-annotations/"/>
+    <updated>2017-10-28T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/10/28/spring-annotations</id>
+    <content type="html"><![CDATA[<p>从Java5.0开始，Java开始支持注解。Spring做为Java生态中的领军框架，从2.5版本后也开始支持注解。相比起之前使用xml来配置Spring框架，使用注解提供了更多的控制Spring框架的方式。</p>
+
+<p>本文主要介绍Spring中常用的一些注解，并做简单介绍。</p>
+
+<!--more-->
+
+
+<h2>核心注解</h2>
+
+<h3>@Required</h3>
+
+<p>此注解用于bean的setter方法上。表示此属性是必须的，必须在配置阶段注入。否则会抛出BeanInitializationExcepion。</p>
+
+<h3>@Autowired</h3>
+
+<p>此注解用于bean的field、setter方法以及构造方法上，显式地声明依赖。根据type来autowiring。</p>
+
+<p>当在field上使用此注解，并且使用属性来传递值时，Spring会自动把值赋给此field。也可以将此注解用于私有属性(不推荐)，如下。</p>
+
+<pre><code>@Component
+public class User {
+    @Autowired                               
+    private Address address;                   
+}
+</code></pre>
+
+<p>最经常的用法是将此注解用于settter上，这样可以在setter方法中添加一下自定义的代码。如下：</p>
+
+<pre><code>@Component
+public class User {
+    private Address address;
+
+    @AutoWired
+     public User(Address address) {             // custom code
+        this.address=address;
+     }
+}
+</code></pre>
+
+<p>当在构造方法上使用此注解的时候，需要注意的一点就是一个类中只允许有一个构造方法使用此注解。此外，在Spring4.3后，如果一个类仅仅只有一个构造方法，那么即使不使用此注解，那么Spring也会自动注入相关的bean。如下：</p>
+
+<pre><code>@Component
+public class User {
+    private Address address;
+
+     public User(Address address) {                 
+        this.address=address;
+     }
+}
+
+&lt;bean id="user" class="xx.User"/&gt;
+</code></pre>
+
+<h3>@Qualifier</h3>
+
+<p>此注解是和@Autowired一起使用的。使用此注解可以让你对注入的过程有更多的控制。</p>
+
+<p>@Qualifier可以被用在单个构造器或者方法的参数上。当上下文有几个相同类型的bean, 使用@Autowired则无法区分要绑定的bean，此时可以使用@Qualifier来指定名称。</p>
+
+<pre><code>@Component
+public class User {
+    @Autowired
+    @Qualifier("address1")
+    private Address address;
+    ...
+}
+</code></pre>
+
+<h3>@Configuration</h3>
+
+<p>此注解用在class上来定义bean。其作用和xml配置文件相同，表示此bean是一个Spring配置。此外，此类可以使用@Bean注解来初始化定义bean。</p>
+
+<pre><code>@Configuartion
+public class SpringCoreConfig {
+    @Bean
+    public AdminUser adminUser() {
+        AdminUser adminUser = new AdminUser();
+        return adminUser;
+    }
+}
+</code></pre>
+
+<h3>@ComponentScan</h3>
+
+<p>此注解一般和@Configuration注解一起使用，指定Spring扫描注解的package。如果没有指定包，那么默认会扫描此配置类所在的package。</p>
+
+<h3>@Lazy</h3>
+
+<p>此注解使用在Spring的组件类上。默认的，Spring中Bean的依赖一开始就被创建和配置。如果想要延迟初始化一个bean，那么可以在此类上使用Lazy注解，表示此bean只有在第一次被使用的时候才会被创建和初始化。此注解也可以使用在被@Configuration注解的类上，表示其中所有被@Bean注解的方法都会延迟初始化。</p>
+
+<h3>@Value</h3>
+
+<p>此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件呢、本地环境变量、系统属性等)的值注入到bean的属性中。此注解的注入时发生在AutowiredAnnotationBeanPostProcessor中。</p>
+
+<h2>Spring中的Stereotype注解</h2>
+
+<h3>@Component</h3>
+
+<p>此注解使用在class上来声明一个Spring组件(Bean), 将其加入到应用上下文中。</p>
+
+<h3>@Controller</h3>
+
+<p>此注解使用在class上声明此类是一个Spring controller，是@Component注解的一种具体形式。</p>
+
+<h3>@Service</h3>
+
+<p>此注解使用在class上，声明此类是一个服务类，执行业务逻辑、计算、调用内部api等。是@Component注解的一种具体形式。</p>
+
+<h3>@Respository</h3>
+
+<p>此类使用在class上声明此类用于访问数据库，一般作为DAO的角色。</p>
+
+<p>此注解有自动翻译的特性，例如：当此种component抛出了一个异常，那么会有一个handler来处理此异常，无需使用try-catch块。</p>
+
+<h2>Spring Boot注解</h2>
+
+<h3>@EnableAutoConfiguration</h3>
+
+<p>此注解通常被用在主应用class上，告诉Spring Boot自动基于当前包添加Bean、对bean的属性进行设置等。</p>
+
+<h3>@SpringBootApplication</h3>
+
+<p>此注解用在Spring Boot项目的应用主类上（此类需要在base package中）。使用了此注解的类首先会让Spring Boot启动对base package下以及其sub-pacakages的类进行component scan。</p>
+
+<p>此注解同时添加了以下几个注解：</p>
+
+<ul>
+<li>@Configuration</li>
+<li>@EnableAutoConfiguration</li>
+<li>@ComponentScan</li>
+</ul>
+
+
+<h2>Spring MVC和REST注解</h2>
+
+<h3>@Controller</h3>
+
+<p>上述已经提到过此注解。</p>
+
+<h3>@RequestMapping</h3>
+
+<p>此注解可以用在class和method上，用来映射web请求到某一个handler类或者handler方法上。当此注解用在Class上时，就创造了一个基础url，其所有的方法上的@RequestMapping都是在此url之上的。</p>
+
+<p>可以使用其method属性来限制请求匹配的http method。</p>
+
+<pre><code>@Controller
+@RequestMapping("/users")
+public class UserController {
+    @RequestMapping(method = RequestMethod.GET)
+    public String getUserList() {
+        return "users";
+    }
+}
+</code></pre>
+
+<p>此外，Spring4.3之后引入了一系列@RequestMapping的变种。如下：</p>
+
+<ul>
+<li>@GetMapping</li>
+<li>@PostMapping</li>
+<li>@PutMapping</li>
+<li>@PatchMapping</li>
+<li>@DeleteMapping</li>
+</ul>
+
+
+<p>分别对应了相应method的RequestMapping配置。</p>
+
+<h3>@CookieValue</h3>
+
+<p>此注解用在@RequestMapping声明的方法的参数上，可以把HTTP cookie中相应名称的cookie绑定上去。</p>
+
+<pre><code>    @ReuestMapping("/cookieValue")
+   public void getCookieValue(@CookieValue "JSESSIONID" String cookie){
+}
+</code></pre>
+
+<p>cookie即http请求中name为JSESSIONID的cookie值。</p>
+
+<h3>@CrossOrigin</h3>
+
+<p>此注解用在class和method上用来支持跨域请求，是Spring 4.2后引入的。</p>
+
+<pre><code>CrossOrigin(maxAge = 3600)
+@RestController
+@RequestMapping("/users")
+public class AccountController {
+    @CrossOrigin(origins = "http://xx.com")
+    @RequestMapping("/login")
+    public Result userLogin() {
+        // ...
+    }
+}
+</code></pre>
+
+<h3>@ExceptionHandler</h3>
+
+<p>此注解使用在方法级别，声明对Exception的处理逻辑。可以指定目标Exception。</p>
+
+<h3>@InitBinder</h3>
+
+<p>此注解使用在方法上，声明对WebDataBinder的初始化(绑定请求参数到JavaBean上的DataBinder)。在controller上使用此注解可以自定义请求参数的绑定。</p>
+
+<h3>@MatrixVariable</h3>
+
+<p>此注解使用在请求handler方法的参数上，Spring可以注入matrix url中相关的值。这里的矩阵变量可以出现在url中的任何地方，变量之间用;分隔。如下：</p>
+
+<pre><code>// GET /pets/42;q=11;r=22
+@RequestMapping(value = "/pets/{petId}")
+public void findPet(@PathVariable String petId, @MatrixVariable int q) {
+    // petId == 42
+    // q == 11
+}
+</code></pre>
+
+<p>需要注意的是默认Spring mvc是不支持矩阵变量的，需要开启。</p>
+
+<pre><code>&lt;mvc:annotation-driven enable-matrix-variables="true" /&gt;
+</code></pre>
+
+<p>注解配置则需要如下开启：</p>
+
+<pre><code>@Configuration
+public class WebConfig extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void configurePathMatch(PathMatchConfigurer configurer) {
+        UrlPathHelper urlPathHelper = new UrlPathHelper();
+        urlPathHelper.setRemoveSemicolonContent(false);
+        configurer.setUrlPathHelper(urlPathHelper);
+    }
+}
+</code></pre>
+
+<h3>@PathVariable</h3>
+
+<p>此注解使用在请求handler方法的参数上。@RequestMapping可以定义动态路径，如:</p>
+
+<pre><code>@RequestMapping("/users/{uid}")
+</code></pre>
+
+<p>这是可以使用@PathVariable来绑定到请求方法参数上。</p>
+
+<pre><code>RequestMapping("/users/{uid}")
+public String execute(@PathVariable("uid") String uid){
+}
+</code></pre>
+
+<h3>@RequestAttribute</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将web请求中的属性(requst attributes，是服务器放入的属性值)绑定到方法参数上。</p>
+
+<h3>@RequestBody</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将http请求的Body映射绑定到此参数上。HttpMessageConverter负责将对象转换为http请求。</p>
+
+<h3>@RequestHeader</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将http请求头部的值绑定到参数上。</p>
+
+<h3>@RequestParam</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将http请求参数的值绑定到参数上。</p>
+
+<h3>@RequestPart</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将文件之类的multipart绑定到参数上。</p>
+
+<h4>@ResponseBody</h4>
+
+<p>此注解用在请求handler方法上。和@RequestBody作用类似，用于将方法的返回对象直接输出到http响应中。</p>
+
+<h3>@ResponseStatus</h3>
+
+<p>此注解用于方法和exception类上，声明此方法或者异常类返回的http状态码。可以在Controller上使用此注解，这样所有的@RequestMapping都会继承。</p>
+
+<h4>@ControllerAdvice</h4>
+
+<p>此注解用于class上。前面说过可以对每一个controller声明一个ExceptionMethod。这里可以使用@ControllerAdvice来声明一个类来统一对所有@RequestMapping方法来做@ExceptionHandler, @InitBinder, and @ModelAttribute处理。</p>
+
+<h3>@RestController</h3>
+
+<p>此注解用于class上，声明此controller返回的不是一个视图而是一个领域对象。其同时引入了@Controller and @ResponseBody两个注解。</p>
+
+<h3>@RestControllerAdvice</h3>
+
+<p>此注解用于class上，同时引入了@ControllerAdvice and @ResponseBody两个注解。</p>
+
+<h3>@SessionAttribute</h3>
+
+<p>此注解用于方法的参数上，用于将session中的属性绑定到参数。</p>
+
+<h3>@SessionAttributes</h3>
+
+<p>此注解用于type级别，用于将JavaBean对象存储到session中。一般和@ModelAttribute注解一起使用。如下：</p>
+
+<pre><code>@ModelAttribute("user")
+
+
+public PUser getUser() {}
+// controller和上面的代码在同一controller中
+@Controller
+@SeesionAttributes(value = "user", types = {
+    User.class
+})
+public class UserController {}
+</code></pre>
+
+<h2>Spring 数据访问注解</h2>
+
+<h3>@Transactional</h3>
+
+<p>此注解使用在接口定义、接口中的方法、类定义或者类中的public方法上。需要注意的是此注解并不激活事务行为，它仅仅是一个元数据，会被一些运行时基础设施来消费。</p>
+
+<h2>任务执行、调度注解</h2>
+
+<h3>@Scheduled</h3>
+
+<p>此注解使用在方法上，声明此方法被定时调度。使用了此注解的方法返回类型需要是Void，并且不能接受任何参数。</p>
+
+<pre><code>
+@Scheduled(fixedDelay=1000)
+public void schedule() {
+}
+
+@Scheduled(fixedRate=1000)
+public void schedulg() { 
+}
+</code></pre>
+
+<p>第二个与第一个不同之处在于其不会等待上一次的任务执行结束。</p>
+
+<h3>@Async</h3>
+
+<p>此注解使用在方法上，声明此方法会在一个单独的线程中执行。不同于Scheduled注解，此注解可以接受参数。</p>
+
+<p>使用此注解的方法的返回类型可以是Void也可是返回值。但是返回值的类型必须是一个Future。</p>
+
+<h2>Spring测试注解</h2>
+
+<h3>@ContextConfiguration</h3>
+
+<p>此注解使用在Class上，声明测试使用的配置文件，此外，也可以指定加载上下文的类。</p>
+
+<p>此注解一般需要搭配SpringJUnit4ClassRunner使用。</p>
+
+<pre><code>@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = SpringCoreConfig.class)
+public class UserServiceTest {
+}
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java9来了]]></title>
@@ -567,79 +926,6 @@ Stream.of("A", "", "B").filter(asPredicate(String::isEmpty).negate()).count();
 </code></pre>
 
 <p>英文原文：<a href="https://dzone.com/articles/put-your-java-8-method-references-to-work">https://dzone.com/articles/put-your-java-8-method-references-to-work</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[译]在Java中提升函数以更好地“函数式”编程]]></title>
-    <link href="http://www.rowkey.me/blog/2017/08/18/lift-functions/"/>
-    <updated>2017-08-18T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/08/18/lift-functions</id>
-    <content type="html"><![CDATA[<p>Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。Lambda表达式、Optional和Stream只是函数式编程的冰山一角。这也导致了<a href="https://github.com/vavr-io/vavr">varvr</a>和<a href="https://github.com/functionaljava/functionaljava">functionlajava</a>这些类库的出现，他们都源于Haskell这个纯函数式编程语言。</p>
-
-<p>如果想要更加地“函数式”编程，那么首先要注意的是不要过早的中断monad(一种设计模式，表示将一个运算过程通过函数拆解成互相连接的多个步骤。只要提供下一步运算所需的函数，整个运算就会自动进行下去, Optional、Stream都是monad)，比如，很多人经常会在还不需要的时候就调用了Optional.get()和Stream.collect()提前终止monad。本文主要讲述如何通过提升方法来使得代码更&#8221;函数式&#8221;。</p>
-
-<!--more-->
-
-
-<p>假设有一个接口可以对数字进行计算。</p>
-
-<pre><code>public interface Math {
-    int multiply(int a, int b);
-    double divide(int a, int b);
-    ..
-}
-</code></pre>
-
-<p>我们要使用这个接口来对使用Optional做包装的数字做计算。</p>
-
-<pre><code>public interface NumberProvider {
-    Optional&lt;Integer&gt; getNumber();
-}
-</code></pre>
-
-<p>接着我们来实现一个方法能够返回两个数字相除的结果，结果用Optional包装。如果这两个数字有一个为空则返回空Optional。如下：</p>
-
-<pre><code>public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math math) {
-    Optional&lt;Integer&gt; first = numberProvider.getNumber();
-    Optional&lt;Integer&gt; second = numberProvider.getNumber();
-    if(first.isPresent() &amp;&amp; second.isPresent()) {
-        double result = math.divide(first.get(), second.get());
-        return Optional.of(result);
-    } else {
-        return Optional.empty();
-    }
-}
-</code></pre>
-
-<p>上面的代码非常不优雅，有大量的代码都是在做Optional的包装和解包装。可以让上面的代码变得更加“函数式”，如下：</p>
-
-<pre><code>public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math math) {
-    return numberProvider.getNumber()
-           .flatMap(first -&gt; numberProvider.getNumber()
-                                     .map(second -&gt; math.divide(first, second)));
-}
-</code></pre>
-
-<p>这样代码少了很多，也优雅了很多。先调用第一个Optional的flatMap，再在lambda中调用第二个Optional的map，进一步可以抽取出一个提升方法：</p>
-
-<pre><code>public interface Optionals {
-    static &lt;R, T, Z&gt; BiFunction&lt;Optional&lt;T&gt;, Optional&lt;R&gt;, Optional&lt;Z&gt;&gt; lift(BiFunction&lt;? super T, ? super R, ? extends Z&gt; function) {
-        return (left, right) -&gt; left.flatMap(leftVal -&gt; right.map(rightVal -&gt; function.apply(leftVal, rightVal)));
-    }
-}
-</code></pre>
-
-<p>如上，可知这个方法提升能够提升任何具有两个Optional参数、一个Optional结果的函数，使得被提升的函数具有Optional的一个特性：如果一个参数是空的，那么结果就是空的。如果JDK抽取flatMap和map到一个公共接口，如Monad，那么我们可以为Java Monad的每一个实例(Stream、Optional、自己的实现类)实现一个公共的提升函数。但现实是我们不得不为每一个实例都复制粘贴上面的代码。最终的divideFirstTwo代码如下：</p>
-
-<pre><code>import static com.ps.functional.monad.optional.Optionals.lift;
-...
-public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math math) {
-    return lift(math::divide).apply(numberProvider.getNumber(), numberProvider.getNumber());
-}
-</code></pre>
-
-<p><strong>ps: 此文内容来自<a href="https://dzone.com/articles/lifting-functions-to-work-with-monads-in-java?edition=311409&amp;edition=0&amp;utm_source=Zone%20Newsletter&amp;utm_medium=email&amp;utm_campaign=java%202017-08-01">https://dzone.com/articles/lifting-functions-to-work-with-monads-in-java?edition=311409&amp;edition=0&amp;utm_source=Zone%20Newsletter&amp;utm_medium=email&amp;utm_campaign=java%202017-08-01</a>，加入了本人的理解和认知。</strong></p>
 ]]></content>
   </entry>
   

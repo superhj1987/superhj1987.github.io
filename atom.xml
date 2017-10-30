@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-10-25T10:05:45+08:00</updated>
+  <updated>2017-10-30T19:23:25+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,468 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Spring注解概览]]></title>
+    <link href="http://www.rowkey.me/blog/2017/10/28/spring-annotations/"/>
+    <updated>2017-10-28T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2017/10/28/spring-annotations</id>
+    <content type="html"><![CDATA[<p>从Java5.0开始，Java开始支持注解。Spring做为Java生态中的领军框架，从2.5版本后也开始支持注解。相比起之前使用xml来配置Spring框架，使用注解提供了更多的控制Spring框架的方式。</p>
+
+<p>本文主要介绍Spring中常用的一些注解，并做简单介绍。</p>
+
+<!--more-->
+
+
+<h2>核心注解</h2>
+
+<h3>@Required</h3>
+
+<p>此注解用于bean的setter方法上。表示此属性是必须的，必须在配置阶段注入。否则会抛出BeanInitializationExcepion。</p>
+
+<h3>@Autowired</h3>
+
+<p>此注解用于bean的field、setter方法以及构造方法上，显式地声明依赖。根据type来autowiring。</p>
+
+<p>当在field上使用此注解，并且使用属性来传递值时，Spring会自动把值赋给此field。也可以将此注解用于私有属性(不推荐)，如下。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Component
+</span><span class='line'>public class User {
+</span><span class='line'>    @Autowired                               
+</span><span class='line'>    private Address address;                   
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最经常的用法是将此注解用于settter上，这样可以在setter方法中添加一下自定义的代码。如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Component
+</span><span class='line'>public class User {
+</span><span class='line'>    private Address address;
+</span><span class='line'>    
+</span><span class='line'>    @AutoWired
+</span><span class='line'>   public User(Address address) {             // custom code
+</span><span class='line'>      this.address=address;
+</span><span class='line'>   }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当在构造方法上使用此注解的时候，需要注意的一点就是一个类中只允许有一个构造方法使用此注解。此外，在Spring4.3后，如果一个类仅仅只有一个构造方法，那么即使不使用此注解，那么Spring也会自动注入相关的bean。如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Component
+</span><span class='line'>public class User {
+</span><span class='line'>    private Address address;
+</span><span class='line'>    
+</span><span class='line'>     public User(Address address) {                   
+</span><span class='line'>        this.address=address;
+</span><span class='line'>     }
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>&lt;bean id="user" class="xx.User"/&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>@Qualifier</h3>
+
+<p>此注解是和@Autowired一起使用的。使用此注解可以让你对注入的过程有更多的控制。</p>
+
+<p>@Qualifier可以被用在单个构造器或者方法的参数上。当上下文有几个相同类型的bean, 使用@Autowired则无法区分要绑定的bean，此时可以使用@Qualifier来指定名称。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Component
+</span><span class='line'>public class User {
+</span><span class='line'>    @Autowired
+</span><span class='line'>    @Qualifier("address1")
+</span><span class='line'>    private Address address;
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>@Configuration</h3>
+
+<p>此注解用在class上来定义bean。其作用和xml配置文件相同，表示此bean是一个Spring配置。此外，此类可以使用@Bean注解来初始化定义bean。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Configuartion
+</span><span class='line'>public class SpringCoreConfig {
+</span><span class='line'>    @Bean
+</span><span class='line'>    public AdminUser adminUser() {
+</span><span class='line'>        AdminUser adminUser = new AdminUser();
+</span><span class='line'>        return adminUser;
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>@ComponentScan</h3>
+
+<p>此注解一般和@Configuration注解一起使用，指定Spring扫描注解的package。如果没有指定包，那么默认会扫描此配置类所在的package。</p>
+
+<h3>@Lazy</h3>
+
+<p>此注解使用在Spring的组件类上。默认的，Spring中Bean的依赖一开始就被创建和配置。如果想要延迟初始化一个bean，那么可以在此类上使用Lazy注解，表示此bean只有在第一次被使用的时候才会被创建和初始化。此注解也可以使用在被@Configuration注解的类上，表示其中所有被@Bean注解的方法都会延迟初始化。</p>
+
+<h3>@Value</h3>
+
+<p>此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件呢、本地环境变量、系统属性等)的值注入到bean的属性中。此注解的注入时发生在AutowiredAnnotationBeanPostProcessor中。</p>
+
+<h2>Spring中的Stereotype注解</h2>
+
+<h3>@Component</h3>
+
+<p>此注解使用在class上来声明一个Spring组件(Bean), 将其加入到应用上下文中。</p>
+
+<h3>@Controller</h3>
+
+<p>此注解使用在class上声明此类是一个Spring controller，是@Component注解的一种具体形式。</p>
+
+<h3>@Service</h3>
+
+<p>此注解使用在class上，声明此类是一个服务类，执行业务逻辑、计算、调用内部api等。是@Component注解的一种具体形式。</p>
+
+<h3>@Respository</h3>
+
+<p>此类使用在class上声明此类用于访问数据库，一般作为DAO的角色。</p>
+
+<p>此注解有自动翻译的特性，例如：当此种component抛出了一个异常，那么会有一个handler来处理此异常，无需使用try-catch块。</p>
+
+<h2>Spring Boot注解</h2>
+
+<h3>@EnableAutoConfiguration</h3>
+
+<p>此注解通常被用在主应用class上，告诉Spring Boot自动基于当前包添加Bean、对bean的属性进行设置等。</p>
+
+<h3>@SpringBootApplication</h3>
+
+<p>此注解用在Spring Boot项目的应用主类上（此类需要在base package中）。使用了此注解的类首先会让Spring Boot启动对base package下以及其sub-pacakages的类进行component scan。</p>
+
+<p>此注解同时添加了以下几个注解：</p>
+
+<ul>
+<li>@Configuration</li>
+<li>@EnableAutoConfiguration</li>
+<li>@ComponentScan</li>
+</ul>
+
+
+<h2>Spring MVC和REST注解</h2>
+
+<h3>@Controller</h3>
+
+<p>上述已经提到过此注解。</p>
+
+<h3>@RequestMapping</h3>
+
+<p>此注解可以用在class和method上，用来映射web请求到某一个handler类或者handler方法上。当此注解用在Class上时，就创造了一个基础url，其所有的方法上的@RequestMapping都是在此url之上的。</p>
+
+<p>可以使用其method属性来限制请求匹配的http method。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Controller
+</span><span class='line'>@RequestMapping("/users")
+</span><span class='line'>public class UserController {
+</span><span class='line'>    @RequestMapping(method = RequestMethod.GET)
+</span><span class='line'>    public String getUserList() {
+</span><span class='line'>        return "users";
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此外，Spring4.3之后引入了一系列@RequestMapping的变种。如下：</p>
+
+<ul>
+<li>@GetMapping</li>
+<li>@PostMapping</li>
+<li>@PutMapping</li>
+<li>@PatchMapping</li>
+<li>@DeleteMapping</li>
+</ul>
+
+
+<p>分别对应了相应method的RequestMapping配置。</p>
+
+<h3>@CookieValue</h3>
+
+<p>此注解用在@RequestMapping声明的方法的参数上，可以把HTTP cookie中相应名称的cookie绑定上去。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@ReuestMapping("/cookieValue")
+</span><span class='line'>   public void getCookieValue(@CookieValue "JSESSIONID" String cookie){
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>cookie即http请求中name为JSESSIONID的cookie值。</p>
+
+<h3>@CrossOrigin</h3>
+
+<p>此注解用在class和method上用来支持跨域请求，是Spring 4.2后引入的。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CrossOrigin(maxAge = 3600)
+</span><span class='line'>@RestController
+</span><span class='line'>@RequestMapping("/users")
+</span><span class='line'>public class AccountController {
+</span><span class='line'>    @CrossOrigin(origins = "http://xx.com")
+</span><span class='line'>    @RequestMapping("/login")
+</span><span class='line'>    public Result userLogin() {
+</span><span class='line'>        // ...
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>@ExceptionHandler</h3>
+
+<p>此注解使用在方法级别，声明对Exception的处理逻辑。可以指定目标Exception。</p>
+
+<h3>@InitBinder</h3>
+
+<p>此注解使用在方法上，声明对WebDataBinder的初始化(绑定请求参数到JavaBean上的DataBinder)。在controller上使用此注解可以自定义请求参数的绑定。</p>
+
+<h3>@MatrixVariable</h3>
+
+<p>此注解使用在请求handler方法的参数上，Spring可以注入matrix url中相关的值。这里的矩阵变量可以出现在url中的任何地方，变量之间用;分隔。如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>// GET /pets/42;q=11;r=22
+</span><span class='line'>@RequestMapping(value = "/pets/{petId}")
+</span><span class='line'>public void findPet(@PathVariable String petId, @MatrixVariable int q) {
+</span><span class='line'>    // petId == 42
+</span><span class='line'>    // q == 11
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>需要注意的是默认Spring mvc是不支持矩阵变量的，需要开启。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;mvc:annotation-driven enable-matrix-variables="true" /&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>注解配置则需要如下开启：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@Configuration
+</span><span class='line'>public class WebConfig extends WebMvcConfigurerAdapter {
+</span><span class='line'> 
+</span><span class='line'>    @Override
+</span><span class='line'>    public void configurePathMatch(PathMatchConfigurer configurer) {
+</span><span class='line'>        UrlPathHelper urlPathHelper = new UrlPathHelper();
+</span><span class='line'>        urlPathHelper.setRemoveSemicolonContent(false);
+</span><span class='line'>        configurer.setUrlPathHelper(urlPathHelper);
+</span><span class='line'>    }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>@PathVariable</h3>
+
+<p>此注解使用在请求handler方法的参数上。@RequestMapping可以定义动态路径，如:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@RequestMapping("/users/{uid}")</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这是可以使用@PathVariable来绑定到请求方法参数上。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>RequestMapping("/users/{uid}")
+</span><span class='line'>public String execute(@PathVariable("uid") String uid){
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>@RequestAttribute</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将web请求中的属性(requst attributes，是服务器放入的属性值)绑定到方法参数上。</p>
+
+<h3>@RequestBody</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将http请求的Body映射绑定到此参数上。HttpMessageConverter负责将对象转换为http请求。</p>
+
+<h3>@RequestHeader</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将http请求头部的值绑定到参数上。</p>
+
+<h3>@RequestParam</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将http请求参数的值绑定到参数上。</p>
+
+<h3>@RequestPart</h3>
+
+<p>此注解用在请求handler方法的参数上，用于将文件之类的multipart绑定到参数上。</p>
+
+<h4>@ResponseBody</h4>
+
+<p>此注解用在请求handler方法上。和@RequestBody作用类似，用于将方法的返回对象直接输出到http响应中。</p>
+
+<h3>@ResponseStatus</h3>
+
+<p>此注解用于方法和exception类上，声明此方法或者异常类返回的http状态码。可以在Controller上使用此注解，这样所有的@RequestMapping都会继承。</p>
+
+<h4>@ControllerAdvice</h4>
+
+<p>此注解用于class上。前面说过可以对每一个controller声明一个ExceptionMethod。这里可以使用@ControllerAdvice来声明一个类来统一对所有@RequestMapping方法来做@ExceptionHandler, @InitBinder, and @ModelAttribute处理。</p>
+
+<h3>@RestController</h3>
+
+<p>此注解用于class上，声明此controller返回的不是一个视图而是一个领域对象。其同时引入了@Controller and @ResponseBody两个注解。</p>
+
+<h3>@RestControllerAdvice</h3>
+
+<p>此注解用于class上，同时引入了@ControllerAdvice and @ResponseBody两个注解。</p>
+
+<h3>@SessionAttribute</h3>
+
+<p>此注解用于方法的参数上，用于将session中的属性绑定到参数。</p>
+
+<h3>@SessionAttributes</h3>
+
+<p>此注解用于type级别，用于将JavaBean对象存储到session中。一般和@ModelAttribute注解一起使用。如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@ModelAttribute("user")
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>public PUser getUser() {}
+</span><span class='line'>// controller和上面的代码在同一controller中
+</span><span class='line'>@Controller
+</span><span class='line'>@SeesionAttributes(value = "user", types = {
+</span><span class='line'>    User.class
+</span><span class='line'>})
+</span><span class='line'>public class UserController {}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Spring 数据访问注解</h2>
+
+<h3>@Transactional</h3>
+
+<p>此注解使用在接口定义、接口中的方法、类定义或者类中的public方法上。需要注意的是此注解并不激活事务行为，它仅仅是一个元数据，会被一些运行时基础设施来消费。</p>
+
+<h2>任务执行、调度注解</h2>
+
+<h3>@Scheduled</h3>
+
+<p>此注解使用在方法上，声明此方法被定时调度。使用了此注解的方法返回类型需要是Void，并且不能接受任何参数。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>
+</span><span class='line'>@Scheduled(fixedDelay=1000)
+</span><span class='line'>public void schedule() {
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>@Scheduled(fixedRate=1000)
+</span><span class='line'>public void schedulg() { 
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>第二个与第一个不同之处在于其不会等待上一次的任务执行结束。</p>
+
+<h3>@Async</h3>
+
+<p>此注解使用在方法上，声明此方法会在一个单独的线程中执行。不同于Scheduled注解，此注解可以接受参数。</p>
+
+<p>使用此注解的方法的返回类型可以是Void也可是返回值。但是返回值的类型必须是一个Future。</p>
+
+<h2>Spring测试注解</h2>
+
+<h3>@ContextConfiguration</h3>
+
+<p>此注解使用在Class上，声明测试使用的配置文件，此外，也可以指定加载上下文的类。</p>
+
+<p>此注解一般需要搭配SpringJUnit4ClassRunner使用。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@RunWith(SpringJUnit4ClassRunner.class)
+</span><span class='line'>@ContextConfiguration(classes = SpringCoreConfig.class)
+</span><span class='line'>public class UserServiceTest {
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[有效解决问题]]></title>
@@ -3369,182 +3831,6 @@ client都是通过socket来进行的。当agent接收到监控命令后，主要
 <p>此外，在安排团队成员去调研一种将要使用的新技术的时候，务必要深入到源码层面，这个观念是需要灌输到团队每一个人的意识中去的。去使用一个没有看过源码或者没有掌握其运行原理的开源软件是一件风险非常大的事情，极有可能造成巨大的线上故障。</p>
 
 <p><strong>以上，是自己对于研发体系的一些实践和感悟，很多地方仍然有所欠缺或者并非最佳实践，也一直在探索更好的方案。</strong></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
-    <link href="http://www.rowkey.me/blog/2016/08/03/java-8-top-tips/"/>
-    <updated>2016-08-03T22:30:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/08/03/java-8-top-tips</id>
-    <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
-
-<p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
-
-<p>笔者已经使用Java8工作许多年，包括新的应用开发以及迁移旧的应用，感觉是时候总结Java8中一些有用东西的最佳实践。笔者个人不太喜欢“最佳实践”这个词，因为字面上传达了一种“one size fit all”的概念，当然，编码肯定不是这样的而是不同的场景有不同的解决方案。但是笔者觉得在如何使用Java 8让自己的生活变得更加容易上还是有一些特殊的经验值得分享的。</p>
-
-<!--more-->
-
-
-<h2>Optional</h2>
-
-<p>Optional是一个评价过低的特性，它可以显著的降低代码抛出NullPointerException的可能。它在边界代码(你正在使用的API或者你发布的API)中特别有用。</p>
-
-<p>但是对于它的不适当的使用和设计很容易使一个小的变动影响到很多的类，或者降低代码的可阅读性。这里有一些如何更加高效使用Optional的建议。</p>
-
-<h3>Optional应该仅仅用在返回类型中</h3>
-
-<p>不要用在参数或者域中。<a href="http://blog.joda.org/2015/08/java-se-8-optional-pragmatic-approach.html">阅读这篇博文</a>可以看到如何正确使用Optional进行编码。幸运的是，IntelliJ IDEA可以打开inspections去检查你是否遵循了这些推荐规范。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
-
-<p>要尽早在Optional出现的地方对它进行处理。IntelliJ IDEA会阻止Optional出现在你代码的各个地方，所以记住一定要在Optional出现的地方就对他进行处理。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
-
-<h3>不能简单地调用get()方法</h3>
-
-<p>Optional是用来表示这个值是有可能为空的，让你做好应对的准备。因此，很重要的一点就是在使用这个值之前务必要检查其是否存在。简单地调用get方法而不是先调用isPresent可能会导致产生空指针异常。幸运的是，IntelliJ IDEA再一次提供了对此种方案的检查。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
-
-<h3>更加优雅的方案</h3>
-
-<p>如下代码，isPresent和get当然能够解决这个问题。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalSimple.png" alt="OptionalSimple.png" /></p>
-
-<p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
-
-<p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调用。那么当这是个代价昂贵的方法时，那么使用lambda会带来更好的性能提升。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
-
-<h2>使用Lambda表达式</h2>
-
-<p>Lambda表达式是Java8最主要的卖点。即使你现在用不到Java8，你也应该对它有了一些基本的了解。下面讲述了一种新的方式使用Java编程，虽然这并不是一个“最佳实践”，仅仅是一个使用的指导。</p>
-
-<h3>保持简短</h3>
-
-<p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，也很容易把长的表达式重构成一个方法。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
-
-<p>当然，这些甚至牵扯到了方法引用(Method References)。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
-
-<h3>显式声明</h3>
-
-<p>在lambda表达式中是没有类型信息的，所以你会发现在参数中包含类型信息是非常有用的。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
-
-<p>如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，Intellij IDEA都会让你可以看到参数的类型信息。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
-
-<p>甚至lambda表示的函数接口也能看到。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
-
-<h2>设计Lambda表达式</h2>
-
-<p>我认为lambda表达式有一点类似于泛型-我们会经常使用到泛型(例如，添加类型信息到List&lt;>)，但是比较罕见的是我们去设计一个具有泛型的方法或者一个类(比如像Person&lt;T>)。同样的，我们经常会在使用诸如Streams API的时候传递lambda，但是却很少会创建一个需要传递lambda参数的方法。</p>
-
-<p>如果你发现自己处在这样一种境况，那么这里有一些提示。</p>
-
-<h3>IntelliJ IDEA能够帮助你引入函数参数</h3>
-
-<p>能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
-
-<h3>使用存在的函数接口</h3>
-
-<p>随着开发者变得对Java8越来越熟悉，当使用Supplier和Consumer这些接口时，我们将会知道什么是我们所期望的，比如创建一个ErrorMessageCreator(例子)会是令人迷惑和浪费的。可以看一下<a href="https://docs.oracle.com/javase/8/docs/api/java/util/function/package-summary.html">函数包</a>获取已经存在的那些函数接口。</p>
-
-<h3>给你的函数接口添加@FunctionalInterface</h3>
-
-<p>如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Intellij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
-
-<p>当方法太多时，也会提示你。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
-
-<p>当你把注解应用到一个类而不是接口时，也会发出提醒。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
-
-<p>Lambda表达式可以被用在任何有一个Single Abstract Method的接口中，但是它不能够应用到一个抽象类中。看起来没有啥逻辑，但它就是这样的。</p>
-
-<h2>Streams</h2>
-
-<p><a href="https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html">Stream API</a>是Java8另一个最大的卖点，我认为我们到现在还是没有真的搞清楚这会如何改变我们的代码。这里有一些我自己发现很有用的东西。</p>
-
-<h3>将点号对齐</h3>
-
-<p>我个人比较喜欢对齐Stream操作。当然，你不需要非得这么做，但是我发现这样还是有很大好处的。</p>
-
-<ul>
-<li>一眼就看到所有的操作以及他们的顺序</li>
-<li>更容易调试(虽然Intellij IDEA提供了在一行中的lambda表达式中任意地方打断点的功能，但是将他们分隔成单独的行会更简单)</li>
-<li>可以很容易地注释掉一些操作以供测试</li>
-<li>很容易地插入peek()供调试或者测试</li>
-</ul>
-
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
-
-<p>这样做也会让代码看起来很舒服。当然，如果这么做，会增加代码的行数。</p>
-
-<p>你可以修改一下格式化设置使点号对齐。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamWrapping.png" alt="StreamWrapping.png" /></p>
-
-<h3>使用方法引用(Method References)</h3>
-
-<p>你可能需要一会儿才能习惯这个奇怪的语法。但是，当我们能够正确地使用，它确实能够提高程序的可阅读性。考虑下面的代码：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
-
-<p>对比一下使用新引入的Objects类的辅助方法(helper methods)：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
-
-<p>后面的代码能够更加明显地表明它想保存的值。IntelliJ IDEA会提示你何时一个lambda可以被替换成方法引用。</p>
-
-<h3>当迭代一个集合，尽可能地使用Streams API</h3>
-
-<p>使用新的集合方法：forEach。IDEA会提示你。</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
-
-<p>使用Streams API相比起使用循环和if语句更加清晰明了。例如：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamBefore.png" alt="StreamBefore.png" /></p>
-
-<p>IDEA会建议重构为：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/java8/StreamAfter.png" alt="StreamAfter.png" /></p>
-
-<p>我做的性能测试表示这个重构是令人惊奇的-无论性能是不变、提升还是变差，都是不能被预测的。因此，当你的应用对性能要求很苛刻的话，重构的时候务必做好测试。</p>
-
-<h3>当遍历数组时使用循环</h3>
-
-<p>使用Java8并不是意味着你必须到处都使用Stream和新的集合方法。IDEA会智能提示哪些地方可以转换为Stream操作，但是并不意味着你必须这么做。</p>
-
-<p>特别是当遍历一个保存基本数据类型的小数组时，使用loop循环的性能是更加好的，而且更加可阅读(至少对哪些Stream的新手来说是这样的)。</p>
-
-<p>以上的建议，并非是固定不变，也不是必须要遵守的。但是无论你倾向于继续使用loops做某些操作还是在能够使用的地方使用Stream API, 你都要做出你自己的决定。</p>
-
-<h2>总结</h2>
-
-<p>每天我都会发现新的东西，我推崇的东西有时也会改变 - 例如方法引用，我曾经讨厌使用它，也避免在代码中使用。</p>
 ]]></content>
   </entry>
   

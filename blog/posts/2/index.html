@@ -14,12 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="一些架构设计原则 Jan 15th, 2017 详细见：谈谈架构 [译]JDK自带工具之问题排查场景示例 Nov 16th, 2016 目录 引言
-问题排查场景 获取正在运行的JVM列表
-Java堆的DUMP
-分析类柱状图
-线程Dump
-运行Java飞行记录器(Java Flight &hellip;">
+  <meta name="description" content="如何读取ClassPath下的资源 Feb 20th, 2017 最近在写一些公共组件时，碰到了需要读取classpath下文件的场景。也突然想起其实之前有很多场景牵扯到读取类加载路径下的文件内容、路径，包括非jar包和jar包中的。总结一下，以备后续使用。 继续阅读 &rarr; &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -117,6 +112,48 @@ Java堆的DUMP
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/02/20/read-classpath-resource/">如何读取ClassPath下的资源</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-02-20T22:21:34+08:00" pubdate data-updated="true">Feb 20<sup>th</sup>, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近在写一些公共组件时，碰到了需要读取classpath下文件的场景。也突然想起其实之前有很多场景牵扯到读取类加载路径下的文件内容、路径，包括非jar包和jar包中的。总结一下，以备后续使用。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2017/02/20/read-classpath-resource/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -635,52 +672,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/08/03/java-8-top-tips/">[译]Java8 Top Tips</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-08-03T22:30:34+08:00" pubdate data-updated="true">Aug 3<sup>rd</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
-
-<p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
-
-<p>笔者已经使用Java8工作许多年，包括新的应用开发以及迁移旧的应用，感觉是时候总结Java8中一些有用东西的最佳实践。笔者个人不太喜欢“最佳实践”这个词，因为字面上传达了一种“one size fit all”的概念，当然，编码肯定不是这样的而是不同的场景有不同的解决方案。但是笔者觉得在如何使用Java 8让自己的生活变得更加容易上还是有一些特殊的经验值得分享的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/08/03/java-8-top-tips/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         <a href="/" class="prev">←上一页</a>
@@ -755,6 +746,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2017/10/28/spring-annotations/">Spring注解概览</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2017/10/20/solve-problems/">有效解决问题</a>
       	</li>
     	
@@ -768,10 +763,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2017/09/09/java-oneliners/">[译]Java中的十个&#8221;单行代码编程&#8221;(One Liner)</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2017/09/02/java8-method-reference-work/">[译]更好地使用Java8中的方法引用</a>
       	</li>
     	
 	</ul>
