@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-10-30T19:23:25+08:00</updated>
+  <updated>2017-10-30T19:32:24+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -25,7 +25,7 @@
 <!--more-->
 
 
-<h2>核心注解</h2>
+<h2>一. 核心注解</h2>
 
 <h3>@Required</h3>
 
@@ -112,7 +112,7 @@ public class SpringCoreConfig {
 
 <p>此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件呢、本地环境变量、系统属性等)的值注入到bean的属性中。此注解的注入时发生在AutowiredAnnotationBeanPostProcessor中。</p>
 
-<h2>Spring中的Stereotype注解</h2>
+<h2>二. Stereotype注解</h2>
 
 <h3>@Component</h3>
 
@@ -132,7 +132,7 @@ public class SpringCoreConfig {
 
 <p>此注解有自动翻译的特性，例如：当此种component抛出了一个异常，那么会有一个handler来处理此异常，无需使用try-catch块。</p>
 
-<h2>Spring Boot注解</h2>
+<h2>三. Spring Boot注解</h2>
 
 <h3>@EnableAutoConfiguration</h3>
 
@@ -151,7 +151,7 @@ public class SpringCoreConfig {
 </ul>
 
 
-<h2>Spring MVC和REST注解</h2>
+<h2>四. Spring MVC和REST注解</h2>
 
 <h3>@Controller</h3>
 
@@ -326,13 +326,13 @@ public PUser getUser() {}
 public class UserController {}
 </code></pre>
 
-<h2>Spring 数据访问注解</h2>
+<h2>五. 数据访问注解</h2>
 
 <h3>@Transactional</h3>
 
 <p>此注解使用在接口定义、接口中的方法、类定义或者类中的public方法上。需要注意的是此注解并不激活事务行为，它仅仅是一个元数据，会被一些运行时基础设施来消费。</p>
 
-<h2>任务执行、调度注解</h2>
+<h2>六. 任务执行、调度注解</h2>
 
 <h3>@Scheduled</h3>
 
@@ -356,7 +356,7 @@ public void schedulg() {
 
 <p>使用此注解的方法的返回类型可以是Void也可是返回值。但是返回值的类型必须是一个Future。</p>
 
-<h2>Spring测试注解</h2>
+<h2>七. 测试注解</h2>
 
 <h3>@ContextConfiguration</h3>
 
