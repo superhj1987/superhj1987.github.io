@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-10-31T11:11:55+08:00</updated>
+  <updated>2017-10-31T15:33:54+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -126,7 +126,7 @@ public class SpringCoreConfig {
 
 <p>此注解使用在class上，声明此类是一个服务类，执行业务逻辑、计算、调用内部api等。是@Component注解的一种具体形式。</p>
 
-<h3>@Respository</h3>
+<h3>@Repository</h3>
 
 <p>此类使用在class上声明此类用于访问数据库，一般作为DAO的角色。</p>
 
