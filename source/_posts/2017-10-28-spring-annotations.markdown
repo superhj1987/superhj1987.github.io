@@ -118,7 +118,7 @@ public class SpringCoreConfig {
 
 此注解使用在class上，声明此类是一个服务类，执行业务逻辑、计算、调用内部api等。是@Component注解的一种具体形式。
 
-### @Respository
+### @Repository
 
 此类使用在class上声明此类用于访问数据库，一般作为DAO的角色。
 
