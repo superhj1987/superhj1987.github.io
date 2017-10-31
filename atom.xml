@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-10-30T19:32:24+08:00</updated>
+  <updated>2017-10-31T10:51:36+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -20,7 +20,7 @@
     <id>http://www.rowkey.me/blog/2017/10/28/spring-annotations</id>
     <content type="html"><![CDATA[<p>从Java5.0开始，Java开始支持注解。Spring做为Java生态中的领军框架，从2.5版本后也开始支持注解。相比起之前使用xml来配置Spring框架，使用注解提供了更多的控制Spring框架的方式。</p>
 
-<p>本文主要介绍Spring中常用的一些注解，并做简单介绍。</p>
+<p>现在，越来越多的项目都在使用注解做相关的配置，但Spring的注解非常多，相信很多人对这些注解并没有一个很全面的了解，很多都没有使用过。本文就尽量全面地介绍Spring中常用的注解，并做简单介绍。</p>
 
 <!--more-->
 
