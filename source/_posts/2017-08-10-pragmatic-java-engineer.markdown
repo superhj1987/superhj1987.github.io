@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "《Java工程师修炼之道》内容概览"
+title: "《Java工程师修炼之道》"
 date: 2017-08-10 19:29:34 +0800
 comments: true
 categories: java
@@ -69,7 +69,5 @@ categories: java
     - 9.3 Web安全
 
 其中的部分内容，会在此书正式出版后陆续放出。
-
-另附本书的一些源码、资料链接：<https://github.com/superhj1987/pragmatic-java-engineer>
 
 **希望这本书会给想要学习Java后端开发的同学或者还未形成自己技术体系的Java工程师们带来帮助。**
