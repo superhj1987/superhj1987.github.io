@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-10-31T10:51:36+08:00</updated>
+  <updated>2017-10-31T11:11:55+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1472,7 +1472,7 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[《Java工程师修炼之道》内容概览]]></title>
+    <title type="html"><![CDATA[《Java工程师修炼之道》]]></title>
     <link href="http://www.rowkey.me/blog/2017/08/10/pragmatic-java-engineer/"/>
     <updated>2017-08-10T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/08/10/pragmatic-java-engineer</id>
@@ -1571,8 +1571,6 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
 
 
 <p>其中的部分内容，会在此书正式出版后陆续放出。</p>
-
-<p>另附本书的一些源码、资料链接：<a href="https://github.com/superhj1987/pragmatic-java-engineer">https://github.com/superhj1987/pragmatic-java-engineer</a></p>
 
 <p><strong>希望这本书会给想要学习Java后端开发的同学或者还未形成自己技术体系的Java工程师们带来帮助。</strong></p>
 ]]></content>
