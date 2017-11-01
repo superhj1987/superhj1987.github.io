@@ -32,7 +32,7 @@ public class User {
 }
 ```
 
-最经常的用法是将此注解用于settter上，这样可以在setter方法中添加一下自定义的代码。如下：
+最经常的用法是将此注解用于settter上，这样可以在setter方法中添加自定义代码。如下：
 
 ```
 @Component
@@ -40,7 +40,7 @@ public class User {
     private Address address;
     
     @AutoWired
-	 public User(Address address) {				// custom code
+	 public setAddress(Address address) {		 // custom code
 	    this.address=address;
 	 }
 }
@@ -53,7 +53,7 @@ public class User {
 public class User {
     private Address address;
     
-     public User(Address address) {					
+     public User(Address address) {		
         this.address=address;
      }
 }
