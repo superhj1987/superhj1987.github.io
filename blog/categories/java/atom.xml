@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-10-31T15:33:54+08:00</updated>
+  <updated>2017-11-01T14:44:40+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -44,14 +44,14 @@ public class User {
 }
 </code></pre>
 
-<p>最经常的用法是将此注解用于settter上，这样可以在setter方法中添加一下自定义的代码。如下：</p>
+<p>最经常的用法是将此注解用于settter上，这样可以在setter方法中添加自定义代码。如下：</p>
 
 <pre><code>@Component
 public class User {
     private Address address;
 
     @AutoWired
-     public User(Address address) {             // custom code
+     public setAddress(Address address) {        // custom code
         this.address=address;
      }
 }
@@ -63,7 +63,7 @@ public class User {
 public class User {
     private Address address;
 
-     public User(Address address) {                 
+     public User(Address address) {     
         this.address=address;
      }
 }

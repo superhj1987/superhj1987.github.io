@@ -183,7 +183,7 @@
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
 
-<p>最经常的用法是将此注解用于settter上，这样可以在setter方法中添加一下自定义的代码。如下：</p>
+<p>最经常的用法是将此注解用于settter上，这样可以在setter方法中添加自定义代码。如下：</p>
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -199,7 +199,7 @@
 </span><span class='line'>    private Address address;
 </span><span class='line'>    
 </span><span class='line'>    @AutoWired
-</span><span class='line'>   public User(Address address) {             // custom code
+</span><span class='line'>   public setAddress(Address address) {        // custom code
 </span><span class='line'>      this.address=address;
 </span><span class='line'>   }
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
@@ -221,7 +221,7 @@
 </span><span class='line'>public class User {
 </span><span class='line'>    private Address address;
 </span><span class='line'>    
-</span><span class='line'>     public User(Address address) {                   
+</span><span class='line'>     public User(Address address) {       
 </span><span class='line'>        this.address=address;
 </span><span class='line'>     }
 </span><span class='line'>}
