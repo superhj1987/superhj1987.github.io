@@ -252,7 +252,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 @RequestMapping("/users/{uid}")
 ```
 
-这是可以使用@PathVariable来绑定到请求方法参数上。
+可以使用@PathVariable将路径中的参数绑定到请求方法参数上。
 
 ```
 @RequestMapping("/users/{uid}")
