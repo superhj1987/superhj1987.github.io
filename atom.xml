@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-11-07T17:19:38+08:00</updated>
+  <updated>2017-11-07T17:25:47+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -349,7 +349,7 @@
 
 <h3>@RequestAttribute</h3>
 
-<p>此注解用在请求handler方法的参数上，用于将web请求中的属性(requst attributes，是服务器放入的属性值)绑定到方法参数上。</p>
+<p>此注解用在请求handler方法的参数上，用于将web请求中的属性(request attributes，是服务器放入的属性值)绑定到方法参数上。</p>
 
 <h3>@RequestBody</h3>
 
