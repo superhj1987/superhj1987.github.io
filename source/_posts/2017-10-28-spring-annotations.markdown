@@ -8,7 +8,7 @@ categories: java
 
 从Java5.0开始，Java开始支持注解。Spring做为Java生态中的领军框架，从2.5版本后也开始支持注解。相比起之前使用xml来配置Spring框架，使用注解提供了更多的控制Spring框架的方式。
 
-现在，越来越多的项目都在使用注解做相关的配置，但Spring的注解非常多，相信很多人对这些注解并没有一个很全面的了解，很多都没有使用过。本文就尽量全面地介绍Spring中常用的注解，并做简单介绍。
+现在越来越多的项目也都在使用注解做相关的配置，但Spring的注解非常多，相信很多注解大家都没有使用过。本文就尽量全面地概括介绍一下Spring中常用的注解。
 
 <!--more-->
 
@@ -16,7 +16,7 @@ categories: java
 
 ### @Required
 
-此注解用于bean的setter方法上。表示此属性是必须的，必须在配置阶段注入。否则会抛出BeanInitializationExcepion。
+此注解用于bean的setter方法上。表示此属性是必须的，必须在配置阶段注入，否则会抛出BeanInitializationExcepion。
 
 ### @Autowired
 
@@ -37,10 +37,11 @@ public class User {
 ```
 @Component
 public class User {
-    private Address address;
+     private Address address;
     
-    @AutoWired
-	 public setAddress(Address address) {		 // custom code
+     @AutoWired
+	 public setAddress(Address address) {
+	 	// custom code
 	    this.address=address;
 	 }
 }
@@ -102,7 +103,7 @@ public class SpringCoreConfig {
 
 ### @Value
 
-此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件呢、本地环境变量、系统属性等)的值注入到bean的属性中。此注解的注入时发生在AutowiredAnnotationBeanPostProcessor中。
+此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件、本地环境变量、系统属性等)的值注入到bean的属性中。此注解值的注入发生在AutowiredAnnotationBeanPostProcessor类中。
 
 ## 二. Stereotype注解
 
@@ -132,7 +133,7 @@ public class SpringCoreConfig {
 
 ### @SpringBootApplication
 
-此注解用在Spring Boot项目的应用主类上（此类需要在base package中）。使用了此注解的类首先会让Spring Boot启动对base package下以及其sub-pacakages的类进行component scan。
+此注解用在Spring Boot项目的应用主类上（此类需要在base package中）。使用了此注解的类首先会让Spring Boot启动对base package以及其sub-pacakage下的类进行component scan。
 
 此注解同时添加了以下几个注解：
 
@@ -144,7 +145,7 @@ public class SpringCoreConfig {
 
 ### @Controller
 
-上述已经提到过此注解。
+上文已经提到过此注解。
 
 ### @RequestMapping
 
@@ -179,8 +180,9 @@ public class UserController {
 
 ```
 	@ReuestMapping("/cookieValue")
-   public void getCookieValue(@CookieValue "JSESSIONID" String cookie){
-}
+   	public void getCookieValue(@CookieValue("JSESSIONID") String cookie){
+	
+	}
 ```
 
 cookie即http请求中name为JSESSIONID的cookie值。
@@ -290,16 +292,15 @@ public String execute(@PathVariable("uid") String uid){
 
 #### @ControllerAdvice
 
-此注解用于class上。前面说过可以对每一个controller声明一个ExceptionMethod。这里可以使用@ControllerAdvice来声明一个类来统一对所有@RequestMapping方法来做@ExceptionHandler, @InitBinder, and @ModelAttribute处理。
+此注解用于class上。前面说过可以对每一个controller声明一个ExceptionMethod。这里可以使用@ControllerAdvice来声明一个类来统一对所有@RequestMapping方法来做@ExceptionHandler、@InitBinder以及@ModelAttribute处理。
 
 ### @RestController
 
-
-此注解用于class上，声明此controller返回的不是一个视图而是一个领域对象。其同时引入了@Controller and @ResponseBody两个注解。
+此注解用于class上，声明此controller返回的不是一个视图而是一个领域对象。其同时引入了@Controller和@ResponseBody两个注解。
 
 ### @RestControllerAdvice
 
-此注解用于class上，同时引入了@ControllerAdvice and @ResponseBody两个注解。
+此注解用于class上，同时引入了@ControllerAdvice和@ResponseBody两个注解。
 
 ### @SessionAttribute
 
@@ -312,13 +313,14 @@ public String execute(@PathVariable("uid") String uid){
 ```
 @ModelAttribute("user")
 
-
 public PUser getUser() {}
+
 // controller和上面的代码在同一controller中
 @Controller
 @SeesionAttributes(value = "user", types = {
     User.class
 })
+
 public class UserController {}
 ```
 
@@ -335,13 +337,14 @@ public class UserController {}
 此注解使用在方法上，声明此方法被定时调度。使用了此注解的方法返回类型需要是Void，并且不能接受任何参数。
 
 ```
-
 @Scheduled(fixedDelay=1000)
 public void schedule() {
+
 }
 
 @Scheduled(fixedRate=1000)
 public void schedulg() { 
+
 }
 ```
 
@@ -365,5 +368,6 @@ public void schedulg() {
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringCoreConfig.class)
 public class UserServiceTest {
+
 }
 ```
