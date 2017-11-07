@@ -262,7 +262,7 @@ public String execute(@PathVariable("uid") String uid){
 
 ### @RequestAttribute
 
-此注解用在请求handler方法的参数上，用于将web请求中的属性(requst attributes，是服务器放入的属性值)绑定到方法参数上。
+此注解用在请求handler方法的参数上，用于将web请求中的属性(request attributes，是服务器放入的属性值)绑定到方法参数上。
 
 ### @RequestBody
 
