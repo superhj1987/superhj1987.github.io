@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-11-01T14:44:40+08:00</updated>
+  <updated>2017-11-07T17:14:54+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -261,7 +261,7 @@
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
 <span class='line-number'>10</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>CrossOrigin(maxAge = 3600)
+</pre></td><td class='code'><pre><code class=''><span class='line'>@CrossOrigin(maxAge = 3600)
 </span><span class='line'>@RestController
 </span><span class='line'>@RequestMapping("/users")
 </span><span class='line'>public class AccountController {
@@ -342,7 +342,7 @@
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>RequestMapping("/users/{uid}")
+</pre></td><td class='code'><pre><code class=''><span class='line'>@RequestMapping("/users/{uid}")
 </span><span class='line'>public String execute(@PathVariable("uid") String uid){
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
