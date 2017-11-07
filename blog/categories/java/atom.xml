@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-11-07T17:25:47+08:00</updated>
+  <updated>2017-11-07T17:37:50+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -20,7 +20,7 @@
     <id>http://www.rowkey.me/blog/2017/10/28/spring-annotations</id>
     <content type="html"><![CDATA[<p>从Java5.0开始，Java开始支持注解。Spring做为Java生态中的领军框架，从2.5版本后也开始支持注解。相比起之前使用xml来配置Spring框架，使用注解提供了更多的控制Spring框架的方式。</p>
 
-<p>现在，越来越多的项目都在使用注解做相关的配置，但Spring的注解非常多，相信很多人对这些注解并没有一个很全面的了解，很多都没有使用过。本文就尽量全面地介绍Spring中常用的注解，并做简单介绍。</p>
+<p>现在越来越多的项目也都在使用注解做相关的配置，但Spring的注解非常多，相信很多注解大家都没有使用过。本文就尽量全面地概括介绍一下Spring中常用的注解。</p>
 
 <!--more-->
 
@@ -29,7 +29,7 @@
 
 <h3>@Required</h3>
 
-<p>此注解用于bean的setter方法上。表示此属性是必须的，必须在配置阶段注入。否则会抛出BeanInitializationExcepion。</p>
+<p>此注解用于bean的setter方法上。表示此属性是必须的，必须在配置阶段注入，否则会抛出BeanInitializationExcepion。</p>
 
 <h3>@Autowired</h3>
 
@@ -48,10 +48,11 @@ public class User {
 
 <pre><code>@Component
 public class User {
-    private Address address;
+     private Address address;
 
-    @AutoWired
-     public setAddress(Address address) {        // custom code
+     @AutoWired
+     public setAddress(Address address) {
+        // custom code
         this.address=address;
      }
 }
@@ -110,7 +111,7 @@ public class SpringCoreConfig {
 
 <h3>@Value</h3>
 
-<p>此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件呢、本地环境变量、系统属性等)的值注入到bean的属性中。此注解的注入时发生在AutowiredAnnotationBeanPostProcessor中。</p>
+<p>此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件、本地环境变量、系统属性等)的值注入到bean的属性中。此注解值的注入发生在AutowiredAnnotationBeanPostProcessor类中。</p>
 
 <h2>二. Stereotype注解</h2>
 
@@ -140,7 +141,7 @@ public class SpringCoreConfig {
 
 <h3>@SpringBootApplication</h3>
 
-<p>此注解用在Spring Boot项目的应用主类上（此类需要在base package中）。使用了此注解的类首先会让Spring Boot启动对base package下以及其sub-pacakages的类进行component scan。</p>
+<p>此注解用在Spring Boot项目的应用主类上（此类需要在base package中）。使用了此注解的类首先会让Spring Boot启动对base package以及其sub-pacakage下的类进行component scan。</p>
 
 <p>此注解同时添加了以下几个注解：</p>
 
@@ -155,7 +156,7 @@ public class SpringCoreConfig {
 
 <h3>@Controller</h3>
 
-<p>上述已经提到过此注解。</p>
+<p>上文已经提到过此注解。</p>
 
 <h3>@RequestMapping</h3>
 
@@ -191,8 +192,9 @@ public class UserController {
 <p>此注解用在@RequestMapping声明的方法的参数上，可以把HTTP cookie中相应名称的cookie绑定上去。</p>
 
 <pre><code>    @ReuestMapping("/cookieValue")
-   public void getCookieValue(@CookieValue "JSESSIONID" String cookie){
-}
+    public void getCookieValue(@CookieValue("JSESSIONID") String cookie){
+
+    }
 </code></pre>
 
 <p>cookie即http请求中name为JSESSIONID的cookie值。</p>
@@ -296,15 +298,15 @@ public String execute(@PathVariable("uid") String uid){
 
 <h4>@ControllerAdvice</h4>
 
-<p>此注解用于class上。前面说过可以对每一个controller声明一个ExceptionMethod。这里可以使用@ControllerAdvice来声明一个类来统一对所有@RequestMapping方法来做@ExceptionHandler, @InitBinder, and @ModelAttribute处理。</p>
+<p>此注解用于class上。前面说过可以对每一个controller声明一个ExceptionMethod。这里可以使用@ControllerAdvice来声明一个类来统一对所有@RequestMapping方法来做@ExceptionHandler、@InitBinder以及@ModelAttribute处理。</p>
 
 <h3>@RestController</h3>
 
-<p>此注解用于class上，声明此controller返回的不是一个视图而是一个领域对象。其同时引入了@Controller and @ResponseBody两个注解。</p>
+<p>此注解用于class上，声明此controller返回的不是一个视图而是一个领域对象。其同时引入了@Controller和@ResponseBody两个注解。</p>
 
 <h3>@RestControllerAdvice</h3>
 
-<p>此注解用于class上，同时引入了@ControllerAdvice and @ResponseBody两个注解。</p>
+<p>此注解用于class上，同时引入了@ControllerAdvice和@ResponseBody两个注解。</p>
 
 <h3>@SessionAttribute</h3>
 
@@ -316,13 +318,14 @@ public String execute(@PathVariable("uid") String uid){
 
 <pre><code>@ModelAttribute("user")
 
-
 public PUser getUser() {}
+
 // controller和上面的代码在同一controller中
 @Controller
 @SeesionAttributes(value = "user", types = {
     User.class
 })
+
 public class UserController {}
 </code></pre>
 
@@ -338,13 +341,14 @@ public class UserController {}
 
 <p>此注解使用在方法上，声明此方法被定时调度。使用了此注解的方法返回类型需要是Void，并且不能接受任何参数。</p>
 
-<pre><code>
-@Scheduled(fixedDelay=1000)
+<pre><code>@Scheduled(fixedDelay=1000)
 public void schedule() {
+
 }
 
 @Scheduled(fixedRate=1000)
 public void schedulg() { 
+
 }
 </code></pre>
 
@@ -367,6 +371,7 @@ public void schedulg() {
 <pre><code>@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringCoreConfig.class)
 public class UserServiceTest {
+
 }
 </code></pre>
 ]]></content>
