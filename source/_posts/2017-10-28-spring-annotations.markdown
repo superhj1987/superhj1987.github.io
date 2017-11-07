@@ -190,7 +190,7 @@ cookie即http请求中name为JSESSIONID的cookie值。
 此注解用在class和method上用来支持跨域请求，是Spring 4.2后引入的。
 
 ```
-CrossOrigin(maxAge = 3600)
+@CrossOrigin(maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 public class AccountController {
@@ -255,7 +255,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 这是可以使用@PathVariable来绑定到请求方法参数上。
 
 ```
-RequestMapping("/users/{uid}")
+@RequestMapping("/users/{uid}")
 public String execute(@PathVariable("uid") String uid){
 }
 ```
