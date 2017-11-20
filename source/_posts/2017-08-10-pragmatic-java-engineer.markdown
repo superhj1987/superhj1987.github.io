@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "《Java工程师修炼之道》"
+title: "《Java工程师修炼之道》内容概览"
 date: 2017-08-10 19:29:34 +0800
 comments: true
 categories: java
@@ -54,7 +54,7 @@ categories: java
     - 7.1 Java内存管理
     - 7.2 Java网络编程
     - 7.3 Java并发编程
-    - 7.4 Java开发武器
+    - 7.4 Java开发利器
     - 7.5 New Java
     - 7.6 总结
 
