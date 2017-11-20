@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-11-07T17:37:50+08:00</updated>
+  <updated>2017-11-20T16:14:40+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1482,7 +1482,7 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[《Java工程师修炼之道》]]></title>
+    <title type="html"><![CDATA[《Java工程师修炼之道》内容概览]]></title>
     <link href="http://www.rowkey.me/blog/2017/08/10/pragmatic-java-engineer/"/>
     <updated>2017-08-10T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/08/10/pragmatic-java-engineer</id>
@@ -1556,7 +1556,7 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
 <li>7.1 Java内存管理</li>
 <li>7.2 Java网络编程</li>
 <li>7.3 Java并发编程</li>
-<li>7.4 Java开发武器</li>
+<li>7.4 Java开发利器</li>
 <li>7.5 New Java</li>
 <li>7.6 总结</li>
 </ul>
