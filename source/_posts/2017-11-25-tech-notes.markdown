@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "技术琐谈"
+title: "技术琐话2017-11-26"
 date: 2017-11-26 19:29:34 +0800
 comments: true
 categories: tech-talks
 ---
 
-日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定还是以博客的形式记录下来，以“技术琐谈”作为主题。
+日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定还是以博客的形式记录下来，以“技术琐话”作为主题。
 
 > 1. The interesting thing about performance is that if you analyze most programs, you find that they waste most of their time in a small fraction of code. If you optimize all the code equally, you end up with 90 percent of the optimizations wasted, because you are optimizing code that isn't run much. The time spent making the program fast, the time lost because of lack of clarity, is all wasted time.《重构》一书的一段话，也是不要过早优化的意思，即在不确定这段代码真的会被频繁调用、真的是系统的性能瓶颈之前，没必要花时间优化此处的性能。
 
