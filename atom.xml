@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-11-27T09:47:54+08:00</updated>
+  <updated>2017-11-27T10:30:52+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -15,15 +15,15 @@
   
   <entry>
     <title type="html"><![CDATA[技术琐话2017-11-26]]></title>
-    <link href="http://www.rowkey.me/blog/2017/11/26/tech-notes/"/>
+    <link href="http://www.rowkey.me/blog/2017/11/26/tech-talk/"/>
     <updated>2017-11-26T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/11/26/tech-notes</id>
+    <id>http://www.rowkey.me/blog/2017/11/26/tech-talk</id>
     <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定还是以博客的形式记录下来，以“技术琐话”作为主题。</p>
 
 <blockquote><ol>
 <li><p>The interesting thing about performance is that if you analyze most programs, you find that they waste most of their time in a small fraction of code. If you optimize all the code equally, you end up with 90 percent of the optimizations wasted, because you are optimizing code that isn&rsquo;t run much. The time spent making the program fast, the time lost because of lack of clarity, is all wasted time.《重构》一书的一段话，也是不要过早优化的意思，即在不确定这段代码真的会被频繁调用、真的是系统的性能瓶颈之前，没必要花时间优化此处的性能。</p></li>
 <li><p>这句话揭示了成为技术专家的一个关键特质: 理解一个系统应该如何工作并不能使人成为专家，只能靠调查系统为何不能正常工作才行。（From SRE ，by Brian Redman）</p></li>
-<li><p>技术书籍的出版门槛越来越低，该如何识别是否是一本烂书呢？在我自己看来，英文书籍质量远远好于中文书籍，翻译的版本一般来说质量也不错，不过作为一个互联网从业的技术人员，能够直接阅读英文原版是最好不过的。而对于中文书籍，如果是以公司名义或者书的序多于3篇，是一本烂书的概率非常大，写推荐语、写序的人名头越大，比不代表这本书的质量有多好。此外，现在某sdn专家真的是门槛低到不行，挂这个名头出的书更要慎重选择。对于InfoQ推荐的书，倒是可以值得一读。</p></li>
+<li><p>技术书籍的出版门槛越来越低，该如何识别是否是一本烂书呢？在我自己看来，英文书籍质量远远好于中文书籍，翻译的版本一般来说质量也不错，不过作为一个互联网从业的技术人员，能够直接阅读英文原版是最好不过的。而对于中文书籍，如果是以公司名义或者书的序多于3篇，是一本烂书的概率非常大，写推荐语、写序的人名头越大，并不代表这本书的质量有多好。此外，现在某sdn专家真的是门槛低到不行，挂这个名头出的书更要慎重选择。对于InfoQ推荐的书，倒是可以值得一读。</p></li>
 </ol>
 </blockquote>
 ]]></content>
