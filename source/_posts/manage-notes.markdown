@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "管理学习笔记"
+title: "技术管理这点事"
 date: 2017-11-18 19:29:34 +0800
 comments: true
 categories: work
