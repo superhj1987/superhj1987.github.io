@@ -12,7 +12,7 @@ categories: java translate
 * [问题排查场景](#问题排查场景)
    * [获取正在运行的JVM列表](#获取正在运行的JVM列表)
    * [Java堆的DUMP](#Java堆的DUMP)
-   * [分析类柱状图](#分析类柱状图)
+   * [分析堆直方图](#分析堆直方图)
    * [线程Dump](#线程Dump)
    * [运行Java飞行记录器(Java Flight Recorder)](#运行Java飞行记录器(Java Flight Recorder))
    * [后记](#后记)
@@ -97,11 +97,11 @@ jcmd提供了输出HPROF格式的堆dump接口。运行**jcmd <PID> GC.heap_dump
 - 还有很多可以打开hprof文件进行分析的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。
 - 同样可以使用**jmap -dump:live,file=<FILE_NAME> <PID>**来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：[JEP 240](http://openjdk.java.net/jeps/240), [JEP 241](http://openjdk.java.net/jeps/241)。
 
-### <a name='分析类柱状图'></a>分析类柱状图
+### <a name='分析堆直方图'></a>分析堆直方图
 
 如果正在排查内存泄漏问题，你可能想要知道堆中某种类型的存活对象数目。例如，某一时刻某些类应该只有一个实例(单例模式)，但是此类的另外一个或者多个实例却已经到了老年代，但是事实上它们不应该能够被GC roots访问到。
 
-运行以下命令可以打印出类柱状图(同时也打印出存活对象的数目)：
+运行以下命令可以打印出堆直方图(同时也打印出存活对象的数目)：
 
 	jcmd <PID> GC.class_histogram
 	jmap -histo:live <PID>
@@ -126,7 +126,7 @@ jcmd提供了输出HPROF格式的堆dump接口。运行**jcmd <PID> GC.heap_dump
 	  
 这里的以byte为单位的占用大小是浅尺寸(shallow size)，并没有包括子对象的大小。其实这个事实很容易由char[]和String的统计数据注意到：这俩的实例数目是差不多的，但是char[]的占用大小要大很多，就是因为String并未包含下面的char[]的大小。
 
-有了类柱状图信息，你就可以grep/search类的名字从而获取存活实例的数目。如果你发现某些类的实例数量比期望要大很多，你就可以做heap dump，然后用任意的heap分析工具来分析问题。
+有了堆直方图信息，你就可以grep/search类的名字从而获取存活实例的数目。如果你发现某些类的实例数量比期望要大很多，你就可以做heap dump，然后用任意的heap分析工具来分析问题。
 
 ### <a name='线程Dump'></a>线程Dump
 
