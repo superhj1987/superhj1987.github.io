@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>后端技术杂谈 | 飒然Hang</title>
+  <title>2014这一年 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Kafka学习笔记 - 介绍 May 30th, 2015 什么是kafka 最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。 &hellip;">
+  <meta name="description" content="2014这一年 Jan 15th, 2015 Posted by 飒然Hang in work 突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。 2014年全国、全世界发生了很多事情。政府大规模的反腐揪出了一个个贪得无厌的官僚，让人们不禁拍手称快，觉得看到了国家的希望。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/posts/5/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2015/01/15/2014year/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -109,196 +109,13 @@
   <div id="body">
     <div class="container">
     	<div class="col-group">
-			  <div class="col-8" id="main">
-    <div class="res-cons">
-    
-    
-    
-      <article class="post">
-        
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
   <header>
     
-      <h2 class="post-title"><a href="/blog/2015/05/30/kafka-intro/">Kafka学习笔记 - 介绍</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-05-30T20:06:18+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>什么是kafka</h2>
-
-<p>最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说：Kafka是一个分布式、分区、冗余的commit日志service。它提供了一种特殊设计的消息系统功能。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/05/30/kafka-intro/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/">关于SpringMVC中model的attribute无法指定别名的解决方案</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-21T12:00:00+08:00" pubdate data-updated="true">Jan 21<sup>st</sup>, 2015</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
-
-<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
-
-<p><strong>Controller</strong>:</p>
-
-<pre>
-@Controller
-@RequestMapping("/api")
-public class ApiController extends BaseController {
-
-    @RequestMapping(value = "/test", headers = "Accept=application/json")
-    public void authUser(ModelMap modelMap, Account acc) {
-        ResultPack.packOk(modelMap);
-    }
-}
-
-public class Account{
-    private static final long serialVersionUID = 750752375611621980L;
-
-    private long id;
-    private String userName;
-    private String password;
-    private AccountType type = AccountType.ADMIN;
-    private long timeTag;
-    private int status = 1;
-    ...
-    ...
-}
-</pre>
-
-
-<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
-
-<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
-
-<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
-</div>
-  
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2015/01/15/2014-final-note/">工作总结@2014</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-01-15T16:08:48+08:00" pubdate data-updated="true">Jan 15<sup>th</sup>, 2015</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
-
-<p>对自己来说，今年最大的事情莫过于离开一座城市，到达另一座城市，开始了新的职业生涯。</p>
-
-<p>进入新的公司，一个创业公司，截然不同的运作方式让我一开始有点措手不及。相比之前在大公司，小公司更需要一个人的快速成长以及自我约束，以及那种随叫随到、不怕脏累的奋斗精神。而技术层面，要尽最大化压榨硬件资源，用有限的硬件资源达到最大的性能。这些都让自己的架构方式和代码编写不得不去改变、去适应，这也算是一种成长吧。公司的基础架构、公共组件、项目管理、技术体系、项目架构都是一个初级的水平，改变这些是一个很难很长的路，但又不得不做。到现在，在做这些改变的过程中，自己的基础知识得到了巩固、架构能力也有了一定的提升，技术视野也开阔了一些。熟悉了公司的流程和整体的氛围，也算融入了这个团队，要做的还有很多，阻力也有很多。一切都在逼迫自己去学习、去思考、去提高。这也是与以前相比，给自己最大动力的事情。</p>
-
-<p>2015年，工作上希望自己能做到这些</p>
-
-<ul>
-<li>合理设计并实现整个公司的基础架构</li>
-<li>构建合理的项目管理流程、监督机制</li>
-<li>提升团队的整体水平</li>
-<li>保证产品的研发进度以及线上稳定性</li>
-<li>招一些优秀的人加入</li>
-</ul>
-
-
-<p>自身方面，希望能做到这些：</p>
-
-<ul>
-<li>提升自身的技术水平和视野</li>
-<li>深入学习一门技术：docker netty kafka rabbitmq elasticsearch solr</li>
-<li>阅读至少五本非技术书籍</li>
-</ul>
-
-
-<p>Stay hungry,stay foolish!</p>
-</div>
-  
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2015/01/15/2014year/">2014这一年</a></h2>
+      <h1 class="post-title">2014这一年</h1>
     
     
       <p class="post-meta">
@@ -317,12 +134,25 @@ public class Account{
 <time datetime="2015-01-15T10:05:41+08:00" pubdate data-updated="true">Jan 15<sup>th</sup>, 2015</time>
         
         
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+        
       </p>
     
   </header>
 
 
-  <div class="post-content"><p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
+<div class="post-content"><p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
 
 <p>2014年全国、全世界发生了很多事情。政府大规模的反腐揪出了一个个贪得无厌的官僚，让人们不禁拍手称快，觉得看到了国家的希望。但是腐败的根本在于体制，体制不进行变革，那么倒下一个贪官，还有另一批贪官起来，顶多是在这段时间收敛一下。其实，从某种意义来说，贪腐还不是危害最大的，如果你给人民做了贡献，带来了好处，至少我们受益了；但要只是贪污而无作为，那么真的是让人不齿了。不知道从什么时候起，自己对体制内的东西都有点反感，提到体制内，首先想到的就是背景、亲戚、老爹、关系，而不是能力。尤其是自己亲身体会或者道听途说到体制内很多万恶的潜规则之后，更是加深了这种感觉。真心希望在习大大的努力之下，能彻底破除体制内多少年形成的各种弊病，让“中国梦”真的可以成为所有人的“中国梦”。除了反腐，14年最大的事情莫过于世界杯了，对于我这种对足球仅存在巴西、罗纳尔多、亨利这些字眼的人来说，也就趁机给自己一个放纵的理由，晚上看世界杯、喝啤酒、吃烧烤，顺便买个足彩，也算充实了一下每天三点一线的生活。至于谁最后拿了冠军，还真的没那么关心。</p>
 
@@ -348,358 +178,39 @@ public class Account{
 
 <p><strong>Stay hungry,stay foolish!</strong></p>
 </div>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
   
   
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/12/09/spring-mvc-httpservletresponse/">SpringMVC的controller传递HttpServletResponse参数的那点事</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
   
-
-
-<time datetime="2014-12-09T10:05:41+08:00" pubdate data-updated="true">Dec 9<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><pre>
-    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
-    public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
-    ......
-    }
-</pre>
-
-
-<p>之前在使用Spring mvc的时候发现这么一回事：在spring mvc的controller的参数里如果有HttpServletResponse(类似上面的代码),那么必须有返回值框架才会去在执行完handler后去搜索相应的viewResolver和view从而展现数据。如果没有返回值，那么默认就是返回null的。我初步推测框架的处理过程大致如此：如果controller参数里传递HttpServletResposne的话，框架就认为视图由handler自己生成可以不参于这个过程,但是如果handler有返回值的话，那么仍然认为还需要参与到视图生成的过程中。</p>
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/12/09/spring-mvc-httpservletresponse/">继续阅读 &rarr;</a>
-    </footer>
-  
 
-
-      </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/09/29/shell-shock/">ShellShock这点事</a></h2>
-    
-    
-      <p class="post-meta">
-        
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2015/01/15/2014-final-note/" title="上一篇: 工作总结@2014">&laquo; 工作总结@2014 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2014/12/09/spring-mvc-httpservletresponse/" title="下一篇: SpringMVC的controller传递HttpServletResponse参数的那点事">SpringMVC的controller传递HttpServletResponse参数的那点事 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-29T21:49:46+08:00" pubdate data-updated="true">Sep 29<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>前言</h2>
-
-<p>在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接：<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271">CVE-2014-6271</a> 、<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-7169">CVE-2014-7169</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7186">CVE-2014-7186</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7187">CVE-2014-7187</a>、<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6277">CVE-2014-6277</a>。世界上Linux服务器的占有份额是很大的，而bash又是Linux不可或缺的一个部分。可想而知，这个漏洞的破坏力有多大。这个从名字上就可以看出来，ShellShock是医学上的一种严重的疾病，中文叫做“弹震症”，指的是受到爆炸冲击后导致浑身颤抖、思维混乱等症状。这个命名很形象地反映了问题的严重性。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/09/29/shell-shock/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/09/24/nginx-bootstrap/">Nginx源码分析之启动过程</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-09-24T17:38:57+08:00" pubdate data-updated="true">Sep 24<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
-
-<p>main函数的处理过程总体上可以概括如下：</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/09/24/nginx-bootstrap/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/08/27/nginx-loadbalance/">Nginx负载均衡</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-27T14:32:50+08:00" pubdate data-updated="true">Aug 27<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>目录</h2>
-
-<ul>
-<li><a href="#%E4%B8%80%20%E7%89%B9%E7%82%B9">一 特点</a></li>
-<li><a href="#%E4%BA%8C%20%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">二 负载均衡</a></li>
-<li><a href="#%E4%B8%89%20%E5%8A%A8%E6%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">三 动态负载均衡</a></li>
-<li><a href="#%E5%9B%9B%20%E4%BC%98%E5%8A%BF%E5%92%8C%E5%8A%A3%E5%8A%BF">四 优势和劣势</a></li>
-<li><a href="#%E4%BA%94%20Tengine">五 Tengine</a></li>
-</ul>
-
-
-<p><strong><em>本文最新更新于2016.11.01</em></strong></p>
-
-<h2><a name='一 特点'></a>一 特点</h2>
-
-<h3>1.1 应用情况</h3>
-
-<p>Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。据Netcraft统计，世界上最繁忙的网站中有11.48%使用Nginx作为其服务器或者代理服务器。基于反向代理的功能，Nginx作为负载均衡主要有以下几点理由：</p>
-
-<ol>
-<li>高并发连接</li>
-<li>内存消耗少</li>
-<li>配置文件非常简单</li>
-<li>成本低廉</li>
-<li>支持Rewrite重写规则</li>
-<li>内置的健康检查功能</li>
-<li>节省带宽</li>
-<li>稳定性高</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/27/nginx-loadbalance/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/08/22/node-async-analysis/">Async源码分析</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-22T16:08:28+08:00" pubdate data-updated="true">Aug 22<sup>nd</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
-
-<pre>
-    async.waterfall = function (tasks, callback) {
-        callback = callback || function () {};
-        if (!_isArray(tasks)) {
-          var err = new Error('First argument to waterfall must be an array of functions');
-          return callback(err);
-        }
-        if (!tasks.length) {
-            return callback();
-        }
-        var wrapIterator = function (iterator) {
-            return function (err) {
-                if (err) {
-                    callback.apply(null, arguments);
-                    callback = function () {};
-                }
-                else {
-                    var args = Array.prototype.slice.call(arguments, 1);
-                    var next = iterator.next();
-                    if (next) {
-                        args.push(wrapIterator(next));
-                    }
-                    else {
-                        args.push(callback);
-                    }
-                    async.setImmediate(function () {
-                        iterator.apply(null, args);
-                    });
-                }
-            };
-        };
-        wrapIterator(async.iterator(tasks))();
-    };
- </pre>
-
-
-<p></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/22/node-async-analysis/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/08/14/grow-up-in-tech/">技术的成长</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-14T16:38:01+08:00" pubdate data-updated="true">Aug 14<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
-
-<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/14/grow-up-in-tech/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-      <div class="page-navigator">
-        
-        
-            <a href="/blog/posts/4" class="prev"><<上一页</a>
-        
-        
-            <a href="/blog/posts/6" class="next">下一页>></a>
-        
-        <div class="center"><a href="/blog/archives">所有文章</a></div>
-      </div>
-     </div>
   </div>
-    
+</div>
+
   <aside id="secondary">
   <div id="sidebar">
   
@@ -791,7 +302,7 @@ public class Account{
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
   <ul id="gh_repos" class="widget-list">
-    <li class="loading">数据读取中&#8230;</li>
+    <li class="loading">数据读取中...</li>
   </ul>
   
   <script type="text/javascript">
@@ -825,7 +336,9 @@ public class Account{
 </section>
   
   </div>
-  </aside>
+</aside>
+
+
       	</div>
     </div>
   </div>
@@ -871,7 +384,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "",
+   issue_title: "2014这一年",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
