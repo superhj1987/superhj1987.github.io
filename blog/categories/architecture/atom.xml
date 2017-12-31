@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-12-31T23:42:44+08:00</updated>
+  <updated>2017-12-31T23:49:44+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -63,7 +63,7 @@
 
 <p><strong>延时消息队列</strong></p>
 
-<p>目前，RabbitMQ、RocketMQ都支持延时消息队列，直接使用即可。但这种依赖消息队列的方案，如果要取消定时任务，则无法实现。</p>
+<p>目前，RabbitMQ、RocketMQ都支持延时消息队列，直接使用即可。但这种依赖消息队列的方案，如果要取消定时任务，则无法实现。其中，RabbitMQ的实现思路是基于TTL的，详细可见：<a href="http://www.cnblogs.com/haoxinyue/p/6613706.html">http://www.cnblogs.com/haoxinyue/p/6613706.html</a>。</p>
 ]]></content>
   </entry>
   
