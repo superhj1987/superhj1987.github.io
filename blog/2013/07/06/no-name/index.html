@@ -158,7 +158,7 @@
 
 <p>电影里三个人的友情是让我感触颇深的另一个地方。人的一生会不停地结交到各种朋友，但最后真正能称得上<strong>朋友</strong>的人其实就那么几个人。和他们在一起，你会很确定不管你怎么样，他们都不会嫌弃你；不管你跟他们说了什么话，他们也不会介意。心情不好的时候，一个电话，他们不管有多忙也会立马赶到你的身旁。其实，以前的自己挺自私的，有点像孟晓峻，自从经历了某些事情之后，我才体会到友情是多么的珍贵，也才弥足珍惜现在的朋友们。</p>
 </div>
-<div style="width:100%;text-align:center">
+<div style="width:100%;text-align:center;display: none" id="wxFooter">
   <img src="/images/blog_images/h.png"/>
   <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
   <img src="/images/blog_images/mp-qrcode.jpg"/>
@@ -166,6 +166,44 @@
   <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
   <img src="/images/blog_images/zan.jpg" width="218" />
 </div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  if (ua.match(/MicroMessenger/i) == "micromessenger") {
+    $("div#wxFooter").display();
+  }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script>
 
 
   <footer class="post-footer">
