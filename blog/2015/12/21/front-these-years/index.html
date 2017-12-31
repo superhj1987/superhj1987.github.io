@@ -262,10 +262,9 @@ var browser = {
 }
 if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
   var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
-  alert(ua)
-  if (ua.match(/MicroMessenger/i) == "micromessenger") {
-    $("div#wxFooter").show();
-  }
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
   // if (ua.match(/WeiBo/i) == "weibo") {
   //         //在新浪微博客户端打开
   // }
