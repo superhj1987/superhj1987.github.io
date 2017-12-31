@@ -47,4 +47,4 @@ categories: architecture
 
 **延时消息队列**
 
-目前，RabbitMQ、RocketMQ都支持延时消息队列，直接使用即可。但这种依赖消息队列的方案，如果要取消定时任务，则无法实现。
+目前，RabbitMQ、RocketMQ都支持延时消息队列，直接使用即可。但这种依赖消息队列的方案，如果要取消定时任务，则无法实现。其中，RabbitMQ的实现思路是基于TTL的，详细可见：<http://www.cnblogs.com/haoxinyue/p/6613706.html>。
