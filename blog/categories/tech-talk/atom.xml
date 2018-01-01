@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech-talk | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/tech-talk/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2017-12-31T23:49:44+08:00</updated>
+  <updated>2018-01-01T22:52:25+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,11 +14,37 @@
 
   
   <entry>
+    <title type="html"><![CDATA[技术琐话2018-01-01]]></title>
+    <link href="http://www.rowkey.me/blog/2018/01/01/tech-talk/"/>
+    <updated>2018-01-01T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/01/01/tech-talk</id>
+    <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p>
+
+<p>2018年以“技术琐话”开篇，主要是整理了一下自己以前一些零散的知识点。</p></blockquote>
+
+<ul>
+<li><p>阅读各种技术的使用/说明/示例/原理文档时，能不能快速吸收为自己的知识？能不能注意到细节关键点？是一个开发工程师优不优秀，能不能比别人更突出、更快成长起来的一个非常重要的地方。</p></li>
+<li><p>在写Java代码的时候，如果匿名内部类里面传递变量，变量必须声明为final，而在Java8中，可以不用写这个final了，因为Java8引入了Effectively final 功能，由系统默认添加。<a href="http://t.cn/R5QgeVW">What is Effectively Final variable of Java 8</a></p></li>
+<li><p>将nginx中的一个配置指令proxyinterceptorerrors设置为true，可以捕获后端服务器返回的错误码进行处理，从而可以使用nginx自己的错误显示页面。 ​​​​</p></li>
+<li><p>在Servlet开发中，request.setCharacterEncoding必须在所有filter最开始执行，否则只要调用过request相关方法去获取其参数等，再去设置编码是无效的。</p></li>
+<li><p>Java中File类的listFiles和list方法最终调用的是FileSystem的本地接口，返回的文件列表顺序是没有保证的。Spring中的san某一basepackage下的类就是使用的此方法，因此加载的bean的顺序也是无法保证的。这一点需要特别注意。 ​​​​​​</p></li>
+<li><p>Tomcat各个版本特性对比图</p>
+
+<p>  <img src="//images/blog_images/tc.png" alt="" /></p></li>
+<li><p>Java集合类对比图标</p>
+
+<p>  <img src="//images/blog_images/java-collections.jpg" alt="" /></p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[技术琐话2017-11-26]]></title>
     <link href="http://www.rowkey.me/blog/2017/11/26/tech-talk/"/>
     <updated>2017-11-26T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2017/11/26/tech-talk</id>
-    <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定还是以博客的形式记录下来，以“技术琐话”作为主题。</p>
+    <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p></blockquote>
 
 <ul>
 <li><p>The interesting thing about performance is that if you analyze most programs, you find that they waste most of their time in a small fraction of code. If you optimize all the code equally, you end up with 90 percent of the optimizations wasted, because you are optimizing code that isn&rsquo;t run much. The time spent making the program fast, the time lost because of lack of clarity, is all wasted time.《重构》一书的一段话，也是不要过早优化的意思，即在不确定这段代码真的会被频繁调用、真的是系统的性能瓶颈之前，没必要花时间优化此处的性能。</p></li>
