@@ -24,6 +24,6 @@ categories: tech-talk
 
 	![](/images/blog_images/tc.png)
 	
-- Java集合类对比图标
+- Java集合类对比图表
 
 	![](/images/blog_images/java-collections.jpg)
