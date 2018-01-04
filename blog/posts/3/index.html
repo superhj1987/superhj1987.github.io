@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="推荐系统杂谈 Aug 30th, 2016 推荐系统是近些年非常火的技术，不管是电商类软件还是新闻类app，都号称有精准的推荐系统能给你推送你最感兴趣的内容。现象级的资讯类app“今日头条”就得益于此成为了势头非常猛的一款产品。本文就针对推荐系统讲述一些相关概念和实践经验。 &hellip;">
+  <meta name="description" content="BTrace原理浅析 Sep 20th, 2016 之前在看agentzh的此篇博文动态追踪技术漫谈时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。在公司内部的JavaEE性能检测框架中， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,52 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/09/20/btrace/">BTrace原理浅析</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-09-20T21:39:34+08:00" pubdate data-updated="true">Sep 20<sup>th</sup>, 2016</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>之前在看agentzh的此篇博文<a href="http://openresty.org/posts/dynamic-tracing/">动态追踪技术漫谈</a>时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。在公司内部的JavaEE性能检测框架中，我们使用了asm做字节码注入来做线上性能的监测，沿着这个思路，如果要做到动态追踪应该是需要做字节码注入的，但是额外的一点是需要动态加载字节码替换掉原有的类的。此外，性能监测框架是需要耦合到业务应用中的，无法做到一个监测工具的灵活性。</p>
+
+<p>后来听同事提到了BTrace这个工具，于是去尝试了一下。BTrace是SUN Kenai云计算开发平台下的一个开源项目，旨在为java提供安全可靠的动态跟踪分析工具。江南白衣的这篇文章<a href="http://calvin1978.blogcn.com/articles/btrace1.html">http://calvin1978.blogcn.com/articles/btrace1.html</a>做了比较详细的描述。</p>
+
+<p>那么，BTrace这么神奇的功能是如何实现的呢？既然这是个开源的代码，那么直接从代码找原理。BTrace代码开源在<a href="https://github.com/btraceio/btrace">https://github.com/btraceio/btrace</a>。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/09/20/btrace/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -575,69 +621,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/04/07/up-recommend/">基于内容和用户画像的个性化推荐</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-04-07T14:59:44+08:00" pubdate data-updated="true">Apr 7<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>目前比较流行的个性化推荐算法有以下几种：</p>
-
-<ul>
-<li>基于内容的推荐：根据内容本身的属性(特征向量)所作的推荐。</li>
-<li>基于关联规则的推荐：“啤酒与尿布”的方式，是一种动态的推荐，能够实时对用户的行为作出推荐。是基于物品之间的特征关联性所做的推荐，在某种情况下会退化为物品协同过滤推荐。</li>
-<li>协同过滤推荐：与基于关联规则的推荐相比是一种静态方式的推荐，是根据用户已有的历史行为作分析的基础上做的推荐。可分为物品协同过滤、用户协同过滤、基于模型的协同过滤。其中，基于模型的协同又可以分为以下几种类型：基于距离的协同过滤；基于矩阵分解的协同过滤，即Latent Factor Model(SVD)或者ALS；基于图模型协同，即Graph，也叫社会网络图模型。</li>
-</ul>
-
-
-<p>本文所讲述的基于内容和用户画像的个性化推荐属于第一种。对于此种推荐，有两个实体：内容和用户，因此需要有一个联系这两者的东西，即为标签。内容转换为标签即为内容特征化，用户则称为用户特征化。对于此种推荐，主要分为以下几个关键部分：</p>
-
-<ul>
-<li>标签库</li>
-<li>内容特征化</li>
-<li>用户特征化</li>
-<li>隐语义推荐</li>
-</ul>
-
-
-<p>综合上面讲述的各个部分即可实现一个基于内容和用户画像的个性化推荐系统。如下图所示：</p>
-
-<p><img src="/images/blog_images/up-recommend.png" alt="uc_interest" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/04/07/up-recommend/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -712,6 +695,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/01/04/king-rec-pois-wine/">如何快速尝出毒酒？</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/01/01/tech-talk/">技术琐话2018-01-01</a>
       	</li>
     	
@@ -725,10 +712,6 @@
     	
      	<li>
       	  <a href="/blog/2017/10/28/spring-annotations/">Spring注解概览</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2017/10/20/solve-problems/">有效解决问题</a>
       	</li>
     	
 	</ul>
