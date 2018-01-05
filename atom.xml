@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-01-04T19:59:45+08:00</updated>
+  <updated>2018-01-05T11:03:13+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -24,7 +24,7 @@
 
 <h2>方案</h2>
 
-<p>此问题是我在面试是经常用的一道题目，主要考察的是候选人能不能以计算机的思维考虑问题。</p>
+<p>此问题是我在面试时经常用的一道题目，主要考察的是候选人能不能以计算机的思维考虑问题。</p>
 
 <p>最简单的方案肯定是找100个人，每个人试一桶酒，那么用时30分钟，就可以判断出哪一桶就有毒。</p>
 
