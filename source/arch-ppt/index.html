@@ -1,3 +1,4 @@
+
 <!--
     Powered By nodePPT - This is probably the best web presentation tool so far!
     version: 1.4.2
@@ -61,6 +62,18 @@
 <p>软件生命周期： 软件开发生命周期 + 软件运行生命周期（软件访问、软件功能、软件监控）</p>
 </blockquote>
 <img src="./media/15033719545748.jpg" alt="">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>优秀软件架构三要素</h2>
+
+</hgroup><article>
+
+<ul>
+<li>Firmness（坚固Solid）: Achieve a satisfactory level of freedom from damaging failure.</li>
+<li>Commodity（实用Useful）: Utility to accomplish the tasks it is purported to be for.</li>
+<li>Delight（美观Beautiful）: Pleasure in use.</li>
+</ul>
 
 </article></section></slide>
 <slide class="slide"><section class="slide-wrapper"><hgroup>
@@ -190,8 +203,8 @@
 <li>考虑使用缓存</li>
 <li>...</li>
 </ul>
-<li>数据统计场景中，实时性要求较高的数据统计可以用redis；非实时数据则可以使用单独表，通过队列异步运算或者定时计算更新数据。此外，对于一致性要求较高的统计数据，需要依靠事务或者定时校对机制保证准确性。</li>
 </li>
+<li>数据统计场景中，实时性要求较高的数据统计可以用redis；非实时数据则可以使用单独表，通过队列异步运算或者定时计算更新数据。此外，对于一致性要求较高的统计数据，需要依靠事务或者定时校对机制保证准确性。</li>
 </ul>
 
 </article></section></slide>
@@ -204,6 +217,7 @@
 <li>生命周期识别，合理拆分生命周期</li>
 <li>识别问题和问题的主体, 切忌把解决方案当问题, 发现问题永远比解决问题更加重要!!!</li>
 <li>关注业务技术，保障业务增长</li>
+<li>OKR架构：负责关键技术的突破，解决技术可行性问题，拿出从0到1的那些关键结果</li>
 <li><strong>权责对等，保障架构执行！！！</strong></li>
 </ul>
 
@@ -214,6 +228,7 @@
 </hgroup><article>
 
 <ul>
+<li>站的高、望的远、扎的深</li>
 <li>精通某种技术，能够从本质上类比，触类旁通其他技术。</li>
 <li>平等对待所有技术，只有合适与不合适，没有喜欢与不喜欢。</li>
 <li>视野开阔，了解不同技术的优缺点, 知道可以直接用哪个开源项目来满足这样那样的需求，能够辨别是否需要造轮子。</li>
@@ -225,6 +240,14 @@
 
 </article></section></slide>
 <slide class="slide"><section class="slide-wrapper"><hgroup>
+<h2>架构六部思考法</h2>
+
+</hgroup><article>
+
+<img src="./media/sixthink.jpg" alt="">
+
+</article></section></slide>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
 <h2>架构原则 - 概览</h2>
 
 </hgroup><article>
@@ -232,7 +255,7 @@
 <img src="./media/arch-spec.png" alt="">
 
 </article></section></slide>
-<slide class="slide" style='font-size:9pt'><section class="slide-wrapper"><hgroup>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
 <h2>架构原则 - 1</h2>
 
 </hgroup><article>
@@ -247,7 +270,7 @@
 </ul>
 
 </article></section></slide>
-<slide class="slide" style='font-size:9pt'><section class="slide-wrapper"><hgroup>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
 <h2>架构原则 - 2</h2>
 
 </hgroup><article>
@@ -261,7 +284,7 @@
 </ul>
 
 </article></section></slide>
-<slide class="slide" style='font-size:9pt'><section class="slide-wrapper"><hgroup>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
 <h2>架构原则 - 3</h2>
 
 </hgroup><article>
@@ -276,7 +299,7 @@
 </ul>
 
 </article></section></slide>
-<slide class="slide" style='font-size:9pt'><section class="slide-wrapper"><hgroup>
+<slide class="slide"><section class="slide-wrapper"><hgroup>
 <h2>架构原则 - 可扩展</h2>
 
 </hgroup><article>
@@ -315,6 +338,7 @@
 <li>《架构真经》 by 陈斌</li>
 <li>《聊聊架构》 by 王概凯</li>
 <li>《架构师的第一课》 by 蔡学镛</li>
+<li>架构六步思考法 by 夏华夏@美团</li>
 </ul>
 
 </article></section></slide>
@@ -343,13 +367,8 @@
 <script>
 var base = location.protocol + '//' + location.host;
 
-var path = (location.pathname + '#').split('/').filter(function(v){
-    return !!v;
-});
-path.pop();
-path = path.join('/');
 MixJS.config({
-    baseURL: [ base, path, 'js'].join('/')+'/'
+    baseURL: [ base, 'js'].join('/')+'/'
 });
 
 </script>
