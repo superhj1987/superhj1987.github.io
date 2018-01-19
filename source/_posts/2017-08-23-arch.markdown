@@ -33,3 +33,5 @@ categories: architecture
 ![](/images/blog_images/arch/arch-20.jpeg)
 ![](/images/blog_images/arch/arch-21.jpeg)
 ![](/images/blog_images/arch/arch-22.jpeg)
+![](/images/blog_images/arch/arch-23.jpeg)
+![](/images/blog_images/arch/arch-24.jpeg)
