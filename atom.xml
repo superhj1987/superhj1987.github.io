@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-02-07T16:53:47+08:00</updated>
+  <updated>2018-02-07T16:54:30+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[2017年读过的书]]></title>
-    <link href="http://www.rowkey.me/blog/2018/02/06/read-books/"/>
+    <link href="http://www.rowkey.me/blog/2018/02/06/2017books/"/>
     <updated>2018-02-06T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2018/02/06/read-books</id>
+    <id>http://www.rowkey.me/blog/2018/02/06/2017books</id>
     <content type="html"><![CDATA[<p>2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
 
 <!--more-->
@@ -2073,9 +2073,9 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
   
   <entry>
     <title type="html"><![CDATA[2016年读过的书]]></title>
-    <link href="http://www.rowkey.me/blog/2016/12/30/books/"/>
+    <link href="http://www.rowkey.me/blog/2016/12/30/2016books/"/>
     <updated>2016-12-30T17:13:46+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/12/30/books</id>
+    <id>http://www.rowkey.me/blog/2016/12/30/2016books</id>
     <content type="html"><![CDATA[<p>16年由于工作、身体等各种原因，阅读的书籍并不多。主要集中在技术方面。</p>
 
 <ul>

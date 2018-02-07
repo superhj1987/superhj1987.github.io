@@ -4,7 +4,7 @@
   <title><![CDATA[Category: study | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-02-07T16:53:47+08:00</updated>
+  <updated>2018-02-07T16:54:30+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[2016年读过的书]]></title>
-    <link href="http://www.rowkey.me/blog/2016/12/30/books/"/>
+    <link href="http://www.rowkey.me/blog/2016/12/30/2016books/"/>
     <updated>2016-12-30T17:13:46+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/12/30/books</id>
+    <id>http://www.rowkey.me/blog/2016/12/30/2016books</id>
     <content type="html"><![CDATA[<p>16年由于工作、身体等各种原因，阅读的书籍并不多。主要集中在技术方面。</p>
 
 <ul>
@@ -43,9 +43,9 @@
   
   <entry>
     <title type="html"><![CDATA[2015年读过的书]]></title>
-    <link href="http://www.rowkey.me/blog/2015/11/20/books/"/>
+    <link href="http://www.rowkey.me/blog/2015/11/20/2015books/"/>
     <updated>2015-11-20T17:13:46+08:00</updated>
-    <id>http://www.rowkey.me/blog/2015/11/20/books</id>
+    <id>http://www.rowkey.me/blog/2015/11/20/2015books</id>
     <content type="html"><![CDATA[<h2>技术</h2>
 
 <h3>1. 精益数据分析</h3>
