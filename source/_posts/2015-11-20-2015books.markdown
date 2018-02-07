@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "2015年读过的书
+title: "2015年读过的书"
 date: 2015-11-20 17:13:46 +0800
 comments: true
 categories: study
@@ -22,20 +22,6 @@ categories: study
 - 备注：此书上大学时曾经看过，但当时由于没有实战环境，所以没啥印象。此次阅读是基于项目需要，但其中部分牵扯到具体算法的部分没有细看
 
 <!--more-->
-
-### 3. 集体智慧编程
-
-- 豆瓣：<http://book.douban.com/subject/3288908/>
-- 说明：讲述集体智慧的书籍，也是推荐系统相关的一本书
-- 进度：0%
-
-### 4. 快学scala
-
-- 豆瓣：<http://book.douban.com/subject/19971952/>
-- 说明：学习scala的一本书，应该算是快速指引
-- 进度：20%
-- 备注：scala的学习曲线很陡，之前找到twitter的scala school，但是发现讲的有点不到位。鉴于此，找一本经典的书籍快速入门一下也不错。
-
 
 ## 非技术
 
