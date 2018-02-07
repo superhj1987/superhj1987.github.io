@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-02-07T15:40:45+08:00</updated>
+  <updated>2018-02-07T16:38:02+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.rowkey.me/blog/2018/02/06/read-books/"/>
     <updated>2018-02-06T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/02/06/read-books</id>
-    <content type="html"><![CDATA[<p>2017年一共阅读了八本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
+    <content type="html"><![CDATA[<p>2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
 
 <!--more-->
 
@@ -41,6 +41,9 @@
 <li><p>亿级流量网站核心技术</p>
 
 <blockquote><p>本书作者是IT著名博主，自己上学时就看过他写的Spring系列。因此在此书出版之前就觉得应该是本好书。读完此书，学到了一些东西，比如Nginx+Lua/Openrestry在高并发、大流量场景下的使用、Consult的统一配置、使用Lua脚本做Nginx动态负载均衡等。但令人失望的是，很多东西都是一笔带过，且穿插了大量类库的使用代码（自我觉得出版书籍一定要避免大量代码，完全是可以放到Github上，而且类库的使用代码完全是可以阅读官方文档的）。比较适合没有架构经验的人来了解一下大公司架构使用了哪些技能，有经验的则可以当做一本参考手册，查漏补缺。</p></blockquote></li>
+<li><p>响应式微服务架构（Reactive-Microservices-Architecture）</p>
+
+<blockquote><p>O&#8217;Reilly的系列电子书。讲述了在设计分布式系统时候的一些原则，在架构层面指导微服务的实现。</p></blockquote></li>
 </ul>
 
 
@@ -67,7 +70,8 @@
 <li><p>OKR: 源于英特尔和谷歌的目标管理利器</p>
 
 <blockquote><p><strong><em>截止2018.02.06已经完成阅读。</em></strong>此书是公司管理层进行统一学习的一本书，不厚，花了三个晚上大约6个小时就读完了。讲述了什么是OKR、OKR的好处、如何使用OKR等等，推荐想要进行OKR实践的管理人员阅读。</p></blockquote></li>
-<li><p>机器学习实战 &amp;&amp; 机器学习西瓜书</p></li>
+<li><p>微服务反模式和陷阱（Microservices AntiPatterns and Pitfalls）</p></li>
+<li>机器学习实战 &amp;&amp; 机器学习西瓜书</li>
 <li>Tensorflow实战</li>
 <li>深入分布式缓存</li>
 <li>高性能MySQL</li>
@@ -85,6 +89,9 @@
     <content type="html"><![CDATA[<h2>问题</h2>
 
 <p>国王有一百桶酒，比自己的生命还重要。结果有一天其中一桶被投了慢性毒药，喝了以后半个小时以后就会死掉。国王大怒，命令玩忽职守的侍卫去试毒。酒不能被混合，一个侍卫可以喝多桶酒，一桶酒也可以由多个侍卫喝，怎么样才能用最少的侍卫、在最短的时间知道哪桶是毒酒。侍卫可以理解为线程，即怎么样用最少的线程用最快的速度完成这个工作。</p>
+
+<!--more-->
+
 
 <h2>方案</h2>
 
@@ -110,6 +117,9 @@
     <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p>
 
 <p>2018年以“技术琐话”开篇，主要是整理了一下自己以前一些零散的知识点。</p></blockquote>
+
+<!--more-->
+
 
 <h2>技术感悟</h2>
 
@@ -2058,6 +2068,28 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[2016年读过的书]]></title>
+    <link href="http://www.rowkey.me/blog/2016/11/20/books/"/>
+    <updated>2016-11-20T17:13:46+08:00</updated>
+    <id>http://www.rowkey.me/blog/2016/11/20/books</id>
+    <content type="html"><![CDATA[<p>16年由于工作、身体等各种原因，阅读的书籍并不多。主要集中在技术方面。</p>
+
+<ul>
+<li><p>计算广告</p>
+
+<blockquote><p>广告是什么？广告的效果如何评价？机器学习如何应用在计算广告上？作者从产品、运营、技术角度分别进行了阐述。是其计算广告课程（清华、北航的研究生课程）的总结和输出，推荐广告系统开发工程师学习和参考，个性化推荐系统的开发者也能够从中得到很多启发。</p></blockquote></li>
+<li><p>七周七并发模型</p>
+
+<blockquote><p>多线程、Actor、Lambda架构等八种并发模式。看完此书，确实能够开阔眼界，拓展思路。和系列中的《七周七语言》《七周七数据库》《七周七Web开发框架》都是类似的拓展眼界的佳作。</p></blockquote></li>
+<li><p>写给大忙人看的Java SE 8</p>
+
+<blockquote><p>浅显易懂地对JDK 7和8新特性的概括，很薄的书，很快就能够看完，做到对Java新版本特性的理解。</p></blockquote></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[[译]JDK自带工具之问题排查场景示例]]></title>
     <link href="http://www.rowkey.me/blog/2016/11/16/java-trouble-shooting/"/>
     <updated>2016-11-16T22:21:34+08:00</updated>
@@ -2419,83 +2451,6 @@ class Parser {
   }
 }
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[JDK自带工具之概览]]></title>
-    <link href="http://www.rowkey.me/blog/2016/11/03/jdk-tools/"/>
-    <updated>2016-11-03T22:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2016/11/03/jdk-tools</id>
-    <content type="html"><![CDATA[<p>在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。</p>
-
-<p>笔者的开发环境是：OS X EI Captian 10.11.6</p>
-
-<p>JDK版本：</p>
-
-<pre><code>java version "1.8.0_92"
-Java(TM) SE Runtime Environment (build 1.8.0_92-b14)
-Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
-</code></pre>
-
-<p>JAVA_HOME/bin下的工具截图如下：</p>
-
-<p><img src="http://www.rowkey.me/images/blog_images/jdk-tools.png" alt="" /></p>
-
-<!--more-->
-
-
-<ul>
-<li><p>appletviewer: 用于运行并浏览applet小程序。</p></li>
-<li><p>extcheck: 扩展检测工具，主要用于检测指定jar文件与当前已安装的Java SDK扩展之间是否存在版本冲突。</p></li>
-<li><p>idlj: IDL转Java编译器(IDL-to-Java Compiler)，用于为指定的IDL文件生成Java绑定。IDL意即接口定义语言(Interface Definition Language)。</p></li>
-<li><p>jar: jar文件管理工具，主要用于打包压缩、解压jar文件。</p></li>
-<li><p>jarsigner: jar密匙签名工具。</p></li>
-<li><p>java: Java运行工具，用于运行.class字节码文件或.jar文件。</p></li>
-<li><p>javac: Java编译工具(Java Compiler)，用于编译Java源代码文件。</p></li>
-<li><p>javadoc: Java文档工具，主要用于根据Java源代码中的注释信息生成HTML格式的API帮助文档。</p></li>
-<li><p>javafxpackager: JavaFX包装器，用于执行与封装或签名JavaFX应用有关的任务。JDK 8u20已经迁移此工具到javapackager。</p></li>
-<li><p>javah: Java头文件工具，用于根据Java类生成C/C++头文件和源文件(主要用于JNI开发领域)。</p></li>
-<li><p>javap: Java反编译工具，主要用于根据Java字节码文件反汇编为Java源代码文件。</p></li>
-<li><p>javapackager: 执行针对Java应用程序和JavaFX应用程序的打包和签名的任务。包含了javafxpackager的功能。</p></li>
-<li><p>jcmd: Java 命令行(Java Command)，用于向正在运行的JVM发送诊断命令请求。</p></li>
-<li><p>jconsole: 图形化用户界面的监测工具，主要用于监测并显示运行于Java平台上的应用程序的性能和资源占用等信息。</p></li>
-<li><p>jdeps: 用于分析Java class的依赖关系.</p></li>
-<li><p>jdb: Java调试工具(Java Debugger)，主要用于对Java应用进行断点调试。</p></li>
-<li><p>jhat: Java堆分析工具(Java Heap Analysis Tool)，用于分析Java堆内存中的对象信息。</p></li>
-<li><p>jinfo: Java配置信息工具(Java Configuration Information)，用于打印指定Java进程、核心文件或远程调试服务器的配置信息。</p></li>
-<li><p>jjs: 对Nashorn引擎的调用。<a href="http://www.infoq.com/cn/articles/nashorn">Nashorn</a>是基于Java实现一个轻量级高性能的JavaScript运行环境。</p></li>
-<li><p>jmap: Java内存映射工具(Java Memory Map)，主要用于打印指定Java进程、核心文件或远程调试服务器的共享对象内存映射或堆内存细节。</p></li>
-<li><p>jmc: Java任务控制工具(Java Mission Control)，主要用于HotSpot JVM的生产时间监测、分析、诊断。开发者可以使用jmc命令来创建JMC工具。 <a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a></p></li>
-<li><p>jps: JVM进程状态工具(JVM Process Status Tool)，用于显示目标系统上的HotSpot JVM的Java进程信息。</p></li>
-<li><p>jrunscript: Java命令行脚本外壳工具(command line script shell)，主要用于解释执行javascript、groovy、ruby等脚本语言。</p></li>
-<li><p>jsadebugd: Java可用性代理调试守护进程(Java Serviceability Agent Debug Daemon)，主要用于附加到指定的Java进程、核心文件，或充当一个调试服务器。</p></li>
-<li><p>jstack: Java堆栈跟踪工具，主要用于打印指定Java进程、核心文件或远程调试服务器的Java线程的堆栈跟踪信息。</p></li>
-<li><p>jstat: JVM统计监测工具(JVM Statistics Monitoring Tool)，主要用于监测并显示JVM的性能统计信息，包括gc统计信息。</p></li>
-<li><p>jstatd: jstatd(VM jstatd Daemon)工具是一个RMI服务器应用，用于监测HotSpot JVM的创建和终止，并提供一个接口，允许远程监测工具附加到运行于本地主机的JVM上。</p></li>
-<li><p>jvisualvm: JVM监测、故障排除、分析工具，主要以图形化界面的方式提供运行于指定虚拟机的Java应用程序的详细信息。</p></li>
-<li><p>keytool: 密钥和证书管理工具，主要用于密钥和证书的创建、修改、删除等。主要用于获取或缓存Kerberos协议的票据授权票据。允许用户查看本地凭据缓存和密钥表中的条目(用于Kerberos协议)。Kerberos密钥表管理工具，允许用户管理存储于本地密钥表中的主要名称和服务密钥。</p></li>
-<li><p>native2ascii: 本地编码到ASCII编码的转换器(Native-to-ASCII Converter)，用于&#8221;任意受支持的字符编码&#8221;和与之对应的&#8221;ASCII编码和(或)Unicode转义&#8221;之间的相互转换。</p></li>
-<li><p>orbd: 对象请求代理守护进程(Object Request Broker Daemon)，它使客户端能够透明地定位和调用位于CORBA环境的服务器上的持久对象。</p></li>
-<li><p>pack200: JAR文件打包压缩工具，它可以利用Java类特有的结构，对普通JAR文件进行高效压缩，以便于能够更快地进行网络传输。这是微软提供的对象包装程序，用于对象安装包。</p></li>
-<li><p>policytool: 策略工具，用于管理用户策略文件(.java.policy)。</p></li>
-<li><p>rmic: Java RMI 编译器，为使用JRMP或IIOP协议的远程对象生成stub、skeleton、和tie类，也用于生成OMG IDL。</p></li>
-<li><p>rmid: Java RMI 激活系统守护进程，rmid启动激活系统守护进程，允许在虚拟机中注册或激活对象。</p></li>
-<li><p>rmiregistry: Java 远程对象注册表，用于在当前主机的指定端口上创建并启动一个远程对象注册表。</p></li>
-<li><p>schemagen: XML schema生成器，用于生成XML schema文件。</p></li>
-<li><p>serialver: 序列版本命令，用于生成并返回serialVersionUID。</p></li>
-<li><p>servertool: Java IDL 服务器工具，用于注册、取消注册、启动和终止持久化的服务器。</p></li>
-<li><p>tnameserv: Java IDL瞬时命名服务。</p></li>
-<li><p>unpack200: JAR文件解压工具，将一个由pack200打包的文件解压提取为JAR文件。</p></li>
-<li><p>wsgen: XML Web Service 2.0的Java API，生成用于JAX-WS Web Service的JAX-WS便携式产物。</p></li>
-<li><p>wsimport: XML Web Service 2.0的Java API，主要用于根据服务端发布的wsdl文件生成客户端存根及框架</p></li>
-<li><p>xjc: 主要用于根据XML schema文件生成对应的Java类。</p></li>
-</ul>
-
-
-<h2>参考资料</h2>
-
-<p><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/toc.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/toc.html</a></p>
 ]]></content>
   </entry>
   

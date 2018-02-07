@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-02-07T15:40:45+08:00</updated>
+  <updated>2018-02-07T16:38:02+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<h2>问题</h2>
 
 <p>国王有一百桶酒，比自己的生命还重要。结果有一天其中一桶被投了慢性毒药，喝了以后半个小时以后就会死掉。国王大怒，命令玩忽职守的侍卫去试毒。酒不能被混合，一个侍卫可以喝多桶酒，一桶酒也可以由多个侍卫喝，怎么样才能用最少的侍卫、在最短的时间知道哪桶是毒酒。侍卫可以理解为线程，即怎么样用最少的线程用最快的速度完成这个工作。</p>
+
+<!--more-->
+
 
 <h2>方案</h2>
 
