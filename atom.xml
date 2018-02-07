@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-02-07T16:38:02+08:00</updated>
+  <updated>2018-02-07T16:42:38+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -2083,7 +2083,7 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
 <blockquote><p>多线程、Actor、Lambda架构等八种并发模式。看完此书，确实能够开阔眼界，拓展思路。和系列中的《七周七语言》《七周七数据库》《七周七Web开发框架》都是类似的拓展眼界的佳作。</p></blockquote></li>
 <li><p>写给大忙人看的Java SE 8</p>
 
-<blockquote><p>浅显易懂地对JDK 7和8新特性的概括，很薄的书，很快就能够看完，做到对Java新版本特性的理解。</p></blockquote></li>
+<blockquote><p>浅显易懂地对JDK 7和8新特性的概括，很薄的书，很快就能够看完，做到对Java新版本特性的了解。</p></blockquote></li>
 </ul>
 
 ]]></content>
