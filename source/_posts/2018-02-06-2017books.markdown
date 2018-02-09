@@ -64,3 +64,4 @@ categories: work
 - 深入分布式缓存
 - 高性能MySQL
 - 尽在双11，阿里巴巴技术演进与超越
+- Clean Architecture, A Craftsman's Guide to Software Structure and Design
