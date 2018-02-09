@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-02-07T17:58:50+08:00</updated>
+  <updated>2018-02-09T21:41:39+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -40,7 +40,7 @@
 <blockquote><p>讲述阿里巴巴大数据平台的演化之路。这本书讲的很多东西虽然都是阿里自研的，并没有全部开源。但是很多软件的使用兼容了开源软件，尤其是一些诸如解决数据倾斜问题、去重指标计算的思路也是普遍适用的。对照一下，可以理出自己公司在大数据平台上哪些做的不错，哪些还没做，哪些需要优化。</p></blockquote></li>
 <li><p>亿级流量网站核心技术</p>
 
-<blockquote><p>本书作者是IT著名博主，自己上学时就看过他写的Spring系列。因此在此书出版之前就觉得应该是本好书。读完此书，学到了一些东西，比如Nginx+Lua/Openrestry在高并发、大流量场景下的使用、Consult的统一配置、使用Lua脚本做Nginx动态负载均衡等。但令人失望的是，很多东西都是一笔带过，且穿插了大量类库的使用代码（自我觉得出版书籍一定要避免大量代码，完全是可以放到Github上，而且类库的使用代码完全是可以阅读官方文档的）。比较适合没有架构经验的人来了解一下大公司架构使用了哪些技能，有经验的则可以当做一本参考手册，查漏补缺。</p></blockquote></li>
+<blockquote><p>本书作者是IT著名博主，自己上学时就看过他写的Spring系列。因此在此书出版之前就觉得应该是本好书。读完此书，学到了一些东西，比如Nginx+Lua/Openrestry在高并发、大流量场景下的使用、Consult的统一配置、使用Lua脚本做Nginx动态负载均衡等。但有点令人失望的是，很多东西都是一笔带过，尤其是穿插了大量类库的使用代码（自我觉得出版书籍一定要避免大量代码，完全是可以放到Github上，而且类库的使用代码完全是可以阅读官方文档的）。比较适合没有架构经验的人来了解一下大公司架构使用了哪些技能，有经验的则可以当做一本参考手册，查漏补缺。</p></blockquote></li>
 <li><p>响应式微服务架构（Reactive-Microservices-Architecture）</p>
 
 <blockquote><p>O&#8217;Reilly的系列电子书。讲述了在设计分布式系统时候的一些原则，在架构层面指导微服务的实现。</p></blockquote></li>
