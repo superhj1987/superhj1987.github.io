@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-02-09T21:41:39+08:00</updated>
+  <updated>2018-02-09T21:45:54+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -76,6 +76,7 @@
 <li>深入分布式缓存</li>
 <li>高性能MySQL</li>
 <li>尽在双11，阿里巴巴技术演进与超越</li>
+<li>Clean Architecture, A Craftsman&rsquo;s Guide to Software Structure and Design</li>
 </ul>
 
 ]]></content>
