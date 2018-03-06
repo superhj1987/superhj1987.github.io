@@ -200,7 +200,7 @@
 </ul>
 
 
-<p>还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以<strong><em>jar:file</em></strong>开头的，并不能用此方式处理。</p>
+<p>还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法或者URI的getSchemeSpecificPart方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以<strong><em>jar:file</em></strong>开头的，并不能用此方式处理。</p>
 </div>
 <div style="width:100%;text-align:center;display: none" id="wxFooter">
   <img src="/images/blog_images/h.png"/>
