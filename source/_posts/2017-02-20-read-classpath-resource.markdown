@@ -49,4 +49,4 @@ scheme包括：http、https、file、jar等。一个例子：`file:/User/root/te
 	
     此方法获取的是此类所处于的保护域的路径信息，当位于jar包中时，返回的是jar包的路径信息，非jar包则返回的是应用的类加载路径的地址。此方法的一个常见使用场景就是使用嵌入式jetty或者tomcat时对于webappBase的设置。
 
-还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以***jar:file***开头的，并不能用此方式处理。
+还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法或者URI的getSchemeSpecificPart方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以***jar:file***开头的，并不能用此方式处理。
