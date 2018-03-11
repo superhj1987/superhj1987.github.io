@@ -3,7 +3,7 @@ layout: post
 title: "系统负载能力浅析"
 date: 2015-09-09 18:42:58 +0800
 comments: true
-categories: devops
+categories: architecture
 ---
 
 ***---本文于2015.12.23最新更新---***
