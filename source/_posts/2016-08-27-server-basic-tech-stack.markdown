@@ -3,7 +3,7 @@ layout: post
 title: "谈谈互联网后端基础设施"
 date: 2016-08-27 23:10:34 +0800
 comments: true
-categories: work
+categories: architecture
 ---
 
 ***本文更新于2016.12.12, 加入了扩展章节***
