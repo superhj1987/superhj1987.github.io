@@ -14,8 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="2015年读过的书 Nov 20th, 2015 技术 1. 精益数据分析 豆瓣：http://book.douban.com/subject/26278639/
-说明：一本讲述数据驱动创业的书籍，比如在你的产品中如何区分虚荣指标，如何抓住关键指标等。对于每一个商业模式都有其特定的关键指标和底线 &hellip;">
+  <meta name="description" content="前端这些年 Dec 21st, 2015 前言 本人一直从事的是服务端开发工作，写前端貌似有点跑题，不过自己初中也就是2000年左右的时候，引领我进入计算机大门的也的确是前端，后来也做过不少的前端工作。于是，就想着从自己的角度写点前端这些年的发展。但毕竟不是专业所长，有所纰漏在所难免。 继续阅读 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -113,6 +112,50 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/12/21/front-these-years/">前端这些年</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-12-21T18:53:48+08:00" pubdate data-updated="true">Dec 21<sup>st</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>前言</h2>
+
+<p>本人一直从事的是服务端开发工作，写前端貌似有点跑题，不过自己初中也就是2000年左右的时候，引领我进入计算机大门的也的确是前端，后来也做过不少的前端工作。于是，就想着从自己的角度写点前端这些年的发展。但毕竟不是专业所长，有所纰漏在所难免。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/12/21/front-these-years/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -862,56 +905,6 @@ public class Account{
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/12/09/spring-mvc-httpservletresponse/">SpringMVC的controller传递HttpServletResponse参数的那点事</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-12-09T10:05:41+08:00" pubdate data-updated="true">Dec 9<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><pre>
-    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
-    public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
-    ......
-    }
-</pre>
-
-
-<p>之前在使用Spring mvc的时候发现这么一回事：在spring mvc的controller的参数里如果有HttpServletResponse(类似上面的代码),那么必须有返回值框架才会去在执行完handler后去搜索相应的viewResolver和view从而展现数据。如果没有返回值，那么默认就是返回null的。我初步推测框架的处理过程大致如此：如果controller参数里传递HttpServletResposne的话，框架就认为视图由handler自己生成可以不参于这个过程,但是如果handler有返回值的话，那么仍然认为还需要参与到视图生成的过程中。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/12/09/spring-mvc-httpservletresponse/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -987,6 +980,10 @@ public class Account{
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/03/11/codeblock/">浅析区块链</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/03/10/regx/">正则表达式简明指南</a>
       	</li>
     	
@@ -1000,10 +997,6 @@ public class Account{
     	
      	<li>
       	  <a href="/blog/2018/01/01/tech-talk/">技术琐话2018-01-01</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2017/12/28/delay-trigger/">如何实现延时触发/定时器</a>
       	</li>
     	
 	</ul>

@@ -1,0 +1,731 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>浅析区块链 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="浅析区块链 Mar 11th, 2018 Posted by 飒然Hang in architecture 从去年开始，区块链突然如火如荼起来，席卷微博、朋友圈、科技论坛、门户网站等各大媒体。业界大佬们更是频频发言，有宣称不做区块链就会被时代淘汰的，有说坚决不碰区块链的。国家队也是频频出手，管制 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2018/03/11/codeblock/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">浅析区块链</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-03-11T19:29:34+08:00" pubdate data-updated="true">Mar 11<sup>th</sup>, 2018</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/architecture/'>architecture</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>从去年开始，区块链突然如火如荼起来，席卷微博、朋友圈、科技论坛、门户网站等各大媒体。业界大佬们更是频频发言，有宣称不做区块链就会被时代淘汰的，有说坚决不碰区块链的。国家队也是频频出手，管制、定性、做应用，央行更是默默地把区块链专利数量做到了世界前列。面对众多纷杂的信息、众多的技术分析文章，很容易让人脑袋嗡嗡，怕不懂，更怕懂了啥也都做不了。于是决定梳理一下相关的信息，看看这区块链到底是什么东西。</p>
+
+<p>开篇之前，先抛出笔者的一个观点：<strong>区块链最合适的应用场景只有虚拟资产,除了虚拟资产的其他场景都是在蹭概念或者不是真正意义上的区块链，而且只要有人参与的业务流程都无法满足区块链设计的初衷。</strong></p>
+
+<!--more-->
+
+
+<h2>区块链是什么</h2>
+
+<p>说到区块链，需要先了解其产生的背景，这样才能理解为何如此设计区块链。区块链的出现是和一个叫做“暗网”的东西相关的。所谓“暗网”与我们常见的“互联网”相比，只有通过特殊的软件才能够访问，并且在暗网上的交易基本都是些黑市交易，无法见光，因此参与这些交易的人都不想暴露真实的位置、个人信息。应对这种交易的需求，才出现了比特币。所以说，区块链一开始是为了解决匿名交易的问题出现的，也就是比特币。这也是区块链的第一个阶段，即一套账本体系和货币发行机制；后来基于区块链技术，出现了以太坊，在改进比特币区块的基础上加入了智能合约机制，称之为区块链2.0；以太坊之后，对于以太坊的扩展，如EOS这些，是区块链的第二阶段，区块链将完成价值的交换。</p>
+
+<p>其实从本质上看，区块链和Git类似，每个节点都有一份数据的存储，不同的是区块链没有中央服务器这么个概念，其就是一个分布式无中心数据库，其有效的通过数学的方式在数据库没有管理员的情况下对内容达成一致，并且不通过正式工资或是分得股权就能奖励那些帮助使数据库变得更有价值的人们，最终能够实现无争议无抵赖的匿名交易（后面部分是针对比特币来说的）。概括来看，其特点如下：</p>
+
+<ul>
+<li>去中心化：互联网本来的意义就是平等开放，所以有一种言论就是区块链是回归互联网本来意义的希望。这一点是区块链天然的优势，所有结点都存有数据的副本即实现了“去中心化”。</li>
+<li>无法篡改: 得益于区块之间的链式结构，可以保证数据无法篡改或者篡改的成本远大于收益。</li>
+<li>公开透明：每个结点保存的信息相同，能够消除信息不对称，实现信息透明。</li>
+</ul>
+
+
+<p>与传统的关系型数据库用一张表或者多张独立的表存储数据，“区块链”使用多个“数据表”并且多个“数据表”形成前后衔接的链式结构，以防止数据被篡改。总体的结构如下所示：</p>
+
+<p><img src="/post_images/blockchain/15211131047651.jpg" alt="" /></p>
+
+<p>其中每一个“数据表”在区块链中被称为“区块”。格式如下：</p>
+
+<p><img src="/post_images/blockchain/15211132430559.jpg" alt="" /></p>
+
+<p>这里是区块链技术基本都具有的一些头部信息，包括4字节的版本号、32字节的上一个区块的哈希值、32字节的Merkle根、4字节的时间戳（当前时间）、4字节的难度目标以及4字节的随机数。</p>
+
+<ul>
+<li>版本号：用于跟踪软件/协议的更新</li>
+<li>上一区块头哈希值：存储的是链上上一个区块的哈希值，也是区块链的精髓所在。</li>
+<li>Merkle根：为了在区块中体现出交易而做的一个计算，主要是解决帐本中交易记录hash计算的效率问题。每当产生一次交易，那么就与其他所有准备打包进区块的交易组成交易列表，通过Merkle Tree算法生成Merkle Root Hash，作为交易列表的摘要存到区块头中。流程可以概括为每相临的两条交易记录向上形成一个Hash值，再与相邻的节点再往上形成hash值，一直到树根形成所有交易记录的唯一hash值，即Merkle根。</li>
+<li>时间戳：该区块产生的近似时间。这个时间虽然是结点生成的但是其是否有效需要其他结点的认可（允许有一定程度的误差）。</li>
+<li>难度目标：该区块工作量证明的算法的目标值</li>
+<li>Nonce: 用于工作量证明算法的计数器。</li>
+</ul>
+
+
+<p>到了下面区块体的信息可以根据应用场景不同而不同，如比特币存储的就是交易，以太坊存储的则是智能合约脚本。</p>
+
+<h2>区块链典型运行流程</h2>
+
+<p>以比特币为例，区块链的一个典型交易流程：</p>
+
+<ul>
+<li>新的交易向全网所有节点广播</li>
+<li>每一个节点都将收到的交易信息纳入最新的区块中</li>
+<li>直至最新的区块已经满了，那么每一个节点都尝试根据最新的区块的信息找到一个具有足够难度的工作量证明</li>
+<li>当一个节点找到了一个工作量证明，它就像全网进行广播，并记录一个新的区块</li>
+<li>当且仅当包含在该区块中的所有交易都是有效的且之前未存在过的，其他节点才认同该区块的有效性</li>
+</ul>
+
+
+<h2>区块链技术架构</h2>
+
+<p>其实从本质来看，区块链不能算是一个新的技术，更应该看做是一个新的技术框架，是基于很多成熟的技术而成的，而且不仅仅是技术，还有金融学，货币学，博弈学，甚至一定程度的哲学。其技术架构如下图所示：</p>
+
+<p><img src="/post_images/blockchain/15210997371764.jpg" alt="" /></p>
+
+<h2>存储</h2>
+
+<p>区块链在每一个节点会存储数据，并且需要持久化存储，存储的方式和传统的应用一样，包括数据库和文件系统。</p>
+
+<p>对于存储方式,区块链中并没有做相关的规定，而比特币和以太坊都选择了LevelDB做持久化存储。</p>
+
+<h2>通信机制</h2>
+
+<p>区块的通信是基于P2P技术,即不区分客户端和服务端的网络，和P2P下载是类似的原理。在区块链中其功能点包括：</p>
+
+<ul>
+<li>把需要存储的数据广播到所有节点上进行储存。也就是多播。</li>
+<li>查询整个网络集群中所有节点的最新数据，如果自己节点的数据与大部分节点的数据不一致，则更新自身的数据与大部分节点存储的数据一致。这个功能也是防止数据被篡改的一个机制。</li>
+</ul>
+
+
+<h2>安全机制</h2>
+
+<p>区块链同样适用了很多成熟的安全技术来保障其特点。</p>
+
+<ul>
+<li>哈希算法：⽤来对⼀段数据进行计算，得出⼀个摘要信息，通俗点说就是给一段数据⽣成⼀个固定大小的身份ID,且其是不可逆的。区块链适用哈希做工作量证明、交易ID、区块之间的关联等。</li>
+<li>数据加密：区块链适用了非对称加密算法，如利用公钥加密比特币的获取、流出记录，使用的时候用私钥解密。</li>
+<li>数字签名：同样基于非对称加密技术，用私钥对自己的发起的一次交易、记录等做签名，使用公钥可以验证其身份。</li>
+<li>零知识证明：所谓零知识证明即在不知道答案的情况下去验证给出的答案是否正确。这个过程完全靠机器开验证，其实就是机器根据题目给出随机试验以验证答案是否争取。在某些区块链应用中如Zcash\ZCoin使用了零知识证明来保证交易双方和交易金额的匿名性,提供了绝佳的支付隐私。此技术详细可见：<a href="https://mp.weixin.qq.com/s?__biz=MzIxMDY1ODQxMg==&amp;mid=2247486271&amp;idx=3&amp;sn=233f6c9b0f881d4a2fe4bb71c60ca2cc&amp;chksm=97607e3ca017f72a5393d46f0dd5985c07aa7aed8262c78cb0e8ae96c5f05727b0bde9a2a5b0&amp;mpshare=1&amp;scene=1&amp;srcid=0306YQQBdMN6j1B1IpuCgpCg%23rd">零知识证明（Zero-Knowledge Proof）原理详解</a></li>
+</ul>
+
+
+<h2>共识机制</h2>
+
+<p>对于分布式系统来说，一个非常核心的问题就是如何让所有节点达成一致，也就是共识机制。在区块链出现之前，已经有了一些解决方案，这里称之为传统分布式一致性算法：</p>
+
+<ul>
+<li>Paxos算法：基于消息传递且具有高度容错特性，类似于议会投票的过程分为三种角色Proposer、Acceptor及Learner，主要就是Proposer发起投票，Acceptor进行投票的一个过程。具体可见：<a href="http://drmingdrmer.github.io/tech/distributed/2015/11/11/paxos-slide.html">可靠分布式系统基础Paxos的直观解释</a>。这里需要说明的是。Zookeeper使用的是ZAB协议，其类似于Paxos算法，基于其做了一些改造。</li>
+<li>Raft算法：相比起Paxos算法，RAFT更加注重算法的落地性和可理解性，其核心思想是如果数个数据库初始状态一致，只要之后的进行的操作一致，就能保证之后的数据一致。分为Leader、Follower以及Candidate三种角色，基于Log进行数据同步。大体就是选举Leader，然后Leader生成Log，Follower进行同步的一个过程。详细可见:<a href="https://zhuanlan.zhihu.com/p/27207160">Raft协议详解</a>。</li>
+</ul>
+
+
+<p>对于不需要货币体系的联盟链或者私有链而言，所有的节点都是绝对信任的节点，考虑到对性能的要求，一般选择传统的一致性算法即可。但由于这些传统的方案仅仅是考虑到了节点会有网络故障或者宕机的问题，没有考虑到结点会作恶（篡改消息）的情况。因此，在比特币、以太坊这种区块链上并不适用。于是有了以下的分布式一致性算法：</p>
+
+<ol>
+<li><p>PBFT: 拜占庭容错，针对的是拜占庭将军问题而提出的一种一致性算法。分为三个阶段：预准备（pre-prepare）、准备(prepare)和确认(commit)。大体的流程就结点之间互相转发消息，以其中相同的大多数作为最终答案。此算法的可靠度受制于结点的数量影响（N ≥ 3F + 1，总的结点数目必须大于有问题节点的数目的三倍），因此使用受限，在IBM的私有链Hyperledger中得到了使用。</p></li>
+<li><p>PoW: Proof of Work,工作量证明。这个是比特币、莱特币等货币型区块链使用的共识机制。类似于现实中的毕业证、驾照等，来证明你具有某种能力。PoW可以认为彻底解决了分布式一致性的问题。其过程以比特币为例，如下：</p>
+
+<ul>
+<li>矿工在网络中拿到最新一个区块的头部信息，其中的Merkle根包含了交易记录的信息摘要；</li>
+<li>将拿到的头部信息作为参数，将nonce值从零开始，去计算其双重SHA256值（SHA256（SHA256（头部信息）））；</li>
+<li>如果算出的答案不符合要求（前n位为0），则将nonce值增加一个单位，再算；</li>
+<li>直到计算出符合难度目标的答案，就挖到一个区块，即可将自己创建的区块广播出去，其他节点验证无误即保存到自己的区块链上。</li>
+<li>如果同时有多个节点实现了工作量证明，那么整个网络集群采用少数服从多数原则，集群中大部分采用了哪个区块就选择此区块组成最新的账本，达到最终一致性。</li>
+<li>如果节点同步到了多个长度不同的区块链账本，那么选择其中长的作为账本。</li>
+</ul>
+
+
+<p>这个思路牺牲了一部分一致性来保证区块链的健壮性，即使只有一个结点，区块链系统依旧可以运行下去。同时也保证了区块链的安全性，除非51%的结点被控制。但是区块链更厉害的一点是还会给予实现工作量证明的节点给予奖励，权衡收益和破坏的成本，基本也不会去做51%的攻击。</p>
+
+<p>这里还需要提到区块头中的难度目标，此值与计算耗时是反比的，即此值越大，那么计算越容易。以比特币为例，为了控制每十分钟产生一个区块的速率，需要根据统计数据动态调整难度目标从而可以宝成区块的生产速率。</p>
+
+<p>PoW虽然很好的解决了分布式一致性问题，但其非常的耗费计算力。</p></li>
+<li><p>PoS: Proof of Stake：权益证明机制，是一种通过业务规则达成共识的方式。基本概念是产生区块的难度应该与用户在网络里所占的股权成比例。具体来说就是根据钱包里面货币的多少以及货币在钱包里存在的天数来合成一个单位（币天），然后根据币天的关系对计算机进行哈希计算降低（谁的钱包里的币天数越大谁拥有记账权的概率就越大）。这样，能够减少对计算资源的浪费，提高计算性能。但是它也是牺牲了一部分的共识（同样分叉），而且需要等待多个确认。 PoS目前已经使用在以太坊中。</p></li>
+<li><p>DPoS: 是基于POS衍生出的更专业的解决方案，类似于董事会的投票机制，选举出n个记账节点，在节点中提案者提交的提案被这些记账节点投票决定谁是正确的。此机制性能比较高，但是其选出的delegate节点是能够作恶的。在EOS中使用的共识机制就是DPoS。</p></li>
+</ol>
+
+
+<h2>性能</h2>
+
+<p>目前区块链无法得到大规模应用的一个很大问题就是性能，比特币的每秒交易量只有3个/秒，而以太坊也就30个/秒。虽然EOS这个项目号称能达到几百万/S，然而分布式系统的本质让这个指标有点难以相信，而且这个数据也仅仅是建立在其几百个结点的基础上。</p>
+
+<p>目前，提升区块链的方案主要有以下两种种：</p>
+
+<ul>
+<li>链外解决方案：即允许小型和频繁的交易发生在与主链并行并由主链背书的侧链实例上。只将比特币区块链用作大额交易的结算网络——小规模交易由区块链之外的支付中心处理（off-chain scaling，链外扩展）。</li>
+<li>链上解决方案：直接修改区块链设计以支持高性能。具体的可见：<a href="https://mp.weixin.qq.com/s?__biz=MzAwOTcyNzA0OQ==&amp;mid=2658972665&amp;idx=1&amp;sn=a3b8cc3538099530270910ae12267795">区块链性能提升：链上设计之道</a>。</li>
+</ul>
+
+
+<p>此外，如果使用私有链或者联盟链，其中的共识机制采取传统的分布式一致性算法或者高效的其他一致性算法也可以解决这个问题。</p>
+
+<h2>应用场景</h2>
+
+<p>由于区块链本身的去中心化、不可篡改、安全等特性，需要第三方机构的应用场景都可以使用区块链技术。目前，主流的应用场景如下：</p>
+
+<ul>
+<li>公正防伪</li>
+<li>资产交易</li>
+<li>信用体系</li>
+<li>物品溯源</li>
+<li>身份验证</li>
+<li>文件存储</li>
+<li>银行结算</li>
+</ul>
+
+
+<h2>技术平台</h2>
+
+<p>区块链的技术平台总体上可以分为公有链、联盟链和私有链，其大体的对比如下：</p>
+
+<table>
+<thead>
+<tr>
+<th>. </th>
+<th> 公有链 </th>
+<th> 联盟链 </th>
+<th> 私有链</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>参与者 </td>
+<td> 任何人自由进出 </td>
+<td> 联盟成员 </td>
+<td> 个体或公司内部</td>
+</tr>
+<tr>
+<td>共识机制 </td>
+<td> PoW/PoW/DPoS  </td>
+<td> 分布式一致性算法 </td>
+<td> 分布式一致性算法</td>
+</tr>
+<tr>
+<td>记账人 </td>
+<td> 所有参与者 </td>
+<td> 联盟成员协商确定 </td>
+<td> 自定义</td>
+</tr>
+<tr>
+<td>激励机制 </td>
+<td> 需要 </td>
+<td> 可选 </td>
+<td> 不需要</td>
+</tr>
+<tr>
+<td>中心化程度 </td>
+<td> 去中心化 </td>
+<td> 多中心化 </td>
+<td> （多）中心化</td>
+</tr>
+<tr>
+<td>特点 </td>
+<td> 信用的自建立 </td>
+<td> 效率和成本优化 </td>
+<td> 透明和可追溯</td>
+</tr>
+<tr>
+<td>承载能力 </td>
+<td> 3-20万/s </td>
+<td> 1000-1万笔/s </td>
+<td> 1000-10万笔/s</td>
+</tr>
+<tr>
+<td>典型场景 </td>
+<td> 虚拟货币 </td>
+<td> 支付、结算 </td>
+<td> 审计、发行</td>
+</tr>
+<tr>
+<td>代表项目 </td>
+<td> 比特币、以太坊 </td>
+<td> Hyperledger、腾讯TrustSQL </td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>比特币</h3>
+
+<p>比特币早于区块链走入人们的视野，并且很长时间内许多人都把比特币和区块链看做同一个东西。其实比特币是基于区块链的一个应用，是区块链技术的副产品，是区块链的第一个应用，其他技术平台基本都是在比特币的基础上开发出来的。区块链可以类比为我们平时使用的JavaEE技术，比特币则是基于JavaEE开发的应用。</p>
+
+<h3>以太坊</h3>
+
+<p>以太坊的诞生是为了解决比特币只适合加密数字货币场景，不具备图灵完备性，也缺乏保存实时状态的账户概念的问题，同时也是为了解决PoW机制带来的效率和资源浪费的问题。以太坊既是一个数字货币系统，也是一个智能合约的开发平台（类似AppStore这种应用开发平台，一个智能合约即一个平台）。可以看做一个完全去中心化的电脑，使用此电脑需要用以太币支付费用。</p>
+
+<p>智能合约是以太坊最为核心的一个概念，也是以太坊最大的一个特点：提供了一个功能更强大的合约编程环境。一个合约类似一个合同，一旦写好即无法修改。每个节点都执行软件的一部分。类比于数据库中的触发器和存储过程，智能合约在区块链中是一个沙箱中的脚本（无法调用外部API），用于执行业务逻辑，也可以用于各种检查。开发智能合约使用的是 Solidity 语言。Solidity 是在 javascript 语言基础上做的修改。合约代码会编译成字节码发布到以太坊网络，在 Ethereum Virtual Machine (EVM) 中执行。开发智能合约主要用到两个框架：</p>
+
+<ul>
+<li>Truffle Framework：truffle提供了一整套部署测试的工具，可以方便和web3.js（以太坊提供的NodeJS SDK）结合使用。</li>
+<li>dapphub: 提供了很多实用的合约，比如数学运算、权限验证等。</li>
+</ul>
+
+
+<p>其实比特币的交易也可以看做智能合约，只不过在比特币中就是⼀对锁定与解锁脚本，受限只能实现转账交易而已</p>
+
+<p>使用以太坊发行货币是非常简单的事情，官网提供了配套的代码和工具：<a href="https://www.ethereum.org/token">https://www.ethereum.org/token</a>，也可以参照这个指引：<a href="https://learnblockchain.cn/2018/01/12/create_token/index.html">一步步教你创建自己的数字货币（代币）进行ICO</a>。</p>
+
+<p>这里还要说明一下ETC和ETH的区别。在以太坊的发展过程中，2016年6月区块链业界最大的众筹项目TheDAO遭到黑客攻击,导致300多万以太币资产被分离出TheDAO 资产池。鉴于区块链的去中心、匿名的特征，资金根本无法追回，于是以太坊的发明人V神决定从块高度1760000开始把任何与 The DAO和child DAO相关的交易认做无效交易，硬生生把以太坊做了分叉（区块链软件升级，老版本不能识别某些新的数据）。同时有另外一些人并不认同这种做法，继续使用原来的以太坊软件，于是原来的以太坊就被叫做了ETC（以太经典）。</p>
+
+<h3>EOS</h3>
+
+<p>Enterprise Operation System，是由和V神启明的BM大神发起的区块链项目，从名字上看其目的就是构建一个商业操作系统。其是一个ICO项目，受到的议论比较多。其针对的是区块链性能太低满足不了很多应用场景以及在以太坊上进行操作需要支付费用等。</p>
+
+<p>EOS号称自己能够达到每秒百万级的处理量，且具有高度自治，并能够为开发dApp的开发者提供底层模块，降低开发门槛。EOS也不收取任何费用，并能够通过并行链和DPOS的方式解决延迟和数据吞吐量的难题。</p>
+
+<h3>联盟链和私有链</h3>
+
+<p>市面上有一些联盟链和私有链技术平台，可以基于此做一些自己的区块链应用开发。如下：</p>
+
+<ul>
+<li>腾讯TrustSQL:腾讯主导的可信数据库区块链平台，<a href="https://trustsql.qq.com/">https://trustsql.qq.com/</a>。</li>
+<li>百度区块链开放平台：百度主导的区块链平台，<a href="https://chain.baidu.com/">https://chain.baidu.com/</a>。</li>
+<li>IBM的HyperLedger/EEA私有链，也被称作超级账本。</li>
+</ul>
+
+
+<h2>开发参考</h2>
+
+<p>如果想实现自己的区块链平台或者了解区块链的实现，直接看比特币、以太坊的代码即可，也可以参考以下资料。</p>
+
+<ul>
+<li><a href="https://www.ibm.com/developerworks/library/j-chaincode-for-java-developers/index.html">面向Java开发人员的区块链代码</a></li>
+<li><a href="http://www.spring4all.com/article/811">用Java创建你的第一个区块链-part1</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&amp;mid=2653549361&amp;idx=1&amp;sn=019f54713891cf33ef3bef3b24773a96&amp;chksm=813a62a9b64debbfdd24a8507bb974048a4456e5b0a2d5f685fb3bdf40366a25764c5df8afec&amp;mpshare=1&amp;scene=1&amp;srcid=0226W0WdpzjJ9Qo6F3FJstO6%23rd">只用200行Go代码写一个自己的区块链！</a></li>
+</ul>
+
+
+<h2>小结</h2>
+
+<p>虚拟货币交易所也是随着区块链火起来的一个东西，这里有一点令人不解的是，一个去中心化的虚拟货币其交易竟然需要一个中心化的“交易所”。黑客们攻击不了区块链，攻击一个中心化的交易所还是有许多路可寻的。最近频频发生的虚拟货币交易所被攻击的事情也算是对这种模式的一种讽刺吧。</p>
+
+<p>至于能用区块链做什么？在笔者看来，去研究区块链技术平台只有大公司、政府能做和推广起来，不过最后也只不过是“联盟链”、“私有链”，对于创业公司或者个人来说，基于公有链、联盟链做之上的应用则更为合适，比如在以太坊上做一个养宠物的游戏^_^。</p>
+
+<h2>参考资料</h2>
+
+<ul>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247487013&amp;idx=1&amp;sn=4675dd398a3458af9ba519557675e406&amp;chksm=e929332ade5eba3c142a36f89677d71bf1e1395967ace0b9e4ff3d18c6cffd604420709967fe&amp;mpshare=1&amp;scene=1&amp;srcid=03126HIJoomFmy2JpebnHa5m%23rd">如何用架构师思维解读区块链技术？</a></li>
+<li><a href="http://dataconomy.com/2015/10/wtf-is-the-blockchain-a-guide-for-total-beginners/">WTF IS THE BLOCKCHAIN? A GUIDE FOR TOTAL BEGINNERS</a></li>
+<li><a href="http://blog.csdn.net/jeffrey__zhou/article/details/56672948">区块链共识机制浅谈</a></li>
+<li><a href="https://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&amp;mid=2651818777&amp;idx=1&amp;sn=8cf64236f13e1196b28a2603744d4c0f&amp;chksm=f0dcdd65c7ab5473a239b47939d7586229122788c49fbac295c77627b4693a06b1ce8d73afdc&amp;mpshare=1&amp;scene=1&amp;srcid=0829NWygcU8u98YzRZ8TmQlN%23rd">白话区块链技术栈与应用</a></li>
+</ul>
+
+</div>
+<div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2018/03/10/regx/" title="下一篇: 正则表达式简明指南">正则表达式简明指南 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<p>中华万年历技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">Java研发!!!</a>，感兴趣者可发送简历到<a href="mailto:hang@etouch.cn">hang@etouch.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+		<h4 style="margin: 0px !important">关注公众号，及时获取最新文章</h4>
+		<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" id="imgQR"/>
+	</div>
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=1&isWeibo=0&isFans=0&uid=1307023714&verifier=cc8c1592&dpc=1"></iframe>
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2018/03/11/codeblock/">浅析区块链</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/03/10/regx/">正则表达式简明指南</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/02/06/2017books/">2017年读过的书</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/01/04/king-rec-pois-wine/">如何快速尝出毒酒？- 用bit解决问题</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/01/01/tech-talk/">技术琐话2018-01-01</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2018 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "浅析区块链",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getRecentCommentsList(opt);
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
