@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-03-19T20:22:36+08:00</updated>
+  <updated>2018-03-19T22:34:50+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -81,6 +81,8 @@
 <p>其实从本质来看，区块链不能算是一个新的技术，更应该看做是一个新的技术框架，是基于很多成熟的技术而成的，而且不仅仅是技术，还有金融学，货币学，博弈学等。其技术架构如下图所示：</p>
 
 <p><img src="//post_images/blockchain/15210997371764.jpg" alt="" /></p>
+
+<p>其中，区块的链式结构、UTXO以及智能合约是比特币发明人“中本聪”的原创发明。</p>
 
 <h2>存储</h2>
 

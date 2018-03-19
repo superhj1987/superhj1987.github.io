@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-03-19T20:22:36+08:00</updated>
+  <updated>2018-03-19T22:34:50+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -81,6 +81,8 @@
 <p>其实从本质来看，区块链不能算是一个新的技术，更应该看做是一个新的技术框架，是基于很多成熟的技术而成的，而且不仅仅是技术，还有金融学，货币学，博弈学等。其技术架构如下图所示：</p>
 
 <p><img src="http://www.rowkey.me/post_images/blockchain/15210997371764.jpg" alt="" /></p>
+
+<p>其中，区块的链式结构、UTXO以及智能合约是比特币发明人“中本聪”的原创发明。</p>
 
 <h2>存储</h2>
 
@@ -566,7 +568,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x68;&#x61;&#110;&#103;&#x40;&#101;&#116;&#111;&#x75;&#99;&#x68;&#x2e;&#99;&#x6e;">&#104;&#x61;&#x6e;&#x67;&#64;&#101;&#x74;&#111;&#117;&#x63;&#x68;&#x2e;&#99;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#104;&#97;&#110;&#103;&#x40;&#101;&#116;&#x6f;&#117;&#x63;&#x68;&#46;&#99;&#110;">&#104;&#97;&#x6e;&#x67;&#64;&#x65;&#x74;&#x6f;&#117;&#99;&#x68;&#x2e;&#99;&#x6e;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
