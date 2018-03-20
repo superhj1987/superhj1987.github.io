@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-03-20T12:17:00+08:00</updated>
+  <updated>2018-03-20T12:23:35+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -40,11 +40,11 @@
 
 <p>与传统的关系型数据库用一张表或者多张独立的表存储数据，“区块链”使用多个“数据表”并且多个“数据表”形成前后衔接的链式结构，以防止数据被篡改（修改任何一个区块就破坏了链式结构）。总体的结构如下所示：</p>
 
-<p><img src="http://www.rowkey.me/post_images/blockchain/15211131047651.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/post_images/blockchain/bc.jpg" alt="" /></p>
 
 <p>其中每一个“数据表”在区块链中被称为“区块”。格式如下：</p>
 
-<p><img src="http://www.rowkey.me/post_images/blockchain/15211132430559.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/post_images/blockchain/block.jpg" alt="" /></p>
 
 <p>这是区块链技术基本都具有的一些头部信息，包括4字节的版本号、32字节的上一个区块的哈希值、32字节的Merkle根、4字节的时间戳（当前时间）、4字节的难度目标以及4字节的随机数。</p>
 
@@ -80,7 +80,7 @@
 
 <p>其实从本质来看，区块链不能算是一个新的技术，更应该看做是一个新的技术框架，是基于很多成熟的技术而成的，而且不仅仅是技术，还有金融学，货币学，博弈学等。其技术架构如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/post_images/blockchain/15210997371764.jpg" alt="" /></p>
+<p><img src="http://www.rowkey.me/post_images/blockchain/arch.jpg" alt="" /></p>
 
 <p>其中，区块的链式结构、UTXO以及智能合约是比特币发明人“中本聪”的原创发明。</p>
 
@@ -114,7 +114,7 @@
 
 <p>此外，这里具体介绍一下是如何使用区块中的梅克尔树来做完整型证明的。每当产生一次交易，那么就与其他所有准备打包进区块的交易组成交易列表，通过Merkle Tree算法生成Merkle Root Hash，作为交易列表的摘要存到区块头中。比特币中使用的称之为二叉梅克尔树，而比如以太坊系统中使用的则是梅克尔-帕特里夏树。以二叉梅克尔树为例，流程可以概括为每相临的两条交易记录向上形成一个Hash值（如果仅有奇数个交易，则最后的交易会被复制一份以构成偶数个叶子节点），再与相邻的节点再往上形成Hash值，一直到树根形成所有交易记录的唯一Hash值，即Merkle根。如下如所示：</p>
 
-<p><img src="http://www.rowkey.me/post_images/blockchain/merkle.png" alt="" /></p>
+<p><img src="http://www.rowkey.me/post_images/blockchain/merkle.jpg" alt="" /></p>
 
 <p>如此，一方面可以在数据同步有问题的时候快速定位到出错的交易记录，另一方面在节点只是需要验证交易的时候，仅下载链的区块头即可，实现“简化支付验证”（SPV），能够极大的节省传输数据量。SPV的流程如下：</p>
 
@@ -568,7 +568,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#58;&#104;&#x61;&#110;&#103;&#64;&#x65;&#116;&#x6f;&#117;&#x63;&#x68;&#x2e;&#99;&#110;">&#104;&#x61;&#110;&#x67;&#64;&#x65;&#x74;&#111;&#x75;&#x63;&#104;&#46;&#x63;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x68;&#97;&#x6e;&#103;&#64;&#101;&#116;&#x6f;&#117;&#99;&#104;&#46;&#99;&#110;">&#104;&#97;&#x6e;&#103;&#64;&#101;&#116;&#x6f;&#x75;&#x63;&#x68;&#46;&#99;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
