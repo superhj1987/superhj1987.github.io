@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-03-22T23:11:38+08:00</updated>
+  <updated>2018-03-22T23:21:41+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -62,7 +62,7 @@
 
 <p><img src="//post_images/blockchain/utxo.png" alt="" /></p>
 
-<p>可见除了coinbase这种交易之外，其他的交易都有一个交易的输入且必须引用一个输出，而一笔交易的输入可以引用之前多笔交易的输出。此外，任何一笔交易的交易输入总量必须等于交易输出总量（支出与找零）。其一般结构如下：</p>
+<p>可见除了coinbase这种交易之外，其他的交易都至少有一个交易的输入且必须引用一个输出，而一笔交易的输入可以引用之前多笔交易的输出。此外，任何一笔交易的交易输入总量必须等于交易输出总量（支出与找零）。其一般结构如下：</p>
 
 <p><img src="//post_images/blockchain/utxo-struct.png" alt="" /></p>
 
