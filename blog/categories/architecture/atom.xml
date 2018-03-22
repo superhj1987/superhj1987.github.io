@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-03-22T17:55:22+08:00</updated>
+  <updated>2018-03-22T23:11:38+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -58,11 +58,13 @@
 </ul>
 
 
-<p>区块体的信息主要是交易列表。交易的数据结构因平台的不同而不同。比特币中就是简单的交易信息，以太坊则会存放智能合约。这里需要提到的是比特币中使用UTXO（未花费的交易输出，Unspent Transaction Output）实现支付系统的账户模型，并没有余额、钱包的概念（比特币=UTXO），交易列表中的关键信息也是一些UTXO的组成。如此计算账户的余额则需要通过遍历整个交易历史来最终计算出每个账户的余额。UTXO的结构如下图所示：</p>
+<p>区块体的信息主要是交易列表。交易的数据结构因平台的不同而不同。比特币中就是简单的交易信息，以太坊则会存放智能合约。这里需要提到的是比特币中使用UTXO（未花费的交易输出，Unspent Transaction Output）实现支付系统的账户模型，并没有余额、钱包的概念，交易列表中的关键信息也是一些UTXO的组成,如此计算账户的余额则需要通过遍历整个交易历史来最终计算出每个账户的余额。UTXO的示例如下图所示：</p>
 
 <p><img src="//post_images/blockchain/utxo.png" alt="" /></p>
 
-<p>可见除了coinbase这种交易之外，其他的交易都必须有一个交易的输入，且任何一笔交易的交易输入总量必须等于交易输出总量（支出与找零）。</p>
+<p>可见除了coinbase这种交易之外，其他的交易都有一个交易的输入且必须引用一个输出，而一笔交易的输入可以引用之前多笔交易的输出。此外，任何一笔交易的交易输入总量必须等于交易输出总量（支出与找零）。其一般结构如下：</p>
+
+<p><img src="//post_images/blockchain/utxo-struct.png" alt="" /></p>
 
 <p>使用UTXO的优势如下：</p>
 
