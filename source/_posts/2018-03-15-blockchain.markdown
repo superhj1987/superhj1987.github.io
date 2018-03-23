@@ -152,7 +152,7 @@ categories: architecture
 - 激励机制：虚拟货币激励，比特币、以太币。
 - 成员管理：为整个区块链网络提供身份管理、隐私、保密和可审计的服务。通过公钥基础设施和去中心化共识机制使得非许可的区块链变成许可制的区块链。多中心组网、私钥公钥生成等。
 
-这里需要提的是区块链中“地址”的含义。以比特币为例，地址本质上是一个私钥公钥对（ECDSA椭圆曲线算法），其存储和区块链和网络是没有关系的，可由用户的钱包软件生成并管理。而通常为了易于人们记忆，地址会在公钥的基础上做一个格式化转换。常用的格式包括：Base58Check（Base58+Checksum）、WIF压缩、130位和66位公钥。其中最常用的Base58:***Base58Check(RIPEMD160(SHA256(PubKey)))***，其流程如下：
+这里需要提的是区块链中“地址”的含义。以比特币为例，地址本质上是一个私钥公钥对（ECDSA椭圆曲线算法），其存储和区块链和网络是没有关系的，可由用户的钱包软件生成并管理。而通常为了易于人们记忆，地址会在公钥的基础上做一个格式化转换。常用的格式包括：Base58Check（Base58+Checksum）、WIF压缩、130位和66位公钥。以最常用的Base58Check为例，可以概括为:***Base58Check(RIPEMD160(SHA256(PubKey)))***，其流程如下：
 
 ![](/post_images/blockchain/bitcoin-address.png)
 
@@ -276,5 +276,4 @@ EOS号称自己能够达到每秒百万级的处理量，且具有高度自治�
 - [区块链共识机制浅谈](http://blog.csdn.net/jeffrey__zhou/article/details/56672948)
 - [白话区块链技术栈与应用](https://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&mid=2651818777&idx=1&sn=8cf64236f13e1196b28a2603744d4c0f&chksm=f0dcdd65c7ab5473a239b47939d7586229122788c49fbac295c77627b4693a06b1ce8d73afdc&mpshare=1&scene=1&srcid=0829NWygcU8u98YzRZ8TmQlN%23rd)
 - [比特币的潜在激励](https://mp.weixin.qq.com/s?__biz=MzIzNzU4MTg5NQ==&mid=2247484492&idx=1&sn=b37844e8ab32b5ce516ee92149f243d6&chksm=e8c72764dfb0ae727b2a50da75ef1ded417ad3c303c47f61c666f8dd39e631f114ab350f2544&mpshare=1&scene=1&srcid=0217E8nz8lHzcB3sBvSBAics%23rd)
-- [挖矿是如何产生比特币的？ - 币圈好友的回答](https://www.zhihu.com/question/20792042/answer/292141154)
 - [如何用架构师思维解读区块链技术？](https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&mid=2247487013&idx=1&sn=4675dd398a3458af9ba519557675e406&chksm=e929332ade5eba3c142a36f89677d71bf1e1395967ace0b9e4ff3d18c6cffd604420709967fe&mpshare=1&scene=1&srcid=03126HIJoomFmy2JpebnHa5m%23rd)
