@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-03-22T23:21:41+08:00</updated>
+  <updated>2018-03-23T11:10:33+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -125,7 +125,7 @@
 
 <ul>
 <li>哈希算法：⽤来对⼀段数据进行计算，得出⼀个摘要信息，通俗点说就是给一段数据⽣成⼀个固定大小的身份ID, 且其是不可逆的。区块链使用哈希做工作量证明、交易ID生成、区块之间的关联等。此外，区块头中的Merkle Root也是使用哈希算法做完整性证明的（比特币中使用double-SHA256哈希算法）。常用哈希算法包括MD5、SHA1、SHA256等。</li>
-<li>数据加密：区块链使用了非对称加密算法。比特币中的钱包地址就是一对公钥私钥，⽽所谓的地址是公钥的⼀种格式化表示-<strong><em>Base58(RIPEMD160(SHA256(PubKey)))</em></strong>。此外，区块链利用公钥哈希加锁比特币的输入记录，阻止输出。</li>
+<li>数据加密：区块链使用了非对称加密算法。比特币中的钱包地址本质就是一对公钥私钥。此外，区块链利用公钥哈希加锁比特币的输入记录，阻止输出。</li>
 <li>数字签名：同样基于非对称加密技术，用签名和公钥解锁自己的比特币输入记录，使用比特币。</li>
 <li>零知识证明：所谓零知识证明即在不知道答案的情况下去验证给出的答案是否正确。这个过程完全靠机器验证，机器根据题目给出随机试验以验证答案是否正确。在某些区块链应用中如Zcash\ZCoin即使用了零知识证明来保证交易双方和交易金额的匿名性, 提供了绝佳的支付隐私。详细可见：<a href="https://mp.weixin.qq.com/s?__biz=MzIxMDY1ODQxMg==&amp;mid=2247486271&amp;idx=3&amp;sn=233f6c9b0f881d4a2fe4bb71c60ca2cc&amp;chksm=97607e3ca017f72a5393d46f0dd5985c07aa7aed8262c78cb0e8ae96c5f05727b0bde9a2a5b0&amp;mpshare=1&amp;scene=1&amp;srcid=0306YQQBdMN6j1B1IpuCgpCg%23rd">零知识证明（Zero-Knowledge Proof）原理详解</a>。</li>
 </ul>
@@ -194,6 +194,12 @@
 <li>成员管理：为整个区块链网络提供身份管理、隐私、保密和可审计的服务。通过公钥基础设施和去中心化共识机制使得非许可的区块链变成许可制的区块链。多中心组网、私钥公钥生成等。</li>
 </ul>
 
+
+<p>这里需要提的是区块链中“地址”的含义。以比特币为例，地址本质上是一个私钥公钥对（ECDSA椭圆曲线算法），其存储和区块链和网络是没有关系的，可由用户的钱包软件生成并管理。而通常为了易于人们记忆，地址会在公钥的基础上做一个格式化转换。常用的格式包括：Base58Check（Base58+Checksum）、WIF压缩格式、130位和66位公钥(Public key)格式。其中Base58的格式化表示:<code>Base58Check(RIPEMD160(SHA256(PubKey)))</code>。流程如下：</p>
+
+<p><img src="http://www.rowkey.me/post_images/blockchain/bitcoin-address.png" alt="" /></p>
+
+<p>而以太坊则是使用secp256k1椭圆曲线算法生成公钥私钥对，再把公钥去掉04，剩下的进行keccak-256的哈希，得到长度64的16进制字串，丢掉前面24个，拿后40个，再加上&#8221;0x&#8221;，即为以太坊地址。</p>
 
 <h2>性能问题</h2>
 
@@ -596,7 +602,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#104;&#x61;&#110;&#x67;&#x40;&#101;&#116;&#111;&#x75;&#99;&#104;&#46;&#x63;&#x6e;">&#x68;&#97;&#x6e;&#x67;&#64;&#101;&#x74;&#111;&#117;&#99;&#x68;&#46;&#x63;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#104;&#97;&#110;&#x67;&#x40;&#x65;&#x74;&#111;&#x75;&#99;&#x68;&#46;&#x63;&#x6e;">&#104;&#x61;&#110;&#x67;&#64;&#101;&#x74;&#x6f;&#117;&#99;&#x68;&#x2e;&#99;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
