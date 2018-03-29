@@ -144,7 +144,7 @@ categories: architecture
     
 1. DPoS: Delegate Proof of Stake。是基于POS衍生出的更专业的解决方案，类似于董事会的投票机制，选举出n个记账节点，在节点中提案者提交的提案被这些记账节点投票决定谁是正确的。此机制性能比较高，但是其选出的delegate节点是能够作恶的。
 
-	DPoS在EOS中被使用。
+	EOS的底层框架石墨烯-[Graphene](https://github.com/cryptonomex/graphen)使用DPoS做为共识机制。
 	
 ## 上层应用
 
