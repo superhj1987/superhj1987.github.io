@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-04-01T21:59:01+08:00</updated>
+  <updated>2018-04-01T22:17:29+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,11 +18,9 @@
     <link href="http://www.rowkey.me/blog/2018/04/01/pje-release/"/>
     <updated>2018-04-01T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/04/01/pje-release</id>
-    <content type="html"><![CDATA[<p>Java开发一直是当前互联网领域最火热的开发技能之一，Java工程师也一直是需求量非常大的开发职位。那么如何成为一名合格的Java工程师呢？一名合格的Java工程师又应该具有哪些技能呢？</p>
+    <content type="html"><![CDATA[<p>Java开发一直是当前互联网领域最火热的开发技能之一，Java工程师也一直是需求量非常大的开发职位。那么如何成为一名合格的Java工程师呢？一名合格的Java工程师又应该具有哪些技能呢？针对这些，笔者的新书《Java工程师修炼之道》做了一些经验性的阐述和讲解。</p>
 
-<p>针对这些，笔者的新书《Java工程师修炼之道》做了一些经验性的阐述和讲解。</p>
-
-<p><img src="//post_images/book.png" alt="" /></p>
+<p><img src="http://www.rowkey.me/post_images/book.png" width="250"/></p>
 
 <!--more-->
 
@@ -151,7 +149,7 @@
 
 <p>&ndash; <strong>尧飘海，网易云基础服务（蜂巢）首席架构师</strong></p></blockquote>
 
-<p>&ndash;</p>
+<hr />
 
 <blockquote><p>Hey！新来的读者，为了吸引你的注意力我真是煞费苦心，但最终还是没能写出一句特别吸引眼球的话来，毕竟写序的我不是标题党出生。此刻我真的非常能理解你拿到新书之后那渴望知识的心情，所以你恨不得一个字的“序”也不要看到，直接到达“最有价值”的知识点。但作为一名资深转业码农（对！你没看错，是“转业”，不是“专业”）还是想说一句，你先看完序，5分钟后到达知识的战场，会更稳！</p>
 
@@ -167,25 +165,25 @@
 
 <p>&ndash; <strong>孙建，随身云（中华万年历）联合创始人&amp;CEO</strong></p></blockquote>
 
-<p>&ndash;</p>
+<hr />
 
 <blockquote><p>扎实的基础理论知识是内功底子，丰富的实践经验是招式。如本书作者所说，精妙的招式决定了你的武功下限，而深厚的内功底蕴会承载你所能企及的高度。那么，在后端技术栈中，内功与招式之间如何去关联起来，本书作者以其多年的钻研与实践结合心得，通过本书为你一一梳理。</p>
 
 <p>&ndash; <strong>阙杭宁，网易云信CTO</strong></p></blockquote>
 
-<p>&ndash;</p>
+<hr />
 
 <blockquote><p>作者是一位技术人,有多年的Java技术积累,是极少数真正热爱技术的人。在随身云架构师的工作让他有机会站在更高的层次进行系统架构的工作,这些实践经验和平时感悟都沉淀在作者的著作和博客中,相信每位Java工程师都能从中获取帮助。</p>
 
 <p>&ndash; <strong>秦绪震，十露盘科技联合创始人，技术负责人</strong></p></blockquote>
 
-<p>&ndash;</p>
+<hr />
 
 <blockquote><p>本书作者根据自身多年的JAVA后台开发经验, 提纲挈领的总结JAVA后台开发的各个关键技术点，这些知识点都是一个合格的JAVA工程师必须掌握的技能。它既可以作为新人的技术学习指南，也可以帮助老手对于自己的知识面进行查漏补缺，是一本非常好的技术指南。</p>
 
 <p>&ndash; <strong>饶洵（蜚天），阿里巴巴技术专家</strong></p></blockquote>
 
-<p>&ndash;</p>
+<hr />
 
 <blockquote><p>作为一个在后端摸爬多年的Java开发工程师，这本书让我温故而知新。书中介绍的Java相关的知识技能树，不仅涵盖了我个人多年的Java开发技术知识点，也对我所陌生的一些知识点进行了详解，让我突然有一种继续学习的冲动。</p>
 
