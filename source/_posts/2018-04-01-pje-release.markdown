@@ -24,11 +24,18 @@ Java开发一直是当前互联网领域最火热的开发技能之一，Java工
 
 希望这本书会给想要学习Java后端开发的同学或者还未形成自己技术体系的Java工程师们带来帮助。
 
-扫描下面的二维码或者点击链接进入京东购买页面：<https://item.jd.com/12325207.html>。
+**购买方式**
+
+
+- 京东：<https://item.jd.com/12325207.html>
 
 ![](/post_images/book_jd.png)
 
-也可以进入微店购买签名版：<https://weidian.com/item.html?itemID=2259146189>。
+- 天猫：<https://detail.tmall.com/item.htm?id=567160971355>
+
+![](/post_images/book_tmall.png)
+
+- 微店（签名版）：<https://weidian.com/item.html?itemID=2259146189>
 
 ![](/post_images/book_wd.png)
 
