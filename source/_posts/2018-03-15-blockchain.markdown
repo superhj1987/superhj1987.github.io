@@ -100,7 +100,7 @@ categories: architecture
 - 数字签名：同样基于非对称加密技术，用签名和公钥解锁自己的比特币输入记录，使用比特币。
 - 零知识证明：所谓零知识证明即在不知道答案的情况下去验证给出的答案是否正确。这个过程完全靠机器验证，机器根据题目给出随机试验以验证答案是否正确。在某些区块链应用中如Zcash\ZCoin即使用了零知识证明来保证交易双方和交易金额的匿名性, 提供了绝佳的支付隐私。详细可见：[零知识证明（Zero-Knowledge Proof）原理详解](https://mp.weixin.qq.com/s?__biz=MzIxMDY1ODQxMg==&mid=2247486271&idx=3&sn=233f6c9b0f881d4a2fe4bb71c60ca2cc&chksm=97607e3ca017f72a5393d46f0dd5985c07aa7aed8262c78cb0e8ae96c5f05727b0bde9a2a5b0&mpshare=1&scene=1&srcid=0306YQQBdMN6j1B1IpuCgpCg%23rd)。
 
-此外，这里具体介绍一下是如何使用区块中的梅克尔树来做完整型证明的。每当产生一次交易，那么就与其他所有准备打包进区块的交易组成交易列表，通过Merkle Tree算法生成Merkle Root Hash，作为交易列表的摘要存到区块头中。比特币中使用的称之为二叉梅克尔树，而比如以太坊系统中使用的则是梅克尔-帕特里夏树。以二叉梅克尔树为例，流程可以概括为每相临的两条交易记录向上形成一个Hash值（如果仅有奇数个交易，则最后的交易会被复制一份以构成偶数个叶子节点），再与相邻的节点再往上形成Hash值，一直到树根形成所有交易记录的唯一Hash值，即Merkle根。如下如所示：
+此外，这里具体介绍一下是如何使用区块中的梅克尔树来做完整型证明的。每当产生一次交易，那么就与其他所有准备打包进区块的交易组成交易列表，通过Merkle Tree算法生成Merkle Root Hash，作为交易列表的摘要存到区块头中。比特币中使用的称之为二叉梅克尔树，而比如以太坊系统中使用的则是梅克尔-帕特里夏树。以二叉梅克尔树为例，流程可以概括为每相临的两条交易记录向上形成一个Hash值（如果仅有奇数个交易，则最后的交易会被复制一份以构成偶数个叶子节点），再与相邻的节点再往上形成Hash值，一直到树根形成所有交易记录的唯一Hash值，即Merkle根。如下图所示：
 
 ![](/post_images/blockchain/merkle.jpg)
 
@@ -114,7 +114,7 @@ categories: architecture
 
 对于分布式系统来说，一个非常核心的问题就是如何让所有节点达成一致，也就是共识机制。在区块链出现之前，已经有了一些解决方案，这里称之为传统分布式一致性算法：
 
-- Paxos算法：基于消息传递且具有高度容错特性，类似于议会投票的过程分为三种角色Proposer、Acceptor及Learner，主要就是Proposer发起投票，Acceptor进行投票的一个过程。具体可见：[可靠分布式系统基础Paxos的直观解释](http://drmingdrmer.github.io/tech/distributed/2015/11/11/paxos-slide.html)。这里需要说明的是。Zookeeper使用的是ZAB协议，其类似于Paxos算法，对Paxos做了一些改造。
+- Paxos算法：基于消息传递且具有高度容错特性，类似于议会投票的过程分为三种角色Proposer、Acceptor及Learner，主要就是Proposer发起投票，Acceptor进行投票的一个过程。具体可见：[可靠分布式系统基础Paxos的直观解释](http://drmingdrmer.github.io/tech/distributed/2015/11/11/paxos-slide.html)。这里需要说明一点：Zookeeper使用的ZAB协议对Paxos做了一些改造，是一种类Paxos算法。
 - Raft算法：相比起Paxos算法，RAFT更加注重算法的落地性和可理解性，其核心思想是如果数个数据库初始状态一致，只要之后的进行的操作一致，就能保证之后的数据一致。分为Leader、Follower以及Candidate三种角色，基于Log进行数据同步。大体就是选举Leader，然后Leader生成Log，Follower进行同步的一个过程。详细可见:[Raft协议详解](https://zhuanlan.zhihu.com/p/27207160)。
 
 对于不需要货币体系的联盟链或者私有链而言，所有的节点都是绝对信任的节点，考虑到对性能的要求，一般选择传统的一致性算法即可。但由于这些传统的方案仅仅是考虑到了节点会有网络故障或者宕机的问题，没有考虑到节点会作恶（篡改消息）的情况。因此，在比特币、以太坊这种区块链上并不适用。于是有了以下的分布式一致性算法：
