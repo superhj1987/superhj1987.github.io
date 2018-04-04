@@ -265,7 +265,7 @@
 </ul>
 
 
-<p>此外，这里具体介绍一下是如何使用区块中的梅克尔树来做完整型证明的。每当产生一次交易，那么就与其他所有准备打包进区块的交易组成交易列表，通过Merkle Tree算法生成Merkle Root Hash，作为交易列表的摘要存到区块头中。比特币中使用的称之为二叉梅克尔树，而比如以太坊系统中使用的则是梅克尔-帕特里夏树。以二叉梅克尔树为例，流程可以概括为每相临的两条交易记录向上形成一个Hash值（如果仅有奇数个交易，则最后的交易会被复制一份以构成偶数个叶子节点），再与相邻的节点再往上形成Hash值，一直到树根形成所有交易记录的唯一Hash值，即Merkle根。如下如所示：</p>
+<p>此外，这里具体介绍一下是如何使用区块中的梅克尔树来做完整型证明的。每当产生一次交易，那么就与其他所有准备打包进区块的交易组成交易列表，通过Merkle Tree算法生成Merkle Root Hash，作为交易列表的摘要存到区块头中。比特币中使用的称之为二叉梅克尔树，而比如以太坊系统中使用的则是梅克尔-帕特里夏树。以二叉梅克尔树为例，流程可以概括为每相临的两条交易记录向上形成一个Hash值（如果仅有奇数个交易，则最后的交易会被复制一份以构成偶数个叶子节点），再与相邻的节点再往上形成Hash值，一直到树根形成所有交易记录的唯一Hash值，即Merkle根。如下图所示：</p>
 
 <p><img src="/post_images/blockchain/merkle.jpg" alt="" /></p>
 
@@ -283,7 +283,7 @@
 <p>对于分布式系统来说，一个非常核心的问题就是如何让所有节点达成一致，也就是共识机制。在区块链出现之前，已经有了一些解决方案，这里称之为传统分布式一致性算法：</p>
 
 <ul>
-<li>Paxos算法：基于消息传递且具有高度容错特性，类似于议会投票的过程分为三种角色Proposer、Acceptor及Learner，主要就是Proposer发起投票，Acceptor进行投票的一个过程。具体可见：<a href="http://drmingdrmer.github.io/tech/distributed/2015/11/11/paxos-slide.html">可靠分布式系统基础Paxos的直观解释</a>。这里需要说明的是。Zookeeper使用的是ZAB协议，其类似于Paxos算法，对Paxos做了一些改造。</li>
+<li>Paxos算法：基于消息传递且具有高度容错特性，类似于议会投票的过程分为三种角色Proposer、Acceptor及Learner，主要就是Proposer发起投票，Acceptor进行投票的一个过程。具体可见：<a href="http://drmingdrmer.github.io/tech/distributed/2015/11/11/paxos-slide.html">可靠分布式系统基础Paxos的直观解释</a>。这里需要说明一点：Zookeeper使用的ZAB协议对Paxos做了一些改造，是一种类Paxos算法。</li>
 <li>Raft算法：相比起Paxos算法，RAFT更加注重算法的落地性和可理解性，其核心思想是如果数个数据库初始状态一致，只要之后的进行的操作一致，就能保证之后的数据一致。分为Leader、Follower以及Candidate三种角色，基于Log进行数据同步。大体就是选举Leader，然后Leader生成Log，Follower进行同步的一个过程。详细可见:<a href="https://zhuanlan.zhihu.com/p/27207160">Raft协议详解</a>。</li>
 </ul>
 
