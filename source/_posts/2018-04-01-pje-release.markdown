@@ -31,10 +31,6 @@ Java开发一直是当前互联网领域最火热的开发技能之一，Java工
 
 ![](/post_images/book_jd.png)
 
-- 天猫：<https://detail.tmall.com/item.htm?id=567160971355>
-
-![](/post_images/book_tmall.png)
-
 - 微店（签名版）：<https://weidian.com/item.html?itemID=2259146189>
 
 ![](/post_images/book_wd.png)
