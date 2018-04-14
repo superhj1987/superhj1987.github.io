@@ -95,9 +95,9 @@ categories: pje-book java
 
 <img src="/post_images/howtostudy/recommend.png" width="700"/>
 
-购书地址：<https://detail.tmall.com/item.htm?id=567160971355>
+购书地址：<http://product.dangdang.com/25250535.html>
 
-![](/post_images/book_tmall.png)
+![](/post_images/book_dangdang.png)
 
 
 

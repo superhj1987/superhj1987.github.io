@@ -26,6 +26,10 @@ Java开发一直是当前互联网领域最火热的开发技能之一，Java工
 
 **购买方式**
 
+- 当当网：<http://product.dangdang.com/25250535.html>
+
+![](/post_images/book_dangdang.png)
+
 - 天猫旗舰店(出版社)：<https://detail.tmall.com/item.htm?id=567160971355>
 
 ![](/post_images/book_tmall.png)
