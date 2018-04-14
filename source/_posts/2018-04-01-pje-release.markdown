@@ -26,14 +26,17 @@ Java开发一直是当前互联网领域最火热的开发技能之一，Java工
 
 **购买方式**
 
+- 天猫旗舰店(出版社)：<https://detail.tmall.com/item.htm?id=567160971355>
 
-- 京东：<https://item.jd.com/12325207.html>
-
-![](/post_images/book_jd.png)
+![](/post_images/book_tmall.png)
 
 - 微店（签名版）：<https://weidian.com/item.html?itemID=2259146189>
 
 ![](/post_images/book_wd.png)
+
+- 京东(不被京东待见，都是5-10天配货)：<https://item.jd.com/12325207.html>
+
+![](/post_images/book_jd.png)
 
 **目录**
 
