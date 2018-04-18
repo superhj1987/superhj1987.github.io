@@ -121,6 +121,6 @@ categories: pje-book java
 
 <img src="/post_images/howtostudy/recommend.png" width="700"/>
 
-购书地址：<http://product.dangdang.com/25250535.html>
+购书地址：<https://item.jd.com/12325207.html>
 
-![](/post_images/book_dangdang.png)
+![](/post_images/book_jd.png)
