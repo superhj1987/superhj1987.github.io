@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-04-19T10:50:06+08:00</updated>
+  <updated>2018-04-23T22:42:23+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -360,7 +360,7 @@
 <li>Zookeepr本来是想放在大数据一章，现在会作为数据存储的一节补充进来。</li>
 <li>异步响应式Web框架会补充在开发框架一章，以Vert.x为主，Spring Flux为辅。</li>
 <li>Redis加入新版本的特性，并补充如何使用Redis实现分布式锁。</li>
-<li>Kafka加入最新版本来特性，尤其是Kafka Streams和Exactly one语义。</li>
+<li>Kafka加入最新版本的特性，尤其是Kafka Streams和Exactly one语义。</li>
 <li>Elastissearch基于5.0版本更新。</li>
 <li>补充协程到并发编程中。</li>
 <li>补充Netty到网络编程中。</li>
