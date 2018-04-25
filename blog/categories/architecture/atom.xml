@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-04-25T17:12:13+08:00</updated>
+  <updated>2018-04-25T17:30:11+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,80 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[架构简明指南]]></title>
+    <link href="http://www.rowkey.me/blog/2018/04/25/arch-usage/"/>
+    <updated>2018-04-25T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/04/25/arch-usage</id>
+    <content type="html"><![CDATA[<p>之前的文章《谈谈架构》里面讲述了架构的概念、原则等等，这里择出其中的设计原则部门供大家随手参考。</p>
+
+<!--more-->
+
+
+<h2>架构原则</h2>
+
+<ul>
+<li><strong>避免过度设计</strong>：最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。</li>
+<li><strong>冗余设计</strong>：对服务、数据库的做结点冗余，保证服务的高可用。通过数据库主从模式、应用集群来实现。</li>
+<li><strong>多活数据中心</strong>：为了容灾，从根本上保障应用的高可用性。需要构建多活的数据中心，以防止一个数据中心由于不可控因素出现故障后，引起整个系统的不可用。</li>
+<li><strong>无状态设计</strong>：API、接口等的设计不能有前后依赖关系，一个资源不受其他资源改动的影响。无状态的系统才能更好地进行扩展。如果非得有状态，则要么客户端管理状态，要么服务端用分布式缓存管理状态。</li>
+<li><strong>可回滚</strong>：对于任何业务尤其是关键业务，都具有恢复机制。可以使用基于日志的WAL、基于事件的Event sourcing等来实现可回滚。</li>
+<li><strong>可禁用/自我保护</strong>：具有限流机制，当上游的流量超过自身的负载能力时，能够拒绝溢出的请求。可以通过手动开关或者自动开关（监测异常流量行为），在应用前端挡住流量。</li>
+<li><strong>问题可追踪</strong>：当系统出现问题时，能够定位请求的轨迹、每一步的请求信息等。分布式链路追踪系统即解决的此方面的问题。</li>
+<li><strong>可监控</strong>：可监控是保障系统能够稳定运行的关键。包括对业务逻辑的监控、应用进程的监控以及应用依赖的CPU、硬盘等系统资源的监控。每一个系统都需要做好这几个层面的监控。</li>
+<li><strong>故障隔离</strong>：将系统依赖的资源(线程、CPU)和服务隔离开来能够使得某个服务的故障不会影响其他服务的调用。通过线程池或者分散部署结点可以对故障进行隔离。</li>
+<li><strong>成熟可控的技术选型</strong>：使用市面上主流、成熟、文档、支持资源多的技术，选择合适的而非最火的技术实现系统。</li>
+<li><strong>梯级存储</strong>：内存->SSD硬盘->传统硬盘->磁带，可以根据数据的重要性和生命周期对数据进行分级存储。</li>
+<li><strong>缓存设计</strong>：隔离请求与后端逻辑、存储，是就近原则的一种机制。包括客户端缓存（预先下发资源）、Nginx缓存、本地缓存以及分布式缓存。</li>
+<li><strong>异步设计</strong>：对于调用方不关注结果或者允许结果延时返回的接口，采用队列进行异步响应能够很大程度提高系统性能；调用其他服务的时候不去等待服务方返回结果直接返回，同样能够提升系统响应性能。异步队列也是解决分布式事务的常用手段。</li>
+<li><strong>前瞻性设计</strong>：根据行业经验和预判，提前把可扩展性、后向兼容性设计好。</li>
+<li><strong>水平扩展</strong>：相比起垂直扩展，能够通过堆机器解决问题是最优先考虑的问题，系统的负载能力也才能接近无限扩展。此外，基于<strong>云计算</strong>技术根据系统的负载自动调整容量能够在节省成本的同时保证服务的可用性。</li>
+<li><strong>小步构建和发布</strong>：快速迭代项目，快速试错。不能有跨度时间过长的项目规划。</li>
+<li><strong>自动化</strong>：打包、测试的自动化称为持续集成，部署的自动化称为持续部署。自动化机制是快速迭代和试错的基础保证。</li>
+</ul>
+
+
+<h2>数据设计原则</h2>
+
+<ul>
+<li>注意存储效率
+
+<ul>
+<li>减少事务</li>
+<li>减少联表查询</li>
+<li>适当使用索引</li>
+<li>考虑使用缓存</li>
+</ul>
+</li>
+<li>数据统计场景中，实时性要求较高的数据统计可以用Redis；非实时数据则可以使用单独表，通过队列异步运算或者定时计算更新数据。此外，对于一致性要求较高的统计数据，需要依靠事务或者定时校对机制保证准确性。</li>
+</ul>
+
+
+<h2>系统响应性能提升五板斧</h2>
+
+<ul>
+<li><strong>异步</strong>：队列缓冲、异步请求。</li>
+<li><strong>并发</strong>：利用多CPU多线程执行业务逻辑。</li>
+<li><strong>就近原则</strong>：缓存、梯度存储。</li>
+<li><strong>减少IO</strong>：合并细粒度接口为粗粒度接口、频繁的覆盖操作可以只做最后一次操作。这里一个需要特别注意的地方: <strong>代码中尽量避免在循环中调用外部服务，更好的做法是使用粗粒度批量接口在循环外面只进行一次请求。</strong></li>
+<li><strong>分区</strong>：频繁访问的数据集规模保持在合理的范围。</li>
+</ul>
+
+
+<hr />
+
+<blockquote><p><strong><em>《Java工程师修炼之道》可以看作一本Java工程师的入职指南，也可以看作一本串联Java后端技能点的参考手册。通过精心编排的内容，刚入门的Java工程师能够体系化地学习相关开发技能，有经验的Java工程师能够查漏补缺，巩固自己的相关开发技能，进一步完善自身的Java技术体系。</em></strong></p></blockquote>
+
+<p><img src="http://www.rowkey.me/post_images/book.png" width="250"/></p>
+
+<p><img src="http://www.rowkey.me/post_images/howtostudy/recommend.png" width="700"/></p>
+
+<p>购书地址：<a href="https://item.jd.com/12325207.html">https://item.jd.com/12325207.html</a></p>
+
+<p><img src="//post_images/book_jd.png" alt="" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[浅析区块链]]></title>
@@ -514,17 +588,6 @@
 <img src="//images/blog_images/arch/arch-22.jpeg" alt="" />
 <img src="//images/blog_images/arch/arch-23.jpeg" alt="" />
 <img src="//images/blog_images/arch/arch-24.jpeg" alt="" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[一些架构设计原则]]></title>
-    <link href="http://www.rowkey.me/blog/2017/01/15/arch-spec/"/>
-    <updated>2017-01-15T22:21:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/01/15/arch-spec</id>
-    <content type="html"><![CDATA[<p><img src="//images/blog_images/arch-spec.png" alt="" /></p>
-
-<p>详细见：<a href="http://www.rowkey.me/blog/2017/08/24/arch/">谈谈架构</a></p>
 ]]></content>
   </entry>
   

@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-04-25T17:12:13+08:00</updated>
+  <updated>2018-04-25T17:30:11+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,80 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[架构简明指南]]></title>
+    <link href="http://www.rowkey.me/blog/2018/04/25/arch-usage/"/>
+    <updated>2018-04-25T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/04/25/arch-usage</id>
+    <content type="html"><![CDATA[<p>之前的文章《谈谈架构》里面讲述了架构的概念、原则等等，这里择出其中的设计原则部门供大家随手参考。</p>
+
+<!--more-->
+
+
+<h2>架构原则</h2>
+
+<ul>
+<li><strong>避免过度设计</strong>：最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。</li>
+<li><strong>冗余设计</strong>：对服务、数据库的做结点冗余，保证服务的高可用。通过数据库主从模式、应用集群来实现。</li>
+<li><strong>多活数据中心</strong>：为了容灾，从根本上保障应用的高可用性。需要构建多活的数据中心，以防止一个数据中心由于不可控因素出现故障后，引起整个系统的不可用。</li>
+<li><strong>无状态设计</strong>：API、接口等的设计不能有前后依赖关系，一个资源不受其他资源改动的影响。无状态的系统才能更好地进行扩展。如果非得有状态，则要么客户端管理状态，要么服务端用分布式缓存管理状态。</li>
+<li><strong>可回滚</strong>：对于任何业务尤其是关键业务，都具有恢复机制。可以使用基于日志的WAL、基于事件的Event sourcing等来实现可回滚。</li>
+<li><strong>可禁用/自我保护</strong>：具有限流机制，当上游的流量超过自身的负载能力时，能够拒绝溢出的请求。可以通过手动开关或者自动开关（监测异常流量行为），在应用前端挡住流量。</li>
+<li><strong>问题可追踪</strong>：当系统出现问题时，能够定位请求的轨迹、每一步的请求信息等。分布式链路追踪系统即解决的此方面的问题。</li>
+<li><strong>可监控</strong>：可监控是保障系统能够稳定运行的关键。包括对业务逻辑的监控、应用进程的监控以及应用依赖的CPU、硬盘等系统资源的监控。每一个系统都需要做好这几个层面的监控。</li>
+<li><strong>故障隔离</strong>：将系统依赖的资源(线程、CPU)和服务隔离开来能够使得某个服务的故障不会影响其他服务的调用。通过线程池或者分散部署结点可以对故障进行隔离。</li>
+<li><strong>成熟可控的技术选型</strong>：使用市面上主流、成熟、文档、支持资源多的技术，选择合适的而非最火的技术实现系统。</li>
+<li><strong>梯级存储</strong>：内存->SSD硬盘->传统硬盘->磁带，可以根据数据的重要性和生命周期对数据进行分级存储。</li>
+<li><strong>缓存设计</strong>：隔离请求与后端逻辑、存储，是就近原则的一种机制。包括客户端缓存（预先下发资源）、Nginx缓存、本地缓存以及分布式缓存。</li>
+<li><strong>异步设计</strong>：对于调用方不关注结果或者允许结果延时返回的接口，采用队列进行异步响应能够很大程度提高系统性能；调用其他服务的时候不去等待服务方返回结果直接返回，同样能够提升系统响应性能。异步队列也是解决分布式事务的常用手段。</li>
+<li><strong>前瞻性设计</strong>：根据行业经验和预判，提前把可扩展性、后向兼容性设计好。</li>
+<li><strong>水平扩展</strong>：相比起垂直扩展，能够通过堆机器解决问题是最优先考虑的问题，系统的负载能力也才能接近无限扩展。此外，基于<strong>云计算</strong>技术根据系统的负载自动调整容量能够在节省成本的同时保证服务的可用性。</li>
+<li><strong>小步构建和发布</strong>：快速迭代项目，快速试错。不能有跨度时间过长的项目规划。</li>
+<li><strong>自动化</strong>：打包、测试的自动化称为持续集成，部署的自动化称为持续部署。自动化机制是快速迭代和试错的基础保证。</li>
+</ul>
+
+
+<h2>数据设计原则</h2>
+
+<ul>
+<li>注意存储效率
+
+<ul>
+<li>减少事务</li>
+<li>减少联表查询</li>
+<li>适当使用索引</li>
+<li>考虑使用缓存</li>
+</ul>
+</li>
+<li>数据统计场景中，实时性要求较高的数据统计可以用Redis；非实时数据则可以使用单独表，通过队列异步运算或者定时计算更新数据。此外，对于一致性要求较高的统计数据，需要依靠事务或者定时校对机制保证准确性。</li>
+</ul>
+
+
+<h2>系统响应性能提升五板斧</h2>
+
+<ul>
+<li><strong>异步</strong>：队列缓冲、异步请求。</li>
+<li><strong>并发</strong>：利用多CPU多线程执行业务逻辑。</li>
+<li><strong>就近原则</strong>：缓存、梯度存储。</li>
+<li><strong>减少IO</strong>：合并细粒度接口为粗粒度接口、频繁的覆盖操作可以只做最后一次操作。这里一个需要特别注意的地方: <strong>代码中尽量避免在循环中调用外部服务，更好的做法是使用粗粒度批量接口在循环外面只进行一次请求。</strong></li>
+<li><strong>分区</strong>：频繁访问的数据集规模保持在合理的范围。</li>
+</ul>
+
+
+<hr />
+
+<blockquote><p><strong><em>《Java工程师修炼之道》可以看作一本Java工程师的入职指南，也可以看作一本串联Java后端技能点的参考手册。通过精心编排的内容，刚入门的Java工程师能够体系化地学习相关开发技能，有经验的Java工程师能够查漏补缺，巩固自己的相关开发技能，进一步完善自身的Java技术体系。</em></strong></p></blockquote>
+
+<p><img src="http://www.rowkey.me/post_images/book.png" width="250"/></p>
+
+<p><img src="http://www.rowkey.me/post_images/howtostudy/recommend.png" width="700"/></p>
+
+<p>购书地址：<a href="https://item.jd.com/12325207.html">https://item.jd.com/12325207.html</a></p>
+
+<p><img src="http://www.rowkey.me/post_images/book_jd.png" alt="" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何学习后端技术？]]></title>
@@ -948,7 +1022,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#x68;&#x61;&#110;&#x67;&#64;&#x65;&#116;&#111;&#x75;&#99;&#104;&#46;&#x63;&#x6e;">&#104;&#97;&#x6e;&#x67;&#x40;&#101;&#x74;&#111;&#117;&#x63;&#104;&#46;&#x63;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x68;&#x61;&#110;&#x67;&#64;&#101;&#x74;&#x6f;&#x75;&#99;&#104;&#x2e;&#x63;&#110;">&#x68;&#97;&#110;&#x67;&#x40;&#x65;&#x74;&#x6f;&#x75;&#99;&#104;&#46;&#x63;&#x6e;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
@@ -2944,63 +3018,6 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
 </span><span class='line'>-XX:GCHeapFreeLimit=2 #gc回收后小于百分之多少抛出OutOfMemoryError
 </span><span class='line'>-Xloggc:/home/logs/gc.log</span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何读取ClassPath下的资源]]></title>
-    <link href="http://www.rowkey.me/blog/2017/02/20/read-classpath-resource/"/>
-    <updated>2017-02-20T22:21:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/02/20/read-classpath-resource</id>
-    <content type="html"><![CDATA[<p>最近在写一些公共组件时，碰到了需要读取classpath下文件的场景。也突然想起其实之前有很多场景牵扯到读取类加载路径下的文件内容、路径，包括非jar包和jar包中的。总结一下，以备后续使用。</p>
-
-<!--more-->
-
-
-<p>由于获取类路径下的资源文件的都是基于URL的，因此这里需要先讲述一下URL的概念。URL(Uniform Resource Locator)即统一资源定位器，指向互联网资源的指针，是一种具体的资源。其一般的形式，如：</p>
-
-<p><code>scheme:[//host][:port][path][?query][#fragment]</code></p>
-
-<p>scheme包括：http、https、file、jar等。一个例子：<code>file:/User/root/test.jar?time=123431212</code>, 其中：schema为file，path为<code>/User/root/test.jar</code>, query为time=123431212。</p>
-
-<p>这里需要区分URL和URI。URI, Uniform Resource Identifier，统一资源标识符，用来唯一的标识一个资源。其一般形式：</p>
-
-<p><code>[scheme:][//authority][path][?query][#fragment]</code></p>
-
-<p>其中，authority为[user-info@]host[:port]</p>
-
-<p>可见，URL是一种具体的URI，只不过其scheme是非空的，它不仅仅标识一个资源，也能定位一个资源（即通过url能够访问到这个资源），因此其必须是绝对地址，即使是相对url，其本质也是相对于某绝对url来讲的，也是一个绝对地址。而URI可以是绝对的也可以是相对的，只要能够标识即可。</p>
-
-<p>此外，URL和URI的不同之处还在于前者不提供对标准RFC2396规定的特殊字符的转义，因此需要调用者自己对URL各组成部分进行encode。而java.net.URI则会提供转义功能。这两者可以通过URI.toURL()和URL.toURI()来互相转换。</p>
-
-<p>这里需要指出的是，如果是想直接读取类路径下的资源的内容，那么使用下面的方法是万能的。</p>
-
-<p><code>ClassLoader.getResourceAsStream(String classpathRecourcePath)</code></p>
-
-<p>需要注意的是有时候jar包中的类并非和你应用的类使用的是同一类加载器(写intellij插件的时候就会存在这种问题)，这时候需要选择对应的ClassLoader。</p>
-
-<p>此外，有些场景是需要获取到类路径下的资源路径信息的，可以选用以下三种方法：</p>
-
-<ul>
-<li><p>ClassLoader.getResource(String classpathFilePath)`</p>
-
-<p>  此方法的加载过程类似“双亲委派机制”，当父加载器无法获取到资源时，自己才去尝试获取。但需要注意的是以 / 开头的资源是在类加载器目录下的资源，并非指的是当前应用的类加载路径下的资源。如果资源是位于classpath下的不要以 / 开头。</p></li>
-<li><p><code>Class&lt;?&gt;.getResource(String classpathFilePath)</code></p>
-
-<p>  此方法最终还是对上面的方法的调用。不同的是，此方法会对传入的路径参数做处理，并且会尝试去获取类加载器。</p>
-
-<ul>
-<li>当路径信息不以 / 开头时，获取的是相对于当前类所在路径的相对资源</li>
-<li>当路径信息以 / 开头时，则获取的是当前应用类加载路径下的资源</li>
-</ul>
-</li>
-<li><p><code>Class&lt;?&gt;.getProtectionDomain().getCodeBase.getLocation()</code></p>
-
-<p>  此方法获取的是此类所处于的保护域的路径信息，当位于jar包中时，返回的是jar包的路径信息，非jar包则返回的是应用的类加载路径的地址。此方法的一个常见使用场景就是使用嵌入式jetty或者tomcat时对于webappBase的设置。</p></li>
-</ul>
-
-
-<p>还需要提到的一点是：当你想使用File类来处理scheme为file的资源时，可以使用URL的getFile方法或者URI的getSchemeSpecificPart方法获取其path和query信息(URL的getPath方法返回的仅仅包含path部分)。但如果你的资源是位于jar包中的，那么获取到的URL信息是以<strong><em>jar:file</em></strong>开头的，并不能用此方式处理。</p>
 ]]></content>
   </entry>
   
