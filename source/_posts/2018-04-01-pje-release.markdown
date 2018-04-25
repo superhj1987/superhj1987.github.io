@@ -26,15 +26,9 @@ Java开发一直是当前互联网领域最火热的开发技能之一，Java工
 
 ***需要注意的是，本书关于每一技能的知识点并没有讲述的很深，毕竟任何一个技能点都是单独可以成书的。比较在意内容深度的同学谨慎选择。***
 
-**购买方式**
-
-- 京东：<https://item.jd.com/12325207.html>
+**购买**: <https://item.jd.com/12325207.html>
 
 ![](/post_images/book_jd.png)
-
-- 微店（限量签名版）：<https://weidian.com/item.html?itemID=2259146189>
-
-![](/post_images/book_wd.png)
 
 **目录**
 
