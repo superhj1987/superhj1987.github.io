@@ -6,7 +6,7 @@ comments: true
 categories: architecture
 ---
 
-之前的文章《谈谈架构》里面讲述了架构的概念、原则等等，这里择出其中的设计原则部门供大家随手参考。
+之前的[《谈谈架构》](http://www.rowkey.me/blog/2017/08/24/arch/)讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。
 
 <!--more-->
 
