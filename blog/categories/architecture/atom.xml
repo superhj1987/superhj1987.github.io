@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-04-25T17:30:11+08:00</updated>
+  <updated>2018-04-25T17:39:33+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.rowkey.me/blog/2018/04/25/arch-usage/"/>
     <updated>2018-04-25T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/04/25/arch-usage</id>
-    <content type="html"><![CDATA[<p>之前的文章《谈谈架构》里面讲述了架构的概念、原则等等，这里择出其中的设计原则部门供大家随手参考。</p>
+    <content type="html"><![CDATA[<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。</p>
 
 <!--more-->
 
