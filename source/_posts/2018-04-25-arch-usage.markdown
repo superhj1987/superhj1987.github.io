@@ -8,6 +8,8 @@ categories: architecture
 
 之前的[《谈谈架构》](http://www.rowkey.me/blog/2017/08/24/arch/)讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。
 
+![](/images/blog_images/arch-spec.png)
+
 <!--more-->
 
 ## 架构原则
