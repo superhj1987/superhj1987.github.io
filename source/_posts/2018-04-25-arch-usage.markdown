@@ -34,6 +34,8 @@ categories: architecture
 
 ## 架构六步思考法
 
+> 来自于美团总架构师夏华夏的架构六部思考法
+
 ![](/post_images/sixthink.jpg)
 
 ## 数据设计原则
