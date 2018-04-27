@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-04-27T15:29:46+08:00</updated>
+  <updated>2018-04-27T21:04:33+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -64,9 +64,9 @@
 <li>减少联表查询</li>
 <li>适当使用索引</li>
 <li>考虑使用缓存</li>
-<li>避免依赖于数据库的运算功能(函数、存储器、触发器等)，将负载放在更容易扩展的业务应用端</li>
 </ul>
 </li>
+<li>避免依赖于数据库的运算功能(函数、存储器、触发器等)，将负载放在更容易扩展的业务应用端</li>
 <li>数据统计场景中，实时性要求较高的数据统计可以用Redis；非实时数据则可以使用单独表，通过队列异步运算或者定时计算更新数据。此外，对于一致性要求较高的统计数据，需要依靠事务或者定时校对机制保证准确性。</li>
 </ul>
 
