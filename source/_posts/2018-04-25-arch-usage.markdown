@@ -56,14 +56,4 @@ categories: architecture
 - **减少IO**：合并细粒度接口为粗粒度接口、频繁的覆盖操作可以只做最后一次操作。这里一个需要特别注意的地方: **代码中尽量避免在循环中调用外部服务，更好的做法是使用粗粒度批量接口在循环外面只进行一次请求。**
 - **分区**：频繁访问的数据集规模保持在合理的范围。
 
----
- 
-> ***《Java工程师修炼之道》可以看作一本Java工程师的入职指南，也可以看作一本串联Java后端技能点的参考手册。通过精心编排的内容，刚入门的Java工程师能够体系化地学习相关开发技能，有经验的Java工程师能够查漏补缺，巩固自己的相关开发技能，进一步完善自身的Java技术体系。***
-
-<img src="/post_images/book.png" width="250"/>
-
-<img src="/post_images/howtostudy/recommend.png" width="700"/>
-
-购书地址：<https://item.jd.com/12325207.html>
-
-![](/post_images/book_jd.png)
+<img src="/post_images/book-all.png" width="400"/>

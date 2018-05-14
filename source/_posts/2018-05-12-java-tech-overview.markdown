@@ -132,16 +132,6 @@ categories: java
 
 其中，虚线部分是数据库层，采用的是主从模式。也可以使用Redis Cluster（Codis等）以及MySQL Cluster（Cobar等）来替换。
 
----
-
 > 本文节选自《Java工程师修炼之道》一书。
-> 
-> ***本书可以看作一本Java工程师的入职指南，也可以看作一本串联Java后端技能点的参考手册。通过精心编排的内容，刚入门的Java工程师能够体系化地学习相关开发技能，有经验的Java工程师能够查漏补缺，巩固自己的相关开发技能，进一步完善自身的Java技术体系。***
 
-<img src="/post_images/book.png" width="250"/>
-
-<img src="/post_images/howtostudy/recommend.png" width="700"/>
-
-购书地址：<https://item.jd.com/12325207.html>
-
-![](/post_images/book_jd.png)
+<img src="/post_images/book-all.png" width="400"/>
