@@ -6,8 +6,6 @@ comments: true
 categories: java
 ---
 
-# 1.2 Java后端技术概览
-
 一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到[Java后端技术概览图](http://download.broadview.com.cn/Original/1804ccac3a68abd2e6dd)。
 
 ![](/post_images/javatech/tech-tree.png)
