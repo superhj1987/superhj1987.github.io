@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-05-14T15:50:15+08:00</updated>
+  <updated>2018-05-14T15:54:19+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,9 +18,7 @@
     <link href="http://www.rowkey.me/blog/2018/05/12/java-tech-overview/"/>
     <updated>2018-05-12T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/05/12/java-tech-overview</id>
-    <content type="html"><![CDATA[<h1>1.2 Java后端技术概览</h1>
-
-<p>一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到<a href="http://download.broadview.com.cn/Original/1804ccac3a68abd2e6dd">Java后端技术概览图</a>。</p>
+    <content type="html"><![CDATA[<p>一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到<a href="http://download.broadview.com.cn/Original/1804ccac3a68abd2e6dd">Java后端技术概览图</a>。</p>
 
 <p><img src="http://www.rowkey.me/post_images/javatech/tech-tree.png" alt="" /></p>
 
@@ -1214,7 +1212,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#104;&#x61;&#110;&#x67;&#64;&#101;&#x74;&#111;&#117;&#99;&#104;&#46;&#x63;&#x6e;">&#x68;&#x61;&#110;&#103;&#64;&#101;&#x74;&#111;&#117;&#99;&#104;&#46;&#99;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x68;&#x61;&#x6e;&#103;&#64;&#101;&#x74;&#111;&#117;&#x63;&#x68;&#x2e;&#99;&#110;">&#x68;&#97;&#110;&#103;&#64;&#101;&#116;&#111;&#117;&#x63;&#x68;&#x2e;&#x63;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
