@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="谈谈系统架构这个东西 Jun 4th, 2014 架构这个词在很多人看来都是很高大上的一个东西。事实上，搞架构的这些人却也都是些大神，至少都是在这个领域浸淫N久的专家级人物。现在很火的全栈工程师这个概念，就是架构师的另一种表现形式。 之于架构， &hellip;">
+  <meta name="description" content="Nginx源码分析之基本数据结构 Jul 25th, 2014 引言 nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,52 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2014/07/25/nginx-data-structure/">Nginx源码分析之基本数据结构</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-07-25T17:08:02+08:00" pubdate data-updated="true">Jul 25<sup>th</sup>, 2014</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h3>引言</h3>
+
+<p>nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。但实际上nginx各个部分逻辑划分还是很明确的，整体上是一种松散的结构。</p>
+
+<p>作者之所以重复造了这些轮子，无非是为了追求高效。查看这些数据结构的源码，的确是设计的比较精巧，也保证了对内存足够小的占用以及各种操作的高效。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/07/25/nginx-data-structure/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -758,190 +804,6 @@ finish();
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2011/02/08/android-intent/">Android中的intent调用代码总结</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-02-08T21:39:34+08:00" pubdate data-updated="true">Feb 8<sup>th</sup>, 2011</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h3>显示Web网页</h3>
-
-<pre><code>Uri uri = Uri.parse("http://www.android123.com.cn");
-Intent it = new Intent(Intent.ACTION_VIEW,uri);
-startActivity(it);
-</code></pre>
-
-<h3>显示Google地图</h3>
-
-<pre><code>Uri uri = Uri.parse("geo:38.899533,-77.036476");
-Intent it = new Intent(Intent.Action_VIEW,uri);
-startActivity(it);
-</code></pre>
-
-<h3>Maps路径规划</h3>
-
-<pre><code>Uri uri = Uri.parse("http://maps.google.com/maps?f=d&amp;saddr=startLat%20startLng&amp;daddr=endLat%20endLng&amp;hl=en");
-Intent it = new Intent(Intent.ACTION_VIEW,URI);
-startActivity(it);
-</code></pre>
-
-<h3>拨打电话</h3>
-
-<pre><code>Uri uri = Uri.parse("tel:xxxxxx");
-Intent it = new Intent(Intent.ACTION_DIAL, uri);   
-startActivity(it);  
-
-Uri uri = Uri.parse("tel.xxxxxx");
-Intent it =new Intent(Intent.ACTION_CALL,uri);
-</code></pre>
-
-<p>注意需要权限android.permission.CALL_PHONE</p>
-
-<h3>发送SMS/MMS</h3>
-
-<pre><code>Intent it = new Intent(Intent.ACTION_VIEW);
-it.putExtra("sms_body", "android开发网欢迎您");
-it.setType("vnd.android-dir/mms-sms");
-startActivity(it);  
-</code></pre>
-
-<h3>发送短信</h3>
-
-<pre><code>Uri uri = Uri.parse("smsto:10086");
-Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-it.putExtra("sms_body", "10086"); //正文为10086
-startActivity(it);  
-</code></pre>
-
-<h3>发送彩信</h3>
-
-<pre><code>Uri uri = Uri.parse("content://media/external/images/media/10"); //该Uri根据实际情况修改，external代表外部存储即sdcard
-Intent it = new Intent(Intent.ACTION_SEND);
-it.putExtra("sms_body", "android123.com.cn"); 
-it.putExtra(Intent.EXTRA_STREAM, uri);
-it.setType("image/png");
-startActivity(it);
-</code></pre>
-
-<h3>发送Email</h3>
-
-<pre><code>Uri uri = Uri.parse("mailto:android123@163.com");
-Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-startActivity(it);
-
-Intent it = new Intent(Intent.ACTION_SEND);
-it.putExtra(Intent.EXTRA_EMAIL, "android123@163.com");
-it.putExtra(Intent.EXTRA_TEXT, "android开发网测试");
-it.setType("text/plain");
-startActivity(Intent.createChooser(it, "选择一个Email客户端"));  
-
-Intent it=new Intent(Intent.ACTION_SEND);   
-String[] tos={"android123@163.com"};     //发送到 
-String[] ccs={"ophone123@163.com"};    //抄送
-it.putExtra(Intent.EXTRA_EMAIL, tos);   
-it.putExtra(Intent.EXTRA_CC, ccs);   
-it.putExtra(Intent.EXTRA_TEXT, "正文");   
-it.putExtra(Intent.EXTRA_SUBJECT, "标题");   
-it.setType("message/rfc822");    //编码类型
-startActivity(Intent.createChooser(it, "选择一个Email客户端"));
-</code></pre>
-
-<h3>Email添加附件</h3>
-
-<pre><code>Intent it = new Intent(Intent.ACTION_SEND);
-it.putExtra(Intent.EXTRA_SUBJECT, "正文");
-it.putExtra(Intent.EXTRA_STREAM, "file:///sdcard/nobody.mp3"); //附件为sd卡上的nobody MP3文件
-sendIntent.setType("audio/mp3");
-startActivity(Intent.createChooser(it, "选择一个Email客户端"));
-</code></pre>
-
-<h3>播放多媒体</h3>
-
-<pre><code>Intent it = new Intent(Intent.ACTION_VIEW);
-Uri uri = Uri.parse("file:///sdcard/nobody.mp3");
-it.setDataAndType(uri, "audio/mp3");
-startActivity(it);
-
-Uri uri = Uri.withAppendedPath(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, "1"); //从系统内部的MediaProvider索引中调用播放
-Intent it = new Intent(Intent.ACTION_VIEW, uri);
-startActivity(it);  
-</code></pre>
-
-<h3>Uninstall卸载程序</h3>
-
-<pre><code>Uri uri = Uri.fromParts("package", packageName, null); //packageName为包名，比如com.android123.apkInstaller
-Intent it = new Intent(Intent.ACTION_DELETE, uri);
-startActivity(it);
-</code></pre>
-
-<h3>进入联系人界面</h3>
-
-<pre><code>Intent intent = new Intent();
-intent.setAction(Intent.ACTION_VIEW);
-intent.setData(People.CONTENT_URI);
-startActivity(intent);
-</code></pre>
-
-<p>查看某个联系人，当然这里是ACTION_VIEW，如果为选择并返回action改为ACTION_PICK，当然处理intent时返回需要用到startActivityforResult</p>
-
-<pre><code>Uri personUri = ContentUris.withAppendedId(People.CONTENT_URI, ID);//最后的ID参数为联系人Provider中的数据库BaseID，即哪一行
-Intent intent = new Intent();
-intent.setAction(Intent.ACTION_VIEW);
-intent.setData(personUri);
-startActivity(intent);
-</code></pre>
-
-<h3>选择一个图片</h3>
-
-<pre><code>Intent intent = new Intent(Intent.ACTION_GET_CONTENT);  
-intent.addCategory(Intent.CATEGORY_OPENABLE);  
-intent.setType("image/*");//此处-&gt;audio/*对应选择音频 video/*对应选择视频
-startActivityForResult(intent, 0);
-</code></pre>
-
-<h3>调用Android设备的照相机，并设置拍照后存放位置</h3>
-
-<pre><code>Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);  
-intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(Environment.getExternalStorageDirectory().getAbsolutePath()+"/cwj", android123 + ".jpg"))); //存放位置为sdcard卡上cwj文件夹，文件名为android123.jpg格式
-startActivityForResult(intent, 0);
-</code></pre>
-
-<h3>搜索指定package name在market上</h3>
-
-<pre><code>Uri uri = Uri.parse("market://search?q=pname:com.android123.cwj");   
-Intent intent = new Intent(Intent.ACTION_VIEW, uri);   
-startActivity(intent); 
-</code></pre>
-</div>
-  
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -1021,6 +883,10 @@ startActivity(intent);
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/05/12/java-tech-overview/">Java后端技术概览</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/04/25/arch-usage/">架构简明指南</a>
       	</li>
     	
@@ -1054,10 +920,6 @@ startActivity(intent);
     	
      	<li>
       	  <a href="/blog/2017/12/28/delay-trigger/">如何实现延时触发/定时器</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2017/11/26/tech-talk/">技术琐话2017-11-26</a>
       	</li>
     	
 	</ul>
