@@ -95,12 +95,12 @@ categories: java
 - 高级特性：抛开Java核心的基本编程，并发编程、泛型、网络编程、序列化RPC都属于java的高级编程特性。其中并发编程需要掌握Executors提供的各种并发工具、Java7带来的fork/join框架以及CountDownLatch、Semaphore、CyclicBarrier等同步工具；网络编程要区分好BIO、NIO以及AIO；序列化中除了JDK自带的序列化实现之外，Protobuf和Kryo是比较高效的第三方实现；RPC的实现中，Thrift、Hessian、Dubbo以及RMI则是比较常用的几个协议,其中的Hessian是基于Http协议的，Dubbo是基于TCP协议，而Thrift则同时支持。
 - JavaEE: JavaEE现在是Java应用最为普遍的一个领域。Servlet是JavaEE中最根本的组件之一。而Servlet3.0带来的异步Servlet提高了其处理请求的性能。
 - 项目构建：目前用的最多的Java项目构建工具包括Maven和Gradle，提供了源码包依赖管理、编译、打包、部署等一系列功能。
-- 编程框架：Spring是Java编程中避不开的一个框架，发展到现在除了Spring核心的IOC、AOP之外，SpringMvc、Spring Data、Spring Cloud等等都给Java开发者们带来了开发上的便利，大大提高了开发效率。除此之外，ORM框架MyBatis也是Java领域比较火的框架之一，实现了数据库记录到Java对象的映射操作。此外，Jersey提供了从客户端到服务端的一整套符合RESTful规范的开发框架。
+- 编程框架：Spring是Java编程中避不开的一个框架，发展到现在除了Spring核心的IOC、AOP之外，SpringMVC、Spring Data、Spring Cloud、Spring Boot等等都给Java开发者们带来了开发上的便利，大大提高了开发效率；ORM框架MyBatis也是Java领域比较火的框架之一，实现了数据库记录到Java对象的映射操作；Jersey则提供了从客户端到服务端的一整套符合RESTful规范的开发框架。此外，Vert.x、Spring Flux这种非常适用于IO密集型应用的异步响应式编程框架也开始兴起。
 - 测试：测试是任何编程都需要的一步。黑盒测试主要指的通常进行的功能测试，白盒测试则主要指的对代码功能、质量进行的测试。此外，关键的单元测试则是开发工程师需要着重注意的地方，“测试驱动开发”的理念也是值得推崇的开发方式。JUnit是目前Java中实现单元测试的主流方案。
 
 一般来说掌握上面所述的Java编程技能是能够应付大多编程工作的。但是如果在代码层面已经做到最大努力却还是达不到性能要求的时候，就需要在JVM虚拟机层面做一些努力了。可以说掌握JVM相关技术是Java开发进阶的一个关键步骤。
     
-- 虚拟机实现: Java的虚拟机实现除了我们常用的HotSpot外，还有JRockit、J9以及移动平台的Dalvkit。我们通常锁描述的JVM优化绝大多是是针对HotSpot虚拟机来说的。
+- 虚拟机实现: Java的虚拟机实现除了我们常用的HotSpot外，还有JRockit、J9以及移动平台的Dalvkit、ART（Android4.4后引入）。我们通常锁描述的JVM优化绝大多是是针对HotSpot虚拟机来说的。
 - 类加载机制：JVM的类加载机器遵循双亲委派原则，即当前类加载器需要先去请求父加载器去加载当前类，如果无法完成自己才去尝试进行加载。OSGI框架则打破了此机制，采用了平等的、网状的类加载机制，以实现模块化的加载方案。
 - 运行时内存组成: 程序计数器、堆栈、方法区、堆、堆外内存，这些一起组成了JVM的运行时内存。
 - Java内存模型：Java的主内存+线程私有内存的模型是线程安全问题产生的根本。
