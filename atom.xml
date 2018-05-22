@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-05-21T09:44:21+08:00</updated>
+  <updated>2018-05-22T14:36:38+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -191,12 +191,20 @@
     <id>http://www.rowkey.me/blog/2018/04/25/arch-usage</id>
     <content type="html"><![CDATA[<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。</p>
 
-<p><img src="http://www.rowkey.me/images/blog_images/arch-spec.png" alt="" /></p>
+<p>《Clean Architecture》一书中对于软件架构目的的解释：</p>
+
+<blockquote><p>The goal of software architecture is to miminize the human resources required to build and maintain the required system.</p></blockquote>
+
+<p>即：软件架构的目的就是将构建和维护系统需要的人力成本降到最低。</p>
+
+<p>因此，可以得出架构设计的关键思维就是判断和取舍（程序设计的关键思维是逻辑和实现），即如何选择技术、组合技术使得需要的人力资源最少。</p>
 
 <!--more-->
 
 
 <h2>架构原则</h2>
+
+<p><img src="http://www.rowkey.me/images/blog_images/arch-spec.png" alt="" /></p>
 
 <ul>
 <li><strong>避免过度设计</strong>：最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。</li>
@@ -1182,7 +1190,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#104;&#97;&#110;&#103;&#x40;&#101;&#x74;&#111;&#x75;&#99;&#104;&#x2e;&#99;&#110;">&#x68;&#97;&#110;&#103;&#x40;&#101;&#x74;&#111;&#x75;&#x63;&#x68;&#46;&#99;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x68;&#97;&#110;&#103;&#x40;&#x65;&#116;&#111;&#x75;&#99;&#x68;&#x2e;&#99;&#x6e;">&#104;&#97;&#x6e;&#x67;&#x40;&#x65;&#116;&#111;&#117;&#99;&#104;&#x2e;&#x63;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 

@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="架构简明指南 Apr 25th, 2018 Posted by 飒然Hang in architecture 之前的《谈谈架构》讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。 架构原则 避免过度设计：最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展 &hellip;">
+  <meta name="description" content="架构简明指南 Apr 25th, 2018 Posted by 飒然Hang in architecture 之前的《谈谈架构》讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。 《Clean Architecture》一书中对于软件架构目的的解释： The goal of &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -154,12 +154,20 @@
 
 <div class="post-content"><p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。</p>
 
-<p><img src="/images/blog_images/arch-spec.png" alt="" /></p>
+<p>《Clean Architecture》一书中对于软件架构目的的解释：</p>
+
+<blockquote><p>The goal of software architecture is to miminize the human resources required to build and maintain the required system.</p></blockquote>
+
+<p>即：软件架构的目的就是将构建和维护系统需要的人力成本降到最低。</p>
+
+<p>因此，可以得出架构设计的关键思维就是判断和取舍（程序设计的关键思维是逻辑和实现），即如何选择技术、组合技术使得需要的人力资源最少。</p>
 
 <!--more-->
 
 
 <h2>架构原则</h2>
+
+<p><img src="/images/blog_images/arch-spec.png" alt="" /></p>
 
 <ul>
 <li><strong>避免过度设计</strong>：最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。</li>
