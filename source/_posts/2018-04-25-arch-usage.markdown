@@ -8,11 +8,19 @@ categories: architecture
 
 之前的[《谈谈架构》](http://www.rowkey.me/blog/2017/08/24/arch/)讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。
 
-![](/images/blog_images/arch-spec.png)
+《Clean Architecture》一书中对于软件架构目的的解释：
+
+> The goal of software architecture is to miminize the human resources required to build and maintain the required system.
+ 
+即：软件架构的目的就是将构建和维护系统需要的人力成本降到最低。
+
+因此，可以得出架构设计的关键思维就是判断和取舍（程序设计的关键思维是逻辑和实现），即如何选择技术、组合技术使得需要的人力资源最少。
 
 <!--more-->
 
 ## 架构原则
+
+![](/images/blog_images/arch-spec.png)
 
 - **避免过度设计**：最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。
 - **冗余设计**：对服务、数据库的做结点冗余，保证服务的高可用。通过数据库主从模式、应用集群来实现。
