@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-05-24T10:45:30+08:00</updated>
+  <updated>2018-05-24T10:57:23+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -20,7 +20,7 @@
     <id>http://www.rowkey.me/blog/2018/05/12/java-tech-overview</id>
     <content type="html"><![CDATA[<p>一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到<a href="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png">Java后端技术概览图</a>。</p>
 
-<p><img src="//post_images/javatech/tech-tree.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/tech-tree.png" alt="" /></p>
 
 <!--more-->
 
