@@ -12,4 +12,4 @@ categories: java
 
 <!--more-->
 
-[![java-skill-tree](/images/blog_images/java-skill-tree.png)](/images/blog_images/java-skill-tree.png)
+[![java-skill-tree](https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png)](https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png)
