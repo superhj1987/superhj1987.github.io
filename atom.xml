@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-05-22T14:36:38+08:00</updated>
+  <updated>2018-05-24T10:00:28+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -68,7 +68,7 @@
 <li>Linux: 说到后端服务器肯定绕不过Linux。至少现在互联网的后端服务绝大多数都是部署在Linux的各种服务器版本中的。其中CentOS、Ubuntu以及Debian是用的比较多的版本。对于Linux，需要熟练掌握的就是很多常用Shell命令如ps、netstat、lsof、ss、df、dh等等。此外，很多性能分析命令如top、vmstat、iostat、sar等也需要熟练使用。</li>
 <li>应用服务器：就Java来讲，很多时候开发的都是Web应用，以HTTP协议对外提供服务。除了对性能要求比较苛刻的情况下会自己构建HTTP服务之外，大部分情况是需要依赖于支持Java程序的应用服务器的。目前最为常用的有：Tomcat、Jetty。严格来讲，这两者只是Servlet容器，真正的JavaEE应用服务器如Jboss、Weblogic在互联网领域很少使用。当然，这些软件并没有提供URL重写、请求委托等Web服务器功能，还不足以担当完整Web服务器的角色。Nginx则是目前最为流行的Web服务器。</li>
 <li>负载均衡：在高并发流量环境下，后端服务会以集群的模式对外提供服务。在集群的前面，需要负载均衡器将请求分配到集群的各个结点上。LVS是最为流行的四层负载均衡软件,HAProxy是另一个即支持四层又支持七层负载均衡的软件，Nginx则是七层负载均衡最为流行的解决方案。当然，性能最为好的负载均衡方案是以F5为代表的硬件负载均衡，但由于其昂贵的成本因此在互联网团队中很少使用。此外，这里需要补充的是为了保证同等角色的服务的高可用，如LVS经常作为流量的入口，因此会部署多个LVS结点互为主备防止一个挂掉的时候造成服务不可用。而实现互为主备的技术目前用的最多的就是Keepalived。</li>
-<li>虚拟化：虚拟化技术是前几年经常用来做私有云的一种技术。即将自己的物理主机通过虚拟化技术分裂为多个虚拟主机，能够隔离资源。其中，VPS（虚拟专用服务器）的代表技术包括：微软的Virtual Server、VMware的ESX Server、SWsoft的Virtuozzo。此外，OpenStack提供的构建私有IIAS的功能、Cloud Foundry提供的构建私有平台运行环境以及Docker带来的容器服务都是虚拟化技术的一种。</li>
+<li>虚拟化：虚拟化技术是前几年经常用来做私有云的一种技术。即将自己的物理主机通过虚拟化技术分裂为多个虚拟主机，能够隔离资源。其中，VPS（虚拟专用服务器）的代表技术包括：微软的Virtual Server、VMware的ESX Server、SWsoft的Virtuozzo。此外，OpenStack提供的构建私有IIAS的功能、Cloud Foundry提供的构建私有平台运行环境以及Docker、Kunernetes带来的容器服务都是虚拟化技术的一种。</li>
 </ul>
 
 
@@ -1190,7 +1190,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x68;&#97;&#110;&#103;&#x40;&#x65;&#116;&#111;&#x75;&#99;&#x68;&#x2e;&#99;&#x6e;">&#104;&#97;&#x6e;&#x67;&#x40;&#x65;&#116;&#111;&#117;&#99;&#104;&#x2e;&#x63;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#104;&#x61;&#x6e;&#103;&#64;&#101;&#x74;&#111;&#117;&#99;&#x68;&#x2e;&#x63;&#x6e;">&#x68;&#x61;&#x6e;&#x67;&#64;&#x65;&#116;&#x6f;&#x75;&#99;&#x68;&#46;&#x63;&#x6e;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
