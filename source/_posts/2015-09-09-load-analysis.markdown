@@ -164,12 +164,12 @@ tomcat的关键配置总体上有两大块：jvm参数配置和connector参数�
    
 - connector参数配置
 
-	- protocol: 有三个选项：BIO；NIO；APR。建议使用APR选项，性能为最高。
-	- connectionTimeout：连接的超时时间  
-   - maxThreads：最大线程数，此值限制了bio的最大连接数，当为NIO/APR时为worker线程的数目 
-   - minSpareThreads: 最大空闲线程数
-   - acceptCount：可以接受的最大请求数目（未能得到处理的请求排队）。连接在被ServerSocketChannel accept之前暂存在一个队列中，这个队列的长度就由acceptCount决定。满了就会拒绝后续的连接。
-   - maxConnection: 使用NIO或者APR时，最大连接数受此值影响。超过此值，Tomcat的Acceptor会阻塞，不再accept。但是并不阻止新连接的建立（由acceptCount决定），新连接的建立不由Acceptor控制，Acceptor仅仅是从队列获取新连接。
+	- protocol: 有三个选项：BIO、NIO、APR。建议使用APR选项，性能为最高。如果不使用Tomcat的Web功能，使用NIO即可。
+	- connectionTimeout：连接的超时时间。默认值20000。
+   - maxThreads：最大线程数，此值限制了BIO的最大连接数，当为NIO/APR时则为worker线程的数目。默认值200。
+   - minSpareThreads: 最小空闲线程数，Tomcat启动时初始化的线程数目。默认值10。
+   - acceptCount：可以接受的最大连接数（未能得到处理的连接排队），是ServerSocket的backlog参数值。连接在被Accept之前暂存在一个队列中，这个队列的长度由acceptCount决定，满了就会拒绝后续连接。默认值100。
+   - maxConnection: 使用NIO或者APR时，最大连接数受此值影响。超过此值，Tomcat的Acceptor会阻塞，不再accept。但新连接的建立不由Acceptor控制（由acceptCount决定），Acceptor仅仅是从队列accept获取新连接。默认值NIO-10000，APR-8192。
 
  	典型配置可见：<https://github.com/superhj1987/awesome-config/blob/master/tomcat/connector.conf>
  	
@@ -194,7 +194,7 @@ tomcat的关键配置总体上有两大块：jvm参数配置和connector参数�
 
 #### 2.4.3 数据库
 
-##### mysql
+##### MySQL
 
 mysql是目前最常用的关系型数据库，支持复杂的查询。但是其负载能力一般，很多时候一个系统的瓶颈就发生在mysql这一点，当然有时候也和sql语句的效率有关。比如，牵扯到联表的查询一般说来效率是不会太高的。
 
@@ -215,13 +215,13 @@ mysql是目前最常用的关系型数据库，支持复杂的查询。但是其
 
 现在很多大的公司对这些分表、主从分离、分布式都基于mysql做了自己的二次开发，形成了自己公司的一套分布式数据库系统。比如阿里的[Cobar](https://github.com/alibaba/cobar)、网易的DDB、360的Atlas等。当然，很多大公司也研发了自己的mysql分支，比较出名的就是姜承尧带领研发的InnoSQL。
 
-##### redis
+##### Redis
 
 当然，对于系统中并发很高并且访问很频繁的数据，关系型数据库还是不能妥妥应对。这时候就需要缓存数据库出马以隔离对mysql的访问,防止mysql崩溃。
 
 其中，redis是目前用的比较多的缓存数据库（当然，也有直接把redis当做数据库使用的）。redis是单线程基于内存的数据库，读写性能远远超过mysql。一般情况下，对redis做读写分离主从同步就可以应对大部分场景的应用。但是这样的方案缺少ha，尤其对于分布式应用，是不可接受的。目前，redis集群的实现方案有以下几个：
 
-- redis cluster:这是一种去中心化的方案，是redis的官方实现。是一种非常“重”的方案，已经不是Redis单实例的“简单、可依赖”了。目前应用案例还很少，貌似国内的芒果台用了，结局不知道如何。
+- Redis cluster:这是一种去中心化的方案，是redis的官方实现。是一种非常“重”的方案，已经不是Redis单实例的“简单、可依赖”了。目前应用案例还很少，貌似国内的芒果台用了，结局不知道如何。
 - [twemproxy](https://github.com/twitter/twemproxy)：这是twitter开源的redis和memcached的proxy方案。比较成熟，目前的应用案例比较多，但也有一些缺陷，尤其在运维方面。比如无法平滑的扩容/缩容，运维不友好等。
 - [codis](https://github.com/wandoulabs/codis): 这个是豌豆荚开源的redis proxy方案，能够兼容twemproxy，并且对其做了很多改进。由豌豆荚于2014年11月开源，基于Go和C开发。现已广泛用于豌豆荚的各种Redis业务场景。现在比Twemproxy快近100%。目前据我所知除了豌豆荚之外，hulu也在使用这套方案。当然，其升级项目[reborndb](https://github.com/reborndb/reborn)号称比codis还要厉害。
 
