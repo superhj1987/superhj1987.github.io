@@ -350,12 +350,12 @@ TIME_WAIT 28322
 <li><p>connector参数配置</p>
 
 <ul>
-<li>protocol: 有三个选项：bio；nio；apr。建议使用apr选项，性能为最高。</li>
+<li>protocol: 有三个选项：BIO；NIO；APR。建议使用APR选项，性能为最高。</li>
 <li>connectionTimeout：连接的超时时间</li>
-<li>maxThreads：最大线程数，此值限制了bio的最大连接数</li>
+<li>maxThreads：最大线程数，此值限制了bio的最大连接数，当为NIO/APR时为worker线程的数目</li>
 <li>minSpareThreads: 最大空闲线程数</li>
-<li>acceptCount：可以接受的最大请求数目（未能得到处理的请求排队）</li>
-<li>maxConnection: 使用nio或者apr时，最大连接数受此值影响。</li>
+<li>acceptCount：可以接受的最大请求数目（未能得到处理的请求排队）。连接在被ServerSocketChannel accept之前暂存在一个队列中，这个队列的长度就由acceptCount决定。满了就会拒绝后续的连接。</li>
+<li>maxConnection: 使用NIO或者APR时，最大连接数受此值影响。超过此值，Tomcat的Acceptor会阻塞，不再accept。但是并不阻止新连接的建立（由acceptCount决定），新连接的建立不由Acceptor控制，Acceptor仅仅是从队列获取新连接。</li>
 </ul>
 
 
