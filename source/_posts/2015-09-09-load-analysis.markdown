@@ -169,7 +169,7 @@ tomcat的关键配置总体上有两大块：jvm参数配置和connector参数�
    - maxThreads：最大线程数，此值限制了BIO的最大连接数，当为NIO/APR时则为worker线程的数目。默认值200。
    - minSpareThreads: 最小空闲线程数，Tomcat启动时初始化的线程数目。默认值10。
    - acceptCount：可以接受的最大连接数（未能得到处理的连接排队），是ServerSocket的backlog参数值。连接在被Accept之前暂存在一个队列中，这个队列的长度由acceptCount决定，满了就会拒绝后续连接。默认值100。
-   - maxConnection: 使用NIO或者APR时，最大连接数受此值影响。超过此值，Tomcat的Acceptor会阻塞，不再accept。但新连接的建立不由Acceptor控制（由acceptCount决定），Acceptor仅仅是从队列accept获取新连接。默认值NIO-10000，APR-8192。
+   - maxConnection: 使用NIO或者APR时，最大连接数受此值影响。超过此值，Tomcat的Acceptor会阻塞，不再accept。但新连接的建立不由Acceptor控制（由acceptCount决定），Acceptor仅仅是从队列accept获取新连接。默认值NIO-10000，APR-8192，设置为-1表示不限制连接数。
 
  	典型配置可见：<https://github.com/superhj1987/awesome-config/blob/master/tomcat/connector.conf>
  	
