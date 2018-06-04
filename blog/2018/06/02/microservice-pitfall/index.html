@@ -1,0 +1,745 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>微服务的十个反模式和陷阱 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="微服务的十个反模式和陷阱 Jun 2nd, 2018 Posted by 飒然Hang in architecture O’Reilly的电子书《Microservices AntiPatterns and Pitfalls》讲述了在微服务设计实现时十种最常见的反模式和陷阱。本文基于此书， &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2018/06/02/microservice-pitfall/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">微服务的十个反模式和陷阱</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-06-02T19:29:34+08:00" pubdate data-updated="true">Jun 2<sup>nd</sup>, 2018</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/architecture/'>architecture</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>O’Reilly的电子书《Microservices AntiPatterns and Pitfalls》讲述了在微服务设计实现时十种最常见的反模式和陷阱。本文基于此书，将这十个点列出。书籍地址：<a href="https://www.oreilly.com/programming/free/microservices-antipatterns-and-pitfalls.csp">https://www.oreilly.com/programming/free/microservices-antipatterns-and-pitfalls.csp</a>，更全的反模式和陷阱可见作者的视频：<a href="http://oreil.ly/29GVuDG">http://oreil.ly/29GVuDG</a></p>
+
+<!--more-->
+
+
+<h2>数据驱动迁移反模式-Data-Driven Migration</h2>
+
+<p><img src="/post_images/ms-anti/data-driven-1.png" alt="" /></p>
+
+<p>如上图所示，此种反模式的问题在于微服务的粒度没有最终确定之前就做了数据迁移，如此当不断的调整服务粒度时，那么数据库就免不了频繁迁移，带来极大的成本。更好的方式如下图所示：</p>
+
+<p><img src="/post_images/ms-anti/data-driven-2.png" alt="" /></p>
+
+<p>即先分离功能，数据库先保持之前的单体，等到服务粒度最终确认之后，再分离数据库。</p>
+
+<h2>超时反模式-The Timeout</h2>
+
+<p>微服务架构是由一些列分离的服务组成的，这些服务之间通过一些远程协议进行互相之间的通信。这也牵扯到了服务的可用性和响应性。如下图所示：</p>
+
+<p><img src="/post_images/ms-anti/availability-res.png" alt="" /></p>
+
+<ul>
+<li>可用性：服务消费方能够连接服务方，并可以向其发送请求。</li>
+<li>响应性：服务方能够在消费方期望时间内给予请求响应。</li>
+</ul>
+
+
+<p>为了防止服务的不可用和无法响应，通常的做法就是设置一个调用超时。此种做法表面上看是没问题的，但是试想一下如下情景：发起一个购买100个商品的请求，请求成功返回一个确认号。如果当请求超时但是请求在服务端已经成功执行了，此时这个交易实际是完成的，但是消费方没有拿到确认号，如果重试请求，那么服务方需要一个复杂的机制判断这是否一次重复提交。</p>
+
+<p>一种解决此问题的方案是设置一个较长的超时时间，如一个服务的通常响应耗时需要2s，最大耗时需要5s，那么超时时间可以设置为10s。但这样的问题就是如果服务不可用，所有消费方都得等待10s，这个是非常损耗性能的。</p>
+
+<p>解决超时反模式的方案就是使用“断路器模式”。就类似于房屋中的电源断路器，当断路器关闭，电流可以通过，当断路器打开，那么电流中断一直到断路器关闭。断路器模式就是说当检测到服务方无法响应时就打开，后续的请求都会被拒绝掉。一旦服务方可响应了，那么断路器关闭，请求恢复。其工作模式如下图所示：</p>
+
+<p><img src="/post_images/ms-anti/circuit-breaker.png" alt="" /></p>
+
+<p>断路器会持续地监测远程服务，确保其是可响应的。只要服务可响应，那么断路器会一直关闭，允许请求通过。如果服务突然不可响应，那么断路器打开，拒绝后续的请求。而后续如果断路器又检测到服务恢复了，那么断路器会自动关闭，请求也就恢复了。此种方案与超时时间相比，最大的优势就是一旦服务不可响应，那么断路器模式可以让请求立刻返回而不是需要等待一定的时间。</p>
+
+<p>Hystrix的Netflix是此种断路器模式的一种开源实现。此外，Akka中也包含了一个断路器实现：Akka CircuitBreaker类。</p>
+
+<p>关于“断路器模式”的详细信息可见：<a href="https://martinfowler.com/bliki/CircuitBreaker.html">https://martinfowler.com/bliki/CircuitBreaker.html</a>。</p>
+
+<h2>共享反模式-I Was Taught to Share</h2>
+
+<p>微服务被普遍认为就是一种不共享任何东西的架构。但实际上只能是尽可能地少共享，毕竟在某些层面代码还是会被多个服务共享的。例如，与单独部署一套安全服务（验证和认证）其他所有服务都通过远程访问此服务相比，把安全相关的功能封装成jar包（security.jar），然后其他服务都集成此jar包，如此就能够避免每次都要发起对安全服务的访问，从而提高性能和可靠性。但后面的方案带来的问题就是依赖噩梦：每一个服务都依赖多个自定义的jar包。如此不仅打破了服务之间的边界上下文，同时也引入了诸如总体可靠性、变更控制、易测试性、部署等问题。</p>
+
+<p>在一个使用面向对象编程语言的单体应用中，使用abstract类和接口实现代码复用和共享是一个良好的实践。但当从单体切换到微服务架构时，对于很多自定义的共享类和工具类（日期、字符串、计算）的处理要考虑到微服务间共享的东西越少越有利于保持服务间的边界上下文，从而更利于快速测试和部署。以下是几种推荐的方式，也是解决“共享反模式”的方案：</p>
+
+<ol>
+<li><p>共享项目</p>
+
+<p> <img src="/post_images/ms-anti/share-project.png" alt="" /></p>
+
+<p> 将共享的代码作为一个项目在编译期与各个服务集成。此种方式便于变更和开发软件，但是最大的问题在于很难发觉哪一个共享模块被修改以及修改的原因，也无法确定自己的服务是否需要这些变更。尤其是在服务发布前期发现某一个共享模块发生了变动的话需要再一次的测试才能走后续流程。</p></li>
+<li><p>共享库</p>
+
+<p> <img src="/post_images/ms-anti/share-library.png" alt="" /></p>
+
+<p> 此种方式即将共享的代码作为类库集成到服务中。如此每次共享的库有改动，服务都需要重新打包、测试、重启。但相比起第一种，其由版本标记，能够更好地控制服务的部署和开发，服务开发者可以自己控制合适将共享库的改动集成进来。</p>
+
+<p> 更进一步的，如果采用此种方案，一定要避免把所有共享的代码都打包进一个jar包中如common.jar。否则会很难确定何时要把库的变动集成到服务中。更好的做法是将共享代码分成几个单独上下文的库，如：security.jar、dateutils.jar、persistence.jar等，如此会比较容易的确定何时去集成共享库的变动。</p></li>
+<li><p>冗余</p>
+
+<p> <img src="/post_images/ms-anti/replica.png" alt="" /></p>
+
+<p> 此种方案违反DRY原则，在每一服务中都冗余一份共享代码，如此能够避免依赖共享也能够保持边界上下文。但是一旦共享的代码有变动，那么所有服务都需要改动。因此，此种方案主要用于共享模块非常稳定，极小可能变动的情况。</p></li>
+<li><p>服务合并</p>
+
+<p> <img src="/post_images/ms-anti/consolidation.png" alt="" /></p>
+
+<p> 当多个服务共性的代码变动比较频繁时可以采用此种方案合并成一个服务，如此就避免了多了服务频繁的测试和部署，也避免了依赖共享库。</p></li>
+</ol>
+
+
+<h2>可达性报告反模式-Reach-in Reporting</h2>
+
+<p>微服务中各个服务以及其相应的数据都是包含在一个单独的边界上下文中的，也就是说数据是隔离到多个数据库中的。因此，这也会使得收集微服务的各种数据生成报告变得相对困难。一般来说有四种方案解决这个问题。其中，前三种是这里所说的“”都是从各个微服务中拉取数据，因此此反模式被称作“reach-in reporting”。</p>
+
+<ol>
+<li><p>数据库拉取模式</p>
+
+<p> <img src="/post_images/ms-anti/database-pull.png" alt="" /></p>
+
+<p> 报告服务直接总各个服务的数据库中拉取数据从而生成各种报告。此种方式简单迅速，但是会让报告服务和业务服务相互依赖，是一种数据库共享集成风格（通过共享的数据库将多个应用耦合在一起）。如此一旦数据库有改动，所有相关服务都要改动，也就打破了微服务中极为重要的边界上下文。</p></li>
+<li><p>HTTP拉取模式</p>
+
+<p> <img src="/post_images/ms-anti/http-pull.png" alt="" /></p>
+
+<p> 与数据库拉取模式相比，此种方式不再是直接去访问服务的数据库，而是通过rest HTTP接口去请求服务的数据。此种方式能够保持服务的边界上下文，但是性能比较慢，而且HTTP请求无法很好的承载大数据。</p></li>
+<li><p>批量拉取模式</p>
+
+<p> <img src="/post_images/ms-anti/batch-pull.png" alt="" /></p>
+
+<p> 此种方式会有一个单独的报告数据库/数据仓库来存储各个服务的聚合数据。会通过一个批量任务（离线或者基于增量实时）将服务更新的数据导入到报告数据库/数据仓库中。与数据库拉取模式一样，此种方式这也是一种数据库共享集成风格，会打破服务的边界上下文。</p></li>
+<li><p>异步事件推送模式</p>
+
+<p> <img src="/post_images/ms-anti/event.png" alt="" /></p>
+
+<p> 此种方式即解决“Reach-in reporting&#8221;反模式的方案。每个服务都把自己的发生的事件异步推送给一个数据捕获服务中即可，后续数据捕获服务会将数据解析存储到报告数据库中。此种方式实现起来较复杂，需要在服务和数据捕获服务之间制定一种协议用于异步传输事件数据。但其能够保持服务的边界上下文，同时也能保证数据的时效性。</p></li>
+</ol>
+
+
+<h2>沙粒陷阱-Grains of Sand</h2>
+
+<p>微服务实现中最有挑战的问题在于如何拆分service，如何控制服务的粒度，而正确的服务粒度则决定了微服务是否能够成功实现。服务粒度也能够影响到性能、健壮性、可靠性、易测试性、部署等。</p>
+
+<p>“沙粒陷阱”即把服务拆分的太细。其中的一个原因就是很多时候开发者会把一个class与一个服务等同。合理的，应该是一个服务组件(Service component)对应一个服务。一个服务组件具有清晰、简洁的角色、职责，具有一组定义好的操作。其一般通过多个模块(Java Class)实现。如果组件和模块是一对一的关系，那么不仅仅会造成服务粒度过细同时也是一种不好的编程实践：服务的实现都是通过一个Class，那么此Class会非常大并且承担太多的责任，不利于测试和维护。</p>
+
+<p>更进一步的，服务的粒度并不应该受其中实现类的数目影响：有些服务可能只需要一个类就可以实现，而有些服务会需要多个类来实现。</p>
+
+<p>为了避免“沙粒陷阱”，可以通过以下三种测试来判断服务粒度是否合理：</p>
+
+<ol>
+<li><p>分析服务范围和功能</p>
+
+<p> 主要是要明确服务用来干什么？有哪些操作？一般通过使用文档或者语言来描述服务的范围和功能就能够看出来服务是否做的太多。如果在描述中使用了“和”（“and”）或者“此外”（“in addition”）之类的词，很有可能就是此服务做的太多。</p>
+
+<p> 服务的高内聚是一种良好的实践，其明确一个服务提供的操作之间须要是有关联的。如对于一个顾客服务，有以下操作：</p>
+
+<ul>
+<li>添加顾客</li>
+<li>更新顾客信息</li>
+<li>获取顾客信息</li>
+<li>通知顾客</li>
+<li>记录顾客评论</li>
+<li>获取顾客评论</li>
+</ul>
+
+
+<p> 其中，对于前三个操作都是对顾客的CRUD操作，是相关联的。而后三者则无关。为了实现服务的高内聚，合理的应该是把此服务拆分成三个服务：顾客维护、顾客通知、顾客评论。</p>
+
+<p> 如此，一开始以粗粒度的服务开始，然后逐渐拆分成细粒度的服务能够有利于对微服务的拆分。</p></li>
+<li><p>分析数据库事务</p>
+
+<p> 传统的关系型数据库都提供了ACID事务特性用于把多个更新操作打包成一个整体提交，要么都成功，要么都失败。而在微服务中，由于服务都是一个个分离的应用，是很难实现ACID的，一般都是实现BASE事务（basic avalability、soft state、eventual consistence）即可。但是无法避免的，仍然会有一些场景是需要ACID的。因此，当你不断的需要在BASE和ACID事务做判断、取舍的时候，很有可能就是服务粒度过细。</p>
+
+<p> 如果业务常见无法接受最终一致性，那么最好就是讲服务粒度粗化一些，把多个更新操作放到一个服务中。</p></li>
+<li><p>分析服务编排</p>
+
+<p> 这里主要说的是服务之间的互相通信。由于对服务的调用都是一次远程调用，因此服务编排会非常大的影响微应用总体的性能。此外，它也会影响系统整体的健壮性和可靠性，越多的远程调用，那么越高的几率会有失败或者超时的请求出现。</p>
+
+<p> 如果发现完成一次业务逻辑需要调用太多的远程服务，就说明服务的粒度可能太细了。这时候就需要将服务粗化。而合并细粒度服务还能够提高性能，提升总体的健壮性和可靠性，并且减少了了多个服务间的依赖，更利于测试、部署。</p>
+
+<p> 此外，使用响应式编程技术异步并行调用远程服务也是一种提升性能和可靠性的方案。</p></li>
+</ol>
+
+
+<h2>无因的开发者陷阱-Developer Without a Cause</h2>
+
+<p>此陷阱主要讲的是开发者或者架构师在做设计时很多时候是拍脑袋在做，没有任何合理的原因或者原因是错误的，也不会做取舍。而想要解决此问题，不仅仅是架构师，开发者也需要同时了解技术带来的好处以及折中。</p>
+
+<p>了解业务驱动是避免此陷阱的关键一步。每一个开发者和架构师都应该清楚的了解下面这些问题的答案：</p>
+
+<ul>
+<li>问什么要使用微服务？</li>
+<li>最重要的业务驱动是什么？</li>
+<li>架构中的哪一点是最为重要的？</li>
+</ul>
+
+
+<p>假如易部署性、性能、健壮性、可扩展性是系统最看重的特性，那么对于不同的业务侧重点，微服务的粒度需求也是不同的。细粒度的服务能够达到更好的易测试性和易部署性，而粗粒度的服务则能够有更好的性能、健壮性以及可靠性。</p>
+
+<h2>追随流行陷阱-Jump on the Bandwagon</h2>
+
+<p>微服务是目前非常流行的架构理念，越来越多的公司也都在紧跟这个潮流纷纷转型微服务架构，而不管到底自己是否真的需要。为了避免此陷阱，需要首先了解微服务的优点和缺点。</p>
+
+<p>优点：</p>
+
+<ul>
+<li>易部署：容易部署是微服务的一个很大的优点。毕竟相比起一个庞大的单体应用，一个小并且职责单一的微服务的部署非常简单并且带来的风险小很多。而持续部署技术则进一步放大了这个有点。</li>
+<li>易测试：一个职责单一、共享依赖少是的测试一个微服务也是很容易的。而基于微服务做回顾测试与单体大应用相比也是很容易的。</li>
+<li>控制变更：每个服务的范围和边界上下文使得很容易控制服务的功能变动。</li>
+<li>模块化：微服务就是一个高度模块化的架构风格。这种风格也是一种敏捷方式的表达，能够很快的响应变化。一个系统模块化程度越高，那就越容易测试、部署和发布变更。一个服务粒度划分隔离的微服务系统是所有架构中模块化程度最高的架构形式。</li>
+<li>可扩展性：由于每一个服务都是一个职责单一的细粒度服务，因此此种架构风格是所有架构分隔中可扩展性最高的。其非常容易扩展某一个或者某几个功能从而满足整体系统的需求。而得益于服务的容器化特性以及各种运维监控工具，服务能够自动化进行启动和关闭。</li>
+</ul>
+
+
+<p>缺点：</p>
+
+<ul>
+<li>组织变动：微服务需要组织在很多层面进行变动。研发团队需要包含UI、后端开发、规则处理、数据库处理建模等职位，从而使得一个小的团队能够具有实现微服务的所有技术。同时，传统的单体、分层应用架构的软件发布流程也需要更新为自动化、高效的部署流水线。</li>
+<li>性能：由于服务都是隔离的，因此发起对服务的远程调用肯定是会影响性能的。服务编排、运行环境都是影响性能的很大因素。了解远程调用的延迟、需要与多少服务通信都了解性能需要掌握的信息。</li>
+<li>可靠性：和性能一样。服务的远程调用阅读，那么失败的几率就越高，总体的可靠性就会越低。</li>
+<li>DevOps：随着微服务架构而来的会是成千上百的服务。手动管理这么多的服务是很不现实的。这就对于自动化运维部署、协作提出了很高的挑战。需要使用非常多的操作相关的工具和实践，是一个非常复杂的工作。目前差不多有12种操作工具和框架使用在微服务架构中，其中每一种又包含了很多具体的工具和产品供选择。例如，有监控工具、服务注册、发现工具、部署工具等等。对于这些工具和框架的选择一般都会需要将近数月的研究、测试、权衡分析才能选出最适合的技术选型。</li>
+</ul>
+
+
+<p>了解了微服务的优缺点后，下一步则需要根据实际的业务来分析微服务是不是解决这些问题的最佳方案。可以采取以下问题：</p>
+
+<ul>
+<li>业务和技术的目标是什么？</li>
+<li>使用微服务是为了完成什么？</li>
+<li>目前和可预知的痛点是什么？</li>
+<li>应用的最关键的技术特性是什么？（性能、易部署性、易测试性、可扩展性）</li>
+</ul>
+
+
+<p>回答这些问题再结合微服务的优缺点能够让你明确现在是否是使用微服务的适当时机。</p>
+
+<p>除了微服务以外，还有其他7种比较普遍使用的架构供选择：</p>
+
+<ul>
+<li>基于服务的架构（Service-Baased）</li>
+<li>面向服务的架构（Service-Oriened）</li>
+<li>分层架构（Layered）</li>
+<li>微内核架构（Microkernel）</li>
+<li>基于空间的架构（Space-Based）</li>
+<li>事件驱动架构（Event-Driven）</li>
+<li>流水线架构（Pipeline）</li>
+</ul>
+
+
+<h2>静态合约陷阱-Static Contract</h2>
+
+<p>微服务的消费方和服务提供方之间会有一个合约/协议用来规定输出输出数据的格式、操作名称等等。一般情况下这个合约是不变的。但是如果你没有使用版本号来管理服务接口，那么很容进入“静态合约”陷阱。</p>
+
+<p>给合约打上版本标记不仅仅能够避免巨大的变动（服务提供方修改合约使得所有消费方也都得修改），还能够提供向后兼容性。这里有两种技术可以实现合约的版本号：</p>
+
+<ul>
+<li><p>在头部信息附加版本号</p>
+
+<p>  <img src="/post_images/ms-anti/header-version.png" alt="" /></p>
+
+<p>  如图，此种方式即在远程访问协议的头部添加版本信息。而如果远程协议使用的是REST，那么还可以使用vendor mime type（vnd）来指定合约的版本号。如下：</p>
+
+<pre><code class="``">  POST /trade/buy
+  Accept: application/vnd.svc.trade.v2+json
+</code></pre>
+
+<p>  服务接受到请求，能够通过正则等手段简单解析出其中的合约版本号再根据版本号做相应的处理。</p>
+
+<p>  而如果使用消息队列，那么可以将版本号放置在属性部分(Property section)。JMS的一个例子如下：</p>
+
+<pre><code class="``">  String msg = createJSON("acct","12345","sedol","2046251","shares","1000");
+  jsmContext.createProducer()
+      .setProperty("version",2)
+      .send(queue,msg);
+</code></pre></li>
+<li><p>在合约本身中附加版本号</p>
+
+<p>  <img src="/post_images/ms-anti/schema-version.png" alt="" /></p>
+
+<p>  此种方式版本号独立于远程访问协议，与头部信息版本号相比，这也是其最大的优点。但与此同时，其缺点比较多。首先要从请求信息主体中解析版本号，会出现很多解析的问题。其次，合约的模式可能会非常复杂，使得很难做数据转换。最后，服务要引入对模式的验证逻辑。</p></li>
+</ul>
+
+
+<h2>我们到了吗陷阱-Are We There Yet</h2>
+
+<p>微服务架构中，各个服务都是独立的个体，也就意味着所有客户端或者API层和服务之间的通信都是一次远程调用。如果对这些远程调用的耗时没有什么概念，那么就陷入了“Are We There Yet”陷阱。合理的做法需要去测试注入长尾延迟（95%、99%、99.%之外的请求延迟）、平均延迟等指标。很多时候即使是有很好的平均延迟，但是较差的长尾延迟会造成很大的破坏。</p>
+
+<p>在生产环境或者准生产环境有助于去了解应用的真实性能。例如，一个业务请求需要调用四个服务，假设一个服务调用的延迟是100毫秒，那么加上业务请求本身的延迟，完成此次业务请求共需要500毫秒的延迟。</p>
+
+<p>了解目前所用协议的平均延迟是一方面，另一方面则需要对比其他远程协议的延迟，从而在合适的地方使用合适的协议。如：JMS、AMQP、MSMQ。</p>
+
+<p><img src="/post_images/ms-anti/comparing-protocol.png" alt="" /></p>
+
+<p>如图，AMQP协议的性能是最好的。那么结合业务场景，就可以选择REST作为客户端与服务间的通信协议，AMQP做为服务之间的通信协议以提高应用的性能。</p>
+
+<p>当然，性能并非在选择远程协议时唯一考虑的因素。下一节中也会考虑利用消息队列的一些额外功能。</p>
+
+<h2>REST使用陷阱-Give It a Rest</h2>
+
+<p>REST现在是微服务中用的最多的通信协议，包括服务之间的通信。而流行的开发框架如DropWizard、Spring Boot都提供了REST支持。但是如果只选择REST这一种协议，不去考虑其他诸如消息队列的优势，那么久陷入了“REST使用”陷阱。毕竟异步通信、广播、合并请求到一个事务这些需求，REST是很难满足的。</p>
+
+<p>消息队列标准目前包括平台特定和平台无关两种。前者包括Java平台中的JMS和C#平台的MSMQ，后者则是AMQP。对于平台特定的消息标准JMS，其规范了API，因此切换broker实现（ActiveMQ、HornetQ）时无需修改API，但由于底层通信协议是不同的，集成的客户端或者服务端jar包需要随着修改。对于平台无关的消息标准，其规范了协议实现标准，并没有规范API。使得不同平台之间都可以互相通信，而不管实际产品是什么。如一个使用了RabbitMQ的客户端可以很容易地与一个StormMQ通信（假设使用的协议相同）。也就是其独立于平台的特性使得RabbitMQ成为微服务架构中最流行的消息队列。</p>
+
+<ol>
+<li><p>异步请求</p>
+
+<p> 异步通信是消息队列适用的场景之一。服务消费者发起请求后无需等待服务方响应能够提高总体的性能，同时调用方无需担心调用超时或者使用断路器，从而提高了系统的可靠性。</p></li>
+<li><p>广播</p>
+
+<p> 将消息广播给多个service是消息队列的又一个适用场景。一个消息生产者向多个消息接受者发送消息，无需知道谁在接受消息以及如何处理它。</p></li>
+<li><p>事务请求</p>
+
+<p> 消息系统提供了对事务消息的支持：如果多个消息被发送到了在一个交易上下文的多个队列或者主题中时，那么直到消息发送者commit，服务才会真正的接受到相应的所有消息（在commit之前会一直保存在队列中）。</p>
+
+<p> 因此对于服务消费者需要合并多个远程请求到一个事务中的场景可以选择事务消息。</p></li>
+</ol>
+
+
+<p><img src="/post_images/book-all.png" width="400"/></p>
+</div>
+<div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2018/05/12/java-tech-overview/" title="下一篇: Java后端技术概览">Java后端技术概览 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<div style="margin-bottom: 10px">
+		<h4 style="margin: 0px !important">梳理Java体系知识，沓实架构基础</h4>
+		<a href="/blog/2018/04/01/pje-release/"><img src="/post_images/book.png" width="150"/></a>
+	</div>
+	<p>中华万年历技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">Java研发!!!</a>，感兴趣者可发送简历到<a href="mailto:hang@etouch.cn">hang@etouch.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+		<h4 style="margin: 0px !important">关注公众号，及时获取最新文章</h4>
+		<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" id="imgQR"/>
+	</div>
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+<iframe width="100%" height="90" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=90&fansRow=2&ptype=1&speed=0&skin=5&isTitle=0&noborder=1&isWeibo=0&isFans=0&uid=1307023714&verifier=cc8c1592&dpc=1"></iframe>
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2018/06/02/microservice-pitfall/">微服务的十个反模式和陷阱</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/05/12/java-tech-overview/">Java后端技术概览</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/04/25/arch-usage/">架构简明指南</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/04/13/how-to-study-tech/">如何学习后端技术？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/04/01/pje-release/">如何成为一名合格的Java工程师?</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/03/15/blockchain/">浅析区块链</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/03/10/regx/">正则表达式简明指南</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/02/06/2017books/">2017年读过的书</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/01/04/king-rec-pois-wine/">如何快速尝出毒酒？- 用bit解决问题</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/01/01/tech-talk/">技术琐话2018-01-01</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2018 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "微服务的十个反模式和陷阱",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getRecentCommentsList(opt);
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
