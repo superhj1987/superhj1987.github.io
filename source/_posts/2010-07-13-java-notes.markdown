@@ -81,6 +81,10 @@ categories: java
 每个对象都有一个默认的散列码，其值为对象的存储地址
 35. 两个相等的对象要求必须返回一个相等的散列码
 36. 自动打包规范要求boolean byte char=0:x;
+37. 同步器：
+	- CountDownLatch：利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能。
+	- CyclicBarrier：字面意思为回环栅栏，通过它可以实现让一组线程等待至某个状态之后再全部同时执行。叫做回环是因为当所有等待线程都被释放以后，CyclicBarrier可以被重用。我们暂且把这个状态就叫做barrier，当调用await()方法之后，线程就处于barrier。
+	- Semaphore：信号量，Semaphore可以控制同时访问的线程个数，通过acquire()获取一个许可，如果没有就等待。通过release()释放一个许可。
 37. 四个基本的抽象流类：InputStream OutputStream Reader Writer(这些对象由其他方法返回)
 38. 注意流过滤器的运用
 39. 对象序列化：ObjectOutputstream ObjectInputStream writeObject() readObject()
