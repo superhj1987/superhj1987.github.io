@@ -195,7 +195,7 @@
 
 <h2>共享反模式-I Was Taught to Share</h2>
 
-<p>微服务被普遍认为是一种不共享任何东西的架构。但实际上只能是尽可能地少共享，毕竟在某些层面代码被多个服务共享也能带来一定好处。例如，与单独部署一套安全服务（验证和认证）其他所有服务都通过远程访问此服务相比，把安全相关的功能封装成jar包（security.jar），然后其他服务都集成此jar包，就能够避免每次都要发起对安全服务的访问，从而提高性能和可靠性。但后面的方案带来的问题就是依赖噩梦：每一个服务都依赖多个自定义的jar包。如此不仅打破了服务之间的边界上下文，同时也引入了诸如总体可靠性、变更控制、易测试性、部署等问题。</p>
+<p>微服务被普遍认为是一种不共享任何东西的架构。但实际上只能是尽可能地少共享，毕竟在某些层面代码被多个服务共享也能带来一定好处。例如，与单独部署一套安全服务（认证和授权）其他所有服务都通过远程访问此服务相比，把安全相关的功能封装成jar包（security.jar），然后其他服务都集成此jar包，就能够避免每次都要发起对安全服务的访问，从而提高性能和可靠性。但后面的方案带来的问题就是依赖噩梦：每一个服务都依赖多个自定义的jar包。如此不仅打破了服务之间的边界上下文，同时也引入了诸如总体可靠性、变更控制、易测试性、部署等问题。</p>
 
 <p>在一个使用面向对象编程语言的单体应用中，使用abstract类和接口实现代码复用和共享是一个良好的实践。但当从单体切换到微服务架构时，对于很多自定义的共享类和工具类（日期、字符串、计算）的处理要考虑到微服务间共享的东西越少越有利于保持服务间的边界上下文，从而更利于快速测试和部署。以下是几种推荐的方式，也是解决“共享反模式”的方案：</p>
 
@@ -496,6 +496,8 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     
     <div class="meta">
       
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2018/06/07/reactive-microservice/" title="上一篇: 响应式微服务架构-分布式系统设计原则">&laquo; 响应式微服务架构-分布式系统设计原则 </a>
+      
       
         <a class="basic-alignment right" style="float:right !important" href="/blog/2018/05/12/java-tech-overview/" title="下一篇: Java后端技术概览">Java后端技术概览 &raquo;</a>
       
@@ -576,6 +578,10 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/06/07/reactive-microservice/">响应式微服务架构-分布式系统设计原则</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/06/02/microservice-pitfall/">微服务的十个反模式和陷阱</a>
       	</li>
     	
@@ -609,10 +615,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2018/01/04/king-rec-pois-wine/">如何快速尝出毒酒？- 用bit解决问题</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/01/01/tech-talk/">技术琐话2018-01-01</a>
       	</li>
     	
 	</ul>
