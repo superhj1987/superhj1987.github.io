@@ -587,7 +587,7 @@
 <h3>3.3 调优经验</h3>
 
 <ul>
-<li>需要打开gc日志并读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCTimeStamp -Xloggc:$CATALINA_BASE/logs/gc.log</li>
+<li>需要打开gc日志并读懂gc日志：-XX:PrintHeapAtGC -XX:+PrintGCDetails -XX:+PrintGCTimeStamps -Xloggc:$CATALINA_BASE/logs/gc.log</li>
 <li>垃圾回收的最佳状态是只有young gc，也就是避免生命周期很长的对象的存在。</li>
 <li>从young gc开始，尽量给年青代大点的内存，避免full gc</li>
 <li>注意Survivor大小</li>
