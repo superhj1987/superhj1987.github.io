@@ -68,17 +68,8 @@ categories: java
 
 ## 五. 性能优化与诊断-JVM
 
-- [《Java性能优化权威指南》](https://book.douban.com/subject/25828043/)
-
-	学习内容：
-
-	+ JVM概述
-	+ JVM性能监控
-	+ JVM性能剖析与工具
-	+ JVM参数与调优步骤
-	+ JVM调优案例分析
-
-- [《深入理解Java虚拟机(第二版)》](https://book.douban.com/subject/24722612/)
+- [《Java性能权威指南》](https://book.douban.com/subject/26740520/): Java性能调优的权威书籍，几乎涵盖了Java调优的方方面面。
+- [《深入理解Java虚拟机(第二版)》](https://book.douban.com/subject/24722612/): 讲解了JVM的内存、GC、字节码、编译器等高级特性和优化实践。
 
 ## 六. 消息中间件
 
