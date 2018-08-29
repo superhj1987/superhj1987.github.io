@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "管理的一些要点"
-date: 2018-08-29 19:29:34 +0800
+date: 2018-07-28 19:29:34 +0800
 comments: true
 categories: work
 ---
