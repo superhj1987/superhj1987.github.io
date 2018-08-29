@@ -14,8 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="基于内容和用户画像的个性化推荐 Apr 7th, 2016 目前比较流行的个性化推荐算法有以下几种： 基于内容的推荐：根据内容本身的属性(特征向量)所作的推荐。
-基于关联规则的推荐：“啤酒与尿布”的方式，是一种动态的推荐，能够实时对用户的行为作出推荐。是基于物品之间的特征关联性所做的推荐， &hellip;">
+  <meta name="description" content="谈谈Java内存管理 May 7th, 2016 目录 一. 背景知识
+二. Jvm虚拟机内存简介
+三. 垃圾收集
+四. Java7、8带来的一些变化 对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -113,6 +115,60 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-05-07T14:59:44+08:00" pubdate data-updated="true">May 7<sup>th</sup>, 2016</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
+<li><a href="#%E4%BA%8C.%20Jvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B">二. Jvm虚拟机内存简介</a></li>
+<li><a href="#%E4%B8%89.%20%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">三. 垃圾收集</a></li>
+<li><a href="#%E5%9B%9B.%20Java7%E3%80%818%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%98%E5%8C%96">四. Java7、8带来的一些变化</a></li>
+</ul>
+
+
+<p><img src="/images/blog_images/javamm/java.jpg" alt="java" /></p>
+
+<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/05/07/javamm/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -609,52 +665,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2015/09/09/load-analysis/">系统负载能力浅析</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2015-09-09T18:42:58+08:00" pubdate data-updated="true">Sep 9<sup>th</sup>, 2015</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p><strong><em>&mdash;本文于2015.12.23最新更新&mdash;</em></strong></p>
-
-<p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
-
-<p>那么，何为系统负载能力？怎么衡量？相关因素有哪些？又如何优化呢？</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2015/09/09/load-analysis/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -734,6 +744,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/08/29/manage-notes/">管理的一些要点</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/06/07/reactive-microservice/">响应式微服务架构-分布式系统设计原则</a>
       	</li>
     	
@@ -767,10 +781,6 @@
     	
      	<li>
       	  <a href="/blog/2018/02/06/2017books/">2017年读过的书</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/01/04/king-rec-pois-wine/">如何快速尝出毒酒？- 用bit解决问题</a>
       	</li>
     	
 	</ul>

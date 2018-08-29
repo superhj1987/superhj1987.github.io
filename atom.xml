@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-07-15T11:40:17+08:00</updated>
+  <updated>2018-08-29T23:19:11+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,70 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[管理的一些要点]]></title>
+    <link href="http://www.rowkey.me/blog/2018/08/29/manage-notes/"/>
+    <updated>2018-08-29T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/08/29/manage-notes</id>
+    <content type="html"><![CDATA[<p>去年以及今年由于工作需要，参加了公司请的美国管理协会的《高价值经理人》及敏捷OKR绩效管理的培训课程，此外也阅读了《格鲁夫给管理人的第一课》、《架构即未来》、《技术管理之巅》、《OKR：源于英特尔和谷歌的目标管理利器》几本书。总体来看很多管理的理论其实日常自己也在实践，不过这些书的确让自己形成了自己的管理体系，能够有序有法的进行一些管理实践。本文从通用管理和技术管理两部分总结其中最让自己感到受用的几点心得。</p>
+
+<!--more-->
+
+
+<h2>通用管理</h2>
+
+<ul>
+<li><p>管理是推，领导是拉，领导设定目的地和通往目的地的路线图，管理设法达到目的地。</p></li>
+<li><p>有效的管理是在期望的时间以可能的最低成本完成期望的品质。</p></li>
+<li><p>任何工作都有产出，需要设定好指标衡量产出。疏与度量注定事情永远不会改变。</p></li>
+<li><p>在一件事情越早的环节发现问题那么解决问题的成本就越小。</p></li>
+<li><p>作为管理人员，要去做高杠杆率的事情，比如传授技能、知识、价值观等。</p></li>
+<li><p>会议分为两种：过程导向会议和任务导向性会议。前者是规律化的，是有必要的，可以选择效率高的方式；后者是临时的，需要尽量减少此种会议。</p></li>
+<li><p>凡是有会议每个参会者都要有会议记录，可以防止开会的时候开小差。</p></li>
+<li><p>全体会议一定要有一个主持者，避免陷入两人交谈。主持者最好是一个职位较高的人，可以避免同级全体综合征。</p></li>
+<li><p>规律周期性的一对一沟通是非常有必要的，尤其是对于不喜欢主动沟通的属下。</p></li>
+<li><p>需要建立有效沟通机制和处理问题的模式，如例会，避免下属缺乏反应问题的渠道而抱怨。</p></li>
+<li><p>将员工可以划分为四象限，不同的人适用的管理方法是不一样的。对于第一象限的人，需要提供其更多的机会，做好适当的监督即可；对于第二象限的人需要给予工作上的指导，使其能够走到第一象限；对于第三象限的人，需要解决其心理问题；对于第四象限的人则需要谈话改进。</p>
+
+<p>  <img src="http://www.rowkey.me/post_images/readiness.png" alt="" /></p>
+
+<p>  总体来说，要做第一和第二象限的人。坚决杜绝成为第四象限的人。</p></li>
+<li><p>需要根据工作成熟度的不同，适当的干涉下属工作，做好必要的监督。</p></li>
+<li><p>可以把权利下放，但必须对其结果承担所有的责任。把赞扬留给团队，承认失败并公开的承担责任。</p></li>
+<li><p>推行某种制度/规范的时候合理的做法是先降一个力度，等适应后再100%推行。</p></li>
+<li><p>敏捷性组织有利于可扩展的组织架构。</p></li>
+<li><p>亚马逊的两张比萨饼团队：任何一个团队的规模不能大过两张比萨所能喂饱的人数，超过则需要拆分。</p></li>
+<li><p>AKA（All Know All Things）。要营造一种公开、公平的氛围，不搞遮遮掩掩的事情，让大家都知道所有的事情。</p></li>
+<li><p>混血性组织（组织之间有人员交叉，在不同的组织中担任不同的角色）需要双重汇报。</p></li>
+<li><p>决策权利不能仅仅靠职位决定，还需要考虑专业技能和知识。</p></li>
+<li><p>使用KPI做绩效考核如果遇到诸如难以打分、沟通不畅、抱怨强制分配等问题可以采用OKR做考核管理。</p></li>
+<li><p>借鉴Google，可以采取<strong>半年绩效考核（自评+他评）+OKR->总分</strong>的方式做考核。其中采取半年的节奏是一方面是为了和OKR季度回顾的频率错开，另一方面对于某个重大失误可以凭借后续的其他贡献做中和；自评是需要自己陈述考核周期内的工作，他评需要被考核人邀请和自己工作相关的n个人给自己打分/评价；OKR部分的最终得分只是作为参考；总分最后由直属Leader综合考虑几个方面打出。</p></li>
+</ul>
+
+
+<h2>技术管理</h2>
+
+<ul>
+<li><p>公司不同时期的重点技术工作</p>
+
+<ul>
+<li>初创期：开发产品原型，做技术储备</li>
+<li>发展期：保障产品升级、制定技术服务体系，处理业务部门的需求和抱怨</li>
+<li>成熟期：技术产品创新效率的提升</li>
+</ul>
+</li>
+<li><p>技术需要与业务高度融合，需要培训懂业务的技术专家，切忌离开业务空谈技术。</p></li>
+<li><p>十人以上技术团队可以采取轮岗来提高大家的技术热情和技术广度，但需要做好岗前培训，尤其对于技术门槛较高的岗位。</p></li>
+<li><p>理解事故和问题的区别。事故需要立刻解决，而问题是要找到事故的原因。</p></li>
+<li><p>以价值为导向，建立需求管理闭环，给业务需求方设定信用分，价值预估，上线后进行价值验证以判定价值达成率，从而直接影响信用分。</p></li>
+<li><p>面试可以采取行为面试法，即给予实际案例看其解决问题的专业能力和思维能力。</p></li>
+<li><p>技术团队超过300人需要建立职业发展体系、能力发展体系以及培训发展体系。</p></li>
+<li><p>技术管理者需要发展三方面能力：专业能力、领导能力以通用能力（沟通能力、执行力、团队协作、责任心等）。</p></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[响应式微服务架构-分布式系统设计原则]]></title>
@@ -1692,7 +1756,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#104;&#97;&#x6e;&#x67;&#64;&#x65;&#116;&#111;&#117;&#99;&#104;&#46;&#99;&#x6e;">&#104;&#x61;&#x6e;&#x67;&#x40;&#x65;&#x74;&#x6f;&#x75;&#x63;&#104;&#46;&#99;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#104;&#97;&#110;&#103;&#x40;&#101;&#x74;&#111;&#x75;&#x63;&#x68;&#x2e;&#x63;&#x6e;">&#104;&#x61;&#x6e;&#x67;&#x40;&#101;&#116;&#x6f;&#x75;&#x63;&#104;&#x2e;&#x63;&#x6e;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
@@ -3235,44 +3299,6 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
 
 
 <p>英文原文：<a href="https://dzone.com/articles/put-your-java-8-method-references-to-work">https://dzone.com/articles/put-your-java-8-method-references-to-work</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[谈谈架构]]></title>
-    <link href="http://www.rowkey.me/blog/2017/08/24/arch/"/>
-    <updated>2017-08-24T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/08/24/arch</id>
-    <content type="html"><![CDATA[<p>之前开头的《架构设计原则》一文一直没有把坑填上。而最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述，正好算是对此文的完成和补充。</p>
-
-<p><a href="http://www.rowkey.me/arch-ppt/index.html" target="_blank">PPT观看</a></p>
-
-<!--more-->
-
-
-<p><img src="http://www.rowkey.me/images/blog_images/arch/arch-2.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-3.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-4.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-5.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-6.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-7.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-8.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-9.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-10.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-11.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-12.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-13.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-14.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-15.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-16.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-17.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-18.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-19.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-20.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-21.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-22.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-23.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/arch/arch-24.jpeg" alt="" /></p>
 ]]></content>
   </entry>
   
