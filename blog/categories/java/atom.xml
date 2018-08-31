@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-08-31T11:34:12+08:00</updated>
+  <updated>2018-08-31T11:54:28+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -676,7 +676,7 @@
 </code></pre>
 
 <p>  如此，依赖于suishen-lib的项目除非在自己的pom里显示声明，否则不会依赖于httpasyncclient。</p></li>
-<li><p>由于Maven自定义plugin的复杂度，不够灵活，因此很多时候都是结合ant的灵活性和maven一起使用的。</p>
+<li><p>由于Maven自定义plugin的复杂度，不够灵活，因此很多时候都是结合Ant的灵活性和Maven一起使用的。</p>
 
 <pre><code class="``">  &lt;target name="compile" depends="clean"&gt;
     &lt;exec executable=“mvn"&gt;
@@ -705,8 +705,6 @@
 <li>可以使用第三方的takari/maven-wrapper(<code>mvn -N io.takari:maven:wrapper -Dmaven=3.3.3</code>)来做Maven操作（<code>./mvnw clean</code>），从而可以达到类似gradle wrapper的功能：不用预先安装好Maven，还能够统一项目所使用的Maven版本。</li>
 </ul>
 
-
-<p>Maven常用命令介绍请见附录A。</p>
 
 <h2><a name='三. Gradle'></a>三. Gradle</h2>
 
