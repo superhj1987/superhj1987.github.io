@@ -637,7 +637,7 @@ Maven提供了很多插件方便开发工作。
     ```
     如此，依赖于suishen-lib的项目除非在自己的pom里显示声明，否则不会依赖于httpasyncclient。
     
-- 由于Maven自定义plugin的复杂度，不够灵活，因此很多时候都是结合ant的灵活性和maven一起使用的。
+- 由于Maven自定义plugin的复杂度，不够灵活，因此很多时候都是结合Ant的灵活性和Maven一起使用的。
 
     ```
     <target name="compile" depends="clean">
@@ -666,8 +666,6 @@ Maven提供了很多插件方便开发工作。
     </project>
     ```
 - 可以使用第三方的takari/maven-wrapper(`mvn -N io.takari:maven:wrapper -Dmaven=3.3.3`)来做Maven操作（`./mvnw clean`），从而可以达到类似gradle wrapper的功能：不用预先安装好Maven，还能够统一项目所使用的Maven版本。
-    
-Maven常用命令介绍请见附录A。
 
 ## <a name='三. Gradle'></a>三. Gradle
 
