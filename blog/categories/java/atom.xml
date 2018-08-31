@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-08-29T23:23:18+08:00</updated>
+  <updated>2018-08-31T11:24:12+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,830 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java中如何进行项目构建？]]></title>
+    <link href="http://www.rowkey.me/blog/2018/08/30/build-java/"/>
+    <updated>2018-08-30T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/08/30/build-java</id>
+    <content type="html"><![CDATA[<p>对于一个完整的项目来说，一般都有很多的类、很多的包，如果是Web工程那么还有很多jsp、资源文件。这时候如果只用JDK自带的工具编译和运行，是非常困难的一件事前。再者，编译源代码只是软件开发过程的一个方面，更重要的是要把软件发布到生产环境中来产生商业价值。所以，代码编译之后，还有测试、分析代码质量、部署等步骤要做。整个过程进行自动化操作是很有必要的。</p>
+
+<p>这时候就需要一个Java的工程/项目构建工具。这里所谓的项目构建就是指的完成工程发布流程需要的一系列步骤，包括编译、测试、打包、部署等等。虽然用Eclipse和Intellij这些IDE能解决这个问题，但是受限于这些IDE体积庞大且基本上都是GUI的，而后端应用的运行环境基本都是没有显示器的，所以很多时候还是需要一些专门做项目构建的工具来支持这些工作。</p>
+
+<!--more-->
+
+
+<h2>一. Ant</h2>
+
+<h3>介绍</h3>
+
+<p>Ant的全称是Another Neat Tool，意为另一个好用的工具，是Java中比较常用的项目构建工具。构建过程包括编译、测试和部署等。概括来看具有以下三个特点：</p>
+
+<ul>
+<li>和传统的Make工具相似，能为我们完成工程发布流程中一系列机械工作。并且具有良好的跨平台特性。</li>
+<li>使用XML来表述构建过程与依赖关系，用task替代shell，语义清晰，便于维护。</li>
+<li>具有强大的任务系统，便于扩展。其中，task以Java class的形式存在。</li>
+</ul>
+
+
+<p>为了方便使用，Ant自带了很多默认的task，如：</p>
+
+<ul>
+<li>echo: 输出信息</li>
+<li>mkdir: 创建文件夹</li>
+<li>exec: 执行shell命令</li>
+<li>delete: 删除文件</li>
+<li>copy: 复制文件</li>
+</ul>
+
+
+<p>通过组合这些默认task和自己实现的task就能够完成Java项目的构建任务。</p>
+
+<h3>使用示例</h3>
+
+<p>使用Ant需要编写build.xml来配置任务流程。当然，可以通过-f参数指定其他配置文件作为任务流程描述文件。一个Ant的配置文件如下：</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;project name="helloWorld" basedir="." default="usage"&gt;
+    &lt;property name="mvn" value="mvn"/&gt;
+    &lt;property name="script.lock" value="/build_home/scripts/lock"/&gt;
+
+    &lt;target name="usage" description="Prints out instructions"&gt;
+        &lt;echo message="使用 'lock' 加锁"/&gt;
+        &lt;echo message="使用 'unlock' 解锁"/&gt;
+        &lt;antcall target="compile"&gt;
+            &lt;param name="profile" value="test"/&gt;
+        &lt;/antcall&gt;
+    &lt;/target&gt;
+
+    &lt;target name="lock"&gt;
+        &lt;exec dir="${basedir}" executable="${script.lock}" errorproperty="lock.err"/&gt;
+        &lt;fail message="u can use 'ant unlcok to force redeploy'...'"&gt;
+            &lt;condition&gt;
+                &lt;contains string="${lock.err}" substring="locked"/&gt;
+            &lt;/condition&gt;
+        &lt;/fail&gt;
+    &lt;/target&gt;
+
+    &lt;target name="unlock"&gt;
+        &lt;delete file="${basedir}/.lock"/&gt;
+    &lt;/target&gt;
+
+    &lt;target name="compile"&gt;
+        &lt;echo message="编译开始"/&gt;
+        &lt;exec dir="${basedir}" executable="${mvn}" failonerror="true"&gt;
+            &lt;arg line="compile -P ${profile}"/&gt;
+        &lt;/exec&gt;
+        &lt;exec executable="${mvn}" failonerror="true"&gt;
+            &lt;arg value="war:exploded"/&gt;
+        &lt;/exec&gt;
+    &lt;/target&gt;
+
+    &lt;!--逻辑判断--&gt;
+    &lt;target name="testIf" depends="check" if="flag"&gt;
+        &lt;echo message="if..."/&gt;
+    &lt;/target&gt;
+
+    &lt;target name="testUnless" depends="check" unless="flag"&gt;
+        &lt;echo message="unless..."/&gt;
+    &lt;/target&gt;
+
+    &lt;target name="check"&gt;
+        &lt;condition property="flag"&gt;
+            &lt;or&gt;
+              &lt;and&gt;
+                 &lt;isset property="name"/&gt;
+                 &lt;equals arg1="${version}" arg2="1.0" /&gt;
+              &lt;/and&gt;
+              &lt;available file="/project.version" type="file"/&gt;
+            &lt;/or&gt;
+        &lt;/condition&gt;
+    &lt;/target&gt;
+    &lt;!--逻辑判断end--&gt;
+
+&lt;/project&gt;
+</code></pre>
+
+<p>可见，Ant使用顶级元素<project>描述整个工程,使用<property>描述全局属性, 用<target>定义工程中的target以及target间的依赖, 在target中定义task的执行流程。使用antcall来调用target，通过其子节点param传递参数。</p>
+
+<p>此外，在很多场景下需要用到逻辑判断，如if等。Ant中的if如上面的例子所示，是需要搭配target和condition使用的。上面配置中最后的逻辑判断部分，类似如下伪代码：</p>
+
+<pre><code>if (name ！= null &amp;&amp; version.equals("1.0")) || fileExist("/project.version") ){
+    echo "if..."
+}else{
+    echo "unless..."
+}
+</code></pre>
+
+<p>执行<code>ant [target]</code>即可执行任务流程。</p>
+
+<h3>提示</h3>
+
+<ul>
+<li>使用Ant时，一个常见的需求就是通过命令行给Ant传递参数，可以通过<code>-Dname=value</code>这种形式来传递，在build.xml中通过<code>${name}</code>来引用即可。</li>
+<li><p>对于配置文件中重复出现的元素，可以通过refid引用，减少重复配置。</p>
+
+<pre><code class="``">  &lt;project&gt;
+      &lt;path id="project.class.path"&gt;
+          &lt;pathelement location="lib/"/&gt;
+          &lt;pathelement location="${java.class.path}/"/&gt;
+      &lt;/path&gt;
+
+      &lt;target ...&gt;
+          &lt;rmic ...&gt;
+              &lt;classpath refid="project.class.path"/&gt;
+          &lt;/rmic&gt;
+      &lt;/target&gt;
+
+      &lt;target ...&gt;
+          &lt;javac ...&gt;
+              &lt;classpath refid="project.class.path"/&gt;
+          &lt;/javac&gt;
+      &lt;/target&gt;
+  &lt;/project&gt;
+</code></pre></li>
+</ul>
+
+
+<h2>二. Maven</h2>
+
+<h3>介绍</h3>
+
+<p>Maven是继Ant后出现的一款基于约定优于配置原则的项目构建工具。这里所说的“约定优于配置”指的是约定的一些规范无需再配置，例如：其约定好的生命周期、项目结构等。当然，Maven也提供了打破默认约定的配置办法。</p>
+
+<p>概括来讲，Maven具有以下的功能：</p>
+
+<ul>
+<li>依赖管理：Maven能够帮助我们解决软件包依赖的管理问题，不再需要提交大量的jar包，引入第三方lib也不需要关心其依赖。</li>
+<li>规范目录结构：标准的目录结构有助于项目构建的标准化，使得项目更整洁，还可通过配置profile根据环境的不同读取不同的配置文件。</li>
+<li>可以通过每次发布都更新版本号以及统一依赖配置文件来规范软件包的发布。</li>
+<li>完整的项目构建阶段：Maven能够对项目完整阶段进行构建。</li>
+<li>支持多种插件：面向不同类型的工程项目提供不同的插件。</li>
+<li>方便集成：能够集成在IDE中方便使用，和其他自动化构建工具也都能配合使用。</li>
+</ul>
+
+
+<p>可见，相比起Ant，Maven提供了更加强大和规范的功能。</p>
+
+<h3>配置文件</h3>
+
+<p>Maven基于pom（Project Object Model）进行。一个项目所有的配置都放置在pom.xml文件中，包括定义项目的类型、名字，管理依赖关系，定制插件的行为等等。</p>
+
+<pre><code>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
+    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+    &lt;groupId&gt;me.rowkey&lt;/groupId&gt;
+    &lt;artifactId&gt;test&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0&lt;/version&gt;
+    &lt;packaging&gt;jar&lt;/packaging&gt;
+
+    &lt;name&gt;rowkey&lt;/name&gt;
+    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
+
+    &lt;repositories&gt;
+        &lt;repository&gt;
+            &lt;id&gt;nexus-suishen&lt;/id&gt;
+            &lt;name&gt;Nexus suishen&lt;/name&gt;
+            &lt;url&gt;http://maven.etouch.cn/nexus/content/groups/public/&lt;/url&gt;
+            &lt;snapshots&gt;
+                &lt;enabled&gt;true&lt;/enabled&gt;
+                &lt;updatePolicy&gt;always&lt;/updatePolicy&gt;
+                &lt;checksumPolicy&gt;warn&lt;/checksumPolicy&gt;
+            &lt;/snapshots&gt;
+        &lt;/repository&gt;
+    &lt;/repositories&gt;
+
+    &lt;properties&gt;
+        &lt;slf4j.version&gt;1.7.21&lt;/slf4j.version&gt;
+    &lt;/properties&gt;
+
+    &lt;dependencies&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+            &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+            &lt;version&gt;${slf4j.version}&lt;/version&gt;
+        &lt;/dependency&gt;
+
+        &lt;dependency&gt;
+            &lt;groupId&gt;junit&lt;/groupId&gt;
+            &lt;artifactId&gt;junit&lt;/artifactId&gt;
+            &lt;version&gt;4.8.2&lt;/version&gt;
+            &lt;scope&gt;test&lt;/scope&gt;
+        &lt;/dependency&gt;
+
+    &lt;/dependencies&gt;
+
+    &lt;build&gt;
+        &lt;plugins&gt;
+            &lt;plugin&gt;
+                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
+                &lt;version&gt;2.3.2&lt;/version&gt;
+                &lt;configuration&gt;
+                    &lt;source&gt;1.7&lt;/source&gt;
+                    &lt;target&gt;1.7&lt;/target&gt;
+                &lt;/configuration&gt;
+            &lt;/plugin&gt;
+        &lt;/plugins&gt;
+    &lt;/build&gt;
+
+    &lt;!--发布配置，用户名和密码需要在$M2_HOME/conf/settings.xml中配置server--&gt;
+    &lt;distributionManagement&gt;
+        &lt;repository&gt;
+            &lt;id&gt;suishen-release&lt;/id&gt;
+            &lt;name&gt;Suishen-Releases&lt;/name&gt;
+            &lt;url&gt;http://maven.etouch.cn/nexus/content/repositories/Suishen-Releases&lt;/url&gt;
+        &lt;/repository&gt;
+
+        &lt;snapshotRepository&gt;
+            &lt;id&gt;suishen-snapshot&lt;/id&gt;
+            &lt;name&gt;Suishen-Snapshots&lt;/name&gt;
+            &lt;url&gt;http://maven.etouch.cn/nexus/content/repositories/Suishen-Snapshots&lt;/url&gt;
+        &lt;/snapshotRepository&gt;
+    &lt;/distributionManagement&gt;
+
+&lt;/project&gt;
+</code></pre>
+
+<p>其中，</p>
+
+<ul>
+<li>Maven使用groupId:artifactId:version三者来唯一标识一个唯一的二进制版本，可以缩写为GAV。</li>
+<li>packaging代表打包方式，可选的值有: pom, jar, war, ear, custom，默认为jar。</li>
+<li>properties是全局属性的配置</li>
+<li>dependencies是对于依赖的管理</li>
+<li>plugins是对于插件的管理。</li>
+</ul>
+
+
+<p>此外，可以通过parent实现pom的继承做统一配置管理，子pom中的配置优先级高于父pom。</p>
+
+<pre><code>&lt;?xml version=”1.0″ encoding=”UTF-8″?&gt;
+
+&lt;project&gt;
+
+…
+
+&lt;parent&gt;
+
+    &lt;artifactId&gt;suishen-parent&lt;/artifactId&gt;
+
+    &lt;groupId&gt;suishen&lt;/groupId&gt;
+
+    &lt;version&gt;1.0&lt;/version&gt;
+
+&lt;/parent&gt;
+
+…
+
+&lt;/project&gt;
+</code></pre>
+
+<p>可以继承的元素如下：</p>
+
+<ul>
+<li>groupId,version</li>
+<li>Project Config</li>
+<li>Dependencies</li>
+<li>Plugin configuration</li>
+</ul>
+
+
+<p>此外，<dependencyManagement>和<pluginManagement>可以统一做依赖和插件的配置管理，不同于<dependencies>和<plugins>的是，如果子pom中没有声明<dependency>和<plugin>则并不生效。</p>
+
+<h3>标准Web项目结构</h3>
+
+<p>在Maven中，一个Web项目的标准结构，如下图所示：</p>
+
+<p><img src="//post_images/buildjava/mvn-web-arch.png" alt="" /></p>
+
+<p>其中：</p>
+
+<ul>
+<li>src/main/java         Java代码目录</li>
+<li>src/main/resources    配置文件目录</li>
+<li>src/main/webapp       webapp根目录</li>
+<li>src/test/java         测试代码目录</li>
+<li>src/test/resources    测试配置目录</li>
+<li>target/classes        代码编译结果目标目录</li>
+<li>target/test-classes   测试代码编译结果目标目录</li>
+</ul>
+
+
+<p>当然，结构是可以自定义的。</p>
+
+<pre><code> &lt;build&gt;
+   &lt;plugins&gt;
+       &lt;plugin&gt;
+           &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+           &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
+           &lt;configuration&gt;
+               &lt;warSourceDirectory&gt;WebContent/&lt;/warSourceDirectory&gt;
+           &lt;/configuration&gt;
+       &lt;/plugin&gt;
+   &lt;/plugins&gt;
+   &lt;sourceDirectory&gt;src&lt;/sourceDirectory&gt;
+   &lt;testSourceDirectory&gt;test/java&lt;/testSourceDirectory&gt;
+   &lt;testResources&gt;
+       &lt;testResource&gt;
+           &lt;directory&gt;test/resources&lt;/directory&gt;
+       &lt;/testResource&gt;
+   &lt;/testResources&gt;
+   &lt;directory&gt;build&lt;/directory&gt;
+&lt;/build&gt;
+</code></pre>
+
+<p>这里，Java代码目录移到了./src中，测试代码目录到了./test/java中，测试资源也到了./test/resources,同时编译结果目录变为了./build。此外，在maven-war-plugin中，也把Web目录的war源码目录改为了./WebContent。</p>
+
+<h3>依赖管理</h3>
+
+<p>依赖管理是通过<dependencies>来定义的，其中：</p>
+
+<ul>
+<li>一项jar包依赖可以由groupId:artifactId:version标识</li>
+<li>完整的标识为：groupId:artifactId:type:classifier:version</li>
+<li>依赖在编译部署中参与的情况可以由scope来指定, 分为: compile、test、provided、system、import，默认为compile。其中的import是在Maven 2.0.9后引入的，仅仅支持在<dependencyManagement>中使用，导入外部的依赖版本管理。</li>
+<li>依赖是一个树状结构，采用<strong>最近依赖</strong>原则，也可以通过exclusions标签来排除一些包。这里的最近依赖指的是在依赖树中，离当前结点最近的依赖优先级高，同样远时第一个优先。</li>
+</ul>
+
+
+<p>依赖下载的过程一般如下图所示：</p>
+
+<p><img src="//post_images/buildjava/mvn-dependency-download.png" alt="" /></p>
+
+<p>但上面的示例配置中，如果有一个repsitory的配置，那么依赖下载的过程则发生了改变。</p>
+
+<p><img src="//post_images/buildjava/mvn-dependency-download-1.png" alt="" /></p>
+
+<p>此外，Maven中还有一个镜像库的配置，即在Maven的settings.xml中配置Maven镜像库。和pom.xml中的repository不同的是镜像会拦截住对远程中央库的请求，只在镜像库中进行依赖的搜索以及下载。而如果只是配置了repository，那么在repository中找不到相应的依赖时，会继续去远程中央库进行搜索和下载。</p>
+
+<p>上面所说的镜像库和repository可以通过<a href="http://www.sonatype.org/nexus/">http://www.sonatype.org/nexus/</a>进行搭建。</p>
+
+<h3>项目构建流程</h3>
+
+<p>Maven的构建生命周期中几个常见phase如下：</p>
+
+<ul>
+<li>validate：验证项目以及相关信息是否正确</li>
+<li>compile：编译源代码和相关资源文件</li>
+<li>test：对测试代码进行测试</li>
+<li>package：根据项目类型的不同进行打包</li>
+<li>verify： 验证打包的正确性</li>
+<li>install：将打好的包安装到本地</li>
+<li>deploy：将打好的包发布到远程库中</li>
+</ul>
+
+
+<p>当然，对应上述每一个phase,还有pre、post、proces做前缀的一些phase。还有一些在命令行中不常用的phase如：test-compile、integration-test等。</p>
+
+<p>针对于Java Web项目，一个完整的项目构建流程如下图所示：</p>
+
+<p><img src="//post_images/buildjava/mvn-process.png" alt="" /></p>
+
+<h3>Profile多环境支持</h3>
+
+<p>现实开发中一个很常见的需求就是需要根据不同的环境打包不同的文件或者读取不同的属性值。Maven中的profile即可解决此问题。</p>
+
+<pre><code>&lt;profiles&gt;
+   &lt;profile&gt;
+       &lt;id&gt;dev&lt;/id&gt;
+       &lt;activation&gt;
+           &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
+       &lt;/activation&gt;
+       &lt;properties&gt;
+           &lt;resources.dir&gt;src/main/resources/dev&lt;/resources.dir&gt;
+       &lt;/properties&gt;
+   &lt;/profile&gt;
+   &lt;profile&gt;
+       &lt;id&gt;test&lt;/id&gt;
+       &lt;properties&gt;
+           &lt;resources.dir&gt;src/main/resources/test&lt;/resources.dir&gt;
+       &lt;/properties&gt;
+   &lt;/profile&gt;
+   &lt;profile&gt;
+       &lt;id&gt;prod&lt;/id&gt;
+       &lt;properties&gt;
+           &lt;resources.dir&gt;src/main/resources/prod&lt;/resources.dir&gt;
+       &lt;/properties&gt;
+   &lt;/profile&gt;
+
+&lt;/profiles&gt;
+
+&lt;build&gt;
+    &lt;filters&gt;  
+        &lt;filter&gt;${user.home}/love.properties&lt;/filter&gt;  
+    &lt;/filters&gt;  
+   &lt;resources&gt;
+       &lt;resource&gt;
+           &lt;directory&gt;${resources.dir}&lt;/directory&gt;
+           &lt;filtering&gt;true&lt;/filtering&gt;  
+           &lt;includes&gt;  
+               &lt;include&gt;**/*&lt;/include&gt; 
+           &lt;/includes&gt; 
+        &lt;/resource&gt;
+       &lt;resource&gt;
+           &lt;directory&gt;src/main/resources&lt;/directory&gt;
+           &lt;filtering&gt;true&lt;/filtering&gt;  
+           &lt;includes&gt;  
+               &lt;include&gt;**/*&lt;/include&gt; 
+           &lt;/includes&gt; 
+       &lt;/resource&gt;
+   &lt;/resources&gt;
+&lt;/build&gt;
+</code></pre>
+
+<p>如此，分为dev、test以及prod三种环境，对应每一种环境，其资源文件路径都不一样。在使用mvn时，使用-P参数指定profile即可生效。</p>
+
+<p>此外，示例中resource下的filtering设置为true, 是为了能够在编译过程中将资源文件中的占位符替换为Maven中相应属性对应的值。例如，在resources下的config.properties文件内容：</p>
+
+<pre><code>resouceDir=${resources.dir}
+</code></pre>
+
+<p>在profile为dev时，编译结束此文件会变为:</p>
+
+<pre><code>resouceDir=src/main/resources/dev
+</code></pre>
+
+<p>而示例中的filters配置则是将外部文件的属性引入进来，同样也能够使用占位符。</p>
+
+<p>如果是Web项目，想要在webapp下使用占位符，那么则需要配置maven-war-plugin:</p>
+
+<pre><code>&lt;plugin&gt;  
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;  
+    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;  
+    &lt;configuration&gt;  
+        &lt;webResources&gt;  
+            &lt;resource&gt;  
+                &lt;filtering&gt;true&lt;/filtering&gt;  
+                &lt;directory&gt;src/main/webapp&lt;/directory&gt;  
+                &lt;includes&gt;  
+                    &lt;include&gt;**/*&lt;/include&gt;  
+                &lt;/includes&gt;  
+            &lt;/resource&gt;  
+        &lt;/webResources&gt;  
+        &lt;warSourceDirectory&gt;src/main/webapp&lt;/warSourceDirectory&gt;  
+        &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;  
+    &lt;/configuration&gt;  
+&lt;/plugin&gt;  
+</code></pre>
+
+<h3>复用test</h3>
+
+<p>当需要将写的测试用例（src/test下的资源和类）以jar包形式发布出去的时候，需要用到test-jar。首先，在打包时配置maven-jar-plugin，如下：</p>
+
+<pre><code>&lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
+    &lt;executions&gt;
+         &lt;execution&gt;
+            &lt;goals&gt;
+                &lt;goal&gt;test-jar&lt;/goal&gt;
+            &lt;/goals&gt;
+            &lt;configuration&gt;
+                &lt;excludes&gt;
+                    &lt;exclude&gt;*.conf&lt;/exclude&gt;
+                    &lt;exclude&gt;**/*.*.conf&lt;/exclude&gt;
+                    &lt;exclude&gt;logback.xml&lt;/exclude&gt;
+                &lt;/excludes&gt;
+            &lt;/configuration&gt;
+        &lt;/execution&gt;
+    &lt;/executions&gt;
+    &lt;configuration&gt;
+        &lt;excludes&gt;
+            &lt;exclude&gt;*.conf&lt;/exclude&gt;
+            &lt;exclude&gt;**/*.*.conf&lt;/exclude&gt;
+            &lt;exclude&gt;*.properties&lt;/exclude&gt;
+            &lt;exclude&gt;logback.xml&lt;/exclude&gt;
+        &lt;/excludes&gt;
+    &lt;/configuration&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<p>使用时，指定dependency的type为test-jar：</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;xx&lt;/groupId&gt;
+    &lt;artifactId&gt;xx&lt;/artifactId&gt;
+    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
+    &lt;type&gt;test-jar&lt;/type&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<h3>Scala支持</h3>
+
+<p>Scala的官方构建工具是sbt，但是由于某些原因，在国内访问很慢。Maven有插件提供了对Scala项目的支持。</p>
+
+<pre><code>&lt;build&gt;
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;net.alchim31.maven&lt;/groupId&gt;
+            &lt;artifactId&gt;scala-maven-plugin&lt;/artifactId&gt;
+            &lt;version&gt;3.1.6&lt;/version&gt;
+            &lt;executions&gt;
+               &lt;execution&gt;
+                   &lt;id&gt;scala-compile-first&lt;/id&gt;
+                   &lt;phase&gt;process-resources&lt;/phase&gt;
+                   &lt;goals&gt;
+                       &lt;goal&gt;add-source&lt;/goal&gt;
+                       &lt;goal&gt;compile&lt;/goal&gt;
+                   &lt;/goals&gt;
+               &lt;/execution&gt;
+               &lt;execution&gt;
+                   &lt;id&gt;scala-test-compile&lt;/id&gt;
+                   &lt;phase&gt;process-test-resources&lt;/phase&gt;
+                   &lt;goals&gt;
+                       &lt;goal&gt;testCompile&lt;/goal&gt;
+                   &lt;/goals&gt;
+               &lt;/execution&gt;
+            &lt;/executions&gt;
+        &lt;/plugin&gt;
+        &lt;plugin&gt;
+           &lt;groupId&gt;org.scalatest&lt;/groupId&gt;
+           &lt;artifactId&gt;scalatest-maven-plugin&lt;/artifactId&gt;
+           &lt;version&gt;1.0-RC2&lt;/version&gt;
+           &lt;configuration&gt;
+               &lt;reportsDirectory&gt;${project.build.directory}/surefire-reports&lt;/reportsDirectory&gt;
+               &lt;junitxml&gt;.&lt;/junitxml&gt;
+               &lt;filereports&gt;TestSuite.txt&lt;/filereports&gt;
+               &lt;stdout&gt;testOutput&lt;/stdout&gt;
+           &lt;/configuration&gt;
+           &lt;executions&gt;
+               &lt;execution&gt;
+                   &lt;id&gt;test&lt;/id&gt;
+                   &lt;goals&gt;
+                       &lt;goal&gt;test&lt;/goal&gt;
+                   &lt;/goals&gt;
+               &lt;/execution&gt;
+           &lt;/executions&gt;
+        &lt;/plugin&gt;
+       &lt;plugin&gt;
+           &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
+           &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
+           &lt;version&gt;1.2.1&lt;/version&gt;
+           &lt;configuration&gt;
+               &lt;executable&gt;scala&lt;/executable&gt;
+               &lt;arguments&gt;
+                   &lt;argument&gt;-classpath&lt;/argument&gt;
+                   &lt;classpath/&gt;
+                   &lt;argument&gt;&lt;/argument&gt;
+               &lt;/arguments&gt;
+           &lt;/configuration&gt;
+       &lt;/plugin&gt;
+&lt;/plugins&gt;
+</code></pre>
+
+<p>net.alchim31.maven.scala-maven-plugin提供了对Scala代码的编译；org.scalatest.scalatest-maven-plugin提供了对Scala项目的测试；exec-maven-plugin配置了对Scala程序的执行。</p>
+
+<h3>常用插件</h3>
+
+<p>Maven提供了很多插件方便开发工作。</p>
+
+<ul>
+<li><p>maven-source-plugin</p>
+
+<p>  源码发布插件，绑定在compile阶段，执行jar goal, 将源码以jar包的形式发布出去。</p></li>
+<li><p>maven-javadoc-plugin</p>
+
+<p>  javadoc插件，将源码的javadoc发布出去。</p></li>
+<li><p>maven-archetype-plugin</p>
+
+<p>  使用此插件可以定制/使用项目模板。定制模板可以遵循archetype的结构编写文件，也可以使用mvn archetype:create-from-project从一个现有的项目生成；使用模板通过archetype:generate即可。</p></li>
+<li><p>maven-tomcat7-plugin</p>
+
+<p>  此插件可以直接使用Tomcat运行web项目，常用的命令是：<code>mvn tomcat7:run</code>。同样的还有jetty-maven-plugin。</p></li>
+<li><p>maven-shade-plugin</p>
+
+<p>  此插件是maven常用打包插件，一般是将其绑定在package阶段，执行其shade goal。能够将源码和依赖的第三方资源打包在一起以供独立运行。</p></li>
+<li><p>maven-assesmbly-plugin</p>
+
+<p>  和maven-shade-plugin一样也是打包插件，但是其功能更加强大，输出压缩包格式除了jar还支持tar、zip、gz等。</p></li>
+<li><p>maven-gpg-plugin</p>
+
+<p>  此插件是jar包的签名插件，可以对自己发布的jar包进行签名。</p></li>
+</ul>
+
+
+<h3>提示</h3>
+
+<ul>
+<li>在项目版本号中加入<code>SNAPSHOT</code>后缀做为快照版本可以使得Maven每次都能自动获取最新版本而无需频繁更新版本号。</li>
+<li><code>mvn -DNAME=test</code>可以传递给pom参数，使用${NAME}引用即可。</li>
+<li><p>在dependency中设置optional为true, 可使得此依赖不传递出去。如下：</p>
+
+<pre><code class="``">  ...
+  &lt;artifactId&gt;suishen-libs&lt;/artifactId&gt;
+  ...
+
+  ...
+  &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+     &lt;artifactId&gt;httpasyncclient&lt;/artifactId&gt;
+     &lt;version&gt;4.1.3&lt;/version&gt;
+     &lt;optional&gt;true&lt;/optional&gt;
+  &lt;/dependency&gt;
+  ...
+</code></pre>
+
+<p>  如此，依赖于suishen-lib的项目除非在自己的pom里显示声明，否则不会依赖于httpasyncclient。</p></li>
+<li><p>由于Maven自定义plugin的复杂度，不够灵活，因此很多时候都是结合ant的灵活性和maven一起使用的。</p>
+
+<pre><code class="``">  &lt;target name="compile" depends="clean"&gt;
+    &lt;exec executable=“mvn"&gt;
+            &lt;arg line="compile"/&gt;
+    &lt;/exec&gt;
+  &lt;/target&gt;
+
+  &lt;target name="compile" depends="clean"&gt;
+    &lt;exec executable=“cmd"&gt;
+            &lt;arg line=“/c mvn compile"/&gt;
+    &lt;/exec&gt;
+  &lt;/target&gt;
+</code></pre></li>
+<li><p>日常开发中一个工程可能比较庞大，这时可以把这个工程拆分成多个子模块来管理。一个多模块工程包含一个父pom，在其中定义了它的子模块，每个子模块都是一个独立的工程。</p>
+
+<pre><code class="``">  &lt;project&gt;
+      …
+      &lt;packaging&gt;pom&lt;/packaging&gt;
+
+      &lt;modules&gt;
+          &lt;module&gt;module-1&lt;/module&gt;
+          &lt;module&gt;module-2&lt;/module&gt;
+      &lt;/modules&gt;
+  &lt;/project&gt;
+</code></pre></li>
+<li>可以使用第三方的takari/maven-wrapper(<code>mvn -N io.takari:maven:wrapper -Dmaven=3.3.3</code>)来做Maven操作（<code>./mvnw clean</code>），从而可以达到类似gradle wrapper的功能：不用预先安装好Maven，还能够统一项目所使用的Maven版本。</li>
+</ul>
+
+
+<p>Maven常用命令介绍请见附录A。</p>
+
+<h2>三. Gradle</h2>
+
+<h3>介绍</h3>
+
+<p>Gradle是目前正在开始流行的新一代构建工具，正在逐步的被大家推广使用，尤其以Android为典型。基本上现在所有的Android项目都采用Gradle做为项目构建工具。概括来讲，有以下几个特点：</p>
+
+<ul>
+<li>采用了Groovy DSL来定义配置，相比起XML更加易于学习和使用，并大大简化了构建代码的行数。此外，这种“配置即代码”的方式能够大大简化配置学习和插件编写的成本，提供了更好的灵活性。</li>
+<li>在构建模型上非常灵活。可以轻松创建一个task，并随时通过depends语法建立与已有task的依赖关系。这里Gradle使用了Java插件来支持Java项目的标准构建生命周期（和Maven类似）。</li>
+<li>依赖的scope简化为compile、runtime、testCompile、testRuntime四种。</li>
+<li>支持动态的版本依赖。在版本号后面使用+号的方式可以实现动态的版本管理。</li>
+<li>支持排除传递性依赖或者干脆关闭传递性依赖。</li>
+<li>完全支持Maven、Ivy的资源库（Repository）。</li>
+</ul>
+
+
+<h3>使用示例</h3>
+
+<p>Gradle的配置写在build.gradle文件中。</p>
+
+<pre><code>apply plugin: 'groovy'
+apply plugin: 'idea'
+apply plugin: 'checkstyle'
+
+// --- properties ---
+ext.ideaInstallationPath = '/Applications/IntelliJ IDEA.app/Contents'
+ext.pomCfg = {
+  name 'me.rowkey.libs'
+  description '&lt;project_desc&gt;'
+  ...
+}
+sourceCompatibility = 1.6
+// --- properties ---
+
+//源码目录结构
+sourceSets.main.java.srcDirs = []
+sourceSets.main.groovy.srcDir 'src/main/java'
+
+//增加repository
+repositories {
+    mavenLocal()
+    maven{
+        url "http://maven.etouch.cn/nexus/content/groups/public/"
+    }
+    mavenCentral()
+}
+
+//依赖管理
+dependencies {
+    compile fileTree(dir: ideaInstallationPath + '/lib', include: '*.jar')
+    testCompile 'org.mockito:mockito-core:2.0.3-beta'
+    testCompile 'org.assertj:assertj-core:1.7.1'
+    testCompile 'org.springframework:spring-test:4.0.0.RELEASE'
+
+    // 排除全部或特定的间接依赖
+    runtime ('commons-dbcp:commons-dbcp:1.4') {
+        transitive = false
+        // 或 exclude group: xxx, module: xxx
+    }
+
+    // 然后显式声明
+    runtime 'commons-pool:commons-pool:1.6'
+}
+
+//for gradle wrapper
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.0'
+}
+
+task helloWorld
+
+helloWorld &lt;&lt; {
+    println "Hello World!"
+}
+
+task testA(dependsOn:helloWorld)
+
+testA &lt;&lt; {
+    println "test"
+}
+task copyFile(type: Copy)
+//task(copyFile(type: Copy))
+
+copyFile {
+    from 'xml'
+    into 'destination'
+}
+
+//发布到Maven库的配置
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: &lt;repo_url&gt;) {
+       //身份认证信息推荐放在$HOME/.gradle/gradle.properties中
+        authentication(
+          userName: &lt;repo_user&gt;,
+          password: &lt;repo_passwd&gt;)
+      }
+      pom.project pomCfg
+    }
+  }
+}
+</code></pre>
+
+<p>可见，依赖的配置（dependencies）相比Maven,得到了大大的简化，对于任务的定义（task）也非常简单。</p>
+
+<h3>多模块</h3>
+
+<ul>
+<li><p>首先，在工程的根目录下，创建settings.gradle。</p>
+
+<pre><code class="``">  include "common", "api"
+</code></pre>
+
+<p>  以上即表示包含根目录下的两个子模块common和api。</p></li>
+<li><p>在根目录的build.gradle中定义公共构建逻辑：</p>
+
+<pre><code class="``">  subprojects {
+      apply plugin: 'java'
+
+      repositories {
+          mavenCentral()
+      }
+
+      // 所有的子模块共同的依赖
+      dependencies {
+          ...
+      }
+  }
+</code></pre>
+
+<p>  subprojects中定义的内容对所有子模块都有效，包括属性、依赖以及Task定义。</p>
+
+<p>  需要注意的是在多模块配置下，gradle命令会对所有子模块都执行。如果想要针对单个模块，需要指定模块前缀，如: gradle :common:clean</p></li>
+<li><p>在子模块下创建build.gradle，其中的配置可以增量覆盖父工程中的公共配置。如:</p>
+
+<pre><code class="``">  ...
+
+  dependencies {
+      compile project(':common')
+      ...
+  }
+</code></pre>
+
+<p>  以上声明了此模块依赖于common模块，当构建此模块时会首先编译打包common模块。相比起Maven每次都要install所依赖的模块，大大简化了使用。</p></li>
+</ul>
+
+
+<h3>提示</h3>
+
+<ul>
+<li>gradle -Penv=test可以传递参数，使用env引用即可。这里需要注意的是Gradle中默认并没有提供Maven的profile支持，但是可以利用-P参数自己实现此功能。</li>
+<li>Gradle中的配置中的语法和平常所见的Groovy非常不同, 其利用了Groovy的AST转换等特性实现了自己的一套语法。</li>
+<li>建议使用<strong>gradle wrapper</strong>（gradle wrapper &ndash;gradle-version 3.0）来做gradle操作（./gradlew clean）。一方面可以使得项目成员不用预先安装好Gradle，还能够统一项目所使用的Gradle版本。</li>
+<li>务必要保持构建脚本简洁、清晰，如：把属性、常量（如版本号）放到gradle.properties中。</li>
+<li>模块化构建脚本，通过plugin机制在多个项目中重用，共享相关的配置：apply from: <link_to_gradle>。通过此种方式可以统一团队或者公司的一些构建规范、依赖版本等。</li>
+</ul>
+
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+
+<p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java后端技术概览]]></title>
@@ -871,37 +1695,6 @@ public class UserServiceTest {
 
 }
 </code></pre>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java9来了]]></title>
-    <link href="http://www.rowkey.me/blog/2017/09/22/java9/"/>
-    <updated>2017-09-22T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/09/22/java9</id>
-    <content type="html"><![CDATA[<p>2017.9.21，Java9终于正式发布。其带来了诸如模块化、REPL环境、集合工厂方法等一系列有用的新特性。本文列出一些链接，可以通过阅读相关的内容来了解学习Java9。</p>
-
-<h2>官方资料</h2>
-
-<ul>
-<li><a href="http://jdk.java.net/9/">JD9下载</a></li>
-<li><a href="http://openjdk.java.net/projects/jdk9/">Java9新特性</a></li>
-<li><a href="https://docs.oracle.com/javase/9/">Oracle的JDK文档</a></li>
-<li><a href="http://mail.openjdk.java.net/pipermail/announce/2017-September/000230.html">Mark Reinhold的JDK9发布声明</a> [Mark Reinhold是Oracle的Java平台首席架构师]</li>
-<li><a href="https://docs.oracle.com/javase/9/migrate/toc.htm#JSMIG-GUID-7744EF96-5899-4FB2-B34E-86D49B2E89B6">迁移到Java9的提示</a></li>
-<li><a href="https://blogs.oracle.com/theaquarium/java-ee-8-is-final-and-glassfish-50-is-released">JavaEE 8和GlassFish发布</a></li>
-</ul>
-
-
-<h2>第三方资料</h2>
-
-<ul>
-<li><a href="https://dzone.com/articles/java-9-besides-modules">Java9中除了模块化的其他新特性介绍</a></li>
-<li><a href="https://dzone.com/articles/java-9-and-intellij-idea">Java 9 and IntelliJ IDEA</a></li>
-<li>Java9对旧版本应用的支持: <a href="https://dzone.com/articles/yes-you-can-java-9-for-the-legacy-developer">https://dzone.com/articles/yes-you-can-java-9-for-the-legacy-developer</a>、<a href="https://dzone.com/articles/the-legacy-developers-guide-to-java-9">https://dzone.com/articles/the-legacy-developers-guide-to-java-9</a></li>
-<li>Java9模块化开发：<a href="https://dzone.com/articles/java-9-modularity-jigsaw">第一部分</a>、<a href="https://dzone.com/articles/java-9-modular-development-part-2">第二部分</a></li>
-</ul>
-
 ]]></content>
   </entry>
   
