@@ -6,15 +6,36 @@ comments: true
 categories: java
 ---
 
+* [一. Ant](#一. Ant)
+    * [介绍](#介绍)
+    * [使用示例](#使用示例)
+    * [提示](#提示)
+* [二. Maven](#二. Maven)
+    * [介绍](#介绍)
+    * [配置文件](#配置文件)
+    * [标准Web项目结构](#标准Web项目结构)
+    * [依赖管理](#依赖管理)
+    * [项目构建流程](#项目构建流程)
+    * [Profile多环境支持](#Profile多环境支持)
+    * [复用test](#复用test)
+    * [Scala支持](#Scala支持)
+    * [常用插件](#常用插件)
+    * [提示](#提示)
+* [三. Gradle](#三. Gradle)
+    * [介绍](#介绍)
+    * [使用示例](#使用示例)
+    * [多模块](#多模块)
+    * [提示](#提示)
+
 对于一个完整的项目来说，一般都有很多的类、很多的包，如果是Web工程那么还有很多jsp、资源文件。这时候如果只用JDK自带的工具编译和运行，是非常困难的一件事前。再者，编译源代码只是软件开发过程的一个方面，更重要的是要把软件发布到生产环境中来产生商业价值。所以，代码编译之后，还有测试、分析代码质量、部署等步骤要做。整个过程进行自动化操作是很有必要的。
 
 这时候就需要一个Java的工程/项目构建工具。这里所谓的项目构建就是指的完成工程发布流程需要的一系列步骤，包括编译、测试、打包、部署等等。虽然用Eclipse和Intellij这些IDE能解决这个问题，但是受限于这些IDE体积庞大且基本上都是GUI的，而后端应用的运行环境基本都是没有显示器的，所以很多时候还是需要一些专门做项目构建的工具来支持这些工作。
 
 <!--more-->
 
-## 一. Ant
+## <a name='一. Ant'></a>一. Ant
 
-### 介绍
+### <a name='介绍'></a>介绍
 
 Ant的全称是Another Neat Tool，意为另一个好用的工具，是Java中比较常用的项目构建工具。构建过程包括编译、测试和部署等。概括来看具有以下三个特点：
 
@@ -32,7 +53,7 @@ Ant的全称是Another Neat Tool，意为另一个好用的工具，是Java中�
 
 通过组合这些默认task和自己实现的task就能够完成Java项目的构建任务。
 
-### 使用示例
+### <a name='使用示例'></a>使用示例
 
 使用Ant需要编写build.xml来配置任务流程。当然，可以通过-f参数指定其他配置文件作为任务流程描述文件。一个Ant的配置文件如下：
 
@@ -111,7 +132,7 @@ if (name ！= null && version.equals("1.0")) || fileExist("/project.version") ){
 
 执行`ant [target]`即可执行任务流程。
 
-### 提示
+### <a name='提示'></a>提示
 
 - 使用Ant时，一个常见的需求就是通过命令行给Ant传递参数，可以通过`-Dname=value`这种形式来传递，在build.xml中通过`${name}`来引用即可。
 - 对于配置文件中重复出现的元素，可以通过refid引用，减少重复配置。
@@ -137,9 +158,9 @@ if (name ！= null && version.equals("1.0")) || fileExist("/project.version") ){
     </project>
     ```
 
-## 二. Maven
+## <a name='二. Maven'></a>二. Maven
 
-### 介绍
+### <a name='介绍'></a>介绍
 
 Maven是继Ant后出现的一款基于约定优于配置原则的项目构建工具。这里所说的“约定优于配置”指的是约定的一些规范无需再配置，例如：其约定好的生命周期、项目结构等。当然，Maven也提供了打破默认约定的配置办法。
 
@@ -154,7 +175,7 @@ Maven是继Ant后出现的一款基于约定优于配置原则的项目构建工
 
 可见，相比起Ant，Maven提供了更加强大和规范的功能。
 
-### 配置文件
+### <a name='配置文件'></a>配置文件
 
 Maven基于pom（Project Object Model）进行。一个项目所有的配置都放置在pom.xml文件中，包括定义项目的类型、名字，管理依赖关系，定制插件的行为等等。
 
@@ -279,7 +300,7 @@ Maven基于pom（Project Object Model）进行。一个项目所有的配置都�
 
 此外，<dependencyManagement>和<pluginManagement>可以统一做依赖和插件的配置管理，不同于<dependencies>和<plugins>的是，如果子pom中没有声明<dependency>和<plugin>则并不生效。
 
-### 标准Web项目结构
+### <a name='标准Web项目结构'></a>标准Web项目结构
 
 在Maven中，一个Web项目的标准结构，如下图所示：
 
@@ -321,7 +342,7 @@ Maven基于pom（Project Object Model）进行。一个项目所有的配置都�
 
 这里，Java代码目录移到了./src中，测试代码目录到了./test/java中，测试资源也到了./test/resources,同时编译结果目录变为了./build。此外，在maven-war-plugin中，也把Web目录的war源码目录改为了./WebContent。
 
-### 依赖管理
+### <a name='依赖管理'></a>依赖管理
 
 依赖管理是通过<dependencies>来定义的，其中：
 
@@ -342,7 +363,7 @@ Maven基于pom（Project Object Model）进行。一个项目所有的配置都�
 
 上面所说的镜像库和repository可以通过<http://www.sonatype.org/nexus/>进行搭建。
 
-### 项目构建流程
+### <a name='项目构建流程'></a>项目构建流程
 
 Maven的构建生命周期中几个常见phase如下：
 
@@ -360,7 +381,7 @@ Maven的构建生命周期中几个常见phase如下：
 
 ![](/post_images/buildjava/mvn-process.png)
 
-### Profile多环境支持
+### <a name='Profile多环境支持'></a>Profile多环境支持
 
 现实开发中一个很常见的需求就是需要根据不同的环境打包不同的文件或者读取不同的属性值。Maven中的profile即可解决此问题。
 
@@ -451,7 +472,7 @@ resouceDir=src/main/resources/dev
 </plugin>  
 ```
 
-### 复用test
+### <a name='复用test'></a>复用test
 
 当需要将写的测试用例（src/test下的资源和类）以jar包形式发布出去的时候，需要用到test-jar。首先，在打包时配置maven-jar-plugin，如下：
 
@@ -496,7 +517,7 @@ resouceDir=src/main/resources/dev
 </dependency>
 ```
 
-### Scala支持
+### <a name='Scala支持'></a>Scala支持
 
 Scala的官方构建工具是sbt，但是由于某些原因，在国内访问很慢。Maven有插件提供了对Scala项目的支持。
 
@@ -562,7 +583,7 @@ Scala的官方构建工具是sbt，但是由于某些原因，在国内访问很
 
 net.alchim31.maven.scala-maven-plugin提供了对Scala代码的编译；org.scalatest.scalatest-maven-plugin提供了对Scala项目的测试；exec-maven-plugin配置了对Scala程序的执行。
     
-### 常用插件
+### <a name='常用插件'></a>常用插件
 
 Maven提供了很多插件方便开发工作。
 
@@ -594,7 +615,7 @@ Maven提供了很多插件方便开发工作。
 
     此插件是jar包的签名插件，可以对自己发布的jar包进行签名。
 
-### 提示
+### <a name='提示'></a>提示
 
 - 在项目版本号中加入`SNAPSHOT`后缀做为快照版本可以使得Maven每次都能自动获取最新版本而无需频繁更新版本号。
 - `mvn -DNAME=test`可以传递给pom参数，使用${NAME}引用即可。
@@ -648,9 +669,9 @@ Maven提供了很多插件方便开发工作。
     
 Maven常用命令介绍请见附录A。
 
-## 三. Gradle
+## <a name='三. Gradle'></a>三. Gradle
 
-### 介绍
+### <a name='介绍'></a>介绍
 
 Gradle是目前正在开始流行的新一代构建工具，正在逐步的被大家推广使用，尤其以Android为典型。基本上现在所有的Android项目都采用Gradle做为项目构建工具。概括来讲，有以下几个特点：
 
@@ -661,7 +682,7 @@ Gradle是目前正在开始流行的新一代构建工具，正在逐步的被�
 - 支持排除传递性依赖或者干脆关闭传递性依赖。
 - 完全支持Maven、Ivy的资源库（Repository）。
 
-### 使用示例
+### <a name='使用示例'></a>使用示例
 
 Gradle的配置写在build.gradle文件中。
 
@@ -752,7 +773,7 @@ uploadArchives {
 
 可见，依赖的配置（dependencies）相比Maven,得到了大大的简化，对于任务的定义（task）也非常简单。
 
-### 多模块
+### <a name='多模块'></a>多模块
 
 - 首先，在工程的根目录下，创建settings.gradle。
 
@@ -796,7 +817,7 @@ uploadArchives {
 	
 	以上声明了此模块依赖于common模块，当构建此模块时会首先编译打包common模块。相比起Maven每次都要install所依赖的模块，大大简化了使用。
 
-### 提示
+### <a name='提示'></a>提示
 
 - gradle -Penv=test可以传递参数，使用env引用即可。这里需要注意的是Gradle中默认并没有提供Maven的profile支持，但是可以利用-P参数自己实现此功能。
 - Gradle中的配置中的语法和平常所见的Groovy非常不同, 其利用了Groovy的AST转换等特性实现了自己的一套语法。
