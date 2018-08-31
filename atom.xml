@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-08-31T11:24:12+08:00</updated>
+  <updated>2018-08-31T11:29:27+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,16 +18,52 @@
     <link href="http://www.rowkey.me/blog/2018/08/30/build-java/"/>
     <updated>2018-08-30T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/08/30/build-java</id>
-    <content type="html"><![CDATA[<p>对于一个完整的项目来说，一般都有很多的类、很多的包，如果是Web工程那么还有很多jsp、资源文件。这时候如果只用JDK自带的工具编译和运行，是非常困难的一件事前。再者，编译源代码只是软件开发过程的一个方面，更重要的是要把软件发布到生产环境中来产生商业价值。所以，代码编译之后，还有测试、分析代码质量、部署等步骤要做。整个过程进行自动化操作是很有必要的。</p>
+    <content type="html"><![CDATA[<ul>
+<li><a href="#%E4%B8%80.%20Ant">一. Ant</a>
+
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B">使用示例</a></li>
+<li><a href="#%E6%8F%90%E7%A4%BA">提示</a></li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C.%20Maven">二. Maven</a>
+
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">配置文件</a></li>
+<li><a href="#%E6%A0%87%E5%87%86Web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84">标准Web项目结构</a></li>
+<li><a href="#%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86">依赖管理</a></li>
+<li><a href="#%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B">项目构建流程</a></li>
+<li><a href="#Profile%E5%A4%9A%E7%8E%AF%E5%A2%83%E6%94%AF%E6%8C%81">Profile多环境支持</a></li>
+<li><a href="#%E5%A4%8D%E7%94%A8test">复用test</a></li>
+<li><a href="#Scala%E6%94%AF%E6%8C%81">Scala支持</a></li>
+<li><a href="#%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6">常用插件</a></li>
+<li><a href="#%E6%8F%90%E7%A4%BA">提示</a></li>
+</ul>
+</li>
+<li><a href="#%E4%B8%89.%20Gradle">三. Gradle</a>
+
+<ul>
+<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B">使用示例</a></li>
+<li><a href="#%E5%A4%9A%E6%A8%A1%E5%9D%97">多模块</a></li>
+<li><a href="#%E6%8F%90%E7%A4%BA">提示</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>对于一个完整的项目来说，一般都有很多的类、很多的包，如果是Web工程那么还有很多jsp、资源文件。这时候如果只用JDK自带的工具编译和运行，是非常困难的一件事前。再者，编译源代码只是软件开发过程的一个方面，更重要的是要把软件发布到生产环境中来产生商业价值。所以，代码编译之后，还有测试、分析代码质量、部署等步骤要做。整个过程进行自动化操作是很有必要的。</p>
 
 <p>这时候就需要一个Java的工程/项目构建工具。这里所谓的项目构建就是指的完成工程发布流程需要的一系列步骤，包括编译、测试、打包、部署等等。虽然用Eclipse和Intellij这些IDE能解决这个问题，但是受限于这些IDE体积庞大且基本上都是GUI的，而后端应用的运行环境基本都是没有显示器的，所以很多时候还是需要一些专门做项目构建的工具来支持这些工作。</p>
 
 <!--more-->
 
 
-<h2>一. Ant</h2>
+<h2><a name='一. Ant'></a>一. Ant</h2>
 
-<h3>介绍</h3>
+<h3><a name='介绍'></a>介绍</h3>
 
 <p>Ant的全称是Another Neat Tool，意为另一个好用的工具，是Java中比较常用的项目构建工具。构建过程包括编译、测试和部署等。概括来看具有以下三个特点：</p>
 
@@ -51,7 +87,7 @@
 
 <p>通过组合这些默认task和自己实现的task就能够完成Java项目的构建任务。</p>
 
-<h3>使用示例</h3>
+<h3><a name='使用示例'></a>使用示例</h3>
 
 <p>使用Ant需要编写build.xml来配置任务流程。当然，可以通过-f参数指定其他配置文件作为任务流程描述文件。一个Ant的配置文件如下：</p>
 
@@ -193,7 +229,7 @@
 
 <p>执行<code>ant [target]</code>即可执行任务流程。</p>
 
-<h3>提示</h3>
+<h3><a name='提示'></a>提示</h3>
 
 <ul>
 <li>使用Ant时，一个常见的需求就是通过命令行给Ant传递参数，可以通过<code>-Dname=value</code>这种形式来传递，在build.xml中通过<code>${name}</code>来引用即可。</li>
@@ -221,9 +257,9 @@
 </ul>
 
 
-<h2>二. Maven</h2>
+<h2><a name='二. Maven'></a>二. Maven</h2>
 
-<h3>介绍</h3>
+<h3><a name='介绍'></a>介绍</h3>
 
 <p>Maven是继Ant后出现的一款基于约定优于配置原则的项目构建工具。这里所说的“约定优于配置”指的是约定的一些规范无需再配置，例如：其约定好的生命周期、项目结构等。当然，Maven也提供了打破默认约定的配置办法。</p>
 
@@ -241,7 +277,7 @@
 
 <p>可见，相比起Ant，Maven提供了更加强大和规范的功能。</p>
 
-<h3>配置文件</h3>
+<h3><a name='配置文件'></a>配置文件</h3>
 
 <p>Maven基于pom（Project Object Model）进行。一个项目所有的配置都放置在pom.xml文件中，包括定义项目的类型、名字，管理依赖关系，定制插件的行为等等。</p>
 
@@ -465,7 +501,7 @@
 
 <p>此外，<dependencyManagement>和<pluginManagement>可以统一做依赖和插件的配置管理，不同于<dependencies>和<plugins>的是，如果子pom中没有声明<dependency>和<plugin>则并不生效。</p>
 
-<h3>标准Web项目结构</h3>
+<h3><a name='标准Web项目结构'></a>标准Web项目结构</h3>
 
 <p>在Maven中，一个Web项目的标准结构，如下图所示：</p>
 
@@ -528,7 +564,7 @@
 
 <p>这里，Java代码目录移到了./src中，测试代码目录到了./test/java中，测试资源也到了./test/resources,同时编译结果目录变为了./build。此外，在maven-war-plugin中，也把Web目录的war源码目录改为了./WebContent。</p>
 
-<h3>依赖管理</h3>
+<h3><a name='依赖管理'></a>依赖管理</h3>
 
 <p>依赖管理是通过<dependencies>来定义的，其中：</p>
 
@@ -552,7 +588,7 @@
 
 <p>上面所说的镜像库和repository可以通过<a href="http://www.sonatype.org/nexus/">http://www.sonatype.org/nexus/</a>进行搭建。</p>
 
-<h3>项目构建流程</h3>
+<h3><a name='项目构建流程'></a>项目构建流程</h3>
 
 <p>Maven的构建生命周期中几个常见phase如下：</p>
 
@@ -573,7 +609,7 @@
 
 <p><img src="http://www.rowkey.me/post_images/buildjava/mvn-process.png" alt="" /></p>
 
-<h3>Profile多环境支持</h3>
+<h3><a name='Profile多环境支持'></a>Profile多环境支持</h3>
 
 <p>现实开发中一个很常见的需求就是需要根据不同的环境打包不同的文件或者读取不同的属性值。Maven中的profile即可解决此问题。</p>
 
@@ -725,7 +761,7 @@
 </span><span class='line'>&lt;/plugin&gt;  </span></code></pre></td></tr></table></div></figure>
 
 
-<h3>复用test</h3>
+<h3><a name='复用test'></a>复用test</h3>
 
 <p>当需要将写的测试用例（src/test下的资源和类）以jar包形式发布出去的时候，需要用到test-jar。首先，在打包时配置maven-jar-plugin，如下：</p>
 
@@ -801,7 +837,7 @@
 </span><span class='line'>&lt;/dependency&gt;</span></code></pre></td></tr></table></div></figure>
 
 
-<h3>Scala支持</h3>
+<h3><a name='Scala支持'></a>Scala支持</h3>
 
 <p>Scala的官方构建工具是sbt，但是由于某些原因，在国内访问很慢。Maven有插件提供了对Scala项目的支持。</p>
 
@@ -923,7 +959,7 @@
 
 <p>net.alchim31.maven.scala-maven-plugin提供了对Scala代码的编译；org.scalatest.scalatest-maven-plugin提供了对Scala项目的测试；exec-maven-plugin配置了对Scala程序的执行。</p>
 
-<h3>常用插件</h3>
+<h3><a name='常用插件'></a>常用插件</h3>
 
 <p>Maven提供了很多插件方便开发工作。</p>
 
@@ -952,7 +988,7 @@
 </ul>
 
 
-<h3>提示</h3>
+<h3><a name='提示'></a>提示</h3>
 
 <ul>
 <li>在项目版本号中加入<code>SNAPSHOT</code>后缀做为快照版本可以使得Maven每次都能自动获取最新版本而无需频繁更新版本号。</li>
@@ -1006,9 +1042,9 @@
 
 <p>Maven常用命令介绍请见附录A。</p>
 
-<h2>三. Gradle</h2>
+<h2><a name='三. Gradle'></a>三. Gradle</h2>
 
-<h3>介绍</h3>
+<h3><a name='介绍'></a>介绍</h3>
 
 <p>Gradle是目前正在开始流行的新一代构建工具，正在逐步的被大家推广使用，尤其以Android为典型。基本上现在所有的Android项目都采用Gradle做为项目构建工具。概括来讲，有以下几个特点：</p>
 
@@ -1022,7 +1058,7 @@
 </ul>
 
 
-<h3>使用示例</h3>
+<h3><a name='使用示例'></a>使用示例</h3>
 
 <p>Gradle的配置写在build.gradle文件中。</p>
 
@@ -1194,7 +1230,7 @@
 
 <p>可见，依赖的配置（dependencies）相比Maven,得到了大大的简化，对于任务的定义（task）也非常简单。</p>
 
-<h3>多模块</h3>
+<h3><a name='多模块'></a>多模块</h3>
 
 <ul>
 <li><p>首先，在工程的根目录下，创建settings.gradle。</p>
@@ -1236,7 +1272,7 @@
 </ul>
 
 
-<h3>提示</h3>
+<h3><a name='提示'></a>提示</h3>
 
 <ul>
 <li>gradle -Penv=test可以传递参数，使用env引用即可。这里需要注意的是Gradle中默认并没有提供Maven的profile支持，但是可以利用-P参数自己实现此功能。</li>
@@ -2996,7 +3032,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#104;&#97;&#110;&#103;&#x40;&#101;&#116;&#111;&#x75;&#x63;&#104;&#x2e;&#x63;&#x6e;">&#104;&#97;&#110;&#103;&#x40;&#101;&#116;&#x6f;&#x75;&#x63;&#104;&#x2e;&#x63;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#104;&#x61;&#110;&#x67;&#x40;&#x65;&#x74;&#111;&#117;&#99;&#x68;&#46;&#99;&#110;">&#104;&#x61;&#x6e;&#x67;&#64;&#101;&#x74;&#x6f;&#117;&#x63;&#104;&#x2e;&#99;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
