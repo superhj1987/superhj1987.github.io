@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech-talk | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/tech-talk/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-09-03T18:30:56+08:00</updated>
+  <updated>2018-09-04T17:58:00+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[技术琐话2018-09-03]]></title>
+    <link href="http://www.rowkey.me/blog/2018/09/03/tech-talk/"/>
+    <updated>2018-09-03T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/09/03/tech-talk</id>
+    <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p>
+
+<p>2018年以“技术琐话”开篇，主要是整理了一下自己以前一些零散的知识点。</p></blockquote>
+
+<ul>
+<li>推送实现方式：轮训、长连接、长轮训（依赖于异步IO机制，如Java中的异步Servlet）。</li>
+<li>喜欢到处听讲座的人通常心态上很好学，但很可能思考不足，所以知识很容易流于表面。喜欢看一本一本书的人不但好学，而且通常比较习惯于深度思考。深度思考，才能具体改变你的知识体系。看书时，可以和作者进入到同一个频率，对文字的内容产生共鸣。 ​​​​@蔡学镛 <strong>so，建议搞技术的同学少参加会议，少混圈子，多看书。</strong></li>
+<li>提出问题之前务必要先想好自己的答案或者思路。</li>
+<li>了解清楚事实再说话，切忌老是吐槽却不去解决问题。</li>
+<li>对新技术的调研需要梳理零散的知识点，最终一定要有输出：分享或者文章。</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[技术琐话2018-01-01]]></title>

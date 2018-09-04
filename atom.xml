@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-09-03T18:30:56+08:00</updated>
+  <updated>2018-09-04T17:58:00+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,26 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[技术琐话2018-09-03]]></title>
+    <link href="http://www.rowkey.me/blog/2018/09/03/tech-talk/"/>
+    <updated>2018-09-03T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/09/03/tech-talk</id>
+    <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p>
+
+<p>2018年以“技术琐话”开篇，主要是整理了一下自己以前一些零散的知识点。</p></blockquote>
+
+<ul>
+<li>推送实现方式：轮训、长连接、长轮训（依赖于异步IO机制，如Java中的异步Servlet）。</li>
+<li>喜欢到处听讲座的人通常心态上很好学，但很可能思考不足，所以知识很容易流于表面。喜欢看一本一本书的人不但好学，而且通常比较习惯于深度思考。深度思考，才能具体改变你的知识体系。看书时，可以和作者进入到同一个频率，对文字的内容产生共鸣。 ​​​​@蔡学镛 <strong>so，建议搞技术的同学少参加会议，少混圈子，多看书。</strong></li>
+<li>提出问题之前务必要先想好自己的答案或者思路。</li>
+<li>了解清楚事实再说话，切忌老是吐槽却不去解决问题。</li>
+<li>对新技术的调研需要梳理零散的知识点，最终一定要有输出：分享或者文章。</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何进行Java项目构建？]]></title>
@@ -2073,7 +2093,7 @@
 <li><strong>梯级存储</strong>：内存->SSD硬盘->传统硬盘->磁带，可以根据数据的重要性和生命周期对数据进行分级存储。</li>
 <li><strong>缓存设计</strong>：隔离请求与后端逻辑、存储，是就近原则的一种机制。包括客户端缓存（预先下发资源）、Nginx缓存、本地缓存以及分布式缓存。</li>
 <li><strong>异步设计</strong>：对于调用方不关注结果或者允许结果延时返回的接口，采用队列进行异步响应能够很大程度提高系统性能；调用其他服务的时候不去等待服务方返回结果直接返回，同样能够提升系统响应性能。异步队列也是解决分布式事务的常用手段。</li>
-<li><strong>前瞻性设计</strong>：根据行业经验和预判，提前把可扩展性、后向兼容性设计好。</li>
+<li><strong>前瞻性设计</strong>：根据行业经验和对业务量的预判，提前把可扩展性、后向兼容性、容量预警设计好。以防止超过系统容量后造成各种问题影响服务。</li>
 <li><strong>水平扩展</strong>：相比起垂直扩展，能够通过堆机器解决问题是最优先考虑的问题，系统的负载能力也才能接近无限扩展。此外，基于<strong>云计算</strong>技术根据系统的负载自动调整容量能够在节省成本的同时保证服务的可用性。</li>
 <li><strong>小步构建和发布</strong>：快速迭代项目，快速试错。不能有跨度时间过长的项目规划。</li>
 <li><strong>自动化</strong>：打包、测试的自动化称为持续集成，部署的自动化称为持续部署。自动化机制是快速迭代和试错的基础保证。</li>
@@ -3064,7 +3084,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#104;&#97;&#x6e;&#x67;&#64;&#101;&#x74;&#x6f;&#117;&#99;&#x68;&#46;&#x63;&#x6e;">&#104;&#x61;&#x6e;&#x67;&#64;&#x65;&#116;&#x6f;&#x75;&#x63;&#x68;&#46;&#99;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#104;&#97;&#x6e;&#x67;&#x40;&#x65;&#x74;&#x6f;&#x75;&#99;&#x68;&#46;&#99;&#110;">&#x68;&#97;&#x6e;&#x67;&#64;&#x65;&#116;&#x6f;&#x75;&#99;&#x68;&#x2e;&#x63;&#x6e;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
@@ -4174,111 +4194,6 @@
 <p>异常不仅仅是一个错误控制机制，也是一个沟通媒介，因此与你的协作者讨论这些最佳实践并制定一些规范能够让每个人都理解相关的通用概念并且能够按照同样的方式使用它们。</p>
 
 <p>原文链接: <a href="https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java">https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[译]Java中的十个"单行代码编程"(One Liner)]]></title>
-    <link href="http://www.rowkey.me/blog/2017/09/09/java-oneliners/"/>
-    <updated>2017-09-09T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/09/09/java-oneliners</id>
-    <content type="html"><![CDATA[<p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
-
-<!--more-->
-
-
-<ol>
-<li><p>对列表/数组中的每个元素都乘以2</p>
-
-<pre><code class="`"> // Range是半开区间
- int[] ia = range(1, 10).map(i -&gt; i * 2).toArray();
- List&lt;Integer&gt; result = range(1, 10).map(i -&gt; i * 2).boxed().collect(toList());
-</code></pre></li>
-<li><p>计算集合/数组中的数字之和</p>
-
-<pre><code class="`"> range(1, 1000).sum();
- range(1, 1000).reduce(0, Integer::sum);
- Stream.iterate(0, i -&gt; i + 1).limit(1000).reduce(0, Integer::sum);
- IntStream.iterate(0, i -&gt; i + 1).limit(1000).reduce(0, Integer::sum);
-</code></pre></li>
-<li><p>验证字符串是否包含集合中的某一字符串</p>
-
-<pre><code class="`">final List&lt;String&gt; keywords = Arrays.asList("brown", "fox", "dog", "pangram");
-final String tweet = "The quick brown fox jumps over a lazy dog. #pangram http://www.rinkworks.com/words/pangrams.shtml";
-
-keywords.stream().anyMatch(tweet::contains);
-keywords.stream().reduce(false, (b, keyword) -&gt; b || tweet.contains(keyword), (l, r) -&gt; l || r);
-</code></pre></li>
-<li><p>读取文件内容</p>
-
-<blockquote><p>原作者认为try with resources也是一种单行代码编程。</p></blockquote>
-
-<pre><code class="`"> try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
-   String fileText = reader.lines().reduce("", String::concat);
- }
-
- try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
-   List&lt;String&gt; fileLines = reader.lines().collect(toCollection(LinkedList&lt;String&gt;::new));
- }
-
- try (Stream&lt;String&gt; lines = Files.lines(new File("data.txt").toPath(), Charset.defaultCharset())) {
-   List&lt;String&gt; fileLines = lines.collect(toCollection(LinkedList&lt;String&gt;::new));
- }
-</code></pre></li>
-<li><p>输出歌曲《Happy Birthday to You!》 - 根据集合中不同的元素输出不同的字符串</p>
-
-<pre><code class="`"> range(1, 5).boxed().map(i -&gt; { out.print("Happy Birthday "); if (i == 3) return "dear NAME"; else return "to You"; }).forEach(out::println);
-</code></pre></li>
-<li><p>过滤并分组集合中的数字</p>
-
-<pre><code class="`"> Map&lt;String, List&lt;Integer&gt;&gt; result = Stream.of(49, 58, 76, 82, 88, 90).collect(groupingBy(forPredicate(i -&gt; i &gt; 60, "passed", "failed")));
-</code></pre></li>
-<li><p>获取并解析xml协议的Web Service</p>
-
-<pre><code class="`">FeedType feed = JAXB.unmarshal(new URL("http://search.twitter.com/search.atom?&amp;q=java8"), FeedType.class);
-JAXB.marshal(feed, System.out);
-</code></pre></li>
-<li><p>获得集合中最小/最大的数字</p>
-
-<pre><code class="`"> int min = Stream.of(14, 35, -7, 46, 98).reduce(Integer::min).get();
- min = Stream.of(14, 35, -7, 46, 98).min(Integer::compare).get();
- min = Stream.of(14, 35, -7, 46, 98).mapToInt(Integer::new).min();
-
- int max = Stream.of(14, 35, -7, 46, 98).reduce(Integer::max).get();
- max = Stream.of(14, 35, -7, 46, 98).max(Integer::compare).get();
- max = Stream.of(14, 35, -7, 46, 98).mapToInt(Integer::new).max();
-</code></pre></li>
-<li><p>并行处理</p>
-
-<pre><code class="`"> long result = dataList.parallelStream().mapToInt(line -&gt; processItem(line)).sum();
-</code></pre></li>
-<li><p>集合上的各种查询(LINQ in Java)</p>
-
-<pre><code>List&lt;Album&gt; albums = Arrays.asList(unapologetic, tailgates, red);
-
-//筛选出至少有一个track评级4分以上的专辑，并按照名称排序后打印出来。
-albums.stream()
-  .filter(a -&gt; a.tracks.stream().anyMatch(t -&gt; (t.rating &gt;= 4)))
-  .sorted(comparing(album -&gt; album.name))
-  .forEach(album -&gt; System.out.println(album.name));
-
-//合并所有专辑的track
-List&lt;Track&gt; allTracks = albums.stream()
-  .flatMap(album -&gt; album.tracks.stream())
-  .collect(toList());
-
-//根据track的评分对所有track分组
-Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
-  .collect(groupingBy(Track::getRating));
-</code></pre></li>
-</ol>
-
-
-<p>原文: <a href="https://github.com/aruld/java-oneliners/wiki">https://github.com/aruld/java-oneliners/wiki</a></p>
-
-<hr />
-
-<p><strong><em>补充 by 飒然Hang</em></strong>: 上述的<strong>单行代码编程</strong>确实能够减少代码的字符数，也经常能够给人以高大上的感觉，但是在Java编程中字符其实是非常廉价的，尤其是现在诸如Intellij等IDE已经具有自动补充/生成代码、重构等智能化功能。如果仅仅是为了减少字符的数量，那么没必要刻意去追求<strong>单行代码编程</strong>。让你的代码易于阅读才是最关键的。</p>
 ]]></content>
   </entry>
   
