@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-09-04T17:58:00+08:00</updated>
+  <updated>2018-09-06T12:05:04+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -615,7 +615,15 @@
 
 <p><img src="//post_images/capacity-plan.png" alt="" /></p>
 
-<p>在容量预估中，机器数目的计算遵循DID原则：20倍设计、3倍实施、1.5倍部署。即需要部署1.5倍的可承载预估业务流量的机器数目。</p>
+<ol>
+<li>根据流量模型、历史数据、预测算法预估未来某一个时间点的业务量：QPS、每日数据量等。</li>
+<li>评估单点最大承载量（数据库的单点承载数据量、应用服务器的单点承载并发量）【通过性能测试】，根据业务量计算需要部署的结点数目，做1.5倍部署（DID原则）。</li>
+<li>性能压测验证整个系统的负载能力。</li>
+<li>设计达到容量预估值时的预警、限流、快速恢复措施以及后续扩展方案。</li>
+</ol>
+
+
+<p>PS: 在容量预估中，机器数目的计算遵循DID原则：20倍设计、3倍实施/实现、1.5倍部署。即需要部署1.5倍的可承载预估业务流量的机器数目。</p>
 
 <h2>架构重构的原则</h2>
 
