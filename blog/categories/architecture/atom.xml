@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-09-06T22:38:22+08:00</updated>
+  <updated>2018-09-07T11:43:23+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -641,6 +641,21 @@
 <li>了解业务</li>
 <li>做好面对非技术因素的准备</li>
 <li>能够掌握代码质量</li>
+</ul>
+
+
+<h2>其他</h2>
+
+<ul>
+<li>系统扩展思路
+
+<ul>
+<li>通过克隆扩展->高可用</li>
+<li>通过拆分不同的东西来扩展->垂直扩展</li>
+<li>拆分类似的东西来扩展->水平扩展</li>
+</ul>
+</li>
+<li>讨论技术方案时，以是否合理为依据，而不要以工作量少为依据。</li>
 </ul>
 
 
