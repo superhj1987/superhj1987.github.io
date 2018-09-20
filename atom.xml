@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-09-14T10:21:21+08:00</updated>
+  <updated>2018-09-20T23:35:08+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[架构设计与原则（2018修订版）]]></title>
+    <link href="http://www.rowkey.me/blog/2018/09/20/arch-new/"/>
+    <updated>2018-09-20T22:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/09/20/arch-new</id>
+    <content type="html"><![CDATA[<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>的最新修订版。</p>
+
+<!--more-->
+
+
+<p><img src="http://www.rowkey.me/post_images/arch-new/arch-2.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-3.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-4.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-5.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-6.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-7.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-8.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-9.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-11.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-12.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-13.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-14.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-15.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-16.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-17.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-18.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-19.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-20.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-21.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-22.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-23.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-24.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-25.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-26.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-27.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-28.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/arch-new/arch-29.jpeg" alt="" /></p>
+
+<p><strong>附录链接：</strong></p>
+
+<ul>
+<li><a href="https://www.ibm.com/developerworks/cn/rational/06/r-wenyu/index.html">软件架构 &ldquo;4+1&rdquo; 视图模型</a>: 逻辑视图、开发视图、过程视图、物理视图 + 场景视图</li>
+<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/arch.md">系统设计文档模板</a>:系统架构设计</li>
+<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-research.md">技术调研文档模板</a>:技术方案调研输出</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[技术琐话2018-09-03]]></title>
@@ -3110,7 +3159,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#104;&#x61;&#110;&#x67;&#x40;&#x65;&#116;&#111;&#x75;&#x63;&#104;&#46;&#x63;&#x6e;">&#x68;&#x61;&#110;&#x67;&#x40;&#x65;&#116;&#x6f;&#117;&#99;&#x68;&#46;&#x63;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x68;&#x61;&#110;&#103;&#x40;&#101;&#x74;&#111;&#x75;&#99;&#x68;&#46;&#99;&#110;">&#x68;&#x61;&#110;&#103;&#x40;&#101;&#116;&#x6f;&#x75;&#99;&#104;&#x2e;&#x63;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
@@ -3864,362 +3913,6 @@
 <li>Java9模块化开发：<a href="https://dzone.com/articles/java-9-modularity-jigsaw">第一部分</a>、<a href="https://dzone.com/articles/java-9-modular-development-part-2">第二部分</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[[译]Java中9个处理Exception的最佳实践]]></title>
-    <link href="http://www.rowkey.me/blog/2017/09/17/java-exception/"/>
-    <updated>2017-09-17T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/09/17/java-exception</id>
-    <content type="html"><![CDATA[<p>在Java中处理异常并不是一个简单的事情。不仅仅初学者很难理解，即使一些有经验的开发者也需要花费很多时间来思考如何处理异常，包括需要处理哪些异常，怎样处理等等。这也是绝大多数开发团队都会制定一些规则来规范对异常的处理的原因。而团队之间的这些规范往往是截然不同的。</p>
-
-<p>本文给出几个被很多团队使用的异常处理最佳实践。</p>
-
-<!--more-->
-
-
-<h2>1. 在Finally块中清理资源或者使用try-with-resource语句</h2>
-
-<p>当使用类似InputStream这种需要使用后关闭的资源时，一个常见的错误就是在try块的最后关闭资源。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>public void doNotCloseResourceInTry() {
-</span><span class='line'>    FileInputStream inputStream = null;
-</span><span class='line'>    try {
-</span><span class='line'>        File file = new File("./tmp.txt");
-</span><span class='line'>        inputStream = new FileInputStream(file);
-</span><span class='line'>        // use the inputStream to read a file
-</span><span class='line'>        // do NOT do this
-</span><span class='line'>        inputStream.close();
-</span><span class='line'>    } catch (FileNotFoundException e) {
-</span><span class='line'>        log.error(e);
-</span><span class='line'>    } catch (IOException e) {
-</span><span class='line'>        log.error(e);
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>上述代码在没有任何exception的时候运行是没有问题的。但是当try块中的语句抛出异常或者自己实现的代码抛出异常，那么就不会执行最后的关闭语句，从而资源也无法释放。</p>
-
-<p>合理的做法则是将所有清理的代码都放到finally块中或者使用try-with-resource语句。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-<span class='line-number'>27</span>
-<span class='line-number'>28</span>
-<span class='line-number'>29</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>public void closeResourceInFinally() {
-</span><span class='line'>    FileInputStream inputStream = null;
-</span><span class='line'>    try {
-</span><span class='line'>        File file = new File("./tmp.txt");
-</span><span class='line'>        inputStream = new FileInputStream(file);
-</span><span class='line'>        // use the inputStream to read a file
-</span><span class='line'>    } catch (FileNotFoundException e) {
-</span><span class='line'>        log.error(e);
-</span><span class='line'>    } finally {
-</span><span class='line'>        if (inputStream != null) {
-</span><span class='line'>            try {
-</span><span class='line'>                inputStream.close();
-</span><span class='line'>            } catch (IOException e) {
-</span><span class='line'>                log.error(e);
-</span><span class='line'>            }
-</span><span class='line'>        }
-</span><span class='line'>    }
-</span><span class='line'>}
-</span><span class='line'>
-</span><span class='line'>public void automaticallyCloseResource() {
-</span><span class='line'>    File file = new File("./tmp.txt");
-</span><span class='line'>    try (FileInputStream inputStream = new FileInputStream(file);) {
-</span><span class='line'>        // use the inputStream to read a file
-</span><span class='line'>    } catch (FileNotFoundException e) {
-</span><span class='line'>        log.error(e);
-</span><span class='line'>    } catch (IOException e) {
-</span><span class='line'>        log.error(e);
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>2. 指定具体的异常</h2>
-
-<p>尽可能的使用最具体的异常来声明方法，这样才能使得代码更容易理解。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>public void doNotDoThis() throws Exception {
-</span><span class='line'>    ...
-</span><span class='line'>}
-</span><span class='line'>public void doThis() throws NumberFormatException {
-</span><span class='line'>    ...
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如上，NumberFormatException字面上即可以看出是数字格式化错误。</p>
-
-<h2>3. 对异常进行文档说明</h2>
-
-<p>当在方法上声明抛出异常时，也需要进行文档说明。和前面的一点一样，都是为了给调用者提供尽可能多的信息，从而可以更好地避免/处理异常。</p>
-
-<p>在Javadoc中加入throws声明，并且描述抛出异常的场景。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>/**
-</span><span class='line'> * This method does something extremely useful ...
-</span><span class='line'> *
-</span><span class='line'> * @param input
-</span><span class='line'> * @throws MyBusinessException if ... happens
-</span><span class='line'> */
-</span><span class='line'>public void doSomething(String input) throws MyBusinessException {
-</span><span class='line'>    ...
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>4. 抛出异常的时候包含描述信息</h2>
-
-<p>在抛出异常时，需要尽可能精确地描述问题和相关信息，这样无论是打印到日志中还是监控工具中，都能够更容易被人阅读，从而可以更好地定位具体错误信息、错误的严重程度等。</p>
-
-<p>但这里并不是说要对错误信息长篇大论，因为本来Exception的类名就能够反映错误的原因，因此只需要用一到两句话描述即可。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>try {
-</span><span class='line'>    new Long("xyz");
-</span><span class='line'>} catch (NumberFormatException e) {
-</span><span class='line'>    log.error(e);
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>NumberFormatException即告诉了这个异常是格式化错误，异常的额外信息只需要提供这个错误字符串即可。当异常的名称不够明显的时候，则需要提供尽可能具体的错误信息。</p>
-
-<h2>5. 首先捕获最具体的异常</h2>
-
-<p>现在很多IDE都能智能提示这个最佳实践，当你试图首先捕获最笼统的异常时，会提示<strong><em>不能达到的代码</em></strong>。</p>
-
-<p>当有多个catch块中，按照捕获顺序只有第一个匹配到的catch块才能执行。因此，如果先捕获IllegalArgumentException，那么则无法运行到对NumberFormatException的捕获。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>public void catchMostSpecificExceptionFirst() {
-</span><span class='line'>    try {
-</span><span class='line'>        doSomething("A message");
-</span><span class='line'>    } catch (NumberFormatException e) {
-</span><span class='line'>        log.error(e);
-</span><span class='line'>    } catch (IllegalArgumentException e) {
-</span><span class='line'>        log.error(e)
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>6. 不要捕获Throwable</h2>
-
-<p>Throwable是所有异常和错误的父类。你可以在catch语句中捕获，但是永远不要这么做。</p>
-
-<p>如果catch了throwable，那么不仅仅会捕获所有exception，还会捕获error。而error是表明无法恢复的jvm错误。因此除非绝对肯定能够处理或者被要求处理error，不要捕获throwable。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>public void doNotCatchThrowable() {
-</span><span class='line'>    try {
-</span><span class='line'>        // do something
-</span><span class='line'>    } catch (Throwable t) {
-</span><span class='line'>        // don't do this!
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>7. 不要忽略异常</h2>
-
-<p>很多时候，开发者很有自信不会抛出异常，因此写了一个catch块，但是没有做任何处理或者记录日志。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>public void doNotIgnoreExceptions() {
-</span><span class='line'>    try {
-</span><span class='line'>        // do something
-</span><span class='line'>    } catch (NumberFormatException e) {
-</span><span class='line'>        // this will never happen
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>但现实是经常会出现无法预料的异常或者无法确定这里的代码未来是不是会改动(删除了阻止异常抛出的代码)，而此时由于异常被捕获，使得无法拿到足够的错误信息来定位问题。</p>
-
-<p>合理的做法是至少要记录异常的信息。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>public void logAnException() {
-</span><span class='line'>    try {
-</span><span class='line'>        // do something
-</span><span class='line'>    } catch (NumberFormatException e) {
-</span><span class='line'>        log.error("This should never happen: " + e);
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>8. 不要记录并抛出异常</h2>
-
-<p>可以发现很多代码甚至类库中都会有捕获异常、记录日志并再次抛出的逻辑。如下：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>try {
-</span><span class='line'>    new Long("xyz");
-</span><span class='line'>} catch (NumberFormatException e) {
-</span><span class='line'>    log.error(e);
-</span><span class='line'>    throw e;
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这个处理逻辑看着是合理的。但这经常会给同一个异常输出多条日志。如下：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>17:44:28,945 ERROR TestExceptionHandling:65 - java.lang.NumberFormatException: For input string: "xyz"
-</span><span class='line'>Exception in thread "main" java.lang.NumberFormatException: For input string: "xyz"
-</span><span class='line'>at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
-</span><span class='line'>at java.lang.Long.parseLong(Long.java:589)
-</span><span class='line'>at java.lang.Long.(Long.java:965)
-</span><span class='line'>at com.stackify.example.TestExceptionHandling.logAndThrowException(TestExceptionHandling.java:63)
-</span><span class='line'>at com.stackify.example.TestExceptionHandling.main(TestExceptionHandling.java:58)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>如上所示，后面的日志也没有附加更有用的信息。如果想要提供更加有用的信息，那么可以将异常包装为自定义异常。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>
-</span><span class='line'>public void wrapException(String input) throws MyBusinessException {
-</span><span class='line'>    try {
-</span><span class='line'>        // do something
-</span><span class='line'>    } catch (NumberFormatException e) {
-</span><span class='line'>        throw new MyBusinessException("A message that describes the error.", e);
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>因此，仅仅当想要处理异常时才去捕获，否则只需要在方法签名中声明让调用者去处理。</p>
-
-<h2>9. 包装异常时不要抛弃原始的异常</h2>
-
-<p>捕获标准异常并包装为自定义异常是一个很常见的做法。这样可以添加更为具体的异常信息并能够做针对的异常处理。</p>
-
-<p>需要注意的是，包装异常时，一定要把原始的异常设置为cause(Exception有构造方法可以传入cause)。否则，丢失了原始的异常信息会让错误的分析变得困难。</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>public void wrapException(String input) throws MyBusinessException {
-</span><span class='line'>    try {
-</span><span class='line'>        // do something
-</span><span class='line'>    } catch (NumberFormatException e) {
-</span><span class='line'>        throw new MyBusinessException("A message that describes the error.", e);
-</span><span class='line'>    }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<h2>总结</h2>
-
-<p>综上可知，当抛出或者捕获异常时，有很多不一样的东西需要考虑。其中的许多点都是为了提升代码的可阅读性或者api的可用性。</p>
-
-<p>异常不仅仅是一个错误控制机制，也是一个沟通媒介，因此与你的协作者讨论这些最佳实践并制定一些规范能够让每个人都理解相关的通用概念并且能够按照同样的方式使用它们。</p>
-
-<p>原文链接: <a href="https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java">https://dzone.com/articles/9-best-practices-to-handle-exceptions-in-java</a></p>
 ]]></content>
   </entry>
   

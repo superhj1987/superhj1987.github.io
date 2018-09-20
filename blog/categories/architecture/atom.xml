@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-09-14T10:21:21+08:00</updated>
+  <updated>2018-09-20T23:35:08+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,55 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[架构设计与原则（2018修订版）]]></title>
+    <link href="http://www.rowkey.me/blog/2018/09/20/arch-new/"/>
+    <updated>2018-09-20T22:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/09/20/arch-new</id>
+    <content type="html"><![CDATA[<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>的最新修订版。</p>
+
+<!--more-->
+
+
+<p><img src="//post_images/arch-new/arch-2.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-3.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-4.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-5.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-6.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-7.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-8.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-9.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-11.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-12.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-13.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-14.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-15.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-16.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-17.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-18.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-19.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-20.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-21.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-22.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-23.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-24.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-25.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-26.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-27.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-28.jpeg" alt="" />
+<img src="//post_images/arch-new/arch-29.jpeg" alt="" /></p>
+
+<p><strong>附录链接：</strong></p>
+
+<ul>
+<li><a href="https://www.ibm.com/developerworks/cn/rational/06/r-wenyu/index.html">软件架构 &ldquo;4+1&rdquo; 视图模型</a>: 逻辑视图、开发视图、过程视图、物理视图 + 场景视图</li>
+<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/arch.md">系统设计文档模板</a>:系统架构设计</li>
+<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-research.md">技术调研文档模板</a>:技术方案调研输出</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[响应式微服务架构-分布式系统设计原则]]></title>
@@ -1044,34 +1093,6 @@
 <li><a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247487013&amp;idx=1&amp;sn=4675dd398a3458af9ba519557675e406&amp;chksm=e929332ade5eba3c142a36f89677d71bf1e1395967ace0b9e4ff3d18c6cffd604420709967fe&amp;mpshare=1&amp;scene=1&amp;srcid=03126HIJoomFmy2JpebnHa5m%23rd">如何用架构师思维解读区块链技术？</a></li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何快速尝出毒酒？- 用bit解决问题]]></title>
-    <link href="http://www.rowkey.me/blog/2018/01/04/king-rec-pois-wine/"/>
-    <updated>2018-01-04T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2018/01/04/king-rec-pois-wine</id>
-    <content type="html"><![CDATA[<h2>问题</h2>
-
-<p>国王有一百桶酒，比自己的生命还重要。结果有一天其中一桶被投了慢性毒药，喝了以后半个小时以后就会死掉。国王大怒，命令玩忽职守的侍卫去试毒。酒不能被混合，一个侍卫可以喝多桶酒，一桶酒也可以由多个侍卫喝，怎么样才能用最少的侍卫、在最短的时间知道哪桶是毒酒。侍卫可以理解为线程，即怎么样用最少的线程用最快的速度完成这个工作。</p>
-
-<!--more-->
-
-
-<h2>方案</h2>
-
-<p>此问题是我在面试时经常用的一道题目，主要考察的是候选人能不能以计算机的思维考虑问题。</p>
-
-<p>最简单的方案肯定是找100个人，每个人试一桶酒，那么用时30分钟，就可以判断出哪一桶就有毒。</p>
-
-<p>再进一步的，可以使用分段法，把酒分成n份，先找n个侍卫试酒，可以定位出哪一段的酒有毒，再接着分段试酒。但这种方案，分段数目越少，试出毒酒的平均耗时就越长。</p>
-
-<p>如果用计算机的思维来分析这个问题，那么首先考虑如何存储这100桶酒。100桶酒可以用二进制7个bit来表示（2<sup>7</sup>>100）。对应那一桶毒酒，其二进制表示中为1的位置如果能够可以定位出来，就可以定位出此桶毒酒。可以找7个侍卫编号1-7。对于每一桶酒的二进制表示（不足七位前面用0表示），从第一位到第七位，如果是1，则对应编号的侍卫喝此桶酒。这样，每个侍卫喝掉对应的酒。30分钟后，侍卫按照编号1-7，死掉的置为1，活着的置为0，如此，侍卫的一个序列如0000111就表示第七桶酒为毒酒。</p>
-
-<h2>总结</h2>
-
-<p>上述最后一种方案提现了在计算机中使用bit来解决问题的思路。当需要节省存储的时候，使用bit来做经常会有出其不易的效果。就比如最近很火的电影《天才枪手》中，主角们记忆选择题的答案A、B、C、D，完全可以使用位编码来表示四种答案:00-A 01-B 10-C 11-D，四个bit转换为一个十六进制数字，如此就可以节省一半的存储，记忆起来也会简单很多。此外，我们处理大数据去重/计数使用的Bitmap、BloomFilter，也都是一种使用bit节省存储的思路。</p>
 ]]></content>
   </entry>
   

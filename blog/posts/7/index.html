@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="ShellShock这点事 Sep 29th, 2014 前言 在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接： &hellip;">
+  <meta name="description" content="SpringMVC的controller传递HttpServletResponse参数的那点事 Dec 9th, 2014 @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,56 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2014/12/09/spring-mvc-httpservletresponse/">SpringMVC的controller传递HttpServletResponse参数的那点事</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-12-09T10:05:41+08:00" pubdate data-updated="true">Dec 9<sup>th</sup>, 2014</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><pre>
+    @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
+    public void cardDown(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response, String id, int status){
+    ......
+    }
+</pre>
+
+
+<p>之前在使用Spring mvc的时候发现这么一回事：在spring mvc的controller的参数里如果有HttpServletResponse(类似上面的代码),那么必须有返回值框架才会去在执行完handler后去搜索相应的viewResolver和view从而展现数据。如果没有返回值，那么默认就是返回null的。我初步推测框架的处理过程大致如此：如果controller参数里传递HttpServletResposne的话，框架就认为视图由handler自己生成可以不参于这个过程,但是如果handler有返回值的话，那么仍然认为还需要参与到视图生成的过程中。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/12/09/spring-mvc-httpservletresponse/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -602,56 +652,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2013/05/13/no-name/">无题</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-05-13T23:02:50+08:00" pubdate data-updated="true">May 13<sup>th</sup>, 2013</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>5.11-5.12，176公里，千岛湖镇-汾口-千岛湖镇，环湖一周。相信这将会是我未来永远难忘的一段经历。</p>
-
-<p>开始的计划是5.11中午从千岛湖镇出发，历经96公里前往汾口，18：00左右到达目的地。没想到走了大约20公里之后遇到了各种上坡路，尤其一段一公里的大上坡，让我们实在无法保持速度。全身各种疼，大腿完全是无知觉地在做机械运动，有无数次想放弃的冲动。如此艰难的挣扎，造成的后果就是从枫树岭开始的20公里山路只能摸黑前进，中间好几次撞到石头差点栽到地上。所幸的是有一辆自行车是有车灯的，不然还真不知道如何前行。最后到达汾口的时候已经是晚上快9点了。虽然远远晚于原定计划，但顺利到达目的地的喜悦还是让我们挺开心的。</p>
-
-<p>5.12的路程相对来说是比较容易的，一路都是大缓坡，咬咬牙就都过了。中间在界首农庄吃了顿午饭。之后连续10个隧道，一路都还是挺舒服的。下午4点多，终于回到了出发点。算是完成了这次环千岛湖骑行。</p>
-
-<p>这一段行程，真的感觉是对自己的一种历练+超越。在很多次想要放弃的时候，我都告诉自己，人只有超越自己、超越极限，才能成为一个无比强大的个体。和别人比较是没有任何意义的，能够战胜自己的人才是最优秀的。</p>
-
-<p>PS：一路上各种哈雷机车，那叫一个帅气。。。据说是哈雷机车110周年纪念日，全国的机车爱好者都过来环湖庆祝。望而兴叹，啥时候自己也能成为一个哈雷机车车友呢？</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/05/13/no-name/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -731,6 +731,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/09/20/arch-new/">架构设计与原则（2018修订版）</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/09/03/tech-talk/">技术琐话2018-09-03</a>
       	</li>
     	
@@ -764,10 +768,6 @@
     	
      	<li>
       	  <a href="/blog/2018/04/01/pje-release/">如何成为一名合格的Java工程师?</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/03/15/blockchain/">浅析区块链</a>
       	</li>
     	
 	</ul>

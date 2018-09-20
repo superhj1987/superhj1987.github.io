@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.rowkey.me/blog/2018/09/20/arch-new/</loc>
+    <lastmod>2018-09-20T22:29:34+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.rowkey.me/blog/2018/09/03/tech-talk/</loc>
     <lastmod>2018-09-03T19:29:34+08:00</lastmod>
   </url>
@@ -319,10 +323,10 @@
     <loc>http://www.rowkey.me/blog/blog_index.html</loc>
   </url>
   <url>
-    <loc>http://www.rowkey.me/blog/archives/</loc>
+    <loc>http://www.rowkey.me/</loc>
   </url>
   <url>
-    <loc>http://www.rowkey.me/</loc>
+    <loc>http://www.rowkey.me/blog/archives/</loc>
   </url>
   <url>
     <loc>http://www.rowkey.me/blog/categories/</loc>
