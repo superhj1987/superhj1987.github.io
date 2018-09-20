@@ -1,0 +1,45 @@
+---
+layout: post
+title: "架构设计与原则（2018修订版）"
+date: 2018-09-20 22:29:34 +0800
+comments: true
+categories: architecture
+---
+
+之前的[《谈谈架构》](http://www.rowkey.me/blog/2017/08/24/arch/)的最新修订版。
+
+<!--more-->
+
+![](/post_images/arch-new/arch-2.jpeg)
+![](/post_images/arch-new/arch-3.jpeg)
+![](/post_images/arch-new/arch-4.jpeg)
+![](/post_images/arch-new/arch-5.jpeg)
+![](/post_images/arch-new/arch-6.jpeg)
+![](/post_images/arch-new/arch-7.jpeg)
+![](/post_images/arch-new/arch-8.jpeg)
+![](/post_images/arch-new/arch-9.jpeg)
+![](/post_images/arch-new/arch-11.jpeg)
+![](/post_images/arch-new/arch-12.jpeg)
+![](/post_images/arch-new/arch-13.jpeg)
+![](/post_images/arch-new/arch-14.jpeg)
+![](/post_images/arch-new/arch-15.jpeg)
+![](/post_images/arch-new/arch-16.jpeg)
+![](/post_images/arch-new/arch-17.jpeg)
+![](/post_images/arch-new/arch-18.jpeg)
+![](/post_images/arch-new/arch-19.jpeg)
+![](/post_images/arch-new/arch-20.jpeg)
+![](/post_images/arch-new/arch-21.jpeg)
+![](/post_images/arch-new/arch-22.jpeg)
+![](/post_images/arch-new/arch-23.jpeg)
+![](/post_images/arch-new/arch-24.jpeg)
+![](/post_images/arch-new/arch-25.jpeg)
+![](/post_images/arch-new/arch-26.jpeg)
+![](/post_images/arch-new/arch-27.jpeg)
+![](/post_images/arch-new/arch-28.jpeg)
+![](/post_images/arch-new/arch-29.jpeg)
+
+**附录链接：**
+
+- [软件架构 "4+1" 视图模型](https://www.ibm.com/developerworks/cn/rational/06/r-wenyu/index.html): 逻辑视图、开发视图、过程视图、物理视图 + 场景视图 
+- [系统设计文档模板](https://github.com/superhj1987/awesome-tech-collections/blob/master/document/arch.md):系统架构设计
+- [技术调研文档模板](https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-research.md):技术方案调研输出
