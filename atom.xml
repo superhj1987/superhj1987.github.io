@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-11-22T12:29:32+08:00</updated>
+  <updated>2018-11-22T19:38:04+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,42 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[如何应对在线故障]]></title>
+    <link href="http://www.rowkey.me/blog/2018/11/22/online-debug/"/>
+    <updated>2018-11-22T22:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/11/22/online-debug</id>
+    <content type="html"><![CDATA[<p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这种情况应该如何应对呢？</p>
+
+<!--more-->
+
+
+<p><img src="http://www.rowkey.me/post_images/debug/arch-2.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-3.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-4.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-5.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-6.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-7.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-8.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-9.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-10.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-11.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-12.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-13.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-14.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-15.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-16.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-17.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-18.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-19.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-20.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-21.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-22.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-23.jpeg" alt="" />
+<img src="http://www.rowkey.me/post_images/debug/arch-24.jpeg" alt="" /></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java应用性能调优之调优准备]]></title>
@@ -3182,7 +3218,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x68;&#97;&#110;&#103;&#x40;&#101;&#116;&#x6f;&#117;&#x63;&#104;&#46;&#x63;&#x6e;">&#x68;&#x61;&#x6e;&#103;&#x40;&#x65;&#116;&#111;&#117;&#99;&#104;&#x2e;&#99;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x68;&#97;&#x6e;&#x67;&#64;&#x65;&#116;&#x6f;&#117;&#99;&#104;&#46;&#99;&#110;">&#x68;&#97;&#x6e;&#103;&#x40;&#101;&#116;&#x6f;&#117;&#99;&#x68;&#x2e;&#x63;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
@@ -3871,40 +3907,6 @@
 </span><span class='line'>
 </span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[有效解决问题]]></title>
-    <link href="http://www.rowkey.me/blog/2017/10/20/solve-problems/"/>
-    <updated>2017-10-20T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/10/20/solve-problems</id>
-    <content type="html"><![CDATA[<p>来自于内部的一次培训，主要讲述了如何有效地解决问题，包括识别问题、描述问题、分析问题、找出方案、决策问题等。</p>
-
-<!--more-->
-
-
-<p><img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-2.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-3.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-4.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-5.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-6.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-7.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-8.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-9.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-10.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-11.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-12.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-13.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-14.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-15.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-16.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-17.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-18.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-19.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-20.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-21.jpeg" alt="" />
-<img src="http://www.rowkey.me/images/blog_images/solve_problem/arch-22.jpeg" alt="" /></p>
 ]]></content>
   </entry>
   
