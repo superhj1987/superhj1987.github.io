@@ -6,6 +6,9 @@ comments: true
 categories: architecture
 ---
 
+实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。
+
+<!--more-->
 
 - 调优概览：<https://github.com/superhj1987/pragmatic-java-engineer/tree/master/book/chapter8-profile>
 - 调优准备：<https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md>
