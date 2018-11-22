@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-11-22T19:38:04+08:00</updated>
+  <updated>2018-11-22T23:21:01+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.rowkey.me/blog/2018/11/22/online-debug/"/>
     <updated>2018-11-22T22:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/11/22/online-debug</id>
-    <content type="html"><![CDATA[<p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这种情况应该如何应对呢？</p>
+    <content type="html"><![CDATA[<p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？</p>
 
 <!--more-->
 
