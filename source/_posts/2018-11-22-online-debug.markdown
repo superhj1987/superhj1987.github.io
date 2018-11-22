@@ -6,7 +6,7 @@ comments: true
 categories: architecture
 ---
 
-线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这种情况应该如何应对呢？
+线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？
 
 <!--more-->
 
