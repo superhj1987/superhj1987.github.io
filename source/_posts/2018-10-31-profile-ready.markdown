@@ -282,7 +282,7 @@ HotSpot VM内部有一些线程进行JVM的管理、监控、垃圾回收工作�
 
 1. iostat -xz 1
 
-    查看机器磁盘IO情况。await(ms)，IO操作的平均等待时间，是应用程序在和磁盘交互时，需要消耗的时间，包括IO等待和实际操作的耗时；svctm，IO操作的服务时间，此值一般小于await；avgqu-s，向设备发出的平均请求数量；%util,设备利用率。
+    属于sysstat软件套件。查看机器磁盘IO情况。await(ms)，IO操作的平均等待时间，是应用程序在和磁盘交互时，需要消耗的时间，包括IO等待和实际操作的耗时；svctm，IO操作的服务时间，此值一般小于await；avgqu-s，向设备发出的平均请求数量；%util,设备利用率。
     
     ```
     avg-cpu:  %user   %nice %system %iowait  %steal   %idle
