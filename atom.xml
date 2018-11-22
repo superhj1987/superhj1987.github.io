@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-11-22T12:23:53+08:00</updated>
+  <updated>2018-11-22T12:29:32+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,12 @@
     <link href="http://www.rowkey.me/blog/2018/10/31/profile-ready/"/>
     <updated>2018-10-31T22:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/10/31/profile-ready</id>
-    <content type="html"><![CDATA[<ul>
+    <content type="html"><![CDATA[<p>实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。</p>
+
+<!--more-->
+
+
+<ul>
 <li>调优概览：<a href="https://github.com/superhj1987/pragmatic-java-engineer/tree/master/book/chapter8-profile">https://github.com/superhj1987/pragmatic-java-engineer/tree/master/book/chapter8-profile</a></li>
 <li>调优准备：<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md</a></li>
 </ul>
@@ -3177,7 +3182,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#97;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#104;&#x61;&#110;&#x67;&#64;&#101;&#116;&#x6f;&#x75;&#99;&#x68;&#x2e;&#x63;&#x6e;">&#x68;&#x61;&#110;&#x67;&#64;&#101;&#116;&#x6f;&#117;&#x63;&#x68;&#46;&#99;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x68;&#97;&#110;&#103;&#x40;&#101;&#116;&#x6f;&#117;&#x63;&#104;&#46;&#x63;&#x6e;">&#x68;&#x61;&#x6e;&#103;&#x40;&#x65;&#116;&#111;&#117;&#99;&#104;&#x2e;&#99;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-11-22T12:23:53+08:00</updated>
+  <updated>2018-11-22T12:29:32+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,12 @@
     <link href="http://www.rowkey.me/blog/2018/10/31/profile-ready/"/>
     <updated>2018-10-31T22:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/10/31/profile-ready</id>
-    <content type="html"><![CDATA[<ul>
+    <content type="html"><![CDATA[<p>实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。</p>
+
+<!--more-->
+
+
+<ul>
 <li>调优概览：<a href="https://github.com/superhj1987/pragmatic-java-engineer/tree/master/book/chapter8-profile">https://github.com/superhj1987/pragmatic-java-engineer/tree/master/book/chapter8-profile</a></li>
 <li>调优准备：<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md</a></li>
 </ul>
