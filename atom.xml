@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-11-22T23:56:27+08:00</updated>
+  <updated>2018-11-29T23:57:52+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -19,6 +19,8 @@
     <updated>2018-11-22T22:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/11/22/online-debug</id>
     <content type="html"><![CDATA[<p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？</p>
+
+<p><strong>来自在公司内部的一次分享</strong></p>
 
 <!--more-->
 
@@ -78,6 +80,8 @@
     <id>http://www.rowkey.me/blog/2018/09/20/arch-new</id>
     <content type="html"><![CDATA[<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>的最新修订版。</p>
 
+<p><strong>来自在公司内部的一次分享</strong></p>
+
 <!--more-->
 
 
@@ -114,8 +118,9 @@
 
 <ul>
 <li><a href="https://www.ibm.com/developerworks/cn/rational/06/r-wenyu/index.html">软件架构 &ldquo;4+1&rdquo; 视图模型</a>: 逻辑视图、开发视图、过程视图、物理视图 + 场景视图</li>
-<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/arch.md">系统设计文档模板</a>:系统架构设计</li>
 <li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-research.md">技术调研文档模板</a>:技术方案调研输出</li>
+<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-analysis.md">技术方案分析文档模板</a>: 技术方案选型，设计、评估和选择备选方案</li>
+<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/arch.md">系统设计文档模板</a>:系统架构设计</li>
 </ul>
 
 ]]></content>
@@ -3218,7 +3223,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#104;&#x61;&#110;&#x67;&#64;&#101;&#x74;&#111;&#x75;&#x63;&#104;&#x2e;&#x63;&#110;">&#x68;&#97;&#110;&#103;&#x40;&#101;&#116;&#111;&#117;&#x63;&#104;&#x2e;&#99;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x68;&#x61;&#110;&#x67;&#x40;&#x65;&#116;&#111;&#117;&#99;&#x68;&#x2e;&#99;&#x6e;">&#x68;&#x61;&#x6e;&#x67;&#64;&#x65;&#x74;&#x6f;&#x75;&#99;&#104;&#46;&#x63;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
