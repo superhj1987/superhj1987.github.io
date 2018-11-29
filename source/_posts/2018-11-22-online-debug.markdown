@@ -8,6 +8,8 @@ categories: architecture
 
 线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？
 
+**来自在公司内部的一次分享**
+
 <!--more-->
 
 ![](/post_images/debug/arch-2.jpeg)
