@@ -10,6 +10,7 @@ categories: architecture
 
 <!--more-->
 
-<https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/README.md>
+已移至Github: <https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md>
+
 
 <img src="/post_images/book-all.png" width="400"/>
