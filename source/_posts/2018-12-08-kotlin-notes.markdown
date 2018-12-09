@@ -1,14 +1,30 @@
 ---
 layout: post
 title: "Kotlin语法简明指南"
-date: 2018-04-10 19:29:34 +0800
+date: 2018-12-08 19:29:34 +0800
 comments: true
 categories: java kotlin
 ---
 
-Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？本文主要对其语法作了简要概括。
+Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？从各种资料中总结出Kotlin有以下几个特点：
+
+1. 无缝与Java互操作
+
+	可以直接使用Java库能够大大降低切换语言的成本。因此，如果想选择Kotlin，可以先试着用Kotlin写单元测试，之后等熟悉了此语言，可以进行混写。最后则完全切换到Kotlin。
+	
+1. 天然对协程的支持
+
+1. 能够编译成原生二进制程序
+
+1. 天然支持函数式编程和面向对象编程
+
+1. 主流三方框架的天然支持
+
+本文对其语法作了简要概括。
 
 <!--more-->
+
+Kotlin版本：1.2.61
 
 1. 包的定义
 
@@ -63,6 +79,18 @@ Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽�
 	```
 
 	不指定第2个参数调用方法时，offset参数取默认值0, size参数默认取第一个参数的size。
+	
+1. 可变参数
+
+	函数的参数（通常是最后一个）可以用 vararg 修饰符标记：
+	
+	```
+	fun printIntArray(vararg input: Int) {
+        for (i in input) {
+            println(i)
+        }
+    }
+	```
 	
 1. 不需要的语句结束符
 
@@ -136,6 +164,31 @@ Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽�
     	...
     }
     ```
+    
+1. when
+
+	 Kotlin中没有switch。提供when做分支条件选择。
+	 
+	 ```
+	 when (x) {
+        1 -> print("x == 1")
+        2 -> print("x == 2")
+        3, 4 -> print("x == 3 or x == 4")
+        in 10..99999 -> print("x > 10")
+        else -> { // 注意这个块
+            print("x is neither 1 nor 2")
+        }
+    }
+    
+    when {
+    	x.isOdd() -> print("x is odd")
+    	x.isEven() -> print("x is even")
+    	else -> print("x is funny")
+	 }
+	 ```
+	 
+	  when 既可以被当做表达式使用也可以被当做语句使用。如果它被当做表达式， 符合条件的分支的值就是整个表达式的值，如果当做语句使用， 则忽略个别分支的值。
+ 
 1. 操作符重载
 
 	Kotlin提供了操作符重载的支持。对于常用的”+“、"-"等操作符，创建带有operator且名称符合要求的方法，即可实现。如：
@@ -244,17 +297,112 @@ Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽�
 	})
 	```
 	
+1. 类
 
-最后，可以从各种资料中总结出Kotlin有以下几个特点：
+	- 无须public修饰符。文件名和类也没有任何关联。
+	- 创建对象不需要使用new关键字
 
-1. 无缝与Java互操作
+		```
+		val test = Test()
+		```
+	- 对于类属性，默认会有get()和set()两个方法。直接访问属性或者给属性设置值都会调用这两个方法。
 
-	可以直接使用Java库能够大大降低切换语言的成本。因此，如果想选择Kotlin，可以先试着用Kotlin写单元测试，之后等熟悉了此语言，可以进行混写。最后则完全切换到Kotlin。
+		```
+		class Test {
+	    	var counter = 0 // 注意：这个初始器直接为幕后字段赋值
+	        get() {
+	            println("getter")
+	            return field
+	        }
+	        set(value) {
+	            println("setter")
+	            field = value
+	        }
 	
-1. 天然对协程的支持
+	
+		}
+		
+		val test = Test()
+		test.counter = 10
+	   	println(test.counter)
+		```
+	- 主构造函数和次构造函数。Kotlin中一个类可以有一个主构造函数以及一个或多个次构造函数。主构造函数是类头的一部分：它跟在类名（与可选的类型参数）后。主构造函数里的参数如果用val或者var修饰则成为类的属性。如果类有一个主构造函数，每个次构造函数需要委托给主构造函数。主构造函数不能包含任何的代码。初始化的代码可以放到以 init 关键字作为前缀的初始化块（即时没有主构造函数，也会在次构造函数前执行）。
 
-1. 能够编译成原生二进制程序
+		```
+		class Test(val counter: Int, val name: String = "test") {
+		
+			init{
+				
+			}
 
-1. 天然支持函数式编程和面向对象编程
+    		constructor(counter: Int, name: String, sex: String) : this(counter, name) {
 
-1. 主流三方框架的天然支持
+    		}
+
+		}
+		
+		val test = Test(10)
+    	println(test.counter)
+		```
+	- Kotlin中引入了解构函数来对对象进行解构。
+
+		```
+		class Test(val counter: Int, val name: String = "test") {
+
+    		operator fun component1() : Int{
+        		return counter
+    		}
+
+    		operator fun component2() : String{
+        		return name
+    		}
+
+		}
+		
+		val (counter,name) = Test(10)
+		```	
+		
+	- Kotlin中引入了数据类的概念。对于此种类，会默认根据主构造函数的属性生成equals()/hashCode()、toString()、componentN()、copy()这几个函数。
+
+		```
+		data class User(val name: String, val age: Int)
+		```
+		
+	- Kotlin中提供了对象声明来实现单例模式。
+
+		```
+		object SingleInstance {
+    		fun test(input: String) = println(input)
+		}
+
+		fun main(args: Array<String>) {
+    		SingleInstance.test("hj")
+		}
+		```
+	
+	- Kotlin中提供了密封类来表示受限的类继承结构：当一个值为有限集中的类型、而不能有任何其他类型时。可以看做是枚举类的扩展。密封类需要在类名前面添加 sealed 修饰符。其所有子类都必须在与密封类自身相同的文件中声明。
+
+		```
+		sealed class DataType
+		data class Card(val number: Double) :DataType()
+		data class Timeline(val e1: DataType, val e2: DataType) : DataType()
+		object Illegal : DataType()
+		```
+		
+	- Kotlin的类中引入了伴生对象来声明静态方法、属性以及编译期常量（也可以在object中定义）。
+
+		```
+		class Test(val counter: Int, val name: String = "test") {
+
+    		companion object {
+        		const val TYPE = 1
+        			val title = "haha"
+
+        			fun testStatic(){
+            		println("static method")
+        		}
+    	}
+		
+		```
+		
+以上为Kotlin中的基本语法说明，其他诸如内联类、委托、lambda函数、协程、与Java互操作等可见<https://www.kotlincn.net/docs/reference/>。
