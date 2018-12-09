@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="关于SpringMVC中model的attribute无法指定别名的解决方案 Jan 21st, 2015 最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。 Url: http://localhost:8080/api/test?user_name=testUser &hellip;">
+  <meta name="description" content="Kafka学习笔记 - 介绍 May 30th, 2015 什么是kafka 最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,50 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/05/30/kafka-intro/">Kafka学习笔记 - 介绍</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-30T20:06:18+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>什么是kafka</h2>
+
+<p>最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说：Kafka是一个分布式、分区、冗余的commit日志service。它提供了一种特殊设计的消息系统功能。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/05/30/kafka-intro/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -628,70 +672,6 @@ public class Account{
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/06/04/sys-arch/">谈谈系统架构这个东西</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-04T21:29:34+08:00" pubdate data-updated="true">Jun 4<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>架构这个词在很多人看来都是很高大上的一个东西。事实上，搞架构的这些人却也都是些大神，至少都是在这个领域浸淫N久的专家级人物。现在很火的全栈工程师这个概念，就是架构师的另一种表现形式。</p>
-
-<p>之于架构，其含义无非是从技术细节跳出来自上而下宏观地看待系统的一个思维，就好比建筑设计一样。架构师的角色和建筑设计师在某种意义上是相同的。在微博上看到蔡学镛分享过这么一个架构设计流程的图，从中或多或少能看出架构设计一个大概的流程。</p>
-
-<p><img src="/images/blog_images/arch-1.jpg" alt="arch-1" /></p>
-
-<p>首当其冲的，肯定是需要对整个系统的业务进行拆分，进行业务设计，目的就是要捋清楚系统是干什么的，能提供什么功能，对系统的需求要做到详尽的分析和考虑。不过这部分，在我参与过的一些项目看来，尤其是对现在普遍使用的敏捷开发流程来说，无需考虑的太面面俱到，但至少不能太窄或者偏离正轨，后续的开发过程会不断的反馈回来进行调整。</p>
-
-<p>接下来，系统的业务明确之后，交互设计和领域建模便可以同时执行。当然，这里我是觉得交互设计和架构师是没啥关系的，顶多就是两者要相辅相成。而领域建模这个就显得很重要了。领域建模是业务设计的主要逻辑，把现实中的业务转化成抽象的对象，这个确实是能力的体现了。我觉得这一部分很多出色的架构师相比其他人突出的一个很关键的地方。</p>
-
-<p>技术模块设计则是在理解了系统的业务需求之后，对整体的一个技术框架上的设计。这里对于技术架构，我一直有一个分不太清楚的东西，就是软件架构和系统架构。说到底，这两者都是软件层面的含义，所不同的是前者到了代码层面，而系统架构则是到了软件层面。软件架构是位于系统架构之上的。一个系统，使用了Spring、Hibernater然后用了MVC设计模式，这就是软件架构；一个系统分成负载均衡模块、Link模块、队列模块、数据模块、推送模块等等则就是系统架构。再往下就应该是部署架构了，比如系统部署了几个结点、结点之间的关系、网络的规划结构、系统的高可用、可扩展等等。当然对于一个系统来说，数据的设计是可以拿出来重点进行的，毕竟对于互联网应用来说，数据 is all，系统的很多性能、效率问题是和数据的存储设计有密切关系的。</p>
-
-<p>到最后，业务之上的这些设计会反作用于业务，将系统的关键点反馈回来，从而对业务进行调整，进而再推进整个架构的流程。现在很火的敏捷开发，某种角度看来就是一个不断迭代、反馈的过程，是传统架构设计的一种演化形式。</p>
-
-<p>谈到架构，那么如何才能具有架构能力呢？借鉴在知乎上看到一个回答：</p>
-
-<ul>
-<li>视野开阔，知道可以直接用哪个开源项目来满足这样那样的需求。多数时候其实我们并不需要重复造轮子。视野窄的架构师会放着捷径不走，不断让团队重复造轮子，直至把项目拖死。</li>
-<li>精通设计模式，但又不泛用。不设计过度，不在各种细节问题上需求蔓延。所有架构设计都是为了满足产品需求的，不满足需求或者过度设计都是菜鸟行为。</li>
-<li>把系统拆分成多个子系统或模块，模块之间尽量松耦合，使得原先只能串行的开发任务，可以并行开展，也就是说良好的设计可以通过投入更多人力来缩短工期。反之拙劣的设计需要一个人维护一大坨代码，无法通过加人并行开发来缩短工期。</li>
-<li>能清楚地知道系统的瓶颈在什么地方，不断地定位技术难度、研发进度、性能、内存等各方面的瓶颈，不断调整骨干力量解决瓶颈，在风险爆发之前就消除隐患。</li>
-<li>行业经验带来的直觉和预见性，可以预先需求可能产生怎样的变化，提前把可扩展性、后向兼容性设计好。但仍然不要过度设计</li>
-</ul>
-
-
-<p>以上对架构的一些理解，很多地方自认还是有点迷糊。在进行系统设计的时候，也经常摸不着头脑，把不同层次的东西混为一谈。记得蔡学镛大神之前还分享过一张图片，对架构讲的挺透彻的。不明白的时候看看这个，会有种茅塞顿开的感觉。</p>
-
-<p><img src="/images/blog_images/arch-2.jpg" alt="arch-2" /></p>
-</div>
-  
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -771,6 +751,10 @@ public class Account{
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/11/22/online-debug/">如何应对在线故障</a>
       	</li>
     	
@@ -804,10 +788,6 @@ public class Account{
     	
      	<li>
       	  <a href="/blog/2018/05/12/java-tech-overview/">Java后端技术概览</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/04/25/arch-usage/">架构简明指南</a>
       	</li>
     	
 	</ul>

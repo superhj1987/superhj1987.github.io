@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《白帽子讲Web安全》读书笔记 Nov 11th, 2013 最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。 整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。 一、世界观安全 &hellip;">
+  <meta name="description" content="谈谈系统架构这个东西 Jun 4th, 2014 架构这个词在很多人看来都是很高大上的一个东西。事实上，搞架构的这些人却也都是些大神，至少都是在这个领域浸淫N久的专家级人物。现在很火的全栈工程师这个概念，就是架构师的另一种表现形式。 之于架构， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,70 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2014/06/04/sys-arch/">谈谈系统架构这个东西</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-06-04T21:29:34+08:00" pubdate data-updated="true">Jun 4<sup>th</sup>, 2014</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>架构这个词在很多人看来都是很高大上的一个东西。事实上，搞架构的这些人却也都是些大神，至少都是在这个领域浸淫N久的专家级人物。现在很火的全栈工程师这个概念，就是架构师的另一种表现形式。</p>
+
+<p>之于架构，其含义无非是从技术细节跳出来自上而下宏观地看待系统的一个思维，就好比建筑设计一样。架构师的角色和建筑设计师在某种意义上是相同的。在微博上看到蔡学镛分享过这么一个架构设计流程的图，从中或多或少能看出架构设计一个大概的流程。</p>
+
+<p><img src="/images/blog_images/arch-1.jpg" alt="arch-1" /></p>
+
+<p>首当其冲的，肯定是需要对整个系统的业务进行拆分，进行业务设计，目的就是要捋清楚系统是干什么的，能提供什么功能，对系统的需求要做到详尽的分析和考虑。不过这部分，在我参与过的一些项目看来，尤其是对现在普遍使用的敏捷开发流程来说，无需考虑的太面面俱到，但至少不能太窄或者偏离正轨，后续的开发过程会不断的反馈回来进行调整。</p>
+
+<p>接下来，系统的业务明确之后，交互设计和领域建模便可以同时执行。当然，这里我是觉得交互设计和架构师是没啥关系的，顶多就是两者要相辅相成。而领域建模这个就显得很重要了。领域建模是业务设计的主要逻辑，把现实中的业务转化成抽象的对象，这个确实是能力的体现了。我觉得这一部分很多出色的架构师相比其他人突出的一个很关键的地方。</p>
+
+<p>技术模块设计则是在理解了系统的业务需求之后，对整体的一个技术框架上的设计。这里对于技术架构，我一直有一个分不太清楚的东西，就是软件架构和系统架构。说到底，这两者都是软件层面的含义，所不同的是前者到了代码层面，而系统架构则是到了软件层面。软件架构是位于系统架构之上的。一个系统，使用了Spring、Hibernater然后用了MVC设计模式，这就是软件架构；一个系统分成负载均衡模块、Link模块、队列模块、数据模块、推送模块等等则就是系统架构。再往下就应该是部署架构了，比如系统部署了几个结点、结点之间的关系、网络的规划结构、系统的高可用、可扩展等等。当然对于一个系统来说，数据的设计是可以拿出来重点进行的，毕竟对于互联网应用来说，数据 is all，系统的很多性能、效率问题是和数据的存储设计有密切关系的。</p>
+
+<p>到最后，业务之上的这些设计会反作用于业务，将系统的关键点反馈回来，从而对业务进行调整，进而再推进整个架构的流程。现在很火的敏捷开发，某种角度看来就是一个不断迭代、反馈的过程，是传统架构设计的一种演化形式。</p>
+
+<p>谈到架构，那么如何才能具有架构能力呢？借鉴在知乎上看到一个回答：</p>
+
+<ul>
+<li>视野开阔，知道可以直接用哪个开源项目来满足这样那样的需求。多数时候其实我们并不需要重复造轮子。视野窄的架构师会放着捷径不走，不断让团队重复造轮子，直至把项目拖死。</li>
+<li>精通设计模式，但又不泛用。不设计过度，不在各种细节问题上需求蔓延。所有架构设计都是为了满足产品需求的，不满足需求或者过度设计都是菜鸟行为。</li>
+<li>把系统拆分成多个子系统或模块，模块之间尽量松耦合，使得原先只能串行的开发任务，可以并行开展，也就是说良好的设计可以通过投入更多人力来缩短工期。反之拙劣的设计需要一个人维护一大坨代码，无法通过加人并行开发来缩短工期。</li>
+<li>能清楚地知道系统的瓶颈在什么地方，不断地定位技术难度、研发进度、性能、内存等各方面的瓶颈，不断调整骨干力量解决瓶颈，在风险爆发之前就消除隐患。</li>
+<li>行业经验带来的直觉和预见性，可以预先需求可能产生怎样的变化，提前把可扩展性、后向兼容性设计好。但仍然不要过度设计</li>
+</ul>
+
+
+<p>以上对架构的一些理解，很多地方自认还是有点迷糊。在进行系统设计的时候，也经常摸不着头脑，把不同层次的东西混为一谈。记得蔡学镛大神之前还分享过一张图片，对架构讲的挺透彻的。不明白的时候看看这个，会有种茅塞顿开的感觉。</p>
+
+<p><img src="/images/blog_images/arch-2.jpg" alt="arch-2" /></p>
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -878,141 +942,6 @@ startActivity(intent);
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2010/12/18/android-bitmap/">Android位图总结</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2010-12-18T21:39:34+08:00" pubdate data-updated="true">Dec 18<sup>th</sup>, 2010</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>由于项目中牵扯到了对位图(android.graphics.Bitmap)的操作，于是对照Android的参考文档详细地研究了一下Android提供的位图相关功能。</p>
-
-<h2>一、对位图的获取</h2>
-
-<p>在Android的SDK中提供了一个BitmapFactory 类。采用此类的几个方法能够从一个文件路径或者输入流中得到位图。</p>
-
-<ul>
-<li>包：android.graphics</li>
-<li>类：BitmapFactory</li>
-<li>Android SDK中的简介：Creates Bitmap objects from various sources, including files, streams, and byte-arrays.</li>
-</ul>
-
-
-<p>此类其提供了以下方法来获取Bitmap，这些方法都是静态的:</p>
-
-<ol>
-<li>decodeByteArray(byte[] data, int offset, int length)从一个字节数组中得到数据转换为位图。</li>
-<li>decodeFile(String pathName)由一个图像文件路径的得到位图（支持jpg、png、bmp格式）</li>
-<li>decodeFileDescriptor(FileDescriptor fd)由一个文件描述符得到位图。</li>
-<li>decodeResource(Resources res, int id)由资源ID获取位图</li>
-<li>decodeStream(InputStream is)由图片输入流获取位图。</li>
-</ol>
-
-
-<p>这里，由于Android系统本身对apk程序的限制，当加载大图片时会产生OutOfMemoryError。可以采取两种办法解决：</p>
-
-<ul>
-<li>先使用android.provider.MediaStore.Images.Media类的query(ContentResolver cr, Uri uri, String[] projection, String where, String orderBy)方法获得对应的图片所对应的id，然后使用android.provider.MediaStore.Images.Thumbnails类的queryMiniThumbnail(ContentResolver cr, long origId, int kind, String[] projection)获得图片对应的缩略图的路径，再使用BitmapFactory的decodeFile(String pathname)获取到图片的缩略图，这样即可避免内存溢出的发生。</li>
-<li>采取压缩图片的方法对图片进行压缩。这里主要还是使用BitmapFactory类，对于上面提到过的能够获取位图的几个方法，都对应着另一个多了一个参数的方法，例如decodeFile(String pathName)对应着decodeFile(String pathName, BitmapFactory.Options opts)这个方法，其他的可查阅参考文档。其中，通过引入opts这个参数，对其进行相关的设置，最后能得到一个被压缩的图片。</li>
-</ul>
-
-
-<h2>二、对位图信息的获取</h2>
-
-<p>要获取位图信息，比如位图大小、是否包含透明度、颜色格式等，获取得到Bitmap就迎刃而解了，这些信息在Bitmap的函数中可以轻松获取到。</p>
-
-<p>Android SDK中对Bitmap有详细说明，这里辅助说明以下2点：</p>
-
-<ol>
-<li>在Bitmap中对RGB颜色格式使用Bitmap.Config定义，仅包括ALPHA_8、ARGB_4444、ARGB_8888、RGB_565，缺少了一些其他的，比如说RGB_555，在开发中可能需要注意这个小问题；</li>
-<li>Bitmap还提供了compress()接口来压缩图片，不过Android SDK只支持PNG、JPG格式的压缩；其他格式的需要Android开发人员自己补充了。</li>
-</ol>
-
-
-<h2>三、位图的显示</h2>
-
-<p>位图的显示，一般可以在界面中放置ImageView控件，然后调用android.widget.ImageView类的setImageBitmap(Bitmap bm)方法将位图显示出来。另外，可以使用核心类android.graphics.Canvas的drawBirmap()方法显示位图，或者借助于BitmapDrawable来将Bitmap绘制到Canvas。</p>
-
-<h2>四、位图的缩放</h2>
-
-<p>位图的缩放，在Android SDK中提供了2种方法：</p>
-
-<ol>
-<li>将一个位图按照需求重画一遍，画后的位图就是我们需要的了，与位图的显示几乎一样：drawBitmap(Bitmap bitmap, Rect src, Rect dst, Paint paint)</li>
-<li>在原有位图的基础上，缩放原位图，创建一个新的位图： createBitmap(Bitmap source, int x, int y, int width, int height, Matrix m, boolean filter)
-归结到底，位图缩放的本质就是将原始位图按照需求显示出来，创造一张新的位图。</li>
-</ol>
-
-
-<h2>五、位图的旋转</h2>
-
-<p>位图的旋转，离不开Matrix。Matrix在线性代数中都学习过，Android SDK提供了Matrix类，可以通过各种接口来设置矩阵。例子如下“</p>
-
-<pre>
-Matrix matrix = new Matrix();matrix.setRotate(90,120,130);canvas.drawBitmap(mbmpTest, matrix, mPaint);
-</pre>
-
-
-<p>除了这种方法之外，我们也可以在使用Bitmap提供的函数如下：</p>
-
-<pre>
-public static Bitmap createBitmap (Bitmap source, int x, int y, int width, int height, Matrix m, boolean filter)
-</pre>
-
-
-<p>在原有位图旋转的基础上，创建新位图。</p>
-
-<h2>六、位图的截取</h2>
-
-<p>对于位图的规则形状如矩形的截取，很容易通过Matrix进行实现。例子如下：</p>
-
-<pre>
-Bitmap croppedImage;
-// 取得裁剪的矩形
-Rect r = mCrop.getCropRect(); 
-if(r == null) return;
-int width = r.width();
-int height = r.height();
-// 生成裁剪的图片
-croppedImage = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
-Canvas canvas = new Canvas(croppedImage);
-Rect dstRect = new Rect(0, 0, width, height);
-canvas.drawBitmap(mBitmap, r, dstRect, null);
-</pre>
-
-
-<p>而对于位图的不规则形状的截取，找不到很好的解决办法。曾想过直接对像素进行操作，最终因为算法的的复杂而放弃。一次偶然的机会，在阅读一篇博文时，我发现了使用android.graphics.Canvas的clipPath方法不仅仅可以达到高亮显示路径的目的，也能够达到任意形状截取图片的目的，从而解决了此问题。</p>
-
-<p>以上就是对Android的位图功能进行的总结，以及一些自己实践中得出的想法和结论。更深入的内容需要仔细地去阅读研究Android SDK文档并付之于实践。</p>
-</div>
-  
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -1092,6 +1021,10 @@ canvas.drawBitmap(mBitmap, r, dstRect, null);
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/11/22/online-debug/">如何应对在线故障</a>
       	</li>
     	
@@ -1125,10 +1058,6 @@ canvas.drawBitmap(mBitmap, r, dstRect, null);
     	
      	<li>
       	  <a href="/blog/2018/05/12/java-tech-overview/">Java后端技术概览</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/04/25/arch-usage/">架构简明指南</a>
       	</li>
     	
 	</ul>

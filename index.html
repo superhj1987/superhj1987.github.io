@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="如何应对在线故障 Nov 22nd, 2018 线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？ 来自公司内部分享 继续阅读 &rarr; Java应用性能调优之调优准备 Oct 31st, 2018 实际的开发工作中， &hellip;">
+  <meta name="description" content="Kotlin语法简明指南 Dec 8th, 2018 Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,61 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-12-08T19:29:34+08:00" pubdate data-updated="true">Dec 8<sup>th</sup>, 2018</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？从各种资料中总结出Kotlin有以下几个特点：</p>
+
+<ol>
+<li><p>无缝与Java互操作</p>
+
+<p> 可以直接使用Java库能够大大降低切换语言的成本。因此，如果想选择Kotlin，可以先试着用Kotlin写单元测试，之后等熟悉了此语言，可以进行混写。最后则完全切换到Kotlin。</p></li>
+<li><p>天然对协程的支持</p></li>
+<li><p>能够编译成原生二进制程序</p></li>
+<li><p>天然支持函数式编程和面向对象编程</p></li>
+<li><p>主流三方框架的天然支持</p></li>
+</ol>
+
+
+<p>本文对其语法作了简要概括。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/12/08/kotlin-notes/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -509,60 +564,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/04/25/arch-usage/">架构简明指南</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-04-25T19:29:34+08:00" pubdate data-updated="true">Apr 25<sup>th</sup>, 2018</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md</a></strong></p>
-
-<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。</p>
-
-<p>《Clean Architecture》一书中对于软件架构目的的解释：</p>
-
-<blockquote><p>The goal of software architecture is to miminize the human resources required to build and maintain the required system.</p></blockquote>
-
-<p>即：软件架构的目的就是将构建和维护系统需要的人力成本降到最低。</p>
-
-<p>因此，可以得出架构设计的关键思维就是判断和取舍（程序设计的关键思维是逻辑和实现），即如何选择技术、组合技术使得需要的人力资源最少。</p>
-
-<p>需要注意的一点是，脱离业务谈架构是不合理的，技术架构及其演进都是业务目标驱动的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/04/25/arch-usage/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -640,6 +641,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2018/11/22/online-debug/">如何应对在线故障</a>
       	</li>
     	
@@ -673,10 +678,6 @@
     	
      	<li>
       	  <a href="/blog/2018/05/12/java-tech-overview/">Java后端技术概览</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/04/25/arch-usage/">架构简明指南</a>
       	</li>
     	
 	</ul>

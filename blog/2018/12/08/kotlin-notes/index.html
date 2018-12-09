@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>架构设计与原则（2018修订版） - 后端技术杂谈 | 飒然Hang</title>
+  <title>Kotlin语法简明指南 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="架构设计与原则（2018修订版） Sep 20th, 2018 Posted by 飒然Hang in architecture 之前的《谈谈架构》的最新修订版。 来自公司内部分享 附录链接： 软件架构 &ldquo;4+1&rdquo; 视图模型: 逻辑视图、开发视图、过程视图、物理视图 + &hellip;">
+  <meta name="description" content="Kotlin语法简明指南 Dec 8th, 2018 Posted by 飒然Hang in java, kotlin Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2018/09/20/arch-new/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2018/12/08/kotlin-notes/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -115,7 +115,7 @@
   
   <header>
     
-      <h1 class="post-title">架构设计与原则（2018修订版）</h1>
+      <h1 class="post-title">Kotlin语法简明指南</h1>
     
     
       <p class="post-meta">
@@ -131,7 +131,7 @@
   
 
 
-<time datetime="2018-09-20T22:29:34+08:00" pubdate data-updated="true">Sep 20<sup>th</sup>, 2018</time>
+<time datetime="2018-12-08T19:29:34+08:00" pubdate data-updated="true">Dec 8<sup>th</sup>, 2018</time>
         
         
   
@@ -141,7 +141,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/architecture/'>architecture</a>
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/kotlin/'>kotlin</a>
   
 </span>
 
@@ -152,51 +152,362 @@
   </header>
 
 
-<div class="post-content"><p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>的最新修订版。</p>
+<div class="post-content"><p>Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？从各种资料中总结出Kotlin有以下几个特点：</p>
 
-<p><strong>来自公司内部分享</strong></p>
+<ol>
+<li><p>无缝与Java互操作</p>
+
+<p> 可以直接使用Java库能够大大降低切换语言的成本。因此，如果想选择Kotlin，可以先试着用Kotlin写单元测试，之后等熟悉了此语言，可以进行混写。最后则完全切换到Kotlin。</p></li>
+<li><p>天然对协程的支持</p></li>
+<li><p>能够编译成原生二进制程序</p></li>
+<li><p>天然支持函数式编程和面向对象编程</p></li>
+<li><p>主流三方框架的天然支持</p></li>
+</ol>
+
+
+<p>本文对其语法作了简要概括。</p>
 
 <!--more-->
 
 
-<p><img src="/post_images/arch-new/arch-2.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-3.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-4.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-5.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-6.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-7.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-8.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-9.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-10.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-11.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-12.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-13.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-14.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-15.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-16.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-17.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-18.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-19.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-20.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-21.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-22.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-23.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-24.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-25.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-26.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-27.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-28.jpeg" alt="" />
-<img src="/post_images/arch-new/arch-29.jpeg" alt="" /></p>
+<p>Kotlin版本：1.2.61</p>
 
-<p><strong>附录链接：</strong></p>
+<ol>
+<li><p>包的定义</p>
+
+<p> 与Java类似，但包的定义与目录结构无需匹配，源代码可以在文件系统任意位置。</p>
+
+<p> 与Java有一点不同，导入包的时候，可以使用import as实现重命名来解决名字冲突的问题。如：</p>
+
+<pre><code class="`"> import me.rowkey.MainClass as aClass // aClass 代表“me.rowkey.MainClass”
+</code></pre></li>
+<li><p>没有类型的Java</p>
+
+<p> 虽然Kotlin是静态语言，但其引入的安全类型推断让其无须声明类型。使用val/var即可，其中val定义只读变量，var定义可变变量。</p>
+
+<pre><code class="`"> var str1 : String = "a" //有初始值，可以省略类型
+ val str2 : String //无初始值，不能省略类型
+ str2 = "b"
+ var str = "i can change"
+ val immutableStr = "i cannot change"
+</code></pre></li>
+<li><p>不需要的public</p>
+
+<p> Kotlin中默认的可见性修饰符是public，所以public修饰符不需要写。其他修饰符如下：</p>
 
 <ul>
-<li><a href="https://www.ibm.com/developerworks/cn/rational/06/r-wenyu/index.html">软件架构 &ldquo;4+1&rdquo; 视图模型</a>: 逻辑视图、开发视图、过程视图、物理视图 + 场景视图</li>
-<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-research.md">技术调研文档模板</a>:技术方案调研输出</li>
-<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-analysis.md">技术方案分析文档模板</a>: 技术方案选型，设计、评估和选择备选方案</li>
-<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/arch.md">系统设计文档模板</a>:系统架构设计</li>
+<li>private：只在类内部/声明文件内部可见。</li>
+<li>protected：private+子类中可见。</li>
+<li>internal: 同一模块（编译在一起的一套Kotlin文件）可见。</li>
 </ul>
+</li>
+<li><p>函数定义</p>
 
+<p> 用fun关键字声明函数</p>
+
+<pre><code class="`"> fun main(args: Array&lt;String&gt;) {
+  ...
+ }
+</code></pre>
+
+<p> 其中，函数参数使用 Pascal 表示法定义，即 name: type。参数用逗号隔开。每个参数必须有显式类型。</p>
+
+<p> Kotlin中的函数和Java中的方法是一致的，但与Java不同的是，Kotlin中的函数可以属于任何类，文件当中直接定义则作为“包级函数”，和类的使用方式一致。</p></li>
+<li><p>默认参数值</p>
+
+<p> 函数的参数可以指定默认值。</p>
+
+<pre><code class="`"> fun getList(list: Array&lt;String&gt;, offset: Int = 0, size: Int = list.size) { …… }
+</code></pre>
+
+<p> 不指定第2个参数调用方法时，offset参数取默认值0, size参数默认取第一个参数的size。</p></li>
+<li><p>可变参数</p>
+
+<p> 函数的参数（通常是最后一个）可以用 vararg 修饰符标记：</p>
+
+<pre><code class="`"> fun printIntArray(vararg input: Int) {
+     for (i in input) {
+         println(i)
+     }
+ }
+</code></pre></li>
+<li><p>不需要的语句结束符</p>
+
+<p> Kotlin中没有语句结束符，当然为了与java保持一致性，也可以使用;号作为语句结束符。</p></li>
+<li><p>字符串连接符</p>
+
+<p> 跟java一样，如果你需要把一个字符串写在多行里，可以使用+号连接字符串。代码可以这样写：</p>
+
+<pre><code>val str = "hello" + "world" + "!!!";
+</code></pre>
+
+<p> Kotlin中的写法也可以这样：</p>
+
+<pre><code class="`"> val str = """hello
+ world
+ !!!
+ """
+</code></pre>
+
+<p> 三个”号之间不在需要+号进行连接，不过字符串中的格式符都会被保留，包括回车和tab。</p></li>
+<li><p>字符串模板</p>
+
+<p> Kotlin提供了$符来做字符串内的变量替换，并且可以做一些字符串操作。如下：</p>
+
+<pre><code class="`"> var name = "hj"
+ var strTemplate = "My name is $name"//My name is hj
+
+ strTemplate = "My name is ${name.replace("j","a")}"// My name is ha
+</code></pre></li>
+<li><p>一切皆对象</p>
+
+<p> Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。</p></li>
+<li><p>循环</p>
+
+<p> Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。</p>
+
+<pre><code class="`"> for(i in 1..10){
+     println(i)
+ }
+
+ for(i in 1..10 step 2){
+     println(i)
+ }
+
+ for(i in 10 downTo 1 step 1){
+     println(i)
+ }
+
+ for (i in 1 until 10) {
+     // i in [1, 10) 排除了 10
+     println(i)
+ }
+
+ for(c in 'A'..'Z'){
+     println(c)
+ }
+</code></pre>
+
+<p> 需要注意的是在Kotlin中不再支持Java的for循环形式：</p>
+
+<pre><code class="`"> for(int i =0;i &lt; 10;i++){
+     ...
+ }
+</code></pre></li>
+<li><p>when</p>
+
+<p>  Kotlin中没有switch。提供when做分支条件选择。</p>
+
+<pre><code class="``">  when (x) {
+     1 -&gt; print("x == 1")
+     2 -&gt; print("x == 2")
+     3, 4 -&gt; print("x == 3 or x == 4")
+     in 10..99999 -&gt; print("x &gt; 10")
+     else -&gt; { // 注意这个块
+         print("x is neither 1 nor 2")
+     }
+ }
+
+ when {
+     x.isOdd() -&gt; print("x is odd")
+     x.isEven() -&gt; print("x is even")
+     else -&gt; print("x is funny")
+  }
+</code></pre>
+
+<p>   when 既可以被当做表达式使用也可以被当做语句使用。如果它被当做表达式， 符合条件的分支的值就是整个表达式的值，如果当做语句使用， 则忽略个别分支的值。</p></li>
+<li><p>操作符重载</p>
+
+<p> Kotlin提供了操作符重载的支持。对于常用的”+“、&#8221;-&ldquo;等操作符，创建带有operator且名称符合要求的方法，即可实现。如：</p>
+
+<pre><code class="`"> data class Point(val x: Int, val y: Int)
+
+ operator fun Point.unaryMinus() = Point(-x, -y)
+
+ val point = Point(10, 20)
+
+ fun main() {
+     println(-point)  // 输出“Point(x=-10, y=-20)”
+ }
+</code></pre>
+
+<p> 上面即完成了对-的重载。</p></li>
+<li><p>集合</p>
+
+<p>Kotlin把集合分为可变集合和不可变集合。其创建需要通过标准库的方法：listOf()、 mutableListOf()、 setOf()、 mutableSetOf()、hashMapOf()、mutableHashMapOf()</p>
+
+<pre><code>val list = listOf("1","2","3",""4)
+val set = setOf("1","2")
+val map = hashMapOf("name" to "hj","sex" to "male")
+</code></pre>
+
+<p>这些集合类实现了操作符重载，如下：</p>
+
+<pre><code>val list1 = list - listOf("1","2")
+val list2 = list + "2"
+println(list1[0])
+
+val map = hashMapOf("name" to "hj","sex" to "male")
+val map1 = map + ("name2" to "hah") //{"name":"hj","name2":"ha","sex":"male"}
+val map2 = map - "name"//{"sex":"male"}
+println(map2)
+</code></pre></li>
+<li><p>？运算符</p>
+
+<p> 在java中，有时候为了避免出现空指针异常，我们通常需要这样的技巧：</p>
+
+<pre><code class="`"> if(rs!=null){
+   rs.next()
+   ...
+ }
+</code></pre>
+
+<p>Kotlin可以使用?操作符达到同样的目的：</p>
+
+<pre><code>rs?.next()
+</code></pre></li>
+<li><p>Elvis操作符</p>
+
+<p> 三目运算符通常以这种形式出现：</p>
+
+<pre><code class="`"> String displayName = name != null ? name : "Unknown";
+</code></pre>
+
+<p> Kotlin中可以简化为：</p>
+
+<pre><code class="`"> val displayName = name ?: "Unknown";
+</code></pre></li>
+<li><p>可空/非可空引用</p>
+
+<p> Kotlin中区分一个引用可以容纳null和不能容纳null。默认的引用是不可空的。</p>
+
+<pre><code class="`"> var a = "abc"
+ a = null // 编译错误    ```
+</code></pre>
+
+<p> 需要使用?使其变为可空引用。</p>
+
+<pre><code class="`"> var b : String ? = "abc"
+ b = null
+</code></pre>
+
+<p> 如此，后续如果你调用a的任何方法都可以，但是调用b的会有编译错误。会强制去检查b是否为空</p>
+
+<pre><code class="`"> val l = if (b != null) b.length else -1
+</code></pre>
+
+<p> 也可以使用?做安全调用</p>
+
+<pre><code class="`"> b?.length()
+</code></pre>
+
+<p> b不为空才会执行后续的操作。配合let可以执行其他非自身的操作。</p>
+
+<pre><code class="`"> b?.let({
+     print("a")
+ })
+</code></pre></li>
+<li><p>类</p>
+
+<ul>
+<li>无须public修饰符。文件名和类也没有任何关联。</li>
+<li><p>创建对象不需要使用new关键字</p>
+
+<pre><code class="``">  val test = Test()
+</code></pre></li>
+<li><p>对于类属性，默认会有get()和set()两个方法。直接访问属性或者给属性设置值都会调用这两个方法。</p>
+
+<pre><code class="``">  class Test {
+      var counter = 0 // 注意：这个初始器直接为幕后字段赋值
+      get() {
+          println("getter")
+          return field
+      }
+      set(value) {
+          println("setter")
+          field = value
+      }
+
+
+  }
+
+  val test = Test()
+  test.counter = 10
+  println(test.counter)
+</code></pre></li>
+<li><p>主构造函数和次构造函数。Kotlin中一个类可以有一个主构造函数以及一个或多个次构造函数。主构造函数是类头的一部分：它跟在类名（与可选的类型参数）后。主构造函数里的参数如果用val或者var修饰则成为类的属性。如果类有一个主构造函数，每个次构造函数需要委托给主构造函数。主构造函数不能包含任何的代码。初始化的代码可以放到以 init 关键字作为前缀的初始化块（即时没有主构造函数，也会在次构造函数前执行）。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      init{
+
+      }
+
+      constructor(counter: Int, name: String, sex: String) : this(counter, name) {
+
+      }
+
+  }
+
+  val test = Test(10)
+  println(test.counter)
+</code></pre></li>
+<li><p>Kotlin中引入了解构函数来对对象进行解构。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      operator fun component1() : Int{
+          return counter
+      }
+
+      operator fun component2() : String{
+          return name
+      }
+
+  }
+
+  val (counter,name) = Test(10)
+</code></pre></li>
+<li><p>Kotlin中引入了数据类的概念。对于此种类，会默认根据主构造函数的属性生成equals()/hashCode()、toString()、componentN()、copy()这几个函数。</p>
+
+<pre><code class="``">  data class User(val name: String, val age: Int)
+</code></pre></li>
+<li><p>Kotlin中提供了对象声明来实现单例模式。</p>
+
+<pre><code class="``">  object SingleInstance {
+      fun test(input: String) = println(input)
+  }
+
+  fun main(args: Array&lt;String&gt;) {
+      SingleInstance.test("hj")
+  }
+</code></pre></li>
+<li><p>Kotlin中提供了密封类来表示受限的类继承结构：当一个值为有限集中的类型、而不能有任何其他类型时。可以看做是枚举类的扩展。密封类需要在类名前面添加 sealed 修饰符。其所有子类都必须在与密封类自身相同的文件中声明。</p>
+
+<pre><code class="``">  sealed class DataType
+  data class Card(val number: Double) :DataType()
+  data class Timeline(val e1: DataType, val e2: DataType) : DataType()
+  object Illegal : DataType()
+</code></pre></li>
+<li><p>Kotlin的类中引入了伴生对象来声明静态方法、属性以及编译期常量（也可以在object中定义）。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      companion object {
+          const val TYPE = 1
+              val title = "haha"
+
+              fun testStatic(){
+              println("static method")
+          }
+  }
+</code></pre></li>
+</ul>
+</li>
+</ol>
+
+
+<p>以上为Kotlin中的基本语法说明，其他诸如内联类、委托、lambda函数、协程、与Java互操作等可见<a href="https://www.kotlincn.net/docs/reference/">https://www.kotlincn.net/docs/reference/</a>。</p>
 </div>
 <div style="width:100%;text-align:center;display: none" id="wxFooter">
   <img src="/images/blog_images/h.png"/>
@@ -260,10 +571,8 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2018/10/31/profile-ready/" title="上一篇: Java应用性能调优之调优准备">&laquo; Java应用性能调优之调优准备 </a>
       
-      
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2018/09/03/tech-talk/" title="下一篇: 技术琐话2018-09-03">技术琐话2018-09-03 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2018/11/22/online-debug/" title="下一篇: 如何应对在线故障">如何应对在线故障 &raquo;</a>
       
     </div>
   </footer>
@@ -474,7 +783,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "架构设计与原则（2018修订版）",
+   issue_title: "Kotlin语法简明指南",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
