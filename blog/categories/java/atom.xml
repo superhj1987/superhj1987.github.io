@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-12-06T22:55:57+08:00</updated>
+  <updated>2018-12-10T00:39:21+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,370 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Kotlin语法简明指南]]></title>
+    <link href="http://www.rowkey.me/blog/2018/12/08/kotlin-notes/"/>
+    <updated>2018-12-08T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2018/12/08/kotlin-notes</id>
+    <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？从各种资料中总结出Kotlin有以下几个特点：</p>
+
+<ol>
+<li><p>无缝与Java互操作</p>
+
+<p> 可以直接使用Java库能够大大降低切换语言的成本。因此，如果想选择Kotlin，可以先试着用Kotlin写单元测试，之后等熟悉了此语言，可以进行混写。最后则完全切换到Kotlin。</p></li>
+<li><p>天然对协程的支持</p></li>
+<li><p>能够编译成原生二进制程序</p></li>
+<li><p>天然支持函数式编程和面向对象编程</p></li>
+<li><p>主流三方框架的天然支持</p></li>
+</ol>
+
+
+<p>本文对其语法作了简要概括。</p>
+
+<!--more-->
+
+
+<p>Kotlin版本：1.2.61</p>
+
+<ol>
+<li><p>包的定义</p>
+
+<p> 与Java类似，但包的定义与目录结构无需匹配，源代码可以在文件系统任意位置。</p>
+
+<p> 与Java有一点不同，导入包的时候，可以使用import as实现重命名来解决名字冲突的问题。如：</p>
+
+<pre><code class="`"> import me.rowkey.MainClass as aClass // aClass 代表“me.rowkey.MainClass”
+</code></pre></li>
+<li><p>没有类型的Java</p>
+
+<p> 虽然Kotlin是静态语言，但其引入的安全类型推断让其无须声明类型。使用val/var即可，其中val定义只读变量，var定义可变变量。</p>
+
+<pre><code class="`"> var str1 : String = "a" //有初始值，可以省略类型
+ val str2 : String //无初始值，不能省略类型
+ str2 = "b"
+ var str = "i can change"
+ val immutableStr = "i cannot change"
+</code></pre></li>
+<li><p>不需要的public</p>
+
+<p> Kotlin中默认的可见性修饰符是public，所以public修饰符不需要写。其他修饰符如下：</p>
+
+<ul>
+<li>private：只在类内部/声明文件内部可见。</li>
+<li>protected：private+子类中可见。</li>
+<li>internal: 同一模块（编译在一起的一套Kotlin文件）可见。</li>
+</ul>
+</li>
+<li><p>函数定义</p>
+
+<p> 用fun关键字声明函数</p>
+
+<pre><code class="`"> fun main(args: Array&lt;String&gt;) {
+  ...
+ }
+</code></pre>
+
+<p> 其中，函数参数使用 Pascal 表示法定义，即 name: type。参数用逗号隔开。每个参数必须有显式类型。</p>
+
+<p> Kotlin中的函数和Java中的方法是一致的，但与Java不同的是，Kotlin中的函数可以属于任何类，文件当中直接定义则作为“包级函数”，和类的使用方式一致。</p></li>
+<li><p>默认参数值</p>
+
+<p> 函数的参数可以指定默认值。</p>
+
+<pre><code class="`"> fun getList(list: Array&lt;String&gt;, offset: Int = 0, size: Int = list.size) { …… }
+</code></pre>
+
+<p> 不指定第2个参数调用方法时，offset参数取默认值0, size参数默认取第一个参数的size。</p></li>
+<li><p>可变参数</p>
+
+<p> 函数的参数（通常是最后一个）可以用 vararg 修饰符标记：</p>
+
+<pre><code class="`"> fun printIntArray(vararg input: Int) {
+     for (i in input) {
+         println(i)
+     }
+ }
+</code></pre></li>
+<li><p>不需要的语句结束符</p>
+
+<p> Kotlin中没有语句结束符，当然为了与java保持一致性，也可以使用;号作为语句结束符。</p></li>
+<li><p>字符串连接符</p>
+
+<p> 跟java一样，如果你需要把一个字符串写在多行里，可以使用+号连接字符串。代码可以这样写：</p>
+
+<pre><code>val str = "hello" + "world" + "!!!";
+</code></pre>
+
+<p> Kotlin中的写法也可以这样：</p>
+
+<pre><code class="`"> val str = """hello
+ world
+ !!!
+ """
+</code></pre>
+
+<p> 三个”号之间不在需要+号进行连接，不过字符串中的格式符都会被保留，包括回车和tab。</p></li>
+<li><p>字符串模板</p>
+
+<p> Kotlin提供了$符来做字符串内的变量替换，并且可以做一些字符串操作。如下：</p>
+
+<pre><code class="`"> var name = "hj"
+ var strTemplate = "My name is $name"//My name is hj
+
+ strTemplate = "My name is ${name.replace("j","a")}"// My name is ha
+</code></pre></li>
+<li><p>一切皆对象</p>
+
+<p> Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。</p></li>
+<li><p>循环</p>
+
+<p> Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。</p>
+
+<pre><code class="`"> for(i in 1..10){
+     println(i)
+ }
+
+ for(i in 1..10 step 2){
+     println(i)
+ }
+
+ for(i in 10 downTo 1 step 1){
+     println(i)
+ }
+
+ for (i in 1 until 10) {
+     // i in [1, 10) 排除了 10
+     println(i)
+ }
+
+ for(c in 'A'..'Z'){
+     println(c)
+ }
+</code></pre>
+
+<p> 需要注意的是在Kotlin中不再支持Java的for循环形式：</p>
+
+<pre><code class="`"> for(int i =0;i &lt; 10;i++){
+     ...
+ }
+</code></pre></li>
+<li><p>when</p>
+
+<p>  Kotlin中没有switch。提供when做分支条件选择。</p>
+
+<pre><code class="``">  when (x) {
+     1 -&gt; print("x == 1")
+     2 -&gt; print("x == 2")
+     3, 4 -&gt; print("x == 3 or x == 4")
+     in 10..99999 -&gt; print("x &gt; 10")
+     else -&gt; { // 注意这个块
+         print("x is neither 1 nor 2")
+     }
+ }
+
+ when {
+     x.isOdd() -&gt; print("x is odd")
+     x.isEven() -&gt; print("x is even")
+     else -&gt; print("x is funny")
+  }
+</code></pre>
+
+<p>   when 既可以被当做表达式使用也可以被当做语句使用。如果它被当做表达式， 符合条件的分支的值就是整个表达式的值，如果当做语句使用， 则忽略个别分支的值。</p></li>
+<li><p>操作符重载</p>
+
+<p> Kotlin提供了操作符重载的支持。对于常用的”+“、&#8221;-&ldquo;等操作符，创建带有operator且名称符合要求的方法，即可实现。如：</p>
+
+<pre><code class="`"> data class Point(val x: Int, val y: Int)
+
+ operator fun Point.unaryMinus() = Point(-x, -y)
+
+ val point = Point(10, 20)
+
+ fun main() {
+     println(-point)  // 输出“Point(x=-10, y=-20)”
+ }
+</code></pre>
+
+<p> 上面即完成了对-的重载。</p></li>
+<li><p>集合</p>
+
+<p>Kotlin把集合分为可变集合和不可变集合。其创建需要通过标准库的方法：listOf()、 mutableListOf()、 setOf()、 mutableSetOf()、hashMapOf()、mutableHashMapOf()</p>
+
+<pre><code>val list = listOf("1","2","3",""4)
+val set = setOf("1","2")
+val map = hashMapOf("name" to "hj","sex" to "male")
+</code></pre>
+
+<p>这些集合类实现了操作符重载，如下：</p>
+
+<pre><code>val list1 = list - listOf("1","2")
+val list2 = list + "2"
+println(list1[0])
+
+val map = hashMapOf("name" to "hj","sex" to "male")
+val map1 = map + ("name2" to "hah") //{"name":"hj","name2":"ha","sex":"male"}
+val map2 = map - "name"//{"sex":"male"}
+println(map2)
+</code></pre></li>
+<li><p>？运算符</p>
+
+<p> 在java中，有时候为了避免出现空指针异常，我们通常需要这样的技巧：</p>
+
+<pre><code class="`"> if(rs!=null){
+   rs.next()
+   ...
+ }
+</code></pre>
+
+<p>Kotlin可以使用?操作符达到同样的目的：</p>
+
+<pre><code>rs?.next()
+</code></pre></li>
+<li><p>Elvis操作符</p>
+
+<p> 三目运算符通常以这种形式出现：</p>
+
+<pre><code class="`"> String displayName = name != null ? name : "Unknown";
+</code></pre>
+
+<p> Kotlin中可以简化为：</p>
+
+<pre><code class="`"> val displayName = name ?: "Unknown";
+</code></pre></li>
+<li><p>可空/非可空引用</p>
+
+<p> Kotlin中区分一个引用可以容纳null和不能容纳null。默认的引用是不可空的。</p>
+
+<pre><code class="`"> var a = "abc"
+ a = null // 编译错误    ```
+</code></pre>
+
+<p> 需要使用?使其变为可空引用。</p>
+
+<pre><code class="`"> var b : String ? = "abc"
+ b = null
+</code></pre>
+
+<p> 如此，后续如果你调用a的任何方法都可以，但是调用b的会有编译错误。会强制去检查b是否为空</p>
+
+<pre><code class="`"> val l = if (b != null) b.length else -1
+</code></pre>
+
+<p> 也可以使用?做安全调用</p>
+
+<pre><code class="`"> b?.length()
+</code></pre>
+
+<p> b不为空才会执行后续的操作。配合let可以执行其他非自身的操作。</p>
+
+<pre><code class="`"> b?.let({
+     print("a")
+ })
+</code></pre></li>
+<li><p>类</p>
+
+<ul>
+<li>无须public修饰符。文件名和类也没有任何关联。</li>
+<li><p>创建对象不需要使用new关键字</p>
+
+<pre><code class="``">  val test = Test()
+</code></pre></li>
+<li><p>对于类属性，默认会有get()和set()两个方法。直接访问属性或者给属性设置值都会调用这两个方法。</p>
+
+<pre><code class="``">  class Test {
+      var counter = 0 // 注意：这个初始器直接为幕后字段赋值
+      get() {
+          println("getter")
+          return field
+      }
+      set(value) {
+          println("setter")
+          field = value
+      }
+
+
+  }
+
+  val test = Test()
+  test.counter = 10
+  println(test.counter)
+</code></pre></li>
+<li><p>主构造函数和次构造函数。Kotlin中一个类可以有一个主构造函数以及一个或多个次构造函数。主构造函数是类头的一部分：它跟在类名（与可选的类型参数）后。主构造函数里的参数如果用val或者var修饰则成为类的属性。如果类有一个主构造函数，每个次构造函数需要委托给主构造函数。主构造函数不能包含任何的代码。初始化的代码可以放到以 init 关键字作为前缀的初始化块（即时没有主构造函数，也会在次构造函数前执行）。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      init{
+
+      }
+
+      constructor(counter: Int, name: String, sex: String) : this(counter, name) {
+
+      }
+
+  }
+
+  val test = Test(10)
+  println(test.counter)
+</code></pre></li>
+<li><p>Kotlin中引入了解构函数来对对象进行解构。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      operator fun component1() : Int{
+          return counter
+      }
+
+      operator fun component2() : String{
+          return name
+      }
+
+  }
+
+  val (counter,name) = Test(10)
+</code></pre></li>
+<li><p>Kotlin中引入了数据类的概念。对于此种类，会默认根据主构造函数的属性生成equals()/hashCode()、toString()、componentN()、copy()这几个函数。</p>
+
+<pre><code class="``">  data class User(val name: String, val age: Int)
+</code></pre></li>
+<li><p>Kotlin中提供了对象声明来实现单例模式。</p>
+
+<pre><code class="``">  object SingleInstance {
+      fun test(input: String) = println(input)
+  }
+
+  fun main(args: Array&lt;String&gt;) {
+      SingleInstance.test("hj")
+  }
+</code></pre></li>
+<li><p>Kotlin中提供了密封类来表示受限的类继承结构：当一个值为有限集中的类型、而不能有任何其他类型时。可以看做是枚举类的扩展。密封类需要在类名前面添加 sealed 修饰符。其所有子类都必须在与密封类自身相同的文件中声明。</p>
+
+<pre><code class="``">  sealed class DataType
+  data class Card(val number: Double) :DataType()
+  data class Timeline(val e1: DataType, val e2: DataType) : DataType()
+  object Illegal : DataType()
+</code></pre></li>
+<li><p>Kotlin的类中引入了伴生对象来声明静态方法、属性以及编译期常量（也可以在object中定义）。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      companion object {
+          const val TYPE = 1
+              val title = "haha"
+
+              fun testStatic(){
+              println("static method")
+          }
+  }
+</code></pre></li>
+</ul>
+</li>
+</ol>
+
+
+<p>以上为Kotlin中的基本语法说明，其他诸如内联类、委托、lambda函数、协程、与Java互操作等可见<a href="https://www.kotlincn.net/docs/reference/">https://www.kotlincn.net/docs/reference/</a>。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何进行Java项目构建？]]></title>
@@ -1367,370 +1731,6 @@ uploadArchives {
 <li>补充Java10和Kotlin的部分到Java新版本特性。</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Spring注解概览]]></title>
-    <link href="http://www.rowkey.me/blog/2017/10/28/spring-annotations/"/>
-    <updated>2017-10-28T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2017/10/28/spring-annotations</id>
-    <content type="html"><![CDATA[<p>从Java5.0开始，Java开始支持注解。Spring做为Java生态中的领军框架，从2.5版本后也开始支持注解。相比起之前使用xml来配置Spring框架，使用注解提供了更多的控制Spring框架的方式。</p>
-
-<p>现在越来越多的项目也都在使用注解做相关的配置，但Spring的注解非常多，相信很多注解大家都没有使用过。本文就尽量全面地概括介绍一下Spring中常用的注解。</p>
-
-<!--more-->
-
-
-<h2>一. 核心注解</h2>
-
-<h3>@Required</h3>
-
-<p>此注解用于bean的setter方法上。表示此属性是必须的，必须在配置阶段注入，否则会抛出BeanInitializationExcepion。</p>
-
-<h3>@Autowired</h3>
-
-<p>此注解用于bean的field、setter方法以及构造方法上，显式地声明依赖。根据type来autowiring。</p>
-
-<p>当在field上使用此注解，并且使用属性来传递值时，Spring会自动把值赋给此field。也可以将此注解用于私有属性(不推荐)，如下。</p>
-
-<pre><code>@Component
-public class User {
-    @Autowired                               
-    private Address address;                   
-}
-</code></pre>
-
-<p>最经常的用法是将此注解用于settter上，这样可以在setter方法中添加自定义代码。如下：</p>
-
-<pre><code>@Component
-public class User {
-     private Address address;
-
-     @AutoWired
-     public setAddress(Address address) {
-        // custom code
-        this.address=address;
-     }
-}
-</code></pre>
-
-<p>当在构造方法上使用此注解的时候，需要注意的一点就是一个类中只允许有一个构造方法使用此注解。此外，在Spring4.3后，如果一个类仅仅只有一个构造方法，那么即使不使用此注解，那么Spring也会自动注入相关的bean。如下：</p>
-
-<pre><code>@Component
-public class User {
-    private Address address;
-
-     public User(Address address) {     
-        this.address=address;
-     }
-}
-
-&lt;bean id="user" class="xx.User"/&gt;
-</code></pre>
-
-<h3>@Qualifier</h3>
-
-<p>此注解是和@Autowired一起使用的。使用此注解可以让你对注入的过程有更多的控制。</p>
-
-<p>@Qualifier可以被用在单个构造器或者方法的参数上。当上下文有几个相同类型的bean, 使用@Autowired则无法区分要绑定的bean，此时可以使用@Qualifier来指定名称。</p>
-
-<pre><code>@Component
-public class User {
-    @Autowired
-    @Qualifier("address1")
-    private Address address;
-    ...
-}
-</code></pre>
-
-<h3>@Configuration</h3>
-
-<p>此注解用在class上来定义bean。其作用和xml配置文件相同，表示此bean是一个Spring配置。此外，此类可以使用@Bean注解来初始化定义bean。</p>
-
-<pre><code>@Configuartion
-public class SpringCoreConfig {
-    @Bean
-    public AdminUser adminUser() {
-        AdminUser adminUser = new AdminUser();
-        return adminUser;
-    }
-}
-</code></pre>
-
-<h3>@ComponentScan</h3>
-
-<p>此注解一般和@Configuration注解一起使用，指定Spring扫描注解的package。如果没有指定包，那么默认会扫描此配置类所在的package。</p>
-
-<h3>@Lazy</h3>
-
-<p>此注解使用在Spring的组件类上。默认的，Spring中Bean的依赖一开始就被创建和配置。如果想要延迟初始化一个bean，那么可以在此类上使用Lazy注解，表示此bean只有在第一次被使用的时候才会被创建和初始化。此注解也可以使用在被@Configuration注解的类上，表示其中所有被@Bean注解的方法都会延迟初始化。</p>
-
-<h3>@Value</h3>
-
-<p>此注解使用在字段、构造器参数和方法参数上。@Value可以指定属性取值的表达式，支持通过#{}使用SpringEL来取值，也支持使用${}来将属性来源中(Properties文件、本地环境变量、系统属性等)的值注入到bean的属性中。此注解值的注入发生在AutowiredAnnotationBeanPostProcessor类中。</p>
-
-<h2>二. Stereotype注解</h2>
-
-<h3>@Component</h3>
-
-<p>此注解使用在class上来声明一个Spring组件(Bean), 将其加入到应用上下文中。</p>
-
-<h3>@Controller</h3>
-
-<p>此注解使用在class上声明此类是一个Spring controller，是@Component注解的一种具体形式。</p>
-
-<h3>@Service</h3>
-
-<p>此注解使用在class上，声明此类是一个服务类，执行业务逻辑、计算、调用内部api等。是@Component注解的一种具体形式。</p>
-
-<h3>@Repository</h3>
-
-<p>此类使用在class上声明此类用于访问数据库，一般作为DAO的角色。</p>
-
-<p>此注解有自动翻译的特性，例如：当此种component抛出了一个异常，那么会有一个handler来处理此异常，无需使用try-catch块。</p>
-
-<h2>三. Spring Boot注解</h2>
-
-<h3>@EnableAutoConfiguration</h3>
-
-<p>此注解通常被用在主应用class上，告诉Spring Boot自动基于当前包添加Bean、对bean的属性进行设置等。</p>
-
-<h3>@SpringBootApplication</h3>
-
-<p>此注解用在Spring Boot项目的应用主类上（此类需要在base package中）。使用了此注解的类首先会让Spring Boot启动对base package以及其sub-pacakage下的类进行component scan。</p>
-
-<p>此注解同时添加了以下几个注解：</p>
-
-<ul>
-<li>@Configuration</li>
-<li>@EnableAutoConfiguration</li>
-<li>@ComponentScan</li>
-</ul>
-
-
-<h2>四. Spring MVC和REST注解</h2>
-
-<h3>@Controller</h3>
-
-<p>上文已经提到过此注解。</p>
-
-<h3>@RequestMapping</h3>
-
-<p>此注解可以用在class和method上，用来映射web请求到某一个handler类或者handler方法上。当此注解用在Class上时，就创造了一个基础url，其所有的方法上的@RequestMapping都是在此url之上的。</p>
-
-<p>可以使用其method属性来限制请求匹配的http method。</p>
-
-<pre><code>@Controller
-@RequestMapping("/users")
-public class UserController {
-    @RequestMapping(method = RequestMethod.GET)
-    public String getUserList() {
-        return "users";
-    }
-}
-</code></pre>
-
-<p>此外，Spring4.3之后引入了一系列@RequestMapping的变种。如下：</p>
-
-<ul>
-<li>@GetMapping</li>
-<li>@PostMapping</li>
-<li>@PutMapping</li>
-<li>@PatchMapping</li>
-<li>@DeleteMapping</li>
-</ul>
-
-
-<p>分别对应了相应method的RequestMapping配置。</p>
-
-<h3>@CookieValue</h3>
-
-<p>此注解用在@RequestMapping声明的方法的参数上，可以把HTTP cookie中相应名称的cookie绑定上去。</p>
-
-<pre><code>    @ReuestMapping("/cookieValue")
-    public void getCookieValue(@CookieValue("JSESSIONID") String cookie){
-
-    }
-</code></pre>
-
-<p>cookie即http请求中name为JSESSIONID的cookie值。</p>
-
-<h3>@CrossOrigin</h3>
-
-<p>此注解用在class和method上用来支持跨域请求，是Spring 4.2后引入的。</p>
-
-<pre><code>@CrossOrigin(maxAge = 3600)
-@RestController
-@RequestMapping("/users")
-public class AccountController {
-    @CrossOrigin(origins = "http://xx.com")
-    @RequestMapping("/login")
-    public Result userLogin() {
-        // ...
-    }
-}
-</code></pre>
-
-<h3>@ExceptionHandler</h3>
-
-<p>此注解使用在方法级别，声明对Exception的处理逻辑。可以指定目标Exception。</p>
-
-<h3>@InitBinder</h3>
-
-<p>此注解使用在方法上，声明对WebDataBinder的初始化(绑定请求参数到JavaBean上的DataBinder)。在controller上使用此注解可以自定义请求参数的绑定。</p>
-
-<h3>@MatrixVariable</h3>
-
-<p>此注解使用在请求handler方法的参数上，Spring可以注入matrix url中相关的值。这里的矩阵变量可以出现在url中的任何地方，变量之间用;分隔。如下：</p>
-
-<pre><code>// GET /pets/42;q=11;r=22
-@RequestMapping(value = "/pets/{petId}")
-public void findPet(@PathVariable String petId, @MatrixVariable int q) {
-    // petId == 42
-    // q == 11
-}
-</code></pre>
-
-<p>需要注意的是默认Spring mvc是不支持矩阵变量的，需要开启。</p>
-
-<pre><code>&lt;mvc:annotation-driven enable-matrix-variables="true" /&gt;
-</code></pre>
-
-<p>注解配置则需要如下开启：</p>
-
-<pre><code>@Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
-
-    @Override
-    public void configurePathMatch(PathMatchConfigurer configurer) {
-        UrlPathHelper urlPathHelper = new UrlPathHelper();
-        urlPathHelper.setRemoveSemicolonContent(false);
-        configurer.setUrlPathHelper(urlPathHelper);
-    }
-}
-</code></pre>
-
-<h3>@PathVariable</h3>
-
-<p>此注解使用在请求handler方法的参数上。@RequestMapping可以定义动态路径，如:</p>
-
-<pre><code>@RequestMapping("/users/{uid}")
-</code></pre>
-
-<p>可以使用@PathVariable将路径中的参数绑定到请求方法参数上。</p>
-
-<pre><code>@RequestMapping("/users/{uid}")
-public String execute(@PathVariable("uid") String uid){
-}
-</code></pre>
-
-<h3>@RequestAttribute</h3>
-
-<p>此注解用在请求handler方法的参数上，用于将web请求中的属性(request attributes，是服务器放入的属性值)绑定到方法参数上。</p>
-
-<h3>@RequestBody</h3>
-
-<p>此注解用在请求handler方法的参数上，用于将http请求的Body映射绑定到此参数上。HttpMessageConverter负责将对象转换为http请求。</p>
-
-<h3>@RequestHeader</h3>
-
-<p>此注解用在请求handler方法的参数上，用于将http请求头部的值绑定到参数上。</p>
-
-<h3>@RequestParam</h3>
-
-<p>此注解用在请求handler方法的参数上，用于将http请求参数的值绑定到参数上。</p>
-
-<h3>@RequestPart</h3>
-
-<p>此注解用在请求handler方法的参数上，用于将文件之类的multipart绑定到参数上。</p>
-
-<h4>@ResponseBody</h4>
-
-<p>此注解用在请求handler方法上。和@RequestBody作用类似，用于将方法的返回对象直接输出到http响应中。</p>
-
-<h3>@ResponseStatus</h3>
-
-<p>此注解用于方法和exception类上，声明此方法或者异常类返回的http状态码。可以在Controller上使用此注解，这样所有的@RequestMapping都会继承。</p>
-
-<h4>@ControllerAdvice</h4>
-
-<p>此注解用于class上。前面说过可以对每一个controller声明一个ExceptionMethod。这里可以使用@ControllerAdvice来声明一个类来统一对所有@RequestMapping方法来做@ExceptionHandler、@InitBinder以及@ModelAttribute处理。</p>
-
-<h3>@RestController</h3>
-
-<p>此注解用于class上，声明此controller返回的不是一个视图而是一个领域对象。其同时引入了@Controller和@ResponseBody两个注解。</p>
-
-<h3>@RestControllerAdvice</h3>
-
-<p>此注解用于class上，同时引入了@ControllerAdvice和@ResponseBody两个注解。</p>
-
-<h3>@SessionAttribute</h3>
-
-<p>此注解用于方法的参数上，用于将session中的属性绑定到参数。</p>
-
-<h3>@SessionAttributes</h3>
-
-<p>此注解用于type级别，用于将JavaBean对象存储到session中。一般和@ModelAttribute注解一起使用。如下：</p>
-
-<pre><code>@ModelAttribute("user")
-
-public PUser getUser() {}
-
-// controller和上面的代码在同一controller中
-@Controller
-@SeesionAttributes(value = "user", types = {
-    User.class
-})
-
-public class UserController {}
-</code></pre>
-
-<h2>五. 数据访问注解</h2>
-
-<h3>@Transactional</h3>
-
-<p>此注解使用在接口定义、接口中的方法、类定义或者类中的public方法上。需要注意的是此注解并不激活事务行为，它仅仅是一个元数据，会被一些运行时基础设施来消费。</p>
-
-<h2>六. 任务执行、调度注解</h2>
-
-<h3>@Scheduled</h3>
-
-<p>此注解使用在方法上，声明此方法被定时调度。使用了此注解的方法返回类型需要是Void，并且不能接受任何参数。</p>
-
-<pre><code>@Scheduled(fixedDelay=1000)
-public void schedule() {
-
-}
-
-@Scheduled(fixedRate=1000)
-public void schedulg() { 
-
-}
-</code></pre>
-
-<p>第二个与第一个不同之处在于其不会等待上一次的任务执行结束。</p>
-
-<h3>@Async</h3>
-
-<p>此注解使用在方法上，声明此方法会在一个单独的线程中执行。不同于Scheduled注解，此注解可以接受参数。</p>
-
-<p>使用此注解的方法的返回类型可以是Void也可是返回值。但是返回值的类型必须是一个Future。</p>
-
-<h2>七. 测试注解</h2>
-
-<h3>@ContextConfiguration</h3>
-
-<p>此注解使用在Class上，声明测试使用的配置文件，此外，也可以指定加载上下文的类。</p>
-
-<p>此注解一般需要搭配SpringJUnit4ClassRunner使用。</p>
-
-<pre><code>@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = SpringCoreConfig.class)
-public class UserServiceTest {
-
-}
-</code></pre>
 ]]></content>
   </entry>
   
