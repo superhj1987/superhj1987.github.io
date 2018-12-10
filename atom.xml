@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-12-10T00:39:44+08:00</updated>
+  <updated>2018-12-10T16:55:01+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,18 +18,7 @@
     <link href="http://www.rowkey.me/blog/2018/12/08/kotlin-notes/"/>
     <updated>2018-12-08T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/12/08/kotlin-notes</id>
-    <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？从各种资料中总结出Kotlin有以下几个特点：</p>
-
-<ol>
-<li><p>无缝与Java互操作</p>
-
-<p> 可以直接使用Java库能够大大降低切换语言的成本。因此，如果想选择Kotlin，可以先试着用Kotlin写单元测试，之后等熟悉了此语言，可以进行混写。最后则完全切换到Kotlin。</p></li>
-<li><p>天然对协程的支持</p></li>
-<li><p>能够编译成原生二进制程序</p></li>
-<li><p>天然支持函数式编程和面向对象编程</p></li>
-<li><p>主流三方框架的天然支持</p></li>
-</ol>
-
+    <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
 
 <p>本文对其语法作了简要概括。</p>
 
@@ -3591,7 +3580,7 @@ println(map2)
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#x68;&#x61;&#110;&#103;&#64;&#101;&#116;&#x6f;&#117;&#x63;&#x68;&#x2e;&#99;&#x6e;">&#x68;&#x61;&#110;&#103;&#x40;&#101;&#x74;&#x6f;&#117;&#x63;&#x68;&#46;&#x63;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x68;&#x61;&#x6e;&#103;&#64;&#x65;&#x74;&#111;&#x75;&#99;&#x68;&#46;&#x63;&#110;">&#104;&#97;&#110;&#103;&#x40;&#x65;&#116;&#x6f;&#x75;&#x63;&#x68;&#46;&#99;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
