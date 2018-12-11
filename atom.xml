@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-12-10T16:55:01+08:00</updated>
+  <updated>2018-12-11T23:25:34+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -25,7 +25,7 @@
 <!--more-->
 
 
-<p>Kotlin版本：1.2.61</p>
+<p><strong>Kotlin版本：1.3.11</strong></p>
 
 <ol>
 <li><p>包的定义</p>
@@ -67,7 +67,12 @@
 
 <p> 其中，函数参数使用 Pascal 表示法定义，即 name: type。参数用逗号隔开。每个参数必须有显式类型。</p>
 
-<p> Kotlin中的函数和Java中的方法是一致的，但与Java不同的是，Kotlin中的函数可以属于任何类，文件当中直接定义则作为“包级函数”，和类的使用方式一致。</p></li>
+<p> Kotlin中还能够直接通过表达式做为函数体来定义函数。</p>
+
+<pre><code class="`"> fun sum(a : Int, b : Int) = a + b
+</code></pre>
+
+<p> Kotlin中的函数和Java中的方法是一致的，但与Java不同的是，Kotlin中的函数可以属于任何类，文件当中直接定义则作为“包级函数”，和类的使用方式一致</p></li>
 <li><p>默认参数值</p>
 
 <p> 函数的参数可以指定默认值。</p>
@@ -117,6 +122,13 @@
 <li><p>一切皆对象</p>
 
 <p> Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。</p></li>
+<li><p>if条件表达式</p>
+
+<p> Kotlin中支持if条件表达式。</p>
+
+<pre><code class="`">val a = if(x &gt; 0) 1 else 2
+fun maxOf(a: Int, b: Int) = if (a &gt; b) a else b
+</code></pre></li>
 <li><p>循环</p>
 
 <p> Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。</p>
@@ -206,20 +218,19 @@ val map = hashMapOf("name" to "hj","sex" to "male")
 val map1 = map + ("name2" to "hah") //{"name":"hj","name2":"ha","sex":"male"}
 val map2 = map - "name"//{"sex":"male"}
 println(map2)
-</code></pre></li>
-<li><p>？运算符</p>
-
-<p> 在java中，有时候为了避免出现空指针异常，我们通常需要这样的技巧：</p>
-
-<pre><code class="`"> if(rs!=null){
-   rs.next()
-   ...
- }
 </code></pre>
 
-<p>Kotlin可以使用?操作符达到同样的目的：</p>
+<p>Map的遍历如下：</p>
 
-<pre><code>rs?.next()
+<pre><code>for ((k, v) in map) {
+    println("$k -&gt; $v")
+}
+</code></pre>
+
+<p>Kotlin中的集合具有类似Java中的Stream的操作如filter、map、foreach等。</p>
+
+<pre><code>val positives = list.filter { x -&gt; x &gt; 0 }
+//val positives = list.filter { it &gt; 0 }
 </code></pre></li>
 <li><p>Elvis操作符</p>
 
@@ -232,7 +243,7 @@ println(map2)
 
 <pre><code class="`"> val displayName = name ?: "Unknown";
 </code></pre></li>
-<li><p>可空/非可空引用</p>
+<li><p>可空/非可空引用/函数返回值</p>
 
 <p> Kotlin中区分一个引用可以容纳null和不能容纳null。默认的引用是不可空的。</p>
 
@@ -258,9 +269,34 @@ println(map2)
 
 <p> b不为空才会执行后续的操作。配合let可以执行其他非自身的操作。</p>
 
-<pre><code class="`"> b?.let({
+<pre><code class="`"> b?.let{
      print("a")
- })
+ )
+</code></pre>
+
+<p> 同样的，对于函数参数以及返回值，默认也是非空的，只有加了?才允许传控制且要求做空值检测。</p>
+
+<pre><code class="`"> fun parseInt(str: String?): Int? {
+     // ……
+     if(str == null){
+         return null
+     }
+
+     ...
+     return ..
+ }
+
+ val r = parseInt(null)
+ r?.let{
+     print r
+ }
+</code></pre></li>
+<li><p>try with resources</p>
+
+<pre><code class="`"> val stream = Files.newInputStream(Paths.get("/some/file.txt"))
+ stream.buffered().reader().use { reader -&gt;
+     println(reader.readText())
+ }
 </code></pre></li>
 <li><p>类</p>
 
@@ -322,6 +358,14 @@ println(map2)
   }
 
   val (counter,name) = Test(10)
+</code></pre>
+
+<p>  如此，也和map一样可以用在集合迭代中。</p>
+
+<pre><code class="``">  val testList = listOf(Test(1),Test(2))
+  for((k,v) in testList){
+      ...
+  }
 </code></pre></li>
 <li><p>Kotlin中引入了数据类的概念。对于此种类，会默认根据主构造函数的属性生成equals()/hashCode()、toString()、componentN()、copy()这几个函数。</p>
 
@@ -357,12 +401,31 @@ println(map2)
           }
   }
 </code></pre></li>
+<li><p>对一个对象调用多个方法。</p>
+
+<pre><code class="``">  class Test(val counter : Int){
+      fun test1(){
+
+      }
+
+      fun test2(){
+
+      }
+  }
+
+
+  val test = Test(1)
+  with(test){
+      test1()
+      test2()
+  }
+</code></pre></li>
 </ul>
 </li>
 </ol>
 
 
-<p>以上为Kotlin中的基本语法说明，其他诸如内联类、委托、lambda函数、协程、与Java互操作等可见<a href="https://www.kotlincn.net/docs/reference/">https://www.kotlincn.net/docs/reference/</a>。</p>
+<p>以上为Kotlin中的基本语法说明，其他诸如委托、lambda函数、协程、与Java互操作等可见<a href="https://www.kotlincn.net/docs/reference/">https://www.kotlincn.net/docs/reference/</a>。</p>
 ]]></content>
   </entry>
   
@@ -3580,7 +3643,7 @@ println(map2)
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#x68;&#x61;&#x6e;&#103;&#64;&#x65;&#x74;&#111;&#x75;&#99;&#x68;&#46;&#x63;&#110;">&#104;&#97;&#110;&#103;&#x40;&#x65;&#116;&#x6f;&#x75;&#x63;&#x68;&#46;&#99;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#x68;&#97;&#110;&#x67;&#x40;&#101;&#116;&#x6f;&#117;&#x63;&#x68;&#x2e;&#x63;&#x6e;">&#x68;&#97;&#110;&#103;&#64;&#101;&#116;&#111;&#117;&#99;&#x68;&#x2e;&#x63;&#x6e;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
