@@ -6,7 +6,7 @@ comments: true
 categories: java kotlin
 ---
 
-Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？
+Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？
 
 本文对其语法作了简要概括。
 
@@ -324,6 +324,18 @@ Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽�
 	stream.buffered().reader().use { reader ->
    		println(reader.readText())
 	}
+	```
+	
+1. 延迟属性
+
+	Kotlin提供了延迟属性的支持，即只有在你第一次开始使用的时候才会真正初始化。默认使用同步锁保证只有一个线程初始化。下面例子改成了不使用同步锁，可以多线程执行。
+	
+	```
+	val p by lazy(LazyThreadSafetyMode.PUBLICATION) {
+        println("computed!")
+        "Hello"
+    }
+    println(p)
 	```
 	
 1. 类
