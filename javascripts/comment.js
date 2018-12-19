@@ -60,6 +60,10 @@ var _getComment = function _getComment(params, callback) {
         data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
         success: function success(page_comments) {
             if (!page_comments || page_comments.length <= 0) {
+                if(!!comments && comments.length > 0){
+                    comments = comments.sort(CompareDate);
+                }
+
                 callback && typeof callback === "function" && callback(comments);
                 callback = null;
                 return;
@@ -243,12 +247,12 @@ var _renderHTML = function _renderHTML(params) {
         $(comments_target).append(_res);
     } else {
         var _res2 = "\n            <div class=\"discussion-timeline js-quote-selection-container\">\n            <div class=\"js-discussion js-socket-channel\">\n            ";
-        if (issue && issue.body && issue.body != '') {
-            _res2 += _renderComment(issue);
-        }
         comments.forEach(function (comment) {
             _res2 += _renderComment(comment);
         });
+        if (issue && issue.body && issue.body != '') {
+            _res2 += _renderComment(issue);
+        }
         _res2 += footer;
         _res2 += '</div></div>';
         $(comments_target).append(_res2);
@@ -373,6 +377,11 @@ var getComments = function getComments(params) {
     btn_class = params.btn_class;
     comments_target = params.comments_target;
     loading_target = params.loading_target;
+
+    // 没有页面title则无须获取评论
+    if(!issue_title){
+        return;
+    }
 
     comments_target = comments_target ? comments_target : '#comment-thread';
     username = user;
