@@ -8,7 +8,7 @@ categories: java
 
 一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到[Java后端技术概览图](https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png)。
 
-![](https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/tech-tree.png)
+![](https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/chapter1-servertech/media/tech-tree.png)
 
 <!--more-->
 
