@@ -60,10 +60,6 @@ var _getComment = function _getComment(params, callback) {
         data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
         success: function success(page_comments) {
             if (!page_comments || page_comments.length <= 0) {
-                if(!!comments && comments.length > 0){
-                    comments = comments.sort(CompareDate);
-                }
-
                 callback && typeof callback === "function" && callback(comments);
                 callback = null;
                 return;
@@ -247,12 +243,12 @@ var _renderHTML = function _renderHTML(params) {
         $(comments_target).append(_res);
     } else {
         var _res2 = "\n            <div class=\"discussion-timeline js-quote-selection-container\">\n            <div class=\"js-discussion js-socket-channel\">\n            ";
-        comments.forEach(function (comment) {
-            _res2 += _renderComment(comment);
-        });
         if (issue && issue.body && issue.body != '') {
             _res2 += _renderComment(issue);
         }
+        comments.forEach(function (comment) {
+            _res2 += _renderComment(comment);
+        });
         _res2 += footer;
         _res2 += '</div></div>';
         $(comments_target).append(_res2);
@@ -270,7 +266,7 @@ var _renderHTML = function _renderHTML(params) {
 var CompareDate = function CompareDate(a, b) {
     var d1 = a['created_at'].replace('T', ' ').replace('Z', '').replace(/-/g, "\/");
     var d2 = b['created_at'].replace('T', ' ').replace('Z', '').replace(/-/g, "\/");
-    return new Date(d2) - new Date(d1);
+    return new Date(d1) > new Date(d2);
 };
 
 var _getRecentIssues = function _getRecentIssues(params, callback) {
@@ -286,11 +282,11 @@ var _getRecentIssues = function _getRecentIssues(params, callback) {
         data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
         success: function success(issues) {
             if (issues.length > count) {
-                // if (navigator.userAgent.indexOf("MSIE") != -1 || navigator.userAgent.indexOf("Edge") != -1 || !!document.documentMode == true) {
+                if (navigator.userAgent.indexOf("MSIE") != -1 || navigator.userAgent.indexOf("Edge") != -1 || !!document.documentMode == true) {
                     issues = issues.sort(CompareDate).slice(0, 5);
-                // } else {
-                    // issues = issues.sort(CompareDate).reverse().slice(0, 5);
-                // }
+                } else {
+                    issues = issues.sort(CompareDate).reverse().slice(0, 5);
+                }
             }
             callback && typeof callback === "function" && callback(issues);
             callback = null;
@@ -315,11 +311,11 @@ var _getRecentComments = function _getRecentComments(params, callback) {
         data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
         success: function success(comments) {
             if (comments.length > count) {
-                // if (navigator.userAgent.indexOf("MSIE") != -1 || navigator.userAgent.indexOf("Edge") != -1 || !!document.documentMode == true) {
+                if (navigator.userAgent.indexOf("MSIE") != -1 || navigator.userAgent.indexOf("Edge") != -1 || !!document.documentMode == true) {
                     comments = comments.sort(CompareDate).slice(0, 5);
-                // } else {
-                    // comments = comments.sort(CompareDate).reverse().slice(0, 5);
-                // }
+                } else {
+                    comments = comments.sort(CompareDate).reverse().slice(0, 5);
+                }
             }
 
             callback && typeof callback === "function" && callback(comments);
@@ -351,11 +347,11 @@ var getRecentCommentsList = function getRecentCommentsList(params) {
         recentList = recentList.concat(issues);
         _getRecentComments(params, function (comments) {
             recentList = recentList.concat(comments);
-            // if (navigator.userAgent.indexOf("MSIE") != -1 || navigator.userAgent.indexOf("Edge") != -1 || !!document.documentMode == true) {
+            if (navigator.userAgent.indexOf("MSIE") != -1 || navigator.userAgent.indexOf("Edge") != -1 || !!document.documentMode == true) {
                 recentList = recentList.sort(CompareDate);
-            // } else {
-                // recentList = recentList.sort(CompareDate).reverse();
-            // }
+            } else {
+                recentList = recentList.sort(CompareDate).reverse();
+            }
             _renderRecentCommentList(recentList, count);
         });
     });
@@ -377,11 +373,6 @@ var getComments = function getComments(params) {
     btn_class = params.btn_class;
     comments_target = params.comments_target;
     loading_target = params.loading_target;
-
-    // 没有页面title则无须获取评论
-    if(!issue_title){
-        return;
-    }
 
     comments_target = comments_target ? comments_target : '#comment-thread';
     username = user;

@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2018-12-21T17:00:40+08:00</updated>
+  <updated>2018-12-11T23:27:07+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.rowkey.me/blog/2018/12/08/kotlin-notes/"/>
     <updated>2018-12-08T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2018/12/08/kotlin-notes</id>
-    <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
+    <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
 
 <p>本文对其语法作了简要概括。</p>
 
@@ -297,16 +297,6 @@ println(map2)
  stream.buffered().reader().use { reader -&gt;
      println(reader.readText())
  }
-</code></pre></li>
-<li><p>延迟属性</p>
-
-<p> Kotlin提供了延迟属性的支持，即只有在你第一次开始使用的时候才会真正初始化。默认使用同步锁保证只有一个线程初始化。下面例子改成了不使用同步锁，可以多线程执行。</p>
-
-<pre><code class="`"> val p by lazy(LazyThreadSafetyMode.PUBLICATION) {
-     println("computed!")
-     "Hello"
- }
- println(p)
 </code></pre></li>
 <li><p>类</p>
 
@@ -2435,7 +2425,7 @@ println(map2)
     <id>http://www.rowkey.me/blog/2018/05/12/java-tech-overview</id>
     <content type="html"><![CDATA[<p>一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到<a href="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png">Java后端技术概览图</a>。</p>
 
-<p><img src="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/chapter1-servertech/media/tech-tree.png" alt="" /></p>
+<p><img src="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/tech-tree.png" alt="" /></p>
 
 <!--more-->
 
@@ -3653,7 +3643,7 @@ println(map2)
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x68;&#97;&#110;&#103;&#64;&#x65;&#x74;&#111;&#117;&#x63;&#104;&#x2e;&#x63;&#110;">&#104;&#x61;&#x6e;&#103;&#x40;&#x65;&#116;&#x6f;&#x75;&#99;&#104;&#46;&#x63;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#58;&#104;&#x61;&#x6e;&#x67;&#64;&#x65;&#x74;&#x6f;&#117;&#x63;&#104;&#46;&#x63;&#x6e;">&#104;&#97;&#110;&#103;&#x40;&#x65;&#x74;&#111;&#117;&#99;&#x68;&#x2e;&#99;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
