@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Kotlin语法简明指南 Dec 8th, 2018 Posted by 飒然Hang in java, kotlin Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日， &hellip;">
+  <meta name="description" content="Kotlin语法简明指南 Dec 8th, 2018 Posted by 飒然Hang in java, kotlin Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -152,7 +152,7 @@
   </header>
 
 
-<div class="post-content"><p>Kotlin是Intellij IDEA的创造团队JetBrains发明的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
+<div class="post-content"><p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
 
 <p>本文对其语法作了简要概括。</p>
 
@@ -431,6 +431,16 @@ println(map2)
  stream.buffered().reader().use { reader -&gt;
      println(reader.readText())
  }
+</code></pre></li>
+<li><p>延迟属性</p>
+
+<p> Kotlin提供了延迟属性的支持，即只有在你第一次开始使用的时候才会真正初始化。默认使用同步锁保证只有一个线程初始化。下面例子改成了不使用同步锁，可以多线程执行。</p>
+
+<pre><code class="`"> val p by lazy(LazyThreadSafetyMode.PUBLICATION) {
+     println("computed!")
+     "Hello"
+ }
+ println(p)
 </code></pre></li>
 <li><p>类</p>
 
@@ -795,7 +805,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2018 - 飒然Hang -
+	Copyright &copy; 2019 - 飒然Hang -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 
