@@ -4,7 +4,7 @@
   <title><![CDATA[Category: misc | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/misc/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-01-26T16:04:00+08:00</updated>
+  <updated>2019-01-26T16:08:27+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -47,7 +47,7 @@
 </ul>
 
 
-<p>此外，招聘工作上18年虽然结果并不尽人意，但也花了不少时间在简历筛选、面试等工作上。</p>
+<p>此外，自己也花了不少时间在简历筛选、面试等招聘工作上。</p>
 
 <p>在年度考核中，看到同事们对自己的一些意见，基本都符合我的自我认知，也是在管理方面自己需要改进的：</p>
 
@@ -113,7 +113,7 @@
 
 <p>所以，这一年参与了很小一部分推荐系统的开发工作，大部分是在担任推荐引擎的项目管理工作。本年度推荐系统最大的一个改进是做了架构的升级，引入了召回+CTR预估的推荐机制，合理划分了推荐引擎的分层架构，虽然最终的推荐指标并没有达到预期的结果，但的确带来了新的思路，带着这个思路，相信不久会有一些突破性的结果。</p>
 
-<p>此外，考虑到数据挖掘对于公司的重要性以及目前人才梯队的问题，和西电语义计算实验室成立了联合项目组，旨在发挥各自的优势，由我们提供生产环境用户行为数据和工程实现，由学校进行算法、模型的研究，并进一步在学生联合培养、人才输送方面探索更多、更好的合作形式。</p>
+<p>此外，考虑到数据挖掘对于公司的重要性以及目前人才梯队的问题，和高校算实验室成立了联合项目组，旨在发挥各自的优势，由我们提供生产环境用户行为数据和工程实现，由学校进行算法、模型的研究，并进一步在学生联合培养、人才输送方面探索更多、更好的合作形式。</p>
 
 <h3>阅读学习</h3>
 
@@ -132,20 +132,12 @@
 <li><p>增长黑客</p>
 
 <blockquote><p>一本前几年非常火的书。也是这本书把“增长黑客”的概念引入国内。讲述了什么是增长黑客、增长在做什么、如何做增长等内容。由于工作中与增长并不密切相关，因此感触并不多。算是自己在增长方面的一个入门读物。</p></blockquote></li>
-<li><p>Microservices AntiPatterns and Pitfalls</p></li>
-</ul>
+<li><p>Microservices AntiPatterns and Pitfalls</p>
 
+<blockquote><p>微服务的反模式和陷阱。是O’Reilly的免费电子书，主要讲述了在做微服务设计和实现的时候经常会做错的一些事情。强烈推荐想要做微服务的同学看一下此书。我自己的翻译见：<a href="http://www.rowkey.me/blog/2018/06/02/microservice-pitfall/">http://www.rowkey.me/blog/2018/06/02/microservice-pitfall/</a>。</p></blockquote></li>
+<li><p>Reactive Microservices Architecture</p>
 
-<blockquote><p>微服务的反模式和陷阱。是O’Reilly的免费电子书，主要讲述了在做微服务设计和实现的时候经常会做错的一些事情。强烈推荐想要做微服务的同学看一下此书。我自己的翻译见：<a href="http://www.rowkey.me/blog/2018/06/02/microservice-pitfall/">http://www.rowkey.me/blog/2018/06/02/microservice-pitfall/</a>。</p></blockquote>
-
-<ul>
-<li>Reactive Microservices Architecture</li>
-</ul>
-
-
-<blockquote><p>响应式微服务架构-分布式系统设计原则。同样是O’Reilly的免费电子书，主要讲述了在做微服务设计的时候需要遵循的原则。结合上面的微服务的反模式和陷阱，能够更好地认识、设计和实现微服务。我自己的翻译见：<a href="http://www.rowkey.me/blog/2018/06/07/reactive-microservice/">http://www.rowkey.me/blog/2018/06/07/reactive-microservice/</a></p></blockquote>
-
-<ul>
+<blockquote><p>响应式微服务架构-分布式系统设计原则。同样是O’Reilly的免费电子书，主要讲述了在做微服务设计的时候需要遵循的原则。结合上面的微服务的反模式和陷阱，能够更好地认识、设计和实现微服务。我自己的翻译见：<a href="http://www.rowkey.me/blog/2018/06/07/reactive-microservice/">http://www.rowkey.me/blog/2018/06/07/reactive-microservice/</a></p></blockquote></li>
 <li><p>进化-运维技术变革与实践探索</p>
 
 <blockquote><p>来自极客时间相关课程的一个书籍。主要讲述了运维技术的演进和实践。其中让我自己印象比较深的，一个地方是其讲述的架构师负责设计架构，运维则是负责管理架构；另一个地方是美丽说实践的一个办公室测试环境（小蘑菇环境），这个我们公司后来也进行了实践和推行。此外，这本书给出的事故定则维度和研发高压线也给了自己一些启发，进一步出台了公司的相关制度。</p></blockquote></li>
@@ -413,7 +405,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x68;&#x61;&#110;&#103;&#x40;&#x65;&#116;&#111;&#117;&#x63;&#x68;&#x2e;&#99;&#x6e;">&#x68;&#97;&#x6e;&#103;&#x40;&#101;&#116;&#x6f;&#117;&#x63;&#x68;&#x2e;&#99;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#104;&#x61;&#x6e;&#103;&#64;&#x65;&#x74;&#x6f;&#x75;&#99;&#x68;&#46;&#99;&#x6e;">&#104;&#97;&#x6e;&#103;&#x40;&#x65;&#116;&#x6f;&#x75;&#99;&#104;&#x2e;&#x63;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
