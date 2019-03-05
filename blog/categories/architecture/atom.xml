@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-03-05T16:44:34+08:00</updated>
+  <updated>2019-03-05T16:51:04+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -440,8 +440,6 @@ Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:
 <p>此外，还可以在后端做流量控制、服务降级或者动态扩展，以应对缓存穿透带来的访问压力。</p>
 
 <blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
-
-<p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
 ]]></content>
   </entry>
   
