@@ -350,5 +350,3 @@ Redis对分布式的支持有三种：
 
 
 > 本文节选自《Java工程师修炼之道》一书。
-
-<img src="/post_images/book-all.png" width="400"/>
