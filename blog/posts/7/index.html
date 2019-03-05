@@ -14,9 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Kafka学习笔记 - 使用与配置 May 30th, 2015 目录 一. 使用
-二. 关键配置
-三. Storm-kafka使用 本文一、二部分内容主要来自官方文档。 一. 使用 下载代码 https://www.apache.org/dyn/closer.cgi?path=/kafka/0 &hellip;">
+  <meta name="description" content="Kafka学习笔记 - Consumer开发的一些关键点 May 30th, 2015 Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -114,6 +112,123 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/05/30/kafka-consumer/">Kafka学习笔记 - Consumer开发的一些关键点</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-30T22:00:18+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
+
+<p><img src="/images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
+
+<h2>一. 消费过的数据无法再次消费</h2>
+
+<p>在user level上，一旦消费过topic里的数据，那么就无法再次用同一个groupid消费同一组数据。如果想要再次消费数据，要么换另一个groupid，要么使用镜像：</p>
+
+<p><img src="/images/blog_images/kafka-consumer-1.jpg" alt="pic" /></p>
+
+<p>此外，low level的api提供了一些机制去设置partion和offset。</p>
+
+<h2>二. offset管理</h2>
+
+<p>kafka会记录offset到zk中。但是，zk client api对zk的频繁写入是一个低效的操作。0.8.2 kafka引入了native offset storage，将offset管理从zk移出，并且可以做到水平扩展。其原理就是利用了kafka的compacted topic，offset以consumer group,topic与partion的组合作为key直接提交到compacted topic中。同时Kafka又在内存中维护了<consumer group,topic,partition>的三元组来维护最新的offset信息，consumer来取最新offset信息的时候直接内存里拿即可。当然，kafka允许你快速的checkpoint最新的offset信息到磁盘上。</p>
+
+<h2>三. stream</h2>
+
+<p>This API is centered around iterators, implemented by the KafkaStream class. Each KafkaStream represents the stream of messages from one or more partitions on one or more servers. Each stream is used for single threaded processing, so the client can provide the number of desired streams in the create call. Thus a stream may represent the merging of multiple server partitions (to correspond to the number of processing threads), but each partition only goes to one stream.</p>
+
+<p>根据官方文档所说，stream即指的是来自一个或多个服务器上的一个或者多个partition的消息。每一个stream都对应一个单线程处理。因此，client能够设置满足自己需求的stream数目。总之，一个stream也许代表了多个服务器partion的消息的聚合，但是每一个partition都只能到一个stream。</p>
+
+<h2>四. consumer和partition</h2>
+
+<ol>
+<li>如果consumer比partition多，是浪费，因为kafka的设计是在一个partition上是不允许并发的，所以consumer数不要大于partition数</li>
+<li>如果consumer比partition少，一个consumer会对应于多个partitions，这里主要合理分配consumer数和partition数，否则会导致partition里面的数据被取的不均匀</li>
+<li>如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同</li>
+<li>增减consumer，broker，partition会导致rebalance，所以rebalance后consumer对应的partition会发生变化</li>
+<li>High-level接口中获取不到数据的时候是会block的</li>
+</ol>
+
+
+<p>负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该再开 Consumer 进程，进程内线程数同样和分区数一致。（多谢 @shadyxu 指出）</p>
+
+<h2>五. high-level的consumer工具</h2>
+
+<ol>
+<li><p>bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker &ndash;group pv</p>
+
+<p> 可以看到当前group offset的状况。</p></li>
+<li><p>bin/kafka-run-class.sh kafka.tools.UpdateOffsetsInZK earliest config/consumer.properties  page_visits</p>
+
+<pre><code> 3个参数， 
+ [earliest | latest]，表示将offset置到哪里 
+ consumer.properties ，这里是配置文件的路径 
+ topic，topic名，这里是page_visits
+</code></pre></li>
+</ol>
+
+
+<h2>六. SimpleConsumer</h2>
+
+<p>kafka的low-level接口，使用场景：</p>
+
+<ol>
+<li>读取一个消息多次。</li>
+<li>在一个进程中仅仅消费某一个topic中几个partition的数据.</li>
+<li>管理事务以确保一个消息处理且仅仅被处理一次。</li>
+</ol>
+
+
+<p>用这个接口需要注意一下几点：</p>
+
+<ol>
+<li>在应用中必须跟踪记录offset以确保能够确定上次消费到的位置。</li>
+<li>必须设置哪一个broker是要操作的topic和partition的leader。</li>
+<li>必须自己控制broker的leader的改变。</li>
+</ol>
+
+
+<p>使用步骤：</p>
+
+<ol>
+<li>找出一个active状态的broker并且找出哪一个broker是那些topic和partition的leader，必须知道读哪个topic的哪个partition。</li>
+<li>找到负责该partition的broker leader，从而找到存有该partition副本的那个broker。</li>
+<li>自己去写request并fetch数据。</li>
+<li>获取数据。</li>
+<li>需要识别和处理broker leader的改变。</li>
+</ol>
+
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -775,50 +890,6 @@ public class Account{
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/08/14/grow-up-in-tech/">技术的成长</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-14T16:38:01+08:00" pubdate data-updated="true">Aug 14<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
-
-<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/14/grow-up-in-tech/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -898,6 +969,10 @@ public class Account{
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2019/02/25/cache/">数据存储之缓存</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2019/01/26/my2018/">我的2018</a>
       	</li>
     	
@@ -931,10 +1006,6 @@ public class Account{
     	
      	<li>
       	  <a href="/blog/2018/06/07/reactive-microservice/">响应式微服务架构-分布式系统设计原则</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/06/02/microservice-pitfall/">微服务的十个反模式和陷阱</a>
       	</li>
     	
 	</ul>
