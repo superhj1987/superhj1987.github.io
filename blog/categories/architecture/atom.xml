@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-03-06T10:24:55+08:00</updated>
+  <updated>2019-03-06T10:38:20+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,9 @@
     <link href="http://www.rowkey.me/blog/2019/02/25/cache/"/>
     <updated>2019-02-25T19:29:34+08:00</updated>
     <id>http://www.rowkey.me/blog/2019/02/25/cache</id>
-    <content type="html"><![CDATA[<p>缓存是为了弥补持久化存储服务如数据库的性能缓慢而出现的一种将数据存储在内存中，从而大大提高应用性能的服务。如缓存五分钟法则所讲：如果一个数据频繁被访问，那么就应该放内存中。这里的缓存就是一种读写效率都非常高的存储方案，能够应对高并发的访问请求，通常情况下也不需要持久化的保证。但相对其他存储来说，缓存一般是基于内存的，成本比较昂贵，因此不能滥用。</p>
+    <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md</a></strong></p>
+
+<p>缓存是为了弥补持久化存储服务如数据库的性能缓慢而出现的一种将数据存储在内存中，从而大大提高应用性能的服务。如缓存五分钟法则所讲：如果一个数据频繁被访问，那么就应该放内存中。这里的缓存就是一种读写效率都非常高的存储方案，能够应对高并发的访问请求，通常情况下也不需要持久化的保证。但相对其他存储来说，缓存一般是基于内存的，成本比较昂贵，因此不能滥用。</p>
 
 <p>缓存可以分为：本地缓存和分布式缓存。</p>
 
