@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-03-06T10:38:20+08:00</updated>
+  <updated>2019-03-07T11:10:10+08:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,37 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[技术面试的应该与不应该]]></title>
+    <link href="http://www.rowkey.me/blog/2019/02/25/interview-basic/"/>
+    <updated>2019-02-25T19:29:34+08:00</updated>
+    <id>http://www.rowkey.me/blog/2019/02/25/interview-basic</id>
+    <content type="html"><![CDATA[<p>进入软件开发这个行业差不多10年，做为候选人被面试过，也做为面试官面试过别人。而且这几年做为后者的角色越来越多，也慢慢总结出来了一些技术面试的原则，也是自己一直在实践的。</p>
+
+<h3>Should</h3>
+
+<ol>
+<li>让候选人介绍自己拿手的项目或者模块，考察其问题描述能力、沟通能力。</li>
+<li>根据简历上写的的项目经验，考察候选人对用过的东西有没有消化、掌握的深度，判断其是否是一个善于思考、主动学习的人。</li>
+<li>计算机科学基础知识，考察候选人的计算机基本功，能达到的上限有多高。尤其是对于实习生或者应届生来说是最最重要的一点。社招可以适当放宽要求，但起码要对常用的计算机基础知识有大概的印象。</li>
+<li>实际工作中需要的知识，考察候选人能否胜任职位要求的工作。</li>
+<li>开发性问题（算法或者实际场景下的问题，是候选人没有接触过或者接触不深的）考察候选人是否聪明，思路是否活跃。</li>
+<li>问候选人觉得自己相比其他人的优点是什么，具体的实例。可以基于这个优点出一些题目。从而考察候选人对自己是否有明确的自我认知。</li>
+</ol>
+
+
+<h3>Shouldn&rsquo;t</h3>
+
+<ol>
+<li>不要抱着证明自己比候选人强的心理进行面试。包括一直试图找候选人的缺点、问自己拿手的而候选人没有接触过或者接触很浅的点（除非是职位的关键技能点）。面试的目的是看候选人是否能够胜任职位，而不是挑剔候选人。</li>
+<li>不要问候选人没有接触过的RTFM问题。这类问题，查阅手册/文档就能知晓，并不是什么核心竞争力。</li>
+<li>不要问脑筋急转弯式的问题。</li>
+<li>不要太看重面试人已经会的，多看一下候选人的学习能力、学习欲望、上进心等能提高上限的点。</li>
+</ol>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[缓存这些事]]></title>
@@ -4274,7 +4305,7 @@ println(map2)
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#58;&#104;&#97;&#110;&#x67;&#x40;&#101;&#116;&#x6f;&#117;&#99;&#104;&#x2e;&#x63;&#x6e;">&#x68;&#97;&#110;&#x67;&#x40;&#x65;&#x74;&#111;&#117;&#99;&#104;&#x2e;&#99;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x68;&#x61;&#110;&#x67;&#64;&#101;&#x74;&#111;&#x75;&#x63;&#104;&#46;&#99;&#x6e;">&#104;&#x61;&#110;&#103;&#x40;&#101;&#x74;&#111;&#x75;&#x63;&#x68;&#46;&#99;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
@@ -4376,51 +4407,6 @@ println(map2)
 <h2>总结</h2>
 
 <p>上述最后一种方案提现了在计算机中使用bit来解决问题的思路。当需要节省存储的时候，使用bit来做经常会有出其不易的效果。就比如最近很火的电影《天才枪手》中，主角们记忆选择题的答案A、B、C、D，完全可以使用位编码来表示四种答案:00-A 01-B 10-C 11-D，四个bit转换为一个十六进制数字，如此就可以节省一半的存储，记忆起来也会简单很多。此外，我们处理大数据去重/计数使用的Bitmap、BloomFilter，也都是一种使用bit节省存储的思路。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[技术琐话2018-01-01]]></title>
-    <link href="http://www.rowkey.me/blog/2018/01/01/tech-talk/"/>
-    <updated>2018-01-01T19:29:34+08:00</updated>
-    <id>http://www.rowkey.me/blog/2018/01/01/tech-talk</id>
-    <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p>
-
-<p>2018年以“技术琐话”开篇，主要是整理了一下自己以前一些零散的知识点。</p></blockquote>
-
-<h2>技术感悟</h2>
-
-<ul>
-<li><p>阅读各种技术的使用/说明/示例/原理文档时，能不能快速吸收为自己的知识？能不能注意到细节关键点？是一个开发工程师优不优秀，能不能比别人更突出、更快成长起来的一个非常重要的地方。</p></li>
-<li><p>你东西学得广了，别人就会攻击你不够深入；你东西学得够深了，别人就会攻击你知识面不广；你专精在技术时，别人就会说你管理不好；你花心力好好做管理之后，别人就会说你技术没有跟上；你研究方法论时，别人就会说你很虚；你专心做项目时，别人就会说你没有提炼方法，没有系统。&hellip; 想挑你毛病，总有办法。但你自己知道自己在干什么最重要，那些你的「缺点」其实可能不是缺点，而是一件事物的另一面。你选择这一面，自然会缺另一面。这是取舍点，不是优缺点。(from 微博<strong>@蔡学镛</strong>)</p></li>
-</ul>
-
-
-<!--more-->
-
-
-<ul>
-<li><p>来自硅谷的启示</p>
-
-<p>  <img src="http://www.rowkey.me/images/blog_images/silicon-tech.jpg" alt="" /></p></li>
-</ul>
-
-
-<h2>技术点</h2>
-
-<ul>
-<li><p>在写Java代码的时候，如果匿名内部类里面传递变量，变量必须声明为final，而在Java8中，可以不用写这个final了，因为Java8引入了Effectively final 功能，由系统默认添加。<a href="http://t.cn/R5QgeVW">What is Effectively Final variable of Java 8</a></p></li>
-<li><p>将Nginx中的一个配置指令proxyinterceptorerrors设置为true，可以捕获后端服务器返回的错误码进行处理，从而可以使用nginx自己的错误显示页面。 ​​​​</p></li>
-<li><p>在Servlet开发中，request.setCharacterEncoding必须在所有filter最开始执行，否则只要调用过request相关方法去获取其参数等，再去设置编码是无效的。</p></li>
-<li><p>Java中File类的listFiles和list方法最终调用的是FileSystem的本地接口，返回的文件列表顺序是没有保证的。Spring中的san某一basepackage下的类就是使用的此方法，因此加载的bean的顺序也是无法保证的。这一点需要特别注意。 ​​​​​​</p></li>
-<li><p>Tomcat各个版本特性对比图</p>
-
-<p>  <img src="http://www.rowkey.me/images/blog_images/tc.png" alt="" /></p></li>
-<li><p>Java集合类对比图表</p>
-
-<p>  <img src="http://www.rowkey.me/images/blog_images/java-collections.jpg" alt="" /></p></li>
-</ul>
-
 ]]></content>
   </entry>
   

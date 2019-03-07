@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>搭建自己的github - 后端技术杂谈 | 飒然Hang</title>
+  <title>技术面试的应该与不应该 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="搭建自己的github Nov 13th, 2015 Posted by 飒然Hang in git 说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然， &hellip;">
+  <meta name="description" content="技术面试的应该与不应该 Feb 25th, 2019 Posted by 飒然Hang in architecture 进入软件开发这个行业差不多10年，做为候选人被面试过，也做为面试官面试过别人。而且这几年做为后者的角色越来越多，也慢慢总结出来了一些技术面试的原则，也是自己一直在实践的。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2015/11/13/your-own-github/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2019/02/25/interview-basic/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -115,7 +115,7 @@
   
   <header>
     
-      <h1 class="post-title">搭建自己的github</h1>
+      <h1 class="post-title">技术面试的应该与不应该</h1>
     
     
       <p class="post-meta">
@@ -131,7 +131,7 @@
   
 
 
-<time datetime="2015-11-13T10:27:40+08:00" pubdate data-updated="true">Nov 13<sup>th</sup>, 2015</time>
+<time datetime="2019-02-25T19:29:34+08:00" pubdate data-updated="true">Feb 25<sup>th</sup>, 2019</time>
         
         
   
@@ -141,7 +141,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/git/'>git</a>
+    <a class='category' href='/blog/categories/architecture/'>architecture</a>
   
 </span>
 
@@ -152,21 +152,29 @@
   </header>
 
 
-<div class="post-content"><p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
+<div class="post-content"><p>进入软件开发这个行业差不多10年，做为候选人被面试过，也做为面试官面试过别人。而且这几年做为后者的角色越来越多，也慢慢总结出来了一些技术面试的原则，也是自己一直在实践的。</p>
 
-<p>记得几年前由于项目的需要，曾尝试自己去搭建一套git服务给项目组使用，折腾了好久，才总算搭建了一个基础的系统, 刚刚能用，权限控制都没有(<a href="http://srhang.iteye.com/blog/1339110">http://srhang.iteye.com/blog/1339110</a>)。但最终因为git的上手门槛有点高，还是选择了svn。后来随着github的兴起，git才如火如荼地在国内火了起来。许多大的互联网公司，也都开始把项目由svn转到git。但如果仅仅是搭建一个git服务，那么github这种网站提供的可视化ui带来的便捷却也不复存在了。对于一些小的有钱的团队，使用github的收费私人repository倒也是一种解决办法。但是，对于大部分公司来说，还是不会把公司内部的代码放到这种公共服务上的。这种需求场景下，就诞生了很多github的克隆实现，以方便部署内网的github。</p>
+<h3>Should</h3>
 
-<!--more-->
+<ol>
+<li>让候选人介绍自己拿手的项目或者模块，考察其问题描述能力、沟通能力。</li>
+<li>根据简历上写的的项目经验，考察候选人对用过的东西有没有消化、掌握的深度，判断其是否是一个善于思考、主动学习的人。</li>
+<li>计算机科学基础知识，考察候选人的计算机基本功，能达到的上限有多高。尤其是对于实习生或者应届生来说是最最重要的一点。社招可以适当放宽要求，但起码要对常用的计算机基础知识有大概的印象。</li>
+<li>实际工作中需要的知识，考察候选人能否胜任职位要求的工作。</li>
+<li>开发性问题（算法或者实际场景下的问题，是候选人没有接触过或者接触不深的）考察候选人是否聪明，思路是否活跃。</li>
+<li>问候选人觉得自己相比其他人的优点是什么，具体的实例。可以基于这个优点出一些题目。从而考察候选人对自己是否有明确的自我认知。</li>
+</ol>
 
 
-<p>说到github的克隆实现，最出名的莫过于<a href="https://gitlab.com">gitlab</a>。这是一个ROR的实现，应该是目前市面上最成熟的一个github克隆项目，功能也是最丰富的。它在原来最基础的git库管理、权限管理、用户管理的基础上又加入了诸如code review、ci等极大方便开发者的功能。基本把github克隆了一遍，还加上了github没有的功能。功能强大倒是强大，但是gitlab本身的部署非常复杂，需要安装很多依赖包和依赖组件，整个过程非常痛苦。虽然现在提供了集成安装包，但对操作系统又有要求，比如要求CentOS 6以上，CentOs 5的用户就享受不了这个便利了。。。一想到这么多事情，对于我这种懒人来说，还是没有选择gitlab。</p>
+<h3>Shouldn&rsquo;t</h3>
 
-<p>在前东家的时候，git项目是从gitlab迁移到了gitbucket（其中的原因当然不仅仅是因为gitlab部署的繁琐）。说起<a href="https://gitbucket.github.io/gitbucket-news/">gitbucket</a>，在百度上也搜不出什么信息来。能搜到的估计也就github库的地址和其他一些简单介绍。这个项目是日本的同行使用scala开发的一个github克隆。所以，抛开编程方面，对于java系的程序员还是比较友好的，部署也只需要把war包往tomcat之类的容器里一扔就ok。这个对比gitlab那可是天壤之别。而谈到二次开发，scala语言的学习曲线还是非常陡的，所以对比起来，貌似gitlab的二次开发相比较起来还是容易一些的（gitlab的二次开发没参与过，这里只是猜测）。当然，gitbucket是一个相对年轻的项目，对比gitlab，功能还显得比较单薄，bug也不少。我自己在使用的过程中，fix过几个小bug并提交到了项目的主分支，但是还有不少bug被公司的同事吐槽中（实在没时间专门fix这个）。另外，不得不说的是，gitbucket的markdown解析引擎，作者不知道什么原因从之前的一个叫pegdown的替换成了自己实现的markedj，让我们公司的一堆md文档都显示的各种乱，实在无语。。。不得不去clone了markedj的代码，fix了其中的一些bug，部署在我们内网的maven库里。bug虽然挺多，但比起gitlab来，还是喜欢gitbucket部署升级的简单（去官网下个war包，扔到tomcat里，恭喜你，你就拥有了自己的github）。当然，也有纯粹个人对jvm系语言的偏爱的原因^_^。</p>
+<ol>
+<li>不要抱着证明自己比候选人强的心理进行面试。包括一直试图找候选人的缺点、问自己拿手的而候选人没有接触过或者接触很浅的点（除非是职位的关键技能点）。面试的目的是看候选人是否能够胜任职位，而不是挑剔候选人。</li>
+<li>不要问候选人没有接触过的RTFM问题。这类问题，查阅手册/文档就能知晓，并不是什么核心竞争力。</li>
+<li>不要问脑筋急转弯式的问题。</li>
+<li>不要太看重面试人已经会的，多看一下候选人的学习能力、学习欲望、上进心等能提高上限的点。</li>
+</ol>
 
-<p>其实，除了gitlab和gitbucket还有很多github的克隆实现。这篇文章列出了很多并做了简单介绍:
-<a href="http://www.oschina.net/news/50222/git-code-platforms">http://www.oschina.net/news/50222/git-code-platforms</a></p>
-
-<p>其实，开发工具这种东西，选择最适合自己以及自己团队的才是上上之选。</p>
 </div>
 <div style="width:100%;text-align:center;display: none" id="wxFooter">
   <img src="/images/blog_images/h.png"/>
@@ -230,10 +238,8 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2015/11/20/2015books/" title="上一篇: 2015年读过的书">&laquo; 2015年读过的书 </a>
       
-      
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2015/09/09/load-analysis/" title="下一篇: 系统负载能力浅析">系统负载能力浅析 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2019/02/25/cache/" title="下一篇: 缓存这些事">缓存这些事 &raquo;</a>
       
     </div>
   </footer>
@@ -444,7 +450,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "搭建自己的github",
+   issue_title: "技术面试的应该与不应该",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
