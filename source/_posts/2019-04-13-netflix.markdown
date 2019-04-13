@@ -1,0 +1,33 @@
+---
+layout: post
+title: "技术 in Netflix"
+date: 2019-04-13 19:29:34 +0800
+comments: true
+categories: work
+---
+
+综合市面上的公开资料总结了Netflix在技术上面的一些实践和创新，从中能够得到不少启发和提示。
+
+**来自公司内部分享**
+
+<!--more-->
+
+![](/post_images/netflix/arch-2.jpeg)
+![](/post_images/netflix/arch-3.jpeg)
+![](/post_images/netflix/arch-4.jpeg)
+![](/post_images/netflix/arch-5.jpeg)
+![](/post_images/netflix/arch-6.jpeg)
+![](/post_images/netflix/arch-7.jpeg)
+![](/post_images/netflix/arch-8.jpeg)
+![](/post_images/netflix/arch-9.jpeg)
+![](/post_images/netflix/arch-10.jpeg)
+![](/post_images/netflix/arch-11.jpeg)
+![](/post_images/netflix/arch-12.jpeg)
+![](/post_images/netflix/arch-13.jpeg)
+![](/post_images/netflix/arch-14.jpeg)
+![](/post_images/netflix/arch-15.jpeg)
+![](/post_images/netflix/arch-16.jpeg)
+![](/post_images/netflix/arch-17.jpeg)
+![](/post_images/netflix/arch-18.jpeg)
+![](/post_images/netflix/arch-19.jpeg)
+![](/post_images/netflix/arch-20.jpeg)
