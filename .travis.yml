@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+  - 2.2.3
+
+script: 
+  - rake generate
+
+deploy:
+  provider: pages
+  local_dir: _delpoy
+  target_branch: master
+  skip_cleanup: true
+  github_token: 2453f7a17036ba0ca982d8e189d9071a7ff4b050
+  keep_history: true
+  on:
+    branch: source

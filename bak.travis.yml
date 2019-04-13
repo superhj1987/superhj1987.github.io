@@ -1,7 +1,0 @@
-sudo: required
-language: rake
-jdk:
-  - oraclejdk8
-
-script: 
-  - mvn compile
