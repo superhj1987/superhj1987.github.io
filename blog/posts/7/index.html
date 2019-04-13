@@ -14,9 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Kafka学习笔记 - 使用与配置 May 30th, 2015 目录 一. 使用
-二. 关键配置
-三. Storm-kafka使用 本文一、二部分内容主要来自官方文档。 一. 使用 下载代码 https://www.apache.org/dyn/closer.cgi?path=/kafka/0 &hellip;">
+  <meta name="description" content="系统负载能力浅析 Sep 9th, 2015 &mdash;本文于2015.12.23最新更新&mdash; 互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -114,6 +112,278 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/09/09/load-analysis/">系统负载能力浅析</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-09T18:42:58+08:00" pubdate data-updated="true">Sep 9<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p><strong><em>&mdash;本文于2015.12.23最新更新&mdash;</em></strong></p>
+
+<p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
+
+<p>那么，何为系统负载能力？怎么衡量？相关因素有哪些？又如何优化呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/09/09/load-analysis/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/06/10/hbase-about/">Hbase关键的几个点</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-10T10:59:59+08:00" pubdate data-updated="true">Jun 10<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>一. 什么时候需要HBase</h2>
+
+<ol>
+<li><p>半结构化或非结构化数据</p>
+
+<p> 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要增加存储比如一个用户的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加.</p></li>
+<li><p>记录非常稀疏</p>
+
+<p> RDBMS的行有多少列是固定的，为null的列浪费了存储空间。而如上文提到的，HBase为null的Column不会被存储，这样既节省了空间又提高了读性能。</p></li>
+<li><p>多版本数据</p>
+
+<p> 根据Row key和Column key定位到的Value可以有任意数量的版本值，因此对于需要存储变动历史记录的数据，用HBase就非常方便了。对于某一值，业务上一般只需要最新的值，但有时可能需要查询到历史值。</p></li>
+<li><p>超大数据量</p>
+
+<p> 当数据量越来越大，RDBMS数据库撑不住了，就出现了读写分离策略，通过一个Master专门负责写操作，多个Slave负责读操作，服务器成本倍增。随着压力增加，Master撑不住了，这时就要分库了，把关联不大的数据分开部署，一些join查询不能用了，需要借助中间层。随着数据量的进一步增加，一个表的记录越来越大，查询就变得很慢，于是又得搞分表，比如按ID取模分成多个表以减少单个表的记录数。经历过这些事的人都知道过程是多么的折腾。采用HBase就简单了，只需要加机器即可，HBase会自动水平切分扩展，跟Hadoop的无缝集成保障了其数据可靠性（HDFS）和海量数据分析的高性能（MapReduce）</p></li>
+</ol>
+
+
+<h2>二. HTable一些基本概念</h2>
+
+<ol>
+<li><p>Row key</p>
+
+<p> 行主键， HBase不支持条件查询和Order by等查询，读取记录只能按Row key（及其range）或全表扫描，因此Row key需要根据业务来设计以利用其存储排序特性（Table按Row key字典序排序如1,10,100,11,2）提高性能。</p></li>
+<li><p>Column Family（列族）</p>
+
+<p> 在表创建时声明，每个Column Family为一个存储单元。</p></li>
+<li><p>Column（列）</p>
+
+<p> HBase的每个列都属于一个列族，以列族名为前缀，如列article:title和article:content属于article列族，author:name和author:nickname属于author列族。</p>
+
+<p> Column不用创建表时定义即可以动态新增，同一Column Family的Columns会群聚在一个存储单元上，并依Column key排序，因此设计时应将具有相同I/O特性的Column设计在一个Column Family上以提高性能。</p></li>
+<li><p>Timestamp</p>
+
+<p> HBase通过row和column确定一份数据，这份数据的值可能有多个版本，不同版本的值按照时间倒序排序，即最新的数据排在最前面，查询时默认返回最新版本。Timestamp默认为系统当前时间（精确到毫秒），也可以在写入数据时指定该值。</p></li>
+<li><p>Value</p>
+
+<p> 每个值通过4个键唯一索引，tableName+RowKey+ColumnKey+Timestamp=>value</p></li>
+<li><p>存储类型</p>
+
+<ul>
+<li>TableName 是字符串</li>
+<li>RowKey 和 ColumnName 是二进制值（Java 类型 byte[]）</li>
+<li>Timestamp 是一个 64 位整数（Java 类型 long）</li>
+<li>value 是一个字节数组（Java类型 byte[]）。</li>
+</ul>
+</li>
+</ol>
+
+
+<p>将HTable的存储结构理解为</p>
+
+<p><img src="/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
+
+<p>即HTable按Row key自动排序，每个Row包含任意数量个Columns，Columns之间按Column key自动排序，每个Column包含任意数量个Values。理解该存储结构将有助于查询结果的迭代。</p>
+
+<h2>三. 模式设计应遵循的原则</h2>
+
+<ol>
+<li><p>列族的数量以及列族的势</p>
+
+<p> 列族的数量越少越好，牵扯到了hbase的flushing；同一个表中不同列族所存储的记录数量的差别也需要考虑（列族的势），会造成记录数量少的列族的数据分散在多个region上，影响查询效率。</p></li>
+<li><p>行键的设计</p>
+
+<p> 避免使用时序或者单调（递增/递减）行键，否则会导致连续到来的数据会被分配到统一region中。</p></li>
+<li><p>尽量最小化行键和列族的大小</p>
+
+<p> 避免hbase的索引过大，加重系统存储的负担</p></li>
+<li><p>版本的数量</p>
+
+<p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
+</ol>
+
+</div>
+  
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/05/30/kafka-consumer/">Kafka学习笔记 - Consumer开发的一些关键点</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-30T22:00:18+08:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
+
+<p><img src="/images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
+
+<h2>一. 消费过的数据无法再次消费</h2>
+
+<p>在user level上，一旦消费过topic里的数据，那么就无法再次用同一个groupid消费同一组数据。如果想要再次消费数据，要么换另一个groupid，要么使用镜像：</p>
+
+<p><img src="/images/blog_images/kafka-consumer-1.jpg" alt="pic" /></p>
+
+<p>此外，low level的api提供了一些机制去设置partion和offset。</p>
+
+<h2>二. offset管理</h2>
+
+<p>kafka会记录offset到zk中。但是，zk client api对zk的频繁写入是一个低效的操作。0.8.2 kafka引入了native offset storage，将offset管理从zk移出，并且可以做到水平扩展。其原理就是利用了kafka的compacted topic，offset以consumer group,topic与partion的组合作为key直接提交到compacted topic中。同时Kafka又在内存中维护了<consumer group,topic,partition>的三元组来维护最新的offset信息，consumer来取最新offset信息的时候直接内存里拿即可。当然，kafka允许你快速的checkpoint最新的offset信息到磁盘上。</p>
+
+<h2>三. stream</h2>
+
+<p>This API is centered around iterators, implemented by the KafkaStream class. Each KafkaStream represents the stream of messages from one or more partitions on one or more servers. Each stream is used for single threaded processing, so the client can provide the number of desired streams in the create call. Thus a stream may represent the merging of multiple server partitions (to correspond to the number of processing threads), but each partition only goes to one stream.</p>
+
+<p>根据官方文档所说，stream即指的是来自一个或多个服务器上的一个或者多个partition的消息。每一个stream都对应一个单线程处理。因此，client能够设置满足自己需求的stream数目。总之，一个stream也许代表了多个服务器partion的消息的聚合，但是每一个partition都只能到一个stream。</p>
+
+<h2>四. consumer和partition</h2>
+
+<ol>
+<li>如果consumer比partition多，是浪费，因为kafka的设计是在一个partition上是不允许并发的，所以consumer数不要大于partition数</li>
+<li>如果consumer比partition少，一个consumer会对应于多个partitions，这里主要合理分配consumer数和partition数，否则会导致partition里面的数据被取的不均匀</li>
+<li>如果consumer从多个partition读到数据，不保证数据间的顺序性，kafka只保证在一个partition上数据是有序的，但多个partition，根据你读的顺序会有不同</li>
+<li>增减consumer，broker，partition会导致rebalance，所以rebalance后consumer对应的partition会发生变化</li>
+<li>High-level接口中获取不到数据的时候是会block的</li>
+</ol>
+
+
+<p>负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该再开 Consumer 进程，进程内线程数同样和分区数一致。（多谢 @shadyxu 指出）</p>
+
+<h2>五. high-level的consumer工具</h2>
+
+<ol>
+<li><p>bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker &ndash;group pv</p>
+
+<p> 可以看到当前group offset的状况。</p></li>
+<li><p>bin/kafka-run-class.sh kafka.tools.UpdateOffsetsInZK earliest config/consumer.properties  page_visits</p>
+
+<pre><code> 3个参数， 
+ [earliest | latest]，表示将offset置到哪里 
+ consumer.properties ，这里是配置文件的路径 
+ topic，topic名，这里是page_visits
+</code></pre></li>
+</ol>
+
+
+<h2>六. SimpleConsumer</h2>
+
+<p>kafka的low-level接口，使用场景：</p>
+
+<ol>
+<li>读取一个消息多次。</li>
+<li>在一个进程中仅仅消费某一个topic中几个partition的数据.</li>
+<li>管理事务以确保一个消息处理且仅仅被处理一次。</li>
+</ol>
+
+
+<p>用这个接口需要注意一下几点：</p>
+
+<ol>
+<li>在应用中必须跟踪记录offset以确保能够确定上次消费到的位置。</li>
+<li>必须设置哪一个broker是要操作的topic和partition的leader。</li>
+<li>必须自己控制broker的leader的改变。</li>
+</ol>
+
+
+<p>使用步骤：</p>
+
+<ol>
+<li>找出一个active状态的broker并且找出哪一个broker是那些topic和partition的leader，必须知道读哪个topic的哪个partition。</li>
+<li>找到负责该partition的broker leader，从而找到存有该partition副本的那个broker。</li>
+<li>自己去写request并fetch数据。</li>
+<li>获取数据。</li>
+<li>需要识别和处理broker leader的改变。</li>
+</ol>
+
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -624,201 +894,6 @@ public class Account{
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/08/27/nginx-loadbalance/">Nginx负载均衡</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-27T14:32:50+08:00" pubdate data-updated="true">Aug 27<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>目录</h2>
-
-<ul>
-<li><a href="#%E4%B8%80%20%E7%89%B9%E7%82%B9">一 特点</a></li>
-<li><a href="#%E4%BA%8C%20%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">二 负载均衡</a></li>
-<li><a href="#%E4%B8%89%20%E5%8A%A8%E6%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">三 动态负载均衡</a></li>
-<li><a href="#%E5%9B%9B%20%E4%BC%98%E5%8A%BF%E5%92%8C%E5%8A%A3%E5%8A%BF">四 优势和劣势</a></li>
-<li><a href="#%E4%BA%94%20Tengine">五 Tengine</a></li>
-</ul>
-
-
-<p><strong><em>本文最新更新于2016.11.01</em></strong></p>
-
-<h2><a name='一 特点'></a>一 特点</h2>
-
-<h3>1.1 应用情况</h3>
-
-<p>Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。据Netcraft统计，世界上最繁忙的网站中有11.48%使用Nginx作为其服务器或者代理服务器。基于反向代理的功能，Nginx作为负载均衡主要有以下几点理由：</p>
-
-<ol>
-<li>高并发连接</li>
-<li>内存消耗少</li>
-<li>配置文件非常简单</li>
-<li>成本低廉</li>
-<li>支持Rewrite重写规则</li>
-<li>内置的健康检查功能</li>
-<li>节省带宽</li>
-<li>稳定性高</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/27/nginx-loadbalance/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/08/22/node-async-analysis/">Async源码分析</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-22T16:08:28+08:00" pubdate data-updated="true">Aug 22<sup>nd</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
-
-<pre>
-    async.waterfall = function (tasks, callback) {
-        callback = callback || function () {};
-        if (!_isArray(tasks)) {
-          var err = new Error('First argument to waterfall must be an array of functions');
-          return callback(err);
-        }
-        if (!tasks.length) {
-            return callback();
-        }
-        var wrapIterator = function (iterator) {
-            return function (err) {
-                if (err) {
-                    callback.apply(null, arguments);
-                    callback = function () {};
-                }
-                else {
-                    var args = Array.prototype.slice.call(arguments, 1);
-                    var next = iterator.next();
-                    if (next) {
-                        args.push(wrapIterator(next));
-                    }
-                    else {
-                        args.push(callback);
-                    }
-                    async.setImmediate(function () {
-                        iterator.apply(null, args);
-                    });
-                }
-            };
-        };
-        wrapIterator(async.iterator(tasks))();
-    };
- </pre>
-
-
-<p></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/22/node-async-analysis/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/08/14/grow-up-in-tech/">技术的成长</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-14T16:38:01+08:00" pubdate data-updated="true">Aug 14<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
-
-<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/14/grow-up-in-tech/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -898,6 +973,18 @@ public class Account{
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2019/04/13/netflix/">技术 in Netflix</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/03/08/interview-basic/">技术面试的应该与不应该</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/02/25/cache/">缓存这些事</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2019/01/26/my2018/">我的2018</a>
       	</li>
     	
@@ -923,18 +1010,6 @@ public class Account{
     	
      	<li>
       	  <a href="/blog/2018/08/30/build-java/">如何进行Java项目构建？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/07/28/manage-notes/">管理的一些要点</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/06/07/reactive-microservice/">响应式微服务架构-分布式系统设计原则</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/06/02/microservice-pitfall/">微服务的十个反模式和陷阱</a>
       	</li>
     	
 	</ul>

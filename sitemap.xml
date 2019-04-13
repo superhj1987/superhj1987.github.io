@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://www.rowkey.me/blog/2019/04/13/netflix/</loc>
+    <lastmod>2019-04-13T19:29:34+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/2019/03/08/interview-basic/</loc>
+    <lastmod>2019-03-08T19:29:34+08:00</lastmod>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/2019/02/25/cache/</loc>
+    <lastmod>2019-02-25T19:29:34+08:00</lastmod>
+  </url>
+  <url>
     <loc>http://www.rowkey.me/blog/2019/01/26/my2018/</loc>
     <lastmod>2019-01-26T19:29:34+08:00</lastmod>
   </url>
@@ -339,10 +351,10 @@
     <loc>http://www.rowkey.me/blog/blog_index.html</loc>
   </url>
   <url>
-    <loc>http://www.rowkey.me/</loc>
+    <loc>http://www.rowkey.me/blog/archives/</loc>
   </url>
   <url>
-    <loc>http://www.rowkey.me/blog/archives/</loc>
+    <loc>http://www.rowkey.me/</loc>
   </url>
   <url>
     <loc>http://www.rowkey.me/blog/categories/</loc>
@@ -424,6 +436,30 @@
   </url>
   <url>
     <loc>http://www.rowkey.me/blog/categories/kotlin/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/2/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/3/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/4/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/5/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/6/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/7/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/8/</loc>
+  </url>
+  <url>
+    <loc>http://www.rowkey.me/blog/posts/9/</loc>
   </url>
   <url>
     <loc>http://www.rowkey.me/main.html</loc>
