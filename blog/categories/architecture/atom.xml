@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[缓存这些事]]></title>
     <link href="http://www.rowkey.me/blog/2019/02/25/cache/"/>
-    <updated>2019-02-25T19:29:34+08:00</updated>
+    <updated>2019-02-25T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/02/25/cache</id>
     <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md</a></strong></p>
 
@@ -448,7 +448,7 @@ Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:
   <entry>
     <title type="html"><![CDATA[如何应对在线故障]]></title>
     <link href="http://www.rowkey.me/blog/2018/11/22/online-debug/"/>
-    <updated>2018-11-22T22:29:34+08:00</updated>
+    <updated>2018-11-22T14:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/11/22/online-debug</id>
     <content type="html"><![CDATA[<p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？</p>
 
@@ -486,7 +486,7 @@ Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:
   <entry>
     <title type="html"><![CDATA[Java应用性能调优之调优准备]]></title>
     <link href="http://www.rowkey.me/blog/2018/10/31/profile-ready/"/>
-    <updated>2018-10-31T22:29:34+08:00</updated>
+    <updated>2018-10-31T14:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/10/31/profile-ready</id>
     <content type="html"><![CDATA[<p>实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。</p>
 
@@ -508,7 +508,7 @@ Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:
   <entry>
     <title type="html"><![CDATA[架构设计与原则（2018修订版）]]></title>
     <link href="http://www.rowkey.me/blog/2018/09/20/arch-new/"/>
-    <updated>2018-09-20T22:29:34+08:00</updated>
+    <updated>2018-09-20T14:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/09/20/arch-new</id>
     <content type="html"><![CDATA[<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>的最新修订版。</p>
 
@@ -561,7 +561,7 @@ Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:
   <entry>
     <title type="html"><![CDATA[响应式微服务架构-分布式系统设计原则]]></title>
     <link href="http://www.rowkey.me/blog/2018/06/07/reactive-microservice/"/>
-    <updated>2018-06-07T19:29:34+08:00</updated>
+    <updated>2018-06-07T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/06/07/reactive-microservice</id>
     <content type="html"><![CDATA[<p>O’Reilly的电子书《Reactive Microservices Architecture》讲述了微服务/分布式系统的一些设计原则，本文是笔者阅读完此书后的理解。书籍地址：<a href="https://info.lightbend.com/COLL-20XX-Reactive-Microservices-Architecture-RES-LP.html">https://info.lightbend.com/COLL-20XX-Reactive-Microservices-Architecture-RES-LP.html</a>。</p>
 

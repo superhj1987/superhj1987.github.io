@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nodejs | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/nodejs/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[async源码分析]]></title>
     <link href="http://www.rowkey.me/blog/2014/08/22/node-async-analysis/"/>
-    <updated>2014-08-22T16:08:28+08:00</updated>
+    <updated>2014-08-22T08:08:28+00:00</updated>
     <id>http://www.rowkey.me/blog/2014/08/22/node-async-analysis</id>
     <content type="html"><![CDATA[<p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
 

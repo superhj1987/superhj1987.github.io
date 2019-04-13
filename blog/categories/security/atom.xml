@@ -4,7 +4,7 @@
   <title><![CDATA[Category: security | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/security/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[ShellShock这点事]]></title>
     <link href="http://www.rowkey.me/blog/2014/09/29/shell-shock/"/>
-    <updated>2014-09-29T21:49:46+08:00</updated>
+    <updated>2014-09-29T13:49:46+00:00</updated>
     <id>http://www.rowkey.me/blog/2014/09/29/shell-shock</id>
     <content type="html"><![CDATA[<h2>前言</h2>
 
@@ -122,7 +122,7 @@ http-header = Referer:() { :; }; ping -c 163.com
   <entry>
     <title type="html"><![CDATA[《白帽子讲Web安全》读书笔记]]></title>
     <link href="http://www.rowkey.me/blog/2013/11/11/web-security-notes/"/>
-    <updated>2013-11-11T21:30:20+08:00</updated>
+    <updated>2013-11-11T13:30:20+00:00</updated>
     <id>http://www.rowkey.me/blog/2013/11/11/web-security-notes</id>
     <content type="html"><![CDATA[<p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
 

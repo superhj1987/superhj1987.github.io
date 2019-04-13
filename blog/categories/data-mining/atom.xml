@@ -4,7 +4,7 @@
   <title><![CDATA[Category: data-mining | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/data-mining/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[推荐系统杂谈]]></title>
     <link href="http://www.rowkey.me/blog/2016/08/30/recommend-sys/"/>
-    <updated>2016-08-30T20:39:34+08:00</updated>
+    <updated>2016-08-30T12:39:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2016/08/30/recommend-sys</id>
     <content type="html"><![CDATA[<p>推荐系统是近些年非常火的技术，不管是电商类软件还是新闻类app，都号称有精准的推荐系统能给你推送你最感兴趣的内容。现象级的资讯类app“今日头条”就得益于此成为了势头非常猛的一款产品。本文就针对推荐系统讲述一些相关概念和实践经验。</p>
 
@@ -199,7 +199,7 @@
   <entry>
     <title type="html"><![CDATA[基于内容和用户画像的个性化推荐]]></title>
     <link href="http://www.rowkey.me/blog/2016/04/07/up-recommend/"/>
-    <updated>2016-04-07T14:59:44+08:00</updated>
+    <updated>2016-04-07T06:59:44+00:00</updated>
     <id>http://www.rowkey.me/blog/2016/04/07/up-recommend</id>
     <content type="html"><![CDATA[<p>目前比较流行的个性化推荐算法有以下几种：</p>
 
@@ -307,7 +307,7 @@
   <entry>
     <title type="html"><![CDATA[数据杂谈]]></title>
     <link href="http://www.rowkey.me/blog/2016/02/23/data-talk/"/>
-    <updated>2016-02-23T18:44:34+08:00</updated>
+    <updated>2016-02-23T10:44:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2016/02/23/data-talk</id>
     <content type="html"><![CDATA[<h2>目录</h2>
 

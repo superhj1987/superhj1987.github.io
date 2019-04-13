@@ -4,7 +4,7 @@
   <title><![CDATA[Category: devops | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/devops/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:59+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[关于terracotta在tomcat集群中做session共享的问题]]></title>
     <link href="http://www.rowkey.me/blog/2012/08/15/terracotta/"/>
-    <updated>2012-08-15T21:39:34+08:00</updated>
+    <updated>2012-08-15T13:39:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2012/08/15/terracotta</id>
     <content type="html"><![CDATA[<p>手头上的一个项目“陕西省专业技术人员继续教育学习与管理平台”是服务于全陕西省130万专技人员的高并发且事务逻辑较复杂的一个系统，不管是编码上还是系统架构部署上都具有一定的挑战性。在考虑了现有设备以及系统负载的基础上，整个系统架构采用了六台服务器，分别是：WEB门户服务器（WEB门户+Oracle数据库）、学习管理平台服务器、系统核心数据库、资源下载服务器、在线点播服务器、数据库备份服务器。</p>
 

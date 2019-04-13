@@ -4,7 +4,7 @@
   <title><![CDATA[Category: study | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/study/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:59+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[2016年读过的书]]></title>
     <link href="http://www.rowkey.me/blog/2016/12/30/2016books/"/>
-    <updated>2016-12-30T17:13:46+08:00</updated>
+    <updated>2016-12-30T09:13:46+00:00</updated>
     <id>http://www.rowkey.me/blog/2016/12/30/2016books</id>
     <content type="html"><![CDATA[<p>16年由于工作、身体等各种原因，阅读的书籍并不多。主要集中在技术方面。</p>
 
@@ -44,7 +44,7 @@
   <entry>
     <title type="html"><![CDATA[2015年读过的书]]></title>
     <link href="http://www.rowkey.me/blog/2015/11/20/2015books/"/>
-    <updated>2015-11-20T17:13:46+08:00</updated>
+    <updated>2015-11-20T09:13:46+00:00</updated>
     <id>http://www.rowkey.me/blog/2015/11/20/2015books</id>
     <content type="html"><![CDATA[<h2>技术</h2>
 
@@ -107,7 +107,7 @@
   <entry>
     <title type="html"><![CDATA[技术的成长]]></title>
     <link href="http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech/"/>
-    <updated>2014-08-14T16:38:01+08:00</updated>
+    <updated>2014-08-14T08:38:01+00:00</updated>
     <id>http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech</id>
     <content type="html"><![CDATA[<p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
 
@@ -128,7 +128,7 @@
   <entry>
     <title type="html"><![CDATA[《白帽子讲Web安全》读书笔记]]></title>
     <link href="http://www.rowkey.me/blog/2013/11/11/web-security-notes/"/>
-    <updated>2013-11-11T21:30:20+08:00</updated>
+    <updated>2013-11-11T13:30:20+00:00</updated>
     <id>http://www.rowkey.me/blog/2013/11/11/web-security-notes</id>
     <content type="html"><![CDATA[<p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
 
@@ -213,7 +213,7 @@
   <entry>
     <title type="html"><![CDATA[《七周七语言》读后感]]></title>
     <link href="http://www.rowkey.me/blog/2012/11/17/seven-language/"/>
-    <updated>2012-11-17T21:39:34+08:00</updated>
+    <updated>2012-11-17T13:39:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2012/11/17/seven-language</id>
     <content type="html"><![CDATA[<p>在微博上看到Robbin老大推荐《七周七语言》一书，去豆瓣上查了一下发现大家对这本书的评价也是非常高，于是就想着去读一下。书买了之后由于找工作一直没有来得及看，随着前段时间把工作定了，就着手对这本书的学习了。从书名来看，顾名思义就是讲了七种不同的编程语言。自己浏览了一下目录，心里也大致衡量了一下，对于这七种语言，我觉得我以后会用到的或者说是能去学的应该也就Ruby、Scala两个，所以就计划大体地浏览一下这七门语言，先有个大概的了解就好。这样每天利用上午的两个小时，一共大约两周的时间，大体把这本书看完了。</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[技术 in Netflix]]></title>
     <link href="http://www.rowkey.me/blog/2019/04/13/netflix/"/>
-    <updated>2019-04-13T19:29:34+08:00</updated>
+    <updated>2019-04-13T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/04/13/netflix</id>
     <content type="html"><![CDATA[<p>综合市面上的公开资料总结了Netflix在技术上面的一些实践和创新，从中能够得到不少启发和提示。</p>
 
@@ -50,7 +50,7 @@
   <entry>
     <title type="html"><![CDATA[技术面试的应该与不应该]]></title>
     <link href="http://www.rowkey.me/blog/2019/03/08/interview-basic/"/>
-    <updated>2019-03-08T19:29:34+08:00</updated>
+    <updated>2019-03-08T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/03/08/interview-basic</id>
     <content type="html"><![CDATA[<p>进入软件开发这个行业差不多10年，做为候选人被面试过，也做为面试官面试过别人。这几年做为后者的角色越来越多，慢慢总结出来了一些技术面试的原则，也是自己在实践的一些原则。</p>
 
@@ -84,7 +84,7 @@
   <entry>
     <title type="html"><![CDATA[缓存这些事]]></title>
     <link href="http://www.rowkey.me/blog/2019/02/25/cache/"/>
-    <updated>2019-02-25T19:29:34+08:00</updated>
+    <updated>2019-02-25T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/02/25/cache</id>
     <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md</a></strong></p>
 
@@ -532,7 +532,7 @@
   <entry>
     <title type="html"><![CDATA[我的2018]]></title>
     <link href="http://www.rowkey.me/blog/2019/01/26/my2018/"/>
-    <updated>2019-01-26T19:29:34+08:00</updated>
+    <updated>2019-01-26T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/01/26/my2018</id>
     <content type="html"><![CDATA[<p>此文是我在部门内的一次公开信（经过脱敏），想法来自于《原则》和《谷歌是如何运营公司的》两本书。极度求真、 极度透明的原则是一个想要做出大事业的公司应该具有的气度，而对所有同事能够客观地陈述自己的得与失，并欢迎吐槽，这不仅仅是真诚文化、极度透明原则的体现，也是对自己的一种压力和驱动。</p>
 
@@ -705,7 +705,7 @@
   <entry>
     <title type="html"><![CDATA[Kotlin语法简明指南]]></title>
     <link href="http://www.rowkey.me/blog/2018/12/08/kotlin-notes/"/>
-    <updated>2018-12-08T19:29:34+08:00</updated>
+    <updated>2018-12-08T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/12/08/kotlin-notes</id>
     <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
 
@@ -1131,7 +1131,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[如何应对在线故障]]></title>
     <link href="http://www.rowkey.me/blog/2018/11/22/online-debug/"/>
-    <updated>2018-11-22T22:29:34+08:00</updated>
+    <updated>2018-11-22T14:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/11/22/online-debug</id>
     <content type="html"><![CDATA[<p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？</p>
 
@@ -1169,7 +1169,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[Java应用性能调优之调优准备]]></title>
     <link href="http://www.rowkey.me/blog/2018/10/31/profile-ready/"/>
-    <updated>2018-10-31T22:29:34+08:00</updated>
+    <updated>2018-10-31T14:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/10/31/profile-ready</id>
     <content type="html"><![CDATA[<p>实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。</p>
 
@@ -1191,7 +1191,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[架构设计与原则（2018修订版）]]></title>
     <link href="http://www.rowkey.me/blog/2018/09/20/arch-new/"/>
-    <updated>2018-09-20T22:29:34+08:00</updated>
+    <updated>2018-09-20T14:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/09/20/arch-new</id>
     <content type="html"><![CDATA[<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>的最新修订版。</p>
 
@@ -1244,7 +1244,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[技术琐话2018-09-03]]></title>
     <link href="http://www.rowkey.me/blog/2018/09/03/tech-talk/"/>
-    <updated>2018-09-03T19:29:34+08:00</updated>
+    <updated>2018-09-03T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/09/03/tech-talk</id>
     <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p>
 
@@ -1266,7 +1266,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[如何进行Java项目构建？]]></title>
     <link href="http://www.rowkey.me/blog/2018/08/30/build-java/"/>
-    <updated>2018-08-30T19:29:34+08:00</updated>
+    <updated>2018-08-30T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/08/30/build-java</id>
     <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md</a></strong></p>
 
@@ -2542,7 +2542,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[管理的一些要点]]></title>
     <link href="http://www.rowkey.me/blog/2018/07/28/manage-notes/"/>
-    <updated>2018-07-28T19:29:34+08:00</updated>
+    <updated>2018-07-28T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/07/28/manage-notes</id>
     <content type="html"><![CDATA[<p>去年以及今年由于工作需要，参加了公司请的美国管理协会的《高价值经理人》及敏捷OKR绩效管理的培训课程，此外也阅读了《格鲁夫给管理人的第一课》、《架构即未来》、《技术管理之巅》、《OKR：源于英特尔和谷歌的目标管理利器》几本书。总体来看很多管理的理论其实日常自己也在实践，不过这些书的确让自己形成了自己的管理体系，能够有序有法的进行一些管理实践。本文从通用管理和技术管理两部分总结其中最让自己感到受用的几点心得。</p>
 
@@ -2607,7 +2607,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[响应式微服务架构-分布式系统设计原则]]></title>
     <link href="http://www.rowkey.me/blog/2018/06/07/reactive-microservice/"/>
-    <updated>2018-06-07T19:29:34+08:00</updated>
+    <updated>2018-06-07T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/06/07/reactive-microservice</id>
     <content type="html"><![CDATA[<p>O’Reilly的电子书《Reactive Microservices Architecture》讲述了微服务/分布式系统的一些设计原则，本文是笔者阅读完此书后的理解。书籍地址：<a href="https://info.lightbend.com/COLL-20XX-Reactive-Microservices-Architecture-RES-LP.html">https://info.lightbend.com/COLL-20XX-Reactive-Microservices-Architecture-RES-LP.html</a>。</p>
 
@@ -2831,7 +2831,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[微服务的十个反模式和陷阱]]></title>
     <link href="http://www.rowkey.me/blog/2018/06/02/microservice-pitfall/"/>
-    <updated>2018-06-02T19:29:34+08:00</updated>
+    <updated>2018-06-02T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/06/02/microservice-pitfall</id>
     <content type="html"><![CDATA[<p>O’Reilly的电子书《Microservices AntiPatterns and Pitfalls》讲述了在微服务设计实现时十种最常见的反模式和陷阱。本文基于此书，将这十个点列出。书籍地址：<a href="https://www.oreilly.com/programming/free/microservices-antipatterns-and-pitfalls.csp">https://www.oreilly.com/programming/free/microservices-antipatterns-and-pitfalls.csp</a>，更全的反模式和陷阱可见作者的视频：<a href="http://oreil.ly/29GVuDG">http://oreil.ly/29GVuDG</a></p>
 
@@ -3120,7 +3120,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[Java后端技术概览]]></title>
     <link href="http://www.rowkey.me/blog/2018/05/12/java-tech-overview/"/>
-    <updated>2018-05-12T19:29:34+08:00</updated>
+    <updated>2018-05-12T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/05/12/java-tech-overview</id>
     <content type="html"><![CDATA[<p>一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到<a href="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png">Java后端技术概览图</a>。</p>
 
@@ -3291,7 +3291,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[架构简明指南]]></title>
     <link href="http://www.rowkey.me/blog/2018/04/25/arch-usage/"/>
-    <updated>2018-04-25T19:29:34+08:00</updated>
+    <updated>2018-04-25T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/04/25/arch-usage</id>
     <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md</a></strong></p>
 
@@ -3431,7 +3431,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[如何学习后端技术？]]></title>
     <link href="http://www.rowkey.me/blog/2018/04/13/how-to-study-tech/"/>
-    <updated>2018-04-13T19:29:34+08:00</updated>
+    <updated>2018-04-13T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/04/13/how-to-study-tech</id>
     <content type="html"><![CDATA[<p>学习后端技术和学习其他的技术并没有什么大的不同。因此，题目换做如何学习技术也是讲的通的。概括来讲，有以下几点建议：</p>
 
@@ -3555,7 +3555,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[如何成为一名合格的Java工程师?]]></title>
     <link href="http://www.rowkey.me/blog/2018/04/01/pje-release/"/>
-    <updated>2018-04-01T19:29:34+08:00</updated>
+    <updated>2018-04-01T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/04/01/pje-release</id>
     <content type="html"><![CDATA[<p>Java开发一直是当前互联网领域最火热的开发技能之一，Java工程师也一直是需求量非常大的开发职位。那么如何成为一名合格的Java工程师呢？一名合格的Java工程师又应该具有哪些技能呢？针对这些，笔者的新书《Java工程师修炼之道》做了一些经验性的阐述和讲解。</p>
 
@@ -3757,7 +3757,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[浅析区块链]]></title>
     <link href="http://www.rowkey.me/blog/2018/03/15/blockchain/"/>
-    <updated>2018-03-15T19:29:34+08:00</updated>
+    <updated>2018-03-15T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/03/15/blockchain</id>
     <content type="html"><![CDATA[<p>从去年开始，区块链突然如火如荼起来，相关的新闻席卷微博、朋友圈、科技论坛、门户网站等各大媒体。业界大佬们更是频频发言，有宣称不做区块链就会被时代淘汰的，有说坚决不碰区块链的。国家队也是频频出手，管制、定性、做应用，央行更是默默地把区块链专利数量做到了世界前列。面对众多纷杂的信息、众多的技术分析文章，很容易让人脑袋嗡嗡，怕不懂，更怕懂了啥也都做不了。于是决定梳理一下相关的信息，看看这区块链到底是什么东西。</p>
 
@@ -4141,7 +4141,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[正则表达式简明指南]]></title>
     <link href="http://www.rowkey.me/blog/2018/03/10/regx/"/>
-    <updated>2018-03-10T19:29:34+08:00</updated>
+    <updated>2018-03-10T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/03/10/regx</id>
     <content type="html"><![CDATA[<p>公司使用的markdown解析类库一直有一些解析上的问题，最近给fix了。而markdown解析主要是对正则表达式的使用。中间恶补了一下相关知识，在此梳理一下。</p>
 
@@ -4342,7 +4342,7 @@ println(map2)
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#104;&#x61;&#110;&#x67;&#64;&#101;&#x74;&#x6f;&#117;&#x63;&#104;&#46;&#x63;&#110;">&#104;&#97;&#110;&#103;&#64;&#x65;&#116;&#111;&#x75;&#x63;&#x68;&#46;&#x63;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#104;&#x61;&#110;&#x67;&#64;&#101;&#x74;&#x6f;&#x75;&#99;&#x68;&#46;&#99;&#x6e;">&#x68;&#x61;&#110;&#103;&#x40;&#101;&#116;&#111;&#x75;&#99;&#x68;&#x2e;&#x63;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
@@ -4353,7 +4353,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[2017年读过的书]]></title>
     <link href="http://www.rowkey.me/blog/2018/02/06/2017books/"/>
-    <updated>2018-02-06T19:29:34+08:00</updated>
+    <updated>2018-02-06T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/02/06/2017books</id>
     <content type="html"><![CDATA[<p>2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
 

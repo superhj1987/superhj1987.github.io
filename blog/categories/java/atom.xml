@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:59+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Kotlin语法简明指南]]></title>
     <link href="http://www.rowkey.me/blog/2018/12/08/kotlin-notes/"/>
-    <updated>2018-12-08T19:29:34+08:00</updated>
+    <updated>2018-12-08T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/12/08/kotlin-notes</id>
     <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
 
@@ -442,7 +442,7 @@ println(map2)
   <entry>
     <title type="html"><![CDATA[如何进行Java项目构建？]]></title>
     <link href="http://www.rowkey.me/blog/2018/08/30/build-java/"/>
-    <updated>2018-08-30T19:29:34+08:00</updated>
+    <updated>2018-08-30T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/08/30/build-java</id>
     <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md</a></strong></p>
 
@@ -1302,7 +1302,7 @@ uploadArchives {
   <entry>
     <title type="html"><![CDATA[Java后端技术概览]]></title>
     <link href="http://www.rowkey.me/blog/2018/05/12/java-tech-overview/"/>
-    <updated>2018-05-12T19:29:34+08:00</updated>
+    <updated>2018-05-12T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/05/12/java-tech-overview</id>
     <content type="html"><![CDATA[<p>一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到<a href="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png">Java后端技术概览图</a>。</p>
 
@@ -1473,7 +1473,7 @@ uploadArchives {
   <entry>
     <title type="html"><![CDATA[如何学习后端技术？]]></title>
     <link href="http://www.rowkey.me/blog/2018/04/13/how-to-study-tech/"/>
-    <updated>2018-04-13T19:29:34+08:00</updated>
+    <updated>2018-04-13T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/04/13/how-to-study-tech</id>
     <content type="html"><![CDATA[<p>学习后端技术和学习其他的技术并没有什么大的不同。因此，题目换做如何学习技术也是讲的通的。概括来讲，有以下几点建议：</p>
 
@@ -1597,7 +1597,7 @@ uploadArchives {
   <entry>
     <title type="html"><![CDATA[如何成为一名合格的Java工程师?]]></title>
     <link href="http://www.rowkey.me/blog/2018/04/01/pje-release/"/>
-    <updated>2018-04-01T19:29:34+08:00</updated>
+    <updated>2018-04-01T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/04/01/pje-release</id>
     <content type="html"><![CDATA[<p>Java开发一直是当前互联网领域最火热的开发技能之一，Java工程师也一直是需求量非常大的开发职位。那么如何成为一名合格的Java工程师呢？一名合格的Java工程师又应该具有哪些技能呢？针对这些，笔者的新书《Java工程师修炼之道》做了一些经验性的阐述和讲解。</p>
 

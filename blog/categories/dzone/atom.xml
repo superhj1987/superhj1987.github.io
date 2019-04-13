@@ -4,7 +4,7 @@
   <title><![CDATA[Category: dzone | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/dzone/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[[译]Java中9个处理Exception的最佳实践]]></title>
     <link href="http://www.rowkey.me/blog/2017/09/17/java-exception/"/>
-    <updated>2017-09-17T19:29:34+08:00</updated>
+    <updated>2017-09-17T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/17/java-exception</id>
     <content type="html"><![CDATA[<p>在Java中处理异常并不是一个简单的事情。不仅仅初学者很难理解，即使一些有经验的开发者也需要花费很多时间来思考如何处理异常，包括需要处理哪些异常，怎样处理等等。这也是绝大多数开发团队都会制定一些规则来规范对异常的处理的原因。而团队之间的这些规范往往是截然不同的。</p>
 
@@ -250,7 +250,7 @@ public void wrapException(String input) throws MyBusinessException {
   <entry>
     <title type="html"><![CDATA[[译]Java中的十个"单行代码编程"(One Liner)]]></title>
     <link href="http://www.rowkey.me/blog/2017/09/09/java-oneliners/"/>
-    <updated>2017-09-09T19:29:34+08:00</updated>
+    <updated>2017-09-09T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/09/java-oneliners</id>
     <content type="html"><![CDATA[<p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
 
@@ -355,7 +355,7 @@ Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
   <entry>
     <title type="html"><![CDATA[[译]更好地使用Java8中的方法引用]]></title>
     <link href="http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work/"/>
-    <updated>2017-09-02T19:29:34+08:00</updated>
+    <updated>2017-09-02T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work</id>
     <content type="html"><![CDATA[<p>在Java8中，使用方法引用非常简单，如String::isEmpty，但无法使用它否定的方法引用。本文内容即如何解决此问题使得我们能够更加全面地使用方法引用。</p>
 
@@ -542,7 +542,7 @@ Stream.of("A", "", "B").filter(asPredicate(String::isEmpty).negate()).count();
   <entry>
     <title type="html"><![CDATA[[译]在Java中提升函数以更好地“函数式”编程]]></title>
     <link href="http://www.rowkey.me/blog/2017/08/18/lift-functions/"/>
-    <updated>2017-08-18T19:29:34+08:00</updated>
+    <updated>2017-08-18T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2017/08/18/lift-functions</id>
     <content type="html"><![CDATA[<p>Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。Lambda表达式、Optional和Stream只是函数式编程的冰山一角。这也导致了<a href="https://github.com/vavr-io/vavr">varvr</a>和<a href="https://github.com/functionaljava/functionaljava">functionlajava</a>这些类库的出现，他们都源于Haskell这个纯函数式编程语言。</p>
 
@@ -615,7 +615,7 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
   <entry>
     <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
     <link href="http://www.rowkey.me/blog/2016/08/03/java-8-top-tips/"/>
-    <updated>2016-08-03T22:30:34+08:00</updated>
+    <updated>2016-08-03T14:30:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2016/08/03/java-8-top-tips</id>
     <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
 

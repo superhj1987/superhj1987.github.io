@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nginx | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/nginx/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Nginx源码分析之启动过程]]></title>
     <link href="http://www.rowkey.me/blog/2014/09/24/nginx-bootstrap/"/>
-    <updated>2014-09-24T17:38:57+08:00</updated>
+    <updated>2014-09-24T09:38:57+00:00</updated>
     <id>http://www.rowkey.me/blog/2014/09/24/nginx-bootstrap</id>
     <content type="html"><![CDATA[<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
 
@@ -860,7 +860,7 @@ for ( ;; ) {
   <entry>
     <title type="html"><![CDATA[Nginx负载均衡]]></title>
     <link href="http://www.rowkey.me/blog/2014/08/27/nginx-loadbalance/"/>
-    <updated>2014-08-27T14:32:50+08:00</updated>
+    <updated>2014-08-27T06:32:50+00:00</updated>
     <id>http://www.rowkey.me/blog/2014/08/27/nginx-loadbalance</id>
     <content type="html"><![CDATA[<h2>目录</h2>
 
@@ -1137,7 +1137,7 @@ for ( ;; ) {
   <entry>
     <title type="html"><![CDATA[Nginx源码分析之基本数据结构]]></title>
     <link href="http://www.rowkey.me/blog/2014/07/25/nginx-data-structure/"/>
-    <updated>2014-07-25T17:08:02+08:00</updated>
+    <updated>2014-07-25T09:08:02+00:00</updated>
     <id>http://www.rowkey.me/blog/2014/07/25/nginx-data-structure</id>
     <content type="html"><![CDATA[<h3>引言</h3>
 

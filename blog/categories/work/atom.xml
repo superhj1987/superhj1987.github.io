@@ -4,7 +4,7 @@
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[技术 in Netflix]]></title>
     <link href="http://www.rowkey.me/blog/2019/04/13/netflix/"/>
-    <updated>2019-04-13T19:29:34+08:00</updated>
+    <updated>2019-04-13T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/04/13/netflix</id>
     <content type="html"><![CDATA[<p>综合市面上的公开资料总结了Netflix在技术上面的一些实践和创新，从中能够得到不少启发和提示。</p>
 
@@ -50,7 +50,7 @@
   <entry>
     <title type="html"><![CDATA[技术面试的应该与不应该]]></title>
     <link href="http://www.rowkey.me/blog/2019/03/08/interview-basic/"/>
-    <updated>2019-03-08T19:29:34+08:00</updated>
+    <updated>2019-03-08T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/03/08/interview-basic</id>
     <content type="html"><![CDATA[<p>进入软件开发这个行业差不多10年，做为候选人被面试过，也做为面试官面试过别人。这几年做为后者的角色越来越多，慢慢总结出来了一些技术面试的原则，也是自己在实践的一些原则。</p>
 
@@ -84,7 +84,7 @@
   <entry>
     <title type="html"><![CDATA[管理的一些要点]]></title>
     <link href="http://www.rowkey.me/blog/2018/07/28/manage-notes/"/>
-    <updated>2018-07-28T19:29:34+08:00</updated>
+    <updated>2018-07-28T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/07/28/manage-notes</id>
     <content type="html"><![CDATA[<p>去年以及今年由于工作需要，参加了公司请的美国管理协会的《高价值经理人》及敏捷OKR绩效管理的培训课程，此外也阅读了《格鲁夫给管理人的第一课》、《架构即未来》、《技术管理之巅》、《OKR：源于英特尔和谷歌的目标管理利器》几本书。总体来看很多管理的理论其实日常自己也在实践，不过这些书的确让自己形成了自己的管理体系，能够有序有法的进行一些管理实践。本文从通用管理和技术管理两部分总结其中最让自己感到受用的几点心得。</p>
 
@@ -149,7 +149,7 @@
   <entry>
     <title type="html"><![CDATA[2017年读过的书]]></title>
     <link href="http://www.rowkey.me/blog/2018/02/06/2017books/"/>
-    <updated>2018-02-06T19:29:34+08:00</updated>
+    <updated>2018-02-06T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/02/06/2017books</id>
     <content type="html"><![CDATA[<p>2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
 
@@ -218,7 +218,7 @@
   <entry>
     <title type="html"><![CDATA[有效解决问题]]></title>
     <link href="http://www.rowkey.me/blog/2017/10/20/solve-problems/"/>
-    <updated>2017-10-20T19:29:34+08:00</updated>
+    <updated>2017-10-20T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2017/10/20/solve-problems</id>
     <content type="html"><![CDATA[<p>来自于内部的一次培训，主要讲述了如何有效地解决问题，包括识别问题、描述问题、分析问题、找出方案、决策问题等。</p>
 

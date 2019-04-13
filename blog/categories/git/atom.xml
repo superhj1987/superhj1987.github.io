@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/git/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[Git CheatSheet]]></title>
     <link href="http://www.rowkey.me/blog/2016/01/10/git-cheatsheet/"/>
-    <updated>2016-01-10T10:15:30+08:00</updated>
+    <updated>2016-01-10T02:15:30+00:00</updated>
     <id>http://www.rowkey.me/blog/2016/01/10/git-cheatsheet</id>
     <content type="html"><![CDATA[<p><strong><em>ps:本指南会持续更新</em></strong></p>
 
@@ -541,7 +541,7 @@ git filter-branch --index-filter 'git rm --cached --ignore-unmatch *.sql' # 删�
   <entry>
     <title type="html"><![CDATA[搭建自己的github]]></title>
     <link href="http://www.rowkey.me/blog/2015/11/13/your-own-github/"/>
-    <updated>2015-11-13T10:27:40+08:00</updated>
+    <updated>2015-11-13T02:27:40+00:00</updated>
     <id>http://www.rowkey.me/blog/2015/11/13/your-own-github</id>
     <content type="html"><![CDATA[<p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
 

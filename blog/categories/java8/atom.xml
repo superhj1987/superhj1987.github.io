@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java8 | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java8/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[[译]更好地使用Java8中的方法引用]]></title>
     <link href="http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work/"/>
-    <updated>2017-09-02T19:29:34+08:00</updated>
+    <updated>2017-09-02T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work</id>
     <content type="html"><![CDATA[<p>在Java8中，使用方法引用非常简单，如String::isEmpty，但无法使用它否定的方法引用。本文内容即如何解决此问题使得我们能够更加全面地使用方法引用。</p>
 
@@ -203,7 +203,7 @@ Stream.of("A", "", "B").filter(asPredicate(String::isEmpty).negate()).count();
   <entry>
     <title type="html"><![CDATA[[译]在Java中提升函数以更好地“函数式”编程]]></title>
     <link href="http://www.rowkey.me/blog/2017/08/18/lift-functions/"/>
-    <updated>2017-08-18T19:29:34+08:00</updated>
+    <updated>2017-08-18T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2017/08/18/lift-functions</id>
     <content type="html"><![CDATA[<p>Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。Lambda表达式、Optional和Stream只是函数式编程的冰山一角。这也导致了<a href="https://github.com/vavr-io/vavr">varvr</a>和<a href="https://github.com/functionaljava/functionaljava">functionlajava</a>这些类库的出现，他们都源于Haskell这个纯函数式编程语言。</p>
 
@@ -276,7 +276,7 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
   <entry>
     <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
     <link href="http://www.rowkey.me/blog/2016/08/03/java-8-top-tips/"/>
-    <updated>2016-08-03T22:30:34+08:00</updated>
+    <updated>2016-08-03T14:30:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2016/08/03/java-8-top-tips</id>
     <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
 

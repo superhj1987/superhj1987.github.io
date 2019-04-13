@@ -4,7 +4,7 @@
   <title><![CDATA[Category: spring | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/spring/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-13T23:06:16+08:00</updated>
+  <updated>2019-04-13T15:47:48+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[关于SpringMVC中model的attribute无法指定别名的解决方案]]></title>
     <link href="http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias/"/>
-    <updated>2015-01-21T12:00:00+08:00</updated>
+    <updated>2015-01-21T04:00:00+00:00</updated>
     <id>http://www.rowkey.me/blog/2015/01/21/springm-mvc-model-attribute-alias</id>
     <content type="html"><![CDATA[<p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
 
@@ -61,7 +61,7 @@ public class Account{
   <entry>
     <title type="html"><![CDATA[SpringMVC的controller传递HttpServletResponse参数的那点事]]></title>
     <link href="http://www.rowkey.me/blog/2014/12/09/spring-mvc-httpservletresponse/"/>
-    <updated>2014-12-09T10:05:41+08:00</updated>
+    <updated>2014-12-09T02:05:41+00:00</updated>
     <id>http://www.rowkey.me/blog/2014/12/09/spring-mvc-httpservletresponse</id>
     <content type="html"><![CDATA[<pre>
     @RequestMapping(value = "cardDown", method = RequestMethod.GET, headers = "Accept=text/html")
