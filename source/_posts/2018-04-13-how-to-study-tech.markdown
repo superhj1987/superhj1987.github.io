@@ -6,6 +6,8 @@ comments: true
 categories: pje-book java
 ---
 
+最新内容见:<https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md>
+
 学习后端技术和学习其他的技术并没有什么大的不同。因此，题目换做如何学习技术也是讲的通的。概括来讲，有以下几点建议：
 
 - 扎实的计算机基础知识
