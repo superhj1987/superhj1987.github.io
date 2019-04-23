@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-16T03:39:17+00:00</updated>
+  <updated>2019-04-23T09:56:23+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,197 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[这些知识决定了程序员的上限]]></title>
+    <link href="http://www.rowkey.me/blog/2019/04/22/upforprogrammer/"/>
+    <updated>2019-04-22T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/04/22/upforprogrammer</id>
+    <content type="html"><![CDATA[<p>讲述决定程序员上限的一些知识技能点，包括如何学习、如何阅读源码、计算机科学基础知识体系等。</p>
+
+<!--more-->
+
+
+<h2>什么是程序员？</h2>
+
+<ul>
+<li>码农、程序猿、程序媛</li>
+<li>使用<strong>程序</strong>实现价值</li>
+<li>程序=数据+算法</li>
+<li>软件=程序+软件工程</li>
+<li>程序员=工程师？</li>
+</ul>
+
+
+<h2>程序员金字塔</h2>
+
+<p><img src="http://www.rowkey.me/post_images/ufp/programmer-pyramid.png" width="500"/></p>
+
+<h2>程序员知识结构</h2>
+
+<p><img src="http://www.rowkey.me/post_images/ufp/knowledge.png" alt="" /></p>
+
+<ul>
+<li>面试造火箭，工作打蚊子</li>
+<li>会什么是你的下限，能够会什么是你的上限</li>
+<li>越底层的东西越决定上限</li>
+</ul>
+
+
+<h2>学习欲望</h2>
+
+<blockquote><p>杜绝<strong>1</strong>年工作经验重复<strong>N</strong>年</p></blockquote>
+
+<ul>
+<li>如果自己遇到这种问题会怎么解决，与资料中的解决方案相比优劣如何？</li>
+<li>别人为什么会想到这种解决方案？</li>
+<li>自己是由于经验欠缺还是技能点欠缺才导致没有想到好的解决方案？</li>
+<li>解决这类问题的根本思路是什么样的？</li>
+</ul>
+
+
+<h2>学习能力</h2>
+
+<blockquote><p>不是懂得多，而是学得快</p></blockquote>
+
+<ul>
+<li><strong>知其然更要知其所以然</strong>：技术以深度优先</li>
+<li><strong>类比现实</strong>：对现实世界的模拟</li>
+<li><strong>更好地接受信息</strong>：建立自己的知识体系；阅读并记笔记，纳入知识体系</li>
+<li><strong>深度思考</strong>：阅读书籍</li>
+<li><strong>动手实践、频繁练习</strong>：项目驱动型学习；主动思考</li>
+<li><strong>自我总结</strong>：完善知识体系；笔记、博客、分享</li>
+<li><strong>持续学习</strong>：逃离舒适区；学到老，活到老</li>
+</ul>
+
+
+<h2>如何学习新技术</h2>
+
+<p><img src="http://www.rowkey.me/post_images/ufp/study-new-tech.png" width="500"/></p>
+
+<h2>如何阅读源码</h2>
+
+<ol>
+<li>阅读该技术的架构文档，了解其总体架构和组成</li>
+<li>根据总体架构，将源码文件以模块或者上下层级进行分类。</li>
+<li>从未阅读过的模块中选择最独立（依赖性最小）的模块代码读起。</li>
+<li>阅读此模块的功能介绍文档。</li>
+<li>阅读此模块的源代码：<strong>运行程序，断点调试</strong>。</li>
+<li>一边阅读一边整理调用关系图。</li>
+<li>转到第三步。</li>
+</ol>
+
+
+<blockquote><p>参考<strong>官方文档或者经典书籍</strong></p></blockquote>
+
+<h2>计算机思维</h2>
+
+<ul>
+<li><strong>冯.诺依曼体系</strong>：程序存储，顺序执行。</li>
+<li><strong>二进制存储</strong>：用比特解决问题</li>
+<li><strong>位运算</strong>：位运算的高效</li>
+<li><strong>逻辑分支</strong>：条件判断、循环、迭代、递归</li>
+</ul>
+
+
+<h2>个人规划</h2>
+
+<ul>
+<li><strong>长期规划</strong>：职业规划；高瞻远瞩</li>
+<li><strong>短期规划</strong>：具体技能、晋升、学习方面的规划；优先级排序</li>
+</ul>
+
+
+<h2>基础学科</h2>
+
+<ul>
+<li><strong>物理</strong>：电路原理；量子计算机</li>
+<li><strong>数学</strong>：工程优化；线性代数；微积分</li>
+<li><strong>英语！！</strong>：阅读英文文献；计算机术语</li>
+</ul>
+
+
+<h2>计算机组成原理</h2>
+
+<blockquote><p>计算机的硬件组成和运行原理</p></blockquote>
+
+<ul>
+<li><strong>冯诺依曼体系</strong>、<strong>摩尔定律</strong>、<strong>阿曼达定律</strong></li>
+<li><strong>数据的机器表示</strong>：原码、补码、反码、浮点数/定点数</li>
+<li><strong>指令系统</strong>：复杂指令集、简单指令集</li>
+<li><strong>存储器</strong>：分类、缓存</li>
+<li><strong>CPU</strong>: 流水线、伪共享、缓存</li>
+<li><strong>IO设备</strong>：IO总线、DMA、中断</li>
+</ul>
+
+
+<h2>计算机操作系统</h2>
+
+<blockquote><p>屏蔽计算机硬件的中间层</p></blockquote>
+
+<ul>
+<li><strong>作业调度</strong>: 调度策略、优先级</li>
+<li><strong>进程管理</strong>：进程和线程、进程间通信</li>
+<li><strong>存储管理</strong>：内存、虚拟内存、文件系统、页、页缓存</li>
+<li><strong>IO管理</strong>：IO设备读写操作</li>
+<li>Linux操作系统</li>
+</ul>
+
+
+<h2>计算机网络</h2>
+
+<blockquote><p>单个计算机之间的互连</p></blockquote>
+
+<ul>
+<li><strong>TCP/IP协议栈</strong>：四层/七层</li>
+<li>TCP连接状态</li>
+<li>TCP与UDP的区别</li>
+<li>HTTP协议、RESTful规范</li>
+<li>网络安全</li>
+<li><strong>下一代互联网</strong>：IPv6、物联网、5G</li>
+</ul>
+
+
+<h2>编译原理</h2>
+
+<blockquote><p>将代码转换成机器可理解的二进制，有助于实现DSL</p></blockquote>
+
+<ul>
+<li>词法分析、语法分析</li>
+<li>类型检查</li>
+<li>运行时环境、中间代码</li>
+<li>代码生成、代码优化</li>
+</ul>
+
+
+<h2>数据结构和算法</h2>
+
+<blockquote><p>程序=数据+算法</p></blockquote>
+
+<ul>
+<li><strong>基本数据结构</strong>：数组、链表、栈、队列、哈希表</li>
+<li><strong>最大堆、最小堆</strong>：TopN问题</li>
+<li><strong>树</strong>：平衡二叉树、B树、B+树、红黑树</li>
+<li><strong>跳跃表</strong>: 简单可实现</li>
+<li><strong>经典排序算法</strong>：快速排序、归并排序、插入排序、冒泡排序</li>
+<li><strong>经典查找算法</strong>：顺序查找、二分查找</li>
+<li><strong>高级算法</strong>：贪心、分治、回溯、动态规划</li>
+<li><strong>大数据处理</strong>：Bitmap、Bloomfilter、Hyperloglog、MapReduce、MPP</li>
+</ul>
+
+
+<h2>设计模式</h2>
+
+<blockquote><p>软件可复用、可扩展、可维护。善用而不滥用。</p></blockquote>
+
+<ul>
+<li><strong>面向对象SOLID设计原则</strong>：单一职责、开闭原则、里氏代换、接口隔离、依赖倒转</li>
+<li><strong>常用设计模式</strong>：单例模式、工厂模式、代理模式、适配器模式、观察者模式</li>
+<li><strong>常用框架中的设计模式</strong>：Spring</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[技术 in Netflix]]></title>
@@ -4408,80 +4599,11 @@ println(map2)
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x68;&#97;&#x6e;&#103;&#64;&#101;&#116;&#x6f;&#117;&#x63;&#104;&#46;&#99;&#x6e;">&#104;&#97;&#x6e;&#x67;&#x40;&#x65;&#x74;&#111;&#117;&#99;&#x68;&#x2e;&#99;&#110;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x68;&#97;&#110;&#x67;&#64;&#x65;&#116;&#x6f;&#x75;&#99;&#104;&#x2e;&#99;&#x6e;">&#104;&#x61;&#110;&#x67;&#x40;&#x65;&#x74;&#x6f;&#117;&#99;&#104;&#46;&#99;&#110;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
 <p>详见:<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~">https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2017年读过的书]]></title>
-    <link href="http://www.rowkey.me/blog/2018/02/06/2017books/"/>
-    <updated>2018-02-06T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/02/06/2017books</id>
-    <content type="html"><![CDATA[<p>2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
-
-<!--more-->
-
-
-<h2>技术</h2>
-
-<ul>
-<li><p>架构真经</p>
-
-<blockquote><p>虽然是基于电商系统进行的讲解，但是其很多架构原则都是普适的。其中讲的很多东西都是自己在实践中做过的东西。经过理论的总结之后，确让自己有了更深的思考。强烈推荐架构入门者阅读此书。</p></blockquote></li>
-<li><p>聊聊架构</p>
-
-<blockquote><p>这本书还没出来之前，各路技术大神评价非常高。出来之后，很多人都在吐槽这本书在故弄玄虚。其实，就我来看，前几章确实有点哲学的感觉，但相信有架构经验的人是能够有共鸣的。架构的本质也的确和哲学有关系。这本书比较适合有一定架构经验的工程师来阅读，并不适合经验尚浅者。</p></blockquote></li>
-<li><p>Java性能权威指南</p>
-
-<blockquote><p>一本涵盖Java调优方方面面的书籍。从JVM内存、JIT到集合使用等等。虽然我们一直强调不能“过早优化”，但是对于一些应当普遍意识到的优化措施还是越早越好的，否则当产生了问题再来优化，成本反而会更大。强烈推荐Java工程师阅读此书。</p></blockquote></li>
-<li><p>大数据之路-阿里巴巴大数据实践</p>
-
-<blockquote><p>讲述阿里巴巴大数据平台的演化之路。这本书讲的很多东西虽然都是阿里自研的，并没有全部开源。但是很多软件的使用兼容了开源软件，尤其是一些诸如解决数据倾斜问题、去重指标计算的思路也是普遍适用的。对照一下，可以理出自己公司在大数据平台上哪些做的不错，哪些还没做，哪些需要优化。</p></blockquote></li>
-<li><p>亿级流量网站核心技术</p>
-
-<blockquote><p>本书作者是IT著名博主，自己上学时就看过他写的Spring系列。因此在此书出版之前就觉得应该是本好书。读完此书，学到了一些东西，比如Nginx+Lua/Openrestry在高并发、大流量场景下的使用、Consult的统一配置、使用Lua脚本做Nginx动态负载均衡等。但有点令人失望的是，很多东西都是一笔带过，尤其是穿插了大量类库的使用代码（自我觉得出版书籍一定要避免大量代码，完全是可以放到Github上，而且类库的使用代码完全是可以阅读官方文档的）。比较适合没有架构经验的人来了解一下大公司架构使用了哪些技能，有经验的则可以当做一本参考手册，查漏补缺。</p></blockquote></li>
-<li><p>响应式微服务架构（Reactive-Microservices-Architecture）</p>
-
-<blockquote><p>O&#8217;Reilly的系列电子书。讲述了在设计分布式系统时候的一些原则，在架构层面指导微服务的实现。</p></blockquote></li>
-</ul>
-
-
-<h2>管理</h2>
-
-<ul>
-<li><p>格鲁夫给经理人的第一课</p>
-
-<blockquote><p>公司管理层统一学习的一本管理书籍。第一次系统地学习了管理方面的知识，印证了很多实践中已经在采取的方法的合理性，也让自己有了新的管理思路。强烈推荐给刚刚进入管理领域的人。</p></blockquote></li>
-<li><p>技术管理之巅</p>
-
-<blockquote><p>不同于其他管理书籍，此书着重于从技术Leader角度讲述如何管理研发人员，打造高效技术团队。其中如何量化研发人员的绩效指标给了自己不小的启发，后面也运用了起来。此外，如何建立研发职级体系、如何敏捷管理项目等等都是可以借鉴的地方。</p></blockquote></li>
-<li><p>架构即未来</p>
-
-<blockquote><p>《架构真经》的姊妹篇，早于《架构真经》，不仅仅讲述了技术架构的知识，更让我受用的是前面部分讲的“构建可扩展的组织架构”。对于诸如管理和领导、敏捷组织架构、问题和故障等等的概念讲解的非常透彻。而后面技术架构这一块则是对《架构真经》的一个引子。</p></blockquote></li>
-</ul>
-
-
-<h2>2018</h2>
-
-<p>2018年需要花大量精力在技术管理和机器学习方面，暂定需要阅读的几本书如下：</p>
-
-<ul>
-<li><p>OKR: 源于英特尔和谷歌的目标管理利器</p>
-
-<blockquote><p><strong><em>截止2018.02.06已经完成阅读。</em></strong>此书是公司管理层进行统一学习的一本书，不厚，花了三个晚上大约6个小时就读完了。讲述了什么是OKR、OKR的好处、如何使用OKR等等，推荐想要进行OKR实践的管理人员阅读。</p></blockquote></li>
-<li><p>微服务反模式和陷阱（Microservices AntiPatterns and Pitfalls）</p></li>
-<li>机器学习实战 &amp;&amp; 机器学习西瓜书</li>
-<li>Tensorflow实战</li>
-<li>深入分布式缓存</li>
-<li>高性能MySQL</li>
-<li>尽在双11，阿里巴巴技术演进与超越</li>
-<li>Clean Architecture, A Craftsman&rsquo;s Guide to Software Structure and Design</li>
-</ul>
-
 ]]></content>
   </entry>
   

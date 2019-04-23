@@ -14,12 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Java调优经验谈 Nov 2nd, 2016 目录 调优准备
-性能分析
-性能调优
-其他优化建议
-JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性能监控：问题没有发生，你并不知道你需要调优什么。此时需要一些系统、应用的监控工具来发现问题。
-性能分析：问题已经发生， &hellip;">
+  <meta name="description" content="JDK自带工具之概览 Nov 3rd, 2016 在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。 笔者的开发环境是：OS X EI &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -117,6 +112,61 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/11/03/jdk-tools/">JDK自带工具之概览</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-03T14:29:34+00:00" pubdate data-updated="true">Nov 3<sup>rd</sup>, 2016</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。</p>
+
+<p>笔者的开发环境是：OS X EI Captian 10.11.6</p>
+
+<p>JDK版本：</p>
+
+<pre><code>java version "1.8.0_92"
+Java(TM) SE Runtime Environment (build 1.8.0_92-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
+</code></pre>
+
+<p>JAVA_HOME/bin下的工具截图如下：</p>
+
+<p><img src="/images/blog_images/jdk-tools.png" alt="" /></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/11/03/jdk-tools/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -599,50 +649,6 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-06-17T14:59:44+00:00" pubdate data-updated="true">Jun 17<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
-
-<p><strong>PS</strong>: 有同学指出tomcat不是web server是servlet容器，这一点图中的确不够严谨，因此更新了此技能树。其实tomcat引入了apr之后也是能够作为web server的(其实目前绝大多servlet容器都同时提供了web服务器的功能，只是性能之类的不好而已)，当然把tomcat直接做为web server的应用还不够广泛。目前，nginx+tomcat还是普遍的七层负载均衡构建集群的方案。此外，这里还牵扯到了servlet容器和应用服务器的一个区别，为什么tomcat只是servlet容器而不叫JavaEE应用服务器呢？这一点大家可以通过此链接了解一下:<a href="http://www.cnblogs.com/maydow/p/4821249.html">http://www.cnblogs.com/maydow/p/4821249.html</a>。当然，对于互联网领域目前的Java后端体系，weblogic、webspher这些应用服务器基本绝迹，因此并没有写在此技能树中。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/06/17/java-skill-tree/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -720,6 +726,10 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2019/04/22/upforprogrammer/">这些知识决定了程序员的上限</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2019/04/13/netflix/">技术 in Netflix</a>
       	</li>
     	
@@ -753,10 +763,6 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
     	
      	<li>
       	  <a href="/blog/2018/09/03/tech-talk/">技术琐话2018-09-03</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/08/30/build-java/">如何进行Java项目构建？</a>
       	</li>
     	
 	</ul>

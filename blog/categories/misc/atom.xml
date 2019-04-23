@@ -4,7 +4,7 @@
   <title><![CDATA[Category: misc | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/misc/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-04-16T03:39:17+00:00</updated>
+  <updated>2019-04-23T09:56:23+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,197 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[这些知识决定了程序员的上限]]></title>
+    <link href="http://www.rowkey.me/blog/2019/04/22/upforprogrammer/"/>
+    <updated>2019-04-22T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/04/22/upforprogrammer</id>
+    <content type="html"><![CDATA[<p>讲述决定程序员上限的一些知识技能点，包括如何学习、如何阅读源码、计算机科学基础知识体系等。</p>
+
+<!--more-->
+
+
+<h2>什么是程序员？</h2>
+
+<ul>
+<li>码农、程序猿、程序媛</li>
+<li>使用<strong>程序</strong>实现价值</li>
+<li>程序=数据+算法</li>
+<li>软件=程序+软件工程</li>
+<li>程序员=工程师？</li>
+</ul>
+
+
+<h2>程序员金字塔</h2>
+
+<p><img src="http://www.rowkey.me/post_images/ufp/programmer-pyramid.png" width="500"/></p>
+
+<h2>程序员知识结构</h2>
+
+<p><img src="//post_images/ufp/knowledge.png" alt="" /></p>
+
+<ul>
+<li>面试造火箭，工作打蚊子</li>
+<li>会什么是你的下限，能够会什么是你的上限</li>
+<li>越底层的东西越决定上限</li>
+</ul>
+
+
+<h2>学习欲望</h2>
+
+<blockquote><p>杜绝<strong>1</strong>年工作经验重复<strong>N</strong>年</p></blockquote>
+
+<ul>
+<li>如果自己遇到这种问题会怎么解决，与资料中的解决方案相比优劣如何？</li>
+<li>别人为什么会想到这种解决方案？</li>
+<li>自己是由于经验欠缺还是技能点欠缺才导致没有想到好的解决方案？</li>
+<li>解决这类问题的根本思路是什么样的？</li>
+</ul>
+
+
+<h2>学习能力</h2>
+
+<blockquote><p>不是懂得多，而是学得快</p></blockquote>
+
+<ul>
+<li><strong>知其然更要知其所以然</strong>：技术以深度优先</li>
+<li><strong>类比现实</strong>：对现实世界的模拟</li>
+<li><strong>更好地接受信息</strong>：建立自己的知识体系；阅读并记笔记，纳入知识体系</li>
+<li><strong>深度思考</strong>：阅读书籍</li>
+<li><strong>动手实践、频繁练习</strong>：项目驱动型学习；主动思考</li>
+<li><strong>自我总结</strong>：完善知识体系；笔记、博客、分享</li>
+<li><strong>持续学习</strong>：逃离舒适区；学到老，活到老</li>
+</ul>
+
+
+<h2>如何学习新技术</h2>
+
+<p><img src="http://www.rowkey.me/post_images/ufp/study-new-tech.png" width="500"/></p>
+
+<h2>如何阅读源码</h2>
+
+<ol>
+<li>阅读该技术的架构文档，了解其总体架构和组成</li>
+<li>根据总体架构，将源码文件以模块或者上下层级进行分类。</li>
+<li>从未阅读过的模块中选择最独立（依赖性最小）的模块代码读起。</li>
+<li>阅读此模块的功能介绍文档。</li>
+<li>阅读此模块的源代码：<strong>运行程序，断点调试</strong>。</li>
+<li>一边阅读一边整理调用关系图。</li>
+<li>转到第三步。</li>
+</ol>
+
+
+<blockquote><p>参考<strong>官方文档或者经典书籍</strong></p></blockquote>
+
+<h2>计算机思维</h2>
+
+<ul>
+<li><strong>冯.诺依曼体系</strong>：程序存储，顺序执行。</li>
+<li><strong>二进制存储</strong>：用比特解决问题</li>
+<li><strong>位运算</strong>：位运算的高效</li>
+<li><strong>逻辑分支</strong>：条件判断、循环、迭代、递归</li>
+</ul>
+
+
+<h2>个人规划</h2>
+
+<ul>
+<li><strong>长期规划</strong>：职业规划；高瞻远瞩</li>
+<li><strong>短期规划</strong>：具体技能、晋升、学习方面的规划；优先级排序</li>
+</ul>
+
+
+<h2>基础学科</h2>
+
+<ul>
+<li><strong>物理</strong>：电路原理；量子计算机</li>
+<li><strong>数学</strong>：工程优化；线性代数；微积分</li>
+<li><strong>英语！！</strong>：阅读英文文献；计算机术语</li>
+</ul>
+
+
+<h2>计算机组成原理</h2>
+
+<blockquote><p>计算机的硬件组成和运行原理</p></blockquote>
+
+<ul>
+<li><strong>冯诺依曼体系</strong>、<strong>摩尔定律</strong>、<strong>阿曼达定律</strong></li>
+<li><strong>数据的机器表示</strong>：原码、补码、反码、浮点数/定点数</li>
+<li><strong>指令系统</strong>：复杂指令集、简单指令集</li>
+<li><strong>存储器</strong>：分类、缓存</li>
+<li><strong>CPU</strong>: 流水线、伪共享、缓存</li>
+<li><strong>IO设备</strong>：IO总线、DMA、中断</li>
+</ul>
+
+
+<h2>计算机操作系统</h2>
+
+<blockquote><p>屏蔽计算机硬件的中间层</p></blockquote>
+
+<ul>
+<li><strong>作业调度</strong>: 调度策略、优先级</li>
+<li><strong>进程管理</strong>：进程和线程、进程间通信</li>
+<li><strong>存储管理</strong>：内存、虚拟内存、文件系统、页、页缓存</li>
+<li><strong>IO管理</strong>：IO设备读写操作</li>
+<li>Linux操作系统</li>
+</ul>
+
+
+<h2>计算机网络</h2>
+
+<blockquote><p>单个计算机之间的互连</p></blockquote>
+
+<ul>
+<li><strong>TCP/IP协议栈</strong>：四层/七层</li>
+<li>TCP连接状态</li>
+<li>TCP与UDP的区别</li>
+<li>HTTP协议、RESTful规范</li>
+<li>网络安全</li>
+<li><strong>下一代互联网</strong>：IPv6、物联网、5G</li>
+</ul>
+
+
+<h2>编译原理</h2>
+
+<blockquote><p>将代码转换成机器可理解的二进制，有助于实现DSL</p></blockquote>
+
+<ul>
+<li>词法分析、语法分析</li>
+<li>类型检查</li>
+<li>运行时环境、中间代码</li>
+<li>代码生成、代码优化</li>
+</ul>
+
+
+<h2>数据结构和算法</h2>
+
+<blockquote><p>程序=数据+算法</p></blockquote>
+
+<ul>
+<li><strong>基本数据结构</strong>：数组、链表、栈、队列、哈希表</li>
+<li><strong>最大堆、最小堆</strong>：TopN问题</li>
+<li><strong>树</strong>：平衡二叉树、B树、B+树、红黑树</li>
+<li><strong>跳跃表</strong>: 简单可实现</li>
+<li><strong>经典排序算法</strong>：快速排序、归并排序、插入排序、冒泡排序</li>
+<li><strong>经典查找算法</strong>：顺序查找、二分查找</li>
+<li><strong>高级算法</strong>：贪心、分治、回溯、动态规划</li>
+<li><strong>大数据处理</strong>：Bitmap、Bloomfilter、Hyperloglog、MapReduce、MPP</li>
+</ul>
+
+
+<h2>设计模式</h2>
+
+<blockquote><p>软件可复用、可扩展、可维护。善用而不滥用。</p></blockquote>
+
+<ul>
+<li><strong>面向对象SOLID设计原则</strong>：单一职责、开闭原则、里氏代换、接口隔离、依赖倒转</li>
+<li><strong>常用设计模式</strong>：单例模式、工厂模式、代理模式、适配器模式、观察者模式</li>
+<li><strong>常用框架中的设计模式</strong>：Spring</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[我的2018]]></title>
@@ -390,7 +581,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#x3a;&#x68;&#x61;&#x6e;&#x67;&#x40;&#101;&#x74;&#111;&#117;&#x63;&#104;&#x2e;&#99;&#x6e;">&#104;&#x61;&#110;&#x67;&#64;&#101;&#116;&#x6f;&#x75;&#x63;&#104;&#x2e;&#x63;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#x3a;&#x68;&#97;&#x6e;&#103;&#x40;&#x65;&#116;&#111;&#x75;&#x63;&#x68;&#x2e;&#x63;&#x6e;">&#x68;&#97;&#110;&#103;&#x40;&#101;&#x74;&#x6f;&#117;&#x63;&#104;&#x2e;&#x63;&#x6e;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
