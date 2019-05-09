@@ -185,7 +185,7 @@
 </ol>
 
 
-<p>负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该再开 Consumer 进程，进程内线程数同样和分区数一致。（多谢 @shadyxu 指出）</p>
+<p>负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该在增加partition数的同时增加consumer数或者提升消息处理能力。</p>
 
 <h2>五. high-level的consumer工具</h2>
 
