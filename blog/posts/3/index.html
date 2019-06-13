@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="2017年读过的书 Feb 6th, 2018 2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。 继续阅读 &rarr; 如何快速尝出毒酒？- 用bit解决问题 Jan 4th, 2018 问题 &hellip;">
+  <meta name="description" content="正则表达式简明指南 Mar 10th, 2018 公司使用的markdown解析类库一直有一些解析上的问题，最近给fix了。而markdown解析主要是对正则表达式的使用。中间恶补了一下相关知识，在此梳理一下。 什么是正则表达式 正则表达式就是用一个“字符串”来描述一个特征，然后去验证另一个“ &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,59 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2018/03/10/regx/">正则表达式简明指南</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-03-10T11:29:34+00:00" pubdate data-updated="true">Mar 10<sup>th</sup>, 2018</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>公司使用的markdown解析类库一直有一些解析上的问题，最近给fix了。而markdown解析主要是对正则表达式的使用。中间恶补了一下相关知识，在此梳理一下。</p>
+
+<h2>什么是正则表达式</h2>
+
+<p>正则表达式就是用一个“字符串”来描述一个特征，然后去验证另一个“字符串”是否符合这个特征。简单的一个例子：用字符串&#8221;a&#8221;来验证字符串s是否是&#8221;a&#8221;，形如s.match(&ldquo;a&rdquo;)。概括来说有以下作用：</p>
+
+<ul>
+<li>验证字符串是否符合指定特征，比如验证是否是合法的邮件地址。</li>
+<li>查找字符串，从一个长的文本中查找符合指定特征的字符串，比查找固定字符串更加灵活。</li>
+<li>替换字符串，比普通的基于字符串的替换更灵活。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/03/10/regx/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -528,48 +581,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2017/09/09/java-oneliners/">[译]Java中的十个&#8221;单行代码编程&#8221;(One Liner)</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2017-09-09T11:29:34+00:00" pubdate data-updated="true">Sep 9<sup>th</sup>, 2017</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2017/09/09/java-oneliners/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -647,6 +658,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2019/05/30/msa/">微服务杂谈</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2019/04/22/upforprogrammer/">这些知识决定了程序员的上限（PPT版）</a>
       	</li>
     	
@@ -680,10 +695,6 @@
     	
      	<li>
       	  <a href="/blog/2018/09/20/arch-new/">架构设计与原则（2018修订版）</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/09/03/tech-talk/">技术琐话2018-09-03</a>
       	</li>
     	
 	</ul>
