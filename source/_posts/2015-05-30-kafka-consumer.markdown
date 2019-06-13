@@ -36,7 +36,7 @@ This API is centered around iterators, implemented by the KafkaStream class. Eac
 4. 增减consumer，broker，partition会导致rebalance，所以rebalance后consumer对应的partition会发生变化 
 5. High-level接口中获取不到数据的时候是会block的
 
-负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该在增加partition数的同时增加consumer数或者提升消息处理能力。
+负载低的情况下可以每个线程消费多个partition。但负载高的情况下，Consumer 线程数最好和Partition数量保持一致。如果还是消费不过来，应该在增加partition数的同时增加consumer数或者通过某些手段提升消息处理能力。需要注意的是，由于Kafka主要是磁盘读写，Partition的增多如果是单个磁盘那么在并发性能上会有瓶颈,可以通过增加磁盘来扩展并发能力。
 
 ## 五. high-level的consumer工具
 
