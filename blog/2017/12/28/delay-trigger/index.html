@@ -173,7 +173,9 @@
 
 <p>此种方案的缺点在于即使频率到达一秒，也可能会有一秒的误差。此外，轮训的方式在很多情况下并没有可触发的任务，会浪费资源。插入和删除操作的平均时间复杂度为O(nlog(n))。</p>
 
-<p>实践中，一个很简单的方案就是使用Redis的SortedSet存储触发任务，这样只需要使用zrangeByScore获取超时的任务，再使用zremrangeByScore即可删除已经触发的任务。不过此种方案，由于zrange和zrem是两条命令，在多线程消费时需要控制好并发问题，否则会造成重复消费。此外，此方案缺少ACK机制，会有任务丢失的可能。Redisson中的RDelayedQueue、Jesque实现了此种方案。</p>
+<p>实践中，一个很简单的方案就是使用Redis的SortedSet存储触发任务，这样只需要使用zrangeByScore获取超时的任务，再使用zremrangeByScore即可删除已经触发的任务。不过此种方案，由于zrange和zrem是两条命令，在多线程消费时需要控制好并发问题，否则会造成重复消费。此外，此方案缺少ACK机制，会有任务丢失的可能。</p>
+
+<p>如果不关注消费者的高可用（一个队列的消费线程挂了会有其他线程接管），那么最简单的实现就是使用单线程消费，通过多Redis队列分片来提升消费速度。而如果关注消费者的高可用，可以选择Redisson中的RDelayedQueue以及Jesque，它们做了消费者多线程的实现。</p>
 
 <h2>方案二</h2>
 
@@ -203,15 +205,16 @@
 
 <p><strong>延时消息队列</strong></p>
 
-<p>目前，RabbitMQ、RocketMQ都支持延时消息队列，直接使用即可。</p>
+<p>目前，RabbitMQ、RocketMQ都支持延时消息队列。其中，RabbitMQ的实现思路是基于TTL的，详细可见：<a href="http://www.cnblogs.com/haoxinyue/p/6613706.html">http://www.cnblogs.com/haoxinyue/p/6613706.html</a>。而RocketMQ的延迟时间是预定义的，不够灵活。</p>
 
-<p>这种依赖消息队列的方案，最大的优势是使用简单，且支持ACK机制。但如果要取消定时任务，则无法实现。其中，RabbitMQ的实现思路是基于TTL的，详细可见：<a href="http://www.cnblogs.com/haoxinyue/p/6613706.html">http://www.cnblogs.com/haoxinyue/p/6613706.html</a>。</p>
+<p>此种方案，最大的优势是使用简单，且支持ACK机制。但如果要取消定时任务，则需要在业务层实现。</p>
 
 <h2>结论</h2>
 
 <ol>
-<li>简单使用，数据量不大的情况下，可以选择轮询数据库或者Redis方案。</li>
-<li>如果应用中已经有RabbitMQ/RocketMQ或者追求任务消费的可靠性，ACK机制，推荐使用RabbitMQ/RocketMQ。</li>
+<li>如果应用中已经有RabbitMQ或者追求任务消费的可靠性，推荐使用RabbitMQ。</li>
+<li>简单使用，数据量不大，对高可用、任务消费可靠性要求不高的情况下，可以选择单线程轮询数据库或者Redis方案。</li>
+<li>数据量较大、关注消费速度和高可用、对任务消费的可靠性要求不高，推荐使用Jesque/RDelayedQueue。</li>
 </ol>
 
 </div>
