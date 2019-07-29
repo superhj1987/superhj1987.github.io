@@ -26,7 +26,7 @@ categories: misc
 
 ![](/post_images/ufp/knowledge.png)
 
-- 面试造火箭，工作打蚊子
+- 面试造火箭，工作拧螺丝
 - 会什么是你的下限，能够会什么是你的上限
 - 越底层的东西越决定上限
 
