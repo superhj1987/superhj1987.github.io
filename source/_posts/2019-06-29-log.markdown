@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Java开发框架之日志"
-date: 2019-06-26 19:29:34 +0800
+date: 2019-06-29 19:29:34 +0800
 comments: true
 categories: java
 ---
