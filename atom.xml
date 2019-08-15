@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-08-15T15:12:42+00:00</updated>
+  <updated>2019-08-15T15:16:45+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,10 +14,209 @@
 
   
   <entry>
+    <title type="html"><![CDATA[使用Spring Boot快速开发]]></title>
+    <link href="http://www.rowkey.me/blog/2019/07/27/springboot/"/>
+    <updated>2019-07-27T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/07/27/springboot</id>
+    <content type="html"><![CDATA[<p>本章开始提到Spring现在变得越来越复杂，越来越不好上手。这一点Spring Source自己也注意到了，因此推出了Spring Boot，旨在简化使用Spring的门槛，大大降低Spring的配置工作，并且能够很容易地将应用打包为可独立运行的程序（即不依赖于第三方容器，可以独立以jar或者war包的形式运行）。其带来的开发效率的提升使得Spring Boot被看做至少近5年来Spring乃至整个Java社区最有影响力的项目之一，也被人看作是Java EE开发的颠覆者。另一方面来说，Spring Boot也顺应了现在微服务（MicroServices）的理念，可以用来构建基于Spring框架的可独立部署应用程序。</p>
+
+<h2>一. 使用</h2>
+
+<p>一个简单的pom配置示例如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;parent&gt;        
+</span><span class='line'>   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        
+</span><span class='line'>   &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;        
+</span><span class='line'>   &lt;version&gt;1.4.7.RELEASE&lt;/version&gt;
+</span><span class='line'>&lt;/parent&gt;
+</span><span class='line'>    
+</span><span class='line'>...
+</span><span class='line'>    
+</span><span class='line'>&lt;dependencies&gt;        
+</span><span class='line'>   &lt;dependency&gt;                
+</span><span class='line'>       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;                
+</span><span class='line'>       &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;        
+</span><span class='line'>   &lt;/dependency&gt;
+</span><span class='line'>&lt;/dependencies&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;build&gt;
+</span><span class='line'>    &lt;plugins&gt;
+</span><span class='line'>       &lt;plugin&gt;
+</span><span class='line'>           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span><span class='line'>           &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+</span><span class='line'>           &lt;configuration&gt;
+</span><span class='line'>               &lt;executable&gt;true&lt;/executable&gt;
+</span><span class='line'>            &lt;/configuration&gt;
+</span><span class='line'>       &lt;/plugin&gt;
+</span><span class='line'>    &lt;/plugins&gt;
+</span><span class='line'>&lt;/build&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用spring-boot-starter-parent作为当前项目的parent将Spring Boot应用相关的一系列依赖（dependency）、插件（plugins）等等配置共享；添加spring-boot-starter-web这个依赖，是为了构建一个独立运行的Web应用；spring-boot-maven-plugin用于将Spring Boot应用以可执行jar包的形式发布出去。</p>
+
+<p>接着可以添加相应的Controller实现：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@RestController  
+</span><span class='line'>public class MyController {
+</span><span class='line'>@RequestMapping("/")
+</span><span class='line'>   public String hello() {
+</span><span class='line'>      return "Hello World!";
+</span><span class='line'>   }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里的RestController是一个复合注解，包括@Controller和@ResponseBody。</p>
+
+<p>最后，要让Spring Boot可以独立运行和部署，我们需要一个Main方法入口， 比如：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@SpringBootApplication
+</span><span class='line'>public class BootDemo extends SpringBootServletInitializer{    
+</span><span class='line'>   public static void main(String[] args) throws Exception {        
+</span><span class='line'>       SpringApplication.run(BootDemo.class, args);    
+</span><span class='line'>   }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用mvn package打包后（可以是jar，也可以是war），java -jar xx.war/jar即可运行一个Web项目，而之所以继承SpringBootServletInitializer是为了能够让打出来的war包也可以放入容器中直接运行，其加载原理在3.4.4节的零XML配置中讲过。</p>
+
+<p>这里需要注意上面spring-boot-maven-plugin这个插件将executable配置为了true，此种配置打出来的jar/war包其压缩格式并非传统的jar/war包，实际上是一个bash文件，可以作为shell脚本直接执行，解压的话需要使用unzip命令。</p>
+
+<p>从最根本上来讲，Spring Boot就是一些库和插件的集合，屏蔽掉了很多配置加载、打包等自动化工作，其底层还是基于Spring的各个组件。</p>
+
+<p>这里需要注意的是，Spring Boot推崇对项目进行零xml配置。但是就笔者看来，相比起注解配置是糅杂在代码中，每次更新都需要重新编译，XML这种和代码分离的方式耦合性和可维护性则显得更为合理一些，而且在配置复杂时也更清晰。因此，采用Java Config作为应用和组件扫描（component scan）入口，采用XML做其他的配置是一种比较好的方式。此外，当集成外部已有系统的时候， 通过XML集中明确化配置也是更为合理的一种方式。</p>
+
+<h2>二. 原理浅析</h2>
+
+<p><img src="http://www.rowkey.me/post_images/spring-boot-process.png" alt="" /></p>
+
+<p>Spring Boot的基础组件之一就是4.1讲过的一些注解配置，除此之外，它也提供了自己的注释。其总体的运行流程如上图所示。</p>
+
+<ol>
+<li><p>@EnableAutoConfiguration</p>
+
+<p> 这个Annotation就是Java Config的典型代表，标注了这个Annotation的Java类会以Java代码的形式（对应于XML定义的形式）提供一系列的Bean定义和实例，结合AnnotationConfigApplicationContext和自动扫描的功能，就可以构建一个基于Spring容器的Java应用了。</p>
+
+<p> @EnableAutoConfiguration的定义信息如下 ：</p>
+
+<pre><code class="`"> @Target(ElementType.TYPE)
+ @Retention(RetentionPolicy.RUNTIME)
+ @Documented
+ @Inherited
+ @AutoConfigurationPackage
+ @Import(EnableAutoConfigurationImportSelector.class)
+ public @interface EnableAutoConfiguration {
+</code></pre>
+
+<p> 标注了此注解的类会发生一系列初始化动作：</p>
+
+<ul>
+<li><p>SpringBoot扫描到@EnableAutoConfiguration注解时，就使用Spring框架的SpringFactoriesLoader去扫描classpath下所有META-INF/spring.factories文件的配置信息（META-INF/spring.providers声明了当前Starter依赖的Jar包）。其中包括一些callback接口（在前中后等不同时机执行）：</p>
+
+<ul>
+<li>org.springframework.boot.SpringApplicationRunListener</li>
+<li>org.springframework.context.ApplicationContextInitializer</li>
+<li>org.springframework.context.ApplicationListener</li>
+</ul>
+</li>
+<li><p>然后Spring Boot加载符合当前场景需要的配置类型并供当前或者下一步的流程使用，这里说的场景就是提取以 org.springframework.boot.autoconfigure.EnableAutoConfiguration作为key标志的一系列Java配置类，然后将这些Java配置类中的Bean定义加载到Spring容器中。</p></li>
+</ul>
+
+
+<p> 此外，我们可以使用Spring3系列引入的@Conditional，通过像@ConditionalOnClass、@ConditionalOnMissingBean等具体的类型和条件来进一步筛选通过SpringFactoriesLoader加载的类。</p></li>
+<li><p>Spring Boot启动</p>
+
+<p> 每一个Spring Boot应用都有一个入口类，在其中定义main方法，然后使用SpringApplication这个类来加载指定配置并运行SpringBoot Application。如上面写过的入口类：</p>
+
+<pre><code class="`   "> @SpringBootApplication
+ public class BootDemo extends SpringBootServletInitializer{    
+    public static void main(String[] args) throws Exception {        
+        SpringApplication.run(BootDemo.class, args);    
+    }
+ }
+</code></pre>
+
+<p> @SpringBootApplication注解是一个复合注解，包括了@Configuraiton、@EnableAutoConfiguration以及@ComponentScan。通过SpringApplication的run方法，Spring就使用BootDemo作为Java配置类来读取相关配置、加载和扫描相关的bean。</p>
+
+<p> 这样，基于@SpringBootApplication注解，Spring容器会自动完成指定语义的一系列工作，包括@EnableAutoConfiguration要求的东西，如：从SpringBoot提供的多个starter模块中加载Java Config配置（META-INF/spring.factories中声明的xxAutoConfiguration），然后将这些Java Config配置筛选上来的Bean定义加入Spring容器中，再refresh容器。一个Spring Boot应用即启动完成。</p></li>
+</ol>
+
+
+<h2>三. 模块组成</h2>
+
+<p>Spring Boot是由非常多的模块组成的，可以通过pom文件引入进来。EnableAutoConfiguration机制会进行插件化加载进行自动配置，这里模块化机制的原理主要是通过判断相应的类/文件是否存在来实现的。其中几个主要的模块如下:</p>
+
+<ol>
+<li><p>spring-boot-starter-web</p>
+
+<p> 此模块就是标记此项目是一个Web应用，Spring Boot会自动准备好相关的依赖和配置。</p>
+
+<p> 这里Spring Boot默认使用Tomcat作为嵌入式Web容器，可以通过声明spring-boot-starter-jetty的dependency来换成Jetty。</p></li>
+<li><p>spring-boot-starter-logging</p>
+
+<p> Spring Boot对此项目开启SLF4J和Logback日志支持。</p></li>
+<li><p>spring-boot-starter-redis</p>
+
+<p>  Spring Boot对此项目开启Redis相关依赖和配置来做数据存储。</p></li>
+<li><p>spring-boot-starter-jdbc</p>
+
+<p>  Spring Boot对此项目开启JDBC操作相关依赖和配置来做数据存储。</p>
+
+<p>  这里需要说明的是，Spring Boot提供的功能非常丰富，因此显得非常笨重复杂。其实依赖于模块插件化机制，我们可以只配置自己需要使用的功能，从而对应用进行瘦身，避免无用的配置影响应用启动速度。</p></li>
+</ol>
+
+
+<h2>四. 总结</h2>
+
+<p>Spring Boot给大家使用Spring做后端应用开发带来了非常大的便利，能够大大提高搭建应用雏形框架的速度，只需要关注实现业务逻辑即可。其“黑魔法”一样的插件化机制使得能够根据自己的需要引入所需的组件，提供了非常好的灵活性。如果非遗留Spring项目，直接使用Spring Boot是比较好的选择；遗留项目也可以通过配置达到无缝结合。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Java开发框架之日志]]></title>
-    <link href="http://www.rowkey.me/blog/2019/06/26/log/"/>
-    <updated>2019-06-26T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/06/26/log</id>
+    <link href="http://www.rowkey.me/blog/2019/06/29/log/"/>
+    <updated>2019-06-29T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/06/29/log</id>
     <content type="html"><![CDATA[<p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
 
 <p>使用控制台输出其实也算日志的一种，在容器中会打印到容器的日志文件中。但是，控制台输出过于简单，缺乏日志中级别控制、异步、缓冲等特性，因此在开发中要杜绝使用控制台输出作为日志（System.out.println）。而Java中已经有很多成熟的日志框架供大家使用：</p>
@@ -5006,208 +5205,6 @@ println(map2)
 <blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
 
 <p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何成为一名合格的Java工程师?]]></title>
-    <link href="http://www.rowkey.me/blog/2018/04/01/pje-release/"/>
-    <updated>2018-04-01T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/04/01/pje-release</id>
-    <content type="html"><![CDATA[<p>Java开发一直是当前互联网领域最火热的开发技能之一，Java工程师也一直是需求量非常大的开发职位。那么如何成为一名合格的Java工程师呢？一名合格的Java工程师又应该具有哪些技能呢？针对这些，笔者的新书《Java工程师修炼之道》做了一些经验性的阐述和讲解。</p>
-
-<p><img src="http://www.rowkey.me/post_images/book.png" width="250"/></p>
-
-<!--more-->
-
-
-<p>写作此书的想法萌生于2015年，主要是在研发招聘过程中，尤其是校招，感受到了目前后端工程师教育的匮乏。对于一个后端工程师的技术体系，先不说学生，不少工作很长时间的人都没有一个清晰的认识。就打算写一本后端工程师技术体系书籍的想法，希望能够给选择后端这个方向的人一些指导，也算是对自己的一个阶段性总结。</p>
-
-<p>2016年初，博文视点“永恒的侠少”（张春雨编辑）找到我，算是正式开始写作此书。历时一年多的时间，于2017年8月份交稿，中间历经许多次修改，《Java工程师修炼之道》终于出版。这本书是自己出的第一本书，所以写作的过程一直是如履薄冰的，一直害怕写成一本没有任何意义的烂书，因此一遍遍地去读，一遍遍地修正，也一遍遍地更新一些知识点，希望最后不要沦为一本鸡肋无味的技术书。</p>
-
-<p>本书主要针对一名合格的Java工程师的必备技能做了大纲性的总结和阐述。内容主要来自于公司内的后端工程师学习计划、自己以前的一些博客文章和自己从业以来积累的知识库。包括了工程化、常用开发框架、数据存储、数据传输、Java编程高级知识、性能优化、安全技术等，基本涵盖了Java工程师需要掌握的绝大部分技能点。此外，由于笔者的学习、工作笔记是平时工作中查阅网上资料并经过辨伪后记录下来的零散知识点，难免会有一些对网上资料的引用，特别对这些资料的原创者表示感谢，如果有侵权请联系我。</p>
-
-<p>本书可以看作一本Java工程师的入职指南，也可以看作一本串联Java后端技能点的参考手册，同样可以作为创业团队做技术选型的一个参考。通过精心编排的内容，刚入门的Java工程师能够体系化地学习相关开发技能，有经验的Java工程师则能够查漏补缺，进一步加强自身的Java技术体系。</p>
-
-<p>其中的部分内容，会陆续在我的博客和公众号放出。</p>
-
-<p>希望这本书会给想要学习Java后端开发的同学或者还未形成自己技术体系的Java工程师们带来帮助。</p>
-
-<p><strong><em>需要注意的是，本书关于每一技能的知识点并没有讲述的很深，毕竟一方面确实没必要，每一个知识点都有更厉害的专家和更专业的书籍；另一方面，要面面俱到，这本书的厚度估计得翻三倍，自己确实没这精力。因此，本书并不适合对内容深度有要求的同学。</em></strong></p>
-
-<p><strong>购买</strong>: <a href="https://item.jd.com/12325207.html">https://item.jd.com/12325207.html</a></p>
-
-<p><img src="http://www.rowkey.me/post_images/book_jd.png" alt="" /></p>
-
-<p><strong>目录</strong></p>
-
-<blockquote><p>第一章 后端技术导言</p>
-
-<p>1.1 后端基础设施</p>
-
-<p>1.2 Java后端技术概览</p>
-
-<p>1.3 如何学习后端技术</p>
-
-<p>第二章 Java项目工程化</p>
-
-<p>2.1 项目构建</p>
-
-<p>2.2 代码版本控制</p>
-
-<p>2.3 代码质量保证</p>
-
-<p>第三章 开发框架</p>
-
-<p>3.1 依赖注入</p>
-
-<p>3.2 对象关系映射</p>
-
-<p>3.3 日志</p>
-
-<p>3.4 Web MVC</p>
-
-<p>第四章 Spring</p>
-
-<p>4.1 Spring核心组件</p>
-
-<p>4.2 Spring数据操作框架</p>
-
-<p>4.3 Spring Boot</p>
-
-<p>4.4 Spring常用组件</p>
-
-<p>4.5 总结</p>
-
-<p>第五章 数据存储</p>
-
-<p>5.1 关系型数据库-MySQL</p>
-
-<p>5.2 非关系型数据库</p>
-
-<p>5.3 缓存</p>
-
-<p>5.4 搜索引擎-Elasticsearch</p>
-
-<p>第六章 数据通信</p>
-
-<p>6.1 RESTful架构风格</p>
-
-<p>6.2 远程过程调用-RPC</p>
-
-<p>6.3 消息中间件</p>
-
-<p>第七章 Java编程进阶</p>
-
-<p>7.1 Java内存管理</p>
-
-<p>7.2 Java网络编程</p>
-
-<p>7.3 Java并发编程</p>
-
-<p>7.4 Java开发利器</p>
-
-<p>7.5 Java新版本特性</p>
-
-<p>7.6 总结</p>
-
-<p>第八章 性能调优</p>
-
-<p>8.1 调优准备</p>
-
-<p>8.2 性能分析</p>
-
-<p>8.3 性能调优</p>
-
-<p>第九章 安全技术</p>
-
-<p>9.1 Java加密</p>
-
-<p>9.2 安全Http - HTTPS</p>
-
-<p>9.3 Web安全</p></blockquote>
-
-<p><strong>推荐</strong></p>
-
-<blockquote><p>2013年，我和本书作者的接触是从基于网易的一个大型互联网应用合作开始的，我见证了从第一行代码到整个系统服务于亿级用户的过程，并且相信这种经历对开发者来说是一笔巨大的财富，其中大量的开发和实战经验都会在本书中得到充分的体现，相信读者能从书中直接领略到丰富的实战知识。在与本书作者的合作过程中，其对Java技术的热爱与追求孜孜不倦，对问题刨根问底，直到理解透彻、灵活应用，这些都令我印象深刻。这些年，我与本书作者一直保持沟通交流、相互学习，他将近十年的实战经验沉底于本书以实现对后端技术的探索、布道，非常值得开发者与近高窗卧听秋。</p>
-
-<p>后端技术涉及内容非常广泛，Java语言也是互联网开发行业使用的主流语言，相信后续也将继续流行很长一段时间，而本书作者也一直从事Java后端开发工作。在本书中作者比较系统地从总体上描述了后端技术相关的理论知识，包括基础设施、网关服务及框架选型等基本原则，然后以实际经验进行示例说明，接着详细梳理了Java的后端技术，相信读者读完本书后会更全面地理解后端技术。互联网的业务建设需要不同角色的开发者共同协作完成，因此，系统工程化是开发者首先要共同遵守的规范或约定，包括代码规范、版本管理和代码质量检查等。</p>
-
-<p>开发框架的选型进一步地为工程化提供了基础，也能加速推进互联网开发，尽管是否重复造轮子是一个恒久的话题，但是没有永远的银弹，只要在合适的时间里根据团队的能力选择合适的技术框架就好。一般来讲，目前常用的框架包括基本的依赖注入、AOP、事务管理、连接池管理、数据操作、日志服务等，在众多的框架中，本书作者选用目前在Java领域使用最广泛的Spring做深入的分析，详细地说明各组件的基础知识、基本原理和实际使用案例，最难得的是把较多开发者遇到的坑都用真实的示例进行了说明，可以帮助开发者快速地跳过这些伤心地带，同时也把最佳实践画龙点睛地带给开发者。</p>
-
-<p>数据存储无疑是所有系统应用中非常重要的一环，应用的场景用例也和数据库的选型有极其重要的关系，开发者选择关系型数据库还是非关系型数据库是需要根据软件成本与人力成本来进行权衡的，比如是选择MySQL、Oracle等开源或商业的数据库。本书重点从数据库的基础知识、索引和表优化等方面以详尽的示例为更好地选择数据库的存储类型提供了更多的知识。</p>
-
-<p>早期的关系型数据库一般能满足数据达到一定规模的企业的需求，而在互联网业务领域，特别是移动互联网领域内的元数据或者日志数据等，达到亿数量级别是很常见的，这时通常使用非关系型数据库，在非关系型数据库里使用非常多的有MongoDB、HBase等分布式数据库系统。作者在自身的企业开发实践中，得到了大量的使用经验和最佳实践。为了加速后端应用，缓存热数据是加速业务、提高业务性能、提升用户体验的重要手段，通过使用本地缓存、远程缓存进行数据加速、数据预热或提高数据的命中率，是开发者在应用开发的过程中常会遇到的场景。</p>
-
-<p>“路漫漫其修远兮，吾将上下而求索”，后端技术每年都在不断发展，所用技术也有变化，近些年Java语言的发展速度不那么快了，但是总体是在不断前进发展的，本书作者带领的团队一直深耕此领域并希望通过本书为技术开发人员带来更多帮助。</p>
-
-<p>&ndash; <strong>尧飘海，网易云基础服务（蜂巢）首席架构师</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>Hey！新来的读者，为了吸引你的注意力我真是煞费苦心，但最终还是没能写出一句特别吸引眼球的话来，毕竟写序的我不是标题党出生。此刻我真的非常能理解你拿到新书之后那渴望知识的心情，所以你恨不得一个字的“序”也不要看到，直接到达“最有价值”的知识点。但作为一名资深转业码农（对！你没看错，是“转业”，不是“专业”）还是想说一句，你先看完序，5分钟后到达知识的战场，会更稳！</p>
-
-<p>相信你已经在看“序”了，那么我们来说点正经事。</p>
-
-<p>你的知识体系的养成有3个关键阶段：看山是山、看山不是山、看山还是山。本书的适用人群是“看山不是山”的那些人，如果你恰好处于这个阶段，恭喜你！书钱没白花。</p>
-
-<p>Java是一门非常容易入门的语言，初学者经过初期的学习之后基本能掌握DEMO级别的编程应用。相信读者你已经度过了这个阶段，但是Java庞大的体系可能会把你绕晕，又或者你还没看到Java的生态系统有多么复杂。此时，你需要本书。从事程序员这个工作，到比较高阶的时候，其实是不挑语言的，语言只是工具，而你可以在纷繁复杂中游刃有余。但几乎每一位高手都是先深入一个领域，再横向发展的。你可以不用着急后续的横向发展，先坚定自己学习Java的信心！因为，从广泛的应用场景、顶级的开源生态、未来可期的薪水和职位来说，Java都是非常不错的选择。</p>
-
-<p>敲黑板，画重点！下面来解释一下，为什么本书面向的是“看山不是山”的人群。在度过Java的入门期之后，会有一个烦恼，那就是面对Java这么庞大的体系，我们究竟应该学习什么？选择方向，往往比努力更重要！是使用J2SE编写桌面程序？是使用J2ME编写嵌入式应用？还是使用J2EE编写企业级应用？这些是我们那个泛黄的年代特有的烦恼。而现在的烦恼可能是学Android？还是学Java后端？即便大方向你已经十分坚定，而且选择了Java后端编程，但因为复杂的知识体系和Google发布的各种教程文档，眼前看到的已经不再是清晰的山脉，而是一片迷雾。此时，你需要本书，因为它给你指明了努力的方向。</p>
-
-<p>本书的结构、阐述的方式和大部分的“指南”书籍有较大的区别，本书是以笔记和要点的形式进行呈现的，用现在的话说就是捞干货。本书涵盖的知识，是以现代工程实践中的实际案例出发来组织的，所以知识点范围非常广泛，每一个点都对最关键的“Best Practice”简明扼要地进行了说明。你在阅读本书的时候需要一些相关经验，不然无法跟上作者的节奏，建议在有一定的知识准备后再阅读本书，这样你会受益匪浅。从另外一个角度看，在你有了一定的基础积累之后，本书可以帮助你全面地了解一个现代化的最先进的工程实践是怎样的。本书讲述了目前行业中最常用的，经过了实践的工程方案，这将是你快速进阶的最佳指引。</p>
-
-<p>&ndash; <strong>孙建，随身云（中华万年历）联合创始人&amp;CEO</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>扎实的基础理论知识是内功底子，丰富的实践经验是招式。如本书作者所说，精妙的招式决定了你的武功下限，而深厚的内功底蕴会承载你所能企及的高度。那么，在后端技术栈中，内功与招式之间如何去关联起来，本书作者以其多年的钻研与实践结合心得，通过本书为你一一梳理。</p>
-
-<p>&ndash; <strong>阙杭宁，网易云信CTO</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>作者是一位技术人,有多年的Java技术积累,是极少数真正热爱技术的人。在随身云架构师的工作让他有机会站在更高的层次进行系统架构的工作,这些实践经验和平时感悟都沉淀在作者的著作和博客中,相信每位Java工程师都能从中获取帮助。</p>
-
-<p>&ndash; <strong>秦绪震，十露盘科技联合创始人，技术负责人</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>本书作者根据自身多年的JAVA后台开发经验, 提纲挈领的总结JAVA后台开发的各个关键技术点，这些知识点都是一个合格的JAVA工程师必须掌握的技能。它既可以作为新人的技术学习指南，也可以帮助老手对于自己的知识面进行查漏补缺，是一本非常好的技术指南。</p>
-
-<p>&ndash; <strong>饶洵（蜚天），阿里巴巴技术专家</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>作为一个在后端摸爬多年的Java开发工程师，这本书让我温故而知新。书中介绍的Java相关的知识技能树，不仅涵盖了我个人多年的Java开发技术知识点，也对我所陌生的一些知识点进行了详解，让我突然有一种继续学习的冲动。</p>
-
-<p>一个Java开发工程师的成长，不仅要对Java语言及其特性有深层次的理解，也需要掌握与Java相关的框架、生态及后端开发知识。这本书正是将后端开发工程师需要掌握的技能做了总结，对于提高开发技能有很好的指导作用。</p>
-
-<p>我推荐这本书，对于具有一定Java基础和后端开发知识的读者来说，该书不仅具有仔细学习的价值，同时也是一本可以经常翻阅的工具书籍，对于Java开发工程师的成长和进阶有很大的指导作用。</p>
-
-<p>一本好的技术书籍，不仅要仔细阅读、学习理解，还需要进行较多的实践，将所看所学进行应用，通过不断地实践，加深知识点印象，从而形成永久的记忆和技能。希望各位读者能够通过掌握书中的知识和技能，逐步成长为技术骨干和专家，从而创造更多的技术输出、产品输出，创造更多的财富。</p>
-
-<p>&ndash; <strong>张小川，网易考拉海购架构师，供应链技术主管</strong></p></blockquote>
-
-<p><strong>后续计划</strong></p>
-
-<blockquote><p>此书一开始是计划有一章专门讲述大数据开发技术，毕竟现在越来越多的公司在构建自己的大数据平台，大数据技术也逐渐成了Java工程师的必备技能。但自己此方面经验较少，自认并没有达到可以向别人输出知识的程度，于是暂时搁置此部分。</p></blockquote>
-
-<p>逐步把部分内容开源在笔者的<a href="https://github.com/superhj1987/pragmatic-java-engineer">Github（superhj1987）</a>中，并补充一些新的内容进来。</p>
-
-<ul>
-<li>Zookeepr本来是想放在大数据一章，现在会作为数据存储的一节补充进来。</li>
-<li>异步响应式Web框架会补充在开发框架一章，以Vert.x为主，Spring Flux为辅。</li>
-<li>Redis加入新版本的特性，并补充如何使用Redis实现分布式锁。</li>
-<li>Kafka加入最新版本的特性，尤其是Kafka Streams和Exactly one语义。</li>
-<li>Elastissearch基于5.0版本更新。</li>
-<li>补充协程到并发编程中。</li>
-<li>补充Netty到网络编程中。</li>
-<li>使用Hystrix做资源隔离和限流会补充在Java开发利器中。</li>
-<li>补充RxJava的使用在Java开发利器中。</li>
-<li>补充Java10和Kotlin的部分到Java新版本特性。</li>
-</ul>
-
 ]]></content>
   </entry>
   

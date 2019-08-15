@@ -1,0 +1,653 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>使用Spring Boot快速开发 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="使用Spring Boot快速开发 Jul 27th, 2019 Posted by 飒然Hang in java 本章开始提到Spring现在变得越来越复杂，越来越不好上手。这一点Spring Source自己也注意到了，因此推出了Spring Boot，旨在简化使用Spring的门槛， &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2019/07/27/springboot/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、How、Why</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">使用Spring Boot快速开发</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-07-27T11:29:34+00:00" pubdate data-updated="true">Jul 27<sup>th</sup>, 2019</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>本章开始提到Spring现在变得越来越复杂，越来越不好上手。这一点Spring Source自己也注意到了，因此推出了Spring Boot，旨在简化使用Spring的门槛，大大降低Spring的配置工作，并且能够很容易地将应用打包为可独立运行的程序（即不依赖于第三方容器，可以独立以jar或者war包的形式运行）。其带来的开发效率的提升使得Spring Boot被看做至少近5年来Spring乃至整个Java社区最有影响力的项目之一，也被人看作是Java EE开发的颠覆者。另一方面来说，Spring Boot也顺应了现在微服务（MicroServices）的理念，可以用来构建基于Spring框架的可独立部署应用程序。</p>
+
+<h2>一. 使用</h2>
+
+<p>一个简单的pom配置示例如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;parent&gt;        
+</span><span class='line'>   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        
+</span><span class='line'>   &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;        
+</span><span class='line'>   &lt;version&gt;1.4.7.RELEASE&lt;/version&gt;
+</span><span class='line'>&lt;/parent&gt;
+</span><span class='line'>    
+</span><span class='line'>...
+</span><span class='line'>    
+</span><span class='line'>&lt;dependencies&gt;        
+</span><span class='line'>   &lt;dependency&gt;                
+</span><span class='line'>       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;                
+</span><span class='line'>       &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;        
+</span><span class='line'>   &lt;/dependency&gt;
+</span><span class='line'>&lt;/dependencies&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;build&gt;
+</span><span class='line'>    &lt;plugins&gt;
+</span><span class='line'>       &lt;plugin&gt;
+</span><span class='line'>           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+</span><span class='line'>           &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+</span><span class='line'>           &lt;configuration&gt;
+</span><span class='line'>               &lt;executable&gt;true&lt;/executable&gt;
+</span><span class='line'>            &lt;/configuration&gt;
+</span><span class='line'>       &lt;/plugin&gt;
+</span><span class='line'>    &lt;/plugins&gt;
+</span><span class='line'>&lt;/build&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用spring-boot-starter-parent作为当前项目的parent将Spring Boot应用相关的一系列依赖（dependency）、插件（plugins）等等配置共享；添加spring-boot-starter-web这个依赖，是为了构建一个独立运行的Web应用；spring-boot-maven-plugin用于将Spring Boot应用以可执行jar包的形式发布出去。</p>
+
+<p>接着可以添加相应的Controller实现：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@RestController  
+</span><span class='line'>public class MyController {
+</span><span class='line'>@RequestMapping("/")
+</span><span class='line'>   public String hello() {
+</span><span class='line'>      return "Hello World!";
+</span><span class='line'>   }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里的RestController是一个复合注解，包括@Controller和@ResponseBody。</p>
+
+<p>最后，要让Spring Boot可以独立运行和部署，我们需要一个Main方法入口， 比如：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@SpringBootApplication
+</span><span class='line'>public class BootDemo extends SpringBootServletInitializer{    
+</span><span class='line'>   public static void main(String[] args) throws Exception {        
+</span><span class='line'>       SpringApplication.run(BootDemo.class, args);    
+</span><span class='line'>   }
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用mvn package打包后（可以是jar，也可以是war），java -jar xx.war/jar即可运行一个Web项目，而之所以继承SpringBootServletInitializer是为了能够让打出来的war包也可以放入容器中直接运行，其加载原理在3.4.4节的零XML配置中讲过。</p>
+
+<p>这里需要注意上面spring-boot-maven-plugin这个插件将executable配置为了true，此种配置打出来的jar/war包其压缩格式并非传统的jar/war包，实际上是一个bash文件，可以作为shell脚本直接执行，解压的话需要使用unzip命令。</p>
+
+<p>从最根本上来讲，Spring Boot就是一些库和插件的集合，屏蔽掉了很多配置加载、打包等自动化工作，其底层还是基于Spring的各个组件。</p>
+
+<p>这里需要注意的是，Spring Boot推崇对项目进行零xml配置。但是就笔者看来，相比起注解配置是糅杂在代码中，每次更新都需要重新编译，XML这种和代码分离的方式耦合性和可维护性则显得更为合理一些，而且在配置复杂时也更清晰。因此，采用Java Config作为应用和组件扫描（component scan）入口，采用XML做其他的配置是一种比较好的方式。此外，当集成外部已有系统的时候， 通过XML集中明确化配置也是更为合理的一种方式。</p>
+
+<h2>二. 原理浅析</h2>
+
+<p><img src="/post_images/spring-boot-process.png" alt="" /></p>
+
+<p>Spring Boot的基础组件之一就是4.1讲过的一些注解配置，除此之外，它也提供了自己的注释。其总体的运行流程如上图所示。</p>
+
+<ol>
+<li><p>@EnableAutoConfiguration</p>
+
+<p> 这个Annotation就是Java Config的典型代表，标注了这个Annotation的Java类会以Java代码的形式（对应于XML定义的形式）提供一系列的Bean定义和实例，结合AnnotationConfigApplicationContext和自动扫描的功能，就可以构建一个基于Spring容器的Java应用了。</p>
+
+<p> @EnableAutoConfiguration的定义信息如下 ：</p>
+
+<pre><code class="`"> @Target(ElementType.TYPE)
+ @Retention(RetentionPolicy.RUNTIME)
+ @Documented
+ @Inherited
+ @AutoConfigurationPackage
+ @Import(EnableAutoConfigurationImportSelector.class)
+ public @interface EnableAutoConfiguration {
+</code></pre>
+
+<p> 标注了此注解的类会发生一系列初始化动作：</p>
+
+<ul>
+<li><p>SpringBoot扫描到@EnableAutoConfiguration注解时，就使用Spring框架的SpringFactoriesLoader去扫描classpath下所有META-INF/spring.factories文件的配置信息（META-INF/spring.providers声明了当前Starter依赖的Jar包）。其中包括一些callback接口（在前中后等不同时机执行）：</p>
+
+<ul>
+<li>org.springframework.boot.SpringApplicationRunListener</li>
+<li>org.springframework.context.ApplicationContextInitializer</li>
+<li>org.springframework.context.ApplicationListener</li>
+</ul>
+</li>
+<li><p>然后Spring Boot加载符合当前场景需要的配置类型并供当前或者下一步的流程使用，这里说的场景就是提取以 org.springframework.boot.autoconfigure.EnableAutoConfiguration作为key标志的一系列Java配置类，然后将这些Java配置类中的Bean定义加载到Spring容器中。</p></li>
+</ul>
+
+
+<p> 此外，我们可以使用Spring3系列引入的@Conditional，通过像@ConditionalOnClass、@ConditionalOnMissingBean等具体的类型和条件来进一步筛选通过SpringFactoriesLoader加载的类。</p></li>
+<li><p>Spring Boot启动</p>
+
+<p> 每一个Spring Boot应用都有一个入口类，在其中定义main方法，然后使用SpringApplication这个类来加载指定配置并运行SpringBoot Application。如上面写过的入口类：</p>
+
+<pre><code class="`   "> @SpringBootApplication
+ public class BootDemo extends SpringBootServletInitializer{    
+    public static void main(String[] args) throws Exception {        
+        SpringApplication.run(BootDemo.class, args);    
+    }
+ }
+</code></pre>
+
+<p> @SpringBootApplication注解是一个复合注解，包括了@Configuraiton、@EnableAutoConfiguration以及@ComponentScan。通过SpringApplication的run方法，Spring就使用BootDemo作为Java配置类来读取相关配置、加载和扫描相关的bean。</p>
+
+<p> 这样，基于@SpringBootApplication注解，Spring容器会自动完成指定语义的一系列工作，包括@EnableAutoConfiguration要求的东西，如：从SpringBoot提供的多个starter模块中加载Java Config配置（META-INF/spring.factories中声明的xxAutoConfiguration），然后将这些Java Config配置筛选上来的Bean定义加入Spring容器中，再refresh容器。一个Spring Boot应用即启动完成。</p></li>
+</ol>
+
+
+<h2>三. 模块组成</h2>
+
+<p>Spring Boot是由非常多的模块组成的，可以通过pom文件引入进来。EnableAutoConfiguration机制会进行插件化加载进行自动配置，这里模块化机制的原理主要是通过判断相应的类/文件是否存在来实现的。其中几个主要的模块如下:</p>
+
+<ol>
+<li><p>spring-boot-starter-web</p>
+
+<p> 此模块就是标记此项目是一个Web应用，Spring Boot会自动准备好相关的依赖和配置。</p>
+
+<p> 这里Spring Boot默认使用Tomcat作为嵌入式Web容器，可以通过声明spring-boot-starter-jetty的dependency来换成Jetty。</p></li>
+<li><p>spring-boot-starter-logging</p>
+
+<p> Spring Boot对此项目开启SLF4J和Logback日志支持。</p></li>
+<li><p>spring-boot-starter-redis</p>
+
+<p>  Spring Boot对此项目开启Redis相关依赖和配置来做数据存储。</p></li>
+<li><p>spring-boot-starter-jdbc</p>
+
+<p>  Spring Boot对此项目开启JDBC操作相关依赖和配置来做数据存储。</p>
+
+<p>  这里需要说明的是，Spring Boot提供的功能非常丰富，因此显得非常笨重复杂。其实依赖于模块插件化机制，我们可以只配置自己需要使用的功能，从而对应用进行瘦身，避免无用的配置影响应用启动速度。</p></li>
+</ol>
+
+
+<h2>四. 总结</h2>
+
+<p>Spring Boot给大家使用Spring做后端应用开发带来了非常大的便利，能够大大提高搭建应用雏形框架的速度，只需要关注实现业务逻辑即可。其“黑魔法”一样的插件化机制使得能够根据自己的需要引入所需的组件，提供了非常好的灵活性。如果非遗留Spring项目，直接使用Spring Boot是比较好的选择；遗留项目也可以通过配置达到无缝结合。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+</div>
+<div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2019/06/29/log/" title="下一篇: Java开发框架之日志">Java开发框架之日志 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<div style="margin-bottom: 10px">
+		<h4 style="margin: 0px !important">梳理Java体系知识，沓实架构基础</h4>
+		<a href="/blog/2018/04/01/pje-release/"><img src="/post_images/book.png" width="150"/></a>
+	</div>
+	<p>中华万年历/微鲤看看技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">Java研发!!!</a>，感兴趣者可发送简历到<a href="mailto:hang@weli.cn">hang@weli.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+		<h4 style="margin: 0px !important">关注公众号，及时获取最新文章</h4>
+		<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" id="imgQR"/>
+	</div>
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2019/07/27/springboot/">使用Spring Boot快速开发</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/06/29/log/">Java开发框架之日志</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/05/30/msa/">微服务杂谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/04/22/upforprogrammer/">这些知识决定了程序员的上限（PPT版）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/04/13/netflix/">技术 in Netflix</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/03/08/interview-basic/">技术面试的应该与不应该</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/02/25/cache/">缓存这些事</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/01/26/my2018/">我的2018</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/11/22/online-debug/">如何应对在线故障</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2019 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "使用Spring Boot快速开发",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getRecentCommentsList(opt);
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

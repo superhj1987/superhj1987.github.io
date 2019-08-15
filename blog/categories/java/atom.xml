@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-08-15T15:12:42+00:00</updated>
+  <updated>2019-08-15T15:16:45+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,10 +14,170 @@
 
   
   <entry>
+    <title type="html"><![CDATA[使用Spring Boot快速开发]]></title>
+    <link href="http://www.rowkey.me/blog/2019/07/27/springboot/"/>
+    <updated>2019-07-27T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/07/27/springboot</id>
+    <content type="html"><![CDATA[<p>本章开始提到Spring现在变得越来越复杂，越来越不好上手。这一点Spring Source自己也注意到了，因此推出了Spring Boot，旨在简化使用Spring的门槛，大大降低Spring的配置工作，并且能够很容易地将应用打包为可独立运行的程序（即不依赖于第三方容器，可以独立以jar或者war包的形式运行）。其带来的开发效率的提升使得Spring Boot被看做至少近5年来Spring乃至整个Java社区最有影响力的项目之一，也被人看作是Java EE开发的颠覆者。另一方面来说，Spring Boot也顺应了现在微服务（MicroServices）的理念，可以用来构建基于Spring框架的可独立部署应用程序。</p>
+
+<h2>一. 使用</h2>
+
+<p>一个简单的pom配置示例如下：</p>
+
+<pre><code>&lt;parent&gt;        
+   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        
+   &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;        
+   &lt;version&gt;1.4.7.RELEASE&lt;/version&gt;
+&lt;/parent&gt;
+
+...
+
+&lt;dependencies&gt;        
+   &lt;dependency&gt;                
+       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;                
+       &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;        
+   &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;build&gt;
+    &lt;plugins&gt;
+       &lt;plugin&gt;
+           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+           &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+           &lt;configuration&gt;
+               &lt;executable&gt;true&lt;/executable&gt;
+            &lt;/configuration&gt;
+       &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+
+<p>使用spring-boot-starter-parent作为当前项目的parent将Spring Boot应用相关的一系列依赖（dependency）、插件（plugins）等等配置共享；添加spring-boot-starter-web这个依赖，是为了构建一个独立运行的Web应用；spring-boot-maven-plugin用于将Spring Boot应用以可执行jar包的形式发布出去。</p>
+
+<p>接着可以添加相应的Controller实现：</p>
+
+<pre><code>@RestController  
+public class MyController {
+@RequestMapping("/")
+   public String hello() {
+    return "Hello World!";
+   }
+}
+</code></pre>
+
+<p>这里的RestController是一个复合注解，包括@Controller和@ResponseBody。</p>
+
+<p>最后，要让Spring Boot可以独立运行和部署，我们需要一个Main方法入口， 比如：</p>
+
+<pre><code class="">@SpringBootApplication
+public class BootDemo extends SpringBootServletInitializer{    
+   public static void main(String[] args) throws Exception {        
+       SpringApplication.run(BootDemo.class, args);    
+   }
+}
+</code></pre>
+
+<p>使用mvn package打包后（可以是jar，也可以是war），java -jar xx.war/jar即可运行一个Web项目，而之所以继承SpringBootServletInitializer是为了能够让打出来的war包也可以放入容器中直接运行，其加载原理在3.4.4节的零XML配置中讲过。</p>
+
+<p>这里需要注意上面spring-boot-maven-plugin这个插件将executable配置为了true，此种配置打出来的jar/war包其压缩格式并非传统的jar/war包，实际上是一个bash文件，可以作为shell脚本直接执行，解压的话需要使用unzip命令。</p>
+
+<p>从最根本上来讲，Spring Boot就是一些库和插件的集合，屏蔽掉了很多配置加载、打包等自动化工作，其底层还是基于Spring的各个组件。</p>
+
+<p>这里需要注意的是，Spring Boot推崇对项目进行零xml配置。但是就笔者看来，相比起注解配置是糅杂在代码中，每次更新都需要重新编译，XML这种和代码分离的方式耦合性和可维护性则显得更为合理一些，而且在配置复杂时也更清晰。因此，采用Java Config作为应用和组件扫描（component scan）入口，采用XML做其他的配置是一种比较好的方式。此外，当集成外部已有系统的时候， 通过XML集中明确化配置也是更为合理的一种方式。</p>
+
+<h2>二. 原理浅析</h2>
+
+<p><img src="//post_images/spring-boot-process.png" alt="" /></p>
+
+<p>Spring Boot的基础组件之一就是4.1讲过的一些注解配置，除此之外，它也提供了自己的注释。其总体的运行流程如上图所示。</p>
+
+<ol>
+<li><p>@EnableAutoConfiguration</p>
+
+<p> 这个Annotation就是Java Config的典型代表，标注了这个Annotation的Java类会以Java代码的形式（对应于XML定义的形式）提供一系列的Bean定义和实例，结合AnnotationConfigApplicationContext和自动扫描的功能，就可以构建一个基于Spring容器的Java应用了。</p>
+
+<p> @EnableAutoConfiguration的定义信息如下 ：</p>
+
+<pre><code class="`"> @Target(ElementType.TYPE)
+ @Retention(RetentionPolicy.RUNTIME)
+ @Documented
+ @Inherited
+ @AutoConfigurationPackage
+ @Import(EnableAutoConfigurationImportSelector.class)
+ public @interface EnableAutoConfiguration {
+</code></pre>
+
+<p> 标注了此注解的类会发生一系列初始化动作：</p>
+
+<ul>
+<li><p>SpringBoot扫描到@EnableAutoConfiguration注解时，就使用Spring框架的SpringFactoriesLoader去扫描classpath下所有META-INF/spring.factories文件的配置信息（META-INF/spring.providers声明了当前Starter依赖的Jar包）。其中包括一些callback接口（在前中后等不同时机执行）：</p>
+
+<ul>
+<li>org.springframework.boot.SpringApplicationRunListener</li>
+<li>org.springframework.context.ApplicationContextInitializer</li>
+<li>org.springframework.context.ApplicationListener</li>
+</ul>
+</li>
+<li><p>然后Spring Boot加载符合当前场景需要的配置类型并供当前或者下一步的流程使用，这里说的场景就是提取以 org.springframework.boot.autoconfigure.EnableAutoConfiguration作为key标志的一系列Java配置类，然后将这些Java配置类中的Bean定义加载到Spring容器中。</p></li>
+</ul>
+
+
+<p> 此外，我们可以使用Spring3系列引入的@Conditional，通过像@ConditionalOnClass、@ConditionalOnMissingBean等具体的类型和条件来进一步筛选通过SpringFactoriesLoader加载的类。</p></li>
+<li><p>Spring Boot启动</p>
+
+<p> 每一个Spring Boot应用都有一个入口类，在其中定义main方法，然后使用SpringApplication这个类来加载指定配置并运行SpringBoot Application。如上面写过的入口类：</p>
+
+<pre><code class="`   "> @SpringBootApplication
+ public class BootDemo extends SpringBootServletInitializer{    
+    public static void main(String[] args) throws Exception {        
+        SpringApplication.run(BootDemo.class, args);    
+    }
+ }
+</code></pre>
+
+<p> @SpringBootApplication注解是一个复合注解，包括了@Configuraiton、@EnableAutoConfiguration以及@ComponentScan。通过SpringApplication的run方法，Spring就使用BootDemo作为Java配置类来读取相关配置、加载和扫描相关的bean。</p>
+
+<p> 这样，基于@SpringBootApplication注解，Spring容器会自动完成指定语义的一系列工作，包括@EnableAutoConfiguration要求的东西，如：从SpringBoot提供的多个starter模块中加载Java Config配置（META-INF/spring.factories中声明的xxAutoConfiguration），然后将这些Java Config配置筛选上来的Bean定义加入Spring容器中，再refresh容器。一个Spring Boot应用即启动完成。</p></li>
+</ol>
+
+
+<h2>三. 模块组成</h2>
+
+<p>Spring Boot是由非常多的模块组成的，可以通过pom文件引入进来。EnableAutoConfiguration机制会进行插件化加载进行自动配置，这里模块化机制的原理主要是通过判断相应的类/文件是否存在来实现的。其中几个主要的模块如下:</p>
+
+<ol>
+<li><p>spring-boot-starter-web</p>
+
+<p> 此模块就是标记此项目是一个Web应用，Spring Boot会自动准备好相关的依赖和配置。</p>
+
+<p> 这里Spring Boot默认使用Tomcat作为嵌入式Web容器，可以通过声明spring-boot-starter-jetty的dependency来换成Jetty。</p></li>
+<li><p>spring-boot-starter-logging</p>
+
+<p> Spring Boot对此项目开启SLF4J和Logback日志支持。</p></li>
+<li><p>spring-boot-starter-redis</p>
+
+<p>  Spring Boot对此项目开启Redis相关依赖和配置来做数据存储。</p></li>
+<li><p>spring-boot-starter-jdbc</p>
+
+<p>  Spring Boot对此项目开启JDBC操作相关依赖和配置来做数据存储。</p>
+
+<p>  这里需要说明的是，Spring Boot提供的功能非常丰富，因此显得非常笨重复杂。其实依赖于模块插件化机制，我们可以只配置自己需要使用的功能，从而对应用进行瘦身，避免无用的配置影响应用启动速度。</p></li>
+</ol>
+
+
+<h2>四. 总结</h2>
+
+<p>Spring Boot给大家使用Spring做后端应用开发带来了非常大的便利，能够大大提高搭建应用雏形框架的速度，只需要关注实现业务逻辑即可。其“黑魔法”一样的插件化机制使得能够根据自己的需要引入所需的组件，提供了非常好的灵活性。如果非遗留Spring项目，直接使用Spring Boot是比较好的选择；遗留项目也可以通过配置达到无缝结合。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[Java开发框架之日志]]></title>
-    <link href="http://www.rowkey.me/blog/2019/06/26/log/"/>
-    <updated>2019-06-26T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/06/26/log</id>
+    <link href="http://www.rowkey.me/blog/2019/06/29/log/"/>
+    <updated>2019-06-29T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/06/29/log</id>
     <content type="html"><![CDATA[<p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
 
 <p>使用控制台输出其实也算日志的一种，在容器中会打印到容器的日志文件中。但是，控制台输出过于简单，缺乏日志中级别控制、异步、缓冲等特性，因此在开发中要杜绝使用控制台输出作为日志（System.out.println）。而Java中已经有很多成熟的日志框架供大家使用：</p>
@@ -2118,196 +2278,6 @@ uploadArchives {
 
 
 <p>其中，虚线部分是数据库层，采用的是主从模式。也可以使用Redis Cluster（Codis等）以及MySQL Cluster（Cobar等）来替换。</p>
-
-<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
-
-<p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何学习后端技术？]]></title>
-    <link href="http://www.rowkey.me/blog/2018/04/13/how-to-study-tech/"/>
-    <updated>2018-04-13T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/04/13/how-to-study-tech</id>
-    <content type="html"><![CDATA[<p>最新内容见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md</a></p>
-
-<p>学习后端技术和学习其他的技术并没有什么大的不同。因此，题目换做如何学习技术也是讲的通的。概括来讲，有以下几点建议：</p>
-
-<ul>
-<li>扎实的计算机基础知识</li>
-<li>知其然更要知其所以然</li>
-<li>动手实践、频繁练习</li>
-<li>持续学习</li>
-<li>计算机思维</li>
-<li>自我总结</li>
-<li>学会规划</li>
-</ul>
-
-
-<!--more-->
-
-
-<h2>扎实的计算机基础知识</h2>
-
-<ul>
-<li>数据结构和算法：程序是由数据和算法组成的，因此这两个东西是计算机软件的基础。诸如B树、哈希表、栈以及七大排序算法、查找算法这些，在很多软件的代码中都可以看得到。有时候，一个优秀的工程师和一个普通工程师的区别也就在于是否能够合理使用合适的数据结构和算法。</li>
-<li>计算机操作系统：操作系统可以说是集大成于一身的一个软件程序。资源调度、任务调度、IO调度、进程通信等等，每一个设计都是很精华的，也是很多其他应用软件设计的思想来源。</li>
-<li>计算机网络：目前只要有数据传输功能的程序绝大多数都是离不开网络的。网络七层或者四层协议栈的设计非常精妙。了解网络连接如何建立、断开以及每个连接状态的意义都有助于对程序网络问题的排查。</li>
-<li>计算机组成原理：这是计算机最底层的设计，也是计算机一切的基础。了解这些有助于消除你对计算机的神秘感，毕竟符合冯诺依曼原理的计算机无非就是存储数据、程序按序运行。</li>
-</ul>
-
-
-<p>以上是计算机专业的一些比较普遍的基础知识课程。这里不得不说的一点是，虽然现在各大高校的计算机专业课程是比较落后的，但是这些基础课程，由于多少年也没有怎么变过，因此不管怎样都是需要扎实掌握的。也许上学的时候你感觉不到有多大的用处。但是进入实际的开发工作中，是否能够掌握扎实的基础知识往往决定了一个开发工程师的上限，这也是很多大的互联网公司无论是校招还是社招，都侧重于一些底层知识考察的原因。毕竟，你会使用什么东西只能决定你的下限，而你的基础知识和学习能力才决定了你的上限。</p>
-
-<p>此外，其实很多平时开发中的一些技术都可以类比到一些基础知识的。比如，我们经常为了提高查询性能而使用的缓存技术，和为了兼容CPU和IO速度不匹配的而设计的CPU Cache就是同样的东西；操作系统中的进程间通信方式和服务之间的异步同步通信也是差不多的道理。诸如此类，其实计算机科学基础凝聚了很多精华的设计，无论是计算机硬件架构、计算机操作系统还是计算网络。</p>
-
-<h2>知其然更要知其所以然</h2>
-
-<p>经常遇到来面试的工程师，他们简历上写了很多项目，也用过很多技术，怎么看都是非常不错的候选人。但是面试一旦深入到原理或者是优化层面，很多工程师甚至是一些公司的资深架构师都会支支吾吾，答非所问或者说是没关注过。听到最多的解释就是业务压力太忙，没有时间去研究这个。其实，自我经历来看，业务忙是原因，但是没有时间却肯定是借口，毕竟阅读一个项目的源码虽然比较耗费时间，但是去网上看看已有的原理分析其实是花不了太多的时间的。归根结底，还是没有一种知其然更要知其所以然的基本意识。很多东西，你学会了使用会很兴奋，但是你有没有想过这么兴奋的功能是如何实现的呢？最简单的例子，Java中的HashMap，大家都在用，但是他到底是怎么实现的呢？很多人甚至都不知道这和数据结构课程上的哈希表是什么关系，更别说让他说出解决冲突的方式了。</p>
-
-<p>这也可以映射到现在的一种现象：很多开发工程师工作了很久，看着经验丰富，但基本都是拿着一年的工作经验重复n年的。基本上每一份工作，每一个项目都在那里做重复劳动，而且也并不去考虑如何避免重复劳动这件事。</p>
-
-<p>进一步的，除了遇到问题再去看源码、究底层，主动阅读经典类库、高质量开源项目的源码以及其他同事写的代码，学习其中好的架构、设计、编码风格以及类库的使用也是促进自身技术进步的一个非常有效的方式。</p>
-
-<p>这也牵扯到了技术的广度和深度的问题。就我自己来看，对于刚刚毕业或者刚刚入职的工程师来说，首要的是深度问题，只有你在某一领域有了深入的研究和造诣了，你才能融汇贯通，迅速地扩大自己的知识面，在广度上做到突破。而对于有一定工作经验的工程师来说，虽然深度不是那么必须了，但是遇到的问题、新学到的东西还是刨根问底才好，否则一旦出现问题再去盲羊补牢会让你显得非常被动，也不利于自己的技术发展。毕竟，一个什么都做过、什么都用过却什么也不精的人可替代性太强了。</p>
-
-<h2>动手实践</h2>
-
-<p>学习领域有所谓721模型：个人的成长70%来自于岗位实践，20%来自向他人学习，10%来自于培训。虽然这种理论存在争议，但在笔者看来对于程序员来说按照实践、学习和培训的方式进行重要性排序是合理的。普遍公认的一种学习技术的最佳实践-“项目驱动型学习”，也就是这里说的动手实践。很多技术，只是看书，你会云里雾里，看了就忘。必须要经过你自己的实践或者项目中使用到了这种技术，你才能很快地掌握并熟练。此外，现在朋友圈、微博上都充斥各种所谓干货，很多人阅读大量的资料自以为收货满满，其实对于里面的东西根本就没有去实践过。甚至有时候就是感叹一下别人真厉害而已。真正的干货是需要自己消化的，消化的一种最好的模式就是实践，无论是对资料中的例子还是一笔带过的知识。</p>
-
-<p>动手实践能够让你快速入门，但只有频繁练习才能让你熟练使用。“一万小时”理论讲的是任何一个行业都至少需要一万小时的实践才能成为专家。先不去争论此理论是否正确，可以想想当你长时间不写代码或者不用某个技术后你再去做相关的开发，那种生涩陌生感想必是每个人都有体会的。可见对于研发这个角色，频繁练习是有多么的重要。</p>
-
-<p>当然，这里的频繁练习并非指的重复劳动。应该是带着自己的思考去练习，多去想一下为什么这么做？有没有更好的方式？</p>
-
-<h2>持续学习</h2>
-
-<p>“活到老，学到老”这句话用在程序员这个职业上再合适不过。IT技术尤其是互联网开发中的技术，其迭代是非常迅速的。也许你今天学的，过不了几年就成了被抛弃的。虽然相比起前端技术，后端技术算是比较稳定的，但相比起其他行业，迭代速度还是非常快的，像Struts这种当年火的一塌糊涂的技术现在也成了过时的东西。因此，一定要对新事物、新技术具有敏感性，要不断地去涉猎业界最新的知识点，扩充自己的知识库。而学习新的知识的时候，与读一些书籍和网上的博文相比，直接阅读相关知识的官方文档是笔者推崇的方式，毕竟经过二次加工的书籍、博文很多时候由于写作者水平或者个人理解的问题会有错误或者偏离原作者的意思。而由于目前IT技术绝大多数都源自欧美，欧美的技术水平也领先国内很多，因此英文对于IT技术从业者的要求也是比较高的，需要达到熟知各种计算机术语，通畅地阅读各类英文资料的水平才不至于在学习方面落后。</p>
-
-<p>这里还需要提到一点就是要“逃离舒适区”。人对自己熟悉的东西都比较亲切，对自己熟练掌握的技术一般也能够自信地使用，然而当需要使用自己没接触过的技术时，很多人就望而却步、不敢尝试，进而也就丧失了学习新的知识、扩充自己知识库的机会。最好的方式应该是敢于“逃离舒适区”、敢于使用新的技术，这样才能让自己具有持续的学习兴趣，促进自己的持续进步。</p>
-
-<p>还需要注意的是，现在业界有很多技术会议，动辄就是全球、全世界这种名头。经常参加这些会议的人肯定是好学的，但是这种会议上都是些流于表面的东西，把精力放在这上面的人的知识也很容易流于表面。笔者比较推荐通过多阅读书籍来学习，喜欢读书的人也习惯于深度思考，深度思考才能更新形成自己的知识体系。尤其对处于技术上升期的程序员，少参加会议，少混圈子，多看书，多做一些能够提升自己技术能力的事情。除非经济压力大，尽量避免去做一些毫无技术含量的外包项目。</p>
-
-<p>此外，学习计算机知识可以多与现实世界类比，能够加强理解，快速掌握。如并发控制的信号量其实和红绿灯本质是一样的原理，银行多窗口服务其实就是负载均衡。</p>
-
-<h2>计算机思维</h2>
-
-<p>这一点主要说的是要学会用计算机思维来思索问题。所谓的计算机思维本质就是冯诺依曼体系所描述：程序存储，顺序执行。</p>
-
-<p>经常听到的程序员买苹果的段子就是按照for循环、if else等逻辑来判断苹果好坏、计数，并做防御性检查等，这就是计算机思维的体现。而之前一个很火的电影《天才枪手》中记忆选择题答案如果使用计算机思维，那么用两位bit可以表示四个答案，再将四位bit转换为一个十六进制数字，记忆答案就可以减少一般的存储量。</p>
-
-<p>如此，诸如二进制存储、防御编程、循环遍历、位运算、多进程/线程以及常用的数据结构和算法等都应该成为不自觉的意识。能够在遇到问题时，下意识地用这些东西来思考，将人类语言的需求转化为计算机语言。</p>
-
-<h2>自我总结</h2>
-
-<p>相信很多人在平常的工作中，经常会遇到一些问题，然后通过查阅网上资料、询问同事、翻看源码等手段解决了，当再次遇到类似的问题甚至是相同的问题时，还是一头雾水。先不提记忆力的问题，造成这种情形的很大一个原因就是没有去总结。当然，这里的总结不仅仅指的是把你平时遇到的问题记录下来，更深一层的是要找到问题发生的本质原因，如何避免发生同样的问题，从中有什么启发和收获。再进一步的则需要经常将自己一段时间内的知识收获组织成体系或者融入到自己的知识体系中，这样才能举一反三，遇到相同的问题可以有据可循。</p>
-
-<p>而自我总结的方式包括记笔记、写博客、做分享。其中，比起记笔记来说，写博客、做分享是笔者更为推荐的方式。毕竟，和别人交流一方面能促使你对总结质量的把控，另一方面分享知识给别人带来的“荣誉感”反过来会产生某种正向反馈让你更加乐于总结和分享。</p>
-
-<h2>学会规划</h2>
-
-<p>平时和不少工程师聊过关于职业规划的事情，其中有些人对自己的职业道路有很清晰的认识，但更多的则是没有任何概念，只是觉得能挣钱养家就好。很明显前者是属于有规划的人，对于这种人来说，其努力是有目标的，因此走的路也会更踏实，更具有可持续性。</p>
-
-<p>对于研发职位来说，学会规划是一个很关键的特质。而规划可以分为长期规划和短期规划。上面说的职业规划就是一种长期规划，需要高瞻远瞩的定下自己前进的方向。如在五年内成长为一个后端服务架构师就可以看做一个长期规划。笔者自己的长期规划如下：</p>
-
-<ul>
-<li>35岁之前只做能提高自己技术水平的事情，能够成为公认的某一个技术领域的专家。</li>
-<li>绝不为了钱加入自己并不认同的企业或者团队。</li>
-</ul>
-
-
-<p>而对于短期规划来说，则是一些具体技能、晋升、学习方面的规划。如，笔者近一年的学习计划包括：</p>
-
-<ul>
-<li>学习机器学习技术，能够成为“调参工程师”。</li>
-<li>加强自身的管理技能，能够带领部门有好的业绩。</li>
-<li>完成《增长黑客》、《分布式系统概念与设计》等十本书的阅读。</li>
-</ul>
-
-
-<p>需要注意的是，对于这些短期规划，要设定的比较合理，具有可达性，也要设定好优先级，根据优先级逐步去完成。此外，规划不要定死，可以根据实际情况灵活调整。</p>
-
-<h2>如何学习一门新技术</h2>
-
-<p>上面主要讲述了宏观层面的如何学习技术，而具体到学习某一个新技术，其实也是有法可循的。如下图所示：</p>
-
-<p><img src="//post_images/howtostudy/15127185777816.jpg" alt="" /></p>
-
-<p>由于很多技术的模块非常多，源码也非常复杂，很多时候在看源码的时候会陷进去越看越不得章法，因此这里着重说明一下“看源码”的一个典型流程：</p>
-
-<ol>
-<li>阅读该技术的架构文档，了解其总体架构和组成。</li>
-<li>根据总体架构，将源码文件以模块或者上下层级进行分类。</li>
-<li>从未阅读过的模块中选择最独立（依赖性最小）的模块代码读起。</li>
-<li>阅读此模块的功能介绍文档。</li>
-<li>阅读此模块的源代码。</li>
-<li>一边阅读一边整理调用关系（以表或者树的形式）。</li>
-<li>转到第三步。</li>
-</ol>
-
-
-<p>第六步中的调用关系表如下所示:</p>
-
-<table>
-<thead>
-<tr>
-<th>. </th>
-<th> init </th>
-<th> load </th>
-<th> set_xx </th>
-<th> method1 </th>
-<th> &hellip;</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>init </td>
-<td> x </td>
-<td>  </td>
-<td> 2 </td>
-<td> 1</td>
-<td></td>
-</tr>
-<tr>
-<td>load </td>
-<td> </td>
-<td> </td>
-<td> 1 </td>
-<td> 1 </td>
-<td></td>
-</tr>
-<tr>
-<td>set_xx </td>
-<td> </td>
-<td> </td>
-<td> </td>
-<td> 2</td>
-<td></td>
-</tr>
-<tr>
-<td>method1 </td>
-<td> </td>
-<td> </td>
-<td> </td>
-<td> </td>
-<td> &hellip;</td>
-</tr>
-</tbody>
-</table>
-
-
-<p>其中，数字表示调用次数。</p>
-
-<p>调用关系树也就是调用关系图，类似流程图：</p>
-
-<p><img src="//post_images/howtostudy/call_tree.png" alt="" /></p>
-
-<h2>总结</h2>
-
-<p>程序员是一个金字塔结构的职业体系，越往上，人越少也越难达到。如下图所示：
-<img src="//post_images/howtostudy/15022677629156.jpg" alt="" /></p>
-
-<p>一步步走到金字塔顶部需要不断的学习和进步，包括正确的态度、正确的方法以及持续的努力。本文所述只是笔者自己的体会，也是自己一直在践行的东西。除此之外，肯定还有很多其他优秀的方法和思想能够促进这个过程。</p>
 
 <blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
 
