@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Git CheatSheet Jan 10th, 2016 ps:本指南会持续更新 其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。 上图所示，使用git的流程一般如此， &hellip;">
+  <meta name="description" content="研发招聘之殇 Dec 31st, 2015 ps: 本文完成于2015年12月31号 对于一个公司来说，要想健康长久的发展，招聘是一个永久的话题。而对于一个互联网公司，尤其是以产品为主的公司来说，研发是招聘中的关键职位，高质量的研发人才也是所有企业都急缺的。一直持有一个观点： &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,54 +112,6 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/01/10/git-cheatsheet/">Git CheatSheet</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-01-10T02:15:30+00:00" pubdate data-updated="true">Jan 10<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p><strong><em>ps:本指南会持续更新</em></strong></p>
-
-<p>其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。</p>
-
-<p><img src="/images/blog_images/git-process.png" alt="git-process" /></p>
-
-<p>上图所示，使用git的流程一般如此，通常使用图中的六个命令即可。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/01/10/git-cheatsheet/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
     
     
       <article class="post">
@@ -861,6 +813,79 @@
 
       </article>
     
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/">关于SpringMVC中model的attribute无法指定别名的解决方案</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-21T04:00:00+00:00" pubdate data-updated="true">Jan 21<sup>st</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+
+<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
+
+<p><strong>Controller</strong>:</p>
+
+<pre>
+@Controller
+@RequestMapping("/api")
+public class ApiController extends BaseController {
+
+    @RequestMapping(value = "/test", headers = "Accept=application/json")
+    public void authUser(ModelMap modelMap, Account acc) {
+        ResultPack.packOk(modelMap);
+    }
+}
+
+public class Account{
+    private static final long serialVersionUID = 750752375611621980L;
+
+    private long id;
+    private String userName;
+    private String password;
+    private AccountType type = AccountType.ADMIN;
+    private long timeTag;
+    private int status = 1;
+    ...
+    ...
+}
+</pre>
+
+
+<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
+
+<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
+
+<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
+</div>
+  
+  
+
+
+      </article>
+    
       <div class="page-navigator">
         
         
@@ -950,10 +975,6 @@
       	</li>
     	
      	<li>
-      	  <a href="/blog/2019/04/22/upforprogrammer-detal/">这些知识决定了程序员的上限（详细版）</a>
-      	</li>
-    	
-     	<li>
       	  <a href="/blog/2019/04/22/upforprogrammer/">这些知识决定了程序员的上限（PPT版）</a>
       	</li>
     	
@@ -975,6 +996,10 @@
     	
      	<li>
       	  <a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2018/11/22/online-debug/">如何应对在线故障</a>
       	</li>
     	
 	</ul>
