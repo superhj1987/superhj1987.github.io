@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>[译]Java中的十个"单行代码编程"(One Liner) - 后端技术杂谈 | 飒然Hang</title>
+  <title>后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="[译]Java中的十个"单行代码编程"(One Liner) Sep 9th, 2017 Posted by 飒然Hang in dzone, java, translate 本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑， &hellip;">
+  <meta name="description" content="Java学习笔记 Jul 13th, 2010 代码点与代码单元 codePoint codeUnit
+这里当字符串中有辅助字符时，代码点是两个代码单元，需要以下遍历： int cp = sentence.codePointAt(i); if(Character. &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +23,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2017/09/09/java-oneliners/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/posts/10/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -109,13 +110,16 @@
   <div id="body">
     <div class="container">
     	<div class="col-group">
-			<div class="col-8" id="main">
-  <div class="res-cons">
-  <article class="post clearfix">
-  
+			  <div class="col-8" id="main">
+    <div class="res-cons">
+    
+    
+    
+      <article class="post">
+        
   <header>
     
-      <h1 class="post-title">[译]Java中的十个"单行代码编程"(One Liner)</h1>
+      <h2 class="post-title"><a href="/blog/2010/07/13/java-notes/">Java学习笔记</a></h2>
     
     
       <p class="post-meta">
@@ -131,203 +135,128 @@
   
 
 
-<time datetime="2017-09-09T11:29:34+00:00" pubdate data-updated="true">Sep 9<sup>th</sup>, 2017</time>
+<time datetime="2010-07-13T13:39:34+00:00" pubdate data-updated="true">Jul 13<sup>th</sup>, 2010</time>
         
-        
-  
-
-<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
- in 
-
-<span class="categories">
-  
-    <a class='category' href='/blog/categories/dzone/'>dzone</a>, <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/translate/'>translate</a>
-  
-</span>
-
-
         
       </p>
     
   </header>
 
 
-<div class="post-content"><p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
-
-<!--more-->
-
-
-<ol>
-<li><p>对列表/数组中的每个元素都乘以2</p>
-
-<pre><code class="`"> // Range是半开区间
- int[] ia = range(1, 10).map(i -&gt; i * 2).toArray();
- List&lt;Integer&gt; result = range(1, 10).map(i -&gt; i * 2).boxed().collect(toList());
-</code></pre></li>
-<li><p>计算集合/数组中的数字之和</p>
-
-<pre><code class="`"> range(1, 1000).sum();
- range(1, 1000).reduce(0, Integer::sum);
- Stream.iterate(0, i -&gt; i + 1).limit(1000).reduce(0, Integer::sum);
- IntStream.iterate(0, i -&gt; i + 1).limit(1000).reduce(0, Integer::sum);
-</code></pre></li>
-<li><p>验证字符串是否包含集合中的某一字符串</p>
-
-<pre><code class="`">final List&lt;String&gt; keywords = Arrays.asList("brown", "fox", "dog", "pangram");
-final String tweet = "The quick brown fox jumps over a lazy dog. #pangram http://www.rinkworks.com/words/pangrams.shtml";
-
-keywords.stream().anyMatch(tweet::contains);
-keywords.stream().reduce(false, (b, keyword) -&gt; b || tweet.contains(keyword), (l, r) -&gt; l || r);
-</code></pre></li>
-<li><p>读取文件内容</p>
-
-<blockquote><p>原作者认为try with resources也是一种单行代码编程。</p></blockquote>
-
-<pre><code class="`"> try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
-   String fileText = reader.lines().reduce("", String::concat);
+  <div class="post-content"><ol>
+<li><p>代码点与代码单元 codePoint codeUnit
+这里当字符串中有辅助字符时，代码点是两个代码单元，需要以下遍历：
+ <pre>
+ int cp = sentence.codePointAt(i);
+ if(Character.isSupplementaryCodePoint(cp)){
+      i += 2;
+ }else{
+      i++;
  }
+ </pre></p></li>
+<li><p>String类对象->不可变字符串
+不能修改字符串中的字符：编译器可以将字符串共享，以此带来高效率。</p></li>
+<li>当将一个字符串与一个非字符串的值进行拼接时，后者将被转换成字符串。</li>
+<li>任何一个对象都可以转换成字符串。</li>
+<li>检测两字符串是否相等，而不区分大小写，可用equalsIgnoreCase()方法</li>
+<li>Java中允许一个数组长度为0，不同于null。</li>
+<li>Java中的多维数组实际上是数组的数组。</li>
+<li>一个对象变量实际上是一个对象指针。</li>
+<li>用clone()方法获得对象的完整拷贝。</li>
+<li>不能编写返回引用可变对象的访问器方法。</li>
+<li>一个方法可以访问所属类的所有对象的私有数据。</li>
+<li>Sytem类中有一个setOut方法是一个本地方法，不是用Java语言实现的，可以绕过Java的存取控制机制(out是final的)。</li>
+<li>每个类都可以有一个main方法，可用来进行单元测试。</li>
+<li>一个方法不能修改一个基本数据；
+一个方法可以改变一个对象参数的状态；
+一个方法不能让对象参数引用一个新的对象。</li>
+<li>方法签名：方法名、参数类型。</li>
+<li><p>初始化块机制
+首先运行初始化快，然后才运行构造器的主体部分
+静态域初始化块：</p>
 
- try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
-   List&lt;String&gt; fileLines = reader.lines().collect(toCollection(LinkedList&lt;String&gt;::new));
- }
-
- try (Stream&lt;String&gt; lines = Files.lines(new File("data.txt").toPath(), Charset.defaultCharset())) {
-   List&lt;String&gt; fileLines = lines.collect(toCollection(LinkedList&lt;String&gt;::new));
- }
+<pre><code>static{
+}
 </code></pre></li>
-<li><p>输出歌曲《Happy Birthday to You!》 - 根据集合中不同的元素输出不同的字符串</p>
+<li><p>只能使用*导入一个包，如：</p>
 
-<pre><code class="`"> range(1, 5).boxed().map(i -&gt; { out.print("Happy Birthday "); if (i == 3) return "dear NAME"; else return "to You"; }).forEach(out::println);
+<pre><code>import java.util.*;
 </code></pre></li>
-<li><p>过滤并分组集合中的数字</p>
+<li><p>静态导入：静态方法、静态域</p>
 
-<pre><code class="`"> Map&lt;String, List&lt;Integer&gt;&gt; result = Stream.of(49, 58, 76, 82, 88, 90).collect(groupingBy(forPredicate(i -&gt; i &gt; 60, "passed", "failed")));
+<pre><code>import static java.lang.System.*;
 </code></pre></li>
-<li><p>获取并解析xml协议的Web Service</p>
+<li><p>如果没有指定public或private，那么这个部分（类、方法或者变量）可被同一个包中的所有方法访问</p></li>
+<li>包作用域：默认情况下是包可见的</li>
+<li>包密封:(package sealing) jar文件密封包</li>
+<li>/<em>*…</em>/-&gt;文档注释 javadoc
+标记+自由格式，其中标记由”@”开始</li>
+<li>类设计技巧：
 
-<pre><code class="`">FeedType feed = JAXB.unmarshal(new URL("http://search.twitter.com/search.atom?&amp;q=java8"), FeedType.class);
-JAXB.marshal(feed, System.out);
-</code></pre></li>
-<li><p>获得集合中最小/最大的数字</p>
+<ul>
+<li>一定要将数据设为私有；</li>
+<li>一定要对数据初始化；</li>
+<li>不要在类中使用过多的基本数据类型；</li>
+<li>不是所有的域都需要独立的域访问器和域更改器；</li>
+<li>使用标准格式进行类的定义；</li>
+<li>将职责过多的类进行分解；</li>
+<li>类名和方法名要能够体现它们的职责。</li>
+</ul>
+</li>
+<li>Java中的所有继承都是公有继承：超类和子类</li>
+<li>覆盖（Override）子类使用super调用超类的方法以及构造器</li>
+<li>一个对象变量可以引用多种实际类型的现象叫做多态（Polymorphism）
+运行能够自动地选择调用的适当方法的现象称为动态绑定</li>
+<li>虚拟机预先为各个类创建了一个方法表</li>
+<li>在覆盖一个方法时，子类方法不能低于超类方法的可见性</li>
+<li>阻止继承的两种方法：final类的方法自动成为final方法（不包括域），final方法</li>
+<li>内联的概念：如果一个方法没有被覆盖并且很短，编译器就能够对它进行优化处理。</li>
+<li>强制类型转换：
+只能在继承层次内进行类型转换；
+在将超类转换成子类的前应使用instanceof进行检查</li>
+<li>抽象类可以包含非抽象方法，也可以不包含抽象方法。抽象方法充当着占位的角色，具体实现在子类中。
+抽象类不能被实例化
+只有子类实现了所有抽象方法，子类才不是抽象的了</li>
+<li>子类不能访问超类的私有域</li>
+<li>hashcode: 由对象导出的一个整型值
+每个对象都有一个默认的散列码，其值为对象的存储地址</li>
+<li>两个相等的对象要求必须返回一个相等的散列码</li>
+<li>自动打包规范要求boolean byte char=0:x;</li>
+<li>同步器：
 
-<pre><code class="`"> int min = Stream.of(14, 35, -7, 46, 98).reduce(Integer::min).get();
- min = Stream.of(14, 35, -7, 46, 98).min(Integer::compare).get();
- min = Stream.of(14, 35, -7, 46, 98).mapToInt(Integer::new).min();
-
- int max = Stream.of(14, 35, -7, 46, 98).reduce(Integer::max).get();
- max = Stream.of(14, 35, -7, 46, 98).max(Integer::compare).get();
- max = Stream.of(14, 35, -7, 46, 98).mapToInt(Integer::new).max();
-</code></pre></li>
-<li><p>并行处理</p>
-
-<pre><code class="`"> long result = dataList.parallelStream().mapToInt(line -&gt; processItem(line)).sum();
-</code></pre></li>
-<li><p>集合上的各种查询(LINQ in Java)</p>
-
-<pre><code>List&lt;Album&gt; albums = Arrays.asList(unapologetic, tailgates, red);
-
-//筛选出至少有一个track评级4分以上的专辑，并按照名称排序后打印出来。
-albums.stream()
-  .filter(a -&gt; a.tracks.stream().anyMatch(t -&gt; (t.rating &gt;= 4)))
-  .sorted(comparing(album -&gt; album.name))
-  .forEach(album -&gt; System.out.println(album.name));
-
-//合并所有专辑的track
-List&lt;Track&gt; allTracks = albums.stream()
-  .flatMap(album -&gt; album.tracks.stream())
-  .collect(toList());
-
-//根据track的评分对所有track分组
-Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
-  .collect(groupingBy(Track::getRating));
-</code></pre></li>
+<ul>
+<li>CountDownLatch：利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能。</li>
+<li>CyclicBarrier：字面意思为回环栅栏，通过它可以实现让一组线程等待至某个状态之后再全部同时执行。叫做回环是因为当所有等待线程都被释放以后，CyclicBarrier可以被重用。我们暂且把这个状态就叫做barrier，当调用await()方法之后，线程就处于barrier。</li>
+<li>Semaphore：信号量，Semaphore可以控制同时访问的线程个数，通过acquire()获取一个许可，如果没有就等待。通过release()释放一个许可。</li>
+</ul>
+</li>
+<li>四个基本的抽象流类：InputStream OutputStream Reader Writer(这些对象由其他方法返回)</li>
+<li>注意流过滤器的运用</li>
+<li>对象序列化：ObjectOutputstream ObjectInputStream writeObject() readObject()
+类必须实现Serializable 接口</li>
+<li>Java使用SHA编码的前8字节作为类的指纹
+在序列化的过程中内存地址会被替换为序列号（唯一）</li>
+<li>流类关注的是文件内容，而File类关注的是文件在磁盘上的存储</li>
 </ol>
 
-
-<p>原文: <a href="https://github.com/aruld/java-oneliners/wiki">https://github.com/aruld/java-oneliners/wiki</a></p>
-
-<hr />
-
-<p><strong><em>补充 by 飒然Hang</em></strong>: 上述的<strong>单行代码编程</strong>确实能够减少代码的字符数，也经常能够给人以高大上的感觉，但是在Java编程中字符其实是非常廉价的，尤其是现在诸如Intellij等IDE已经具有自动补充/生成代码、重构等智能化功能。如果仅仅是为了减少字符的数量，那么没必要刻意去追求<strong>单行代码编程</strong>。让你的代码易于阅读才是最关键的。</p>
 </div>
-<div style="width:100%;text-align:center;display: none" id="wxFooter">
-  <img src="/images/blog_images/h.png"/>
-  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
-  <img src="/images/blog_images/mp-qrcode.jpg"/>
-  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
-  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
-</div>
-<script>
-var browser = {
-  versions: function () {
-      var u = navigator.userAgent, app = navigator.appVersion;
-      return {         //移动终端浏览器版本信息
-          trident: u.indexOf('Trident') > -1, //IE内核
-          presto: u.indexOf('Presto') > -1, //opera内核
-          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
-          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
-          iPad: u.indexOf('iPad') > -1, //是否iPad
-          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
-      };
-  }(),
-  language: (navigator.browserLanguage || navigator.language).toLowerCase()
-}
-if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
-  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
-  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
-  $("div#wxFooter").show();
-  // }
-  // if (ua.match(/WeiBo/i) == "weibo") {
-  //         //在新浪微博客户端打开
-  // }
-  // if (ua.match(/QQ/i) == "qq") {
-  //         //在QQ空间打开
-  // }
-  // if (browser.versions.ios) {
-  //         //是否在IOS浏览器打开
-  // } 
-  // if(browser.versions.android){
-  //         //是否在安卓浏览器打开
-  // }
-} 
-</script>
+  
+  
 
 
-  <footer class="post-footer">
+      </article>
     
-      <!-- <div class="sharing">
-  
-  
-  
-</div>
- -->
- <div class="share"  style='margin-bottom:15px'>
-
-</div>
-
-    
-    <div class="meta">
-      
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2017/09/17/java-exception/" title="上一篇: [译]Java中9个处理Exception的最佳实践">&laquo; [译]Java中9个处理Exception的最佳实践 </a>
-      
-      
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2017/09/02/java8-method-reference-work/" title="下一篇: [译]更好地使用Java8中的方法引用">[译]更好地使用Java8中的方法引用 &raquo;</a>
-      
-    </div>
-  </footer>
-</article>
-
-
-<h2>评论</h2>
-<div id="comment-thread"></div>
-
+      <div class="page-navigator">
+        
+        
+            <a href="/blog/posts/9" class="prev"><<上一页</a>
+        
+        
+        <div class="center"><a href="/blog/archives">所有文章</a></div>
+      </div>
+     </div>
   </div>
-</div>
-
+    
   <aside id="secondary">
   <div id="sidebar">
   
@@ -442,7 +371,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
   <ul id="gh_repos" class="widget-list">
-    <li class="loading">数据读取中...</li>
+    <li class="loading">数据读取中&#8230;</li>
   </ul>
   
   <script type="text/javascript">
@@ -476,9 +405,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 </section>
   
   </div>
-</aside>
-
-
+  </aside>
       	</div>
     </div>
   </div>
@@ -524,7 +451,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "[译]Java中的十个"单行代码编程"(One Liner)",
+   issue_title: "",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",

@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>[译]Java中的十个"单行代码编程"(One Liner) - 后端技术杂谈 | 飒然Hang</title>
+  <title>这些知识决定了程序员的上限（详细版） - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="[译]Java中的十个"单行代码编程"(One Liner) Sep 9th, 2017 Posted by 飒然Hang in dzone, java, translate 本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑， &hellip;">
+  <meta name="description" content="这些知识决定了程序员的上限（详细版） Apr 22nd, 2019 Posted by 飒然Hang in misc 讲述决定程序员上限的一些知识技能点，包括如何学习、如何阅读源码、计算机科学基础知识体系等。来自内部分享PPT，后续会发布详细版。 什么是程序员？ 码农、程序猿、程序媛 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2017/09/09/java-oneliners/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2019/04/22/upforprogrammer-detal/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -115,7 +115,7 @@
   
   <header>
     
-      <h1 class="post-title">[译]Java中的十个"单行代码编程"(One Liner)</h1>
+      <h1 class="post-title">这些知识决定了程序员的上限（详细版）</h1>
     
     
       <p class="post-meta">
@@ -131,7 +131,7 @@
   
 
 
-<time datetime="2017-09-09T11:29:34+00:00" pubdate data-updated="true">Sep 9<sup>th</sup>, 2017</time>
+<time datetime="2019-04-22T11:29:34+00:00" pubdate data-updated="true">Apr 22<sup>nd</sup>, 2019</time>
         
         
   
@@ -141,7 +141,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/dzone/'>dzone</a>, <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/translate/'>translate</a>
+    <a class='category' href='/blog/categories/misc/'>misc</a>
   
 </span>
 
@@ -152,103 +152,189 @@
   </header>
 
 
-<div class="post-content"><p>本文列举了十个使用一行代码即可独立完成(不依赖其他代码)的业务逻辑，主要依赖的是Java8中的Lambda和Stream等新特性以及try-with-resources、JAXB等。</p>
+<div class="post-content"><p>讲述决定程序员上限的一些知识技能点，包括如何学习、如何阅读源码、计算机科学基础知识体系等。来自内部分享PPT，后续会发布<strong>详细版</strong>。</p>
 
 <!--more-->
 
 
+<h2>什么是程序员？</h2>
+
+<ul>
+<li>码农、程序猿、程序媛</li>
+<li>使用<strong>程序</strong>实现价值</li>
+<li>程序=数据+算法</li>
+<li>软件=程序+软件工程</li>
+<li>程序员=工程师？</li>
+</ul>
+
+
+<h2>程序员金字塔</h2>
+
+<p><img src="/post_images/ufp/programmer-pyramid.png" width="500"/></p>
+
+<h2>程序员知识结构</h2>
+
+<p><img src="/post_images/ufp/knowledge.png" alt="" /></p>
+
+<ul>
+<li>面试造火箭，工作拧螺丝</li>
+<li>会什么是你的下限，能够会什么是你的上限</li>
+<li>越底层的东西越决定上限</li>
+</ul>
+
+
+<h2>学习欲望</h2>
+
+<blockquote><p>杜绝<strong>1</strong>年工作经验重复<strong>N</strong>年</p></blockquote>
+
+<ul>
+<li>如果自己遇到这种问题会怎么解决，与资料中的解决方案相比优劣如何？</li>
+<li>别人为什么会想到这种解决方案？</li>
+<li>自己是由于经验欠缺还是技能点欠缺才导致没有想到好的解决方案？</li>
+<li>解决这类问题的根本思路是什么样的？</li>
+</ul>
+
+
+<h2>学习能力</h2>
+
+<blockquote><p>不是懂得多，而是学得快</p></blockquote>
+
+<ul>
+<li><strong>知其然更要知其所以然</strong>：技术以深度优先</li>
+<li><strong>类比现实</strong>：对现实世界的模拟</li>
+<li><strong>更好地接受信息</strong>：建立自己的知识体系；阅读并记笔记，纳入知识体系</li>
+<li><strong>深度思考</strong>：阅读书籍</li>
+<li><strong>动手实践、频繁练习</strong>：项目驱动型学习；主动思考</li>
+<li><strong>自我总结</strong>：完善知识体系；笔记、博客、分享</li>
+<li><strong>持续学习</strong>：逃离舒适区；学到老，活到老</li>
+</ul>
+
+
+<h2>如何学习新技术</h2>
+
+<p><img src="/post_images/ufp/study-new-tech.png" width="500"/></p>
+
+<h2>如何阅读源码</h2>
+
 <ol>
-<li><p>对列表/数组中的每个元素都乘以2</p>
-
-<pre><code class="`"> // Range是半开区间
- int[] ia = range(1, 10).map(i -&gt; i * 2).toArray();
- List&lt;Integer&gt; result = range(1, 10).map(i -&gt; i * 2).boxed().collect(toList());
-</code></pre></li>
-<li><p>计算集合/数组中的数字之和</p>
-
-<pre><code class="`"> range(1, 1000).sum();
- range(1, 1000).reduce(0, Integer::sum);
- Stream.iterate(0, i -&gt; i + 1).limit(1000).reduce(0, Integer::sum);
- IntStream.iterate(0, i -&gt; i + 1).limit(1000).reduce(0, Integer::sum);
-</code></pre></li>
-<li><p>验证字符串是否包含集合中的某一字符串</p>
-
-<pre><code class="`">final List&lt;String&gt; keywords = Arrays.asList("brown", "fox", "dog", "pangram");
-final String tweet = "The quick brown fox jumps over a lazy dog. #pangram http://www.rinkworks.com/words/pangrams.shtml";
-
-keywords.stream().anyMatch(tweet::contains);
-keywords.stream().reduce(false, (b, keyword) -&gt; b || tweet.contains(keyword), (l, r) -&gt; l || r);
-</code></pre></li>
-<li><p>读取文件内容</p>
-
-<blockquote><p>原作者认为try with resources也是一种单行代码编程。</p></blockquote>
-
-<pre><code class="`"> try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
-   String fileText = reader.lines().reduce("", String::concat);
- }
-
- try (BufferedReader reader = new BufferedReader(new FileReader("data.txt"))) {
-   List&lt;String&gt; fileLines = reader.lines().collect(toCollection(LinkedList&lt;String&gt;::new));
- }
-
- try (Stream&lt;String&gt; lines = Files.lines(new File("data.txt").toPath(), Charset.defaultCharset())) {
-   List&lt;String&gt; fileLines = lines.collect(toCollection(LinkedList&lt;String&gt;::new));
- }
-</code></pre></li>
-<li><p>输出歌曲《Happy Birthday to You!》 - 根据集合中不同的元素输出不同的字符串</p>
-
-<pre><code class="`"> range(1, 5).boxed().map(i -&gt; { out.print("Happy Birthday "); if (i == 3) return "dear NAME"; else return "to You"; }).forEach(out::println);
-</code></pre></li>
-<li><p>过滤并分组集合中的数字</p>
-
-<pre><code class="`"> Map&lt;String, List&lt;Integer&gt;&gt; result = Stream.of(49, 58, 76, 82, 88, 90).collect(groupingBy(forPredicate(i -&gt; i &gt; 60, "passed", "failed")));
-</code></pre></li>
-<li><p>获取并解析xml协议的Web Service</p>
-
-<pre><code class="`">FeedType feed = JAXB.unmarshal(new URL("http://search.twitter.com/search.atom?&amp;q=java8"), FeedType.class);
-JAXB.marshal(feed, System.out);
-</code></pre></li>
-<li><p>获得集合中最小/最大的数字</p>
-
-<pre><code class="`"> int min = Stream.of(14, 35, -7, 46, 98).reduce(Integer::min).get();
- min = Stream.of(14, 35, -7, 46, 98).min(Integer::compare).get();
- min = Stream.of(14, 35, -7, 46, 98).mapToInt(Integer::new).min();
-
- int max = Stream.of(14, 35, -7, 46, 98).reduce(Integer::max).get();
- max = Stream.of(14, 35, -7, 46, 98).max(Integer::compare).get();
- max = Stream.of(14, 35, -7, 46, 98).mapToInt(Integer::new).max();
-</code></pre></li>
-<li><p>并行处理</p>
-
-<pre><code class="`"> long result = dataList.parallelStream().mapToInt(line -&gt; processItem(line)).sum();
-</code></pre></li>
-<li><p>集合上的各种查询(LINQ in Java)</p>
-
-<pre><code>List&lt;Album&gt; albums = Arrays.asList(unapologetic, tailgates, red);
-
-//筛选出至少有一个track评级4分以上的专辑，并按照名称排序后打印出来。
-albums.stream()
-  .filter(a -&gt; a.tracks.stream().anyMatch(t -&gt; (t.rating &gt;= 4)))
-  .sorted(comparing(album -&gt; album.name))
-  .forEach(album -&gt; System.out.println(album.name));
-
-//合并所有专辑的track
-List&lt;Track&gt; allTracks = albums.stream()
-  .flatMap(album -&gt; album.tracks.stream())
-  .collect(toList());
-
-//根据track的评分对所有track分组
-Map&lt;Integer, List&lt;Track&gt;&gt; tracksByRating = allTracks.stream()
-  .collect(groupingBy(Track::getRating));
-</code></pre></li>
+<li>阅读该技术的架构文档，了解其总体架构和组成</li>
+<li>根据总体架构，将源码文件以模块或者上下层级进行分类。</li>
+<li>从未阅读过的模块中选择最独立（依赖性最小）的模块代码读起。</li>
+<li>阅读此模块的功能介绍文档。</li>
+<li>阅读此模块的源代码：<strong>运行程序，断点调试</strong>。</li>
+<li>一边阅读一边整理调用关系图。</li>
+<li>转到第三步。</li>
 </ol>
 
 
-<p>原文: <a href="https://github.com/aruld/java-oneliners/wiki">https://github.com/aruld/java-oneliners/wiki</a></p>
+<blockquote><p>参考<strong>官方文档或者经典书籍</strong></p></blockquote>
 
-<hr />
+<h2>计算机思维</h2>
 
-<p><strong><em>补充 by 飒然Hang</em></strong>: 上述的<strong>单行代码编程</strong>确实能够减少代码的字符数，也经常能够给人以高大上的感觉，但是在Java编程中字符其实是非常廉价的，尤其是现在诸如Intellij等IDE已经具有自动补充/生成代码、重构等智能化功能。如果仅仅是为了减少字符的数量，那么没必要刻意去追求<strong>单行代码编程</strong>。让你的代码易于阅读才是最关键的。</p>
+<ul>
+<li><strong>冯.诺依曼体系</strong>：程序存储，顺序执行。</li>
+<li><strong>二进制存储</strong>：用比特解决问题</li>
+<li><strong>位运算</strong>：位运算的高效</li>
+<li><strong>逻辑分支</strong>：条件判断、循环、迭代、递归</li>
+</ul>
+
+
+<h2>个人规划</h2>
+
+<ul>
+<li><strong>长期规划</strong>：职业规划；高瞻远瞩</li>
+<li><strong>短期规划</strong>：具体技能、晋升、学习方面的规划；优先级排序</li>
+</ul>
+
+
+<h2>基础学科</h2>
+
+<ul>
+<li><strong>物理</strong>：电路原理；量子计算机</li>
+<li><strong>数学</strong>：工程优化；线性代数；微积分</li>
+<li><strong>英语！！</strong>：阅读英文文献；计算机术语</li>
+</ul>
+
+
+<h2>计算机组成原理</h2>
+
+<blockquote><p>计算机的硬件组成和运行原理</p></blockquote>
+
+<ul>
+<li><strong>冯诺依曼体系</strong>、<strong>摩尔定律</strong>、<strong>阿曼达定律</strong></li>
+<li><strong>数据的机器表示</strong>：原码、补码、反码、浮点数/定点数</li>
+<li><strong>指令系统</strong>：复杂指令集、简单指令集</li>
+<li><strong>存储器</strong>：分类、缓存</li>
+<li><strong>CPU</strong>: 流水线、伪共享、缓存</li>
+<li><strong>IO设备</strong>：IO总线、DMA、中断</li>
+</ul>
+
+
+<h2>计算机操作系统</h2>
+
+<blockquote><p>屏蔽计算机硬件的中间层</p></blockquote>
+
+<ul>
+<li><strong>作业调度</strong>: 调度策略、优先级</li>
+<li><strong>进程管理</strong>：进程和线程、进程间通信</li>
+<li><strong>存储管理</strong>：内存、虚拟内存、文件系统、页、页缓存</li>
+<li><strong>IO管理</strong>：IO设备读写操作</li>
+<li>Linux操作系统</li>
+</ul>
+
+
+<h2>计算机网络</h2>
+
+<blockquote><p>单个计算机之间的互连</p></blockquote>
+
+<ul>
+<li><strong>TCP/IP协议栈</strong>：四层/七层</li>
+<li>TCP连接状态</li>
+<li>TCP与UDP的区别</li>
+<li>HTTP协议、RESTful规范</li>
+<li>网络安全</li>
+<li><strong>下一代互联网</strong>：IPv6、物联网、5G</li>
+</ul>
+
+
+<h2>编译原理</h2>
+
+<blockquote><p>将代码转换成机器可理解的二进制，有助于实现DSL</p></blockquote>
+
+<ul>
+<li>词法分析、语法分析</li>
+<li>类型检查</li>
+<li>运行时环境、中间代码</li>
+<li>代码生成、代码优化</li>
+</ul>
+
+
+<h2>数据结构和算法</h2>
+
+<blockquote><p>程序=数据+算法</p></blockquote>
+
+<ul>
+<li><strong>基本数据结构</strong>：数组、链表、栈、队列、哈希表</li>
+<li><strong>最大堆、最小堆</strong>：TopN问题</li>
+<li><strong>树</strong>：平衡二叉树、B树、B+树、红黑树</li>
+<li><strong>跳跃表</strong>: 简单可实现</li>
+<li><strong>经典排序算法</strong>：快速排序、归并排序、插入排序、冒泡排序</li>
+<li><strong>经典查找算法</strong>：顺序查找、二分查找</li>
+<li><strong>高级算法</strong>：贪心、分治、回溯、动态规划</li>
+<li><strong>大数据处理</strong>：Bitmap、Bloomfilter、Hyperloglog、MapReduce、MPP</li>
+</ul>
+
+
+<h2>设计模式</h2>
+
+<blockquote><p>软件可复用、可扩展、可维护。善用而不滥用。</p></blockquote>
+
+<ul>
+<li><strong>面向对象SOLID设计原则</strong>：单一职责、开闭原则、里氏代换、接口隔离、依赖倒转</li>
+<li><strong>常用设计模式</strong>：单例模式、工厂模式、代理模式、适配器模式、观察者模式</li>
+<li><strong>常用框架中的设计模式</strong>：Spring</li>
+</ul>
+
 </div>
 <div style="width:100%;text-align:center;display: none" id="wxFooter">
   <img src="/images/blog_images/h.png"/>
@@ -312,10 +398,10 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2017/09/17/java-exception/" title="上一篇: [译]Java中9个处理Exception的最佳实践">&laquo; [译]Java中9个处理Exception的最佳实践 </a>
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2019/05/30/msa/" title="上一篇: 微服务杂谈">&laquo; 微服务杂谈 </a>
       
       
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2017/09/02/java8-method-reference-work/" title="下一篇: [译]更好地使用Java8中的方法引用">[译]更好地使用Java8中的方法引用 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2019/04/22/upforprogrammer/" title="下一篇: 这些知识决定了程序员的上限（PPT版）">这些知识决定了程序员的上限（PPT版） &raquo;</a>
       
     </div>
   </footer>
@@ -524,7 +610,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "[译]Java中的十个"单行代码编程"(One Liner)",
+   issue_title: "这些知识决定了程序员的上限（详细版）",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
