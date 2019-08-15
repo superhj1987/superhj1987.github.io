@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-07-29T15:25:56+00:00</updated>
+  <updated>2019-08-15T15:12:42+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,892 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java开发框架之日志]]></title>
+    <link href="http://www.rowkey.me/blog/2019/06/26/log/"/>
+    <updated>2019-06-26T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/06/26/log</id>
+    <content type="html"><![CDATA[<p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
+
+<p>使用控制台输出其实也算日志的一种，在容器中会打印到容器的日志文件中。但是，控制台输出过于简单，缺乏日志中级别控制、异步、缓冲等特性，因此在开发中要杜绝使用控制台输出作为日志（System.out.println）。而Java中已经有很多成熟的日志框架供大家使用：</p>
+
+<ul>
+<li>JDK Logging</li>
+<li>Apache Log4j</li>
+<li>Apache Log4j2</li>
+<li>Logback</li>
+</ul>
+
+
+<p>此外，还有两个用于实现日志统一的框架：Apache Commons-Logging、SLF4j。与上述框架的不同之处在于，其只是一个门面，并没有日志框架的具体实现,可以认为是日志接口框架。</p>
+
+<p>对于这些日志框架来说，一般会解决日志中的以下问题：</p>
+
+<ul>
+<li>日志的级别: 定义日志级别来区分不同级别日志的输出路径、形式等，帮助我们适应从开发调试到部署上线等不同阶段对日志输出粒度的不同需求。</li>
+<li>日志的输出目的地：包括控制台、文件、GUI组件，甚至是套接口服务器、UNIX Syslog守护进程等。</li>
+<li>日志的输出格式：日志的输出格式（JSON、XML）。</li>
+<li>日志的输出优化：缓存、异步等。</li>
+</ul>
+
+
+<p>这里需要说的是，目前有几个框架提供了占位符的日志输出方式，然而其最终是用indexOf去循环查找再对信息进行拼接的，会消耗CPU。建议使用正确估算大小的StringBuilder拼装输出信息，除非是实在无法确定日志是否输出才用占位符。</p>
+
+<h2>一. JDK Logging</h2>
+
+<p>JDK Logging就是JDK自带的日志操作类，在java.util.logging包下面，通常被简称为JUL。</p>
+
+<h3>配置</h3>
+
+<p>JDK Logging配置文件默认位于$JAVA_HOME/jre/lib/logging.properties中，可以使用系统属性java.util.logging.config.file指定相应的配置文件对默认的配置文件进行覆盖。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>handlers= java.util.logging.FileHandler,java.util.logging.ConsoleHandler
+</span><span class='line'>.handlers = java.util.logging.FileHandler,java.util.logging.ConsoleHandler #rootLogger使用的Handler
+</span><span class='line'>.level= INFO #rootLogger的日志级别
+</span><span class='line'>
+</span><span class='line'>##以下是FileHandler的配置
+</span><span class='line'>java.util.logging.FileHandler.pattern = %h/java%u.log
+</span><span class='line'>java.util.logging.FileHandler.limit = 50000
+</span><span class='line'>java.util.logging.FileHandler.count = 1
+</span><span class='line'>java.util.logging.FileHandler.formatter =java.util.logging.XMLFormatter #配置相应的日志Formatter。
+</span><span class='line'>
+</span><span class='line'>##以下是ConsoleHandler的配置
+</span><span class='line'>java.util.logging.ConsoleHandler.level = INFO
+</span><span class='line'>java.util.logging.ConsoleHandler.formatter =java.util.logging.SimpleFormatter #配置相应的日志Formatter。
+</span><span class='line'>
+</span><span class='line'>#针对具体的某个logger的日志级别配置
+</span><span class='line'>me.rowkey.pje.log.level = SEVERE
+</span><span class='line'>
+</span><span class='line'>#设置此logger不会继承成上一级logger的配置
+</span><span class='line'>me.rokey.pje.log.logger.useParentHandlers = false </span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里需要说明的是logger默认是继承的，如me.rowkey.pje.log的logger会继承me.rowkey.pje的logger配置，可以对logger配置handler和useParentHandlers（默认是为true）属性, 其中useParentHandler表示是否继承父logger的配置。</p>
+
+<p>JDK Logging的日志级别比较多，从高到低为：OFF(2<sup>31</sup>-1)—>SEVERE(1000)—>WARNING(900)—>INFO(800)—>CONFIG(700)—>FINE(500)—>FINER(400)—>FINEST(300)—>ALL(-2<sup>31</sup>)。</p>
+
+<h3>使用</h3>
+
+<p>JDK Logging的使用非常简单：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public class LoggerTest{
+</span><span class='line'>
+</span><span class='line'>    private static final Logger LOGGER = Logger.getLogger(xx.class.getName());
+</span><span class='line'>    
+</span><span class='line'>    public static void main(String[] args){
+</span><span class='line'>        LOGGER.info("logger info");
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>性能优化</h3>
+
+<p>JDK Logging是一个比较简单的日志框架，并没有提供异步、缓冲等优化手段。也不建议大家使用此框架。</p>
+
+<h2>二. Log4j</h2>
+
+<p>Log4j应该是目前Java开发中用的最为广泛的日志框架。</p>
+
+<h3>配置</h3>
+
+<p>Log4j支持XML、Proerties配置，通常还是使用Properties：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>root_log_dir=${catalina.base}/logs/app/
+</span><span class='line'>
+</span><span class='line'># 设置rootLogger的日志级别以及appender
+</span><span class='line'>log4j.rootLogger=INFO,default
+</span><span class='line'>
+</span><span class='line'># 设置Spring Web的日志级别
+</span><span class='line'>log4j.logger.org.springframework.web = ERROR
+</span><span class='line'>
+</span><span class='line'># 设置default appender为控制台输出
+</span><span class='line'>log4j.appender.default=org.apache.log4j.ConsoleAppender
+</span><span class='line'>log4j.appender.default.layout=org.apache.log4j.PatternLayout
+</span><span class='line'>log4j.appender.default.layout.ConversionPattern=[%-d{HH\:mm\:ss} %-3r %-5p %l] &gt;&gt; %m (%t)%n
+</span><span class='line'>
+</span><span class='line'># 设置新的logger，在程序中使用Logger.get("myLogger")即可使用
+</span><span class='line'>log4j.logger.myLogger=INFO,A2
+</span><span class='line'>
+</span><span class='line'># 设置另一个appender为按照日期轮转的文件输出
+</span><span class='line'>log4j.appender.A2=org.apache.log4j.DailyRollingFileAppender
+</span><span class='line'>log4j.appender.A2.File=${root_log_dir}log.txt
+</span><span class='line'>log4j.appender.A2.Append=true
+</span><span class='line'>log4j.appender.A2.DatePattern= yyyyMMdd'.txt'
+</span><span class='line'>log4j.appender.A2.layout=org.apache.log4j.PatternLayout
+</span><span class='line'>log4j.appender.A2.layout.ConversionPattern=[%-d{HH\:mm\:ss} %-3r %-5p %l] &gt;&gt; %m (%t)%n
+</span><span class='line'>
+</span><span class='line'>log4j.logger.myLogger1 = INFO,A3
+</span><span class='line'>
+</span><span class='line'># 设置另一个appender为RollingFileAppender，能够限制日志文件个数
+</span><span class='line'>log4j.appender.A3 = org.apache.log4j.RollingFileAppender
+</span><span class='line'>log4j.appender.A3.Append = true
+</span><span class='line'>log4j.appender.A3.BufferedIO = false
+</span><span class='line'>log4j.appender.dA3.File = /home/popo/tomcat-yixin-pa/logs/pa.log
+</span><span class='line'>log4j.appender.A3.Encoding = UTF-8
+</span><span class='line'>log4j.appender.A3.layout = org.apache.log4j.PatternLayout
+</span><span class='line'>log4j.appender.A3.layout.ConversionPattern = [%-5p]%d{ISO8601}, [Class]%-c{1}, %m%n
+</span><span class='line'>log4j.appender.A3.MaxBackupIndex = 3 #最大文件个数
+</span><span class='line'>log4j.appender.A3.MaxFileSize = 1024MB</span></code></pre></td></tr></table></div></figure>
+
+
+<p>如果Log4j文件不直接在classpath下的话，可以使用PropertyConfigurator来进行配置：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>PropertyConfigurator.configure("...");
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Log4j的日志级别相对于JDK Logging来说，简化了一些：DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL。</p>
+
+<p>这里的logger默认是会继承父Logger的配置（rootLogger是所有logger的父logger），如上面myLogger的输出会同时在控制台和文件中出现。如果不想这样，那么只需要如下设置:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>log4j.additivity.myLogger=false</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>使用</h3>
+
+<p>程序中对于Log4j的使用也非常简单：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import org.apache.log4j.Logger;
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>private static final Logger LOGGER = Logger.getLogger(xx.class.getName());
+</span><span class='line'>...
+</span><span class='line'>LOGGER.info("logger info");
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里需要注意的是，虽然Log4j可以根据配置文件中日志级别的不同做不同的输出，但由于字符串创建或者拼接也是耗资源的，因此，下面的用法是不合理的。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>LOGGER.debug("...");</span></code></pre></td></tr></table></div></figure>
+
+
+<p>合理的做法应该是首先判断当前的日志级别是什么，再去做相应的输出，如：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>if(LOGGER.isDebugEnabled()){
+</span><span class='line'>    LOGGER.debug("...");
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当然，如果是必须输出的日志可以不做此判断，比如catch异常打印错误日志的地方。</p>
+
+<h3>性能优化</h3>
+
+<p>Log4j为了应对某一时间里大量的日志信息进入Appender的问题提供了缓冲来进一步优化性能：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>log4j.appender.A3.BufferedIO=true   
+</span><span class='line'>#Buffer单位为字节，默认是8K，IO BLOCK大小默认也是8K 
+</span><span class='line'>log4j.appender.A3.BufferSize=8192 </span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上表示当日志内容达到8k时，才会将日志输出到日志输出目的地。</p>
+
+<p>除了缓冲以外，Log4j还提供了AsyncAppender来做异步日志。但是AsyncAppender只能够通过xml配置使用：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;appender name="A2"
+</span><span class='line'>   class="org.apache.log4j.DailyRollingFileAppender"&gt;
+</span><span class='line'>   &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+</span><span class='line'>       &lt;param name="ConversionPattern" value="%m%n" /&gt;
+</span><span class='line'>   &lt;/layout&gt;
+</span><span class='line'>   &lt;param name="DatePattern" value="'.'yyyy-MM-dd-HH" /&gt;        
+</span><span class='line'>   &lt;param name="File" value="app.log" /&gt;
+</span><span class='line'>   &lt;param name="BufferedIO" value="true" /&gt;
+</span><span class='line'>   &lt;!-- 8K为一个写单元 --&gt;
+</span><span class='line'>   &lt;param name="BufferSize" value="8192" /&gt;
+</span><span class='line'>&lt;/appender&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;appender name="async" class="org.apache.log4j.AsyncAppender"&gt;
+</span><span class='line'>   &lt;appender-ref ref="A2"/&gt;
+</span><span class='line'>&lt;/appender&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>三. Log4j2</h2>
+
+<p>2015年8月，官方正式宣布Log4j 1.x系列生命终结，推荐大家升级到Log4j2，并号称在修正了Logback固有的架构问题的同时，改进了许多Logback所具有的功能。Log4j2与Log4j1发生了很大的变化，并不兼容。并且Log4j2不仅仅提供了日志的实现，也提供了门面，目的是统一日志框架。其主要包含两部分：</p>
+
+<ul>
+<li>log4j-api： 作为日志接口层，用于统一底层日志系统</li>
+<li>log4j-core : 作为上述日志接口的实现，是一个实际的日志框架</li>
+</ul>
+
+
+<h3>配置</h3>
+
+<p>Log4j2的配置方式只支持XML、JSON以及YAML，不再支持Properties文件,其配置文件的加载顺序如下：</p>
+
+<ul>
+<li>log4j2-test.json/log4j2-test.jsn</li>
+<li>log4j2-test.xml</li>
+<li>log4j2.json/log4j2.jsn文件</li>
+<li>log4j2.xml</li>
+</ul>
+
+
+<p>如果想要自定义配置文件位置，需要设置系统属性log4j.configurationFile。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>System.setProperty("log4j.configurationFile", "...");
+</span><span class='line'>或者
+</span><span class='line'>-Dlog4j.configurationFile="xx"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>配置文件示例：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!--log4j2.xml--&gt;
+</span><span class='line'>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+</span><span class='line'>&lt;Configuration status="WARN" monitorInterval="30"&gt;
+</span><span class='line'>&lt;Appenders&gt;
+</span><span class='line'>  &lt;Console name="Console" target="SYSTEM_OUT"&gt;
+</span><span class='line'>    &lt;PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/&gt;
+</span><span class='line'>  &lt;/Console&gt;
+</span><span class='line'>  &lt;File name="File" fileName="app.log" bufferedIO="true" immediateFlush="true"&gt;
+</span><span class='line'>    &lt;PatternLayout&gt;
+</span><span class='line'>      &lt;pattern&gt;%d %p %C{1.} [%t] %m%n&lt;/pattern&gt;
+</span><span class='line'>    &lt;/PatternLayout&gt;
+</span><span class='line'>  &lt;/File&gt;
+</span><span class='line'>  &lt;RollingFile name="RollingFile" fileName="logs/app.log"
+</span><span class='line'>                     filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz"&gt;
+</span><span class='line'>      &lt;PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/&gt;
+</span><span class='line'>      &lt;SizeBasedTriggeringPolicy size="50MB"/&gt;
+</span><span class='line'>      &lt;!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 --&gt;
+</span><span class='line'>      &lt;DefaultRolloverStrategy max="20"/&gt;
+</span><span class='line'>  &lt;/RollingFile&gt;
+</span><span class='line'>&lt;/Appenders&gt;
+</span><span class='line'>&lt;Loggers&gt;
+</span><span class='line'>  &lt;logger name="myLogger" level="error" additivity="false"&gt;
+</span><span class='line'>    &lt;AppenderRef ref="File" /&gt;
+</span><span class='line'>  &lt;/logger&gt;
+</span><span class='line'>  &lt;Root level="debug"&gt;
+</span><span class='line'>    &lt;AppenderRef ref="Console"/&gt;
+</span><span class='line'>  &lt;/Root&gt;
+</span><span class='line'>&lt;/Loggers&gt;
+</span><span class='line'>&lt;/Configuration&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的monitorInterval使得配置变动能够被实时监测并更新，且能够在配置发生改变时不会丢失任何日志事件;additivity和Log4j一样也是为了让Looger不继承父Logger的配置；Configuration中的status用于设置Log4j2自身内部的信息输出，当设置成trace时，你会看到Log4j2内部各种详细输出。</p>
+
+<p>Log4j2在日志级别方面也有了一些改动：TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL, 并且能够很简单的自定义自己的日志级别。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;CustomLevels&gt;
+</span><span class='line'>    &lt;CustomLevel name="NOTICE" intLevel="450" /&gt;
+</span><span class='line'>    &lt;CustomLevel name="VERBOSE" intLevel="550" /&gt;
+</span><span class='line'>&lt;/CustomLevels&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>上面的intLevel值是为了与默认提供的标准级别进行对照的。</p>
+
+<h3>使用</h3>
+
+<p>使用方式也很简单：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>private static final Logger LOGGER = LogManager.getLogger(xx.class);
+</span><span class='line'>
+</span><span class='line'>LOGGER.debug("log4j debug message");</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里需要注意的是其中的Logger是log4j-api中定义的接口，而Log4j1中的Logger则是类。</p>
+
+<p>相比起之前我们需要先判断日志级别，再输出日志，Log4j2提供了占位符功能：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>LOGGER.debug("error: {} ", e.getMessage());</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>性能优化</h3>
+
+<p>在性能方面，Log4j2引入了基于LMAX的Disruptor的无锁异步日志实现进一步提升异步日志的性能：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;AsyncLogger name="asyncTestLogger" level="trace" includeLocation="true"&gt;
+</span><span class='line'>    &lt;AppenderRef ref="Console"/&gt;
+</span><span class='line'>&lt;/AsyncLogger&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>需要注意的是，由于默认日志位置信息并没有被传给异步Logger的I/O线程，因此这里的includeLocation必须要设置为true。</p>
+
+<p>和Log4j一样，Log4j2也提供了缓冲配置来优化日志输出性能。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;Appenders&gt;
+</span><span class='line'>  &lt;File name="File" fileName="app.log" bufferedIO="true" immediateFlush="true"&gt;
+</span><span class='line'>    &lt;PatternLayout&gt;
+</span><span class='line'>      &lt;pattern&gt;%d %p %C{1.} [%t] %m%n&lt;/pattern&gt;
+</span><span class='line'>    &lt;/PatternLayout&gt;
+</span><span class='line'>  &lt;/File&gt;
+</span><span class='line'>&lt;/Appenders&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>四. Logback</h2>
+
+<p>Logback是由Log4j创始人设计的又一个开源日志组件，相对Log4j而言，在各个方面都有了很大改进。</p>
+
+<p>Logback当前分成三个模块：</p>
+
+<ul>
+<li>logback-core是其它两个模块的基础模块。</li>
+<li>logback-classic是Log4j的一个改良版本。logback-classic完整实现SLF4J API使你可以很方便地更换成其它日志系统如Log4j或JDK Logging。</li>
+<li>logback-access访问模块与Servlet容器集成提供通过HTTP来访问日志的功能。</li>
+</ul>
+
+
+<h3>配置</h3>
+
+<p>Logback的配置文件如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!--logback.xml--&gt;
+</span><span class='line'>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+</span><span class='line'>&lt;configuration&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;property name="root_log_dir" value="${catalina.base}/logs/app/"/&gt;
+</span><span class='line'>
+</span><span class='line'>    &lt;appender name="ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+</span><span class='line'>       &lt;File&gt;${root_log_dir}app.log&lt;/File&gt;
+</span><span class='line'>       &lt;Append&gt;true&lt;/Append&gt;
+</span><span class='line'>       &lt;encoder&gt;
+</span><span class='line'>           &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+</span><span class='line'>       &lt;/encoder&gt;
+</span><span class='line'>       &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;
+</span><span class='line'>           &lt;fileNamePattern&gt;${root_log_dir}app.log.%d{yyyy-MM-dd}.%i&lt;/fileNamePattern&gt;
+</span><span class='line'>           &lt;maxHistory&gt;30&lt;/maxHistory&gt; #只保留最近30天的日志文件
+</span><span class='line'>           &lt;TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"&gt;#每天的日志按照100MB分割
+</span><span class='line'>                &lt;MaxFileSize&gt;100MB&lt;/MaxFileSize&gt;
+</span><span class='line'>            &lt;/TimeBasedFileNamingAndTriggeringPolicy&gt;
+</span><span class='line'>            &lt;totalSizeCap&gt;20GB&lt;/totalSizeCap&gt;#日志总的大小上限，超过此值则异步删除旧的日志
+</span><span class='line'>       &lt;/rollingPolicy&gt;
+</span><span class='line'>    &lt;/appender&gt;
+</span><span class='line'>    
+</span><span class='line'>    &lt;appender name="ROLLING_FILE_APPENDER_2" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+</span><span class='line'>       &lt;File&gt;${root_log_dir}mylog.log&lt;/File&gt;
+</span><span class='line'>       &lt;Append&gt;true&lt;/Append&gt;
+</span><span class='line'>       &lt;encoder&gt;
+</span><span class='line'>           &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+</span><span class='line'>       &lt;/encoder&gt;
+</span><span class='line'>       #下面的日志rolling策略和ROLLING_FILE_APPENDER的等价，保留最近30天的日志，每天的日志按照100MB分隔，日志总的大小上限为20GB
+</span><span class='line'>       &lt;rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy"&gt;
+</span><span class='line'>            &lt;fileNamePattern&gt;mylog.log-%d{yyyy-MM-dd}.%i&lt;/fileNamePattern&gt;
+</span><span class='line'>            &lt;maxFileSize&gt;100MB&lt;/maxFileSize&gt;
+</span><span class='line'>            &lt;maxHistory&gt;30&lt;/maxHistory&gt;
+</span><span class='line'>            &lt;totalSizeCap&gt;20GB&lt;/totalSizeCap&gt;
+</span><span class='line'>        &lt;/rollingPolicy&gt;
+</span><span class='line'>    &lt;/appender&gt;
+</span><span class='line'>    
+</span><span class='line'>     &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt;
+</span><span class='line'>       &lt;encoder&gt;
+</span><span class='line'>         &lt;pattern&gt;%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n&lt;/pattern&gt;
+</span><span class='line'>       &lt;/encoder&gt;
+</span><span class='line'>     &lt;/appender&gt;
+</span><span class='line'>        
+</span><span class='line'>    &lt;logger name="myLogger" level="INFO" additivity="false"&gt;
+</span><span class='line'>        &lt;appender-ref ref="ROLLING_FILE_APPENDER" /&gt;
+</span><span class='line'>    &lt;/logger&gt;
+</span><span class='line'>        
+</span><span class='line'>     &lt;root level="DEBUG"&gt;          
+</span><span class='line'>       &lt;appender-ref ref="STDOUT" /&gt;
+</span><span class='line'>     &lt;/root&gt;  
+</span><span class='line'>
+</span><span class='line'>&lt;/configuration&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Logback的配置文件读取顺序（默认都是读取classpath下的）：logback.groovy -> logback-test.xml -> logback.xml。如果想要自定义配置文件路径，那么只有通过修改logback.configurationFile的系统属性。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>System.setProperty("logback.configurationFile", "...");
+</span><span class='line'>或者
+</span><span class='line'>-Dlogback.configurationFile="xx"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Logback的日志级别：TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR。如果logger没有被分配级别，那么它将从有被分配级别的最近的祖先那里继承级别。root logger 默认级别是 DEBUG。</p>
+
+<p>Logback中的logger同样也是有继承机制的。配置文件中的additivit也是为了不去继承rootLogger的配置，从而避免输出多份日志。</p>
+
+<p>为了方便Log4j到Logback的迁移，官网提供了log4j.properties到logback.xml的转换工具：<a href="https://logback.qos.ch/translator/">https://logback.qos.ch/translator/</a>。</p>
+
+<h3>使用</h3>
+
+<p>Logback由于是天然与SLF4J集成的，因此它的使用也就是SLF4J的使用。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import org.slf4j.LoggerFactory;
+</span><span class='line'>
+</span><span class='line'>private static final Logger LOGGER=LoggerFactory.getLogger(xx.class);
+</span><span class='line'>
+</span><span class='line'>LOGGER.info(" this is a test in {}", xx.class.getName())</span></code></pre></td></tr></table></div></figure>
+
+
+<p>SLF4J同样支持占位符。</p>
+
+<p>此外，如果想要打印json格式的日志（例如，对接日志到Logstash中），那么可以使用logstash-logback-encoder做为RollingFileAppender的encoder。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;encoder class="net.logstash.logback.encoder.LogstashEncoder" &gt;
+</span><span class='line'>...
+</span><span class='line'>&lt;/encoder&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>性能优化</h3>
+
+<p>Logback提供了AsyncAppender进行异步日志输出，此异步appender实现上利用了队列做缓冲，使得日志输出性能得到提高。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+</span><span class='line'>      &lt;File&gt;${root_log_dir}app.log&lt;/File&gt;
+</span><span class='line'>      &lt;Append&gt;true&lt;/Append&gt;
+</span><span class='line'>      &lt;encoder&gt;
+</span><span class='line'>          &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+</span><span class='line'>      &lt;/encoder&gt;
+</span><span class='line'>      &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;
+</span><span class='line'>          &lt;fileNamePattern&gt;${root_log_dir}app.log.%d&lt;/fileNamePattern&gt;
+</span><span class='line'>      &lt;/rollingPolicy&gt;
+</span><span class='line'>&lt;/appender&gt;
+</span><span class='line'>&lt;appender name ="ASYNC" class= "ch.qos.logback.classic.AsyncAppender"&gt;  
+</span><span class='line'>       &lt;discardingThreshold &gt;0&lt;/discardingThreshold&gt;  
+</span><span class='line'>       
+</span><span class='line'>       &lt;queueSize&gt;512&lt;/queueSize&gt;  
+</span><span class='line'>       
+</span><span class='line'>       &lt;appender-ref ref ="FILE_APPENDER"/&gt;  
+</span><span class='line'>&lt;/appender&gt;  
+</span><span class='line'>       </span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里需要特别注意以下两个参数的配置：</p>
+
+<ul>
+<li>queueSize：队列的长度,该值会影响性能，需要合理配置。</li>
+<li>discardingThreshold：日志丢弃的阈值，即达到队列长度的多少会丢弃TRACT、DEBUG、INFO级别的日志，默认是80%，设置为0表示不丢弃日志。</li>
+</ul>
+
+
+<p>此外，由于是异步输出，为了保证日志一定会被输出以及后台线程能够被及时关闭，在应用退出时需要显示关闭logback。有两种方式：</p>
+
+<ul>
+<li><p>在程序退出的地方（ServletContextListener的contextDestroyed方法、Spring Bean的destroy方法）显式调用下面的代码。</p>
+
+<pre><code class="``">  LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+  loggerContext.stop();
+</code></pre></li>
+<li><p>在logback配置文件里，做如下配置。</p>
+
+<pre><code class="``">  &lt;configuration&gt;
+
+      &lt;shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/&gt;
+      .... 
+  &lt;/configuration&gt;
+</code></pre></li>
+</ul>
+
+
+<h2>五. 日志门面</h2>
+
+<p>前面的四个框架是实际的日志框架。对于开发者而言，每种日志都有不同的写法。如果我们以实际的日志框架来进行编写，代码就限制死了，之后就很难再更换日志系统，很难做到无缝切换。</p>
+
+<p>Java开发中经常提到面向接口编程，所以我们应该是按照一套统一的API来进行日志编程，实际的日志框架来实现这套API，这样的话，即使更换日志框架，也可以做到无缝切换。</p>
+
+<p>这就是Commons-Logging与SLF4J这种日志门面框架的初衷。</p>
+
+<h3>Apache Commons-Logging</h3>
+
+<p>Apache Commons-Logging经常被简称为JCL，是Apache开源的日志门面框架。Spring中使用的日志框架就是JCL，使用起来非常简单。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import org.apache.commons.logging.LogFactory;
+</span><span class='line'>
+</span><span class='line'>private static final Log LOGGER = LogFactory.getLog(xx.class);
+</span><span class='line'>
+</span><span class='line'>LOGGER.info("...");</span></code></pre></td></tr></table></div></figure>
+
+
+<p>使用JCL需要先引入JCL的依赖：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;dependency&gt;
+</span><span class='line'>    &lt;groupId&gt;commons-logging&lt;/groupId&gt;
+</span><span class='line'>    &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;
+</span><span class='line'>    &lt;version&gt;xx&lt;/version&gt;
+</span><span class='line'>&lt;/dependency&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再来看一下如何让JCL使用其他日志实现框架:</p>
+
+<ol>
+<li>这里当没有其他日志jar包存在的时候，JCL有自己的默认日志实现，默认的实现是对JUL的包装，即当没有其他任何日志包时，通过JCL调用的就是JUL做日志操作。</li>
+<li>使用Log4j作为日志实现框架，那么只需要引入Log4j的jar包即可。</li>
+<li><p>使用Log4j2作为日志实现，那么除了Log4j2的jar包，还需要引入Log4j2与Commons-Logging的集成包（使用SPI机制提供了自己的LogFactory实现）：</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-jcl&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Logback作为日志实现，那么由于Logback的调用是通过SLF4J的，因此需要引入jcl-over-slf4j包（直接覆盖了JCL的类），并同时引入SLF4J以及Logback的jar包。</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;jcl-over-slf4j&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+</ol>
+
+
+<h3>SLF4J</h3>
+
+<p>SLF4J（Simple Logging Facade for Java）为Java提供的简单日志Facade。允许用户以自己的喜好，在工程中通过SLF4J接入不同的日志实现。与JCL不同的是，SLF4J只提供接口，没有任何实现（可以认为Logback是默认的实现）。</p>
+
+<p>SLF4J的使用前提是引入SLF4J的jar包:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- SLF4J --&gt;
+</span><span class='line'>&lt;dependency&gt;
+</span><span class='line'>   &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+</span><span class='line'>   &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+</span><span class='line'>   &lt;version&gt;xx&lt;/version&gt;
+</span><span class='line'>&lt;/dependency&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>再看一下SLF4J如何和其他日志实现框架集成。</p>
+
+<ol>
+<li><p>使用JUL作为日志实现，需要引入slf4j-jdk14包。</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-jdk14&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Log4j作为日志实现，需要引入slf4j-log4j12和log4j两个jar包。</p>
+
+<pre><code class="`"> &lt;!-- slf4j-log4j --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+
+ &lt;!-- log4j --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Log4j2作为日志实现，需要引入log4j-slf4j-impl依赖。</p>
+
+<pre><code class="`"> &lt;!-- log4j2 --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
+     &lt;version&gt;xx/version&gt;
+ &lt;/dependency&gt;
+ &lt;!-- log4j-slf4j-impl （用于log4j2与slf4j集成） --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-slf4j-impl&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Logback作为日志实现，只需要引入logback包即可。</p></li>
+</ol>
+
+
+<h2>六. 日志集成</h2>
+
+<p>上面说到了四种日志实现框架和两种日志门面框架。面对这么多的选择，即便是一个刚刚开始做的应用，也会由于依赖的第三方库使用的日志框架五花八门而造成日志配置和使用上的烦恼。得益于JCL和SLF4J，我们可以很容易的把日志都统一为一种实现，从而可以进行集中配置和使用。这里就以用Logback统一日志实现为例：</p>
+
+<ol>
+<li><p>配置好Logback的依赖：</p>
+
+<pre><code class="`"> &lt;!-- slf4j-api --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;!-- logback --&gt;
+ &lt;dependency&gt; 
+     &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt; 
+     &lt;artifactId&gt;logback-core&lt;/artifactId&gt; 
+     &lt;version&gt;xx&lt;/version&gt; 
+ &lt;/dependency&gt;
+ &lt;!-- logback-classic（已含有对slf4j的集成包） --&gt; 
+ &lt;dependency&gt; 
+     &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt; 
+     &lt;artifactId&gt;logback-classic&lt;/artifactId&gt; 
+     &lt;version&gt;xx&lt;/version&gt; 
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换Log4j到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;log4j-over-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+&lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换JUL到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;jul-to-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换JCL到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;jcl-over-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+</ol>
+
+
+<p>这里需要注意的是，做了以上配置后，务必要排除其他日志包的存在，如Log4j。此外，在日常开发中经常由于各个依赖的库间接引入了其他日志库，造成日志框架的循环转换。比如同时引入了log4j-over-slf4j和slf4j-log4j12的情况，当使用SLF4J调用日志操作时就会形成循环调用。</p>
+
+<p>笔者目前比较推崇的是使用SLF4J统一所有框架接口，然后都转换到Logback的底层实现。但这里需要说明的是Logback的作者是为了弥补Log4j的各种缺点而优化实现了SLF4J以及Logback，但不知为何作者又推出了Log4j2以期取代Log4j和Logback。所以，如果是一个新的项目，那么直接跳过Log4j和Logback选择Log4j2也是一个不错的选择, 官网也提供了Log4j到Log4j2的迁移说明。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[微服务杂谈]]></title>
@@ -4320,390 +5206,6 @@ println(map2)
 <li>使用Hystrix做资源隔离和限流会补充在Java开发利器中。</li>
 <li>补充RxJava的使用在Java开发利器中。</li>
 <li>补充Java10和Kotlin的部分到Java新版本特性。</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[浅析区块链]]></title>
-    <link href="http://www.rowkey.me/blog/2018/03/15/blockchain/"/>
-    <updated>2018-03-15T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/03/15/blockchain</id>
-    <content type="html"><![CDATA[<p>从去年开始，区块链突然如火如荼起来，相关的新闻席卷微博、朋友圈、科技论坛、门户网站等各大媒体。业界大佬们更是频频发言，有宣称不做区块链就会被时代淘汰的，有说坚决不碰区块链的。国家队也是频频出手，管制、定性、做应用，央行更是默默地把区块链专利数量做到了世界前列。面对众多纷杂的信息、众多的技术分析文章，很容易让人脑袋嗡嗡，怕不懂，更怕懂了啥也都做不了。于是决定梳理一下相关的信息，看看这区块链到底是什么东西。</p>
-
-<p>开篇之前，先抛出笔者的一个观点：<strong>区块链最合适的应用场景只有虚拟资产,除了虚拟资产的其他场景都是在蹭概念或者不是真正意义上的区块链，而且只要有人参与的业务流程都无法满足区块链设计的初衷。</strong></p>
-
-<!--more-->
-
-
-<h2>区块链是什么</h2>
-
-<p>说到区块链，需要先了解其产生的背景，这样才能理解为何如此设计区块链。区块链的出现是和“暗网”相关的。所谓“暗网”与我们常见的“互联网”相比，只有通过特殊的软件才能够访问，并且在暗网上基本都是些黑市交易，无法见光，参与这些交易的人都不想暴露真实的位置、个人信息。应对这种交易需求，才出现了比特币。所以说，区块链一开始是为了解决匿名交易的问题出现的，也就是比特币。这也是区块链的第一个阶段，即一套账本体系和货币发行机制；后来基于区块链技术，出现了以太坊，在改进比特币区块的基础上加入了智能合约机制，称之为区块链2.0；以太坊之后，类似以太坊的一些扩展应用，能够对于每一个互联网中代表价值的信息和字节进行产权确认、计量和存储，能够扩展到几乎任何领域，这是区块链的第三个阶段，区块链将完成价值的交换。目前处在区块链2.0阶段。</p>
-
-<p>其实从本质上看，区块链和Git类似，每个节点都有一份数据的存储，不同的是区块链没有中央服务器这么个概念，就是一个分布式无中心数据库，其有效的通过数学的方式在数据库没有管理员的情况下对内容达成一致，并且不通过正式工资或是分得股权就能奖励那些帮助使数据库变得更有价值的人们，最终能够实现无争议无抵赖的匿名交易。概括来看，其特点如下：</p>
-
-<ul>
-<li>去中心化：互联网本来的意义就是平等开放，所以有一种言论就是区块链是回归互联网本来意义的希望。这一点是区块链天然的优势，所有节点都存有数据的副本即实现了“去中心化”。</li>
-<li>无法篡改: 得益于区块之间的链式结构，可以保证数据无法篡改或者篡改的成本远大于收益。</li>
-<li>公开透明：每个节点保存的信息相同，能够消除信息不对称，实现信息透明。</li>
-</ul>
-
-
-<p>与传统的关系型数据库用一张表或者多张独立的表存储数据，“区块链”使用多个“数据表”并且多个“数据表”形成前后衔接的链式结构，以防止数据被篡改（修改任何一个区块就破坏了链式结构）。总体的结构如下所示：</p>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/bc.jpg" alt="" /></p>
-
-<p>其中每一个“数据表”在区块链中被称为“区块”。格式如下：</p>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/block.jpg" alt="" /></p>
-
-<p>这是区块链技术基本都具有的一些头部信息，包括4字节的版本号、32字节的上一个区块的哈希值、32字节的Merkle根、4字节的时间戳（当前时间）、4字节的难度目标以及4字节的随机数。</p>
-
-<ul>
-<li>版本号：用于跟踪软件/协议的更新。如果新版本的软件不兼容旧版本的软件，那么就认为是发生了“分叉”。</li>
-<li>上一区块头哈希值：存储的是链上上一个区块的哈希值，也是区块链设计的精髓所在。</li>
-<li>Merkle根：又叫做梅克尔根，是一种用于完整性证明的数据结构，为了能够在区块头中体现出交易而做的一个计算，同时也是为了解决交易记录进行Hash计算的效率问题。</li>
-<li>时间戳：该区块产生的近似时间。这个时间虽然是节点生成的但是其是否有效需要其他节点的认可（允许有一定程度的误差）。时间戳使得交易有先后，是防范双重支付攻击的一个关键设计。</li>
-<li>难度目标：该区块工作量证明的算法的难度系数。系数越大，目标哈希值的0越多，计算的难度呈指数增长。</li>
-<li>Nonce: 用于工作量证明算法的计数器。</li>
-</ul>
-
-
-<p>区块体的信息主要是交易列表。交易的数据结构因平台的不同而不同。比特币中就是简单的交易信息，以太坊则会存放智能合约。这里需要提到的是比特币中使用UTXO（未花费的交易输出，Unspent Transaction Output）实现支付系统的账户模型，并没有余额、钱包的概念，交易列表中的关键信息也是一些UTXO的组成,如此计算账户的余额则需要通过遍历整个交易历史来最终计算出每个账户的余额。UTXO的示例如下图所示：</p>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/utxo.png" alt="" /></p>
-
-<p>可见除了coinbase这种交易之外，其他的交易都至少有一个交易的输入且必须引用一个输出，而一笔交易的输入可以引用之前多笔交易的输出。此外，任何一笔交易的交易输入总量必须等于交易输出总量（支出与找零）。其一般结构如下：</p>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/utxo-struct.png" alt="" /></p>
-
-<p>使用UTXO的优势如下：</p>
-
-<ul>
-<li>私密性比较强，理论上可以为每一笔输出设置一个地址。</li>
-<li>无需维护余额等状态值。</li>
-<li>UTXO是独立数据记录，可以通过并行极大的提升区块链交易验证速度。</li>
-<li>无需关心事务问题，只需要关心输出脚本即可。</li>
-<li>能够清理过期交易，回收存储空间。</li>
-</ul>
-
-
-<p>而以太坊则使用了传统所理解的账户模型，主要是因为UTXO无法支持图灵完备的智能合约实现。</p>
-
-<p>此外，还需要说一下“块高度”的概念。区块链网络的创世块（第一个区块）的块高度为0，如此每增加一个区块高度就+1，如第一个图所示，如果最左侧的块为创世块，那么最后一个区块的块高度就是2。</p>
-
-<h2>区块链典型流程</h2>
-
-<p>以<strong>比特币</strong>为例，区块链的一个典型交易流程：</p>
-
-<ul>
-<li>新的交易向全网所有节点广播，交易信息包括发UTXO输入、UTXO输出等关键信息。这里一个交易并不需要抵达全部的节点。只要交易信息能够抵达足够多的节点，那么他们将很快被整合进一个区块中。</li>
-<li>每一个节点都将收到的交易信息经过验证无误后（使用解锁加锁脚本自动化验证）纳入一个区块中（被打包到块之前这些交易被存储在内存池中）。</li>
-<li>每一个节点都尝试根据最新的区块的信息找到一个具有足够难度的工作量证明。</li>
-<li>当一个节点找到了一个工作量证明，就创造一个新的区块（将接收到的交易纳入其中），并向全网进行广播。</li>
-<li>当且仅当包含在该区块中的所有交易都是有效的且之前未存在过的，其他节点才认同该区块的有效性。</li>
-<li>其他节点表示他们接受该区块，而表示接受的方法，是在跟随该区块的末尾制造新的区块以延长该链条，将被接受区块的随机散列值做为新区快的Prev随机散列值。</li>
-</ul>
-
-
-<h2>区块链技术架构</h2>
-
-<p>其实从本质来看，区块链不能算是一个新的技术，更应该看做是一个新的技术框架，是基于很多成熟的技术而成的，而且不仅仅是技术，还有金融学，货币学，博弈学等。其技术架构如下图所示：</p>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/arch.jpg" alt="" /></p>
-
-<p>其中，区块的链式结构、UTXO以及智能合约是比特币发明人“中本聪”的原创发明。</p>
-
-<h2>存储</h2>
-
-<p>区块链在每一个节点会存储数据，并且需要持久化存储，存储方式和传统的应用一样，包括数据库和文件系统。</p>
-
-<p>对于存储方式的选择, 区块链中并没有做相关的规定，而比特币和以太坊都使用LevelDB做为持久化存储方式。</p>
-
-<h2>通信机制</h2>
-
-<p>区块的通信是基于P2P技术,即不区分客户端和服务端的网络，和P2P下载是类似的原理。在区块链中其功能点包括：</p>
-
-<ul>
-<li>把需要存储的数据广播到所有节点上进行储存，也就是多播。</li>
-<li>查询整个网络集群中所有节点的最新数据，如果自己节点的数据与大部分节点的数据不一致，则更新自身的数据与大部分节点存储的数据一致。这个功能也是防止数据被篡改的一个很重要的机制，是区块链核心的一个原则“少数派服从多数派”。当然这个也会引起51%攻击的问题。但区块链使用其他的机制极大杜绝了这种风险，下文会提到。</li>
-</ul>
-
-
-<h2>安全机制</h2>
-
-<p>区块链同样使用了很多成熟的安全技术来保障其特点。</p>
-
-<ul>
-<li>哈希算法：⽤来对⼀段数据进行计算，得出⼀个摘要信息，通俗点说就是给一段数据⽣成⼀个固定大小的身份ID, 且其是不可逆的。区块链使用哈希做工作量证明、交易ID生成、区块之间的关联等。此外，区块头中的Merkle Root也是使用哈希算法做完整性证明的（比特币中使用double-SHA256哈希算法）。常用哈希算法包括MD5、SHA1、SHA256等。</li>
-<li>数据加密：区块链使用了非对称加密算法。比特币中的钱包地址本质就是一对公钥私钥。此外，区块链利用公钥哈希加锁比特币的输入记录，阻止输出。</li>
-<li>数字签名：同样基于非对称加密技术，用签名和公钥解锁自己的比特币输入记录，使用比特币。</li>
-<li>零知识证明：所谓零知识证明即在不知道答案的情况下去验证给出的答案是否正确。这个过程完全靠机器验证，机器根据题目给出随机试验以验证答案是否正确。在某些区块链应用中如Zcash\ZCoin即使用了零知识证明来保证交易双方和交易金额的匿名性, 提供了绝佳的支付隐私。详细可见：<a href="https://mp.weixin.qq.com/s?__biz=MzIxMDY1ODQxMg==&amp;mid=2247486271&amp;idx=3&amp;sn=233f6c9b0f881d4a2fe4bb71c60ca2cc&amp;chksm=97607e3ca017f72a5393d46f0dd5985c07aa7aed8262c78cb0e8ae96c5f05727b0bde9a2a5b0&amp;mpshare=1&amp;scene=1&amp;srcid=0306YQQBdMN6j1B1IpuCgpCg%23rd">零知识证明（Zero-Knowledge Proof）原理详解</a>。</li>
-</ul>
-
-
-<p>此外，这里具体介绍一下是如何使用区块中的梅克尔树来做完整型证明的。每当产生一次交易，那么就与其他所有准备打包进区块的交易组成交易列表，通过Merkle Tree算法生成Merkle Root Hash，作为交易列表的摘要存到区块头中。比特币中使用的称之为二叉梅克尔树，而比如以太坊系统中使用的则是梅克尔-帕特里夏树。以二叉梅克尔树为例，流程可以概括为每相临的两条交易记录向上形成一个Hash值（如果仅有奇数个交易，则最后的交易会被复制一份以构成偶数个叶子节点），再与相邻的节点再往上形成Hash值，一直到树根形成所有交易记录的唯一Hash值，即Merkle根。如下图所示：</p>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/merkle.jpg" alt="" /></p>
-
-<p>如此，一方面可以在数据同步有问题的时候快速定位到出错的交易记录，另一方面在节点只是需要验证支付（不同于交易，如验证是否有人完成了对自己的一笔交易）的时候，仅下载链的区块头即可，实现“简化支付验证”（SPV），能够极大的节省传输数据量。SPV的流程如下：</p>
-
-<ul>
-<li>一个SPV节点会在节点间的通信链接上建立起布隆过滤器，限制只接受含有目标比特币地址的交易。</li>
-<li>当节点探测到某交易符合布隆过滤器，它会以Merkle区块消息的形式向相邻节点索要包含区块头和一条连接目标交易与Merkle根的Merkle路径，如图中如果要验证交易1，那么则返回Hash2、Hash34即可。</li>
-<li>SPV节点使用该路径找到与该交易相关的区块，验证对应区块中该交易的有无。</li>
-</ul>
-
-
-<h2>共识机制</h2>
-
-<p>对于分布式系统来说，一个非常核心的问题就是如何让所有节点达成一致，也就是共识机制。在区块链出现之前，已经有了一些解决方案，这里称之为传统分布式一致性算法：</p>
-
-<ul>
-<li>Paxos算法：基于消息传递且具有高度容错特性，类似于议会投票的过程分为三种角色Proposer、Acceptor及Learner，主要就是Proposer发起投票，Acceptor进行投票的一个过程。具体可见：<a href="http://drmingdrmer.github.io/tech/distributed/2015/11/11/paxos-slide.html">可靠分布式系统基础Paxos的直观解释</a>。这里需要说明一点：Zookeeper使用的ZAB协议对Paxos做了一些改造，是一种类Paxos算法。</li>
-<li>Raft算法：相比起Paxos算法，RAFT更加注重算法的落地性和可理解性，其核心思想是如果数个数据库初始状态一致，只要之后的进行的操作一致，就能保证之后的数据一致。分为Leader、Follower以及Candidate三种角色，基于Log进行数据同步。大体就是选举Leader，然后Leader生成Log，Follower进行同步的一个过程。详细可见:<a href="https://zhuanlan.zhihu.com/p/27207160">Raft协议详解</a>。</li>
-</ul>
-
-
-<p>对于不需要货币体系的联盟链或者私有链而言，所有的节点都是绝对信任的节点，考虑到对性能的要求，一般选择传统的一致性算法即可。但由于这些传统的方案仅仅是考虑到了节点会有网络故障或者宕机的问题，没有考虑到节点会作恶（篡改消息）的情况。因此，在比特币、以太坊这种区块链上并不适用。于是有了以下的分布式一致性算法：</p>
-
-<ol>
-<li><p>PBFT: 拜占庭容错，针对的是拜占庭将军问题而提出的一种一致性算法。分为三个阶段：预准备（pre-prepare）、准备(prepare)和确认(commit)。大体的流程就是节点之间互相转发消息，以其中相同的大多数作为最终答案。此算法的可靠度受制于结点的数量影响（N ≥ 3F + 1，总的结点数目必须大于有问题节点的数目的三倍），因此使用受限，在IBM的私有链Hyperledger中得到了使用。</p></li>
-<li><p>PoW: Proof of Work,工作量证明。这个是比特币、莱特币等货币型区块链使用的共识机制。类似于现实中的毕业证、驾照等，来证明你具有某种能力。可以认为PoW彻底解决了分布式一致性的问题。其过程以比特币为例，如下：</p>
-
-<ul>
-<li>矿工在网络中拿到最新一个区块的头部信息，其中的Merkle根包含了交易记录的信息摘要；</li>
-<li>将拿到的头部信息作为参数，将nonce值从零开始，去计算其双重SHA256值（<strong>SHA256(SHA256(区块头信息))</strong>）；</li>
-<li>如果算出的答案不符合要求（前n位为0），则将nonce值增加一个单位，再算；</li>
-<li>直到计算出符合难度目标的答案，就挖到一个区块（打包交易记录，其中优先记录手续费高的交易），即可将自己创建的区块广播出去，其他节点验证无误即保存到自己的区块链上。</li>
-<li>如果同时有多个节点实现了工作量证明挖到了区块，那么整个网络集群采用少数服从多数原则，集群中大部分采用了哪个区块就选择此区块组成最新的账本，达到最终一致性。<strong>少数服从多数原则</strong>也是区块链防范攻击、保证数据安全性的一个核心的原则。</li>
-<li>如果节点同步到了多个长度不同的区块链账本，那么选择其中最长的作为区块链账本，且在最长链之外挖矿，不会得到任何挖矿报酬。即“最长链规则”。</li>
-</ul>
-
-
-<p> 由最后两点可知，挖到一个区块时，并不能过早的高兴，一般说来后面再跟五个确认过的区块（加上自己的区块，叫做六次确认），才能确认自己创建的区块的确是有效的，记录的交易也才认为是有效的（此时交易接收方可以认为交易已经成功）。</p>
-
-<p>这个思路牺牲了一部分一致性来保证区块链的健壮性，即使只有一个结点，区块链系统依旧可以运行。同时也保证了区块链的安全性，除非51%的结点被控制。但一方面如果想要控制这么多节点，不仅要具有很强的算力，还相当于重构一个区块链网络，另一方面区块链会给予实现工作量证明创建区块成功的节点以奖励（每一个区块的交易清单的第一条交易为“系统给区块创建者支付xx奖励”，被称做coinbase交易，此交易没有输入），在比特币中奖励包括一部分新造比特币（一开始一个区块奖励50个比特币，每隔21万个区块自动减半，4年时间比特币总量最终会稳定在2100万个），一部分是从区块所包含的交易中抽取的挖矿手续费。如此权衡收益和破坏的成本，基本可以杜绝这种51%攻击（博弈学的使用）等。</p>
-
-<p>此外，还需要提到区块头中的难度目标这个值，此值与计算耗时是反比的，即此值越大，那么计算越容易。以比特币为例，为了控制每十分钟产生一个区块的速率，需要根据统计数据动态调整难度目标从而可以保证区块的生产速率。</p>
-
-<p>比特币的PoW虽然很好的解决了分布式一致性问题，但其非常的耗费计算力，浪费电，并且这种纯粹靠CPU的计算会受到某些专用硬件的威胁，如ASIC芯片。而以太坊的POW算法叫做Ethash（最新版本为Dagger-Hashimoto），其特点是挖矿的效率基本与CPU无关，却和内存大小和内存带宽正相关，无法设计专用硬件来解答难题。</p></li>
-<li><p>PoS: Proof of Stake，权益证明机制。是一种通过业务规则达成共识的方式。基本概念是产生区块的难度应该与用户在网络里所占的股权成比例。具体来说就是根据钱包里面货币的多少以及货币在钱包里存在的天数来合成一个单位（币天），然后根据币天的关系对计算机进行哈希计算降低（谁的钱包里的币天数越大谁拥有记账权的概率就越大）。如此，能够减少对计算资源的浪费，提高计算性能。但是它也是牺牲了一部分的共识，而且需要等待多个确认。与PoW类比于比力量大小，PoS就是比耐力大小。</p>
-
-<p> PoS目前已经使用在以太坊中。</p></li>
-<li><p>DPoS: Delegate Proof of Stake。是基于POS衍生出的更专业的解决方案，类似于董事会的投票机制，选举出n个记账节点，在节点中提案者提交的提案被这些记账节点投票决定谁是正确的。此机制性能比较高，但是其选出的delegate节点是能够作恶的。</p>
-
-<p> EOS的底层框架石墨烯-<a href="https://github.com/cryptonomex/graphen">Graphene</a>使用DPoS做为共识机制。</p></li>
-</ol>
-
-
-<h2>上层应用</h2>
-
-<ul>
-<li>可编程合约/可编程资产：交易验证并不基于一个不变的模式，而是通过运行脚本语言来实现可编程资产以太坊。</li>
-<li>激励机制：虚拟货币激励，比特币、以太币。</li>
-<li>成员管理：为整个区块链网络提供身份管理、隐私、保密和可审计的服务。通过公钥基础设施和去中心化共识机制使得非许可的区块链变成许可制的区块链。多中心组网、私钥公钥生成等。</li>
-</ul>
-
-
-<p>这里需要提的是区块链中“地址”的含义。以比特币为例，地址本质上是一个私钥公钥对（ECDSA椭圆曲线算法），其存储和区块链和网络是没有关系的，可由用户的钱包软件生成并管理。而通常为了易于人们记忆，地址会在公钥的基础上做一个格式化转换。常用的格式包括：Base58Check（Base58+Checksum）、WIF压缩、130位和66位公钥。以最常用的Base58Check为例，可以概括为:<strong><em>Base58Check(RIPEMD160(SHA256(PubKey)))</em></strong>，其流程如下：</p>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/bitcoin-address.png" alt="" /></p>
-
-<p>而以太坊则是使用SECP256K1椭圆曲线算法生成公钥私钥对，再把公钥去掉04，剩下的进行KECCAK-256的哈希，得到长度64的16进制字串，丢掉前面24个，拿后40个，再加上&#8221;0x&#8221;，即为以太坊地址。</p>
-
-<h2>性能问题</h2>
-
-<p>目前区块链无法得到大规模应用的一个很大问题就是性能，比特币的每秒交易量只有3/秒，而以太坊也就30/秒。虽然EOS这个项目号称能达到几百万/S，然而分布式系统的本质让这个指标有点难以相信，而且这个数据也仅仅是建立在其几百个结点的基础上。</p>
-
-<p>目前，提升区块链的方案主要有以下两种种：</p>
-
-<ul>
-<li>链外解决方案：即允许小型和频繁的交易发生在与主链并行并由主链背书的侧链实例上。只将比特币区块链用作大额交易的结算网络——小规模交易由区块链之外的支付中心处理（off-chain scaling，链外扩展）。</li>
-<li>链上解决方案：直接修改区块链设计以支持高性能，如提高区块的容量、按照地址分片验证（以太坊）等。具体的可见：<a href="https://mp.weixin.qq.com/s?__biz=MzAwOTcyNzA0OQ==&amp;mid=2658972665&amp;idx=1&amp;sn=a3b8cc3538099530270910ae12267795">区块链性能提升：链上设计之道</a>。</li>
-</ul>
-
-
-<p>当然，如果使用私有链或者联盟链，其中的共识机制采取传统的分布式一致性算法或者高效的其他一致性算法也可以解决性能的问题。</p>
-
-<h2>应用场景</h2>
-
-<p>由于区块链本身的去中心化、不可篡改、安全等特性，需要第三方机构的应用场景都可以使用区块链技术。主流的应用场景如下：</p>
-
-<ul>
-<li>公正防伪</li>
-<li>资产交易</li>
-<li>信用体系</li>
-<li>物品溯源</li>
-<li>身份验证</li>
-<li>文件存储</li>
-<li>银行结算</li>
-<li>版权控制</li>
-</ul>
-
-
-<h2>技术平台</h2>
-
-<p>区块链的技术平台总体上可以分为公有链、联盟链和私有链，其大体的对比如下：</p>
-
-<table>
-<thead>
-<tr>
-<th>. </th>
-<th> 公有链 </th>
-<th> 联盟链 </th>
-<th> 私有链</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>参与者 </td>
-<td> 任何人自由进出 </td>
-<td> 联盟成员 </td>
-<td> 个体或公司内部</td>
-</tr>
-<tr>
-<td>共识机制 </td>
-<td> PoW/PoW/DPoS  </td>
-<td> 分布式一致性算法 </td>
-<td> 分布式一致性算法</td>
-</tr>
-<tr>
-<td>记账人 </td>
-<td> 所有参与者 </td>
-<td> 联盟成员协商确定 </td>
-<td> 自定义</td>
-</tr>
-<tr>
-<td>激励机制 </td>
-<td> 需要 </td>
-<td> 可选 </td>
-<td> 不需要</td>
-</tr>
-<tr>
-<td>中心化程度 </td>
-<td> 去中心化 </td>
-<td> 多中心化 </td>
-<td> （多）中心化</td>
-</tr>
-<tr>
-<td>特点 </td>
-<td> 信用的自建立 </td>
-<td> 效率和成本优化 </td>
-<td> 透明和可追溯</td>
-</tr>
-<tr>
-<td>承载能力（交易数/s） </td>
-<td> 3-20万/s </td>
-<td> 1000-1万/s </td>
-<td> 1000-10万/s</td>
-</tr>
-<tr>
-<td>典型场景 </td>
-<td> 虚拟货币 </td>
-<td> 支付、结算 </td>
-<td> 审计、发行</td>
-</tr>
-<tr>
-<td>代表项目 </td>
-<td> 比特币、以太坊 </td>
-<td> Hyperledger、腾讯TrustSQL </td>
-<td></td>
-</tr>
-</tbody>
-</table>
-
-
-<h3>比特币</h3>
-
-<p>比特币(使用C++开发)早于区块链走入人们的视野，并且很长时间内许多人都把比特币和区块链看做同一个东西。</p>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/bitcoin.png" alt="" /></p>
-
-<p>如图，是比特币的架构，可以看出比特币是基于区块链技术的副产品，是基于区块链的第一个应用，后来其他技术平台基本都是在比特币的基础上开发出来的。区块链可以类比为我们平时使用的JavaEE技术，比特币则是基于JavaEE开发的应用。无法基于比特币这个平台开发自己的应用。</p>
-
-<h3>以太坊</h3>
-
-<p><img src="http://www.rowkey.me/post_images/blockchain/ethereum.png" alt="" /></p>
-
-<p>如上图所示，以太坊的架构由比特币演化而来，其诞生是为了解决比特币只适合加密数字货币场景，不具备图灵完备性，也缺乏保存实时状态的账户概念的问题，同时也是为了解决PoW机制带来的效率和资源浪费的问题。以太坊既是一个数字货币系统，也是一个智能合约的开发平台（类似AppStore这种应用开发平台，一个智能合约即一个应用）。可以把以太坊看做一个完全去中心化的电脑，使用此电脑需要用以太币支付费用（Gas）。</p>
-
-<p>智能合约是以太坊最为核心的一个概念：提供了一个功能更强大的合约编程环境。一个合约类似一个合同，一旦写好即无法修改。每个节点都执行软件的一部分。类比于数据库中的触发器和存储过程，智能合约在区块链中是一个沙箱中的脚本（无法调用外部API），用于执行业务逻辑，也可以用于各种检查。开发智能合约使用的是Solidity语言。其是在Javascript语言基础上做的修改。合约代码会编译成字节码发布到以太坊网络，在EVM(Ethereum Virtual Machine)中执行。开发智能合约主要用到两个框架：</p>
-
-<ul>
-<li>Truffle Framework：Truffle提供了一整套部署测试的工具，可以方便和web3.js（以太坊提供的NodeJS SDK）结合使用。</li>
-<li>dapphub: 提供了很多实用的合约，比如数学运算、权限验证等。</li>
-</ul>
-
-
-<p>其实比特币的交易也可以看做智能合约，只不过在比特币中就是⼀对锁定与解锁脚本（基于逆波兰表示法的基于堆栈的执行语言），受限只能实现转账交易。</p>
-
-<p>使用以太坊发行数字代币（符合ERC20标准的智能合约）是非常简单的事情，官网提供了配套的代码和工具：<a href="https://www.ethereum.org/token">https://www.ethereum.org/token</a>，也可以参照这个指引：<a href="https://learnblockchain.cn/2018/01/12/create_token/index.html">一步步教你创建自己的数字货币（代币）进行ICO</a>。</p>
-
-<p>这里还要说明一下ETC和ETH的区别。2016年6月区块链业界最大的众筹项目TheDAO遭到黑客攻击,导致300多万以太币资产被分离出TheDAO资产池。鉴于区块链的去中心、匿名的特征，资金根本无法追回，于是以太坊的发明人V神决定从块高度1760000开始把任何与The DAO和child DAO相关的交易认做无效交易，把以太坊做了一次分叉（区块链软件升级，但由于去中心化的问题并不能保证所有软件版本都升级上来），以此阻止攻击者在27天之后提走被盗的以太币。但此次分叉由于设计缺陷问题后来进行了回滚，最终是在区块高度1920000进行了一次分叉。而另外一些人由于不认同这种解决办法，而继续使用旧版本的以太坊软件，于是以太坊便发生了硬分叉（区块链软件升级，老版本不能够识别新的数据），原来的以太坊被叫做了ETC（以太经典）。至于这次攻击能够成功的原因主要是因为智能合约的逻辑有问题，具体的原因分析可见：<a href="http://ethfans.org/posts/114">从技术角度剖析针对THE DAO的攻击手法
-</a>。</p>
-
-<h3>EOS</h3>
-
-<p>Enterprise Operation System，是由和V神齐名的BM大神发起的区块链项目，从名字上看其目的就是构建一个商业操作系统。由于其是一个ICO项目，且被某比特币大V进行了投资，因此受到的议论比较多。EOS的设计针对的是区块链性能太低满足不了很多应用场景以及在以太坊上进行操作需要支付费用等问题。</p>
-
-<p>EOS号称自己能够达到每秒百万级的处理量，且具有高度自治，并能够为开发dApp的开发者提供底层模块，降低开发门槛。EOS也不收取任何费用，并能够通过并行链和DPOS的方式解决延迟和数据吞吐量的难题。</p>
-
-<p>在EOS上编写智能合约支持C/C++/WebAssembly以及RESTFul接口(比较简单)。</p>
-
-<h3>NEO</h3>
-
-<p>小蚁区块链，开源，使用dBFT（delegated BFT，授权拜占庭容错机制）做为其共识机制。市值国内第一，全球第七，支持C#、Java、GO、Python、js等开发区块链应用。其目的是利用区块链技术和数字身份进行资产数字化，利用智能合约对数字资产进行自动化管理，实现“智能经济”。</p>
-
-<p>目前，NEO提供了配套设施搭建私有链。</p>
-
-<h3>联盟链和私有链</h3>
-
-<p>市面上有一些联盟链和私有链技术平台，可以基于此做一些区块链应用开发。如下：</p>
-
-<ul>
-<li>腾讯TrustSQL: 腾讯主导的可信数据库区块链平台，<a href="https://trustsql.qq.com/">https://trustsql.qq.com/</a>。</li>
-<li>百度区块链开放平台：百度主导的区块链平台，<a href="https://chain.baidu.com/">https://chain.baidu.com/</a>。</li>
-<li>IBM HyperLedger，也被称作超级账本，又叫fabric，是一个面向商业的区块链系统开发框架（开发用的半成品基础设施）。</li>
-</ul>
-
-
-<h2>ICO</h2>
-
-<p>提到区块链，ICO是不得不提的一个概念，类比于IPO，ICO是首次发币代售，提供了一种平等、低门槛的方式让普通民众参与到经济活动中，目前能够进行ICO的平台(能够方便发代币)主要是以太坊和比特股(Bitshares)。这种东西本意是好的，可以降低公司融资的成本，好的项目不会再看风投脸色，好的Idea也不会再胎死腹中，用户ICO获得的Token还可以带来实际的经济效益。但是由于缺乏IPO一样的管制，已经彻底沦为了收割智商的工具。</p>
-
-<p>如上文所说，其实基于以太坊发行虚拟货币是非常简单的，如果你文采够好随便写个白皮书，洋洋洒洒描绘一个去中心化的蓝图，再找几个所谓业界大神站个台，好了，剩下的就等着数钱吧。当然，不排除有真心想做出一个项目的，但绝大多数都是些空气项目，发起人不过是发了个空气币，然后卷钱跑路。</p>
-
-<p>说到ICO，虚拟货币交易所也是关键的角色，在这里可以流通法币和各种虚拟货币。有点令人不解的是，去中心化的区块链虚拟货币竟然需要一个中心化的“交易所”。黑客们攻击不了区块链，攻击一个中心化的交易所还是有许多路可寻的。最近频频发生的虚拟货币交易所被攻击的事情也算是对这种模式的一种讽刺。</p>
-
-<h2>开发参考</h2>
-
-<p>如果想实现自己的区块链平台或者了解区块链的实现，可以通过比特币、以太坊的代码学习，也可以参考以下资料:</p>
-
-<ul>
-<li><a href="https://www.ibm.com/developerworks/library/j-chaincode-for-java-developers/index.html">面向Java开发人员的区块链代码</a></li>
-<li><a href="http://www.spring4all.com/article/811">用Java创建你的第一个区块链-part1</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzAwMDU1MTE1OQ==&amp;mid=2653549361&amp;idx=1&amp;sn=019f54713891cf33ef3bef3b24773a96&amp;chksm=813a62a9b64debbfdd24a8507bb974048a4456e5b0a2d5f685fb3bdf40366a25764c5df8afec&amp;mpshare=1&amp;scene=1&amp;srcid=0226W0WdpzjJ9Qo6F3FJstO6%23rd">只用200行Go代码写一个自己的区块链！</a></li>
-</ul>
-
-
-<h2>小结</h2>
-
-<p>区块链技术的出现以一种全新的思路解决了分布式一致性的问题，技术+博弈学+金融学的使用巧妙的构建了一个安全健壮的系统。这些思路给开发者在平时的学习工作中会有很多的思考和提示。而随着比特币价格的水涨船高和各种资本的追捧，区块链目前是被过度炒作的，大部分应用都是联盟量和私有链，已经违背了区块链设计的初衷。虽然的确是有应用场景，但笔者认为这和共享分布式数据库没有本质上的区别。此外，虽然区块链上的数据是无法篡改的，但是如果数据上链有人工参与的环节，那么这一步如何防止篡改呢？这也是我开篇观点产生的原因。</p>
-
-<p>至于能用区块链做什么？在笔者看来，去研究区块链技术平台只有大公司、政府能做并推广起来，不过最后也只不过是“联盟链”、“私有链”。而对于创业公司或者个人来说，基于公有链、联盟链做之上的应用则更为合适，比如在以太坊/EOS上做一个养宠物的游戏^_^。</p>
-
-<h2>参考资料</h2>
-
-<ul>
-<li><a href="http://8btc.com/topic-mastering-bitcoin.html">精通比特币</a></li>
-<li><a href="http://www.8btc.com/wiki/bitcoin-a-peer-to-peer-electronic-cash-system">比特币白皮书:一种点对点的电子现金系统</a></li>
-<li><a href="http://dataconomy.com/2015/10/wtf-is-the-blockchain-a-guide-for-total-beginners/">WTF IS THE BLOCKCHAIN? A GUIDE FOR TOTAL BEGINNERS</a></li>
-<li><a href="http://blog.csdn.net/jeffrey__zhou/article/details/56672948">区块链共识机制浅谈</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&amp;mid=2651818777&amp;idx=1&amp;sn=8cf64236f13e1196b28a2603744d4c0f&amp;chksm=f0dcdd65c7ab5473a239b47939d7586229122788c49fbac295c77627b4693a06b1ce8d73afdc&amp;mpshare=1&amp;scene=1&amp;srcid=0829NWygcU8u98YzRZ8TmQlN%23rd">白话区块链技术栈与应用</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzIzNzU4MTg5NQ==&amp;mid=2247484492&amp;idx=1&amp;sn=b37844e8ab32b5ce516ee92149f243d6&amp;chksm=e8c72764dfb0ae727b2a50da75ef1ded417ad3c303c47f61c666f8dd39e631f114ab350f2544&amp;mpshare=1&amp;scene=1&amp;srcid=0217E8nz8lHzcB3sBvSBAics%23rd">比特币的潜在激励</a></li>
-<li><a href="https://mp.weixin.qq.com/s?__biz=MzIzOTU0NTQ0MA==&amp;mid=2247487013&amp;idx=1&amp;sn=4675dd398a3458af9ba519557675e406&amp;chksm=e929332ade5eba3c142a36f89677d71bf1e1395967ace0b9e4ff3d18c6cffd604420709967fe&amp;mpshare=1&amp;scene=1&amp;srcid=03126HIJoomFmy2JpebnHa5m%23rd">如何用架构师思维解读区块链技术？</a></li>
 </ul>
 
 ]]></content>

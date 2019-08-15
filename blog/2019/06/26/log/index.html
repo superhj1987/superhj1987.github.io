@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>后端技术杂谈 | 飒然Hang</title>
+  <title>Java开发框架之日志 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Java开发框架之日志 Jun 26th, 2019 日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。 使用控制台输出其实也算日志的一种， &hellip;">
+  <meta name="description" content="Java开发框架之日志 Jun 26th, 2019 Posted by 飒然Hang in java 日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2019/06/26/log/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -109,16 +109,13 @@
   <div id="body">
     <div class="container">
     	<div class="col-group">
-			  <div class="col-8" id="main">
-    <div class="res-cons">
-    
-    
-    
-      <article class="post">
-        
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
   <header>
     
-      <h2 class="post-title"><a href="/blog/2019/06/26/log/">Java开发框架之日志</a></h2>
+      <h1 class="post-title">Java开发框架之日志</h1>
     
     
       <p class="post-meta">
@@ -137,12 +134,25 @@
 <time datetime="2019-06-26T11:29:34+00:00" pubdate data-updated="true">Jun 26<sup>th</sup>, 2019</time>
         
         
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+        
       </p>
     
   </header>
 
 
-  <div class="post-content"><p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
+<div class="post-content"><p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
 
 <p>使用控制台输出其实也算日志的一种，在容器中会打印到容器的日志文件中。但是，控制台输出过于简单，缺乏日志中级别控制、异步、缓冲等特性，因此在开发中要杜绝使用控制台输出作为日志（System.out.println）。而Java中已经有很多成熟的日志框架供大家使用：</p>
 
@@ -1021,424 +1031,82 @@
 
 <blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
 </div>
+<div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
   
   
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2019/05/30/msa/">微服务杂谈</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
   
-
-
-<time datetime="2019-05-30T11:29:34+00:00" pubdate data-updated="true">May 30<sup>th</sup>, 2019</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>这几年在Java工程师招聘时，会看到很多人的简历都写着使用了Spring Cloud做微服务实现，使用Docker做自动化部署，并且也会把这些做为自己的亮点。而比较有趣的这其中以小公司出来的人为绝大多数，大的公司出来的人简历上倒是很少提这些东西。</p>
-
-<p>对于我自己来说，从15年就开始关注这一块，看过马丁.福勒最开始的关于微服务的论文、也看过不少对微服务的论证的英文文章和书，也研究过Spring Cloud、Sofa等开源实现以及Service mesh。考虑到我们公司研发团队人力不足、基础设施不完善，当初是没有推行微服务的。但随着看到上述的那种简历越来越多，有时候我也会疑问：难道真的不用微服务就落后了吗？公司的同事如果不掌握这些就真的没有竞争力了吗。而随着最近公司业务的逐步提升，研发人员越来越多，借着在梳理公司的微服务落地计划时，也梳理了一下微服务的相关知识点，也是本文的主要内容。</p>
-
-<p>开篇之前先声明我对微服务的几点态度:</p>
-
-<blockquote><ol>
-<li>架构模式有很多，微服务不是唯一的选择也不是什么银弹。国内绝大多数中小公司引入微服务都是在盲目追新，也能看出做此种技术选型的工程师基础架构素质的不足。</li>
-<li>“你必须长的足够高才能使用微服务”。微服务基础设施，尤其是容器技术、自动化部署、自动化测试这些不完备，微服务形同虚设，不会带来什么质的提升。</li>
-<li>微服务架构的关键不在于具体的实现，而在于如何合理地划分服务边界以及组织架构是否相匹配。不考虑研发团队的规模和组成就盲目上微服务是不良的技术选型。</li>
-<li>Spring Boot是Spring全家桶的上层封装，并不是什么崭新的技术，也不是什么值得觉得成为自己杀手锏的技术。</li>
-<li>Spring Cloud中Spring Cloud Netflix的组件是经过生产环境验证的，其他的则建议慎重选择。</li>
-</ol>
-</blockquote>
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2019/05/30/msa/">继续阅读 &rarr;</a>
-    </footer>
-  
 
-
-      </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2019/04/22/upforprogrammer/">这些知识决定了程序员的上限（PPT版）</a></h2>
-    
-    
-      <p class="post-meta">
-        
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2019/05/30/msa/" title="下一篇: 微服务杂谈">微服务杂谈 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
 
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2019-04-22T11:29:34+00:00" pubdate data-updated="true">Apr 22<sup>nd</sup>, 2019</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>讲述决定程序员上限的一些知识技能点，包括如何学习、如何阅读源码、计算机科学基础知识体系等。来自内部分享PPT，后续会发布<strong>详细版</strong>。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2019/04/22/upforprogrammer/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2019/04/13/netflix/">技术 in Netflix</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2019-04-13T11:29:34+00:00" pubdate data-updated="true">Apr 13<sup>th</sup>, 2019</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>综合市面上的公开资料总结了Netflix在技术上面的一些实践和创新，从中能够得到不少启发和提示。</p>
-
-<p><strong>来自公司内部分享</strong></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2019/04/13/netflix/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2019/03/08/interview-basic/">技术面试的应该与不应该</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2019-03-08T11:29:34+00:00" pubdate data-updated="true">Mar 8<sup>th</sup>, 2019</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>进入软件开发这个行业差不多10年，做为候选人被面试过，也做为面试官面试过别人。这几年做为后者的角色越来越多，慢慢总结出来了一些技术面试的原则，也是自己在实践的一些原则。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2019/03/08/interview-basic/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2019/02/25/cache/">缓存这些事</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2019-02-25T11:29:34+00:00" pubdate data-updated="true">Feb 25<sup>th</sup>, 2019</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md</a></strong></p>
-
-<p>缓存是为了弥补持久化存储服务如数据库的性能缓慢而出现的一种将数据存储在内存中，从而大大提高应用性能的服务。如缓存五分钟法则所讲：如果一个数据频繁被访问，那么就应该放内存中。这里的缓存就是一种读写效率都非常高的存储方案，能够应对高并发的访问请求，通常情况下也不需要持久化的保证。但相对其他存储来说，缓存一般是基于内存的，成本比较昂贵，因此不能滥用。</p>
-
-<p>缓存可以分为：本地缓存和分布式缓存。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2019/02/25/cache/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2019/01/26/my2018/">我的2018</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2019-01-26T11:29:34+00:00" pubdate data-updated="true">Jan 26<sup>th</sup>, 2019</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>此文是我在部门内的一次公开信（经过脱敏），想法来自于《原则》和《谷歌是如何运营公司的》两本书。极度求真、 极度透明的原则是一个想要做出大事业的公司应该具有的气度，而对所有同事能够客观地陈述自己的得与失，并欢迎吐槽，这不仅仅是真诚文化、极度透明原则的体现，也是对自己的一种压力和驱动。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2019/01/26/my2018/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-12-08T11:29:34+00:00" pubdate data-updated="true">Dec 8<sup>th</sup>, 2018</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
-
-<p>本文对其语法作了简要概括。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/12/08/kotlin-notes/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/11/22/online-debug/">如何应对在线故障</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-11-22T14:29:34+00:00" pubdate data-updated="true">Nov 22<sup>nd</sup>, 2018</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？</p>
-
-<p><strong>来自公司内部分享</strong></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/11/22/online-debug/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/10/31/profile-ready/">Java应用性能调优之调优准备</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-10-31T14:29:34+00:00" pubdate data-updated="true">Oct 31<sup>st</sup>, 2018</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/10/31/profile-ready/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-      <div class="page-navigator">
-        
-        
-        
-            <a href="/blog/posts/2" class="next">下一页>></a>
-        
-        <div class="center"><a href="/blog/archives">所有文章</a></div>
-      </div>
-     </div>
   </div>
-    
+</div>
+
   <aside id="secondary">
   <div id="sidebar">
   
@@ -1553,7 +1221,7 @@
 <section>
   <h3 class="widget-title">GitHub Repos</h3>
   <ul id="gh_repos" class="widget-list">
-    <li class="loading">数据读取中&#8230;</li>
+    <li class="loading">数据读取中...</li>
   </ul>
   
   <script type="text/javascript">
@@ -1587,7 +1255,9 @@
 </section>
   
   </div>
-  </aside>
+</aside>
+
+
       	</div>
     </div>
   </div>
@@ -1633,7 +1303,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "",
+   issue_title: "Java开发框架之日志",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
