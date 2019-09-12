@@ -4,7 +4,7 @@
   <title><![CDATA[Category: network | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/network/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-08-29T12:54:29+00:00</updated>
+  <updated>2019-09-12T12:52:03+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -94,7 +94,7 @@
 <ul>
 <li>基于事件驱动的方式，避免了每次都要把所有fd都扫描一遍。</li>
 <li>epoll_wait只返回就绪的fd。</li>
-<li>epoll使用nmap内存映射技术避免了内存复制的开销。</li>
+<li>epoll使用mmap内存映射技术避免了内存复制的开销。</li>
 <li>epoll的fd数量上限是操作系统的最大文件句柄数目,这个数目一般和内存有关，通常远大于1024。</li>
 </ul>
 
