@@ -1,0 +1,701 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>数据传输之RESTful - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="数据传输之RESTful Sep 28th, 2019 Posted by 飒然Hang in architecture REST，全称表现层状态转移（Representational State Transfer）, 指的是资源在网络中以某种表现形式进行状态转移，是一种架构风格。 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2019/09/28/restful/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">数据传输之RESTful</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-09-28T11:29:34+00:00" pubdate data-updated="true">Sep 28<sup>th</sup>, 2019</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/architecture/'>architecture</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>REST，全称表现层状态转移（Representational State Transfer）, 指的是资源在网络中以某种表现形式进行状态转移，是一种架构风格。其描述的是在网络中Client和Server的一种交互形式。简单来说就是用HTTP URL来定位资源，用HTTP的各种method来描述操作。其关键的三个概念如下：</p>
+
+<ul>
+<li>Resource: 资源，主要指的是数据。</li>
+<li>Representational：数据的表现形式，如JSON、XML、HTML等。</li>
+<li>State Transfer：状态变化, 通过HTTP method来描述。</li>
+</ul>
+
+
+<p>REST经常被用来规范API的设计以及数据传输的格式，可以统一给各种客户端提供接口,包括Web、iOS、Android和其他的服务。REST不需要显式的前端页面，只需要按照格式返回数据即可。符合REST风格的API称为RESTful API，符合RESTFul规范的架构称为RESTful架构。如下图所示：</p>
+
+<p><img src="/post_images/restful/restful.png" alt="" /></p>
+
+<!--more-->
+
+
+<h2>一. 操作</h2>
+
+<p>RESTful是基于HTTP协议的，其主要依赖于HTTP协议的几种method来表示CRUD（create、read、update和delete,即数据的增删查改）操作：</p>
+
+<ul>
+<li>GET: 从服务器上获取资源</li>
+<li>POST: 创建新的资源</li>
+<li>PUT： 更新服务器资源</li>
+<li>DELETE： 删除服务器资源</li>
+</ul>
+
+
+<p>这里需要注意两点：</p>
+
+<ul>
+<li>GET、PUT和DELETE应该是幂等的，即相同的数据和参数下，执行一次或多次产生的效果是一样的。</li>
+<li>对于POST和PUT操作，应该返回最新的资源，删除操作则一般不必要。</li>
+<li>所有的操作都是无状态的，即所有的资源，都可以通过URL定位，这个定位与其他资源无关，也不会因为其他资源的变化而改变。</li>
+</ul>
+
+
+<p>除了上述方法之外，还有一个PATCH方法也用于更新资源的部分属性，但并用的并不多，用POST即可。</p>
+
+<p>此外，HTTP 1.1的几个头部也是应该注意的：</p>
+
+<ul>
+<li>Accept: 客户端要求服务器返回什么样表现形式的数据。RESTFul API需要根据此头部返回合适的数据。</li>
+<li>If-Match: 在对资源做更新和删除操作时，客户端提供If-Match头，值为服务端上次对此资源返回的Etag, 服务端对比Etag如果一致才做更新和删除，否则返回412。</li>
+<li>If-None-Match: 和If-Match相反，如果不匹配上次的Etag才返回数据，匹配的话则返回304，多用于Get请求。</li>
+<li>If-Modified-Since：值为时间，如果请求的部分在指定时间之后被修改则请求成功，未被修改则返回304，多用于Get请求。</li>
+</ul>
+
+
+<h2>二. 返回码</h2>
+
+<p>HTTP本身已经提供了很多StatusCode来表示各种状态。RESTFul接口需要遵循这些定义，返回合适的状态码和数据。当然，如果是内部使用，统一返回200，在返回数据里自定义一套status code也是可以的。</p>
+
+<p>HTTP的状态码大体分为几个区间：</p>
+
+<ul>
+<li>2XX：请求正常处理并返回。</li>
+<li>3XX：重定向，请求的资源位置发生变化。</li>
+<li>4XX：客户端发送的请求有错误。</li>
+<li>5XX：服务器端错误。</li>
+</ul>
+
+
+<p>在自己设计返回码的时候最好也遵循此范围设计，以下是其中几个常用的状态码：</p>
+
+<ul>
+<li>200：表示请求成功。</li>
+<li>301：资源已经永久移动到新的地址，新的URL会在响应头中返回。</li>
+<li>302：资源临时被移动到新的地址，新的URL会在响应头中返回。</li>
+<li>304：表明资源未改变。主要配合请求头中的If-None-Match和If-Modified-Since使用。</li>
+<li>400：错误请求，表示请求中有语法错误。</li>
+<li>401：请求的资源需要认证，请求没有提供认证信息或者认证错误。</li>
+<li>403：资源被禁止访问。</li>
+<li>404：资源不存在。</li>
+<li>502：错误的网关，通常是作为代理的服务器无法收到远程服务器的正确响应。</li>
+<li>503：服务不可用。</li>
+</ul>
+
+
+<h2>三. 资源</h2>
+
+<p>资源是RESTful API的核心，其以URI（统一资源标识符）标识，而URL则不仅能够标识一个资源，还能够定位资源。RESTful中使用HTTP URL标识并定位一个资源。原则上只使用名词来指定资源，而且推荐使用复数。以对记事的CRUD API的设计为例：</p>
+
+<ul>
+<li>获取所有记事列表：GET /api/notes?page=1&amp;per_page=20</li>
+<li>获取某人的所有记事列表：GET /api/users/{uid}/notes</li>
+<li>获取标记为星的记事：GET /api/users/{uid}/notes?star=1</li>
+<li>创建记事：POST /api/notes</li>
+<li>删除某一个记事：DELET /api/notes/{note_id}</li>
+<li>更新某一个记事：PUT /api/notes/{note_id}</li>
+</ul>
+
+
+<p>可知：</p>
+
+<ul>
+<li>资源分为单个资源和资源集合，尽量使用复数来表示资源，单个资源通过添加ID等标识符来表示。</li>
+<li>资源使用嵌套结构，类似于目录路径的方式，可以体现出之间的关系。</li>
+<li>一个资源可以有不同的URL，如上可以获取所有的记事列表，也可以获取某人的所有记事列表。</li>
+<li>对于GET方法，一定不能设计为可以改变资源的操作。如get /api/deleteNote?id=xx。</li>
+<li>URL是对大小写敏感的，尽量使用小写字母，单词间用下划线连接。</li>
+<li>使用Query参数来控制返回结果，如上面返回星标记事的接口。此外，像排序方向、排序使用的字段都是可以放在query参数中的。</li>
+<li>分页参数使用Query参数（page、per_page）控制，在返回数据中返回当前页、下一页、上一页、总页数等分页相关信息。</li>
+</ul>
+
+
+<p>如果需要区分版本号，可以放在路径中，如/api/v2/**，也可以放在header的Accept字段或者Query参数中:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Accept: version=2.0;...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于一些很难设计为CRUD操作的URL, 如登录、送礼物等，有以下处理方式：</p>
+
+<ul>
+<li>使用POST，如POST /api/login。</li>
+<li>把动作转换成资源: 登录就是创建了一个Session或者Token，那么就可以设计为 POST /api/sessions。</li>
+</ul>
+
+
+<p>此外，对于数据的提交格式和返回格式，目前以JSON格式为主，其可读性、紧凑性、多语言支持都较好；数据提交的方式也应该使用application/JSON的内容格式并在body里放置JSON数据。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>...
+</span><span class='line'>Content-type: application/json
+</span><span class='line'>Accept: application/json
+</span><span class='line'>...
+</span><span class='line'>
+</span><span class='line'>{
+</span><span class='line'>    'title':'xxx',
+</span><span class='line'>    'content':'xxx'
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>四. 安全性</h2>
+
+<p>HTTP本身是对数据不做任何安全处理的，因此建议首先从根本上使用HTTPS加强数据的安全性。此外，这里的安全性还要保证数据的完整性；保证接口的授权访问，保证接口只提供给授权过的应用访问以及过滤掉不必要的请求；保证数据的授权访问，只允许资源拥有者删除、更新自己的资源。</p>
+
+<h3>数据的完整性</h3>
+
+<p>数据完整性主要是指在对数据进行修改时，要保证要修改的数据和服务器数据是一致的。可以通过Etag这个HTTP中的头部字段来解决。</p>
+
+<p>Etag表示的是资源的唯一版本号, 请求资源时，RESTful api应该把资源数据以及资源的Etag一起返回。api请求方修改资源时应该提交If-Match头，这样服务器通过对比Etag可以防止数据被错误修改，类似于并发中CAS的原理。但是要绝对保证数据的完整性，还得需要配合严格的并发控制才能做到。</p>
+
+<h3>接口访问控制</h3>
+
+<p>接口访问控制可以保证接口的授权访问，拒绝不合法的请求。可以通过以下几种方式：</p>
+
+<ul>
+<li>在Request headers中添加特殊的标识符，如果不含有此header的请求直接拒绝。这可以做简单的接口访问控制。</li>
+<li>过滤Requst query和body, 做白名单验证，即只允许出现哪些参数，如果有非法参数，可以抛弃或者直接拒绝请求。</li>
+</ul>
+
+
+<p>上面只是比较简单的接口访问控制策略，无法彻底拒绝未授权的请求。我们可以通过为每一个授权应用分配app_secret（私有的，不公开），访问时对请求进行签名验证的方式实现更为严格的接口访问控制，这种方法也叫做HMAC。请求签名生成的一个例子如下：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>app_sign = MD5(METHOD & PATH & timestamp & app_secret)</span></code></pre></td></tr></table></div></figure>
+
+
+<p>其中，METHOD指的是此次请求的方法，PATH指的URL中的path部分，timestamp是请求时间戳，app_secret是分配请求方的私钥，此外还有一个分配给请求方的app_id。这样，app_id、timestamp、app_sign随着请求一起发送（可以作为query参数也可以作为header），服务器接收到请求后使用同样的算法计算出app_sign进行对比，如果相同则正常请求，否则返回401 Unauthorized。由此既可以保证接口的授权访问，还能够基于时间戳防止重放攻击。当然，app_sign的生成算法可以加入更多的因子，如request_body、query等。但需要注意的是这个算法越复杂，对接口的性能影响就越大，需要做权衡。</p>
+
+<h3>数据的授权访问-OAuth</h3>
+
+<p>数据的授权访问其实也是接口访问控制的一部分。主要关注点在于对资源的操作权限做控制。基于HTTP做授权访问的核心就是验证一个请求是否是合法用户发起的，主要的有HTTP Basic Auth、OAuth。其中Basic Auth会把用户的用户名和密码直接暴露在网络中并不安全，因此RESTful api主要使用OAuth做数据的授权访问控制。</p>
+
+<p>OAuth2.0的验证流程如下图所示：</p>
+
+<p><img src="/post_images/restful/oauth.png" alt="" /></p>
+
+<ul>
+<li>得到授权码code。</li>
+<li>使用授权码换取access_token和refesh_token，通常refresh_token比access_token有效期长。</li>
+<li>使用access_token获取用户openid。</li>
+<li>使用access_token和用户openid调用用户授权接口。</li>
+<li>使用refresh_token获取新的access_token。</li>
+</ul>
+
+
+<p>当然，如果是提供给内部应用的API，可以做适当简化，比如用户登录直接返回access_token，凭借此access_token调用授权接口即可。</p>
+
+<h2>五. 限流</h2>
+
+<p>RESTful api应该有限流机制，否则会造成API被滥用甚至被DDOS攻击。可以根据不同的授权访问做不同的限流，以减少服务器压力。</p>
+
+<p>限流的情况可以通过下面几个头部字段返回给请求方：</p>
+
+<ul>
+<li>X-RateLimit-Limit: 用户每个小时允许发送请求的最大值。</li>
+<li>X-RateLimit-Remaining：当前时间窗口剩下的可用请求数目。</li>
+<li>X-RateLimit-Rest: 时间窗口重置的时候，到这个时间点可用的请求数量就会变成 X-RateLimit-Limit 的值。</li>
+</ul>
+
+
+<p>对于未登录的用户根据IP或者设备ID来限流，对于登录用户根据用户标识。对于超过流量的请求，返回403 forbiden或者429 Too many requests都可以。</p>
+
+<h2>六. 超文本API</h2>
+
+<p>RESTful还有一个非常关键的特性就是超文本API（Hypermedia API），指的是服务器需要在每一个API接口的返回结果中都要提供与下一步操作相关的资源链接, 客户端借助这些实现表现层状态转移。这种设计也被称为 HATEOAS（Hypermedia as the Engine of Application State）。</p>
+
+<p>除此之外，这样做还能够让客户端和服务端解耦，客户端只需要依次遍历返回结果中的超链接就能完成一系列业务逻辑；当服务端做了业务逻辑改动后，也只需要修改服务器返回的资源链接即可。</p>
+
+<h2>七. 编写文档</h2>
+
+<p>RESTful API一般是对接第三方的，因此，文档说明是非常必要的。因此对每一个接口都详细的说明参数含义、数据返回格式和字段意义并举出实际的例子都是非常关键的。</p>
+
+<p>Java Web开发中，我们可以使用Swagger UI + Spring Fox来基于注释生成RESTful API文档。</p>
+
+<h2>八. RESTful API实现</h2>
+
+<p>Spring MVC、Jersey、Play Framework等主流的Web开发框架都支持RESTful的接口编写。这里我们以Spring MVC为例。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>@RequestMapping(value = "/api/notes/{noteId}", method = RequestMethod.GET, headers = "Accept=application/json")
+</span><span class='line'>@ResponseBody
+</span><span class='line'>public UserNote getUserNoteInfo(@PathVariable long noteId) {
+</span><span class='line'>
+</span><span class='line'>   return ...;
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此外，OAuth的实现可以使用Spring Security OAuth, 其基于Spring Secutiry实现了OAuth服务。不过，Spring Security OAuth使用稍显复杂，完全可按照OAuth2.0的流程使用Spring MVC + Redis进行实现。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+</div>
+<div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script>
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2019/08/23/solve-problem/" title="下一篇: 如何培养解决问题的意识">如何培养解决问题的意识 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<div style="margin-bottom: 10px">
+		<h4 style="margin: 0px !important">梳理Java体系知识，沓实架构基础</h4>
+		<a href="https://github.com/superhj1987/pragmatic-java-engineer/tree/master/book">《Java工程师修炼之道》</a>
+	</div>
+	<p>中华万年历/微鲤看看技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">Java研发!!!</a>，感兴趣者可发送简历到<a href="mailto:hang@weli.cn">hang@weli.cn</a>。</p>
+	<!-- <div style="margin-bottom: 10px">
+		<h4 style="margin: 0px !important">关注公众号，及时获取最新文章</h4>
+		<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" id="imgQR"/>
+	</div> -->
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2019/09/28/restful/">数据传输之RESTful</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/08/23/solve-problem/">如何培养解决问题的意识</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/07/27/springboot/">使用Spring Boot快速开发</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/06/29/log/">Java开发框架之日志</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/05/30/msa/">微服务杂谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/04/22/upforprogrammer/">这些知识决定了程序员的上限（PPT版）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/04/13/netflix/">技术 in Netflix</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/03/08/interview-basic/">技术面试的应该与不应该</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/02/25/cache/">缓存这些事</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/01/26/my2018/">我的2018</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2019 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "数据传输之RESTful",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getRecentCommentsList(opt);
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

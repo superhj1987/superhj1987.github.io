@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="如何培养解决问题的意识 Aug 23rd, 2019 解决问题其实并不是最终的目的，需要加一个修饰词成为有效地解决问题，这才是最终的目的。那么如何有效地解决问题呢？这是有一些方法论做指导的。要培养解决问题的能力，需要首先掌握这些方法论。解决问题分为三步走：识别问题、分析问题、解决问题。 继续阅读 &hellip;">
+  <meta name="description" content="数据传输之RESTful Sep 28th, 2019 REST，全称表现层状态转移（Representational State Transfer）, 指的是资源在网络中以某种表现形式进行状态转移，是一种架构风格。其描述的是在网络中Client和Server的一种交互形式。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,59 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2019/09/28/restful/">数据传输之RESTful</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-09-28T11:29:34+00:00" pubdate data-updated="true">Sep 28<sup>th</sup>, 2019</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>REST，全称表现层状态转移（Representational State Transfer）, 指的是资源在网络中以某种表现形式进行状态转移，是一种架构风格。其描述的是在网络中Client和Server的一种交互形式。简单来说就是用HTTP URL来定位资源，用HTTP的各种method来描述操作。其关键的三个概念如下：</p>
+
+<ul>
+<li>Resource: 资源，主要指的是数据。</li>
+<li>Representational：数据的表现形式，如JSON、XML、HTML等。</li>
+<li>State Transfer：状态变化, 通过HTTP method来描述。</li>
+</ul>
+
+
+<p>REST经常被用来规范API的设计以及数据传输的格式，可以统一给各种客户端提供接口,包括Web、iOS、Android和其他的服务。REST不需要显式的前端页面，只需要按照格式返回数据即可。符合REST风格的API称为RESTful API，符合RESTFul规范的架构称为RESTful架构。如下图所示：</p>
+
+<p><img src="/post_images/restful/restful.png" alt="" /></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2019/09/28/restful/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -510,50 +563,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-12-08T11:29:34+00:00" pubdate data-updated="true">Dec 8<sup>th</sup>, 2018</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
-
-<p>本文对其语法作了简要概括。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/12/08/kotlin-notes/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -594,13 +603,13 @@
 <section class="widget" id="notice">
 	<div style="margin-bottom: 10px">
 		<h4 style="margin: 0px !important">梳理Java体系知识，沓实架构基础</h4>
-		<a href="/blog/2018/04/01/pje-release/"><img src="/post_images/book.png" width="150"/></a>
+		<a href="https://github.com/superhj1987/pragmatic-java-engineer/tree/master/book">《Java工程师修炼之道》</a>
 	</div>
 	<p>中华万年历/微鲤看看技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">Java研发!!!</a>，感兴趣者可发送简历到<a href="mailto:hang@weli.cn">hang@weli.cn</a>。</p>
-	<div style="margin-bottom: 10px">
+	<!-- <div style="margin-bottom: 10px">
 		<h4 style="margin: 0px !important">关注公众号，及时获取最新文章</h4>
 		<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" id="imgQR"/>
-	</div>
+	</div> &#8211;>
 	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
 </section><section class="widget" id="social">
 		
@@ -628,6 +637,10 @@
 	<h3 class="widget-title">最新文章</h3>
 	<ul class="widget-list">
 		
+     	<li>
+      	  <a href="/blog/2019/09/28/restful/">数据传输之RESTful</a>
+      	</li>
+    	
      	<li>
       	  <a href="/blog/2019/08/23/solve-problem/">如何培养解决问题的意识</a>
       	</li>
@@ -662,10 +675,6 @@
     	
      	<li>
       	  <a href="/blog/2019/01/26/my2018/">我的2018</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a>
       	</li>
     	
 	</ul>

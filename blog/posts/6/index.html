@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="[译]Java8 Top Tips Aug 3rd, 2016 原文：https://dzone.com/articles/java-8-top-tips 本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。 笔者已经使用Java8工作许多年， &hellip;">
+  <meta name="description" content="研发体系这点事 Aug 17th, 2016 &ndash;本文于2016.08.23最新更新&ndash; 早在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -112,6 +112,72 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/08/17/dev-manage/">研发体系这点事</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-08-17T12:13:34+00:00" pubdate data-updated="true">Aug 17<sup>th</sup>, 2016</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p><strong><em>&ndash;本文于2016.08.23最新更新&ndash;</em></strong></p>
+
+<p>早在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中，也做过一些尝试。直到毕业后进入前东家，在几个项目的参与过程中，见到了大公司的研发管理是如何进行的。直至加入目前的公司，将研发体系梳理一遍，且学且抄且实践，对这一套东西算是有了一定的实践感悟。</p>
+
+<p>对于一个研发管理体系，其核心是围绕着产品的整个生命周期来进行的。因此，根据一个产品的生命周期，可以把研发体系划分为几个关键的环节，如图所示：</p>
+
+<p><a href="/images/blog_images/dev-system-overview.png" target="_blank"><img src="/images/blog_images/dev-system-overview.png"/></a></p>
+
+<p>更为具体的一个研发流程则如下图所示，标注了每一个环节的参与角色。</p>
+
+<p><img src="/images/blog_images/prject_manage_detail.png" alt="prject_manage_detail.png" /></p>
+
+<p>可知，即时沟通和技术提升虽然不属于研发流程中的某一个环节，但它们是贯穿整个研发体系不可或缺的一部分，有着不可替代的作用。此外，任务管理需要对任务做整个研发生命周期的管理，除了作为其中的一个关键环节，也是贯穿整个研发流程的。</p>
+
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86">任务管理</a></li>
+<li><a href="#%E6%96%87%E6%A1%A3%E5%8D%8F%E4%BD%9C">文档协作</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%8D%8F%E4%BD%9C">代码协作</a></li>
+<li><a href="#%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81">质量保证</a></li>
+<li><a href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2">自动化部署</a></li>
+<li><a href="#%E6%95%85%E9%9A%9C%E7%AE%A1%E7%90%86">故障管理</a></li>
+<li><a href="#%E5%8D%B3%E6%97%B6%E6%B2%9F%E9%80%9A">即时沟通</a></li>
+<li><a href="#%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87">技术提升</a></li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/08/17/dev-manage/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -578,71 +644,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/01/18/io-model/">也谈IO模型</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-01-18T07:41:31+00:00" pubdate data-updated="true">Jan 18<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>目录</h2>
-
-<ul>
-<li><a href="#%E5%89%8D%E8%A8%80">前言</a></li>
-<li><a href="#IO%E6%A8%A1%E5%9E%8B">IO模型</a></li>
-<li><a href="#%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B">网络编程模型</a></li>
-<li><a href="#%E5%8F%82%E8%80%83%E8%B5%84%E6%96%99">参考资料</a></li>
-</ul>
-
-
-<h2><a name='前言'></a>前言</h2>
-
-<p>说到IO模型，都会牵扯到同步、异步、阻塞、非阻塞这几个词。从词的表面上看，很多人都觉得很容易理解。但是细细一想，却总会发现有点摸不着头脑。自己也曾被这几个词弄的迷迷糊糊的，每次看相关资料弄明白了，然后很快又给搞混了。经历过这么几次之后，发现这东西必须得有所总结提炼才不至于再次混为一谈。尤其是最近看到好几篇讲这个的文章，很多都有谬误，很容易把本来就搞不清楚的人弄的更加迷糊。</p>
-
-<p>最适合IO模型的例子应该是咱们平常生活中的去餐馆吃饭这个场景，下文就结合这个来讲解一下经典的几个IO模型。在此之前，先需要说明以下几点：</p>
-
-<ul>
-<li>IO有内存IO、网络IO和磁盘IO三种，通常我们说的IO指的是后两者。</li>
-<li>阻塞和非阻塞，是函数/方法的实现方式，即在数据就绪之前是立刻返回还是等待，即发起IO请求是否会被阻塞。</li>
-<li>以文件IO为例,一个IO读过程是文件数据从磁盘→内核缓冲区→用户内存的过程。同步与异步的区别主要在于数据从内核缓冲区→用户内存这个过程需不需要用户进程等待，即实际的IO读写是否阻塞请求进程。(网络IO把磁盘换做网卡即可)</li>
-</ul>
-
-
-<p><strong><em>更新了有关异步非阻塞IO;修正了java aio的说明</em></strong></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/01/18/io-model/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -685,13 +686,13 @@
 <section class="widget" id="notice">
 	<div style="margin-bottom: 10px">
 		<h4 style="margin: 0px !important">梳理Java体系知识，沓实架构基础</h4>
-		<a href="/blog/2018/04/01/pje-release/"><img src="/post_images/book.png" width="150"/></a>
+		<a href="https://github.com/superhj1987/pragmatic-java-engineer/tree/master/book">《Java工程师修炼之道》</a>
 	</div>
 	<p>中华万年历/微鲤看看技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">Java研发!!!</a>，感兴趣者可发送简历到<a href="mailto:hang@weli.cn">hang@weli.cn</a>。</p>
-	<div style="margin-bottom: 10px">
+	<!-- <div style="margin-bottom: 10px">
 		<h4 style="margin: 0px !important">关注公众号，及时获取最新文章</h4>
 		<img src="/images/blog_images/mp-qrcode.jpg" style="margin-left: -20px" id="imgQR"/>
-	</div>
+	</div> &#8211;>
 	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
 </section><section class="widget" id="social">
 		
@@ -719,6 +720,10 @@
 	<h3 class="widget-title">最新文章</h3>
 	<ul class="widget-list">
 		
+     	<li>
+      	  <a href="/blog/2019/09/28/restful/">数据传输之RESTful</a>
+      	</li>
+    	
      	<li>
       	  <a href="/blog/2019/08/23/solve-problem/">如何培养解决问题的意识</a>
       	</li>
@@ -753,10 +758,6 @@
     	
      	<li>
       	  <a href="/blog/2019/01/26/my2018/">我的2018</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2018/12/08/kotlin-notes/">Kotlin语法简明指南</a>
       	</li>
     	
 	</ul>
