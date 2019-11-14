@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Spring注解概览 Oct 28th, 2017 从Java5.0开始，Java开始支持注解。Spring做为Java生态中的领军框架，从2.5版本后也开始支持注解。相比起之前使用xml来配置Spring框架，使用注解提供了更多的控制Spring框架的方式。 &hellip;">
+  <meta name="description" content="技术琐话2017-11-26 Nov 26th, 2017 日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。 The interesting thing about performance is &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -113,6 +113,50 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/11/26/tech-talk/">技术琐话2017-11-26</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-11-26T11:29:34+00:00" pubdate data-updated="true">Nov 26<sup>th</sup>, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p></blockquote>
+
+<ul>
+<li><p>The interesting thing about performance is that if you analyze most programs, you find that they waste most of their time in a small fraction of code. If you optimize all the code equally, you end up with 90 percent of the optimizations wasted, because you are optimizing code that isn&rsquo;t run much. The time spent making the program fast, the time lost because of lack of clarity, is all wasted time.《重构》一书的一段话，也是不要过早优化的意思，即在不确定这段代码真的会被频繁调用、真的是系统的性能瓶颈之前，没必要花时间优化此处的性能。</p></li>
+<li><p>这句话揭示了成为技术专家的一个关键特质: 理解一个系统应该如何工作并不能使人成为专家，只能靠调查系统为何不能正常工作才行。（From SRE ，by Brian Redman）</p></li>
+<li><p>技术书籍的出版门槛越来越低，该如何识别是否是一本烂书呢？在我自己看来，英文书籍质量远远好于中文书籍，翻译的版本一般来说质量也不错，不过作为一个互联网从业的技术人员，能够直接阅读英文原版是最好不过的。而对于中文书籍，如果是以公司名义或者书的序多于3篇，是一本烂书的概率非常大，写推荐语、写序的人名头越大，并不代表这本书的质量有多好。此外，现在某sdn专家真的是门槛低到不行，挂这个名头出的书更要慎重选择。对于InfoQ推荐的书，倒是可以值得一读。</p></li>
+</ul>
+
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -521,67 +565,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2017/03/23/java-profile-cheatsheet/">JVM诊断调优CheatSheet</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2017-03-23T11:29:34+00:00" pubdate data-updated="true">Mar 23<sup>rd</sup>, 2017</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>包含诊断调优java应用的各种命令以及jvm配置示例。</p>
-
-<h2>常用Shell命令</h2>
-
-<ul>
-<li><p>查看网络状况</p>
-
-<pre><code>  netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
-</code></pre></li>
-<li><p>使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存。</p>
-
-<pre><code>  #!/bin/bash
-  for i in `ps -ef | egrep -v "awk|$0" | awk '/'$1'/{print $2}'`
-  do
-      mymem=`cat /proc/$i/status 2&gt; /dev/null | grep VmRSS | awk '{print $2" " $3}'`
-      cpu=`top -n 1 -b |awk '/'$i'/{print $9}'`
-  done
-</code></pre></li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2017/03/23/java-profile-cheatsheet/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -653,6 +636,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2019/10/23/how-to-tech-share/">如何进行有效的技术分享（演讲）</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2019/09/28/restful/">数据传输之RESTful</a>
       	</li>
     	
@@ -686,10 +673,6 @@
     	
      	<li>
       	  <a href="/blog/2019/02/25/cache/">缓存这些事</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2019/01/26/my2018/">我的2018</a>
       	</li>
     	
 	</ul>

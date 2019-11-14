@@ -4,7 +4,7 @@
   <title><![CDATA[Category: misc | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/misc/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-11-06T03:35:08+00:00</updated>
+  <updated>2019-11-14T15:16:10+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,162 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[如何进行有效的技术分享（演讲）]]></title>
+    <link href="http://www.rowkey.me/blog/2019/10/23/how-to-tech-share/"/>
+    <updated>2019-10-23T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/10/23/how-to-tech-share</id>
+    <content type="html"><![CDATA[<p>讲述如何准备一次技术分享（演讲）以及演讲中的注意事项。来自内部分享PPT，后续会发布<strong>详细版</strong>。</p>
+
+<!--more-->
+
+
+<h2>What-什么是有效的技术分享</h2>
+
+<ul>
+<li>演讲
+
+<ul>
+<li>知识/技能培训</li>
+<li>组件/平台/系统使用培训</li>
+<li>工作实践经验/教训</li>
+</ul>
+</li>
+<li>写博客？</li>
+</ul>
+
+
+<p><strong>有效->满足听众的诉求</strong></p>
+
+<h2>Why-存在的问题</h2>
+
+<ul>
+<li>语速太快</li>
+<li>图解太少</li>
+<li>缺乏实践案例</li>
+<li>内容太多</li>
+<li>内容都在ppt上</li>
+</ul>
+
+
+<h2>How-如何准备技术分享</h2>
+
+<ul>
+<li>目的</li>
+<li>结构</li>
+<li>内容</li>
+<li>PPT</li>
+<li>练习</li>
+</ul>
+
+
+<h2>目的</h2>
+
+<hr />
+
+<ul>
+<li>开阔眼界</li>
+<li>培训</li>
+<li>讨论</li>
+</ul>
+
+
+<p><strong>听众的组成；听众对领域的了解程度；听众的诉求</strong></p>
+
+<h2>结构</h2>
+
+<ul>
+<li>Who</li>
+<li>What</li>
+<li>Why</li>
+<li>How：重点选3、4点</li>
+<li>Future</li>
+<li>Recap</li>
+</ul>
+
+
+<h2>内容</h2>
+
+<ul>
+<li><strong>backlog</strong>: 收集、积累信息</li>
+<li><strong>逐字稿</strong></li>
+<li><strong>形式</strong>：
+
+<ul>
+<li>报告：精确的信息和枯燥的细节、事实和图表</li>
+<li>故事：具体；强调说服和感染；<strong>赋比兴</strong></li>
+<li>演讲：介于报告和故事之间</li>
+</ul>
+</li>
+<li><strong>实践案例</strong>、经验 > 说教
+
+<pre><code>  - Situation: 当时的情况
+  - Target: 面临的任务/目标
+  - Action: 采取的行动
+  - Results: 取得的结果
+</code></pre></li>
+<li>内容量适可而止</li>
+<li><strong>Demo</strong>: 关键特点、容错处理</li>
+</ul>
+
+
+<h2>PPT</h2>
+
+<blockquote><p>烘托效果和提醒，<strong>配角</strong></p></blockquote>
+
+<ul>
+<li>How的几个重点，每一个点2-3页，共15-20页</li>
+<li>精简文字+图表，多图少字</li>
+<li><strong>简洁、干净、一致、跳脱</strong></li>
+<li><strong>忌</strong>：交互式幻灯片、大片文字</li>
+</ul>
+
+
+<h2>练习</h2>
+
+<hr />
+
+<blockquote><p>多练出奇迹</p></blockquote>
+
+<ul>
+<li>自我练习</li>
+<li>让别人听：公司/团队内部试讲</li>
+<li>冥想：站在听众的角度去接受信息</li>
+</ul>
+
+
+<p><strong>根据反馈不断进行迭代改进</strong></p>
+
+<h2>分享Tips</h2>
+
+<ul>
+<li>紧张
+
+<ul>
+<li>觉察：“只要不被听众察觉到紧张，那就不是紧张”。</li>
+<li>充分准备</li>
+<li>内容量适可而止</li>
+<li>简洁PPT：留有自由发挥余地</li>
+<li>练习</li>
+</ul>
+</li>
+<li>节奏
+
+<ul>
+<li>语速放缓</li>
+<li>多准备点内容：演讲时间固定的情况下讲不完比冷场要好</li>
+<li>规划要点、时间</li>
+</ul>
+</li>
+<li>目光：面对听众并熟视无睹；巡视听众</li>
+<li>语调：有感情；抑扬顿挫</li>
+<li>手势：忌手足无措</li>
+<li>演讲设备/PPT的备份</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[如何培养解决问题的意识]]></title>
@@ -606,7 +762,7 @@
 
 <hr />
 
-<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#104;&#97;&#110;&#103;&#64;&#x65;&#116;&#x6f;&#x75;&#99;&#x68;&#46;&#99;&#x6e;">&#104;&#x61;&#110;&#x67;&#x40;&#x65;&#x74;&#111;&#117;&#x63;&#x68;&#x2e;&#99;&#x6e;</a>。要求如下：</p>
+<p>中华万年历技术团队长期求Java研发工程师，给你挑战<strong>亿级用户</strong>、<strong>千万日活APP</strong>开发的机会。感兴趣者可发送简历到<a href="&#109;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#104;&#x61;&#x6e;&#x67;&#64;&#101;&#116;&#x6f;&#x75;&#99;&#104;&#x2e;&#x63;&#110;">&#104;&#97;&#x6e;&#103;&#64;&#101;&#x74;&#111;&#x75;&#x63;&#104;&#46;&#x63;&#x6e;</a>。要求如下：</p>
 
 <p><img src="http://www.rowkey.me/images/blog_images/java_job.jpg" width="350" style="margin:0 auto;display:block"/></p>
 
