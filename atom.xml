@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-11-14T15:16:10+00:00</updated>
+  <updated>2019-11-15T06:45:41+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -53,18 +53,7 @@
 
 <h2>How-如何准备技术分享</h2>
 
-<ul>
-<li>目的</li>
-<li>结构</li>
-<li>内容</li>
-<li>PPT</li>
-<li>练习</li>
-</ul>
-
-
-<h2>目的</h2>
-
-<hr />
+<h3>目的</h3>
 
 <ul>
 <li>开阔眼界</li>
@@ -75,7 +64,7 @@
 
 <p><strong>听众的组成；听众对领域的了解程度；听众的诉求</strong></p>
 
-<h2>结构</h2>
+<h3>结构</h3>
 
 <ul>
 <li>Who</li>
@@ -87,7 +76,7 @@
 </ul>
 
 
-<h2>内容</h2>
+<h3>内容</h3>
 
 <ul>
 <li><strong>backlog</strong>: 收集、积累信息</li>
@@ -112,7 +101,7 @@
 </ul>
 
 
-<h2>PPT</h2>
+<h3>PPT</h3>
 
 <blockquote><p>烘托效果和提醒，<strong>配角</strong></p></blockquote>
 
@@ -124,7 +113,7 @@
 </ul>
 
 
-<h2>练习</h2>
+<h3>练习</h3>
 
 <hr />
 
