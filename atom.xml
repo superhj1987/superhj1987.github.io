@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-12-25T08:58:07+00:00</updated>
+  <updated>2019-12-25T09:14:35+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -18,7 +18,7 @@
     <link href="http://www.rowkey.me/blog/2019/11/23/middle-talk/"/>
     <updated>2019-11-23T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/11/23/middle-talk</id>
-    <content type="html"><![CDATA[<blockquote><p>面对新事物，先接纳，再判断。不要轻易就否定，及时经过自己的思考后确实没啥价值，这期间的思考过程也是价值。</p></blockquote>
+    <content type="html"><![CDATA[<blockquote><p>面对新事物，先接纳，再判断。不要轻易就否定，即使经过自己的思考后确实没啥价值，这期间的思考过程也是一种知识梳理和思维锻炼。</p></blockquote>
 
 <p>2019年技术圈最火的一个词非“中台”莫属了。联想到公司已经在持续做的平台化，其实会让人感到混乱。平台和中台有啥区别？有了中台，那么前台和后台又指的什么？本文是自己在调研中台概念中沉淀出来的一些思考。</p>
 
