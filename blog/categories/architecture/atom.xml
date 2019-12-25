@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2019-12-13T15:38:59+00:00</updated>
+  <updated>2019-12-25T08:42:27+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,127 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[中台简谈]]></title>
+    <link href="http://www.rowkey.me/blog/2019/11/23/middle-talk/"/>
+    <updated>2019-11-23T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/11/23/middle-talk</id>
+    <content type="html"><![CDATA[<blockquote><p>面对新事物，先接纳，再判断。不要轻易就否定，及时经过自己的思考后确实没啥价值，这期间的思考过程也是价值。</p></blockquote>
+
+<p>2019年技术圈最火的一个词非“中台”莫属了。联想到公司已经在持续做的平台化，其实会让人感到混乱。平台和中台有啥区别？有了中台，那么前台和后台又指的什么？本文是自己在调研中台概念中沉淀出来的一些思考。</p>
+
+<!--more-->
+
+
+<h2>中台是什么</h2>
+
+<p>一种特殊形式的平台，抽象业务/系统的共性，支撑业务快速发展，是<strong>企业级共享能力平台</strong>。其核心在于对业务、数据、技术的抽象，对服务能力进行复用。解决重复开发、数据分散、试错成本高的问题。中台突出的是规划控制和协调的能力，前台强调的是创新和灵活多变。</p>
+
+<ul>
+<li>业务中台：多个前台业务应用共享的需求，关注如何支撑在线主营业务。一般来说业务中台由多个中心系统组成。</li>
+<li>数据中台: 专用的数据处理平台，用技术连接大数据计算存储能力，用业务连接数据应用场景能力的平台。</li>
+<li>技术中台：整合和包装了云基础设施以及在其上的各种技术中间件，并在此基础上建设和封装了简单易用的能力接口，提供了基础设施重用的能力。</li>
+<li>研发中台：关注应用研发效率的管理平台，为应用的开发提供了流程、质量管控和持续交付的能力。</li>
+<li>移动中台：平台级的移动端开发支持</li>
+<li>AI中台：数据中台之上，模型的训练、发布，智能服务的构建自动化，统一的元数据管理体系，模型的全生命周期管理。</li>
+<li>组织中台：与中台技术架构相匹配的组织架构</li>
+</ul>
+
+
+<p>众多的可复用能力只是中台的形，<strong>核心的业务数据和业务流程</strong>才是中台存在的本质。</p>
+
+<h2>为什么要有中台</h2>
+
+<p><strong>传统的烟囱式架构面临的问题</strong></p>
+
+<ul>
+<li>重复性建设对人力物力的浪费</li>
+<li>系统间交互的集成和协作成本昂贵</li>
+<li>不利于业务沉淀和持续发展</li>
+</ul>
+
+
+<p><strong>共享服务带来的优势</strong></p>
+
+<ul>
+<li>提高研发效能，赋予业务快速创新和试错能力</li>
+<li>打通数据，真正发挥大数据的威力，共享数据价值</li>
+<li>中台组织结构提升组织效能</li>
+</ul>
+
+
+<h2>怎么实现中台战略</h2>
+
+<h3>思路的改变</h3>
+
+<ul>
+<li>提升自己的研发效率->提升别人的研发效率</li>
+<li>从代码->需求，到代码->组件->需求，到代码->组件->可配置->需求</li>
+<li>业务逻辑和平台逻辑分离，业务逻辑和业务逻辑隔离</li>
+<li>集中配置，分布式运行</li>
+</ul>
+
+
+<h3>建设思路</h3>
+
+<ol>
+<li><p>中台化改造</p>
+
+<blockquote><p>对已有平台的中台化改造</p></blockquote>
+
+<ul>
+<li>平台不断对于自身治理演进、打破技术边界、逐渐拥抱业务、容纳业务、具备更强的业务属性的过程。</li>
+<li>通过业务抽象以及可配置化和白屏化（给平台产品做一个配置界面实现自助式服务，没有UI要求，一般是一个白页面加一些配置项）的改造升级</li>
+<li>技术平台->技术中台：对于技术平台的治理、安全、可用性和自助式的产品化包装，打造自助服务平台，关注业务的用户使用体验，让业务可以更快速更方便体验更好的使用企业内部的技术能力</li>
+</ul>
+</li>
+<li><p>中台化：利用平台化的思维和手段梳理、识别、沉淀与复用企业级核心能力的过程。根据业务演进逐渐积累而成，<strong>分阶段逐步实施</strong>。多于一个前台业务需要某一种能力，那么此能力即可沉淀为中台能力。切忌大而全的建设中台。</p>
+
+<ul>
+<li><strong>资源集中管理->能力抽象->灵活性</strong></li>
+<li><strong>共享服务：普通的服务能力->组件化服务，并提供良好的服务治理支持</strong>
+
+<ul>
+<li>找到一个合适的服务化对象：API as service，存量API升级成服务化平台的组件服务</li>
+<li>建设对象服务化的基础设施：Product as Service，封装API服务</li>
+<li>服务化实施阶段: Solution as Service</li>
+<li>增强服务和基础设施实现服务的精细治理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>运营</p>
+
+<ul>
+<li>运营前置：制定迭代计划及接入计划。中台产品推广、前台（用户）接入计划以及接入后的运营支持</li>
+<li>根据用户分层制定SLA：不同的需求响应机制、不同的沟通管理机制、不同的服务质量控制机制、不同的问题处理及升级机制</li>
+</ul>
+</li>
+<li><p>演进</p>
+
+<ul>
+<li>各种中台的逐渐建设</li>
+<li>共享服务中心的不断增加</li>
+</ul>
+</li>
+</ol>
+
+
+<h3>建设要点</h3>
+
+<ul>
+<li>在“工具”与“完全为业务服务”之间寻找平衡点，既需要满足业务的需求，又不能过度参与业务。</li>
+<li>重视中台的运营、持续治理以及演进</li>
+<li>拆分整体应用形成业务组件：抽象程度越高，中台对业务的适配度越高。</li>
+<li>可配置，自助白屏化</li>
+<li>足够灵活的扩展点，支持定制化扩展</li>
+<li>服务文档化</li>
+<li>开放体系：对内对外</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[数据传输之RESTful]]></title>
@@ -1023,28 +1144,6 @@ Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:
 <img src="//post_images/debug/arch-22.jpeg" alt="" />
 <img src="//post_images/debug/arch-23.jpeg" alt="" />
 <img src="//post_images/debug/arch-24.jpeg" alt="" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java应用性能调优之调优准备]]></title>
-    <link href="http://www.rowkey.me/blog/2018/10/31/profile-ready/"/>
-    <updated>2018-10-31T14:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/10/31/profile-ready</id>
-    <content type="html"><![CDATA[<p>实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。</p>
-
-<!--more-->
-
-
-<ul>
-<li>调优概览：<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/README.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/README.md</a></li>
-<li>调优准备：<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md</a></li>
-</ul>
-
-
-<blockquote><p>本文来自《Java工程师修炼之道》一书。</p></blockquote>
-
-<p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
 ]]></content>
   </entry>
   

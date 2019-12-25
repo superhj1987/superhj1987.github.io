@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>《白帽子讲Web安全》读书笔记 - 后端技术杂谈 | 飒然Hang</title>
+  <title>中台简谈 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《白帽子讲Web安全》读书笔记 Nov 11th, 2013 Posted by 飒然Hang in security, study 最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。 整本书四篇十八章，包括世界观安全、客户端脚本安全 &hellip;">
+  <meta name="description" content="中台简谈 Nov 23rd, 2019 Posted by 飒然Hang in architecture 面对新事物，先接纳，再判断。不要轻易就否定，及时经过自己的思考后确实没啥价值，这期间的思考过程也是价值。 2019年技术圈最火的一个词非“中台”莫属了。联想到公司已经在持续做的平台化， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2013/11/11/web-security-notes/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2019/11/23/middle-talk/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -116,7 +116,7 @@
   
   <header>
     
-      <h1 class="post-title">《白帽子讲Web安全》读书笔记</h1>
+      <h1 class="post-title">中台简谈</h1>
     
     
       <p class="post-meta">
@@ -132,7 +132,7 @@
   
 
 
-<time datetime="2013-11-11T13:30:20+00:00" pubdate data-updated="true">Nov 11<sup>th</sup>, 2013</time>
+<time datetime="2019-11-23T11:29:34+00:00" pubdate data-updated="true">Nov 23<sup>rd</sup>, 2019</time>
         
         
   
@@ -142,7 +142,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/security/'>security</a>, <a class='category' href='/blog/categories/study/'>study</a>
+    <a class='category' href='/blog/categories/architecture/'>architecture</a>
   
 </span>
 
@@ -153,83 +153,119 @@
   </header>
 
 
-<div class="post-content"><p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
+<div class="post-content"><blockquote><p>面对新事物，先接纳，再判断。不要轻易就否定，及时经过自己的思考后确实没啥价值，这期间的思考过程也是价值。</p></blockquote>
 
-<p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
-
-<h3>一、世界观安全</h3>
-
-<ol>
-<li>黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客，后者则指的是工作在反黑客领域的安全技术专家。</li>
-<li>安全问题的本质是信任的问题。并且安全是一个持续的过程，并不存在所谓的银弹。</li>
-<li>安全三要素：机密性、完整性、可用性</li>
-<li>一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。</li>
-<li>白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。</li>
-</ol>
-
+<p>2019年技术圈最火的一个词非“中台”莫属了。联想到公司已经在持续做的平台化，其实会让人感到混乱。平台和中台有啥区别？有了中台，那么前台和后台又指的什么？本文是自己在调研中台概念中沉淀出来的一些思考。</p>
 
 <!--more-->
 
 
-<h3>二、客户端脚本安全</h3>
+<h2>中台是什么</h2>
 
-<ol>
-<li><p>浏览器安全</p>
-
-<p> 同源策略（Same Origin Policy）防止了跨域读写某些资源。
-浏览器提供了浏览器沙箱，使进程在一个相对独立的空间运行，能在一定程度上保护浏览器安全。</p></li>
-<li><p>跨站脚本攻击</p>
-
-<p> 跨站脚本攻击主要是注入到网站内容中，授权用户访问内容时执行一段恶意代码，从而获取用户的私密信息或者进行破坏。通常叫做XSS攻击，是针对动态网站的攻击。</p></li>
-<li><p>跨站点请求伪造</p>
-
-<p> CSRF，指的是伪造出一个请求，诱使授权用户访问，以授权用户的身份去执行请求，从而达到对授权用户信息的读取、攻击等。</p></li>
-<li><p>点击劫持</p>
-
-<p> Click jacking，是指将恶意代码隐藏在看似无害的内容后者按钮之下，诱导用户访问的一种手段。</p></li>
-<li><p>Html5安全</p>
+<p>一种特殊形式的平台，抽象业务/系统的共性，支撑业务快速发展，是<strong>企业级共享能力平台</strong>。其核心在于对业务、数据、技术的抽象，对服务能力进行复用。解决重复开发、数据分散、试错成本高的问题。中台突出的是规划控制和协调的能力，前台强调的是创新和灵活多变。</p>
 
 <ul>
-<li>HTML引入了很多新的标签，一些XSS Filter可能并没有覆盖这些新增的标签和功能。比如video、audio、iframe的sandbox。此外使用canvas可以在浏览器环境中实现对验证码的在线破解，大大降低了攻击的门槛。</li>
-<li>跨域请求的Orgin Header和Access-Control-Allow-Origin的设置。postMessage的引入，使XSS PayLoad变得更加的灵活。</li>
+<li>业务中台：多个前台业务应用共享的需求，关注如何支撑在线主营业务。一般来说业务中台由多个中心系统组成。</li>
+<li>数据中台: 专用的数据处理平台，用技术连接大数据计算存储能力，用业务连接数据应用场景能力的平台。</li>
+<li>技术中台：整合和包装了云基础设施以及在其上的各种技术中间件，并在此基础上建设和封装了简单易用的能力接口，提供了基础设施重用的能力。</li>
+<li>研发中台：关注应用研发效率的管理平台，为应用的开发提供了流程、质量管控和持续交付的能力。</li>
+<li>移动中台：平台级的移动端开发支持</li>
+<li>AI中台：数据中台之上，模型的训练、发布，智能服务的构建自动化，统一的元数据管理体系，模型的全生命周期管理。</li>
+<li>组织中台：与中台技术架构相匹配的组织架构</li>
+</ul>
+
+
+<p>众多的可复用能力只是中台的形，<strong>核心的业务数据和业务流程</strong>才是中台存在的本质。</p>
+
+<h2>为什么要有中台</h2>
+
+<p><strong>传统的烟囱式架构面临的问题</strong></p>
+
+<ul>
+<li>重复性建设对人力物力的浪费</li>
+<li>系统间交互的集成和协作成本昂贵</li>
+<li>不利于业务沉淀和持续发展</li>
+</ul>
+
+
+<p><strong>共享服务带来的优势</strong></p>
+
+<ul>
+<li>提高研发效能，赋予业务快速创新和试错能力</li>
+<li>打通数据，真正发挥大数据的威力，共享数据价值</li>
+<li>中台组织结构提升组织效能</li>
+</ul>
+
+
+<h2>怎么实现中台战略</h2>
+
+<h3>思路的改变</h3>
+
+<ul>
+<li>提升自己的研发效率->提升别人的研发效率</li>
+<li>从代码->需求，到代码->组件->需求，到代码->组件->可配置->需求</li>
+<li>业务逻辑和平台逻辑分离，业务逻辑和业务逻辑隔离</li>
+<li>集中配置，分布式运行</li>
+</ul>
+
+
+<h3>建设思路</h3>
+
+<ol>
+<li><p>中台化改造</p>
+
+<blockquote><p>对已有平台的中台化改造</p></blockquote>
+
+<ul>
+<li>平台不断对于自身治理演进、打破技术边界、逐渐拥抱业务、容纳业务、具备更强的业务属性的过程。</li>
+<li>通过业务抽象以及可配置化和白屏化（给平台产品做一个配置界面实现自助式服务，没有UI要求，一般是一个白页面加一些配置项）的改造升级</li>
+<li>技术平台->技术中台：对于技术平台的治理、安全、可用性和自助式的产品化包装，打造自助服务平台，关注业务的用户使用体验，让业务可以更快速更方便体验更好的使用企业内部的技术能力</li>
+</ul>
+</li>
+<li><p>中台化：利用平台化的思维和手段梳理、识别、沉淀与复用企业级核心能力的过程。根据业务演进逐渐积累而成，<strong>分阶段逐步实施</strong>。多于一个前台业务需要某一种能力，那么此能力即可沉淀为中台能力。切忌大而全的建设中台。</p>
+
+<ul>
+<li><strong>资源集中管理->能力抽象->灵活性</strong></li>
+<li><strong>共享服务：普通的服务能力->组件化服务，并提供良好的服务治理支持</strong>
+
+<ul>
+<li>找到一个合适的服务化对象：API as service，存量API升级成服务化平台的组件服务</li>
+<li>建设对象服务化的基础设施：Product as Service，封装API服务</li>
+<li>服务化实施阶段: Solution as Service</li>
+<li>增强服务和基础设施实现服务的精细治理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>运营</p>
+
+<ul>
+<li>运营前置：制定迭代计划及接入计划。中台产品推广、前台（用户）接入计划以及接入后的运营支持</li>
+<li>根据用户分层制定SLA：不同的需求响应机制、不同的沟通管理机制、不同的服务质量控制机制、不同的问题处理及升级机制</li>
+</ul>
+</li>
+<li><p>演进</p>
+
+<ul>
+<li>各种中台的逐渐建设</li>
+<li>共享服务中心的不断增加</li>
 </ul>
 </li>
 </ol>
 
 
-<h3>三、服务端安全</h3>
+<h3>建设要点</h3>
 
-<ol>
-<li><p>注入攻击</p>
+<ul>
+<li>在“工具”与“完全为业务服务”之间寻找平衡点，既需要满足业务的需求，又不能过度参与业务。</li>
+<li>重视中台的运营、持续治理以及演进</li>
+<li>拆分整体应用形成业务组件：抽象程度越高，中台对业务的适配度越高。</li>
+<li>可配置，自助白屏化</li>
+<li>足够灵活的扩展点，支持定制化扩展</li>
+<li>服务文档化</li>
+<li>开放体系：对内对外</li>
+</ul>
 
-<p> 注入攻击是一种普遍的利用数据库SQL语句进行攻击的方式。使用用户提交的数据拼接数据库操作字符串，如果这些字符串中包含一些特殊字符就有可能查询到数据库关键信息。</p></li>
-<li><p>文件上传漏洞</p>
-
-<p> 通常的一个问题就是对上传文件的格式控制不严格，并且文件存放的路径可以通过Web路径直接进行访问；另一种方式，就是文件路径是通过表单的方式提交的，可以使用一个特殊字符“\0”截断文件路径，从而实现对脚本文件的上传。</p></li>
-<li><p>认证与会话管理</p>
-
-<p> 用户的登录状态一般是进过认证之后保存在服务端的，与服务器端的一系列交互即会话。一般对会话的管理。。。</p></li>
-<li><p>访问控制</p>
-
-<p> 对于系统中不同的用户具有不同的权限，对这些权限进行控制即访问控制。如果访问控制不严就容易形成漏洞被利用。</p></li>
-<li><p>加密算法与随机数</p>
-
-<p> 系统中对数据进行加密使用的加密算法和随机数生成算法的安全性和健壮性都直接关系到整个系统的安全性。对称加密、非对称加密的密钥的安全性，随机数算法的随机性都是要考虑的问题。</p></li>
-<li><p>Web框架安全</p>
-
-<p> 一些经典的使用率较高的Web框架如：Spring、Struts、Hibernate本身会在整个执行体系中有一些安全漏洞。比如前一阵的Struts2的命令执行漏洞，就是因为在OGNL中可以执行JAVA静态方法造成的。</p></li>
-<li><p>应用层拒绝服务攻击</p>
-
-<p> DOS，这种攻击是以耗尽服务器资源为目的攻击。DDOS分布式 拒绝服务攻击，是DOS的加强版。防范拒绝服务攻击要从访问入口处进行，限制来自统一IP的访问频率或者就是最大化提升系统的负载能力。</p></li>
-<li><p>PHP安全和Web服务器配置安全</p>
-
-<p> 针对与PHP本身的一些API的特点，可以在代码层面进行安全控制。比如，对数据库SQL相关的操作，要对用户输入的参数进行mysql_real_esape等。此外，对于Web Server如Apache http server，对其magic_quote,GLOBAL等配置要权衡关闭和开启是否会对系统的安全造成威胁。</p></li>
-</ol>
-
-
-<h3>四、互联网公司安全运营</h3>
-
-<p>除了在技术层面对安全进行保证外，还可以在业务层面对安全进行最大化的保障。此外，微软提出的 SDL安全开发流程，运用在项目开发过程中能够很好地保障系统的安全。而运营方面的安全保障则能够进一步保证整个系统的安全性。</p>
 </div>
 <!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
   <img src="/images/blog_images/h.png"/>
@@ -293,10 +329,8 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2014/06/04/sys-arch/" title="上一篇: 谈谈系统架构这个东西">&laquo; 谈谈系统架构这个东西 </a>
       
-      
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2013/07/06/no-name/" title="下一篇: 杂感一篇">杂感一篇 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2019/10/23/how-to-tech-share/" title="下一篇: 如何进行有效的技术分享（演讲）">如何进行有效的技术分享（演讲） &raquo;</a>
       
     </div>
   </footer>
@@ -499,7 +533,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "《白帽子讲Web安全》读书笔记",
+   issue_title: "中台简谈",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
