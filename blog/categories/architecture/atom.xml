@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-01-24T08:11:55+00:00</updated>
+  <updated>2020-01-24T08:38:30+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[《管理的常识》学习笔记]]></title>
+    <link href="http://www.rowkey.me/blog/2019/12/20/manage-notes/"/>
+    <updated>2019-12-20T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/12/20/manage-notes</id>
+    <content type="html"><![CDATA[<p>今年随着公司人员规模的不断扩大，自己越发意识到了管理的重要性。尤其对于技术管理者来说，程序员的思维和管理者的思维有很多地方是截然不同的，如果不做好认知的改变和思维的转变，很容易用惯性思维来做事，那么一个非常优秀的研发工程师很可能会成为一个非常不合格的管理者。《管理的常识》这本书是极客邦TGO组织寄来的礼物，这次仔细阅读了一下，还是有不少启发的。</p>
+
+<!--more-->
+
+
+<p>先给出自己笔记的思维导图，如下：</p>
+
+<p><a href="http://www.rowkey.me/post_images/manage-notes.png" target="_blank"><img src="http://www.rowkey.me/post_images/manage-notes.png"/></a></p>
+
+<p>其中让自己印象比较深刻的几点：</p>
+
+<ul>
+<li>管理最终只以成就做为衡量标准，是最需要知行结合的</li>
+<li>职能部门是不能具有权利的</li>
+<li>群体决策并不是最好的决策方式，而是风险较小的决策方式。当品质比成员接受程度高时，独断式决策；当接受程度比品质重要时，群体决策（共识）；品质和接受程度都高时，咨询式决策；品质和成员接受程度都不高时，哪个方便选择哪个。</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[中台简谈]]></title>
@@ -1119,44 +1144,6 @@ Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:
 <p>此外，还可以在后端做流量控制、服务降级或者动态扩展，以应对缓存穿透带来的访问压力。</p>
 
 <blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何应对在线故障]]></title>
-    <link href="http://www.rowkey.me/blog/2018/11/22/online-debug/"/>
-    <updated>2018-11-22T14:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/11/22/online-debug</id>
-    <content type="html"><![CDATA[<p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？</p>
-
-<p><strong>来自公司内部分享</strong></p>
-
-<!--more-->
-
-
-<p><img src="//post_images/debug/arch-2.jpeg" alt="" />
-<img src="//post_images/debug/arch-3.jpeg" alt="" />
-<img src="//post_images/debug/arch-4.jpeg" alt="" />
-<img src="//post_images/debug/arch-5.jpeg" alt="" />
-<img src="//post_images/debug/arch-6.jpeg" alt="" />
-<img src="//post_images/debug/arch-7.jpeg" alt="" />
-<img src="//post_images/debug/arch-8.jpeg" alt="" />
-<img src="//post_images/debug/arch-9.jpeg" alt="" />
-<img src="//post_images/debug/arch-10.jpeg" alt="" />
-<img src="//post_images/debug/arch-11.jpeg" alt="" />
-<img src="//post_images/debug/arch-12.jpeg" alt="" />
-<img src="//post_images/debug/arch-13.jpeg" alt="" />
-<img src="//post_images/debug/arch-14.jpeg" alt="" />
-<img src="//post_images/debug/arch-15.jpeg" alt="" />
-<img src="//post_images/debug/arch-16.jpeg" alt="" />
-<img src="//post_images/debug/arch-17.jpeg" alt="" />
-<img src="//post_images/debug/arch-18.jpeg" alt="" />
-<img src="//post_images/debug/arch-19.jpeg" alt="" />
-<img src="//post_images/debug/arch-20.jpeg" alt="" />
-<img src="//post_images/debug/arch-21.jpeg" alt="" />
-<img src="//post_images/debug/arch-22.jpeg" alt="" />
-<img src="//post_images/debug/arch-23.jpeg" alt="" />
-<img src="//post_images/debug/arch-24.jpeg" alt="" /></p>
 ]]></content>
   </entry>
   
