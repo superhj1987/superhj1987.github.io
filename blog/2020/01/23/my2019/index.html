@@ -1,0 +1,621 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>我的2019 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="我的2019 Jan 23rd, 2020 Posted by 飒然Hang in misc 和去年一样，本文来自自己给部门的公开信。内容经过脱敏。 2020年已经过去了快一个月。回顾2019年，真的感谢大家，总体来看，部门的全年产出是符合预期的，也获得了其他需求部门的高度好评。 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2020/01/23/my2019/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="works-nav" href="/works.html">作品</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">我的2019</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2020-01-23T11:29:34+00:00" pubdate data-updated="true">Jan 23<sup>rd</sup>, 2020</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/misc/'>misc</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>和去年一样，本文来自自己给部门的公开信。内容经过脱敏。</p>
+
+<hr />
+
+<p>2020年已经过去了快一个月。回顾2019年，真的感谢大家，总体来看，部门的全年产出是符合预期的，也获得了其他需求部门的高度好评。不仅仅支撑了微鲤看看、广告平台、用户增长等业务相关系统的快速迭代，也不断地在探索运维基础设施、前端基础设施、大数据平台、推荐系统、公共组件、技术中间件并取得了一些令人印象深刻的成果。</p>
+
+<p>要求了大家做全年的总结和新的一年的规划，我自己也从工作、学习和生活三个方面来总结一下我自己的2019年。</p>
+
+<!--more-->
+
+
+<h2>工作</h2>
+
+<p>说到工作，特别想跟大家说一下加班的问题。由于公司战略的要求，公司在年底的几个月开始了大小周，目的是为了增加产出，也是为了让大家能够有一种创业公司的心气。也有部门的同事跟我反映过说部门不怎么加班，感受不到创业公司的气氛。这一点非常值得称赞。我在这里再讲一下我对加班的看法。</p>
+
+<ul>
+<li>加班的目的并不是加班，而是提高产出，那么产出是由效率*时间决定的。如果时间增加，但是效率下降，大部分情况下，产出也是下降的。</li>
+<li>对于脑力工作者，每天能够高效工作5-6小时就很了不起了，再多的时间其实是低效劳动，太过疲劳反而容易出错。</li>
+<li>很多人工作散漫，干活拖拖拉拉，心想着干不完就加会儿班。在合理的时间内干不完活而加班，是工作能力低的表现，这种行为并不值得提倡。</li>
+<li>根据我自己的经验看，长期加班，根源问题基本都是“项目失控”。由于技术中心的特殊性，很多项目都是没有产品经理也基本面向的都是内部人员，项目的排期安排一直以来都是让每个人来定的。只要合理，我一般都不会有什么意见，有问题也一直欢迎大家跟我提意见。如果你定了deadline，却经常需要加班来赶进度，明显的就是在评估工时、项目管控上有问题。当然，我过去做的不好的一点就是只给进度要求，不给资源，这一点我会注意改进。</li>
+<li>死守自己的deadline-高标准、准时、保质保量、不给其他同事挖坑。最好的团队合作，不是你整天对别人的工作指手画脚，整天看着各种客观原因，而是把自己的事情做到位，做到极致。这也是我今年讲的最多的要具有“owner意识”：把交给自己的任务当成自己的东西，追求极致，最后受益的不仅仅是公司，你自己也会得到成长和别人的认可。</li>
+<li>少加班，多动脑。和我之前听到过的说法“脑子要比手快”是一个道理。做事之前，先想想有没有更好的办法，比立即就闷头苦干，最终带来的效果可能是千差万别的。而且，作为一个公司、一个商业组织来说，最终看的只能是功劳，不会是苦劳。</li>
+<li>脑力工作者想要划水摸鱼，很难被发现。我并不想给大家营造一种加班的氛围，非得大家每天在公司待到九点十点才行。我希望的是大家都是志同道合的人，是即使不加班，也会在业务时间思考、学习的人。</li>
+</ul>
+
+
+<p>还有一点需要提的是一个概念叫“情绪自由”。怎么说呢？之前，有同事跟我讨论了这个“情绪自由”的问题。就是说你所处的位置有时候决定了你敢不敢发泄你的情绪？比如说，你是一个没有管理职权的开发工程师，那么大部分情况下，即使你心里有情绪也不会发泄出来，因为你知道发泄出来也没用。而如果你是一个Leader，在你团队成员面前，很多时候就会随意让情绪宣泄出来。这个其实非常不好，尤其是对于一个公司的管理层来说，如果总是“情绪自由”，那么大家就会越来越不敢提问题，隐藏在看不到的地方的问题也就越来越多，累积起来一旦爆发那么后果也会严重的多。</p>
+
+<p>接下来，从部门管理、架构、技术团队管理三个部分来讲一下2019年我完成的工作。</p>
+
+<h3>部门管理</h3>
+
+<p>2019年部门发生了一些组织架构改动，组织架构的改动服务于公司的整体目标，随之而来的则是人员的变动，再加上持续的有人加入有人离开，人员的变动带来了一系列问题：如何让大家知道并深刻理解部门的文化，如何融入部门，如何更有凝聚力。对于这些，做的一些工作包括：</p>
+
+<ul>
+<li>重新定义了部门的文化：<strong>极客创新、及时反馈</strong>，对之前的“件件有着落、事事有回音”做了简化的同时，还增加了极客创新，目的就是让大家意识到“技术中心”应该是一个创新部门，是一个用创新提升业务的部门。</li>
+<li>重新梳理了部门的月度例会流程，包括：
+
+<ul>
+<li>不断念经，让大家能够深刻理解并贯彻部门文化</li>
+<li>同步OKR进度，让大家随时了解部门的OKR进度，知道关键目标在哪</li>
+<li>增加了“每月分享”环节，让大家分享自己工作、生活中的心得，给大家带来启发</li>
+</ul>
+</li>
+<li>探索除了聚餐之外的团建形式，实践形式包括：switch游戏比赛、组队知识竞赛、巅峰故事会等。</li>
+</ul>
+
+
+<p>部门的梯队建设也有了一定程度的气色，在各个团队Leader的共同努力之下，每个团队都有增员，虽然距离理想的梯队还有距离。</p>
+
+<p>此外，今年由于某些原因，自己承担了行政人事事务决策的工作，帮助行政人事部门做了一些工作。</p>
+
+<h3>架构</h3>
+
+<p>架构组是今年才正式成立的。也引入了公司第一个专职架构师，从最终的结果来看，大大分担了我自己在架构方面的工作，在业务的保障上也达到了预期，证明了架构师机制的有效性。此外，在公共组件、技术中间件的引入和开发上，相比之前在速度和效果上都有提升。我自己这方面的工作主要集中于上半年。</p>
+
+<p>此外，针对目前公司的技术Leader架构能力欠缺的问题，聘请了外部的技术顾问来做架构方面的培训。</p>
+
+<h3>技术团队管理</h3>
+
+<p>随着业务的增长，2019年公司的技术团队规模也在激增。2019年自己的重心是在技术团队的整体管理上。</p>
+
+<p>首先，一直困扰我的是，做为公司的CTO，职责是什么？重点工作是什么？如果换成一个人来代替我，他会做什么？针对这个，我看了不少书，也问了不少朋友和前同事。最后基本上是扫清了自己的困惑，明确了自己的重点工作。可以分为四个部分：</p>
+
+<ol>
+<li>业务支撑：公司是一个产品驱动的公司，因此业务肯定是最重要的。保证业务的稳定性，支撑业务的快速迭代，这些都是重点工作。</li>
+<li>工程效率提升：技术团队的规模增大，带来的并不一定是产出提高。必须有相应的配套研发流程、基础设施才能使得人员规模的增大带来整体产能的提高。今年组织技术Leader学习了《持续交付2.0》一书，并结合公司目前的实际情况，针对持续交付流水线进行了升级优化。也针对工程效率住专门成立了“工程效率”小组，来识别研发流程的瓶颈，进行针对性优化。此外，今年也着重强调了全端工程化的问题，尤其全端监控体系的建设。</li>
+<li>科技能力提升：和第一点有所关联。需要去识别公司业务发展上的一些技术瓶颈，做技术预研。</li>
+<li>梯队建设：针对2018年的梯队现状，2019年定的招人基调是“资深带队、高级为主、中级可成长”，主要招聘高级开发，初中级招实习生培养。年底梳理了新的研发岗位职级要求，从最终的定级结果来看，研发梯队的层次基本达到了目标。此外，由于公司的很多技术Leader都是在公司成长起来的，缺乏成熟的管理经验，下半年举办了几次技术管理的培训课，以加强技术管理者对管理的认知和管理技能的掌握。</li>
+</ol>
+
+
+<p>此外，2019年公司强调了横向委员会的横向协同职能。年初正式确认了技术委员会的运行机制，并切实推行了起来。自己也加强了对各个技术方向的工作把控。</p>
+
+<h2>学习</h2>
+
+<p>2019年年初定了将近30本书的阅读计划，到年底完成了大约14本。</p>
+
+<ul>
+<li><p>清教徒的礼物</p>
+
+<blockquote><p>阐述了清教徒的一些特质，包括：建造“人间天国”的坚定信念；亲力亲为的技师精神；集体主义；组织能力：善于协调各种财力、物力和人力的组织能力。这本还是主要讲的一些管理理念。</p></blockquote></li>
+<li><p>持续交付2.0</p></li>
+</ul>
+
+
+<blockquote><p>《持续交付》一书所谓的1.0，这本书加入了精益创业部分成为2.0。阐述了持续交付流水线的建立和优化。非常值得需要提高工程效率的同学学习。</p></blockquote>
+
+<ul>
+<li>Clean Architecture</li>
+</ul>
+
+
+<blockquote><p>Uncle Bob的架构简洁之道，虽然讲的是传统单体软件架构的一些设计模式，但是本质上和现在的SOA是一样的。这本书能够让你理解什么是架构、如何做架构、简洁架构如何做。</p></blockquote>
+
+<ul>
+<li>稻盛和夫哲学精要</li>
+</ul>
+
+
+<blockquote><p>稻盛和夫的一些处事原则。令我印象较深的有：小善大恶，大善小恶；仔细思考直到“看到结果”的状态；乐观构思，悲观计划，乐观实行；付出不亚于任何人的努力；现金与票据一一对应原则；时刻怀有谦卑之心；为别人的成就叫好</p></blockquote>
+
+<ul>
+<li><p>复杂</p>
+
+<blockquote><p>什么是复杂科学？其中包括哪些知识。这本书就是对复杂科学的一些讲解。令我印象深刻的包括遗传算法的普遍形式、自相似分形的意义、冯诺依曼的冯诺依曼计算机体系以及元胞自动机、无尺度网络幂次定律。</p></blockquote></li>
+<li><p>学习之道</p>
+
+<blockquote><p>阐述了学习的一些高效方法。令我印象深刻的有发散思维的3B方法: Bus、Bed、Bath。即专注思维下容易陷入思维定式，这时候试着转换到这三种场景下，能够切换到发散思维，有时候会有意想不到的思路。</p></blockquote></li>
+<li><p>中台战略&amp;&amp;企业IT架构转型之道：阿里巴巴中台战略思想与架构实战&amp;&amp;极客时间《说透中台》</p>
+
+<blockquote><p>这三本书/课程放在一起，主要都是对中台这个2019年技术圈最流行的词的讲述。从自己来看，这三本书讲的比较符合我自己的理解。</p></blockquote></li>
+<li><p>CTO说</p>
+
+<blockquote><p>此书来自于51CTO举办的CTO训练营的讲师们的课程。通过阅读此书，进一步提升了我对CTO这个角色的认知，其中一些CTO的点子如宕机培训学校给了自己一些启发。</p></blockquote></li>
+<li><p>管理的常识</p>
+
+<blockquote><p>陈春花教授的经典管理著作，非常值得管理初学者学习。讲了管理中的一些常识，让自己印象深刻的包括管理最终只以成就做为衡量标准；职能部门是不能具有权利的；群体决策并不是最好的决策方式，而是风险较小的决策方式。</p></blockquote></li>
+<li><p>人类简史</p>
+
+<blockquote><p>认知革命、农业革命、工业革命、科技革命。这本书从智人的角度回顾并展望，视角很广，概括起来就是人类和其他动物本质没任何区别，甚至基因复杂度还不如一些动物。宗教那一部分佛教主张在痛苦的时候，去想问题的本质忽略感受就能让自己不痛苦，让自己有所启发。</p></blockquote></li>
+<li><p>时间的秩序</p></li>
+</ul>
+
+
+<blockquote><p>这本书，看完的感觉真是不明觉厉。包括：时间不是统一的，区别于海拔高度和速度，时间的快慢都不一样；微观世界不同于宏观世界，很多事情都反常识。</p></blockquote>
+
+<ul>
+<li>六项思考帽</li>
+</ul>
+
+
+<blockquote><p>这本书讲的是一种问题的讨论方式，尤其是在很多人一起讨论问题时。六项不同颜色的貌似代表不同的态度。戴上某一项帽子，那么就要按照当前的态度来看待问题。</p></blockquote>
+
+<h2>生活</h2>
+
+<p>生活上，上半年依然在坚持健身，下半年由于健身房的变动而停止。但是重新开启了篮球运动，基本上能够做到一周两个小时的运动量，自己也会隔几天在家里做俯卧撑、仰卧起坐等运动。整体状态上还算不错，但年底的体检还是一些小毛病，有点郁闷。so，开始从饮食方面来控制。最近感觉体重开始有所下降了。希望能坚持下去。</p>
+
+<p>此外，女儿已经两岁了，可以和大人互动了，也开始有了自己的小脾气。伴着她一天天的长大，虽然有时候不听话很让人恼火，但是快乐还是绝大多数的。</p>
+
+<h2>总结</h2>
+
+<p>以上就是2019年自己的总结。整体来看，是满意中夹杂着失望的。新的一年，自己的计划如下：</p>
+
+<ul>
+<li>加强自己的情绪管理，能够更理性地处理事情、解决问题。</li>
+<li>完成中台架构（组织和技术）在公司的落地或者不落地。</li>
+<li>继续完善整个技术团队的顶层技术体系建设。</li>
+<li>重点跟进企业效能提升工作，包括工程效率和内部IT系统建设。</li>
+<li>全面优化技术成本，包括提高资源利用率、降低无效成本。</li>
+<li>进一步探索并完善架构师机制，保证业务稳定性和技术先进性。</li>
+<li>建立客户端架构组，统一把控客户端基础技术体系建设。</li>
+<li>推进数据团队的融合，有效完成几个数据相关项目的开发和上线。</li>
+<li>继续弥补自身在业务和数据Sense、成本意识、商业谈判能力、产品管理能力这些方面的短板。</li>
+<li>推进Devops平台的开发和上线。</li>
+<li>完成2019年读书计划中剩下的书籍。</li>
+<li>坚持锻炼，身体是最重要的。</li>
+<li>寻找更好的方式来平衡工作和对女儿的陪伴。</li>
+</ul>
+
+
+<p>最后，年底发生的武汉肺炎的事情正在愈演愈烈。大家务必注意自己和家人的安全，少出门，出门记得戴口罩。</p>
+
+<p>提前祝大家春节快乐，万事如意，一切顺利^_^</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2019/11/23/middle-talk/" title="下一篇: 中台简谈">中台简谈 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<p>中华万年历/微鲤看看技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">各研发职位</a>，感兴趣者可发送简历到<a href="mailto:hang@weli.cn">hang@weli.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2020/01/23/my2019/">我的2019</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/11/23/middle-talk/">中台简谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/10/23/how-to-tech-share/">如何进行有效的技术分享（演讲）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/09/28/restful/">数据传输之RESTful</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/08/23/solve-problem/">如何培养解决问题的意识</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/07/27/springboot/">使用Spring Boot快速开发</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/06/29/log/">Java开发框架之日志</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/05/30/msa/">微服务杂谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/04/22/upforprogrammer/">这些知识决定了程序员的上限（PPT版）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/04/13/netflix/">技术 in Netflix</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2020 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "我的2019",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getRecentCommentsList(opt);
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
