@@ -12,4 +12,10 @@ categories: architecture
 
 先给出自己笔记的思维导图，如下：
 
-![](/post_images/manage-notes.png)
+<a href="/post_images/manage-notes.png" target="_blank"><img src="/post_images/manage-notes.png"/></a>
+
+其中让自己印象比较深刻的几点：
+
+- 管理最终只以成就做为衡量标准，是最需要知行结合的
+- 职能部门是不能具有权利的
+- 群体决策并不是最好的决策方式，而是风险较小的决策方式。当品质比成员接受程度高时，独断式决策；当接受程度比品质重要时，群体决策（共识）；品质和接受程度都高时，咨询式决策；品质和成员接受程度都不高时，哪个方便选择哪个。
