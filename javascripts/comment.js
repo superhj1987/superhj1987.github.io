@@ -57,7 +57,8 @@ var _getComment = function _getComment(params, callback) {
         dataType: 'json',
         cache: false,
         crossDomain: true,
-        data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
+        username: 'superhj1987',
+        password: 'e9d7ade87381c2631be5d7aa0b8f0ba6739f45e6',
         success: function success(page_comments) {
             if (!page_comments || page_comments.length <= 0) {
                 if(!!comments && comments.length > 0){
@@ -96,7 +97,8 @@ var _getCommentsUrl = function _getCommentsUrl(params, callback) {
         dataType: 'json',
         cache: false,
         crossDomain: true,
-        data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
+        username: 'superhj1987',
+        password: 'e9d7ade87381c2631be5d7aa0b8f0ba6739f45e6',
         success: function success(issues) {
             if (!issues || issues.length <= 0) {
                 callback && typeof callback === "function" && callback("", "");
@@ -140,7 +142,8 @@ var _getIssueByUrl = function _getIssueByUrl(issue_url, callback) {
         dataType: 'json',
         cache: false,
         crossDomain: true,
-        data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
+        username: 'superhj1987',
+        password: 'e9d7ade87381c2631be5d7aa0b8f0ba6739f45e6',
         success: function success(issues) {
             if (!issues || issues.length <= 0) {
                 callback && typeof callback === "function" && callback();
@@ -283,7 +286,8 @@ var _getRecentIssues = function _getRecentIssues(params, callback) {
         dataType: 'json',
         cache: false,
         crossDomain: true,
-        data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
+        username: 'superhj1987',
+        password: 'e9d7ade87381c2631be5d7aa0b8f0ba6739f45e6',
         success: function success(issues) {
             if (issues.length > count) {
                 // if (navigator.userAgent.indexOf("MSIE") != -1 || navigator.userAgent.indexOf("Edge") != -1 || !!document.documentMode == true) {
@@ -312,7 +316,8 @@ var _getRecentComments = function _getRecentComments(params, callback) {
         dataType: 'json',
         cache: false,
         crossDomain: true,
-        data: client_id && client_secret ? "client_id=" + client_id + "&client_secret=" + client_secret : '',
+        username: 'superhj1987',
+        password: 'e9d7ade87381c2631be5d7aa0b8f0ba6739f45e6',
         success: function success(comments) {
             if (comments.length > count) {
                 // if (navigator.userAgent.indexOf("MSIE") != -1 || navigator.userAgent.indexOf("Edge") != -1 || !!document.documentMode == true) {
