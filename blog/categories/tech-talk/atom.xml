@@ -4,7 +4,7 @@
   <title><![CDATA[Category: tech-talk | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/tech-talk/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-02-11T04:28:23+00:00</updated>
+  <updated>2020-02-18T01:41:36+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[技术琐话2020-02-17]]></title>
+    <link href="http://www.rowkey.me/blog/2020/02/17/tech-talk/"/>
+    <updated>2020-02-17T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2020/02/17/tech-talk</id>
+    <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p></blockquote>
+
+<ul>
+<li>有脾气是本性，能够控制脾气才是本事。</li>
+<li>所有的知识都要追溯至第一手资料以保证其权威性。</li>
+<li>知识点串成知识线，知识线串成知识体系。</li>
+<li>软件开发时，对于<strong>时效性、稳定性、效率</strong>与<strong>可维护性、可使用性、开发友好性</strong>的取舍，往往会注重前者。</li>
+<li>逻辑是道，方法论是术。</li>
+<li>架构的道与术：架构思想是道，技术框架是术；架构原则是道，架构技巧是术。</li>
+<li>做代码审查时，着重审查结构，不要太重视语法细节。</li>
+<li>信息技术层面的三个引擎：计算能力/CPU；存储能力；网络带宽。</li>
+<li>【如何排查问题】在排查问题时，不要第一时间就怀疑是第三方（SDK、库、服务）的问题。实践证明，绝大多时候不会是这方面的问题。</li>
+<li>【获取知识不能太功利】 ​​​​面对新事物，先接纳，再判断。不要轻易就否定，即使经过自己的思考后确实没啥价值，这期间的思考过程也是一种知识梳理和思维锻炼。</li>
+<li>【如何做决策】当品质比成员接受程度高时，独断式决策；当接受程度比品质重要时，群体决策（共识）；品质和接受程度都高时，咨询式决策；品质和成员接受程度都不高时，哪个方便选择哪个。（很多书和文章都在讲“共同决策”的好处，但群体决策一般来说不会是最好的决策，而是风险相对小的决策）</li>
+<li>【云计算与自研如何选择】初创公司在业务刚起步时，使用SaaS或者PaaS快速开发业务；业务成长到一定规模之后，再逐步转移到IaaS或者私有云降低成本。</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[技术琐话2018-09-03]]></title>

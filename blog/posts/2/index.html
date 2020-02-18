@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="这些知识决定了程序员的上限（PPT版） Apr 22nd, 2019 讲述决定程序员上限的一些知识技能点，包括如何学习、如何阅读源码、计算机科学基础知识体系等。来自内部分享PPT，后续会发布详细版。 继续阅读 &rarr; 技术 in Netflix Apr 13th, 2019 &hellip;">
+  <meta name="description" content="微服务杂谈 May 30th, 2019 这几年在Java工程师招聘时，会看到很多人的简历都写着使用了Spring Cloud做微服务实现，使用Docker做自动化部署，并且也会把这些做为自己的亮点。而比较有趣的这其中以小公司出来的人为绝大多数，大的公司出来的人简历上倒是很少提这些东西。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -113,6 +113,61 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2019/05/30/msa/">微服务杂谈</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-05-30T11:29:34+00:00" pubdate data-updated="true">May 30<sup>th</sup>, 2019</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>这几年在Java工程师招聘时，会看到很多人的简历都写着使用了Spring Cloud做微服务实现，使用Docker做自动化部署，并且也会把这些做为自己的亮点。而比较有趣的这其中以小公司出来的人为绝大多数，大的公司出来的人简历上倒是很少提这些东西。</p>
+
+<p>对于我自己来说，从15年就开始关注这一块，看过马丁.福勒最开始的关于微服务的论文、也看过不少对微服务的论证的英文文章和书，也研究过Spring Cloud、Sofa等开源实现以及Service mesh。考虑到我们公司研发团队人力不足、基础设施不完善，当初是没有推行微服务的。但随着看到上述的那种简历越来越多，有时候我也会疑问：难道真的不用微服务就落后了吗？公司的同事如果不掌握这些就真的没有竞争力了吗。而随着最近公司业务的逐步提升，研发人员越来越多，借着在梳理公司的微服务落地计划时，也梳理了一下微服务的相关知识点，也是本文的主要内容。</p>
+
+<p>开篇之前先声明我对微服务的几点态度:</p>
+
+<blockquote><ol>
+<li>架构模式有很多，微服务不是唯一的选择也不是什么银弹。国内绝大多数中小公司引入微服务都是在盲目追新，也能看出做此种技术选型的工程师基础架构素质的不足。</li>
+<li>“你必须长的足够高才能使用微服务”。微服务基础设施，尤其是容器技术、自动化部署、自动化测试这些不完备，微服务形同虚设，不会带来什么质的提升。</li>
+<li>微服务架构的关键不在于具体的实现，而在于如何合理地划分服务边界以及组织架构是否相匹配。不考虑研发团队的规模和组成就盲目上微服务是不良的技术选型。</li>
+<li>Spring Boot是Spring全家桶的上层封装，并不是什么崭新的技术，也不是什么值得觉得成为自己杀手锏的技术。</li>
+<li>Spring Cloud中Spring Cloud Netflix的组件是经过生产环境验证的，其他的则建议慎重选择。</li>
+</ol>
+</blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2019/05/30/msa/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -504,56 +559,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/09/03/tech-talk/">技术琐话2018-09-03</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-09-03T11:29:34+00:00" pubdate data-updated="true">Sep 3<sup>rd</sup>, 2018</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p>
-
-<p>2018年以“技术琐话”开篇，主要是整理了一下自己以前一些零散的知识点。</p></blockquote>
-
-<ul>
-<li>推送实现方式：轮训、长连接、长轮训（依赖于异步IO机制，如Java中的异步Servlet）。</li>
-<li>喜欢到处听讲座的人通常心态上很好学，但很可能思考不足，所以知识很容易流于表面。喜欢看一本一本书的人不但好学，而且通常比较习惯于深度思考。深度思考，才能具体改变你的知识体系。看书时，可以和作者进入到同一个频率，对文字的内容产生共鸣。 ​​​​@蔡学镛 <strong>so，建议搞技术的同学少参加会议，少混圈子，多看书。</strong></li>
-<li>提出问题之前务必要先想好自己的答案或者思路。</li>
-<li>了解清楚事实再说话，切忌老是吐槽却不去解决问题。</li>
-<li>对新技术的调研需要梳理零散的知识点，最终一定要有输出：分享或者文章。</li>
-<li>想到一个思路，要深入思考下去，即使表面不可行，也可以使其可行，直至确实不可行，再换思路。</li>
-<li>人的时间管理效率会差3倍；注意力管理的效率会差30倍；思考方法学习方法的效率差300倍。so，找到好的学习方法是非常关键的。</li>
-</ul>
-
-</div>
-  
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         <a href="/" class="prev">←上一页</a>
@@ -625,6 +630,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2020/02/17/tech-talk/">技术琐话2020-02-17</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2020/01/27/kobe/">我是科蜜，20年的&#8230;</a>
       	</li>
     	
@@ -658,10 +667,6 @@
     	
      	<li>
       	  <a href="/blog/2019/06/29/log/">Java开发框架之日志</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2019/05/30/msa/">微服务杂谈</a>
       	</li>
     	
 	</ul>
