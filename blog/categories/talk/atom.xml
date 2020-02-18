@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: tech-talk | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/blog/categories/tech-talk/atom.xml" rel="self"/>
+  <title><![CDATA[Category: talk | 后端技术杂谈 | 飒然Hang]]></title>
+  <link href="http://www.rowkey.me/blog/categories/talk/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-02-18T09:10:35+00:00</updated>
+  <updated>2020-02-18T13:24:37+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[技术琐话2020-02-17]]></title>
+    <title type="html"><![CDATA[琐话2020-02-17]]></title>
     <link href="http://www.rowkey.me/blog/2020/02/17/tech-talk/"/>
     <updated>2020-02-17T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2020/02/17/tech-talk</id>
@@ -39,7 +39,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[技术琐话2018-09-03]]></title>
+    <title type="html"><![CDATA[琐话2018-09-03]]></title>
     <link href="http://www.rowkey.me/blog/2018/09/03/tech-talk/"/>
     <updated>2018-09-03T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/09/03/tech-talk</id>
@@ -61,7 +61,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[技术琐话2018-01-01]]></title>
+    <title type="html"><![CDATA[琐话2018-01-01]]></title>
     <link href="http://www.rowkey.me/blog/2018/01/01/tech-talk/"/>
     <updated>2018-01-01T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2018/01/01/tech-talk</id>
@@ -106,10 +106,10 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[技术琐话2017-11-26]]></title>
-    <link href="http://www.rowkey.me/blog/2017/11/26/tech-talk/"/>
-    <updated>2017-11-26T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2017/11/26/tech-talk</id>
+    <title type="html"><![CDATA[琐话2017-11-26]]></title>
+    <link href="http://www.rowkey.me/blog/2017/11/25/tech-talk/"/>
+    <updated>2017-11-25T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2017/11/25/tech-talk</id>
     <content type="html"><![CDATA[<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p></blockquote>
 
 <ul>
