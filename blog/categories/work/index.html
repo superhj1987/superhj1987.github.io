@@ -96,11 +96,12 @@
             <div>
                 <nav id="nav-menu" class="clearfix">
                     <a class="index-nav current" href="/">首页</a>
-<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="talk-nav" href="/blog/categories/tech-talk">技术琐话</a>
 <a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
 <a class="categories-nav" href="/blog/categories">分类</a>
 <a class="archives-nav" href="/blog/archives">归档</a>
-<a class="works-nav" href="/works.html">作品</a>
 <a class="about-nav" href="/about_me.html">关于</a>
                 </nav>
             </div>
@@ -127,6 +128,10 @@ $(document).ready(function(){
 		$("#nav-menu .java-nav").addClass("current");
 	}else if(thisPath.indexOf("architecture") > -1){
 		$("#nav-menu .architecture-nav").addClass("current");
+	}else if(thisPath.indexOf("manage") > -1){
+		$("#nav-menu .manage-nav").addClass("current");
+	}else if(thisPath.indexOf("talk") > -1){
+		$("#nav-menu .talk-nav").addClass("current");
 	}else{
 		$("#nav-menu .categories-nav").addClass("current");
 	}
@@ -173,21 +178,6 @@ $(document).ready(function(){
 
   
   <div class="al_year">2018</div>
-
-<div class="archives-post clearfix">
-  
-<h2><a href="/blog/2018/07/28/manage-notes/">管理的一些要点</a></h2>
-<div class="al_meta">
-<time datetime="2018-07-28T11:29:34+00:00" pubdate><span class='month'>Jul</span> <span class='day'>28</span> <span class='year'>2018</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/work/'>work</a></span>
-</footer>
-
-</div>
-</div>
-
-
 
 <div class="archives-post clearfix">
   
