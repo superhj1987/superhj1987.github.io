@@ -3,7 +3,7 @@ layout: post
 title: "Java开发框架之日志"
 date: 2019-06-29 19:29:34 +0800
 comments: true
-categories: java
+categories: java pje-book
 ---
 
 日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。

@@ -3,7 +3,7 @@ layout: post
 title: "Java后端技术概览"
 date: 2018-05-12 19:29:34 +0800
 comments: true
-categories: java
+categories: java pje-book
 ---
 
 一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到[Java后端技术概览图](https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png)。

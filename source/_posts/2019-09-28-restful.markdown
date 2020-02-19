@@ -3,7 +3,7 @@ layout: post
 title: "数据传输之RESTful"
 date: 2019-09-28 19:29:34 +0800
 comments: true
-categories: architecture
+categories: architecture pje-book
 ---
 
 REST，全称表现层状态转移（Representational State Transfer）, 指的是资源在网络中以某种表现形式进行状态转移，是一种架构风格。其描述的是在网络中Client和Server的一种交互形式。简单来说就是用HTTP URL来定位资源，用HTTP的各种method来描述操作。其关键的三个概念如下：

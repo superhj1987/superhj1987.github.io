@@ -3,7 +3,7 @@ layout: post
 title: "如何进行Java项目构建？"
 date: 2018-08-30 19:29:34 +0800
 comments: true
-categories: java
+categories: java pje-book
 ---
 
 **最新版本可见:<https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md>**
