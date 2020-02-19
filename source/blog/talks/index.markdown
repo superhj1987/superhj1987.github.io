@@ -1,6 +1,7 @@
 ---
 layout: page
 title: "技术琐话"
+comments: true
 footer: false
 ---
 
