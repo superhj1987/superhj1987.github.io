@@ -3,7 +3,7 @@ layout: post
 title: "我的2019"
 date: 2020-01-23 19:29:34 +0800
 comments: true
-categories: misc
+categories: work
 ---
 
 和去年一样，本文来自自己给部门的公开信。内容经过脱敏。
