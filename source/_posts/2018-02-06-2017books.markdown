@@ -3,7 +3,7 @@ layout: post
 title: "2017年读过的书"
 date: 2018-02-06 19:29:34 +0800
 comments: true
-categories: study book
+categories: study
 ---
 
 2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。

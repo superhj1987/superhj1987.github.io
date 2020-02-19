@@ -3,7 +3,7 @@ layout: post
 title: "2016年读过的书"
 date: 2016-12-30 17:13:46 +0800
 comments: true
-categories: study book
+categories: study
 ---
 
 16年由于工作、身体等各种原因，阅读的书籍并不多。主要集中在技术方面。
