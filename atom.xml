@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-02-19T03:11:26+00:00</updated>
+  <updated>2020-02-19T04:32:21+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,15 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[技术琐话]]></title>
-    <link href="http://www.rowkey.me/blog/2020/02/18/tech-talk/"/>
-    <updated>2020-02-18T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/02/18/tech-talk</id>
-    <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：<a href="https://www.rowkey.me/blog/talks/">技术琐话</a></p>
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[我是科蜜，20年的...]]></title>
@@ -276,6 +267,15 @@
 <li>群体决策并不是最好的决策方式，而是风险较小的决策方式。当品质比成员接受程度高时，独断式决策；当接受程度比品质重要时，群体决策（共识）；品质和接受程度都高时，咨询式决策；品质和成员接受程度都不高时，哪个方便选择哪个</li>
 </ul>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[技术琐话]]></title>
+    <link href="http://www.rowkey.me/blog/2019/12/18/tech-talk/"/>
+    <updated>2019-12-18T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/12/18/tech-talk</id>
+    <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：<a href="https://www.rowkey.me/blog/talks/">技术琐话</a></p>
 ]]></content>
   </entry>
   
