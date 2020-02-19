@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: talk - 后端技术杂谈 | 飒然Hang</title>
+  <title>技术琐话 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Category: talk">
+  <meta name="description" content="技术琐话 日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合。 2020.02.17 有脾气是本性，能够控制脾气才是本事。
+所有的知识都要追溯至第一手资料以保证其权威性。
+知识点串成知识线，知识线连成面，面再成体， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +24,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/categories/talk/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/talks/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -97,7 +99,7 @@
             <div>
                 <nav id="nav-menu" class="clearfix">
                     <a class="index-nav current" href="/">首页</a>
-<a class="talk-nav" href="/blog/categories/talk">琐话</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
 <a class="manage-nav" href="/blog/categories/manage">管理</a>
 <a class="architecture-nav" href="/blog/categories/architecture">架构</a>
 <a class="java-nav" href="/blog/categories/java">Java</a>
@@ -116,101 +118,89 @@
   <article class="post clearfix">
   
   <header>
-    <h1 class="post-title">Category: Talk</h1>
+    <h1 class="post-title">技术琐话</h1>
     
   </header>
   
   <script type="text/javascript">
 $(document).ready(function(){
-	$("#nav-menu a").removeClass("current");
-	var thisPath = location.pathname;
-	if(thisPath.indexOf("java") > -1){
-		$("#nav-menu .java-nav").addClass("current");
-	}else if(thisPath.indexOf("architecture") > -1){
-		$("#nav-menu .architecture-nav").addClass("current");
-	}else if(thisPath.indexOf("manage") > -1){
-		$("#nav-menu .manage-nav").addClass("current");
-	}else if(thisPath.indexOf("talk") > -1){
-		$("#nav-menu .talk-nav").addClass("current");
-	}else{
-		$("#nav-menu .categories-nav").addClass("current");
-	}
-	$(".post-title").text("Talk");
+    $("#nav-menu a").removeClass("current");
+    $("#nav-menu .talks-nav").addClass("current");
 });
 </script>
-<div style="padding-top:20px"><a href="/blog/categories/talk/atom.xml">http://www.rowkey.me/blog/categories/talk/atom.xml</a></div>
-<div id="archives" class="category">
 
 
+<blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合。</p></blockquote>
 
-  
-  <div class="al_year">2020</div>
+<h3>2020.02.17</h3>
 
-<div class="archives-post clearfix">
-  
-<h2><a href="/blog/2020/02/17/tech-talk/">知识琐话2020-02-17</a></h2>
-<div class="al_meta">
-<time datetime="2020-02-17T11:29:34+00:00" pubdate><span class='month'>Feb</span> <span class='day'>17</span> <span class='year'>2020</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/talk/'>talk</a></span>
-</footer>
-
-</div>
-</div>
-
-
-
-  
-  <div class="al_year">2018</div>
-
-<div class="archives-post clearfix">
-  
-<h2><a href="/blog/2018/09/03/tech-talk/">知识琐话2018-09-03</a></h2>
-<div class="al_meta">
-<time datetime="2018-09-03T11:29:34+00:00" pubdate><span class='month'>Sep</span> <span class='day'>03</span> <span class='year'>2018</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/talk/'>talk</a></span>
-</footer>
-
-</div>
-</div>
+<ul>
+<li>有脾气是本性，能够控制脾气才是本事。</li>
+<li>所有的知识都要追溯至第一手资料以保证其权威性。</li>
+<li>知识点串成知识线，知识线连成面，面再成体，进一步形成知识体系。</li>
+<li>软件开发时，对于<strong>时效性、稳定性、效率</strong>与<strong>可维护性、可使用性、开发友好性</strong>的取舍，往往会注重前者。</li>
+<li>逻辑是道，方法论是术。</li>
+<li>架构的道与术：架构思想是道，技术框架是术；架构原则是道，架构技巧是术。</li>
+<li>做代码审查时，着重审查结构，不要太重视语法细节。</li>
+<li>信息技术层面的三个引擎：计算能力/CPU；存储能力；网络带宽。</li>
+<li>【如何排查问题】在排查问题时，不要第一时间就怀疑是第三方（SDK、库、服务）的问题。实践证明，绝大多时候不会是这方面的问题。</li>
+<li>【获取知识不能太功利】 ​​​​面对新事物，先接纳，再判断。不要轻易就否定，即使经过自己的思考后确实没啥价值，这期间的思考过程也是一种知识梳理和思维锻炼。</li>
+<li>【如何做决策】当品质比成员接受程度高时，独断式决策；当接受程度比品质重要时，群体决策（共识）；品质和接受程度都高时，咨询式决策；品质和成员接受程度都不高时，哪个方便选择哪个。（很多书和文章都在讲“共同决策”的好处，但群体决策一般来说不会是最好的决策，而是风险相对小的决策）</li>
+<li>【云计算服务如何选择？】初创公司在业务刚起步时，使用SaaS或者PaaS快速开发业务；业务成长到一定规模之后，再逐步转移到IaaS或者私有云降低成本。</li>
+</ul>
 
 
+<h3>2018-09-03</h3>
 
-<div class="archives-post clearfix">
-  
-<h2><a href="/blog/2018/01/01/tech-talk/">知识琐话2018-01-01</a></h2>
-<div class="al_meta">
-<time datetime="2018-01-01T11:29:34+00:00" pubdate><span class='month'>Jan</span> <span class='day'>01</span> <span class='year'>2018</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/talk/'>talk</a></span>
-</footer>
-
-</div>
-</div>
+<ul>
+<li>推送实现方式：轮训、长连接、长轮训（依赖于异步IO机制，如Java中的异步Servlet）。</li>
+<li>喜欢到处听讲座的人通常心态上很好学，但很可能思考不足，所以知识很容易流于表面。喜欢看一本一本书的人不但好学，而且通常比较习惯于深度思考。深度思考，才能具体改变你的知识体系。看书时，可以和作者进入到同一个频率，对文字的内容产生共鸣。 ​​​​@蔡学镛 <strong>so，建议搞技术的同学少参加会议，少混圈子，多看书。</strong></li>
+<li>提出问题之前务必要先想好自己的答案或者思路。</li>
+<li>了解清楚事实再说话，切忌老是吐槽却不去解决问题。</li>
+<li>对新技术的调研需要梳理零散的知识点，最终一定要有输出：分享或者文章。</li>
+<li>想到一个思路，要深入思考下去，即使表面不可行，也可以使其可行，直至确实不可行，再换思路。</li>
+<li>人的时间管理效率会差3倍；注意力管理的效率会差30倍；思考方法学习方法的效率差300倍。so，找到好的学习方法是非常关键的。</li>
+</ul>
 
 
+<h3>2018-01-01</h3>
 
-  
-  <div class="al_year">2017</div>
+<h4>技术感悟</h4>
 
-<div class="archives-post clearfix">
-  
-<h2><a href="/blog/2017/11/25/tech-talk/">知识琐话2017-11-26</a></h2>
-<div class="al_meta">
-<time datetime="2017-11-25T11:29:34+00:00" pubdate><span class='month'>Nov</span> <span class='day'>25</span> <span class='year'>2017</span></time>
+<ul>
+<li><p>阅读各种技术的使用/说明/示例/原理文档时，能不能快速吸收为自己的知识？能不能注意到细节关键点？是一个开发工程师优不优秀，能不能比别人更突出、更快成长起来的一个非常重要的地方。</p></li>
+<li><p>你东西学得广了，别人就会攻击你不够深入；你东西学得够深了，别人就会攻击你知识面不广；你专精在技术时，别人就会说你管理不好；你花心力好好做管理之后，别人就会说你技术没有跟上；你研究方法论时，别人就会说你很虚；你专心做项目时，别人就会说你没有提炼方法，没有系统。&hellip; 想挑你毛病，总有办法。但你自己知道自己在干什么最重要，那些你的「缺点」其实可能不是缺点，而是一件事物的另一面。你选择这一面，自然会缺另一面。这是取舍点，不是优缺点。(from 微博<strong>@蔡学镛</strong>)</p></li>
+<li><p>来自硅谷的启示</p>
 
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/talk/'>talk</a></span>
-</footer>
+<p>  <img src="/images/blog_images/silicon-tech.jpg" alt="" /></p></li>
+</ul>
 
-</div>
-</div>
 
-</div>
+<h4>技术点</h4>
+
+<ul>
+<li><p>在写Java代码的时候，如果匿名内部类里面传递变量，变量必须声明为final，而在Java8中，可以不用写这个final了，因为Java8引入了Effectively final 功能，由系统默认添加。<a href="http://t.cn/R5QgeVW">What is Effectively Final variable of Java 8</a></p></li>
+<li><p>将Nginx中的一个配置指令proxyinterceptorerrors设置为true，可以捕获后端服务器返回的错误码进行处理，从而可以使用nginx自己的错误显示页面。 ​​​​</p></li>
+<li><p>在Servlet开发中，request.setCharacterEncoding必须在所有filter最开始执行，否则只要调用过request相关方法去获取其参数等，再去设置编码是无效的。</p></li>
+<li><p>Java中File类的listFiles和list方法最终调用的是FileSystem的本地接口，返回的文件列表顺序是没有保证的。Spring中的san某一basepackage下的类就是使用的此方法，因此加载的bean的顺序也是无法保证的。这一点需要特别注意。 ​​​​​​</p></li>
+<li><p>Tomcat各个版本特性对比图</p>
+
+<p>  <img src="/images/blog_images/tc.png" alt="" /></p></li>
+<li><p>Java集合类对比图表</p>
+
+<p>  <img src="/images/blog_images/java-collections.jpg" alt="" /></p></li>
+</ul>
+
+
+<h3>2017.11.25</h3>
+
+<ul>
+<li><p>The interesting thing about performance is that if you analyze most programs, you find that they waste most of their time in a small fraction of code. If you optimize all the code equally, you end up with 90 percent of the optimizations wasted, because you are optimizing code that isn&rsquo;t run much. The time spent making the program fast, the time lost because of lack of clarity, is all wasted time.《重构》一书的一段话，也是不要过早优化的意思，即在不确定这段代码真的会被频繁调用、真的是系统的性能瓶颈之前，没必要花时间优化此处的性能。</p></li>
+<li><p>这句话揭示了成为技术专家的一个关键特质: 理解一个系统应该如何工作并不能使人成为专家，只能靠调查系统为何不能正常工作才行。（From SRE ，by Brian Redman）</p></li>
+<li><p>技术书籍的出版门槛越来越低，该如何识别是否是一本烂书呢？在我自己看来，英文书籍质量远远好于中文书籍，翻译的版本一般来说质量也不错，不过作为一个互联网从业的技术人员，能够直接阅读英文原版是最好不过的。而对于中文书籍，如果是以公司名义或者书的序多于3篇，是一本烂书的概率非常大，写推荐语、写序的人名头越大，并不代表这本书的质量有多好。此外，现在某sdn专家真的是门槛低到不行，挂这个名头出的书更要慎重选择。对于InfoQ推荐的书，倒是可以值得一读。</p></li>
+</ul>
+
+
   
 </article>
 
@@ -275,10 +265,6 @@ $(document).ready(function(){
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2020/02/17/tech-talk/">知识琐话2020-02-17</a>
-      	</li>
-    	
-     	<li>
       	  <a href="/blog/2020/01/27/kobe/">我是科蜜，20年的...</a>
       	</li>
     	
@@ -312,6 +298,10 @@ $(document).ready(function(){
     	
      	<li>
       	  <a href="/blog/2019/06/29/log/">Java开发框架之日志</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/05/30/msa/">微服务杂谈</a>
       	</li>
     	
 	</ul>
@@ -407,7 +397,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "Category: talk",
+   issue_title: "技术琐话",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",

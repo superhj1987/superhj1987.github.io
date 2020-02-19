@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="知识琐话2018-09-03 Sep 3rd, 2018 日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。 2018年以“技术琐话”开篇，主要是整理了一下自己以前一些零散的知识点。 推送实现方式：轮训、 &hellip;">
+  <meta name="description" content="管理的一些要点 Jul 28th, 2018 去年以及今年由于工作需要，参加了公司请的美国管理协会的《高价值经理人》及敏捷OKR绩效管理的培训课程，此外也阅读了《格鲁夫给管理人的第一课》、《架构即未来》、《技术管理之巅》、《OKR：源于英特尔和谷歌的目标管理利器》几本书。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -97,7 +97,7 @@
             <div>
                 <nav id="nav-menu" class="clearfix">
                     <a class="index-nav current" href="/">首页</a>
-<a class="talk-nav" href="/blog/categories/talk">琐话</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
 <a class="manage-nav" href="/blog/categories/manage">管理</a>
 <a class="architecture-nav" href="/blog/categories/architecture">架构</a>
 <a class="java-nav" href="/blog/categories/java">Java</a>
@@ -114,102 +114,6 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/09/03/tech-talk/">知识琐话2018-09-03</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-09-03T11:29:34+00:00" pubdate data-updated="true">Sep 3<sup>rd</sup>, 2018</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><blockquote><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。决定以博客的形式记录下来，以“技术琐话”作为主题。</p>
-
-<p>2018年以“技术琐话”开篇，主要是整理了一下自己以前一些零散的知识点。</p></blockquote>
-
-<ul>
-<li>推送实现方式：轮训、长连接、长轮训（依赖于异步IO机制，如Java中的异步Servlet）。</li>
-<li>喜欢到处听讲座的人通常心态上很好学，但很可能思考不足，所以知识很容易流于表面。喜欢看一本一本书的人不但好学，而且通常比较习惯于深度思考。深度思考，才能具体改变你的知识体系。看书时，可以和作者进入到同一个频率，对文字的内容产生共鸣。 ​​​​@蔡学镛 <strong>so，建议搞技术的同学少参加会议，少混圈子，多看书。</strong></li>
-<li>提出问题之前务必要先想好自己的答案或者思路。</li>
-<li>了解清楚事实再说话，切忌老是吐槽却不去解决问题。</li>
-<li>对新技术的调研需要梳理零散的知识点，最终一定要有输出：分享或者文章。</li>
-<li>想到一个思路，要深入思考下去，即使表面不可行，也可以使其可行，直至确实不可行，再换思路。</li>
-<li>人的时间管理效率会差3倍；注意力管理的效率会差30倍；思考方法学习方法的效率差300倍。so，找到好的学习方法是非常关键的。</li>
-</ul>
-
-</div>
-  
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/08/30/build-java/">如何进行Java项目构建？</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-08-30T11:29:34+00:00" pubdate data-updated="true">Aug 30<sup>th</sup>, 2018</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md</a></strong></p>
-
-<p>对于一个完整的项目来说，一般都有很多的类、很多的包，如果是Web工程那么还有很多jsp、资源文件。这时候如果只用JDK自带的工具编译和运行，是非常困难的一件事前。再者，编译源代码只是软件开发过程的一个方面，更重要的是要把软件发布到生产环境中来产生商业价值。所以，代码编译之后，还有测试、分析代码质量、部署等步骤要做。整个过程进行自动化操作是很有必要的。</p>
-
-<p>这时候就需要一个Java的工程/项目构建工具。这里所谓的项目构建就是指的完成工程发布流程需要的一系列步骤，包括编译、测试、打包、部署等等。虽然用Eclipse和Intellij这些IDE能解决这个问题，但是受限于这些IDE体积庞大且基本上都是GUI的，而后端应用的运行环境基本都是没有显示器的，所以很多时候还是需要一些专门做项目构建的工具来支持这些工作。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/08/30/build-java/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
     
     
       <article class="post">
@@ -578,6 +482,101 @@
 
       </article>
     
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2018/03/10/regx/">正则表达式简明指南</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-03-10T11:29:34+00:00" pubdate data-updated="true">Mar 10<sup>th</sup>, 2018</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>公司使用的markdown解析类库一直有一些解析上的问题，最近给fix了。而markdown解析主要是对正则表达式的使用。中间恶补了一下相关知识，在此梳理一下。</p>
+
+<h2>什么是正则表达式</h2>
+
+<p>正则表达式就是用一个“字符串”来描述一个特征，然后去验证另一个“字符串”是否符合这个特征。简单的一个例子：用字符串&#8221;a&#8221;来验证字符串s是否是&#8221;a&#8221;，形如s.match(&ldquo;a&rdquo;)。概括来说有以下作用：</p>
+
+<ul>
+<li>验证字符串是否符合指定特征，比如验证是否是合法的邮件地址。</li>
+<li>查找字符串，从一个长的文本中查找符合指定特征的字符串，比查找固定字符串更加灵活。</li>
+<li>替换字符串，比普通的基于字符串的替换更灵活。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/03/10/regx/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2018/02/06/2017books/">2017年读过的书</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-02-06T11:29:34+00:00" pubdate data-updated="true">Feb 6<sup>th</sup>, 2018</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/02/06/2017books/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
       <div class="page-navigator">
         
         
@@ -649,10 +648,6 @@
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2020/02/17/tech-talk/">知识琐话2020-02-17</a>
-      	</li>
-    	
-     	<li>
       	  <a href="/blog/2020/01/27/kobe/">我是科蜜，20年的&#8230;</a>
       	</li>
     	
@@ -686,6 +681,10 @@
     	
      	<li>
       	  <a href="/blog/2019/06/29/log/">Java开发框架之日志</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/05/30/msa/">微服务杂谈</a>
       	</li>
     	
 	</ul>

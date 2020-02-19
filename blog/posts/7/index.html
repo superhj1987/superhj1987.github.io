@@ -14,7 +14,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Java开发Tips Jun 19th, 2016 在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。 继续阅读 &rarr; Java后端工程师技能树 &hellip;">
+  <meta name="description" content="数据杂谈 Feb 23rd, 2016 目录 前言
+数据
+数据系统
+大数据
+数据统计
+个性化推荐
+总结
+参考资料 前言 记得几年前，曾经有人预测过未来最流行的三大技术：大数据、高并发、数据挖掘。到现在来看，这三种技术的确也随着这几年互联网的发展变得越发成熟和可靠。掌握这三种技术的人， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -97,7 +104,7 @@
             <div>
                 <nav id="nav-menu" class="clearfix">
                     <a class="index-nav current" href="/">首页</a>
-<a class="talk-nav" href="/blog/categories/talk">琐话</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
 <a class="manage-nav" href="/blog/categories/manage">管理</a>
 <a class="architecture-nav" href="/blog/categories/architecture">架构</a>
 <a class="java-nav" href="/blog/categories/java">Java</a>
@@ -114,209 +121,6 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/06/19/java-tips/">Java开发Tips</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-06-19T12:59:44+00:00" pubdate data-updated="true">Jun 19<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/06/19/java-tips/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-06-17T14:59:44+00:00" pubdate data-updated="true">Jun 17<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>此技能树借鉴自<a href="https://github.com/geekcompany/full-stack-tree">https://github.com/geekcompany/full-stack-tree</a>，基本涵盖了一个Java后端工程师应该具备的技能，如有遗漏或者错误，敬请指出。</p>
-
-<p><strong>PS</strong>: 有同学指出tomcat不是web server是servlet容器，这一点图中的确不够严谨，因此更新了此技能树。其实tomcat引入了apr之后也是能够作为web server的(其实目前绝大多servlet容器都同时提供了web服务器的功能，只是性能之类的不好而已)，当然把tomcat直接做为web server的应用还不够广泛。目前，nginx+tomcat还是普遍的七层负载均衡构建集群的方案。此外，这里还牵扯到了servlet容器和应用服务器的一个区别，为什么tomcat只是servlet容器而不叫JavaEE应用服务器呢？这一点大家可以通过此链接了解一下:<a href="http://www.cnblogs.com/maydow/p/4821249.html">http://www.cnblogs.com/maydow/p/4821249.html</a>。当然，对于互联网领域目前的Java后端体系，weblogic、webspher这些应用服务器基本绝迹，因此并没有写在此技能树中。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/06/17/java-skill-tree/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-05-07T06:59:44+00:00" pubdate data-updated="true">May 7<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>目录</h2>
-
-<ul>
-<li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
-<li><a href="#%E4%BA%8C.%20Jvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B">二. Jvm虚拟机内存简介</a></li>
-<li><a href="#%E4%B8%89.%20%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">三. 垃圾收集</a></li>
-<li><a href="#%E5%9B%9B.%20Java7%E3%80%818%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%98%E5%8C%96">四. Java7、8带来的一些变化</a></li>
-</ul>
-
-
-<p><img src="/images/blog_images/javamm/java.jpg" alt="java" /></p>
-
-<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/05/07/javamm/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/04/07/up-recommend/">基于内容和用户画像的个性化推荐</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-04-07T06:59:44+00:00" pubdate data-updated="true">Apr 7<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>目前比较流行的个性化推荐算法有以下几种：</p>
-
-<ul>
-<li>基于内容的推荐：根据内容本身的属性(特征向量)所作的推荐。</li>
-<li>基于关联规则的推荐：“啤酒与尿布”的方式，是一种动态的推荐，能够实时对用户的行为作出推荐。是基于物品之间的特征关联性所做的推荐，在某种情况下会退化为物品协同过滤推荐。</li>
-<li>协同过滤推荐：与基于关联规则的推荐相比是一种静态方式的推荐，是根据用户已有的历史行为作分析的基础上做的推荐。可分为物品协同过滤、用户协同过滤、基于模型的协同过滤。其中，基于模型的协同又可以分为以下几种类型：基于距离的协同过滤；基于矩阵分解的协同过滤，即Latent Factor Model(SVD)或者ALS；基于图模型协同，即Graph，也叫社会网络图模型。</li>
-</ul>
-
-
-<p>本文所讲述的基于内容和用户画像的个性化推荐属于第一种。对于此种推荐，有两个实体：内容和用户，因此需要有一个联系这两者的东西，即为标签。内容转换为标签即为内容特征化，用户则称为用户特征化。对于此种推荐，主要分为以下几个关键部分：</p>
-
-<ul>
-<li>标签库</li>
-<li>内容特征化</li>
-<li>用户特征化</li>
-<li>隐语义推荐</li>
-</ul>
-
-
-<p>综合上面讲述的各个部分即可实现一个基于内容和用户画像的个性化推荐系统。如下图所示：</p>
-
-<p><img src="/images/blog_images/up-recommend.png" alt="uc_interest" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/04/07/up-recommend/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
     
     
       <article class="post">
@@ -645,6 +449,266 @@
 
       </article>
     
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/11/20/2015books/">2015年读过的书</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-20T09:13:46+00:00" pubdate data-updated="true">Nov 20<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>技术</h2>
+
+<h3>1. 精益数据分析</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/26278639/">http://book.douban.com/subject/26278639/</a></li>
+<li>说明：一本讲述数据驱动创业的书籍，比如在你的产品中如何区分虚荣指标，如何抓住关键指标等。对于每一个商业模式都有其特定的关键指标和底线。而且对于一个公司的几个阶段（移情、黏性、病毒性、营收、规模化）指标也不是相同的。商业模式+阶段决定了你需要关注的指标。</li>
+<li>进度：100%</li>
+</ul>
+
+
+<h3>2. 推荐系统实践</h3>
+
+<ul>
+<li>豆瓣：<a href="http://book.douban.com/subject/10769749/">http://book.douban.com/subject/10769749/</a></li>
+<li>说明：讲述了构建一个推荐系统的基本知识、算法以及架构等。基本涵盖了能实现一个基本的推荐系统所需的相关技术等。看完这本书，基本能对推荐系统入门。</li>
+<li>进度：100%</li>
+<li>备注：此书上大学时曾经看过，但当时由于没有实战环境，所以没啥印象。此次阅读是基于项目需要，但其中部分牵扯到具体算法的部分没有细看</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/11/20/2015books/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/11/13/your-own-github/">搭建自己的github</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-11-13T02:27:40+00:00" pubdate data-updated="true">Nov 13<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>说起github，大家应该都是非常熟悉的。正是github的兴起，带来了开源的一个高潮，也诞生了无数优秀的开源项目。最最著名的Linux也在github上有了自己的repository。当然，github的核心技术git也是李纳斯的代表作。</p>
+
+<p>记得几年前由于项目的需要，曾尝试自己去搭建一套git服务给项目组使用，折腾了好久，才总算搭建了一个基础的系统, 刚刚能用，权限控制都没有(<a href="http://srhang.iteye.com/blog/1339110">http://srhang.iteye.com/blog/1339110</a>)。但最终因为git的上手门槛有点高，还是选择了svn。后来随着github的兴起，git才如火如荼地在国内火了起来。许多大的互联网公司，也都开始把项目由svn转到git。但如果仅仅是搭建一个git服务，那么github这种网站提供的可视化ui带来的便捷却也不复存在了。对于一些小的有钱的团队，使用github的收费私人repository倒也是一种解决办法。但是，对于大部分公司来说，还是不会把公司内部的代码放到这种公共服务上的。这种需求场景下，就诞生了很多github的克隆实现，以方便部署内网的github。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/11/13/your-own-github/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/09/09/load-analysis/">系统负载能力浅析</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-09T10:42:58+00:00" pubdate data-updated="true">Sep 9<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p><strong><em>&mdash;本文于2015.12.23最新更新&mdash;</em></strong></p>
+
+<p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
+
+<p>那么，何为系统负载能力？怎么衡量？相关因素有哪些？又如何优化呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/09/09/load-analysis/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/06/10/hbase-about/">Hbase关键的几个点</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-06-10T02:59:59+00:00" pubdate data-updated="true">Jun 10<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>一. 什么时候需要HBase</h2>
+
+<ol>
+<li><p>半结构化或非结构化数据</p>
+
+<p> 对于数据结构字段不够确定或杂乱无章很难按一个概念去进行抽取的数据适合用HBase。当业务发展需要增加存储比如一个用户的email，phone，address信息时RDBMS需要停机维护，而HBase支持动态增加.</p></li>
+<li><p>记录非常稀疏</p>
+
+<p> RDBMS的行有多少列是固定的，为null的列浪费了存储空间。而如上文提到的，HBase为null的Column不会被存储，这样既节省了空间又提高了读性能。</p></li>
+<li><p>多版本数据</p>
+
+<p> 根据Row key和Column key定位到的Value可以有任意数量的版本值，因此对于需要存储变动历史记录的数据，用HBase就非常方便了。对于某一值，业务上一般只需要最新的值，但有时可能需要查询到历史值。</p></li>
+<li><p>超大数据量</p>
+
+<p> 当数据量越来越大，RDBMS数据库撑不住了，就出现了读写分离策略，通过一个Master专门负责写操作，多个Slave负责读操作，服务器成本倍增。随着压力增加，Master撑不住了，这时就要分库了，把关联不大的数据分开部署，一些join查询不能用了，需要借助中间层。随着数据量的进一步增加，一个表的记录越来越大，查询就变得很慢，于是又得搞分表，比如按ID取模分成多个表以减少单个表的记录数。经历过这些事的人都知道过程是多么的折腾。采用HBase就简单了，只需要加机器即可，HBase会自动水平切分扩展，跟Hadoop的无缝集成保障了其数据可靠性（HDFS）和海量数据分析的高性能（MapReduce）</p></li>
+</ol>
+
+
+<h2>二. HTable一些基本概念</h2>
+
+<ol>
+<li><p>Row key</p>
+
+<p> 行主键， HBase不支持条件查询和Order by等查询，读取记录只能按Row key（及其range）或全表扫描，因此Row key需要根据业务来设计以利用其存储排序特性（Table按Row key字典序排序如1,10,100,11,2）提高性能。</p></li>
+<li><p>Column Family（列族）</p>
+
+<p> 在表创建时声明，每个Column Family为一个存储单元。</p></li>
+<li><p>Column（列）</p>
+
+<p> HBase的每个列都属于一个列族，以列族名为前缀，如列article:title和article:content属于article列族，author:name和author:nickname属于author列族。</p>
+
+<p> Column不用创建表时定义即可以动态新增，同一Column Family的Columns会群聚在一个存储单元上，并依Column key排序，因此设计时应将具有相同I/O特性的Column设计在一个Column Family上以提高性能。</p></li>
+<li><p>Timestamp</p>
+
+<p> HBase通过row和column确定一份数据，这份数据的值可能有多个版本，不同版本的值按照时间倒序排序，即最新的数据排在最前面，查询时默认返回最新版本。Timestamp默认为系统当前时间（精确到毫秒），也可以在写入数据时指定该值。</p></li>
+<li><p>Value</p>
+
+<p> 每个值通过4个键唯一索引，tableName+RowKey+ColumnKey+Timestamp=>value</p></li>
+<li><p>存储类型</p>
+
+<ul>
+<li>TableName 是字符串</li>
+<li>RowKey 和 ColumnName 是二进制值（Java 类型 byte[]）</li>
+<li>Timestamp 是一个 64 位整数（Java 类型 long）</li>
+<li>value 是一个字节数组（Java类型 byte[]）。</li>
+</ul>
+</li>
+</ol>
+
+
+<p>将HTable的存储结构理解为</p>
+
+<p><img src="/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
+
+<p>即HTable按Row key自动排序，每个Row包含任意数量个Columns，Columns之间按Column key自动排序，每个Column包含任意数量个Values。理解该存储结构将有助于查询结果的迭代。</p>
+
+<h2>三. 模式设计应遵循的原则</h2>
+
+<ol>
+<li><p>列族的数量以及列族的势</p>
+
+<p> 列族的数量越少越好，牵扯到了hbase的flushing；同一个表中不同列族所存储的记录数量的差别也需要考虑（列族的势），会造成记录数量少的列族的数据分散在多个region上，影响查询效率。</p></li>
+<li><p>行键的设计</p>
+
+<p> 避免使用时序或者单调（递增/递减）行键，否则会导致连续到来的数据会被分配到统一region中。</p></li>
+<li><p>尽量最小化行键和列族的大小</p>
+
+<p> 避免hbase的索引过大，加重系统存储的负担</p></li>
+<li><p>版本的数量</p>
+
+<p> HColumnDescriptor设置版本的数量，避免设置过大，版本保留过多。</p></li>
+</ol>
+
+</div>
+  
+  
+
+
+      </article>
+    
       <div class="page-navigator">
         
         
@@ -716,10 +780,6 @@
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2020/02/17/tech-talk/">知识琐话2020-02-17</a>
-      	</li>
-    	
-     	<li>
       	  <a href="/blog/2020/01/27/kobe/">我是科蜜，20年的&#8230;</a>
       	</li>
     	
@@ -753,6 +813,10 @@
     	
      	<li>
       	  <a href="/blog/2019/06/29/log/">Java开发框架之日志</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/05/30/msa/">微服务杂谈</a>
       	</li>
     	
 	</ul>
