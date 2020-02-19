@@ -10,7 +10,6 @@ $(document).ready(function(){
 	$("#nav-menu a").removeClass("current");
 	$("#nav-menu .categories-nav").addClass("current");
 });
-
 </script>
 <ul style="margin-left: -45px !important;margin-top:30px !important;">
 {% for item in site.categories %}
