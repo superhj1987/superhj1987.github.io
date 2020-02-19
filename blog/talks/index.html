@@ -160,10 +160,10 @@ $(document).ready(function(){
 </ul>
 
 
-<h3>2019-07-18</h3>
+<h3>2019.07.18</h3>
 
 <ul>
-<li><p>无意看到耗子大神的博客上的这篇文章: <a href="http://t.cn/Ail2n6LF">Cuckoo Filter：设计与实现</a>。乍看一下，以为又出了什么nb的大数据查重算法了。看完之后发现作者就没搞清楚bitmap和bloomfilter到底是为了什么场景出现的。</p>
+<li><p>看到耗子大神的博客上的这篇文章: <a href="http://t.cn/Ail2n6LF">Cuckoo Filter：设计与实现</a>。乍看一下，以为又出了什么nb的大数据查重算法了。看完之后发现作者就没搞清楚bitmap和bloomfilter到底是为了什么场景出现的。</p>
 
 <ul>
 <li>在元素能够映射为唯一数字时，大数据查重算法一般会选用bitmap能够尽量少的占用内存,直接将元素映射到bit数组的相应位置上。</li>
@@ -176,13 +176,12 @@ $(document).ready(function(){
 </ul>
 
 
-<h3>2018-09-03</h3>
+<h3>2018.09.03</h3>
 
 <ul>
 <li><p>推送实现方式：轮训、长连接、长轮训（依赖于异步IO机制，如Java中的异步Servlet）。</p></li>
 <li><p>喜欢到处听讲座的人通常心态上很好学，但很可能思考不足，所以知识很容易流于表面。喜欢看一本一本书的人不但好学，而且通常比较习惯于深度思考。深度思考，才能具体改变你的知识体系。看书时，可以和作者进入到同一个频率，对文字的内容产生共鸣。 ​​​​@蔡学镛 <strong>so，建议搞技术的同学少参加会议，少混圈子，多看书。</strong></p></li>
 <li><p>提出问题之前最好先想好自己的答案或者思路，切忌总是吐槽却不去解决问题。</p></li>
-<li><p>了解清楚事实再说话。</p></li>
 <li><p>对新技术的调研需要梳理零散的知识点，最终一定要有输出：分享或者文章。</p></li>
 <li><p>想到一个思路，要深入思考下去，即使表面不可行，也可以使其可行，直至确实不可行，再换思路。</p></li>
 <li><p>人的时间管理效率会差3倍；注意力管理的效率会差30倍；思考方法学习方法的效率差300倍。so，找到好的学习方法是非常关键的。</p></li>
@@ -190,21 +189,21 @@ $(document).ready(function(){
 </ul>
 
 
-<h3>2018-01-01</h3>
+<h3>2018.01.01</h3>
 
 <ul>
 <li><p>你东西学得广了，别人就会攻击你不够深入；你东西学得够深了，别人就会攻击你知识面不广；你专精在技术时，别人就会说你管理不好；你花心力好好做管理之后，别人就会说你技术没有跟上；你研究方法论时，别人就会说你很虚；你专心做项目时，别人就会说你没有提炼方法，没有系统。&hellip; 想挑你毛病，总有办法。但你自己知道自己在干什么最重要，那些你的「缺点」其实可能不是缺点，而是一件事物的另一面。你选择这一面，自然会缺另一面。这是取舍点，不是优缺点。(from 微博<strong>@蔡学镛</strong>)</p></li>
 <li><p>来自硅谷的启示</p>
 
 <p>  <img src="/images/blog_images/silicon-tech.jpg" alt="" /></p></li>
-<li><p>使用maven-javadoc-plugin，突然失败了。。。于是怀疑是代码的问题，然而以前一直是好的。突然想到了会不会是我升级了jdk8造成的问题，万能的google一搜，发现果真是jdk8带来的新特性DocLint引起的问题。对此的解决办法，要么是按照规范好好地写注释，要么可以加入参数-Xdoclint:none。</p></li>
 <li><p>在写Java代码的时候，如果匿名内部类里面传递变量，变量必须声明为final，而在Java8中，可以不用写这个final了，因为Java8引入了Effectively final 功能，由系统默认添加。<a href="http://t.cn/R5QgeVW">What is Effectively Final variable of Java 8</a></p></li>
+<li><p>使用maven-javadoc-plugin，突然失败了。。。于是怀疑是代码的问题，然而以前一直是好的。突然想到了会不会是我升级了jdk8造成的问题，万能的google一搜，发现果真是jdk8带来的新特性DocLint引起的问题。对此的解决办法，要么是按照规范好好地写注释，要么可以加入参数-Xdoclint:none。</p></li>
 <li><p>将Nginx中的一个配置指令proxyinterceptorerrors设置为true，可以捕获后端服务器返回的错误码进行处理，从而可以使用nginx自己的错误显示页面。 ​​​​</p></li>
 <li><p>在Servlet开发中，request.setCharacterEncoding必须在所有filter最开始执行，否则只要调用过request相关方法去获取其参数等，再去设置编码是无效的。</p></li>
 <li><p>Servlet3.0引入的异步servlet和connector的NIO是不同的。前者指的是处理业务逻辑的时候的异步，而后者指的是接受连接时候的异步。对于前者，其实最后的业务逻辑还是交给了线程池去处理，不过除此之外，还有一个线程专门做业务调度而已。</p></li>
 <li><p>Servlet3.1引入的HttpServletRequest.changeSessionId 和HttpSessionIdListener ，主要是为了防止session fixation攻击。那么什么是session fixation攻击呢，简单点说就是一次访问网站的session的id是不会变的, 那么攻击者诱导受害者使用一个确定的session id(攻击者可以先去访问网站获得一个id)去登录某个网站，就可以伪造成你的身份获得各种权限。</p></li>
 <li><p>Java中File类的listFiles和list方法最终调用的是FileSystem的本地接口，返回的文件列表顺序是没有保证的。Spring中的san某一basepackage下的类就是使用的此方法，因此加载的bean的顺序也是无法保证的。这一点需要特别注意。</p></li>
-<li><p>大家都知道在spring中如果想要扩展自己的namespace，需要配置spring.handlers和spring.schemas以及*.xsd文件，从而可以动态生成bean，那么如果抛开xml配置，只使用注解该如何做到添加自定义的注解来生成自己的bean呢？一种方式就是：实现ImportBeanDefinitionRegistrar接口。 ​​​​ ​​​​​​</p></li>
+<li><p>大家都知道在Spring中如果想要扩展自己的namespace，需要配置spring.handlers和spring.schemas以及*.xsd文件，从而可以动态生成bean，那么如果抛开xml配置，只使用注解该如何做到添加自定义的注解来生成自己的bean呢？一种方式就是：实现ImportBeanDefinitionRegistrar接口。 ​​​​ ​​​​​​</p></li>
 <li><p>Tomcat各个版本特性对比图</p>
 
 <p>  <img src="/images/blog_images/tc.png" alt="" /></p></li>
