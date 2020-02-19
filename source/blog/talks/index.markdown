@@ -50,9 +50,9 @@ $(document).ready(function(){
 
 - 【云计算服务如何选择？】初创公司在业务刚起步时，使用SaaS或者PaaS快速开发业务；业务成长到一定规模之后，再逐步转移到IaaS或者私有云降低成本。
 
-### 2019-07-18
+### 2019.07.18
 
-- 无意看到耗子大神的博客上的这篇文章: [Cuckoo Filter：设计与实现](http://t.cn/Ail2n6LF)。乍看一下，以为又出了什么nb的大数据查重算法了。看完之后发现作者就没搞清楚bitmap和bloomfilter到底是为了什么场景出现的。
+- 看到耗子大神的博客上的这篇文章: [Cuckoo Filter：设计与实现](http://t.cn/Ail2n6LF)。乍看一下，以为又出了什么nb的大数据查重算法了。看完之后发现作者就没搞清楚bitmap和bloomfilter到底是为了什么场景出现的。
 
     - 在元素能够映射为唯一数字时，大数据查重算法一般会选用bitmap能够尽量少的占用内存,直接将元素映射到bit数组的相应位置上。
     - 在元素无法转换为唯一数字时，经常的用法是取其hash值，此时由于有碰撞，经典的hashmap实现是用链表法解决。当接受误差的时候，可以选择bloomfilter能够节省内存占用。
@@ -61,15 +61,13 @@ $(document).ready(function(){
 
 - 最近在做微服务的落地规划时接触到了Cookie cutter scaling这个名词。文章里的说明是相对于单体应用，Cookie cutter scaling的特点就是通过嵌入式lib做组件化，能够便于扩展，从而不引入分布式复杂度就能够承载大流量。但其实现在的单体应用也基本都是这样做的了，并非是Cookie cutter scaling的特点了。不知道是否理解有偏差。[Monoliths, Cookie-Cutter or Microservices?](https://paulhammant.com/2014/12/07/moniliths-cookiecutters-or-microservices/)、[Cookie Cutter Scaling](https://paulhammant.com/2011/11/29/cookie-cutter-scaling/)
 
-### 2018-09-03
+### 2018.09.03
 
 - 推送实现方式：轮训、长连接、长轮训（依赖于异步IO机制，如Java中的异步Servlet）。
 
 - 喜欢到处听讲座的人通常心态上很好学，但很可能思考不足，所以知识很容易流于表面。喜欢看一本一本书的人不但好学，而且通常比较习惯于深度思考。深度思考，才能具体改变你的知识体系。看书时，可以和作者进入到同一个频率，对文字的内容产生共鸣。 ​​​​@蔡学镛 **so，建议搞技术的同学少参加会议，少混圈子，多看书。**
 
 - 提出问题之前最好先想好自己的答案或者思路，切忌总是吐槽却不去解决问题。
-
-- 了解清楚事实再说话。
 
 - 对新技术的调研需要梳理零散的知识点，最终一定要有输出：分享或者文章。
 
@@ -79,7 +77,7 @@ $(document).ready(function(){
 
 - 一个人有没有计算机思维很大程度决定其在技术上的上限。而我所谓计算机思维即能否用计算机的方式来看待问题、解决问题，能否很好地把现实问题转换为计算机可以理解的问题。这东西一方面靠天赋，一方面靠后天刻意培养。
 
-### 2018-01-01
+### 2018.01.01
 
 - 你东西学得广了，别人就会攻击你不够深入；你东西学得够深了，别人就会攻击你知识面不广；你专精在技术时，别人就会说你管理不好；你花心力好好做管理之后，别人就会说你技术没有跟上；你研究方法论时，别人就会说你很虚；你专心做项目时，别人就会说你没有提炼方法，没有系统。... 想挑你毛病，总有办法。但你自己知道自己在干什么最重要，那些你的「缺点」其实可能不是缺点，而是一件事物的另一面。你选择这一面，自然会缺另一面。这是取舍点，不是优缺点。(from 微博**@蔡学镛**)
 
@@ -87,9 +85,9 @@ $(document).ready(function(){
 
 	![](/images/blog_images/silicon-tech.jpg)
 
-- 使用maven-javadoc-plugin，突然失败了。。。于是怀疑是代码的问题，然而以前一直是好的。突然想到了会不会是我升级了jdk8造成的问题，万能的google一搜，发现果真是jdk8带来的新特性DocLint引起的问题。对此的解决办法，要么是按照规范好好地写注释，要么可以加入参数-Xdoclint:none。
-
 - 在写Java代码的时候，如果匿名内部类里面传递变量，变量必须声明为final，而在Java8中，可以不用写这个final了，因为Java8引入了Effectively final 功能，由系统默认添加。[What is Effectively Final variable of Java 8](http://t.cn/R5QgeVW)
+
+- 使用maven-javadoc-plugin，突然失败了。。。于是怀疑是代码的问题，然而以前一直是好的。突然想到了会不会是我升级了jdk8造成的问题，万能的google一搜，发现果真是jdk8带来的新特性DocLint引起的问题。对此的解决办法，要么是按照规范好好地写注释，要么可以加入参数-Xdoclint:none。
 
 - 将Nginx中的一个配置指令proxyinterceptorerrors设置为true，可以捕获后端服务器返回的错误码进行处理，从而可以使用nginx自己的错误显示页面。 ​​​​
 
@@ -101,7 +99,7 @@ $(document).ready(function(){
 
 - Java中File类的listFiles和list方法最终调用的是FileSystem的本地接口，返回的文件列表顺序是没有保证的。Spring中的san某一basepackage下的类就是使用的此方法，因此加载的bean的顺序也是无法保证的。这一点需要特别注意。
 
-- 大家都知道在spring中如果想要扩展自己的namespace，需要配置spring.handlers和spring.schemas以及*.xsd文件，从而可以动态生成bean，那么如果抛开xml配置，只使用注解该如何做到添加自定义的注解来生成自己的bean呢？一种方式就是：实现ImportBeanDefinitionRegistrar接口。 ​​​​ ​​​​​​
+- 大家都知道在Spring中如果想要扩展自己的namespace，需要配置spring.handlers和spring.schemas以及*.xsd文件，从而可以动态生成bean，那么如果抛开xml配置，只使用注解该如何做到添加自定义的注解来生成自己的bean呢？一种方式就是：实现ImportBeanDefinitionRegistrar接口。 ​​​​ ​​​​​​
 
 - Tomcat各个版本特性对比图
 
