@@ -4,7 +4,7 @@
   <title><![CDATA[Category: pje-book | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/pje-book/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-02-19T04:32:21+00:00</updated>
+  <updated>2020-02-19T06:26:11+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -14,394 +14,1506 @@
 
   
   <entry>
-    <title type="html"><![CDATA[如何学习后端技术？]]></title>
-    <link href="http://www.rowkey.me/blog/2018/04/13/how-to-study-tech/"/>
-    <updated>2018-04-13T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/04/13/how-to-study-tech</id>
-    <content type="html"><![CDATA[<p>最新内容见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md</a></p>
-
-<p>学习后端技术和学习其他的技术并没有什么大的不同。因此，题目换做如何学习技术也是讲的通的。概括来讲，有以下几点建议：</p>
+    <title type="html"><![CDATA[数据传输之RESTful]]></title>
+    <link href="http://www.rowkey.me/blog/2019/09/28/restful/"/>
+    <updated>2019-09-28T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/09/28/restful</id>
+    <content type="html"><![CDATA[<p>REST，全称表现层状态转移（Representational State Transfer）, 指的是资源在网络中以某种表现形式进行状态转移，是一种架构风格。其描述的是在网络中Client和Server的一种交互形式。简单来说就是用HTTP URL来定位资源，用HTTP的各种method来描述操作。其关键的三个概念如下：</p>
 
 <ul>
-<li>扎实的计算机基础知识</li>
-<li>知其然更要知其所以然</li>
-<li>动手实践、频繁练习</li>
-<li>持续学习</li>
-<li>计算机思维</li>
-<li>自我总结</li>
-<li>学会规划</li>
+<li>Resource: 资源，主要指的是数据。</li>
+<li>Representational：数据的表现形式，如JSON、XML、HTML等。</li>
+<li>State Transfer：状态变化, 通过HTTP method来描述。</li>
 </ul>
 
+
+<p>REST经常被用来规范API的设计以及数据传输的格式，可以统一给各种客户端提供接口,包括Web、iOS、Android和其他的服务。REST不需要显式的前端页面，只需要按照格式返回数据即可。符合REST风格的API称为RESTful API，符合RESTFul规范的架构称为RESTful架构。如下图所示：</p>
+
+<p><img src="//post_images/restful/restful.png" alt="" /></p>
 
 <!--more-->
 
 
-<h2>扎实的计算机基础知识</h2>
+<h2>一. 操作</h2>
+
+<p>RESTful是基于HTTP协议的，其主要依赖于HTTP协议的几种method来表示CRUD（create、read、update和delete,即数据的增删查改）操作：</p>
 
 <ul>
-<li>数据结构和算法：程序是由数据和算法组成的，因此这两个东西是计算机软件的基础。诸如B树、哈希表、栈以及七大排序算法、查找算法这些，在很多软件的代码中都可以看得到。有时候，一个优秀的工程师和一个普通工程师的区别也就在于是否能够合理使用合适的数据结构和算法。</li>
-<li>计算机操作系统：操作系统可以说是集大成于一身的一个软件程序。资源调度、任务调度、IO调度、进程通信等等，每一个设计都是很精华的，也是很多其他应用软件设计的思想来源。</li>
-<li>计算机网络：目前只要有数据传输功能的程序绝大多数都是离不开网络的。网络七层或者四层协议栈的设计非常精妙。了解网络连接如何建立、断开以及每个连接状态的意义都有助于对程序网络问题的排查。</li>
-<li>计算机组成原理：这是计算机最底层的设计，也是计算机一切的基础。了解这些有助于消除你对计算机的神秘感，毕竟符合冯诺依曼原理的计算机无非就是存储数据、程序按序运行。</li>
+<li>GET: 从服务器上获取资源</li>
+<li>POST: 创建新的资源</li>
+<li>PUT： 更新服务器资源</li>
+<li>DELETE： 删除服务器资源</li>
 </ul>
 
 
-<p>以上是计算机专业的一些比较普遍的基础知识课程。这里不得不说的一点是，虽然现在各大高校的计算机专业课程是比较落后的，但是这些基础课程，由于多少年也没有怎么变过，因此不管怎样都是需要扎实掌握的。也许上学的时候你感觉不到有多大的用处。但是进入实际的开发工作中，是否能够掌握扎实的基础知识往往决定了一个开发工程师的上限，这也是很多大的互联网公司无论是校招还是社招，都侧重于一些底层知识考察的原因。毕竟，你会使用什么东西只能决定你的下限，而你的基础知识和学习能力才决定了你的上限。</p>
-
-<p>此外，其实很多平时开发中的一些技术都可以类比到一些基础知识的。比如，我们经常为了提高查询性能而使用的缓存技术，和为了兼容CPU和IO速度不匹配的而设计的CPU Cache就是同样的东西；操作系统中的进程间通信方式和服务之间的异步同步通信也是差不多的道理。诸如此类，其实计算机科学基础凝聚了很多精华的设计，无论是计算机硬件架构、计算机操作系统还是计算网络。</p>
-
-<h2>知其然更要知其所以然</h2>
-
-<p>经常遇到来面试的工程师，他们简历上写了很多项目，也用过很多技术，怎么看都是非常不错的候选人。但是面试一旦深入到原理或者是优化层面，很多工程师甚至是一些公司的资深架构师都会支支吾吾，答非所问或者说是没关注过。听到最多的解释就是业务压力太忙，没有时间去研究这个。其实，自我经历来看，业务忙是原因，但是没有时间却肯定是借口，毕竟阅读一个项目的源码虽然比较耗费时间，但是去网上看看已有的原理分析其实是花不了太多的时间的。归根结底，还是没有一种知其然更要知其所以然的基本意识。很多东西，你学会了使用会很兴奋，但是你有没有想过这么兴奋的功能是如何实现的呢？最简单的例子，Java中的HashMap，大家都在用，但是他到底是怎么实现的呢？很多人甚至都不知道这和数据结构课程上的哈希表是什么关系，更别说让他说出解决冲突的方式了。</p>
-
-<p>这也可以映射到现在的一种现象：很多开发工程师工作了很久，看着经验丰富，但基本都是拿着一年的工作经验重复n年的。基本上每一份工作，每一个项目都在那里做重复劳动，而且也并不去考虑如何避免重复劳动这件事。</p>
-
-<p>进一步的，除了遇到问题再去看源码、究底层，主动阅读经典类库、高质量开源项目的源码以及其他同事写的代码，学习其中好的架构、设计、编码风格以及类库的使用也是促进自身技术进步的一个非常有效的方式。</p>
-
-<p>这也牵扯到了技术的广度和深度的问题。就我自己来看，对于刚刚毕业或者刚刚入职的工程师来说，首要的是深度问题，只有你在某一领域有了深入的研究和造诣了，你才能融汇贯通，迅速地扩大自己的知识面，在广度上做到突破。而对于有一定工作经验的工程师来说，虽然深度不是那么必须了，但是遇到的问题、新学到的东西还是刨根问底才好，否则一旦出现问题再去盲羊补牢会让你显得非常被动，也不利于自己的技术发展。毕竟，一个什么都做过、什么都用过却什么也不精的人可替代性太强了。</p>
-
-<h2>动手实践</h2>
-
-<p>学习领域有所谓721模型：个人的成长70%来自于岗位实践，20%来自向他人学习，10%来自于培训。虽然这种理论存在争议，但在笔者看来对于程序员来说按照实践、学习和培训的方式进行重要性排序是合理的。普遍公认的一种学习技术的最佳实践-“项目驱动型学习”，也就是这里说的动手实践。很多技术，只是看书，你会云里雾里，看了就忘。必须要经过你自己的实践或者项目中使用到了这种技术，你才能很快地掌握并熟练。此外，现在朋友圈、微博上都充斥各种所谓干货，很多人阅读大量的资料自以为收货满满，其实对于里面的东西根本就没有去实践过。甚至有时候就是感叹一下别人真厉害而已。真正的干货是需要自己消化的，消化的一种最好的模式就是实践，无论是对资料中的例子还是一笔带过的知识。</p>
-
-<p>动手实践能够让你快速入门，但只有频繁练习才能让你熟练使用。“一万小时”理论讲的是任何一个行业都至少需要一万小时的实践才能成为专家。先不去争论此理论是否正确，可以想想当你长时间不写代码或者不用某个技术后你再去做相关的开发，那种生涩陌生感想必是每个人都有体会的。可见对于研发这个角色，频繁练习是有多么的重要。</p>
-
-<p>当然，这里的频繁练习并非指的重复劳动。应该是带着自己的思考去练习，多去想一下为什么这么做？有没有更好的方式？</p>
-
-<h2>持续学习</h2>
-
-<p>“活到老，学到老”这句话用在程序员这个职业上再合适不过。IT技术尤其是互联网开发中的技术，其迭代是非常迅速的。也许你今天学的，过不了几年就成了被抛弃的。虽然相比起前端技术，后端技术算是比较稳定的，但相比起其他行业，迭代速度还是非常快的，像Struts这种当年火的一塌糊涂的技术现在也成了过时的东西。因此，一定要对新事物、新技术具有敏感性，要不断地去涉猎业界最新的知识点，扩充自己的知识库。而学习新的知识的时候，与读一些书籍和网上的博文相比，直接阅读相关知识的官方文档是笔者推崇的方式，毕竟经过二次加工的书籍、博文很多时候由于写作者水平或者个人理解的问题会有错误或者偏离原作者的意思。而由于目前IT技术绝大多数都源自欧美，欧美的技术水平也领先国内很多，因此英文对于IT技术从业者的要求也是比较高的，需要达到熟知各种计算机术语，通畅地阅读各类英文资料的水平才不至于在学习方面落后。</p>
-
-<p>这里还需要提到一点就是要“逃离舒适区”。人对自己熟悉的东西都比较亲切，对自己熟练掌握的技术一般也能够自信地使用，然而当需要使用自己没接触过的技术时，很多人就望而却步、不敢尝试，进而也就丧失了学习新的知识、扩充自己知识库的机会。最好的方式应该是敢于“逃离舒适区”、敢于使用新的技术，这样才能让自己具有持续的学习兴趣，促进自己的持续进步。</p>
-
-<p>还需要注意的是，现在业界有很多技术会议，动辄就是全球、全世界这种名头。经常参加这些会议的人肯定是好学的，但是这种会议上都是些流于表面的东西，把精力放在这上面的人的知识也很容易流于表面。笔者比较推荐通过多阅读书籍来学习，喜欢读书的人也习惯于深度思考，深度思考才能更新形成自己的知识体系。尤其对处于技术上升期的程序员，少参加会议，少混圈子，多看书，多做一些能够提升自己技术能力的事情。除非经济压力大，尽量避免去做一些毫无技术含量的外包项目。</p>
-
-<p>此外，学习计算机知识可以多与现实世界类比，能够加强理解，快速掌握。如并发控制的信号量其实和红绿灯本质是一样的原理，银行多窗口服务其实就是负载均衡。</p>
-
-<h2>计算机思维</h2>
-
-<p>这一点主要说的是要学会用计算机思维来思索问题。所谓的计算机思维本质就是冯诺依曼体系所描述：程序存储，顺序执行。</p>
-
-<p>经常听到的程序员买苹果的段子就是按照for循环、if else等逻辑来判断苹果好坏、计数，并做防御性检查等，这就是计算机思维的体现。而之前一个很火的电影《天才枪手》中记忆选择题答案如果使用计算机思维，那么用两位bit可以表示四个答案，再将四位bit转换为一个十六进制数字，记忆答案就可以减少一般的存储量。</p>
-
-<p>如此，诸如二进制存储、防御编程、循环遍历、位运算、多进程/线程以及常用的数据结构和算法等都应该成为不自觉的意识。能够在遇到问题时，下意识地用这些东西来思考，将人类语言的需求转化为计算机语言。</p>
-
-<h2>自我总结</h2>
-
-<p>相信很多人在平常的工作中，经常会遇到一些问题，然后通过查阅网上资料、询问同事、翻看源码等手段解决了，当再次遇到类似的问题甚至是相同的问题时，还是一头雾水。先不提记忆力的问题，造成这种情形的很大一个原因就是没有去总结。当然，这里的总结不仅仅指的是把你平时遇到的问题记录下来，更深一层的是要找到问题发生的本质原因，如何避免发生同样的问题，从中有什么启发和收获。再进一步的则需要经常将自己一段时间内的知识收获组织成体系或者融入到自己的知识体系中，这样才能举一反三，遇到相同的问题可以有据可循。</p>
-
-<p>而自我总结的方式包括记笔记、写博客、做分享。其中，比起记笔记来说，写博客、做分享是笔者更为推荐的方式。毕竟，和别人交流一方面能促使你对总结质量的把控，另一方面分享知识给别人带来的“荣誉感”反过来会产生某种正向反馈让你更加乐于总结和分享。</p>
-
-<h2>学会规划</h2>
-
-<p>平时和不少工程师聊过关于职业规划的事情，其中有些人对自己的职业道路有很清晰的认识，但更多的则是没有任何概念，只是觉得能挣钱养家就好。很明显前者是属于有规划的人，对于这种人来说，其努力是有目标的，因此走的路也会更踏实，更具有可持续性。</p>
-
-<p>对于研发职位来说，学会规划是一个很关键的特质。而规划可以分为长期规划和短期规划。上面说的职业规划就是一种长期规划，需要高瞻远瞩的定下自己前进的方向。如在五年内成长为一个后端服务架构师就可以看做一个长期规划。笔者自己的长期规划如下：</p>
+<p>这里需要注意两点：</p>
 
 <ul>
-<li>35岁之前只做能提高自己技术水平的事情，能够成为公认的某一个技术领域的专家。</li>
-<li>绝不为了钱加入自己并不认同的企业或者团队。</li>
+<li>GET、PUT和DELETE应该是幂等的，即相同的数据和参数下，执行一次或多次产生的效果是一样的。</li>
+<li>对于POST和PUT操作，应该返回最新的资源，删除操作则一般不必要。</li>
+<li>所有的操作都是无状态的，即所有的资源，都可以通过URL定位，这个定位与其他资源无关，也不会因为其他资源的变化而改变。</li>
 </ul>
 
 
-<p>而对于短期规划来说，则是一些具体技能、晋升、学习方面的规划。如，笔者近一年的学习计划包括：</p>
+<p>除了上述方法之外，还有一个PATCH方法也用于更新资源的部分属性，但并用的并不多，用POST即可。</p>
+
+<p>此外，HTTP 1.1的几个头部也是应该注意的：</p>
 
 <ul>
-<li>学习机器学习技术，能够成为“调参工程师”。</li>
-<li>加强自身的管理技能，能够带领部门有好的业绩。</li>
-<li>完成《增长黑客》、《分布式系统概念与设计》等十本书的阅读。</li>
+<li>Accept: 客户端要求服务器返回什么样表现形式的数据。RESTFul API需要根据此头部返回合适的数据。</li>
+<li>If-Match: 在对资源做更新和删除操作时，客户端提供If-Match头，值为服务端上次对此资源返回的Etag, 服务端对比Etag如果一致才做更新和删除，否则返回412。</li>
+<li>If-None-Match: 和If-Match相反，如果不匹配上次的Etag才返回数据，匹配的话则返回304，多用于Get请求。</li>
+<li>If-Modified-Since：值为时间，如果请求的部分在指定时间之后被修改则请求成功，未被修改则返回304，多用于Get请求。</li>
 </ul>
 
 
-<p>需要注意的是，对于这些短期规划，要设定的比较合理，具有可达性，也要设定好优先级，根据优先级逐步去完成。此外，规划不要定死，可以根据实际情况灵活调整。</p>
+<h2>二. 返回码</h2>
 
-<h2>如何学习一门新技术</h2>
+<p>HTTP本身已经提供了很多StatusCode来表示各种状态。RESTFul接口需要遵循这些定义，返回合适的状态码和数据。当然，如果是内部使用，统一返回200，在返回数据里自定义一套status code也是可以的。</p>
 
-<p>上面主要讲述了宏观层面的如何学习技术，而具体到学习某一个新技术，其实也是有法可循的。如下图所示：</p>
+<p>HTTP的状态码大体分为几个区间：</p>
 
-<p><img src="//post_images/howtostudy/15127185777816.jpg" alt="" /></p>
+<ul>
+<li>2XX：请求正常处理并返回。</li>
+<li>3XX：重定向，请求的资源位置发生变化。</li>
+<li>4XX：客户端发送的请求有错误。</li>
+<li>5XX：服务器端错误。</li>
+</ul>
 
-<p>由于很多技术的模块非常多，源码也非常复杂，很多时候在看源码的时候会陷进去越看越不得章法，因此这里着重说明一下“看源码”的一个典型流程：</p>
+
+<p>在自己设计返回码的时候最好也遵循此范围设计，以下是其中几个常用的状态码：</p>
+
+<ul>
+<li>200：表示请求成功。</li>
+<li>301：资源已经永久移动到新的地址，新的URL会在响应头中返回。</li>
+<li>302：资源临时被移动到新的地址，新的URL会在响应头中返回。</li>
+<li>304：表明资源未改变。主要配合请求头中的If-None-Match和If-Modified-Since使用。</li>
+<li>400：错误请求，表示请求中有语法错误。</li>
+<li>401：请求的资源需要认证，请求没有提供认证信息或者认证错误。</li>
+<li>403：资源被禁止访问。</li>
+<li>404：资源不存在。</li>
+<li>502：错误的网关，通常是作为代理的服务器无法收到远程服务器的正确响应。</li>
+<li>503：服务不可用。</li>
+</ul>
+
+
+<h2>三. 资源</h2>
+
+<p>资源是RESTful API的核心，其以URI（统一资源标识符）标识，而URL则不仅能够标识一个资源，还能够定位资源。RESTful中使用HTTP URL标识并定位一个资源。原则上只使用名词来指定资源，而且推荐使用复数。以对记事的CRUD API的设计为例：</p>
+
+<ul>
+<li>获取所有记事列表：GET /api/notes?page=1&amp;per_page=20</li>
+<li>获取某人的所有记事列表：GET /api/users/{uid}/notes</li>
+<li>获取标记为星的记事：GET /api/users/{uid}/notes?star=1</li>
+<li>创建记事：POST /api/notes</li>
+<li>删除某一个记事：DELET /api/notes/{note_id}</li>
+<li>更新某一个记事：PUT /api/notes/{note_id}</li>
+</ul>
+
+
+<p>可知：</p>
+
+<ul>
+<li>资源分为单个资源和资源集合，尽量使用复数来表示资源，单个资源通过添加ID等标识符来表示。</li>
+<li>资源使用嵌套结构，类似于目录路径的方式，可以体现出之间的关系。</li>
+<li>一个资源可以有不同的URL，如上可以获取所有的记事列表，也可以获取某人的所有记事列表。</li>
+<li>对于GET方法，一定不能设计为可以改变资源的操作。如get /api/deleteNote?id=xx。</li>
+<li>URL是对大小写敏感的，尽量使用小写字母，单词间用下划线连接。</li>
+<li>使用Query参数来控制返回结果，如上面返回星标记事的接口。此外，像排序方向、排序使用的字段都是可以放在query参数中的。</li>
+<li>分页参数使用Query参数（page、per_page）控制，在返回数据中返回当前页、下一页、上一页、总页数等分页相关信息。</li>
+</ul>
+
+
+<p>如果需要区分版本号，可以放在路径中，如/api/v2/**，也可以放在header的Accept字段或者Query参数中:</p>
+
+<pre><code>Accept: version=2.0;...
+</code></pre>
+
+<p>对于一些很难设计为CRUD操作的URL, 如登录、送礼物等，有以下处理方式：</p>
+
+<ul>
+<li>使用POST，如POST /api/login。</li>
+<li>把动作转换成资源: 登录就是创建了一个Session或者Token，那么就可以设计为 POST /api/sessions。</li>
+</ul>
+
+
+<p>此外，对于数据的提交格式和返回格式，目前以JSON格式为主，其可读性、紧凑性、多语言支持都较好；数据提交的方式也应该使用application/JSON的内容格式并在body里放置JSON数据。</p>
+
+<pre><code>...
+Content-type: application/json
+Accept: application/json
+...
+
+{
+    'title':'xxx',
+    'content':'xxx'
+    ...
+}
+</code></pre>
+
+<h2>四. 安全性</h2>
+
+<p>HTTP本身是对数据不做任何安全处理的，因此建议首先从根本上使用HTTPS加强数据的安全性。此外，这里的安全性还要保证数据的完整性；保证接口的授权访问，保证接口只提供给授权过的应用访问以及过滤掉不必要的请求；保证数据的授权访问，只允许资源拥有者删除、更新自己的资源。</p>
+
+<h3>数据的完整性</h3>
+
+<p>数据完整性主要是指在对数据进行修改时，要保证要修改的数据和服务器数据是一致的。可以通过Etag这个HTTP中的头部字段来解决。</p>
+
+<p>Etag表示的是资源的唯一版本号, 请求资源时，RESTful api应该把资源数据以及资源的Etag一起返回。api请求方修改资源时应该提交If-Match头，这样服务器通过对比Etag可以防止数据被错误修改，类似于并发中CAS的原理。但是要绝对保证数据的完整性，还得需要配合严格的并发控制才能做到。</p>
+
+<h3>接口访问控制</h3>
+
+<p>接口访问控制可以保证接口的授权访问，拒绝不合法的请求。可以通过以下几种方式：</p>
+
+<ul>
+<li>在Request headers中添加特殊的标识符，如果不含有此header的请求直接拒绝。这可以做简单的接口访问控制。</li>
+<li>过滤Requst query和body, 做白名单验证，即只允许出现哪些参数，如果有非法参数，可以抛弃或者直接拒绝请求。</li>
+</ul>
+
+
+<p>上面只是比较简单的接口访问控制策略，无法彻底拒绝未授权的请求。我们可以通过为每一个授权应用分配app_secret（私有的，不公开），访问时对请求进行签名验证的方式实现更为严格的接口访问控制，这种方法也叫做HMAC。请求签名生成的一个例子如下：</p>
+
+<pre><code>app_sign = MD5(METHOD &amp; PATH &amp; timestamp &amp; app_secret)
+</code></pre>
+
+<p>其中，METHOD指的是此次请求的方法，PATH指的URL中的path部分，timestamp是请求时间戳，app_secret是分配请求方的私钥，此外还有一个分配给请求方的app_id。这样，app_id、timestamp、app_sign随着请求一起发送（可以作为query参数也可以作为header），服务器接收到请求后使用同样的算法计算出app_sign进行对比，如果相同则正常请求，否则返回401 Unauthorized。由此既可以保证接口的授权访问，还能够基于时间戳防止重放攻击。当然，app_sign的生成算法可以加入更多的因子，如request_body、query等。但需要注意的是这个算法越复杂，对接口的性能影响就越大，需要做权衡。</p>
+
+<h3>数据的授权访问-OAuth</h3>
+
+<p>数据的授权访问其实也是接口访问控制的一部分。主要关注点在于对资源的操作权限做控制。基于HTTP做授权访问的核心就是验证一个请求是否是合法用户发起的，主要的有HTTP Basic Auth、OAuth。其中Basic Auth会把用户的用户名和密码直接暴露在网络中并不安全，因此RESTful api主要使用OAuth做数据的授权访问控制。</p>
+
+<p>OAuth2.0的验证流程如下图所示：</p>
+
+<p><img src="//post_images/restful/oauth.png" alt="" /></p>
+
+<ul>
+<li>得到授权码code。</li>
+<li>使用授权码换取access_token和refesh_token，通常refresh_token比access_token有效期长。</li>
+<li>使用access_token获取用户openid。</li>
+<li>使用access_token和用户openid调用用户授权接口。</li>
+<li>使用refresh_token获取新的access_token。</li>
+</ul>
+
+
+<p>当然，如果是提供给内部应用的API，可以做适当简化，比如用户登录直接返回access_token，凭借此access_token调用授权接口即可。</p>
+
+<h2>五. 限流</h2>
+
+<p>RESTful api应该有限流机制，否则会造成API被滥用甚至被DDOS攻击。可以根据不同的授权访问做不同的限流，以减少服务器压力。</p>
+
+<p>限流的情况可以通过下面几个头部字段返回给请求方：</p>
+
+<ul>
+<li>X-RateLimit-Limit: 用户每个小时允许发送请求的最大值。</li>
+<li>X-RateLimit-Remaining：当前时间窗口剩下的可用请求数目。</li>
+<li>X-RateLimit-Rest: 时间窗口重置的时候，到这个时间点可用的请求数量就会变成 X-RateLimit-Limit 的值。</li>
+</ul>
+
+
+<p>对于未登录的用户根据IP或者设备ID来限流，对于登录用户根据用户标识。对于超过流量的请求，返回403 forbiden或者429 Too many requests都可以。</p>
+
+<h2>六. 超文本API</h2>
+
+<p>RESTful还有一个非常关键的特性就是超文本API（Hypermedia API），指的是服务器需要在每一个API接口的返回结果中都要提供与下一步操作相关的资源链接, 客户端借助这些实现表现层状态转移。这种设计也被称为 HATEOAS（Hypermedia as the Engine of Application State）。</p>
+
+<p>除此之外，这样做还能够让客户端和服务端解耦，客户端只需要依次遍历返回结果中的超链接就能完成一系列业务逻辑；当服务端做了业务逻辑改动后，也只需要修改服务器返回的资源链接即可。</p>
+
+<h2>七. 编写文档</h2>
+
+<p>RESTful API一般是对接第三方的，因此，文档说明是非常必要的。因此对每一个接口都详细的说明参数含义、数据返回格式和字段意义并举出实际的例子都是非常关键的。</p>
+
+<p>Java Web开发中，我们可以使用Swagger UI + Spring Fox来基于注释生成RESTful API文档。</p>
+
+<h2>八. RESTful API实现</h2>
+
+<p>Spring MVC、Jersey、Play Framework等主流的Web开发框架都支持RESTful的接口编写。这里我们以Spring MVC为例。</p>
+
+<pre><code>@RequestMapping(value = "/api/notes/{noteId}", method = RequestMethod.GET, headers = "Accept=application/json")
+@ResponseBody
+public UserNote getUserNoteInfo(@PathVariable long noteId) {
+
+   return ...;
+}
+</code></pre>
+
+<p>此外，OAuth的实现可以使用Spring Security OAuth, 其基于Spring Secutiry实现了OAuth服务。不过，Spring Security OAuth使用稍显复杂，完全可按照OAuth2.0的流程使用Spring MVC + Redis进行实现。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用Spring Boot快速开发]]></title>
+    <link href="http://www.rowkey.me/blog/2019/07/27/springboot/"/>
+    <updated>2019-07-27T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/07/27/springboot</id>
+    <content type="html"><![CDATA[<p>Java开发中常用的Spring现在变得越来越复杂，越来越不好上手。这一点Spring Source自己也注意到了，因此推出了Spring Boot，旨在简化使用Spring的门槛，大大降低Spring的配置工作，并且能够很容易地将应用打包为可独立运行的程序（即不依赖于第三方容器，可以独立以jar或者war包的形式运行）。其带来的开发效率的提升使得Spring Boot被看做至少近5年来Spring乃至整个Java社区最有影响力的项目之一，也被人看作是Java EE开发的颠覆者。另一方面来说，Spring Boot也顺应了现在微服务（MicroServices）的理念，可以用来构建基于Spring框架的可独立部署应用程序。</p>
+
+<!--more-->
+
+
+<h2>一. 使用</h2>
+
+<p>一个简单的pom配置示例如下：</p>
+
+<pre><code>&lt;parent&gt;        
+   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        
+   &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;        
+   &lt;version&gt;1.4.7.RELEASE&lt;/version&gt;
+&lt;/parent&gt;
+
+...
+
+&lt;dependencies&gt;        
+   &lt;dependency&gt;                
+       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;                
+       &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;        
+   &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;build&gt;
+    &lt;plugins&gt;
+       &lt;plugin&gt;
+           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+           &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+           &lt;configuration&gt;
+               &lt;executable&gt;true&lt;/executable&gt;
+            &lt;/configuration&gt;
+       &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+
+<p>使用spring-boot-starter-parent作为当前项目的parent将Spring Boot应用相关的一系列依赖（dependency）、插件（plugins）等等配置共享；添加spring-boot-starter-web这个依赖，是为了构建一个独立运行的Web应用；spring-boot-maven-plugin用于将Spring Boot应用以可执行jar包的形式发布出去。</p>
+
+<p>接着可以添加相应的Controller实现：</p>
+
+<pre><code>@RestController  
+public class MyController {
+@RequestMapping("/")
+   public String hello() {
+    return "Hello World!";
+   }
+}
+</code></pre>
+
+<p>这里的RestController是一个复合注解，包括@Controller和@ResponseBody。</p>
+
+<p>最后，要让Spring Boot可以独立运行和部署，我们需要一个Main方法入口， 比如：</p>
+
+<pre><code class="">@SpringBootApplication
+public class BootDemo extends SpringBootServletInitializer{    
+   public static void main(String[] args) throws Exception {        
+       SpringApplication.run(BootDemo.class, args);    
+   }
+}
+</code></pre>
+
+<p>使用mvn package打包后（可以是jar，也可以是war），java -jar xx.war/jar即可运行一个Web项目，而之所以继承SpringBootServletInitializer是为了能够让打出来的war包也可以放入容器中直接运行，其加载原理在3.4.4节的零XML配置中讲过。</p>
+
+<p>这里需要注意上面spring-boot-maven-plugin这个插件将executable配置为了true，此种配置打出来的jar/war包其压缩格式并非传统的jar/war包，实际上是一个bash文件，可以作为shell脚本直接执行，解压的话需要使用unzip命令。</p>
+
+<p>从最根本上来讲，Spring Boot就是一些库和插件的集合，屏蔽掉了很多配置加载、打包等自动化工作，其底层还是基于Spring的各个组件。</p>
+
+<p>这里需要注意的是，Spring Boot推崇对项目进行零xml配置。但是就笔者看来，相比起注解配置是糅杂在代码中，每次更新都需要重新编译，XML这种和代码分离的方式耦合性和可维护性则显得更为合理一些，而且在配置复杂时也更清晰。因此，采用Java Config作为应用和组件扫描（component scan）入口，采用XML做其他的配置是一种比较好的方式。此外，当集成外部已有系统的时候， 通过XML集中明确化配置也是更为合理的一种方式。</p>
+
+<h2>二. 原理浅析</h2>
+
+<p><img src="//post_images/spring-boot-process.png" alt="" /></p>
+
+<p>Spring Boot的基础组件之一就是4.1讲过的一些注解配置，除此之外，它也提供了自己的注释。其总体的运行流程如上图所示。</p>
 
 <ol>
-<li>阅读该技术的架构文档，了解其总体架构和组成。</li>
-<li>根据总体架构，将源码文件以模块或者上下层级进行分类。</li>
-<li>从未阅读过的模块中选择最独立（依赖性最小）的模块代码读起。</li>
-<li>阅读此模块的功能介绍文档。</li>
-<li>阅读此模块的源代码。</li>
-<li>一边阅读一边整理调用关系（以表或者树的形式）。</li>
-<li>转到第三步。</li>
+<li><p>@EnableAutoConfiguration</p>
+
+<p> 这个Annotation就是Java Config的典型代表，标注了这个Annotation的Java类会以Java代码的形式（对应于XML定义的形式）提供一系列的Bean定义和实例，结合AnnotationConfigApplicationContext和自动扫描的功能，就可以构建一个基于Spring容器的Java应用了。</p>
+
+<p> @EnableAutoConfiguration的定义信息如下 ：</p>
+
+<pre><code class="`"> @Target(ElementType.TYPE)
+ @Retention(RetentionPolicy.RUNTIME)
+ @Documented
+ @Inherited
+ @AutoConfigurationPackage
+ @Import(EnableAutoConfigurationImportSelector.class)
+ public @interface EnableAutoConfiguration {
+</code></pre>
+
+<p> 标注了此注解的类会发生一系列初始化动作：</p>
+
+<ul>
+<li><p>SpringBoot扫描到@EnableAutoConfiguration注解时，就使用Spring框架的SpringFactoriesLoader去扫描classpath下所有META-INF/spring.factories文件的配置信息（META-INF/spring.providers声明了当前Starter依赖的Jar包）。其中包括一些callback接口（在前中后等不同时机执行）：</p>
+
+<ul>
+<li>org.springframework.boot.SpringApplicationRunListener</li>
+<li>org.springframework.context.ApplicationContextInitializer</li>
+<li>org.springframework.context.ApplicationListener</li>
+</ul>
+</li>
+<li><p>然后Spring Boot加载符合当前场景需要的配置类型并供当前或者下一步的流程使用，这里说的场景就是提取以 org.springframework.boot.autoconfigure.EnableAutoConfiguration作为key标志的一系列Java配置类，然后将这些Java配置类中的Bean定义加载到Spring容器中。</p></li>
+</ul>
+
+
+<p> 此外，我们可以使用Spring3系列引入的@Conditional，通过像@ConditionalOnClass、@ConditionalOnMissingBean等具体的类型和条件来进一步筛选通过SpringFactoriesLoader加载的类。</p></li>
+<li><p>Spring Boot启动</p>
+
+<p> 每一个Spring Boot应用都有一个入口类，在其中定义main方法，然后使用SpringApplication这个类来加载指定配置并运行SpringBoot Application。如上面写过的入口类：</p>
+
+<pre><code class="`   "> @SpringBootApplication
+ public class BootDemo extends SpringBootServletInitializer{    
+    public static void main(String[] args) throws Exception {        
+        SpringApplication.run(BootDemo.class, args);    
+    }
+ }
+</code></pre>
+
+<p> @SpringBootApplication注解是一个复合注解，包括了@Configuraiton、@EnableAutoConfiguration以及@ComponentScan。通过SpringApplication的run方法，Spring就使用BootDemo作为Java配置类来读取相关配置、加载和扫描相关的bean。</p>
+
+<p> 这样，基于@SpringBootApplication注解，Spring容器会自动完成指定语义的一系列工作，包括@EnableAutoConfiguration要求的东西，如：从SpringBoot提供的多个starter模块中加载Java Config配置（META-INF/spring.factories中声明的xxAutoConfiguration），然后将这些Java Config配置筛选上来的Bean定义加入Spring容器中，再refresh容器。一个Spring Boot应用即启动完成。</p></li>
 </ol>
 
 
-<p>第六步中的调用关系表如下所示:</p>
+<h2>三. 模块组成</h2>
+
+<p>Spring Boot是由非常多的模块组成的，可以通过pom文件引入进来。EnableAutoConfiguration机制会进行插件化加载进行自动配置，这里模块化机制的原理主要是通过判断相应的类/文件是否存在来实现的。其中几个主要的模块如下:</p>
+
+<ol>
+<li><p>spring-boot-starter-web</p>
+
+<p> 此模块就是标记此项目是一个Web应用，Spring Boot会自动准备好相关的依赖和配置。</p>
+
+<p> 这里Spring Boot默认使用Tomcat作为嵌入式Web容器，可以通过声明spring-boot-starter-jetty的dependency来换成Jetty。</p></li>
+<li><p>spring-boot-starter-logging</p>
+
+<p> Spring Boot对此项目开启SLF4J和Logback日志支持。</p></li>
+<li><p>spring-boot-starter-redis</p>
+
+<p>  Spring Boot对此项目开启Redis相关依赖和配置来做数据存储。</p></li>
+<li><p>spring-boot-starter-jdbc</p>
+
+<p>  Spring Boot对此项目开启JDBC操作相关依赖和配置来做数据存储。</p>
+
+<p>  这里需要说明的是，Spring Boot提供的功能非常丰富，因此显得非常笨重复杂。其实依赖于模块插件化机制，我们可以只配置自己需要使用的功能，从而对应用进行瘦身，避免无用的配置影响应用启动速度。</p></li>
+</ol>
+
+
+<h2>四. 总结</h2>
+
+<p>Spring Boot给大家使用Spring做后端应用开发带来了非常大的便利，能够大大提高搭建应用雏形框架的速度，只需要关注实现业务逻辑即可。其“黑魔法”一样的插件化机制使得能够根据自己的需要引入所需的组件，提供了非常好的灵活性。如果非遗留Spring项目，直接使用Spring Boot是比较好的选择；遗留项目也可以通过配置达到无缝结合。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java开发框架之日志]]></title>
+    <link href="http://www.rowkey.me/blog/2019/06/29/log/"/>
+    <updated>2019-06-29T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/06/29/log</id>
+    <content type="html"><![CDATA[<p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
+
+<!--more-->
+
+
+<p>使用控制台输出其实也算日志的一种，在容器中会打印到容器的日志文件中。但是，控制台输出过于简单，缺乏日志中级别控制、异步、缓冲等特性，因此在开发中要杜绝使用控制台输出作为日志（System.out.println）。而Java中已经有很多成熟的日志框架供大家使用：</p>
+
+<ul>
+<li>JDK Logging</li>
+<li>Apache Log4j</li>
+<li>Apache Log4j2</li>
+<li>Logback</li>
+</ul>
+
+
+<p>此外，还有两个用于实现日志统一的框架：Apache Commons-Logging、SLF4j。与上述框架的不同之处在于，其只是一个门面，并没有日志框架的具体实现,可以认为是日志接口框架。</p>
+
+<p>对于这些日志框架来说，一般会解决日志中的以下问题：</p>
+
+<ul>
+<li>日志的级别: 定义日志级别来区分不同级别日志的输出路径、形式等，帮助我们适应从开发调试到部署上线等不同阶段对日志输出粒度的不同需求。</li>
+<li>日志的输出目的地：包括控制台、文件、GUI组件，甚至是套接口服务器、UNIX Syslog守护进程等。</li>
+<li>日志的输出格式：日志的输出格式（JSON、XML）。</li>
+<li>日志的输出优化：缓存、异步等。</li>
+</ul>
+
+
+<p>这里需要说的是，目前有几个框架提供了占位符的日志输出方式，然而其最终是用indexOf去循环查找再对信息进行拼接的，会消耗CPU。建议使用正确估算大小的StringBuilder拼装输出信息，除非是实在无法确定日志是否输出才用占位符。</p>
+
+<h2>一. JDK Logging</h2>
+
+<p>JDK Logging就是JDK自带的日志操作类，在java.util.logging包下面，通常被简称为JUL。</p>
+
+<h3>配置</h3>
+
+<p>JDK Logging配置文件默认位于$JAVA_HOME/jre/lib/logging.properties中，可以使用系统属性java.util.logging.config.file指定相应的配置文件对默认的配置文件进行覆盖。</p>
+
+<pre><code>handlers= java.util.logging.FileHandler,java.util.logging.ConsoleHandler
+.handlers = java.util.logging.FileHandler,java.util.logging.ConsoleHandler #rootLogger使用的Handler
+.level= INFO #rootLogger的日志级别
+
+##以下是FileHandler的配置
+java.util.logging.FileHandler.pattern = %h/java%u.log
+java.util.logging.FileHandler.limit = 50000
+java.util.logging.FileHandler.count = 1
+java.util.logging.FileHandler.formatter =java.util.logging.XMLFormatter #配置相应的日志Formatter。
+
+##以下是ConsoleHandler的配置
+java.util.logging.ConsoleHandler.level = INFO
+java.util.logging.ConsoleHandler.formatter =java.util.logging.SimpleFormatter #配置相应的日志Formatter。
+
+#针对具体的某个logger的日志级别配置
+me.rowkey.pje.log.level = SEVERE
+
+#设置此logger不会继承成上一级logger的配置
+me.rokey.pje.log.logger.useParentHandlers = false 
+</code></pre>
+
+<p>这里需要说明的是logger默认是继承的，如me.rowkey.pje.log的logger会继承me.rowkey.pje的logger配置，可以对logger配置handler和useParentHandlers（默认是为true）属性, 其中useParentHandler表示是否继承父logger的配置。</p>
+
+<p>JDK Logging的日志级别比较多，从高到低为：OFF(2<sup>31</sup>-1)—>SEVERE(1000)—>WARNING(900)—>INFO(800)—>CONFIG(700)—>FINE(500)—>FINER(400)—>FINEST(300)—>ALL(-2<sup>31</sup>)。</p>
+
+<h3>使用</h3>
+
+<p>JDK Logging的使用非常简单：</p>
+
+<pre><code>public class LoggerTest{
+
+    private static final Logger LOGGER = Logger.getLogger(xx.class.getName());
+
+    public static void main(String[] args){
+        LOGGER.info("logger info");
+    }
+}
+...
+</code></pre>
+
+<h3>性能优化</h3>
+
+<p>JDK Logging是一个比较简单的日志框架，并没有提供异步、缓冲等优化手段。也不建议大家使用此框架。</p>
+
+<h2>二. Log4j</h2>
+
+<p>Log4j应该是目前Java开发中用的最为广泛的日志框架。</p>
+
+<h3>配置</h3>
+
+<p>Log4j支持XML、Proerties配置，通常还是使用Properties：</p>
+
+<pre><code>root_log_dir=${catalina.base}/logs/app/
+
+# 设置rootLogger的日志级别以及appender
+log4j.rootLogger=INFO,default
+
+# 设置Spring Web的日志级别
+log4j.logger.org.springframework.web = ERROR
+
+# 设置default appender为控制台输出
+log4j.appender.default=org.apache.log4j.ConsoleAppender
+log4j.appender.default.layout=org.apache.log4j.PatternLayout
+log4j.appender.default.layout.ConversionPattern=[%-d{HH\:mm\:ss} %-3r %-5p %l] &gt;&gt; %m (%t)%n
+
+# 设置新的logger，在程序中使用Logger.get("myLogger")即可使用
+log4j.logger.myLogger=INFO,A2
+
+# 设置另一个appender为按照日期轮转的文件输出
+log4j.appender.A2=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.A2.File=${root_log_dir}log.txt
+log4j.appender.A2.Append=true
+log4j.appender.A2.DatePattern= yyyyMMdd'.txt'
+log4j.appender.A2.layout=org.apache.log4j.PatternLayout
+log4j.appender.A2.layout.ConversionPattern=[%-d{HH\:mm\:ss} %-3r %-5p %l] &gt;&gt; %m (%t)%n
+
+log4j.logger.myLogger1 = INFO,A3
+
+# 设置另一个appender为RollingFileAppender，能够限制日志文件个数
+log4j.appender.A3 = org.apache.log4j.RollingFileAppender
+log4j.appender.A3.Append = true
+log4j.appender.A3.BufferedIO = false
+log4j.appender.dA3.File = /home/popo/tomcat-yixin-pa/logs/pa.log
+log4j.appender.A3.Encoding = UTF-8
+log4j.appender.A3.layout = org.apache.log4j.PatternLayout
+log4j.appender.A3.layout.ConversionPattern = [%-5p]%d{ISO8601}, [Class]%-c{1}, %m%n
+log4j.appender.A3.MaxBackupIndex = 3 #最大文件个数
+log4j.appender.A3.MaxFileSize = 1024MB
+</code></pre>
+
+<p>如果Log4j文件不直接在classpath下的话，可以使用PropertyConfigurator来进行配置：</p>
+
+<pre><code>PropertyConfigurator.configure("...");
+</code></pre>
+
+<p>Log4j的日志级别相对于JDK Logging来说，简化了一些：DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL。</p>
+
+<p>这里的logger默认是会继承父Logger的配置（rootLogger是所有logger的父logger），如上面myLogger的输出会同时在控制台和文件中出现。如果不想这样，那么只需要如下设置:</p>
+
+<pre><code>log4j.additivity.myLogger=false
+</code></pre>
+
+<h3>使用</h3>
+
+<p>程序中对于Log4j的使用也非常简单：</p>
+
+<pre><code>import org.apache.log4j.Logger;
+
+
+private static final Logger LOGGER = Logger.getLogger(xx.class.getName());
+...
+LOGGER.info("logger info");
+...
+</code></pre>
+
+<p>这里需要注意的是，虽然Log4j可以根据配置文件中日志级别的不同做不同的输出，但由于字符串创建或者拼接也是耗资源的，因此，下面的用法是不合理的。</p>
+
+<pre><code>LOGGER.debug("...");
+</code></pre>
+
+<p>合理的做法应该是首先判断当前的日志级别是什么，再去做相应的输出，如：</p>
+
+<pre><code>if(LOGGER.isDebugEnabled()){
+    LOGGER.debug("...");
+}
+</code></pre>
+
+<p>当然，如果是必须输出的日志可以不做此判断，比如catch异常打印错误日志的地方。</p>
+
+<h3>性能优化</h3>
+
+<p>Log4j为了应对某一时间里大量的日志信息进入Appender的问题提供了缓冲来进一步优化性能：</p>
+
+<pre><code class="">log4j.appender.A3.BufferedIO=true   
+#Buffer单位为字节，默认是8K，IO BLOCK大小默认也是8K 
+log4j.appender.A3.BufferSize=8192 
+</code></pre>
+
+<p>以上表示当日志内容达到8k时，才会将日志输出到日志输出目的地。</p>
+
+<p>除了缓冲以外，Log4j还提供了AsyncAppender来做异步日志。但是AsyncAppender只能够通过xml配置使用：</p>
+
+<pre><code>&lt;appender name="A2"
+   class="org.apache.log4j.DailyRollingFileAppender"&gt;
+   &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+       &lt;param name="ConversionPattern" value="%m%n" /&gt;
+   &lt;/layout&gt;
+   &lt;param name="DatePattern" value="'.'yyyy-MM-dd-HH" /&gt;        
+   &lt;param name="File" value="app.log" /&gt;
+   &lt;param name="BufferedIO" value="true" /&gt;
+   &lt;!-- 8K为一个写单元 --&gt;
+   &lt;param name="BufferSize" value="8192" /&gt;
+&lt;/appender&gt;
+
+&lt;appender name="async" class="org.apache.log4j.AsyncAppender"&gt;
+   &lt;appender-ref ref="A2"/&gt;
+&lt;/appender&gt;
+</code></pre>
+
+<h2>三. Log4j2</h2>
+
+<p>2015年8月，官方正式宣布Log4j 1.x系列生命终结，推荐大家升级到Log4j2，并号称在修正了Logback固有的架构问题的同时，改进了许多Logback所具有的功能。Log4j2与Log4j1发生了很大的变化，并不兼容。并且Log4j2不仅仅提供了日志的实现，也提供了门面，目的是统一日志框架。其主要包含两部分：</p>
+
+<ul>
+<li>log4j-api： 作为日志接口层，用于统一底层日志系统</li>
+<li>log4j-core : 作为上述日志接口的实现，是一个实际的日志框架</li>
+</ul>
+
+
+<h3>配置</h3>
+
+<p>Log4j2的配置方式只支持XML、JSON以及YAML，不再支持Properties文件,其配置文件的加载顺序如下：</p>
+
+<ul>
+<li>log4j2-test.json/log4j2-test.jsn</li>
+<li>log4j2-test.xml</li>
+<li>log4j2.json/log4j2.jsn文件</li>
+<li>log4j2.xml</li>
+</ul>
+
+
+<p>如果想要自定义配置文件位置，需要设置系统属性log4j.configurationFile。</p>
+
+<pre><code>System.setProperty("log4j.configurationFile", "...");
+或者
+-Dlog4j.configurationFile="xx"
+</code></pre>
+
+<p>配置文件示例：</p>
+
+<p>&#8220;`</p>
+
+<!--log4j2.xml-->
+
+
+<p>&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo;?>
+<Configuration status="WARN" monitorInterval="30">
+<Appenders>
+  <Console name="Console" target="SYSTEM_OUT">
+    <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+  </Console>
+  <File name="File" fileName="app.log" bufferedIO="true" immediateFlush="true">
+    <PatternLayout>
+      <pattern>%d %p %C{1.} [%t] %m%n</pattern>
+    </PatternLayout>
+  </File>
+  <RollingFile name="RollingFile" fileName="logs/app.log"
+                     filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+      <PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/>
+      <SizeBasedTriggeringPolicy size="50MB"/>
+      <!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 -->
+      <DefaultRolloverStrategy max="20"/>
+  </RollingFile>
+</Appenders>
+<Loggers>
+  <logger name="myLogger" level="error" additivity="false">
+    <AppenderRef ref="File" />
+  </logger>
+  <Root level="debug">
+    <AppenderRef ref="Console"/>
+  </Root>
+</Loggers>
+</Configuration>
+&#8220;`</p>
+
+<p>上面的monitorInterval使得配置变动能够被实时监测并更新，且能够在配置发生改变时不会丢失任何日志事件;additivity和Log4j一样也是为了让Looger不继承父Logger的配置；Configuration中的status用于设置Log4j2自身内部的信息输出，当设置成trace时，你会看到Log4j2内部各种详细输出。</p>
+
+<p>Log4j2在日志级别方面也有了一些改动：TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL, 并且能够很简单的自定义自己的日志级别。</p>
+
+<pre><code>&lt;CustomLevels&gt;
+    &lt;CustomLevel name="NOTICE" intLevel="450" /&gt;
+    &lt;CustomLevel name="VERBOSE" intLevel="550" /&gt;
+&lt;/CustomLevels&gt;
+</code></pre>
+
+<p>上面的intLevel值是为了与默认提供的标准级别进行对照的。</p>
+
+<h3>使用</h3>
+
+<p>使用方式也很简单：</p>
+
+<pre><code>private static final Logger LOGGER = LogManager.getLogger(xx.class);
+
+LOGGER.debug("log4j debug message");
+</code></pre>
+
+<p>这里需要注意的是其中的Logger是log4j-api中定义的接口，而Log4j1中的Logger则是类。</p>
+
+<p>相比起之前我们需要先判断日志级别，再输出日志，Log4j2提供了占位符功能：</p>
+
+<pre><code>LOGGER.debug("error: {} ", e.getMessage());
+</code></pre>
+
+<h3>性能优化</h3>
+
+<p>在性能方面，Log4j2引入了基于LMAX的Disruptor的无锁异步日志实现进一步提升异步日志的性能：</p>
+
+<pre><code>&lt;AsyncLogger name="asyncTestLogger" level="trace" includeLocation="true"&gt;
+    &lt;AppenderRef ref="Console"/&gt;
+&lt;/AsyncLogger&gt;
+</code></pre>
+
+<p>需要注意的是，由于默认日志位置信息并没有被传给异步Logger的I/O线程，因此这里的includeLocation必须要设置为true。</p>
+
+<p>和Log4j一样，Log4j2也提供了缓冲配置来优化日志输出性能。</p>
+
+<pre><code>&lt;Appenders&gt;
+  &lt;File name="File" fileName="app.log" bufferedIO="true" immediateFlush="true"&gt;
+    &lt;PatternLayout&gt;
+      &lt;pattern&gt;%d %p %C{1.} [%t] %m%n&lt;/pattern&gt;
+    &lt;/PatternLayout&gt;
+  &lt;/File&gt;
+&lt;/Appenders&gt;
+</code></pre>
+
+<h2>四. Logback</h2>
+
+<p>Logback是由Log4j创始人设计的又一个开源日志组件，相对Log4j而言，在各个方面都有了很大改进。</p>
+
+<p>Logback当前分成三个模块：</p>
+
+<ul>
+<li>logback-core是其它两个模块的基础模块。</li>
+<li>logback-classic是Log4j的一个改良版本。logback-classic完整实现SLF4J API使你可以很方便地更换成其它日志系统如Log4j或JDK Logging。</li>
+<li>logback-access访问模块与Servlet容器集成提供通过HTTP来访问日志的功能。</li>
+</ul>
+
+
+<h3>配置</h3>
+
+<p>Logback的配置文件如下：</p>
+
+<p>&#8220;`</p>
+
+<!--logback.xml-->
+
+
+<p>&lt;?xml version=&ldquo;1.0&rdquo; encoding=&ldquo;UTF-8&rdquo;?>
+<configuration></p>
+
+<pre><code>&lt;property name="root_log_dir" value="${catalina.base}/logs/app/"/&gt;
+
+&lt;appender name="ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+   &lt;File&gt;${root_log_dir}app.log&lt;/File&gt;
+   &lt;Append&gt;true&lt;/Append&gt;
+   &lt;encoder&gt;
+       &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+   &lt;/encoder&gt;
+   &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;
+       &lt;fileNamePattern&gt;${root_log_dir}app.log.%d{yyyy-MM-dd}.%i&lt;/fileNamePattern&gt;
+       &lt;maxHistory&gt;30&lt;/maxHistory&gt; #只保留最近30天的日志文件
+       &lt;TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"&gt;#每天的日志按照100MB分割
+            &lt;MaxFileSize&gt;100MB&lt;/MaxFileSize&gt;
+        &lt;/TimeBasedFileNamingAndTriggeringPolicy&gt;
+        &lt;totalSizeCap&gt;20GB&lt;/totalSizeCap&gt;#日志总的大小上限，超过此值则异步删除旧的日志
+   &lt;/rollingPolicy&gt;
+&lt;/appender&gt;
+
+&lt;appender name="ROLLING_FILE_APPENDER_2" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+   &lt;File&gt;${root_log_dir}mylog.log&lt;/File&gt;
+   &lt;Append&gt;true&lt;/Append&gt;
+   &lt;encoder&gt;
+       &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+   &lt;/encoder&gt;
+   #下面的日志rolling策略和ROLLING_FILE_APPENDER的等价，保留最近30天的日志，每天的日志按照100MB分隔，日志总的大小上限为20GB
+   &lt;rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy"&gt;
+        &lt;fileNamePattern&gt;mylog.log-%d{yyyy-MM-dd}.%i&lt;/fileNamePattern&gt;
+        &lt;maxFileSize&gt;100MB&lt;/maxFileSize&gt;
+        &lt;maxHistory&gt;30&lt;/maxHistory&gt;
+        &lt;totalSizeCap&gt;20GB&lt;/totalSizeCap&gt;
+    &lt;/rollingPolicy&gt;
+&lt;/appender&gt;
+
+ &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt;
+   &lt;encoder&gt;
+     &lt;pattern&gt;%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n&lt;/pattern&gt;
+   &lt;/encoder&gt;
+ &lt;/appender&gt;
+
+&lt;logger name="myLogger" level="INFO" additivity="false"&gt;
+    &lt;appender-ref ref="ROLLING_FILE_APPENDER" /&gt;
+&lt;/logger&gt;
+
+ &lt;root level="DEBUG"&gt;          
+   &lt;appender-ref ref="STDOUT" /&gt;
+ &lt;/root&gt;  
+</code></pre>
+
+<p></configuration>
+&#8220;`</p>
+
+<p>Logback的配置文件读取顺序（默认都是读取classpath下的）：logback.groovy -> logback-test.xml -> logback.xml。如果想要自定义配置文件路径，那么只有通过修改logback.configurationFile的系统属性。</p>
+
+<pre><code>System.setProperty("logback.configurationFile", "...");
+或者
+-Dlogback.configurationFile="xx"
+</code></pre>
+
+<p>Logback的日志级别：TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR。如果logger没有被分配级别，那么它将从有被分配级别的最近的祖先那里继承级别。root logger 默认级别是 DEBUG。</p>
+
+<p>Logback中的logger同样也是有继承机制的。配置文件中的additivit也是为了不去继承rootLogger的配置，从而避免输出多份日志。</p>
+
+<p>为了方便Log4j到Logback的迁移，官网提供了log4j.properties到logback.xml的转换工具：<a href="https://logback.qos.ch/translator/">https://logback.qos.ch/translator/</a>。</p>
+
+<h3>使用</h3>
+
+<p>Logback由于是天然与SLF4J集成的，因此它的使用也就是SLF4J的使用。</p>
+
+<pre><code>import org.slf4j.LoggerFactory;
+
+private static final Logger LOGGER=LoggerFactory.getLogger(xx.class);
+
+LOGGER.info(" this is a test in {}", xx.class.getName())
+</code></pre>
+
+<p>SLF4J同样支持占位符。</p>
+
+<p>此外，如果想要打印json格式的日志（例如，对接日志到Logstash中），那么可以使用logstash-logback-encoder做为RollingFileAppender的encoder。</p>
+
+<pre><code>&lt;encoder class="net.logstash.logback.encoder.LogstashEncoder" &gt;
+...
+&lt;/encoder&gt;
+</code></pre>
+
+<h3>性能优化</h3>
+
+<p>Logback提供了AsyncAppender进行异步日志输出，此异步appender实现上利用了队列做缓冲，使得日志输出性能得到提高。</p>
+
+<pre><code>&lt;appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+      &lt;File&gt;${root_log_dir}app.log&lt;/File&gt;
+      &lt;Append&gt;true&lt;/Append&gt;
+      &lt;encoder&gt;
+          &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+      &lt;/encoder&gt;
+      &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;
+          &lt;fileNamePattern&gt;${root_log_dir}app.log.%d&lt;/fileNamePattern&gt;
+      &lt;/rollingPolicy&gt;
+&lt;/appender&gt;
+&lt;appender name ="ASYNC" class= "ch.qos.logback.classic.AsyncAppender"&gt;  
+       &lt;discardingThreshold &gt;0&lt;/discardingThreshold&gt;  
+
+       &lt;queueSize&gt;512&lt;/queueSize&gt;  
+
+       &lt;appender-ref ref ="FILE_APPENDER"/&gt;  
+&lt;/appender&gt;  
+</code></pre>
+
+<p>这里需要特别注意以下两个参数的配置：</p>
+
+<ul>
+<li>queueSize：队列的长度,该值会影响性能，需要合理配置。</li>
+<li>discardingThreshold：日志丢弃的阈值，即达到队列长度的多少会丢弃TRACT、DEBUG、INFO级别的日志，默认是80%，设置为0表示不丢弃日志。</li>
+</ul>
+
+
+<p>此外，由于是异步输出，为了保证日志一定会被输出以及后台线程能够被及时关闭，在应用退出时需要显示关闭logback。有两种方式：</p>
+
+<ul>
+<li><p>在程序退出的地方（ServletContextListener的contextDestroyed方法、Spring Bean的destroy方法）显式调用下面的代码。</p>
+
+<pre><code class="``">  LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+  loggerContext.stop();
+</code></pre></li>
+<li><p>在logback配置文件里，做如下配置。</p>
+
+<pre><code class="``">  &lt;configuration&gt;
+
+      &lt;shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/&gt;
+      .... 
+  &lt;/configuration&gt;
+</code></pre></li>
+</ul>
+
+
+<h2>五. 日志门面</h2>
+
+<p>前面的四个框架是实际的日志框架。对于开发者而言，每种日志都有不同的写法。如果我们以实际的日志框架来进行编写，代码就限制死了，之后就很难再更换日志系统，很难做到无缝切换。</p>
+
+<p>Java开发中经常提到面向接口编程，所以我们应该是按照一套统一的API来进行日志编程，实际的日志框架来实现这套API，这样的话，即使更换日志框架，也可以做到无缝切换。</p>
+
+<p>这就是Commons-Logging与SLF4J这种日志门面框架的初衷。</p>
+
+<h3>Apache Commons-Logging</h3>
+
+<p>Apache Commons-Logging经常被简称为JCL，是Apache开源的日志门面框架。Spring中使用的日志框架就是JCL，使用起来非常简单。</p>
+
+<pre><code>import org.apache.commons.logging.LogFactory;
+
+private static final Log LOGGER = LogFactory.getLog(xx.class);
+
+LOGGER.info("...");
+</code></pre>
+
+<p>使用JCL需要先引入JCL的依赖：</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;commons-logging&lt;/groupId&gt;
+    &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>再来看一下如何让JCL使用其他日志实现框架:</p>
+
+<ol>
+<li>这里当没有其他日志jar包存在的时候，JCL有自己的默认日志实现，默认的实现是对JUL的包装，即当没有其他任何日志包时，通过JCL调用的就是JUL做日志操作。</li>
+<li>使用Log4j作为日志实现框架，那么只需要引入Log4j的jar包即可。</li>
+<li><p>使用Log4j2作为日志实现，那么除了Log4j2的jar包，还需要引入Log4j2与Commons-Logging的集成包（使用SPI机制提供了自己的LogFactory实现）：</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-jcl&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Logback作为日志实现，那么由于Logback的调用是通过SLF4J的，因此需要引入jcl-over-slf4j包（直接覆盖了JCL的类），并同时引入SLF4J以及Logback的jar包。</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;jcl-over-slf4j&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+</ol>
+
+
+<h3>SLF4J</h3>
+
+<p>SLF4J（Simple Logging Facade for Java）为Java提供的简单日志Facade。允许用户以自己的喜好，在工程中通过SLF4J接入不同的日志实现。与JCL不同的是，SLF4J只提供接口，没有任何实现（可以认为Logback是默认的实现）。</p>
+
+<p>SLF4J的使用前提是引入SLF4J的jar包:</p>
+
+<p>&#8220;`</p>
+
+<!-- SLF4J -->
+
+
+<p><dependency>
+   <groupId>org.slf4j</groupId>
+   <artifactId>slf4j-api</artifactId>
+   <version>xx</version>
+</dependency>
+&#8220;`</p>
+
+<p>再看一下SLF4J如何和其他日志实现框架集成。</p>
+
+<ol>
+<li><p>使用JUL作为日志实现，需要引入slf4j-jdk14包。</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-jdk14&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Log4j作为日志实现，需要引入slf4j-log4j12和log4j两个jar包。</p>
+
+<pre><code class="`"> &lt;!-- slf4j-log4j --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+
+ &lt;!-- log4j --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Log4j2作为日志实现，需要引入log4j-slf4j-impl依赖。</p>
+
+<pre><code class="`"> &lt;!-- log4j2 --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
+     &lt;version&gt;xx/version&gt;
+ &lt;/dependency&gt;
+ &lt;!-- log4j-slf4j-impl （用于log4j2与slf4j集成） --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-slf4j-impl&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Logback作为日志实现，只需要引入logback包即可。</p></li>
+</ol>
+
+
+<h2>六. 日志集成</h2>
+
+<p>上面说到了四种日志实现框架和两种日志门面框架。面对这么多的选择，即便是一个刚刚开始做的应用，也会由于依赖的第三方库使用的日志框架五花八门而造成日志配置和使用上的烦恼。得益于JCL和SLF4J，我们可以很容易的把日志都统一为一种实现，从而可以进行集中配置和使用。这里就以用Logback统一日志实现为例：</p>
+
+<ol>
+<li><p>配置好Logback的依赖：</p>
+
+<pre><code class="`"> &lt;!-- slf4j-api --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;!-- logback --&gt;
+ &lt;dependency&gt; 
+     &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt; 
+     &lt;artifactId&gt;logback-core&lt;/artifactId&gt; 
+     &lt;version&gt;xx&lt;/version&gt; 
+ &lt;/dependency&gt;
+ &lt;!-- logback-classic（已含有对slf4j的集成包） --&gt; 
+ &lt;dependency&gt; 
+     &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt; 
+     &lt;artifactId&gt;logback-classic&lt;/artifactId&gt; 
+     &lt;version&gt;xx&lt;/version&gt; 
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换Log4j到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;log4j-over-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+&lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换JUL到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;jul-to-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换JCL到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;jcl-over-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+</ol>
+
+
+<p>这里需要注意的是，做了以上配置后，务必要排除其他日志包的存在，如Log4j。此外，在日常开发中经常由于各个依赖的库间接引入了其他日志库，造成日志框架的循环转换。比如同时引入了log4j-over-slf4j和slf4j-log4j12的情况，当使用SLF4J调用日志操作时就会形成循环调用。</p>
+
+<p>笔者目前比较推崇的是使用SLF4J统一所有框架接口，然后都转换到Logback的底层实现。但这里需要说明的是Logback的作者是为了弥补Log4j的各种缺点而优化实现了SLF4J以及Logback，但不知为何作者又推出了Log4j2以期取代Log4j和Logback。所以，如果是一个新的项目，那么直接跳过Log4j和Logback选择Log4j2也是一个不错的选择, 官网也提供了Log4j到Log4j2的迁移说明。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[缓存这些事]]></title>
+    <link href="http://www.rowkey.me/blog/2019/02/25/cache/"/>
+    <updated>2019-02-25T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2019/02/25/cache</id>
+    <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md</a></strong></p>
+
+<p>缓存是为了弥补持久化存储服务如数据库的性能缓慢而出现的一种将数据存储在内存中，从而大大提高应用性能的服务。如缓存五分钟法则所讲：如果一个数据频繁被访问，那么就应该放内存中。这里的缓存就是一种读写效率都非常高的存储方案，能够应对高并发的访问请求，通常情况下也不需要持久化的保证。但相对其他存储来说，缓存一般是基于内存的，成本比较昂贵，因此不能滥用。</p>
+
+<p>缓存可以分为：本地缓存和分布式缓存。</p>
+
+<!--more-->
+
+
+<h2>本地缓存</h2>
+
+<p>本地缓存指的是内存中的缓存机制，适用于尺寸较小、高频的读取操作、变更操作较少的存储场景。在Java开发中常用的本地缓存实现有：</p>
+
+<ol>
+<li><p>ConcurrentHashMap</p>
+
+<p> 这是JDK自带的线程安全map实现，适合用户全局缓存。其get、put的操作比较简单，不用赘述。如果想要实现缓存的失效、淘汰策略则需要自定义实现。</p></li>
+<li><p>LinkedHashMap</p>
+
+<p> LinkedHashMap也是JDK的实现。其简单的用途是一个可以保持插入或者访问顺序的HashMap，但其实其配置好是可以当做LRU cache的。这里的LRU即least recently used, 指的是固定容量的缓存，当缓存满的时候，优先淘汰的是最近未被访问的数据。</p>
+
+<pre><code class="`"> int cacheSize = 1000; //最大缓存1000个元素
+
+ LinkedHashMap cache = new LinkedHashMap&lt;String, String&gt;(16, 0.75f, true) {
+     @Override
+     protected boolean removeEldestEntry(Map.Entry&lt;String, String&gt; eldest) {
+         return size() &gt; cacheSize;
+     }
+ };
+</code></pre>
+
+<p> 需要注意的是，LinkedHashMap是非线程安全的，如果是全局使用，需要做并发控制。</p></li>
+<li><p>Guava Cache</p>
+
+<p> Guava Cache来自于Google开源的Guava类库中，是一个实现的比较完全的本地缓存，包括缓存失效、LRU都做了支持。</p>
+
+<pre><code class="`"> final int MAX_ENTRIES = 1000; //最大元素数目
+ LoadingCache&lt;String, String&gt; cache = CacheBuilder.newBuilder()
+     .maximumSize(MAX_ENTRIES)
+     .concurrencyLevel(Runtime.getRuntime().availableProcessors())//并行度
+     .expireAfterWrite(2, TimeUnit.SECONDS) //写入2秒后失效
+     .build(new CacheLoader&lt;String, String&gt;() { 
+         @Override
+         public String load(String key) throws Exception {
+             return ...;//异步加载数据到缓存
+         }
+
+         @Override
+         public ListenableFuture&lt;String&gt; reload(String key, String oldValue) throws Exception {
+             return ...;
+         }
+     }); 
+
+ //Using the cache
+ String value= cache.getUnchecked("testKey");
+</code></pre>
+
+<p> 上面的load方法是第一次加载对应的key的缓存时调用的方法,重载此方法可以实现单一线程回源，而reload方法的重载，则可以在后台定时刷新数据的过程中，依然使用旧数据响应请求，不会造成卡顿，这里默认的实现是load方法的代理，是同步的，建议重新用异步方式实现。此外，里面并行度指的是允许并行修改的线程数，此值建议根据当前机器的CPU核数来设置。</p>
+
+<p> 上述的例子中使用了基于maximumSize和基于时间expireAfterWrite的缓存剔除，除此之外，还可以通过：</p>
+
+<ol>
+<li><p>基于权重的缓存剔除</p>
+
+<pre><code class="`"> CacheBuilder.newBuilder()
+     .maximumWeight(10000)             
+     .weigher(new Weigher&lt;String, Object&gt;() {  
+         @Override  
+         public int weigh(String key, Object value) {  
+             return key.length();  
+         }  
+     })
+     .build();
+</code></pre>
+
+<p> 这样当cache中put一个key时，都会计算它的weight值并累加，当达到maximumWeight阀值时，会触发剔除操作。</p></li>
+<li><p>制定key和value使用的引用类型来做缓存剔除</p>
+
+<pre><code class="`"> CacheBuilder.newBuilder().weakKeys();
+ CacheBuilder.newBuilder().weakValues();
+ CacheBuilder.newBuilder().softValues();
+</code></pre></li>
+</ol>
+
+
+<p> 还需要指明的一点是，Guava Cache中的缓存失效并非立即生效的，通常是延迟的, 在各种写入数据时都去检查并cleanUp。</p>
+
+<p> 此外，Guava Cache还提供了asMap视图，可以获取保存数据使用的ConcurrentMap形式。使用此视图时需要注意读写操作会重置相关缓存项的访问时间，包括asMap().get()方法和Cache.asMap().put()方法，但asMap().containsKey()方法和遍历asMap().entrySet()除外。</p>
+
+<p> 这里还需要提到的一点是，缓存框架Caffeine使用Java8对Guava进行了重写，包括驱逐策略、过期策略和并发机制，使得缓存性能得到了显著提升，并且使用上可以兼容Guava的API。如果是在Java8上的开发，推荐直接使用Caffeine作为本地缓存实现。</p>
+
+<pre><code class="`"> LoadingCache&lt;String, String&gt; cache = CaffeinatedGuava.build(
+            Caffeine.newBuilder().maximumSize(MAX_ENTRIES),
+            new CacheLoader&lt;String, String&gt;() { // Guava's CacheLoader
+                @Override
+                public String load(String key) throws Exception {
+                    return "";
+                }
+            });
+</code></pre></li>
+<li><p>Ehcache</p>
+
+<p> Ehcache是一个纯Java的进程内缓存框架，具有快速、精干等特点，是Hibernate中默认的CacheProvider，使用比较广泛，支持多级存储，可以将数据存储到磁盘上。其最新版本为3.x，但使用不多，且兼容性也不好，推荐使用其2.x版本即可。</p></li>
+</ol>
+
+
+<h2>分布式缓存</h2>
+
+<p>分布式缓存指的是单独的缓存服务，独立部署，通过协议、接口等提供缓存服务。相比起本地缓存，能够支持更大的容量。</p>
+
+<p>几年前最流行的分布式缓存软件是Memcached，但其支持的数据结构太少，现在已经基本被Redis所取代。Redis能够支持丰富的数据结构，基于事件驱动的单线程非阻塞IO也能够应对高并发的业务场景。这里主要针对Redis来讲述，Redis版本为3.2.10。</p>
+
+<p>Redis是非常强大的，既可以作为数据库又可以作为缓存，还能当做队列。总体概括来讲，其有以下用途：</p>
+
+<ol>
+<li>最简单的String,可以作为Memcached的替代品，用作缓存系统。</li>
+<li>使用SetNx可以实现简单的分布式锁(如果需要对锁设置失效期，建议使用SET key value [EX|PX] NX xx命令以保证原子性),也可参考Redis作者的RedLock算法实现分布式锁（<a href="http://redis.cn/topics/distlock.html%EF%BC%89%E3%80%82">http://redis.cn/topics/distlock.html%EF%BC%89%E3%80%82</a></li>
+<li>使用List的pop和push功能可以作为阻塞队列/非阻塞队列。</li>
+<li>使用SUBSCRIBE和PUBLISH可以实现发布订阅模型。</li>
+<li>对数据进行实时分析，如可以累加统计等。</li>
+<li>使用Set做去重的计数统计。</li>
+<li>使用SortedSet可以做排行榜等排序场景。</li>
+<li>使用getbit、setbit、bitcount做大数据量的去重统计，允许误差的情况下可使用HyperLogLog。</li>
+<li>使用GEO可以实现位置定位、附近的人。</li>
+</ol>
+
+
+<p>以上场景基本上涵盖了Redis支持的各种存储结构：</p>
+
+<ul>
+<li>Key: 可以是任意类型，但最终都会存储为byte[]。</li>
+<li>String: 简单的(key,value)存储结构，支持数据的自增、支持BitSet结构。</li>
+<li>Hash：哈希表数据结构，支持对field的自增等操作。</li>
+<li>List：列表，支持按照索引、索引范围获取元素以及pop、push等堆栈操作。</li>
+<li>Set：集合，去重的列表。</li>
+<li>SortedSet：有序集合。</li>
+<li>HyperLogLog：可对大数据进行去重，有一定的误差率。</li>
+<li>GEO：地理位置的存储结构，支持GEOHASH。</li>
+</ul>
+
+
+<h3>内存压缩</h3>
+
+<p>Redis的存储是以内存为主的，因此如何节省内存是使用的时候一个非常关键的地方。毕竟一个String类型的存储即使key和value是简单的1字节，其占用空间也达到了差不多64字节（估算近似值，包括了dictEntry、redisObject、key、value以及内存对齐等）。</p>
+
+<p>首先，key越短越好，可以采取编码或者简写的方式。如用户的笔记数目缓存key可以使用u:{uid}:n_count作为Key。同时,key的数量也要控制，可以考虑使用hash做二级存储来合并类似的key从而减少key的数量。</p>
+
+<p>其次，value也是越小越好，尤其是存储序列化后的字节时，要选择最节省内存的序列化方式, 如Kryo、Protobuf等。</p>
+
+<p>此外，Redis支持的数据结构的底层实现会对内存使用有很大的影响，如：缓存用户的头像时，可以根据用户ID做分段存储，每一段使用hash结构进行存储:</p>
+
+<pre><code>//第一段 1-999
+hset u:avatar:1 1 http://xxxx
+hset u:avatar:1 2 http://xxxx
+
+//第二段 1000-1999
+hset u:avatar:2 1000 http://xxxx
+hset u:avatar:2 1999 http://xxxx
+</code></pre>
+
+<p>这样，相比起使用String存储，hash底层会使用ziplist做存储，极大地节省内存使用。但这里需要注意的是Redis有一个hash-max-ziplist-entries的参数，默认是512，如果hash中的field数目超过此值，那么hash将不再使用ziplist存储，开始使用hashtable。但是，此值设置过大，那么在查询的时候就会变慢。从实践来看，此值设置为1000，hash分段大小也为1000，此时的修改和查询性能最佳。此外，还有一个hash-max-ziplist-value参数，默认是64字节，value的最大字符串字节大小如果大于此值，那么则不会使用ziplist。</p>
+
+<p>除了hash之外，其他数据结构也有类似的内存编码变化，使用的时候也需要注意。如下所示：</p>
 
 <table>
 <thead>
 <tr>
-<th>. </th>
-<th> init </th>
-<th> load </th>
-<th> set_xx </th>
-<th> method1 </th>
-<th> &hellip;</th>
+<th>数据结构 </th>
+<th> 编码 </th>
+<th> 条件</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>init </td>
-<td> x </td>
-<td>  </td>
-<td> 2 </td>
-<td> 1</td>
-<td></td>
+<td>hash</td>
+<td> ziplist</td>
+<td> 最大value大小 &lt;= hash-max-ziplist-value &amp;&amp; field个数 &lt;= hash-max-ziplist-entries</td>
 </tr>
 <tr>
-<td>load </td>
-<td> </td>
-<td> </td>
-<td> 1 </td>
-<td> 1 </td>
-<td></td>
+<td>hash</td>
+<td> hashtable </td>
+<td> 最大value大小 > hash-max-ziplist-value || field个数 > hash-max-ziplist-entries</td>
 </tr>
 <tr>
-<td>set_xx </td>
-<td> </td>
-<td> </td>
-<td> </td>
-<td> 2</td>
-<td></td>
+<td>list</td>
+<td> ziplist</td>
+<td> 最大value大小 &lt;= list-max-ziplist-value &amp;&amp; field个数 &lt;= list-max-ziplist-entries</td>
 </tr>
 <tr>
-<td>method1 </td>
-<td> </td>
-<td> </td>
-<td> </td>
-<td> </td>
-<td> &hellip;</td>
+<td>list</td>
+<td> linkedlist</td>
+<td> 最大value大小 > list-max-ziplist-value || 列表长度 > list-max-ziplist-entries</td>
+</tr>
+<tr>
+<td>set</td>
+<td> intset</td>
+<td> 元素都为整数 &amp;&amp; 集合长度 &lt;= set-max-intset-entries</td>
+</tr>
+<tr>
+<td>set</td>
+<td> hashtable</td>
+<td> 元素非整数类型 || 集合长度 > set-max-intset-entries</td>
+</tr>
+<tr>
+<td>sortedSet </td>
+<td> ziplist</td>
+<td> 最大value大小 &lt;= zset-max-ziplist-value &amp;&amp; 集合长度 &lt;= zset-max-ziplist-entries</td>
+</tr>
+<tr>
+<td>sortedSet </td>
+<td> skiplist </td>
+<td> 最大value大小 > zset-max-ziplist-value || 集合长度 > zset-max-ziplist-entries</td>
 </tr>
 </tbody>
 </table>
 
 
-<p>其中，数字表示调用次数。</p>
+<p>此外，对于list来说，Redis 3.2使用了新的数据结构quicklist来编码实现，废弃了list-max-ziplist-value和list-max-ziplist-entries配置，使用list-max-ziplist-size（负数表示最大占用空间或者正数表示最大压缩长度）和list-compress-depth（最大压缩深度）这俩参数进行配置。</p>
 
-<p>调用关系树也就是调用关系图，类似流程图：</p>
+<p>还有一点需要注意的是内存碎片，所谓内存碎片指的是小的非连续的内存，这种内存无法得到充分使用，会造成浪费。我们可以通过info命令获取mem_fragmentation_ratio（used_memory_rss/used_memory）此值来观察内存碎片的程度。</p>
 
-<p><img src="//post_images/howtostudy/call_tree.png" alt="" /></p>
+<ul>
+<li>此值通常在1左右，越大表示表示存在（内部或外部的）内存碎片。</li>
+<li>小于1时表示Redis的部分内存被换出到了交换空间，会降低操作性能。</li>
+</ul>
 
-<h2>总结</h2>
 
-<p>程序员是一个金字塔结构的职业体系，越往上，人越少也越难达到。如下图所示：
-<img src="//post_images/howtostudy/15022677629156.jpg" alt="" /></p>
+<h3>Redis Lua</h3>
 
-<p>一步步走到金字塔顶部需要不断的学习和进步，包括正确的态度、正确的方法以及持续的努力。本文所述只是笔者自己的体会，也是自己一直在践行的东西。除此之外，肯定还有很多其他优秀的方法和思想能够促进这个过程。</p>
+<p>一般情况下，Redis提供的各种操作命令已经能够满足我们的需求。如果需要一次将多个操作请求发送到服务端，可以通过Jedis客户端的pipeline接口批量执行。但如果有以下三种需求，就需要使用Redis Lua：</p>
+
+<ul>
+<li>需要保证这些命令做为一个整体的原子性。</li>
+<li>这些命令之间有依赖关系、</li>
+<li>业务逻辑除了Redis操作还包括其他逻辑运算。</li>
+</ul>
+
+
+<p>Redis从2.6后内置对Lua Script的支持，通过eval或者evalsha执行Lua脚本。其脚本的执行具有原子性，因此适用于秒杀、签到等需要并发互斥且有一些业务逻辑的业务场景。</p>
+
+<pre><code>String REDIS_SCRIPT_GRAB_GIFT =
+            "local giftLeft = tonumber(redis.call('get',KEYS[1])) or 0;" //读取礼物剩余数量
+                    + "if(giftLeft &lt;= 0) then return 0; end;" //抢购失败
+                    + "redis.call('decr',KEYS[1]);" //减少礼物数量
+                    + "return 1;";
+
+...
+Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:gifts:" + giftId + ":left"),null);
+...
+</code></pre>
+
+<p>使用Redis Lua需要注意的是：</p>
+
+<ul>
+<li>Lua脚本里涉及的所有key尽量用变量，从外面传入，使Redis一开始就知道你要改变哪些key，尤其是在使用redis集群的时候。</li>
+<li>建议先用SCRIPT LOAD载入script，返回哈希值。然后用EVALHASH执行脚本，可以节省脚本传输的成本。</li>
+<li>如果想从Lua返回一个浮点数，应该将它作为一个字符串（比如ZSCORE命令）。因为Lua中整数和浮点数之间没有什么区别，在返回浮点数据类型时会转换为整数。</li>
+</ul>
+
+
+<h3>数据失效和淘汰</h3>
+
+<p>如果某些数据并不需要永远存在，可以通过Expire设置其失效时间，让其在这段时间后被删除。这里设置了失效时间之后可以通过SET 和 GETSET 命令覆写失效期或者使用PERSIST去掉失效期。需要注意的是如果一个命令只是更新一个带生存时间的 key 的值而不是用一个新的 key 值来代替它的话，那么生存时间不会被改变。如INCR、DECR、LPUSH、HSET等命令就不改变key的失效时间。此外，设置了失效期的key其ttl是大于0的，直至被删除会变为-2, 未设置失效期的key其ttl为-1。</p>
+
+<p>和大部分缓存一样，过期数据并非立即被删除的。在Redis中，其采取的方式如下：</p>
+
+<ul>
+<li>消极方法：主动get或set时触发失效删除</li>
+<li>积极方法：后台线程周期性（每100ms一次）随机选取100个设置了有效期的key进行失效删除，如果有1/4的key失效，那么立即再选取100个设置了有效期的key进行失效删除。</li>
+</ul>
+
+
+<p>这里需要注意的是当使用主从模式时，删除操作只在Master端做，在Slave端做是无效的。</p>
+
+<p>此外，当对Redis设置了最大内存maxmemory, 那么当内存使用达到maxmemory后，会触发缓存淘汰。Redis支持以下几种淘汰策略：</p>
+
+<ul>
+<li>volatile-lru：从已设置过期时间的数据集中挑选最近最少使用的数据淘汰。</li>
+<li>volatile-ttl：从已设置过期时间的数据集中挑选将要过期的数据淘汰。</li>
+<li>volatile-random：从已设置过期时间的数据集中任意选择数据淘汰。</li>
+<li>allkeys-lru：从数据集中挑选最近最少使用的数据淘汰。</li>
+<li>allkeys-random：从数据集中任意选择数据淘汰。</li>
+<li>noeviction：禁止驱逐数据。</li>
+</ul>
+
+
+<p>其中，volatile-lru是3.0版本之前的默认淘汰策略，之后的版本默认策略改成了noeviction。</p>
+
+<p>为了配合LRU的淘汰策略，Redis的内部数据结构中有一个lru字段记录了对象最后一次被访问的时间。可以通过object idletime [key]来在不更新lru字段的情况下查看相应key的空闲时间。进一步的可以结合使用scan+object idletile [key]来查询哪些健长时间未被访问，以判定热点key和冷key。</p>
+
+<p>这里需要注意的是Redis中为了节省内存占用使用了整数对象池（即共享整数对象），但当淘汰策略为LRU时，由于无法对对象池的同一个对象设置多个访问时间戳，因此不再会使用整数对象池。</p>
+
+<h3>持久化</h3>
+
+<p>Redis支持对内存中的数据进行持久化，包括两种实现方式：</p>
+
+<ol>
+<li><p>RDB</p>
+
+<p> RDB是基于二进制快照的持久化方案，其在指定的时间间隔内（默认触发策略是60秒内改了1万次或300秒内改了10次或900秒内改了1次）生成数据集的时间点快照（point-in-time snapshot),从而实现持久化。基于快照的特性，使其会丢失一些数据，比较适用于对Redis的数据进行备份。此外，RDB进行时，Redis会fork()出一个子进程，并由子进程来遍历内存中的所有数据进行持久化。在数据集比较庞大时，由于fork出的子进程需要复制内存中的数据，因此这个过程会非常耗时，会造成服务器停止处理客户端，停止时间可能会长达一秒。</p>
+
+<p> 可配置RDB对数据进行压缩存储，支持字符串的LZF算法和String形式的数字变回int形式。</p></li>
+<li><p>AOF</p>
+
+<p> AOF是基于日志的持久化方案，记录服务器执行的所有写操作命令，并在服务器启动时，通过重新执行这些命令来还原数据集。这些命令全部以 Redis 协议的格式来保存（纯文本文件），新命令会被追加到文件的末尾。此外，为了避免AOF的文件体积超出保存数据集状态所需的实际大小，Redis在AOF文件过大时会fork出一个进程对AOF文件进行重写（将历史AOF记录中的命令合并替换成key-value的插入命令）。AOF这种方案，默认是每隔1秒进行一次fsync（将日志写入磁盘），因此与RDB相比，其最多丢失1秒钟的数据，当然如果配置成每次执行写入命令时 fsync（执行命令成功后进行aof，非常慢），甚至可以避免任何数据的丢失。但其文件的体积是明显大于RDB的，将日志刷到磁盘和从AOF恢复数据的过程也是慢于RDB的。</p></li>
+</ol>
+
+
+<p>如果想要保证数据的安全性，建议同时开启AOF和RDB，此时由于RDB有可能丢失文件，Redis重启时会优先使用AOF进行数据恢复。</p>
+
+<p>此外，可以通过save或者bgsave命令来手动触发RDB持久化，通过bgrewriteaof触发aof重写。如此可以将rdb或者aof文件传到另一个Redis结点进行数据迁移。</p>
+
+<p>需要注意的是，如果通过kill -9或者Ctrl+c来关闭redis,那么RDB和AOF都不会触发，会造成数据丢失，建议使用redis-cli shutdown或者kill优雅关闭Redis。</p>
+
+<h3>分布式</h3>
+
+<p>Redis对分布式的支持有三种：</p>
+
+<ol>
+<li><p>Master-Slave</p>
+
+<p> 简单的主从模式，通过执行slaveof命令来启动，一旦执行， Slave会清掉自己的所有数据，同时Master会bgsave出一个RDB文件并以Client的方式连接Slave发送写命令给Slave传输数据（多个slave连接时，只要在master的bgsave完成之前，那么就不会多次bgsave）。2.8版本后，Redis提供了PSYNC协议，支持主备间的增量同步，类似于断点续传，不会每次连接Master都全量同步数据。</p>
+
+<p> Redis提供了Redis Sentinel做上述方案的fail-over，能够对 Redis 主从复制进行监控，并实现主挂掉之后的自动故障转移。</p>
+
+<p> 首先，Sentinel会在Master上建一个pub/sub channel，通告各种信息。所有Sentinel通过接收pub/sub channel上的+sentinel的信息发现彼此（Sentinel每5秒会发送一次<strong>sentinel</strong>:hello消息)。然后，Seneinel每秒钟会对所有Master、Slave和其他Sentinel执行ping，这些redis-server会响应+PONG、-LOADING或者-MASTERDOWN告知其存活状态等。如果一台Sentinel在30s中内没有收到Master的应答，会认为Master已经处于SDOWN状态同时会询问其他Sentinel此Master是否SDOWN,如果quonum台Sentinels认为Master已经SDOWN,那么认为Master是真的挂掉（ODOWN），此时会选出一个状态正常且与Master的连接没有断开太久的Slave作为新的Master。</p>
+
+<p> Redis Sentinel提供了notify脚本机制可以接受任何pub/sub消息，以便于发出故障告警等信息；提供了reconfig脚本机制在Slave开始提升成Master、所有Slave都已指向新Master、提升被终止等情况下触发对此类脚本的调用，可以实现一些自定义的配置逻辑。</p></li>
+<li><p>Redis Cluster</p>
+
+<p> Redis 3.0后内置的集群方案。此方案没有中心节点的，每一个Redis实例都负责一部分slot（存储一部分key），业务应用需要通过Redis Cluster客户端程序对数据进行操作。客户端可以向任一实例发出请求，如果所需数据不在该实例中，则该实例引导客户端去对应实例读写数据。Redis Cluster的成员管理（节点名称、IP、端口、状态、角色）等，都通过节点之间两两通讯，基于Gossip协议定期交换并更新。是一种比较重的集群方案。</p>
+
+<p> Redis的集群方案除了内置的Redis Cluster之外，很多公司都采用基于代理中间件的思路做了一些实现，Twemproxy、Codis是其中用的比较多的软件。相比起官方的集群方案，其使用方式和单点Redis是一模一样的，原有的业务改动很少（个别命令会不支持），且其数据存储和分布式逻辑是分离的便于扩展和升级。</p></li>
+<li><p>客户端分片</p>
+
+<p> 除了上述集群方案之外，在客户端做分片也是一种常用的Redis集群实现方式，不依赖于第三方分布式中间件，实现方法和代码都自己掌控，相比代理方式少了中间环节。但是此方式数据迁移、合并等都不够灵活，建议慎用。Jedis2.0开始就提供了ShardedJedis实现客户端分片，但实际应用并不多见。</p></li>
+</ol>
+
+
+<h3>使用提示</h3>
+
+<h3>Redis数据操作</h3>
+
+<ul>
+<li>不同业务共用同一Redis实例时，务必使用前缀来区分各个key，以防止key冲突覆盖。</li>
+<li>尽量减少字符串频繁修改操作如append，setrange, 改为直接使用set修改字符串，可以降低预分配带来的内存浪费和内存碎片化。</li>
+<li>不要在大数据量线上环境中使用keys命令，很容易造成Redis阻塞。</li>
+<li>缓存的失效时间不要集中在同一时刻，会导致缓存占满内存触发内存淘汰（占用CPU）或者直接导致缓存雪崩。</li>
+<li>String类型在1KB（Redis官方测试）是一个吞吐量性能拐点，因此String类型的大小以1KB以内为宜（局域网环境下，1KB以内吞吐性能基本一致），最大不超过10KB。</li>
+<li>SortedSet中元素的score使用双精度64位浮点数，取值范围为-(2<sup>53</sup>)到+(2<sup>53</sup>)。更大的整数在内部用指数形式表示，因此如果为分数设置一个非常大的整数，其本质是一个近似的十进制数。</li>
+<li>尽量使用mset、hmset等做批量操作，以节省网络IO消耗。此外，lpush、rpush、sadd也支持一次输入多个value，同样可以节省网络IO。但需要注意单次请求操作的数量尽量控制在500以内，从而避免慢查询。</li>
+<li>使用Redis的事务命令（multi、exec、discard）, 其事务级别类似于Read Committed，即事务无法看到其他事务未提交的改动。还可以使用watch对某一个key做监控，当key对应的值被改变时，事务会被打断，能够达到CAS的效果。但需要注意的是Redis的事务和关系型数据库的事务不同，并非严格的ACID事务，仅仅能达到Isolation。</li>
+<li>在Java中使用Jedis的pipeline一次执行多条互相没有依赖关系的命令可以节省网络IO的成本，但pipeline和事务不同，其只是一种批量写批量读的多命令流水线机制，Redis服务器并不保证这些命令的原子性。</li>
+<li>可以使用SortedSet做范围查询，如：使用日期作为score,那么就可以根据日期来查询。此外，还可以在范围数据中进行查询，例如：IP定位库的数据一般是某一段IP范围属于哪一个城市,那么可以使用SortedSet存储每一段范围的最小IP和最大IP做为score，城市做为memeber。当给定一个IP时，根据score先找出大于这个IP的最小值，再找出小于这个IP的最大值，如果两者对应的城市相同，即完成定位，否则，无法获取到位置信息。</li>
+<li>使用List做队列时，如果需要ack, 可以考虑再使用一个SortedSet，每次队列中pop出一个元素则按照访问时间将其存储到SortedSet中，消费完后进行删除。</li>
+<li>控制集合键数据（list、set、zset、hash）的元素个数在5000以内，防止造成大key的查询阻塞其他请求的处理。可以使用zsan、hsan、sscan进行渐进操作或者分拆key来处理。</li>
+<li>当无法避免对大集合键数据（元素非常多）进行全量读取时，可以通过搭建多个slave来提升性能，也可以使用Memcached作为Redis前面全量读取的缓存，从而利用MC的多线程实现方式以及对二进制KV的高效读取来获得性能的提升。</li>
+<li><p>对大集合键数据的删除避免使用del，会造成Redis阻塞。</p>
+
+<ul>
+<li>hash: 通过hscan命令，每次获取一部分字段，再用hdel命令，每次删除1个字段。</li>
+<li>list： 使用ltrim命令每次删除少量元素。</li>
+<li>set: 使用sscan命令，每次扫描集合中一部分元素，再用srem命令每次删除一个键。</li>
+<li>zset: 使用zremrangebyrank命令,每次删除top 100个元素。</li>
+</ul>
+</li>
+<li><p>在Java开发中一般选择直接使用Jedis即可。如果需要诸如分布式锁、主从等分布式特性或者应用层级的Redis操作封装（布隆过滤器、队列），可以选择使用Redisson库来操作Redis。此外，Spring Data Redis也是一种选择，在4.2.2中做过讲述。</p></li>
+</ul>
+
+
+<h3>配置与监控</h3>
+
+<ul>
+<li>可以通过monitor命令监测Redis上命令执行的情况。</li>
+<li>使用redis-cli &ndash;bigkeys可以扫描出每种数据类型最大的key。</li>
+<li>由于Redis自身单线程的原因，切忌慢查询会阻塞住整个Redis, 可以通过slowlog get来查看慢查询日志。</li>
+<li>设置Redis最大内存，以防内存用爆。</li>
+<li>使用redis-rdb-tools对rdb文件进行分析，如每条key对应value所占的大小，从而做量化分析。</li>
+<li>可以使用Redis Sampler，统计Redis中的数据分布情况。</li>
+<li>Redis的最大连接数默认为10000（通过命令CONFIG GET maxclients得到），可以在redis.conf配置（maxclients: 10000）。如果还是有限制，需要考虑修改系统的单个进程可打开的最大文件个数（ulimit -n）以及网络的并发连接数。</li>
+<li>单点Redis的性能一般能够达到10万QPS左右。</li>
+</ul>
+
+
+<h2>缓存设计</h2>
+
+<p>在使用缓存系统的时候，还需要考虑缓存设计的问题，重点在于缓存失效时的处理和如何更新缓存。</p>
+
+<p>缓存失效是在使用缓存时不得不面对的问题。在业务开发中，缓存失效由于找不到整个数据，一般会出于容错考虑，从存储层再进行查询，如果有则放入缓存。如果查找的数据压根在存储层就不存在，缓存失去意义，还给后端服务带来了巨大的请求压力，会进一步引起雪崩效应。这种现象又称为缓存穿透。</p>
+
+<p>目前常用的解决缓存穿透问题的方案如下：</p>
+
+<ol>
+<li>在底层存储系统之上加一层布隆过滤器，将所有可能存在的数据哈希到一个足够大的BitMap中，一个一定不存在的数据会被这个BitMap拦截掉，从而避免了对底层存储系统的查询压力。</li>
+<li>如果数据在存储层查询也为空，那么对此空结果也进行缓存，但要设置合适的失效时间。</li>
+</ol>
+
+
+<p>更进一步的，解决缓存穿透的问题其实是和缓存的更新机制是相关的。缓存更新的常用三种模式如下：</p>
+
+<ul>
+<li>Cache Aside Pattern: 应用程序以数据库为准，失效则从底层存储更新，更新数据先写入数据库再更新缓存。是最常用的缓存更新模式。</li>
+<li>Read/Write Through Pattern: 以缓存为准，应用只读写缓存，但是需要保证数据同步更新到了数据库中。</li>
+<li>Write Behind Caching Pattern: 以缓存为准，应用只读写缓存，数据异步更新到数据库，不保证数据正确写回，会丢数据。可以采用Write Ahead Logging等机制避免丢数据。</li>
+</ul>
+
+
+<p>如上，在缓存失效时采用何种策略去更新缓存直接决定了能否解决缓存穿透的问题。Cache Aside Pattern中缓存失效则从底层存储更新无法避免缓存穿透的问题。基于以上三种模式采用下面更为细化的更新机制可以在一定程度上避免缓存穿透的问题：</p>
+
+<ol>
+<li>缓存失效时，用加锁或者队列的方式单线程/进程去更更新缓存并等待结果。</li>
+<li>缓存失效时，先使用旧值，同时异步（控制为同时只有一个线程/进程）更新缓存，缓存更新失败则抛出异常。</li>
+<li>缓存失效时，先使用旧值，同时异步（控制为同时只有一个线程/进程）更新缓存，缓存更新失败延续旧值的有效期。</li>
+<li>数据写入或者修改时，更新数据存储后再更新缓存。缓存失效时即认为数据不存在。</li>
+<li>数据写入或者修改时，只更新缓存，使用单独线程周期批量刷新缓存到底层存储。缓存失效时即认为数据不存在。此种方案不能保障数据的安全性，有可能会丢数据。</li>
+<li>采用单独线程/进程周期将数据从底层存储放到缓存中（MySQL可以基于binlog增量更新缓存）。缓存失效时即认为数据不存在。此种方案无法保证缓存数据和底层存储的数据强一致性。</li>
+</ol>
+
+
+<p>如果一开始设计缓存结构的时候注意切分粒度，把缓存力度划分的细一点，那么缓存命中率相对会越高，也能在一定程度上避免缓存穿透的问题。</p>
+
+<p>此外，还可以在后端做流量控制、服务降级或者动态扩展，以应对缓存穿透带来的访问压力。</p>
 
 <blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
-
-<p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
 ]]></content>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[如何成为一名合格的Java工程师?]]></title>
-    <link href="http://www.rowkey.me/blog/2018/04/01/pje-release/"/>
-    <updated>2018-04-01T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/04/01/pje-release</id>
-    <content type="html"><![CDATA[<p>Java开发一直是当前互联网领域最火热的开发技能之一，Java工程师也一直是需求量非常大的开发职位。那么如何成为一名合格的Java工程师呢？一名合格的Java工程师又应该具有哪些技能呢？针对这些，笔者的新书《Java工程师修炼之道》做了一些经验性的阐述和讲解。</p>
-
-<p><img src="http://www.rowkey.me/post_images/book.png" width="250"/></p>
+    <title type="html"><![CDATA[Java应用性能调优之调优准备]]></title>
+    <link href="http://www.rowkey.me/blog/2018/10/31/profile-ready/"/>
+    <updated>2018-10-31T14:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2018/10/31/profile-ready</id>
+    <content type="html"><![CDATA[<p>实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。</p>
 
 <!--more-->
 
 
-<p>写作此书的想法萌生于2015年，主要是在研发招聘过程中，尤其是校招，感受到了目前后端工程师教育的匮乏。对于一个后端工程师的技术体系，先不说学生，不少工作很长时间的人都没有一个清晰的认识。就打算写一本后端工程师技术体系书籍的想法，希望能够给选择后端这个方向的人一些指导，也算是对自己的一个阶段性总结。</p>
-
-<p>2016年初，博文视点“永恒的侠少”（张春雨编辑）找到我，算是正式开始写作此书。历时一年多的时间，于2017年8月份交稿，中间历经许多次修改，《Java工程师修炼之道》终于出版。这本书是自己出的第一本书，所以写作的过程一直是如履薄冰的，一直害怕写成一本没有任何意义的烂书，因此一遍遍地去读，一遍遍地修正，也一遍遍地更新一些知识点，希望最后不要沦为一本鸡肋无味的技术书。</p>
-
-<p>本书主要针对一名合格的Java工程师的必备技能做了大纲性的总结和阐述。内容主要来自于公司内的后端工程师学习计划、自己以前的一些博客文章和自己从业以来积累的知识库。包括了工程化、常用开发框架、数据存储、数据传输、Java编程高级知识、性能优化、安全技术等，基本涵盖了Java工程师需要掌握的绝大部分技能点。此外，由于笔者的学习、工作笔记是平时工作中查阅网上资料并经过辨伪后记录下来的零散知识点，难免会有一些对网上资料的引用，特别对这些资料的原创者表示感谢，如果有侵权请联系我。</p>
-
-<p>本书可以看作一本Java工程师的入职指南，也可以看作一本串联Java后端技能点的参考手册，同样可以作为创业团队做技术选型的一个参考。通过精心编排的内容，刚入门的Java工程师能够体系化地学习相关开发技能，有经验的Java工程师则能够查漏补缺，进一步加强自身的Java技术体系。</p>
-
-<p>其中的部分内容，会陆续在我的博客和公众号放出。</p>
-
-<p>希望这本书会给想要学习Java后端开发的同学或者还未形成自己技术体系的Java工程师们带来帮助。</p>
-
-<p><strong><em>需要注意的是，本书关于每一技能的知识点并没有讲述的很深，毕竟一方面确实没必要，每一个知识点都有更厉害的专家和更专业的书籍；另一方面，要面面俱到，这本书的厚度估计得翻三倍，自己确实没这精力。因此，本书并不适合对内容深度有要求的同学。</em></strong></p>
-
-<p><strong>购买</strong>: <a href="https://item.jd.com/12325207.html">https://item.jd.com/12325207.html</a></p>
-
-<p><img src="//post_images/book_jd.png" alt="" /></p>
-
-<p><strong>目录</strong></p>
-
-<blockquote><p>第一章 后端技术导言</p>
-
-<p>1.1 后端基础设施</p>
-
-<p>1.2 Java后端技术概览</p>
-
-<p>1.3 如何学习后端技术</p>
-
-<p>第二章 Java项目工程化</p>
-
-<p>2.1 项目构建</p>
-
-<p>2.2 代码版本控制</p>
-
-<p>2.3 代码质量保证</p>
-
-<p>第三章 开发框架</p>
-
-<p>3.1 依赖注入</p>
-
-<p>3.2 对象关系映射</p>
-
-<p>3.3 日志</p>
-
-<p>3.4 Web MVC</p>
-
-<p>第四章 Spring</p>
-
-<p>4.1 Spring核心组件</p>
-
-<p>4.2 Spring数据操作框架</p>
-
-<p>4.3 Spring Boot</p>
-
-<p>4.4 Spring常用组件</p>
-
-<p>4.5 总结</p>
-
-<p>第五章 数据存储</p>
-
-<p>5.1 关系型数据库-MySQL</p>
-
-<p>5.2 非关系型数据库</p>
-
-<p>5.3 缓存</p>
-
-<p>5.4 搜索引擎-Elasticsearch</p>
-
-<p>第六章 数据通信</p>
-
-<p>6.1 RESTful架构风格</p>
-
-<p>6.2 远程过程调用-RPC</p>
-
-<p>6.3 消息中间件</p>
-
-<p>第七章 Java编程进阶</p>
-
-<p>7.1 Java内存管理</p>
-
-<p>7.2 Java网络编程</p>
-
-<p>7.3 Java并发编程</p>
-
-<p>7.4 Java开发利器</p>
-
-<p>7.5 Java新版本特性</p>
-
-<p>7.6 总结</p>
-
-<p>第八章 性能调优</p>
-
-<p>8.1 调优准备</p>
-
-<p>8.2 性能分析</p>
-
-<p>8.3 性能调优</p>
-
-<p>第九章 安全技术</p>
-
-<p>9.1 Java加密</p>
-
-<p>9.2 安全Http - HTTPS</p>
-
-<p>9.3 Web安全</p></blockquote>
-
-<p><strong>推荐</strong></p>
-
-<blockquote><p>2013年，我和本书作者的接触是从基于网易的一个大型互联网应用合作开始的，我见证了从第一行代码到整个系统服务于亿级用户的过程，并且相信这种经历对开发者来说是一笔巨大的财富，其中大量的开发和实战经验都会在本书中得到充分的体现，相信读者能从书中直接领略到丰富的实战知识。在与本书作者的合作过程中，其对Java技术的热爱与追求孜孜不倦，对问题刨根问底，直到理解透彻、灵活应用，这些都令我印象深刻。这些年，我与本书作者一直保持沟通交流、相互学习，他将近十年的实战经验沉底于本书以实现对后端技术的探索、布道，非常值得开发者与近高窗卧听秋。</p>
-
-<p>后端技术涉及内容非常广泛，Java语言也是互联网开发行业使用的主流语言，相信后续也将继续流行很长一段时间，而本书作者也一直从事Java后端开发工作。在本书中作者比较系统地从总体上描述了后端技术相关的理论知识，包括基础设施、网关服务及框架选型等基本原则，然后以实际经验进行示例说明，接着详细梳理了Java的后端技术，相信读者读完本书后会更全面地理解后端技术。互联网的业务建设需要不同角色的开发者共同协作完成，因此，系统工程化是开发者首先要共同遵守的规范或约定，包括代码规范、版本管理和代码质量检查等。</p>
-
-<p>开发框架的选型进一步地为工程化提供了基础，也能加速推进互联网开发，尽管是否重复造轮子是一个恒久的话题，但是没有永远的银弹，只要在合适的时间里根据团队的能力选择合适的技术框架就好。一般来讲，目前常用的框架包括基本的依赖注入、AOP、事务管理、连接池管理、数据操作、日志服务等，在众多的框架中，本书作者选用目前在Java领域使用最广泛的Spring做深入的分析，详细地说明各组件的基础知识、基本原理和实际使用案例，最难得的是把较多开发者遇到的坑都用真实的示例进行了说明，可以帮助开发者快速地跳过这些伤心地带，同时也把最佳实践画龙点睛地带给开发者。</p>
-
-<p>数据存储无疑是所有系统应用中非常重要的一环，应用的场景用例也和数据库的选型有极其重要的关系，开发者选择关系型数据库还是非关系型数据库是需要根据软件成本与人力成本来进行权衡的，比如是选择MySQL、Oracle等开源或商业的数据库。本书重点从数据库的基础知识、索引和表优化等方面以详尽的示例为更好地选择数据库的存储类型提供了更多的知识。</p>
-
-<p>早期的关系型数据库一般能满足数据达到一定规模的企业的需求，而在互联网业务领域，特别是移动互联网领域内的元数据或者日志数据等，达到亿数量级别是很常见的，这时通常使用非关系型数据库，在非关系型数据库里使用非常多的有MongoDB、HBase等分布式数据库系统。作者在自身的企业开发实践中，得到了大量的使用经验和最佳实践。为了加速后端应用，缓存热数据是加速业务、提高业务性能、提升用户体验的重要手段，通过使用本地缓存、远程缓存进行数据加速、数据预热或提高数据的命中率，是开发者在应用开发的过程中常会遇到的场景。</p>
-
-<p>“路漫漫其修远兮，吾将上下而求索”，后端技术每年都在不断发展，所用技术也有变化，近些年Java语言的发展速度不那么快了，但是总体是在不断前进发展的，本书作者带领的团队一直深耕此领域并希望通过本书为技术开发人员带来更多帮助。</p>
-
-<p>&ndash; <strong>尧飘海，网易云基础服务（蜂巢）首席架构师</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>Hey！新来的读者，为了吸引你的注意力我真是煞费苦心，但最终还是没能写出一句特别吸引眼球的话来，毕竟写序的我不是标题党出生。此刻我真的非常能理解你拿到新书之后那渴望知识的心情，所以你恨不得一个字的“序”也不要看到，直接到达“最有价值”的知识点。但作为一名资深转业码农（对！你没看错，是“转业”，不是“专业”）还是想说一句，你先看完序，5分钟后到达知识的战场，会更稳！</p>
-
-<p>相信你已经在看“序”了，那么我们来说点正经事。</p>
-
-<p>你的知识体系的养成有3个关键阶段：看山是山、看山不是山、看山还是山。本书的适用人群是“看山不是山”的那些人，如果你恰好处于这个阶段，恭喜你！书钱没白花。</p>
-
-<p>Java是一门非常容易入门的语言，初学者经过初期的学习之后基本能掌握DEMO级别的编程应用。相信读者你已经度过了这个阶段，但是Java庞大的体系可能会把你绕晕，又或者你还没看到Java的生态系统有多么复杂。此时，你需要本书。从事程序员这个工作，到比较高阶的时候，其实是不挑语言的，语言只是工具，而你可以在纷繁复杂中游刃有余。但几乎每一位高手都是先深入一个领域，再横向发展的。你可以不用着急后续的横向发展，先坚定自己学习Java的信心！因为，从广泛的应用场景、顶级的开源生态、未来可期的薪水和职位来说，Java都是非常不错的选择。</p>
-
-<p>敲黑板，画重点！下面来解释一下，为什么本书面向的是“看山不是山”的人群。在度过Java的入门期之后，会有一个烦恼，那就是面对Java这么庞大的体系，我们究竟应该学习什么？选择方向，往往比努力更重要！是使用J2SE编写桌面程序？是使用J2ME编写嵌入式应用？还是使用J2EE编写企业级应用？这些是我们那个泛黄的年代特有的烦恼。而现在的烦恼可能是学Android？还是学Java后端？即便大方向你已经十分坚定，而且选择了Java后端编程，但因为复杂的知识体系和Google发布的各种教程文档，眼前看到的已经不再是清晰的山脉，而是一片迷雾。此时，你需要本书，因为它给你指明了努力的方向。</p>
-
-<p>本书的结构、阐述的方式和大部分的“指南”书籍有较大的区别，本书是以笔记和要点的形式进行呈现的，用现在的话说就是捞干货。本书涵盖的知识，是以现代工程实践中的实际案例出发来组织的，所以知识点范围非常广泛，每一个点都对最关键的“Best Practice”简明扼要地进行了说明。你在阅读本书的时候需要一些相关经验，不然无法跟上作者的节奏，建议在有一定的知识准备后再阅读本书，这样你会受益匪浅。从另外一个角度看，在你有了一定的基础积累之后，本书可以帮助你全面地了解一个现代化的最先进的工程实践是怎样的。本书讲述了目前行业中最常用的，经过了实践的工程方案，这将是你快速进阶的最佳指引。</p>
-
-<p>&ndash; <strong>孙建，随身云（中华万年历）联合创始人&amp;CEO</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>扎实的基础理论知识是内功底子，丰富的实践经验是招式。如本书作者所说，精妙的招式决定了你的武功下限，而深厚的内功底蕴会承载你所能企及的高度。那么，在后端技术栈中，内功与招式之间如何去关联起来，本书作者以其多年的钻研与实践结合心得，通过本书为你一一梳理。</p>
-
-<p>&ndash; <strong>阙杭宁，网易云信CTO</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>作者是一位技术人,有多年的Java技术积累,是极少数真正热爱技术的人。在随身云架构师的工作让他有机会站在更高的层次进行系统架构的工作,这些实践经验和平时感悟都沉淀在作者的著作和博客中,相信每位Java工程师都能从中获取帮助。</p>
-
-<p>&ndash; <strong>秦绪震，十露盘科技联合创始人，技术负责人</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>本书作者根据自身多年的JAVA后台开发经验, 提纲挈领的总结JAVA后台开发的各个关键技术点，这些知识点都是一个合格的JAVA工程师必须掌握的技能。它既可以作为新人的技术学习指南，也可以帮助老手对于自己的知识面进行查漏补缺，是一本非常好的技术指南。</p>
-
-<p>&ndash; <strong>饶洵（蜚天），阿里巴巴技术专家</strong></p></blockquote>
-
-<hr />
-
-<blockquote><p>作为一个在后端摸爬多年的Java开发工程师，这本书让我温故而知新。书中介绍的Java相关的知识技能树，不仅涵盖了我个人多年的Java开发技术知识点，也对我所陌生的一些知识点进行了详解，让我突然有一种继续学习的冲动。</p>
-
-<p>一个Java开发工程师的成长，不仅要对Java语言及其特性有深层次的理解，也需要掌握与Java相关的框架、生态及后端开发知识。这本书正是将后端开发工程师需要掌握的技能做了总结，对于提高开发技能有很好的指导作用。</p>
-
-<p>我推荐这本书，对于具有一定Java基础和后端开发知识的读者来说，该书不仅具有仔细学习的价值，同时也是一本可以经常翻阅的工具书籍，对于Java开发工程师的成长和进阶有很大的指导作用。</p>
-
-<p>一本好的技术书籍，不仅要仔细阅读、学习理解，还需要进行较多的实践，将所看所学进行应用，通过不断地实践，加深知识点印象，从而形成永久的记忆和技能。希望各位读者能够通过掌握书中的知识和技能，逐步成长为技术骨干和专家，从而创造更多的技术输出、产品输出，创造更多的财富。</p>
-
-<p>&ndash; <strong>张小川，网易考拉海购架构师，供应链技术主管</strong></p></blockquote>
-
-<p><strong>后续计划</strong></p>
-
-<blockquote><p>此书一开始是计划有一章专门讲述大数据开发技术，毕竟现在越来越多的公司在构建自己的大数据平台，大数据技术也逐渐成了Java工程师的必备技能。但自己此方面经验较少，自认并没有达到可以向别人输出知识的程度，于是暂时搁置此部分。</p></blockquote>
-
-<p>逐步把部分内容开源在笔者的<a href="https://github.com/superhj1987/pragmatic-java-engineer">Github（superhj1987）</a>中，并补充一些新的内容进来。</p>
-
 <ul>
-<li>Zookeepr本来是想放在大数据一章，现在会作为数据存储的一节补充进来。</li>
-<li>异步响应式Web框架会补充在开发框架一章，以Vert.x为主，Spring Flux为辅。</li>
-<li>Redis加入新版本的特性，并补充如何使用Redis实现分布式锁。</li>
-<li>Kafka加入最新版本的特性，尤其是Kafka Streams和Exactly one语义。</li>
-<li>Elastissearch基于5.0版本更新。</li>
-<li>补充协程到并发编程中。</li>
-<li>补充Netty到网络编程中。</li>
-<li>使用Hystrix做资源隔离和限流会补充在Java开发利器中。</li>
-<li>补充RxJava的使用在Java开发利器中。</li>
-<li>补充Java10和Kotlin的部分到Java新版本特性。</li>
+<li>调优概览：<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/README.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/README.md</a></li>
+<li>调优准备：<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md</a></li>
 </ul>
 
+
+<blockquote><p>本文来自《Java工程师修炼之道》一书。</p></blockquote>
+
+<p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
 ]]></content>
   </entry>
   
