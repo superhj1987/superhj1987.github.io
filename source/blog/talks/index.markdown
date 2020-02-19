@@ -9,7 +9,7 @@ footer: false
 $(document).ready(function(){
 	$("#nav-menu a").removeClass("current");
 	$("#nav-menu .talks-nav").addClass("current");
-    $("ul").css({
+    $(".post ul").css({
         "background-color": "#f8f8f8",
         "border": "1px solid #ddd",
         "overflow": "auto",
