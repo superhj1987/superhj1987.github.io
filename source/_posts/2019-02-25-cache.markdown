@@ -3,7 +3,7 @@ layout: post
 title: "缓存这些事"
 date: 2019-02-25 19:29:34 +0800
 comments: true
-categories: architecture
+categories: architecture pje-book
 ---
 
 **最新版本可见:<https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md>**

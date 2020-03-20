@@ -1,0 +1,10 @@
+---
+layout: post
+title: "技术琐话"
+date: 2019-12-18 19:29:34 +0800
+comments: false
+categories: misc
+---
+
+日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：[技术琐话](https://www.rowkey.me/blog/talks/)
+

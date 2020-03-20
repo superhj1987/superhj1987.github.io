@@ -3,8 +3,10 @@ layout: post
 title: "《Java工程师修炼之道》内容概览"
 date: 2017-08-10 19:29:34 +0800
 comments: true
-categories: java
+categories: java pje-book
 ---
+
+开源部分：<https://github.com/superhj1987/pragmatic-java-engineer>
 
 最近几个月由于工作和正在筹备《Java工程师修炼之道》一书的原因一直没有写新的文章。不过，忙里偷闲，自己陆续读完了《格鲁夫给经理人的第一课》、《架构真经》、《聊聊架构》这几本书，收获了不少干货，之前自己挖坑的《一些架构设计原则》一文后面会尽快填上。本文则先介绍一下《Java工程师修炼之道》一书^_^。
 
