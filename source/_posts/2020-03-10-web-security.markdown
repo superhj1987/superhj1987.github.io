@@ -3,7 +3,7 @@ layout: post
 title: "Java工程师应该知道的Web安全"
 date: 2020-03-10 19:29:34 +0800
 comments: true
-categories: security
+categories: java security
 ---
 
 Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。
