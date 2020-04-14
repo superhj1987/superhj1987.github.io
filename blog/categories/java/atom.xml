@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-04-14T11:43:01+00:00</updated>
+  <updated>2020-04-14T11:43:52+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,329 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java工程师应该知道的Web安全]]></title>
+    <link href="http://www.rowkey.me/blog/2020/03/10/web-security/"/>
+    <updated>2020-03-10T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2020/03/10/web-security</id>
+    <content type="html"><![CDATA[<p>Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。</p>
+
+<p>Web安全问题，从大的方面可以分为：</p>
+
+<ul>
+<li>客户端安全：通过浏览器进行攻击的安全问题。</li>
+<li>服务端安全：通过发送请求到服务端进行攻击的安全问题。</li>
+</ul>
+
+
+<p>常见的客户端安全问题有：</p>
+
+<ul>
+<li>跨站脚本攻击</li>
+<li>跨站点请求伪造</li>
+</ul>
+
+
+<p>常见的服务端安全问题有：</p>
+
+<ul>
+<li>SQL注入</li>
+<li>基于约束条件的SQL攻击</li>
+<li>DDOS攻击</li>
+<li>Session fixation</li>
+</ul>
+
+
+<p>本文主要针对这些问题进行讲述。</p>
+
+<!--more-->
+
+
+<h2>跨站脚本攻击</h2>
+
+<p>跨站脚本攻击，全称Cross Site Script（XSS），故名思议是跨越两个站点的攻击方式。一般指的是攻击方通过“HTML”注入的方式篡改了网页，插入了恶意的脚本，从而在用户浏览网页或者移动客户端使用WebView加载时，默默地做了一些控制操作。</p>
+
+<p>XSS可以说是客户端安全的首要问题，稍有不注意就会漏出相关接口被利用。</p>
+
+<p>一个XSS攻击的例子，如下：</p>
+
+<ul>
+<li>一个Java应用提供了一个接口可以上传个人动态，动态内容是富文本的。</li>
+<li><p>攻击者上传的内容如下：</p>
+
+<p>  <code>&lt;img src="1" onerror="alert('attack')"/&gt;</code></p></li>
+<li><p>在服务端和客户端程序未做任何过滤的情况下，其他用户访问这个动态的页面时，就会执行这个脚本。</p></li>
+</ul>
+
+
+<p>如果脚本不是一个alert，而是换成跳转到一个具有删除操作的URL或者脚本获取用户的Cookie然后发送到远程服务器上，可想而知危害有多大。</p>
+
+<p>防范此种攻击的常用方式有以下几种：</p>
+
+<ul>
+<li>对任何允许用户输入的地方做检查，防止其提交脚本相关特殊字符串，如script、onload、onerror等。客户端和服务端都要做检查。</li>
+<li>做输入过滤，即将特殊字符都过滤掉或者换成HTML转义后的字符。Java中可以使用Apache commons-lang中的StringEscapeUtils的escape前缀的方法来做转义。</li>
+<li>给Cookie属性设置上HttpOnly，可以防止脚本获取到Cookie。</li>
+<li>对输出内容做过滤。这个可在客户端做，也可在服务端做。服务端主要就是转义HTML字符，客户端可以使用escape方法来过滤。</li>
+</ul>
+
+
+<h2>跨站点请求伪造</h2>
+
+<p>跨站点请求伪造，全称Cross Site Request Forgery,简称CSRF。也是一种常见的攻击方式。</p>
+
+<p>此种攻击方式，主要是通过诱导用户点击某些链接，从而隐含地发起对其他站点的请求，进而进行数据操作。</p>
+
+<p>一个攻击示例如下：</p>
+
+<ul>
+<li>一个用户登录了一个站点，访问<a href="http://xx/delete_notes?id=xx%E5%8D%B3%E5%8F%AF%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%AC%94%E8%AE%B0%E3%80%82">http://xx/delete_notes?id=xx%E5%8D%B3%E5%8F%AF%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%AC%94%E8%AE%B0%E3%80%82</a></li>
+<li><p>攻击者在它的站点中构造一个页面，HTML页面含有以下内容：</p>
+
+<p>  <code>&lt;img src="http://xx/delete_notes?id=xx"/&gt;</code></p></li>
+<li><p>当用户被诱导访问攻击者的站点时就发起了一个删除笔记的请求。</p></li>
+</ul>
+
+
+<p>对于CSRF攻击的常用解决方案有以下几种：</p>
+
+<ul>
+<li>对重要请求要求验证码输入,这样就能防止在用户不知情的情况下，被发送请求。</li>
+<li>使用类似防盗链的机制，对header的refer进行检验以确认请求来自合法的源。</li>
+<li>对重要请求都附带一个服务端生成的随机token, 提交时对此token进行验证。这也是业界一个很普遍的做法。</li>
+</ul>
+
+
+<h2>SQL注入</h2>
+
+<p>SQL注入攻击是一个很常见的攻击方式，原理是通过发送特殊的参数，拼接服务端的SQL字符串，从而达到改变SQL功能的目的。</p>
+
+<p>一个攻击例子如下：</p>
+
+<ul>
+<li><p>服务端登录验证使用下面的方式,其中userName和userPwd都是用户直接上传的参数</p>
+
+<pre><code class="``">  String sql = "select * from user where user_name = '" + userName + "' and pwd = " + userPwd;
+</code></pre></li>
+<li>用户提交userName为admin&#8217;&ndash;,userPwd随便字符串xxx</li>
+<li>拼接好之后的SQL语句变成了：<code>select * from user where user_name = 'admmin'--' and pwd = 'xxx'</code>（&ndash;为SQL语句的注释）, 这样只要存在user_name为admin的用户，此语句就能成功执行并返回admin用户的信息。</li>
+</ul>
+
+
+<p>这里需要说明的是，如果服务器的请求错误信息没有做进一步封装，直接把原始的数据库错误返回，那么有经验的攻击者通过返回结果多次尝试就会有机会找出SQL注入的机会。</p>
+
+<p>防范此种攻击的方案有以下几个：</p>
+
+<ul>
+<li>在Java中构造SQL查询语句时，杜绝拼接用户参数，尤其是拼接SQL查询的where条件。全部使用PreparedStatement预编译语句, 通过？来传递参数。</li>
+<li>在业务层面，过滤、转义SQL特殊字符，Apache commons-lang中的StringEscapeUtil提供了escapeSQL的功能（最新的lang3已经删除此方法，因为其只是简单的替换&#8217;为&#8217;&lsquo;）。</li>
+</ul>
+
+
+<h2>基于约束条件的SQL攻击</h2>
+
+<p>基于约束条件的SQL攻击基于的原理如下：</p>
+
+<ul>
+<li>在处理SQL中的字符串时，字符串末尾的空格字符都会被删除，包括WHERE子句和INSERT语句，但LIKE子句除外。</li>
+<li>在任意INSERT查询中，SQL会根据varchar(n)来限制字符串的最大长度，即超过n的字符串只保留前n个字符。</li>
+</ul>
+
+
+<p>如此，我们设计一个用户表（暂且忽略设计的合理性），对其中的用户名和密码字段都设置为25个字符限制：</p>
+
+<pre><code>CREATE TABLE test_user (
+    `user_name` varchar(25),
+    `pwd`  varchar(25)
+);
+</code></pre>
+
+<p>有一个user_name为<code>user_test</code>的用户注册，于是向数据库添加一条记录。</p>
+
+<pre><code>insert into test_user values("user_test","111111");
+</code></pre>
+
+<p>接着，一个user_name为&#8217;user_test              1&#8217;(中间留有25个空格)的用户再来注册。一般的业务逻辑如下：</p>
+
+<ul>
+<li><p>判断用户名是否存在</p>
+
+<pre><code class="``">  select * from test_user where user_name = 'user_test              1'
+</code></pre>
+
+<p>  因为查询语句不会截断字符串，因此这样获取不到记录，表示用户不存在。</p></li>
+<li><p>用户名不存在，那么插入新用户。</p>
+
+<pre><code class="``">  insert into test_user values("user_test              1","123456")
+</code></pre></li>
+</ul>
+
+
+<p>这样，由于<code>user_name</code>约束为25个字符，那么新用户的<code>user_name</code>成为了&#8217;user_test      &lsquo;（后面是16个空格字符）。现在数据库记录如下（第二个记录后面是16个空格）：</p>
+
+<table>
+<thead>
+<tr>
+<th>user_name </th>
+<th> pwd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_test               </td>
+<td> 111111</td>
+</tr>
+<tr>
+<td>user_test               </td>
+<td> 123456</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>这样，当使用<code>user_name='user_test'</code>和<code>pwd='123456'</code>登录时，能匹配到第二条记录，登录是成功的。但是用户信息使用的第一条的记录，于是攻击者就获取到了第一个用户的操作权限。</p>
+
+<p>防范此种攻击的措施如下：</p>
+
+<ul>
+<li>为具有唯一性的那些列添加UNIQUE索引。</li>
+<li>在数据库操作前先将输入参数修剪为特定长度。</li>
+</ul>
+
+
+<h2>DDOS攻击</h2>
+
+<p>DDOS，全称Distributed Denial of Service, 分布式拒绝服务攻击。攻击者利用很多台机器同时向某个服务发送大量请求，人为构造并发压力，从而使得服务被冲垮，无法为正常用户提供服务。常见的DDOS攻击包括：</p>
+
+<ul>
+<li>SYN flood</li>
+<li>UDP flood</li>
+<li>ICMP flood</li>
+</ul>
+
+
+<p>其中SYN flood是最为经典的DDOS攻击。其利用了TCP连接三次握手时需要先发送SYN的机制，通过发送大量SYN包使得服务端建立大量半连接，消耗非常多的CPU和内存。针对这种攻击，很多解决方案就是在TCP层就使用相关算法识别异常流量，直接拒绝建立连接。但是，如果攻击者控制很多机器对一个资源消耗比较大的服务接口发起正常访问请求，那么这个方式就无效了。</p>
+
+<p>由于难于区分是否是正常用户的请求，因此DDOS是非常难以防范的，但仍有一些措施能够尽量地减少DDOS带来的影响，如下：</p>
+
+<ul>
+<li>合理使用缓存、异步等措施提高应用性能。应用抗并发的能力越强，就越不容易被DDOS冲垮服务。</li>
+<li>合理使用云计算相关组件，自动识别高峰流量并做自动扩容。</li>
+<li><p>在应用中限制来自某一IP或者某一设备ID的请求频率。超过此频率就将其放入黑名单，下次请求直接拒绝服务。Java中可以通过Redis的incr和expire操作来达到。如下：</p>
+
+<pre><code class="``">  String ip = NetworkUtil.getClientIP(request, false); //获取客户端ip地址
+  String key = "ddos." + ip;
+  long count = suishenRedisTemplate.incr(key); //incr不会影响expire
+  if (count &gt; 10000) {
+      throw new AccessException("access too frequently with ip: "
+           + StringUtils.defaultString(ip));
+  } else {
+      if (count == 1) {
+          suishenRedisTemplate.expire(key, 10);
+      }
+      return true;
+  }
+</code></pre>
+
+<p>  上述代码即可将同一IP的请求限制在十秒钟10000次。</p>
+
+<p>  此逻辑越靠近访问链路的前面效果越好，比如直接在Nginx中拦截效果就要比在业务应用中做要好。</p></li>
+</ul>
+
+
+<p>还需要提到的是DDOS一个新的变种，反射型DDOS攻击，也被称为放大攻击。原理如下图所示：</p>
+
+<p><img src="//post_images/reflect-ddos.png" alt="" /></p>
+
+<p>此种攻击，攻击者并不直接攻击目标服务IP，而是伪造被攻击者的IP，发送请求包到网上一些开放的特殊服务的服务器（放大器。这些服务器由于协议的特点并不会验证源IP的真伪，于是会将数倍于请求报文的回复数据发送到被攻击者的IP，从而对后者间接形成DDOS攻击。任何设计不完善的、基于UDP请求的协议或者ICMP协议都能形成放大器，包括DNS请求、Ping请求、NTP monlist请求、SSDP协议（简单服务发现协议）等。此种攻击不需要大量的肉鸡、难以追踪，正变得越来越流行。防范此种攻击通常的手段就是进行DDOS流量清洗和增加ACL过滤规则。</p>
+
+<h2>Session fixation</h2>
+
+<p>Session fixation攻击，故名思议就是会话固定攻击。在我们平时的Web开发中都是基于Session做用户会话管理的。在浏览器中，Session的ID一般是存储在Cookie中的，甚至直接附带在query参数中。如果Session在未登录变为登录的情况下不发生改变的话，Session fixation攻击就形成了。</p>
+
+<p>一个攻击示例如下：</p>
+
+<ul>
+<li>攻击者进入网站<a href="http://xx.com%E3%80%82">http://xx.com%E3%80%82</a></li>
+<li>攻击者发送<a href="http://xx.com?JSESSIONID=123456%E7%BB%99%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E3%80%82">http://xx.com?JSESSIONID=123456%E7%BB%99%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E3%80%82</a></li>
+<li>用户点击此链接进入网站，由于URL后面有JSESSIONID，因此直接使用此做为Session的ID。</li>
+<li>用户成功登陆后，攻击者就可以利用伪造的Session ID获取用户的各种操作权限。</li>
+</ul>
+
+
+<p>此种攻击的关键点就在于Tomcat使用JSESSIONID做为Session ID。因此，防范此种攻击的核心之一就在于不能使用客户端传来的Session ID。此外还有以下方法：</p>
+
+<ul>
+<li>不要接受由GET或者POST参数指定的Session ID值。</li>
+<li>针对每一个请求都生成新的Session。</li>
+<li>只接受服务端生成的Session ID。</li>
+<li>为Session指定过期时间。</li>
+</ul>
+
+
+<p>Java Web项目中,可以实现一个拦截器, 将使用query参数传递JSESSIONID的请求的Session删除掉：</p>
+
+<pre><code>public void doFilter(ServletRequest request, ServletResponse response,
+                         FilterChain chain) throws IOException, ServletException
+    ...
+
+    if (httpRequest.isRequestedSessionIdFromURL()) {
+        HttpSession session = httpRequest.getSession();
+        if (session != null) {
+            session.invalidate();
+        }
+    }
+    ...
+}
+</code></pre>
+
+<p>此外，对于每一次登录后的Session都重新生成ID, 并设置合理的失效期。</p>
+
+<pre><code>public JSONResult login(@RequestBody LoginRequestBody requestBody,
+                            HttpServletRequest request)
+    ...
+    boolean loginResult = doLogin();
+    if(loginResult){
+        request.changeSessionId(); //重新生成Session ID
+        request.getSession().setMaxInactiveInterval(1800); //30分钟失效
+    }
+    ...
+}
+</code></pre>
+
+<h2>隐私数据存储</h2>
+
+<p>随着市面上发生一次次数据库被脱导致用户隐私数据被泄漏的事情，越来越多的人意识到了隐私的重要性，在选择一个应用的时候也越来越在意对自己隐私数据的保护。这里所说的隐私数据包括：手机号、实名、身份证号、家庭住址、单位地址、家庭情况、密码等等。那么在技术层面如何存储这些隐私数据来保障用户的隐私安全呢？</p>
+
+<ol>
+<li><p>使用单向散列算法</p>
+
+<p> 此种方式对明文进行加密后是无法恢复明文的，因此仅仅适用于密码这种不需要恢复明文只需要做验证的场景。</p></li>
+<li><p>使用加密算法</p>
+
+<p> 此种方式，在存储和使用用户数据的时候都进行加/解密运算，能够在一定程度上保护数据的安全性。但每次都要进行加解密使得代价有点高，而如果使用简单的算法则无法面对穷举或者字典攻击。并且加密的数据对于SQL等数据库查询语句优化是不友好的，操作都得通过程序进行。此外，算法所使用的密钥的安全也是一个问题，存储在哪里都有被拿到的机会。而如果进一步对于每个用户或者每条数据都使用不同的密钥，那么就会提高程序的逻辑复杂性。</p>
+
+<p> 还得考虑到日志采集、数据分析等非具体业务场景，这些隐私数据最终还是要变为明文进行流通，无法从根本上保证隐私数据的安全。</p></li>
+</ol>
+
+
+<p>综上分析，可以采取以下这种方案：</p>
+
+<ol>
+<li><p>每一个用户都有自己的密钥，对其手机号、身份证等隐私信息使用加密算法来混淆其中的几位。如：159efadsc2681。如此，在只是需要展示这些信息的地方无须解密，直接使用即可。只有诸如发送短信、用户信用验证时才需要解密。</p></li>
+<li><p>密钥存储在另一个库中，由另外一个团队维护、独立管理，具有最高级别的访问权限，访问QPS也受严格控制。</p></li>
+<li><p>如果给数据分析部门提供数据，则提供隐私数据转换后的数据。例如：对用户的归属地分析，那么可以提供身份证转化为地区归属地后的信息而不是直接提供身份证号。</p></li>
+</ol>
+
+
+<p>如此，即使脱库也无法解密所有数据。而且密钥库和业务库独立，单独脱一个库是没有意义的。密钥库的访问权限和访问频率也都受限制，即使是内部人员脱库都很容易被发现。</p>
+
+<p>总之，对诸如身份证号、通讯录、支付宝账号等隐私信息要注意加密或者散列存储，一定不要明文发送到客户端，展示也不要明文展示，只有当真正使用的时候再去获取明文。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Java工程师应该知道的RPC]]></title>
@@ -1624,866 +1947,6 @@ println(map2)
 
 
 <p>以上为Kotlin中的基本语法说明，其他诸如委托、lambda函数、协程、与Java互操作等可见<a href="https://www.kotlincn.net/docs/reference/">https://www.kotlincn.net/docs/reference/</a>。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何进行Java项目构建？]]></title>
-    <link href="http://www.rowkey.me/blog/2018/08/30/build-java/"/>
-    <updated>2018-08-30T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/08/30/build-java</id>
-    <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter2-project/build.md</a></strong></p>
-
-<p>对于一个完整的项目来说，一般都有很多的类、很多的包，如果是Web工程那么还有很多jsp、资源文件。这时候如果只用JDK自带的工具编译和运行，是非常困难的一件事前。再者，编译源代码只是软件开发过程的一个方面，更重要的是要把软件发布到生产环境中来产生商业价值。所以，代码编译之后，还有测试、分析代码质量、部署等步骤要做。整个过程进行自动化操作是很有必要的。</p>
-
-<p>这时候就需要一个Java的工程/项目构建工具。这里所谓的项目构建就是指的完成工程发布流程需要的一系列步骤，包括编译、测试、打包、部署等等。虽然用Eclipse和Intellij这些IDE能解决这个问题，但是受限于这些IDE体积庞大且基本上都是GUI的，而后端应用的运行环境基本都是没有显示器的，所以很多时候还是需要一些专门做项目构建的工具来支持这些工作。</p>
-
-<!--more-->
-
-
-<ul>
-<li><a href="#%E4%B8%80.%20Ant">一. Ant</a>
-
-<ul>
-<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B">使用示例</a></li>
-<li><a href="#%E6%8F%90%E7%A4%BA">提示</a></li>
-</ul>
-</li>
-<li><a href="#%E4%BA%8C.%20Maven">二. Maven</a>
-
-<ul>
-<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
-<li><a href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">配置文件</a></li>
-<li><a href="#%E6%A0%87%E5%87%86Web%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84">标准Web项目结构</a></li>
-<li><a href="#%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86">依赖管理</a></li>
-<li><a href="#%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E6%B5%81%E7%A8%8B">项目构建流程</a></li>
-<li><a href="#Profile%E5%A4%9A%E7%8E%AF%E5%A2%83%E6%94%AF%E6%8C%81">Profile多环境支持</a></li>
-<li><a href="#%E5%A4%8D%E7%94%A8test">复用test</a></li>
-<li><a href="#Scala%E6%94%AF%E6%8C%81">Scala支持</a></li>
-<li><a href="#%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6">常用插件</a></li>
-<li><a href="#%E6%8F%90%E7%A4%BA">提示</a></li>
-</ul>
-</li>
-<li><a href="#%E4%B8%89.%20Gradle">三. Gradle</a>
-
-<ul>
-<li><a href="#%E4%BB%8B%E7%BB%8D">介绍</a></li>
-<li><a href="#%E4%BD%BF%E7%94%A8%E7%A4%BA%E4%BE%8B">使用示例</a></li>
-<li><a href="#%E5%A4%9A%E6%A8%A1%E5%9D%97">多模块</a></li>
-<li><a href="#%E6%8F%90%E7%A4%BA">提示</a></li>
-</ul>
-</li>
-</ul>
-
-
-<h2><a name='一. Ant'></a>一. Ant</h2>
-
-<h3><a name='介绍'></a>介绍</h3>
-
-<p>Ant的全称是Another Neat Tool，意为另一个好用的工具，是Java中比较常用的项目构建工具。构建过程包括编译、测试和部署等。概括来看具有以下三个特点：</p>
-
-<ul>
-<li>和传统的Make工具相似，能为我们完成工程发布流程中一系列机械工作。并且具有良好的跨平台特性。</li>
-<li>使用XML来表述构建过程与依赖关系，用task替代shell，语义清晰，便于维护。</li>
-<li>具有强大的任务系统，便于扩展。其中，task以Java class的形式存在。</li>
-</ul>
-
-
-<p>为了方便使用，Ant自带了很多默认的task，如：</p>
-
-<ul>
-<li>echo: 输出信息</li>
-<li>mkdir: 创建文件夹</li>
-<li>exec: 执行shell命令</li>
-<li>delete: 删除文件</li>
-<li>copy: 复制文件</li>
-</ul>
-
-
-<p>通过组合这些默认task和自己实现的task就能够完成Java项目的构建任务。</p>
-
-<h3><a name='使用示例'></a>使用示例</h3>
-
-<p>使用Ant需要编写build.xml来配置任务流程。当然，可以通过-f参数指定其他配置文件作为任务流程描述文件。一个Ant的配置文件如下：</p>
-
-<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;project name="helloWorld" basedir="." default="usage"&gt;
-    &lt;property name="mvn" value="mvn"/&gt;
-    &lt;property name="script.lock" value="/build_home/scripts/lock"/&gt;
-
-    &lt;target name="usage" description="Prints out instructions"&gt;
-        &lt;echo message="使用 'lock' 加锁"/&gt;
-        &lt;echo message="使用 'unlock' 解锁"/&gt;
-        &lt;antcall target="compile"&gt;
-            &lt;param name="profile" value="test"/&gt;
-        &lt;/antcall&gt;
-    &lt;/target&gt;
-
-    &lt;target name="lock"&gt;
-        &lt;exec dir="${basedir}" executable="${script.lock}" errorproperty="lock.err"/&gt;
-        &lt;fail message="u can use 'ant unlcok to force redeploy'...'"&gt;
-            &lt;condition&gt;
-                &lt;contains string="${lock.err}" substring="locked"/&gt;
-            &lt;/condition&gt;
-        &lt;/fail&gt;
-    &lt;/target&gt;
-
-    &lt;target name="unlock"&gt;
-        &lt;delete file="${basedir}/.lock"/&gt;
-    &lt;/target&gt;
-
-    &lt;target name="compile"&gt;
-        &lt;echo message="编译开始"/&gt;
-        &lt;exec dir="${basedir}" executable="${mvn}" failonerror="true"&gt;
-            &lt;arg line="compile -P ${profile}"/&gt;
-        &lt;/exec&gt;
-        &lt;exec executable="${mvn}" failonerror="true"&gt;
-            &lt;arg value="war:exploded"/&gt;
-        &lt;/exec&gt;
-    &lt;/target&gt;
-
-    &lt;!--逻辑判断--&gt;
-    &lt;target name="testIf" depends="check" if="flag"&gt;
-        &lt;echo message="if..."/&gt;
-    &lt;/target&gt;
-
-    &lt;target name="testUnless" depends="check" unless="flag"&gt;
-        &lt;echo message="unless..."/&gt;
-    &lt;/target&gt;
-
-    &lt;target name="check"&gt;
-        &lt;condition property="flag"&gt;
-            &lt;or&gt;
-              &lt;and&gt;
-                 &lt;isset property="name"/&gt;
-                 &lt;equals arg1="${version}" arg2="1.0" /&gt;
-              &lt;/and&gt;
-              &lt;available file="/project.version" type="file"/&gt;
-            &lt;/or&gt;
-        &lt;/condition&gt;
-    &lt;/target&gt;
-    &lt;!--逻辑判断end--&gt;
-
-&lt;/project&gt;
-</code></pre>
-
-<p>可见，Ant使用顶级元素<project>描述整个工程,使用<property>描述全局属性, 用<target>定义工程中的target以及target间的依赖, 在target中定义task的执行流程。使用antcall来调用target，通过其子节点param传递参数。</p>
-
-<p>此外，在很多场景下需要用到逻辑判断，如if等。Ant中的if如上面的例子所示，是需要搭配target和condition使用的。上面配置中最后的逻辑判断部分，类似如下伪代码：</p>
-
-<pre><code>if (name ！= null &amp;&amp; version.equals("1.0")) || fileExist("/project.version") ){
-    echo "if..."
-}else{
-    echo "unless..."
-}
-</code></pre>
-
-<p>执行<code>ant [target]</code>即可执行任务流程。</p>
-
-<h3><a name='提示'></a>提示</h3>
-
-<ul>
-<li>使用Ant时，一个常见的需求就是通过命令行给Ant传递参数，可以通过<code>-Dname=value</code>这种形式来传递，在build.xml中通过<code>${name}</code>来引用即可。</li>
-<li><p>对于配置文件中重复出现的元素，可以通过refid引用，减少重复配置。</p>
-
-<pre><code class="``">  &lt;project&gt;
-      &lt;path id="project.class.path"&gt;
-          &lt;pathelement location="lib/"/&gt;
-          &lt;pathelement location="${java.class.path}/"/&gt;
-      &lt;/path&gt;
-
-      &lt;target ...&gt;
-          &lt;rmic ...&gt;
-              &lt;classpath refid="project.class.path"/&gt;
-          &lt;/rmic&gt;
-      &lt;/target&gt;
-
-      &lt;target ...&gt;
-          &lt;javac ...&gt;
-              &lt;classpath refid="project.class.path"/&gt;
-          &lt;/javac&gt;
-      &lt;/target&gt;
-  &lt;/project&gt;
-</code></pre></li>
-</ul>
-
-
-<h2><a name='二. Maven'></a>二. Maven</h2>
-
-<h3><a name='介绍'></a>介绍</h3>
-
-<p>Maven是继Ant后出现的一款基于约定优于配置原则的项目构建工具。这里所说的“约定优于配置”指的是约定的一些规范无需再配置，例如：其约定好的生命周期、项目结构等。当然，Maven也提供了打破默认约定的配置办法。</p>
-
-<p>概括来讲，Maven具有以下的功能：</p>
-
-<ul>
-<li>依赖管理：Maven能够帮助我们解决软件包依赖的管理问题，不再需要提交大量的jar包，引入第三方lib也不需要关心其依赖。</li>
-<li>规范目录结构：标准的目录结构有助于项目构建的标准化，使得项目更整洁，还可通过配置profile根据环境的不同读取不同的配置文件。</li>
-<li>可以通过每次发布都更新版本号以及统一依赖配置文件来规范软件包的发布。</li>
-<li>完整的项目构建阶段：Maven能够对项目完整阶段进行构建。</li>
-<li>支持多种插件：面向不同类型的工程项目提供不同的插件。</li>
-<li>方便集成：能够集成在IDE中方便使用，和其他自动化构建工具也都能配合使用。</li>
-</ul>
-
-
-<p>可见，相比起Ant，Maven提供了更加强大和规范的功能。</p>
-
-<h3><a name='配置文件'></a>配置文件</h3>
-
-<p>Maven基于pom（Project Object Model）进行。一个项目所有的配置都放置在pom.xml文件中，包括定义项目的类型、名字，管理依赖关系，定制插件的行为等等。</p>
-
-<pre><code>&lt;project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;
-    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
-
-    &lt;groupId&gt;me.rowkey&lt;/groupId&gt;
-    &lt;artifactId&gt;test&lt;/artifactId&gt;
-    &lt;version&gt;1.0.0&lt;/version&gt;
-    &lt;packaging&gt;jar&lt;/packaging&gt;
-
-    &lt;name&gt;rowkey&lt;/name&gt;
-    &lt;url&gt;http://maven.apache.org&lt;/url&gt;
-
-    &lt;repositories&gt;
-        &lt;repository&gt;
-            &lt;id&gt;nexus-suishen&lt;/id&gt;
-            &lt;name&gt;Nexus suishen&lt;/name&gt;
-            &lt;url&gt;http://maven.etouch.cn/nexus/content/groups/public/&lt;/url&gt;
-            &lt;snapshots&gt;
-                &lt;enabled&gt;true&lt;/enabled&gt;
-                &lt;updatePolicy&gt;always&lt;/updatePolicy&gt;
-                &lt;checksumPolicy&gt;warn&lt;/checksumPolicy&gt;
-            &lt;/snapshots&gt;
-        &lt;/repository&gt;
-    &lt;/repositories&gt;
-
-    &lt;properties&gt;
-        &lt;slf4j.version&gt;1.7.21&lt;/slf4j.version&gt;
-    &lt;/properties&gt;
-
-    &lt;dependencies&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
-            &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
-            &lt;version&gt;${slf4j.version}&lt;/version&gt;
-        &lt;/dependency&gt;
-
-        &lt;dependency&gt;
-            &lt;groupId&gt;junit&lt;/groupId&gt;
-            &lt;artifactId&gt;junit&lt;/artifactId&gt;
-            &lt;version&gt;4.8.2&lt;/version&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-
-    &lt;/dependencies&gt;
-
-    &lt;build&gt;
-        &lt;plugins&gt;
-            &lt;plugin&gt;
-                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-                &lt;version&gt;2.3.2&lt;/version&gt;
-                &lt;configuration&gt;
-                    &lt;source&gt;1.7&lt;/source&gt;
-                    &lt;target&gt;1.7&lt;/target&gt;
-                &lt;/configuration&gt;
-            &lt;/plugin&gt;
-        &lt;/plugins&gt;
-    &lt;/build&gt;
-
-    &lt;!--发布配置，用户名和密码需要在$M2_HOME/conf/settings.xml中配置server--&gt;
-    &lt;distributionManagement&gt;
-        &lt;repository&gt;
-            &lt;id&gt;suishen-release&lt;/id&gt;
-            &lt;name&gt;Suishen-Releases&lt;/name&gt;
-            &lt;url&gt;http://maven.etouch.cn/nexus/content/repositories/Suishen-Releases&lt;/url&gt;
-        &lt;/repository&gt;
-
-        &lt;snapshotRepository&gt;
-            &lt;id&gt;suishen-snapshot&lt;/id&gt;
-            &lt;name&gt;Suishen-Snapshots&lt;/name&gt;
-            &lt;url&gt;http://maven.etouch.cn/nexus/content/repositories/Suishen-Snapshots&lt;/url&gt;
-        &lt;/snapshotRepository&gt;
-    &lt;/distributionManagement&gt;
-
-&lt;/project&gt;
-</code></pre>
-
-<p>其中，</p>
-
-<ul>
-<li>Maven使用groupId:artifactId:version三者来唯一标识一个唯一的二进制版本，可以缩写为GAV。</li>
-<li>packaging代表打包方式，可选的值有: pom, jar, war, ear, custom，默认为jar。</li>
-<li>properties是全局属性的配置</li>
-<li>dependencies是对于依赖的管理</li>
-<li>plugins是对于插件的管理。</li>
-</ul>
-
-
-<p>此外，可以通过parent实现pom的继承做统一配置管理，子pom中的配置优先级高于父pom。</p>
-
-<pre><code>&lt;?xml version=”1.0″ encoding=”UTF-8″?&gt;
-
-&lt;project&gt;
-
-…
-
-&lt;parent&gt;
-
-    &lt;artifactId&gt;suishen-parent&lt;/artifactId&gt;
-
-    &lt;groupId&gt;suishen&lt;/groupId&gt;
-
-    &lt;version&gt;1.0&lt;/version&gt;
-
-&lt;/parent&gt;
-
-…
-
-&lt;/project&gt;
-</code></pre>
-
-<p>可以继承的元素如下：</p>
-
-<ul>
-<li>groupId,version</li>
-<li>Project Config</li>
-<li>Dependencies</li>
-<li>Plugin configuration</li>
-</ul>
-
-
-<p>此外，<dependencyManagement>和<pluginManagement>可以统一做依赖和插件的配置管理，不同于<dependencies>和<plugins>的是，如果子pom中没有声明<dependency>和<plugin>则并不生效。</p>
-
-<h3><a name='标准Web项目结构'></a>标准Web项目结构</h3>
-
-<p>在Maven中，一个Web项目的标准结构，如下图所示：</p>
-
-<p><img src="//post_images/buildjava/mvn-web-arch.png" alt="" /></p>
-
-<p>其中：</p>
-
-<ul>
-<li>src/main/java         Java代码目录</li>
-<li>src/main/resources    配置文件目录</li>
-<li>src/main/webapp       webapp根目录</li>
-<li>src/test/java         测试代码目录</li>
-<li>src/test/resources    测试配置目录</li>
-<li>target/classes        代码编译结果目标目录</li>
-<li>target/test-classes   测试代码编译结果目标目录</li>
-</ul>
-
-
-<p>当然，结构是可以自定义的。</p>
-
-<pre><code> &lt;build&gt;
-   &lt;plugins&gt;
-       &lt;plugin&gt;
-           &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-           &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;
-           &lt;configuration&gt;
-               &lt;warSourceDirectory&gt;WebContent/&lt;/warSourceDirectory&gt;
-           &lt;/configuration&gt;
-       &lt;/plugin&gt;
-   &lt;/plugins&gt;
-   &lt;sourceDirectory&gt;src&lt;/sourceDirectory&gt;
-   &lt;testSourceDirectory&gt;test/java&lt;/testSourceDirectory&gt;
-   &lt;testResources&gt;
-       &lt;testResource&gt;
-           &lt;directory&gt;test/resources&lt;/directory&gt;
-       &lt;/testResource&gt;
-   &lt;/testResources&gt;
-   &lt;directory&gt;build&lt;/directory&gt;
-&lt;/build&gt;
-</code></pre>
-
-<p>这里，Java代码目录移到了./src中，测试代码目录到了./test/java中，测试资源也到了./test/resources,同时编译结果目录变为了./build。此外，在maven-war-plugin中，也把Web目录的war源码目录改为了./WebContent。</p>
-
-<h3><a name='依赖管理'></a>依赖管理</h3>
-
-<p>依赖管理是通过<dependencies>来定义的，其中：</p>
-
-<ul>
-<li>一项jar包依赖可以由groupId:artifactId:version标识</li>
-<li>完整的标识为：groupId:artifactId:type:classifier:version</li>
-<li>依赖在编译部署中参与的情况可以由scope来指定, 分为: compile、test、provided、system、import，默认为compile。其中的import是在Maven 2.0.9后引入的，仅仅支持在<dependencyManagement>中使用，导入外部的依赖版本管理。</li>
-<li>依赖是一个树状结构，采用<strong>最近依赖</strong>原则，也可以通过exclusions标签来排除一些包。这里的最近依赖指的是在依赖树中，离当前结点最近的依赖优先级高，同样远时第一个优先。</li>
-</ul>
-
-
-<p>依赖下载的过程一般如下图所示：</p>
-
-<p><img src="//post_images/buildjava/mvn-dependency-download.png" alt="" /></p>
-
-<p>但上面的示例配置中，如果有一个repsitory的配置，那么依赖下载的过程则发生了改变。</p>
-
-<p><img src="//post_images/buildjava/mvn-dependency-download-1.png" alt="" /></p>
-
-<p>此外，Maven中还有一个镜像库的配置，即在Maven的settings.xml中配置Maven镜像库。和pom.xml中的repository不同的是镜像会拦截住对远程中央库的请求，只在镜像库中进行依赖的搜索以及下载。而如果只是配置了repository，那么在repository中找不到相应的依赖时，会继续去远程中央库进行搜索和下载。</p>
-
-<p>上面所说的镜像库和repository可以通过<a href="http://www.sonatype.org/nexus/">http://www.sonatype.org/nexus/</a>进行搭建。</p>
-
-<h3><a name='项目构建流程'></a>项目构建流程</h3>
-
-<p>Maven的构建生命周期中几个常见phase如下：</p>
-
-<ul>
-<li>validate：验证项目以及相关信息是否正确</li>
-<li>compile：编译源代码和相关资源文件</li>
-<li>test：对测试代码进行测试</li>
-<li>package：根据项目类型的不同进行打包</li>
-<li>verify： 验证打包的正确性</li>
-<li>install：将打好的包安装到本地</li>
-<li>deploy：将打好的包发布到远程库中</li>
-</ul>
-
-
-<p>当然，对应上述每一个phase,还有pre、post、proces做前缀的一些phase。还有一些在命令行中不常用的phase如：test-compile、integration-test等。</p>
-
-<p>针对于Java Web项目，一个完整的项目构建流程如下图所示：</p>
-
-<p><img src="//post_images/buildjava/mvn-process.png" alt="" /></p>
-
-<h3><a name='Profile多环境支持'></a>Profile多环境支持</h3>
-
-<p>现实开发中一个很常见的需求就是需要根据不同的环境打包不同的文件或者读取不同的属性值。Maven中的profile即可解决此问题。</p>
-
-<pre><code>&lt;profiles&gt;
-   &lt;profile&gt;
-       &lt;id&gt;dev&lt;/id&gt;
-       &lt;activation&gt;
-           &lt;activeByDefault&gt;true&lt;/activeByDefault&gt;
-       &lt;/activation&gt;
-       &lt;properties&gt;
-           &lt;resources.dir&gt;src/main/resources/dev&lt;/resources.dir&gt;
-       &lt;/properties&gt;
-   &lt;/profile&gt;
-   &lt;profile&gt;
-       &lt;id&gt;test&lt;/id&gt;
-       &lt;properties&gt;
-           &lt;resources.dir&gt;src/main/resources/test&lt;/resources.dir&gt;
-       &lt;/properties&gt;
-   &lt;/profile&gt;
-   &lt;profile&gt;
-       &lt;id&gt;prod&lt;/id&gt;
-       &lt;properties&gt;
-           &lt;resources.dir&gt;src/main/resources/prod&lt;/resources.dir&gt;
-       &lt;/properties&gt;
-   &lt;/profile&gt;
-
-&lt;/profiles&gt;
-
-&lt;build&gt;
-    &lt;filters&gt;  
-        &lt;filter&gt;${user.home}/love.properties&lt;/filter&gt;  
-    &lt;/filters&gt;  
-   &lt;resources&gt;
-       &lt;resource&gt;
-           &lt;directory&gt;${resources.dir}&lt;/directory&gt;
-           &lt;filtering&gt;true&lt;/filtering&gt;  
-           &lt;includes&gt;  
-               &lt;include&gt;**/*&lt;/include&gt; 
-           &lt;/includes&gt; 
-        &lt;/resource&gt;
-       &lt;resource&gt;
-           &lt;directory&gt;src/main/resources&lt;/directory&gt;
-           &lt;filtering&gt;true&lt;/filtering&gt;  
-           &lt;includes&gt;  
-               &lt;include&gt;**/*&lt;/include&gt; 
-           &lt;/includes&gt; 
-       &lt;/resource&gt;
-   &lt;/resources&gt;
-&lt;/build&gt;
-</code></pre>
-
-<p>如此，分为dev、test以及prod三种环境，对应每一种环境，其资源文件路径都不一样。在使用mvn时，使用-P参数指定profile即可生效。</p>
-
-<p>此外，示例中resource下的filtering设置为true, 是为了能够在编译过程中将资源文件中的占位符替换为Maven中相应属性对应的值。例如，在resources下的config.properties文件内容：</p>
-
-<pre><code>resouceDir=${resources.dir}
-</code></pre>
-
-<p>在profile为dev时，编译结束此文件会变为:</p>
-
-<pre><code>resouceDir=src/main/resources/dev
-</code></pre>
-
-<p>而示例中的filters配置则是将外部文件的属性引入进来，同样也能够使用占位符。</p>
-
-<p>如果是Web项目，想要在webapp下使用占位符，那么则需要配置maven-war-plugin:</p>
-
-<pre><code>&lt;plugin&gt;  
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;  
-    &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;  
-    &lt;configuration&gt;  
-        &lt;webResources&gt;  
-            &lt;resource&gt;  
-                &lt;filtering&gt;true&lt;/filtering&gt;  
-                &lt;directory&gt;src/main/webapp&lt;/directory&gt;  
-                &lt;includes&gt;  
-                    &lt;include&gt;**/*&lt;/include&gt;  
-                &lt;/includes&gt;  
-            &lt;/resource&gt;  
-        &lt;/webResources&gt;  
-        &lt;warSourceDirectory&gt;src/main/webapp&lt;/warSourceDirectory&gt;  
-        &lt;webXml&gt;src/main/webapp/WEB-INF/web.xml&lt;/webXml&gt;  
-    &lt;/configuration&gt;  
-&lt;/plugin&gt;  
-</code></pre>
-
-<h3><a name='复用test'></a>复用test</h3>
-
-<p>当需要将写的测试用例（src/test下的资源和类）以jar包形式发布出去的时候，需要用到test-jar。首先，在打包时配置maven-jar-plugin，如下：</p>
-
-<pre><code>&lt;plugin&gt;
-    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
-    &lt;artifactId&gt;maven-jar-plugin&lt;/artifactId&gt;
-    &lt;executions&gt;
-         &lt;execution&gt;
-            &lt;goals&gt;
-                &lt;goal&gt;test-jar&lt;/goal&gt;
-            &lt;/goals&gt;
-            &lt;configuration&gt;
-                &lt;excludes&gt;
-                    &lt;exclude&gt;*.conf&lt;/exclude&gt;
-                    &lt;exclude&gt;**/*.*.conf&lt;/exclude&gt;
-                    &lt;exclude&gt;logback.xml&lt;/exclude&gt;
-                &lt;/excludes&gt;
-            &lt;/configuration&gt;
-        &lt;/execution&gt;
-    &lt;/executions&gt;
-    &lt;configuration&gt;
-        &lt;excludes&gt;
-            &lt;exclude&gt;*.conf&lt;/exclude&gt;
-            &lt;exclude&gt;**/*.*.conf&lt;/exclude&gt;
-            &lt;exclude&gt;*.properties&lt;/exclude&gt;
-            &lt;exclude&gt;logback.xml&lt;/exclude&gt;
-        &lt;/excludes&gt;
-    &lt;/configuration&gt;
-&lt;/plugin&gt;
-</code></pre>
-
-<p>使用时，指定dependency的type为test-jar：</p>
-
-<pre><code>&lt;dependency&gt;
-    &lt;groupId&gt;xx&lt;/groupId&gt;
-    &lt;artifactId&gt;xx&lt;/artifactId&gt;
-    &lt;version&gt;1.0-SNAPSHOT&lt;/version&gt;
-    &lt;type&gt;test-jar&lt;/type&gt;
-    &lt;scope&gt;test&lt;/scope&gt;
-&lt;/dependency&gt;
-</code></pre>
-
-<h3><a name='Scala支持'></a>Scala支持</h3>
-
-<p>Scala的官方构建工具是sbt，但是由于某些原因，在国内访问很慢。Maven有插件提供了对Scala项目的支持。</p>
-
-<pre><code>&lt;build&gt;
-    &lt;plugins&gt;
-        &lt;plugin&gt;
-            &lt;groupId&gt;net.alchim31.maven&lt;/groupId&gt;
-            &lt;artifactId&gt;scala-maven-plugin&lt;/artifactId&gt;
-            &lt;version&gt;3.1.6&lt;/version&gt;
-            &lt;executions&gt;
-               &lt;execution&gt;
-                   &lt;id&gt;scala-compile-first&lt;/id&gt;
-                   &lt;phase&gt;process-resources&lt;/phase&gt;
-                   &lt;goals&gt;
-                       &lt;goal&gt;add-source&lt;/goal&gt;
-                       &lt;goal&gt;compile&lt;/goal&gt;
-                   &lt;/goals&gt;
-               &lt;/execution&gt;
-               &lt;execution&gt;
-                   &lt;id&gt;scala-test-compile&lt;/id&gt;
-                   &lt;phase&gt;process-test-resources&lt;/phase&gt;
-                   &lt;goals&gt;
-                       &lt;goal&gt;testCompile&lt;/goal&gt;
-                   &lt;/goals&gt;
-               &lt;/execution&gt;
-            &lt;/executions&gt;
-        &lt;/plugin&gt;
-        &lt;plugin&gt;
-           &lt;groupId&gt;org.scalatest&lt;/groupId&gt;
-           &lt;artifactId&gt;scalatest-maven-plugin&lt;/artifactId&gt;
-           &lt;version&gt;1.0-RC2&lt;/version&gt;
-           &lt;configuration&gt;
-               &lt;reportsDirectory&gt;${project.build.directory}/surefire-reports&lt;/reportsDirectory&gt;
-               &lt;junitxml&gt;.&lt;/junitxml&gt;
-               &lt;filereports&gt;TestSuite.txt&lt;/filereports&gt;
-               &lt;stdout&gt;testOutput&lt;/stdout&gt;
-           &lt;/configuration&gt;
-           &lt;executions&gt;
-               &lt;execution&gt;
-                   &lt;id&gt;test&lt;/id&gt;
-                   &lt;goals&gt;
-                       &lt;goal&gt;test&lt;/goal&gt;
-                   &lt;/goals&gt;
-               &lt;/execution&gt;
-           &lt;/executions&gt;
-        &lt;/plugin&gt;
-       &lt;plugin&gt;
-           &lt;groupId&gt;org.codehaus.mojo&lt;/groupId&gt;
-           &lt;artifactId&gt;exec-maven-plugin&lt;/artifactId&gt;
-           &lt;version&gt;1.2.1&lt;/version&gt;
-           &lt;configuration&gt;
-               &lt;executable&gt;scala&lt;/executable&gt;
-               &lt;arguments&gt;
-                   &lt;argument&gt;-classpath&lt;/argument&gt;
-                   &lt;classpath/&gt;
-                   &lt;argument&gt;&lt;/argument&gt;
-               &lt;/arguments&gt;
-           &lt;/configuration&gt;
-       &lt;/plugin&gt;
-&lt;/plugins&gt;
-</code></pre>
-
-<p>net.alchim31.maven.scala-maven-plugin提供了对Scala代码的编译；org.scalatest.scalatest-maven-plugin提供了对Scala项目的测试；exec-maven-plugin配置了对Scala程序的执行。</p>
-
-<h3><a name='常用插件'></a>常用插件</h3>
-
-<p>Maven提供了很多插件方便开发工作。</p>
-
-<ul>
-<li><p>maven-source-plugin</p>
-
-<p>  源码发布插件，绑定在compile阶段，执行jar goal, 将源码以jar包的形式发布出去。</p></li>
-<li><p>maven-javadoc-plugin</p>
-
-<p>  javadoc插件，将源码的javadoc发布出去。</p></li>
-<li><p>maven-archetype-plugin</p>
-
-<p>  使用此插件可以定制/使用项目模板。定制模板可以遵循archetype的结构编写文件，也可以使用mvn archetype:create-from-project从一个现有的项目生成；使用模板通过archetype:generate即可。</p></li>
-<li><p>maven-tomcat7-plugin</p>
-
-<p>  此插件可以直接使用Tomcat运行web项目，常用的命令是：<code>mvn tomcat7:run</code>。同样的还有jetty-maven-plugin。</p></li>
-<li><p>maven-shade-plugin</p>
-
-<p>  此插件是maven常用打包插件，一般是将其绑定在package阶段，执行其shade goal。能够将源码和依赖的第三方资源打包在一起以供独立运行。</p></li>
-<li><p>maven-assesmbly-plugin</p>
-
-<p>  和maven-shade-plugin一样也是打包插件，但是其功能更加强大，输出压缩包格式除了jar还支持tar、zip、gz等。</p></li>
-<li><p>maven-gpg-plugin</p>
-
-<p>  此插件是jar包的签名插件，可以对自己发布的jar包进行签名。</p></li>
-</ul>
-
-
-<h3><a name='提示'></a>提示</h3>
-
-<ul>
-<li>在项目版本号中加入<code>SNAPSHOT</code>后缀做为快照版本可以使得Maven每次都能自动获取最新版本而无需频繁更新版本号。</li>
-<li><code>mvn -DNAME=test</code>可以传递给pom参数，使用${NAME}引用即可。</li>
-<li><p>在dependency中设置optional为true, 可使得此依赖不传递出去。如下：</p>
-
-<pre><code class="``">  ...
-  &lt;artifactId&gt;suishen-libs&lt;/artifactId&gt;
-  ...
-
-  ...
-  &lt;dependency&gt;
-     &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
-     &lt;artifactId&gt;httpasyncclient&lt;/artifactId&gt;
-     &lt;version&gt;4.1.3&lt;/version&gt;
-     &lt;optional&gt;true&lt;/optional&gt;
-  &lt;/dependency&gt;
-  ...
-</code></pre>
-
-<p>  如此，依赖于suishen-lib的项目除非在自己的pom里显示声明，否则不会依赖于httpasyncclient。</p></li>
-<li><p>由于Maven自定义plugin的复杂度，不够灵活，因此很多时候都是结合Ant的灵活性和Maven一起使用的。</p>
-
-<pre><code class="``">  &lt;target name="compile" depends="clean"&gt;
-    &lt;exec executable=“mvn"&gt;
-            &lt;arg line="compile"/&gt;
-    &lt;/exec&gt;
-  &lt;/target&gt;
-
-  &lt;target name="compile" depends="clean"&gt;
-    &lt;exec executable=“cmd"&gt;
-            &lt;arg line=“/c mvn compile"/&gt;
-    &lt;/exec&gt;
-  &lt;/target&gt;
-</code></pre></li>
-<li><p>日常开发中一个工程可能比较庞大，这时可以把这个工程拆分成多个子模块来管理。一个多模块工程包含一个父pom，在其中定义了它的子模块，每个子模块都是一个独立的工程。</p>
-
-<pre><code class="``">  &lt;project&gt;
-      …
-      &lt;packaging&gt;pom&lt;/packaging&gt;
-
-      &lt;modules&gt;
-          &lt;module&gt;module-1&lt;/module&gt;
-          &lt;module&gt;module-2&lt;/module&gt;
-      &lt;/modules&gt;
-  &lt;/project&gt;
-</code></pre></li>
-<li>可以使用第三方的takari/maven-wrapper(<code>mvn -N io.takari:maven:wrapper -Dmaven=3.3.3</code>)来做Maven操作（<code>./mvnw clean</code>），从而可以达到类似gradle wrapper的功能：不用预先安装好Maven，还能够统一项目所使用的Maven版本。</li>
-</ul>
-
-
-<h2><a name='三. Gradle'></a>三. Gradle</h2>
-
-<h3><a name='介绍'></a>介绍</h3>
-
-<p>Gradle是目前正在开始流行的新一代构建工具，正在逐步的被大家推广使用，尤其以Android为典型。基本上现在所有的Android项目都采用Gradle做为项目构建工具。概括来讲，有以下几个特点：</p>
-
-<ul>
-<li>采用了Groovy DSL来定义配置，相比起XML更加易于学习和使用，并大大简化了构建代码的行数。此外，这种“配置即代码”的方式能够大大简化配置学习和插件编写的成本，提供了更好的灵活性。</li>
-<li>在构建模型上非常灵活。可以轻松创建一个task，并随时通过depends语法建立与已有task的依赖关系。这里Gradle使用了Java插件来支持Java项目的标准构建生命周期（和Maven类似）。</li>
-<li>依赖的scope简化为compile、runtime、testCompile、testRuntime四种。</li>
-<li>支持动态的版本依赖。在版本号后面使用+号的方式可以实现动态的版本管理。</li>
-<li>支持排除传递性依赖或者干脆关闭传递性依赖。</li>
-<li>完全支持Maven、Ivy的资源库（Repository）。</li>
-</ul>
-
-
-<h3><a name='使用示例'></a>使用示例</h3>
-
-<p>Gradle的配置写在build.gradle文件中。</p>
-
-<pre><code>apply plugin: 'groovy'
-apply plugin: 'idea'
-apply plugin: 'checkstyle'
-
-// --- properties ---
-ext.ideaInstallationPath = '/Applications/IntelliJ IDEA.app/Contents'
-ext.pomCfg = {
-  name 'me.rowkey.libs'
-  description '&lt;project_desc&gt;'
-  ...
-}
-sourceCompatibility = 1.6
-// --- properties ---
-
-//源码目录结构
-sourceSets.main.java.srcDirs = []
-sourceSets.main.groovy.srcDir 'src/main/java'
-
-//增加repository
-repositories {
-    mavenLocal()
-    maven{
-        url "http://maven.etouch.cn/nexus/content/groups/public/"
-    }
-    mavenCentral()
-}
-
-//依赖管理
-dependencies {
-    compile fileTree(dir: ideaInstallationPath + '/lib', include: '*.jar')
-    testCompile 'org.mockito:mockito-core:2.0.3-beta'
-    testCompile 'org.assertj:assertj-core:1.7.1'
-    testCompile 'org.springframework:spring-test:4.0.0.RELEASE'
-
-    // 排除全部或特定的间接依赖
-    runtime ('commons-dbcp:commons-dbcp:1.4') {
-        transitive = false
-        // 或 exclude group: xxx, module: xxx
-    }
-
-    // 然后显式声明
-    runtime 'commons-pool:commons-pool:1.6'
-}
-
-//for gradle wrapper
-task wrapper(type: Wrapper) {
-    gradleVersion = '3.0'
-}
-
-task helloWorld
-
-helloWorld &lt;&lt; {
-    println "Hello World!"
-}
-
-task testA(dependsOn:helloWorld)
-
-testA &lt;&lt; {
-    println "test"
-}
-task copyFile(type: Copy)
-//task(copyFile(type: Copy))
-
-copyFile {
-    from 'xml'
-    into 'destination'
-}
-
-//发布到Maven库的配置
-uploadArchives {
-  repositories {
-    mavenDeployer {
-      repository(url: &lt;repo_url&gt;) {
-       //身份认证信息推荐放在$HOME/.gradle/gradle.properties中
-        authentication(
-          userName: &lt;repo_user&gt;,
-          password: &lt;repo_passwd&gt;)
-      }
-      pom.project pomCfg
-    }
-  }
-}
-</code></pre>
-
-<p>可见，依赖的配置（dependencies）相比Maven,得到了大大的简化，对于任务的定义（task）也非常简单。</p>
-
-<h3><a name='多模块'></a>多模块</h3>
-
-<ul>
-<li><p>首先，在工程的根目录下，创建settings.gradle。</p>
-
-<pre><code class="``">  include "common", "api"
-</code></pre>
-
-<p>  以上即表示包含根目录下的两个子模块common和api。</p></li>
-<li><p>在根目录的build.gradle中定义公共构建逻辑：</p>
-
-<pre><code class="``">  subprojects {
-      apply plugin: 'java'
-
-      repositories {
-          mavenCentral()
-      }
-
-      // 所有的子模块共同的依赖
-      dependencies {
-          ...
-      }
-  }
-</code></pre>
-
-<p>  subprojects中定义的内容对所有子模块都有效，包括属性、依赖以及Task定义。</p>
-
-<p>  需要注意的是在多模块配置下，gradle命令会对所有子模块都执行。如果想要针对单个模块，需要指定模块前缀，如: gradle :common:clean</p></li>
-<li><p>在子模块下创建build.gradle，其中的配置可以增量覆盖父工程中的公共配置。如:</p>
-
-<pre><code class="``">  ...
-
-  dependencies {
-      compile project(':common')
-      ...
-  }
-</code></pre>
-
-<p>  以上声明了此模块依赖于common模块，当构建此模块时会首先编译打包common模块。相比起Maven每次都要install所依赖的模块，大大简化了使用。</p></li>
-</ul>
-
-
-<h3><a name='提示'></a>提示</h3>
-
-<ul>
-<li>gradle -Penv=test可以传递参数，使用env引用即可。这里需要注意的是Gradle中默认并没有提供Maven的profile支持，但是可以利用-P参数自己实现此功能。</li>
-<li>Gradle中的配置中的语法和平常所见的Groovy非常不同, 其利用了Groovy的AST转换等特性实现了自己的一套语法。</li>
-<li>建议使用<strong>gradle wrapper</strong>（gradle wrapper &ndash;gradle-version 3.0）来做gradle操作（./gradlew clean）。一方面可以使得项目成员不用预先安装好Gradle，还能够统一项目所使用的Gradle版本。</li>
-<li>务必要保持构建脚本简洁、清晰，如：把属性、常量（如版本号）放到gradle.properties中。</li>
-<li>模块化构建脚本，通过plugin机制在多个项目中重用，共享相关的配置：apply from: <link_to_gradle>。通过此种方式可以统一团队或者公司的一些构建规范、依赖版本等。</li>
-</ul>
-
-
-<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
-
-<p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
 ]]></content>
   </entry>
   
