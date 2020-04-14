@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-03-20T11:01:34+00:00</updated>
+  <updated>2020-04-14T11:43:01+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,751 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Java工程师应该知道的Web安全]]></title>
+    <link href="http://www.rowkey.me/blog/2020/03/10/web-security/"/>
+    <updated>2020-03-10T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2020/03/10/web-security</id>
+    <content type="html"><![CDATA[<p>Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。</p>
+
+<p>Web安全问题，从大的方面可以分为：</p>
+
+<ul>
+<li>客户端安全：通过浏览器进行攻击的安全问题。</li>
+<li>服务端安全：通过发送请求到服务端进行攻击的安全问题。</li>
+</ul>
+
+
+<p>常见的客户端安全问题有：</p>
+
+<ul>
+<li>跨站脚本攻击</li>
+<li>跨站点请求伪造</li>
+</ul>
+
+
+<p>常见的服务端安全问题有：</p>
+
+<ul>
+<li>SQL注入</li>
+<li>基于约束条件的SQL攻击</li>
+<li>DDOS攻击</li>
+<li>Session fixation</li>
+</ul>
+
+
+<p>本文主要针对这些问题进行讲述。</p>
+
+<!--more-->
+
+
+<h2>跨站脚本攻击</h2>
+
+<p>跨站脚本攻击，全称Cross Site Script（XSS），故名思议是跨越两个站点的攻击方式。一般指的是攻击方通过“HTML”注入的方式篡改了网页，插入了恶意的脚本，从而在用户浏览网页或者移动客户端使用WebView加载时，默默地做了一些控制操作。</p>
+
+<p>XSS可以说是客户端安全的首要问题，稍有不注意就会漏出相关接口被利用。</p>
+
+<p>一个XSS攻击的例子，如下：</p>
+
+<ul>
+<li>一个Java应用提供了一个接口可以上传个人动态，动态内容是富文本的。</li>
+<li><p>攻击者上传的内容如下：</p>
+
+<p>  <code>&lt;img src="1" onerror="alert('attack')"/&gt;</code></p></li>
+<li><p>在服务端和客户端程序未做任何过滤的情况下，其他用户访问这个动态的页面时，就会执行这个脚本。</p></li>
+</ul>
+
+
+<p>如果脚本不是一个alert，而是换成跳转到一个具有删除操作的URL或者脚本获取用户的Cookie然后发送到远程服务器上，可想而知危害有多大。</p>
+
+<p>防范此种攻击的常用方式有以下几种：</p>
+
+<ul>
+<li>对任何允许用户输入的地方做检查，防止其提交脚本相关特殊字符串，如script、onload、onerror等。客户端和服务端都要做检查。</li>
+<li>做输入过滤，即将特殊字符都过滤掉或者换成HTML转义后的字符。Java中可以使用Apache commons-lang中的StringEscapeUtils的escape前缀的方法来做转义。</li>
+<li>给Cookie属性设置上HttpOnly，可以防止脚本获取到Cookie。</li>
+<li>对输出内容做过滤。这个可在客户端做，也可在服务端做。服务端主要就是转义HTML字符，客户端可以使用escape方法来过滤。</li>
+</ul>
+
+
+<h2>跨站点请求伪造</h2>
+
+<p>跨站点请求伪造，全称Cross Site Request Forgery,简称CSRF。也是一种常见的攻击方式。</p>
+
+<p>此种攻击方式，主要是通过诱导用户点击某些链接，从而隐含地发起对其他站点的请求，进而进行数据操作。</p>
+
+<p>一个攻击示例如下：</p>
+
+<ul>
+<li>一个用户登录了一个站点，访问<a href="http://xx/delete_notes?id=xx%E5%8D%B3%E5%8F%AF%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%AC%94%E8%AE%B0%E3%80%82">http://xx/delete_notes?id=xx%E5%8D%B3%E5%8F%AF%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%AC%94%E8%AE%B0%E3%80%82</a></li>
+<li><p>攻击者在它的站点中构造一个页面，HTML页面含有以下内容：</p>
+
+<p>  <code>&lt;img src="http://xx/delete_notes?id=xx"/&gt;</code></p></li>
+<li><p>当用户被诱导访问攻击者的站点时就发起了一个删除笔记的请求。</p></li>
+</ul>
+
+
+<p>对于CSRF攻击的常用解决方案有以下几种：</p>
+
+<ul>
+<li>对重要请求要求验证码输入,这样就能防止在用户不知情的情况下，被发送请求。</li>
+<li>使用类似防盗链的机制，对header的refer进行检验以确认请求来自合法的源。</li>
+<li>对重要请求都附带一个服务端生成的随机token, 提交时对此token进行验证。这也是业界一个很普遍的做法。</li>
+</ul>
+
+
+<h2>SQL注入</h2>
+
+<p>SQL注入攻击是一个很常见的攻击方式，原理是通过发送特殊的参数，拼接服务端的SQL字符串，从而达到改变SQL功能的目的。</p>
+
+<p>一个攻击例子如下：</p>
+
+<ul>
+<li><p>服务端登录验证使用下面的方式,其中userName和userPwd都是用户直接上传的参数</p>
+
+<pre><code class="``">  String sql = "select * from user where user_name = '" + userName + "' and pwd = " + userPwd;
+</code></pre></li>
+<li>用户提交userName为admin&#8217;&ndash;,userPwd随便字符串xxx</li>
+<li>拼接好之后的SQL语句变成了：<code>select * from user where user_name = 'admmin'--' and pwd = 'xxx'</code>（&ndash;为SQL语句的注释）, 这样只要存在user_name为admin的用户，此语句就能成功执行并返回admin用户的信息。</li>
+</ul>
+
+
+<p>这里需要说明的是，如果服务器的请求错误信息没有做进一步封装，直接把原始的数据库错误返回，那么有经验的攻击者通过返回结果多次尝试就会有机会找出SQL注入的机会。</p>
+
+<p>防范此种攻击的方案有以下几个：</p>
+
+<ul>
+<li>在Java中构造SQL查询语句时，杜绝拼接用户参数，尤其是拼接SQL查询的where条件。全部使用PreparedStatement预编译语句, 通过？来传递参数。</li>
+<li>在业务层面，过滤、转义SQL特殊字符，Apache commons-lang中的StringEscapeUtil提供了escapeSQL的功能（最新的lang3已经删除此方法，因为其只是简单的替换&#8217;为&#8217;&lsquo;）。</li>
+</ul>
+
+
+<h2>基于约束条件的SQL攻击</h2>
+
+<p>基于约束条件的SQL攻击基于的原理如下：</p>
+
+<ul>
+<li>在处理SQL中的字符串时，字符串末尾的空格字符都会被删除，包括WHERE子句和INSERT语句，但LIKE子句除外。</li>
+<li>在任意INSERT查询中，SQL会根据varchar(n)来限制字符串的最大长度，即超过n的字符串只保留前n个字符。</li>
+</ul>
+
+
+<p>如此，我们设计一个用户表（暂且忽略设计的合理性），对其中的用户名和密码字段都设置为25个字符限制：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CREATE TABLE test_user (
+</span><span class='line'>    `user_name` varchar(25),
+</span><span class='line'>    `pwd`  varchar(25)
+</span><span class='line'>);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有一个user_name为<code>user_test</code>的用户注册，于是向数据库添加一条记录。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>insert into test_user values("user_test","111111");</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接着，一个user_name为&#8217;user_test              1&#8217;(中间留有25个空格)的用户再来注册。一般的业务逻辑如下：</p>
+
+<ul>
+<li><p>判断用户名是否存在</p>
+
+<pre><code class="``">  select * from test_user where user_name = 'user_test              1'
+</code></pre>
+
+<p>  因为查询语句不会截断字符串，因此这样获取不到记录，表示用户不存在。</p></li>
+<li><p>用户名不存在，那么插入新用户。</p>
+
+<pre><code class="``">  insert into test_user values("user_test              1","123456")
+</code></pre></li>
+</ul>
+
+
+<p>这样，由于<code>user_name</code>约束为25个字符，那么新用户的<code>user_name</code>成为了&#8217;user_test      &lsquo;（后面是16个空格字符）。现在数据库记录如下（第二个记录后面是16个空格）：</p>
+
+<table>
+<thead>
+<tr>
+<th>user_name </th>
+<th> pwd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_test               </td>
+<td> 111111</td>
+</tr>
+<tr>
+<td>user_test               </td>
+<td> 123456</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>这样，当使用<code>user_name='user_test'</code>和<code>pwd='123456'</code>登录时，能匹配到第二条记录，登录是成功的。但是用户信息使用的第一条的记录，于是攻击者就获取到了第一个用户的操作权限。</p>
+
+<p>防范此种攻击的措施如下：</p>
+
+<ul>
+<li>为具有唯一性的那些列添加UNIQUE索引。</li>
+<li>在数据库操作前先将输入参数修剪为特定长度。</li>
+</ul>
+
+
+<h2>DDOS攻击</h2>
+
+<p>DDOS，全称Distributed Denial of Service, 分布式拒绝服务攻击。攻击者利用很多台机器同时向某个服务发送大量请求，人为构造并发压力，从而使得服务被冲垮，无法为正常用户提供服务。常见的DDOS攻击包括：</p>
+
+<ul>
+<li>SYN flood</li>
+<li>UDP flood</li>
+<li>ICMP flood</li>
+</ul>
+
+
+<p>其中SYN flood是最为经典的DDOS攻击。其利用了TCP连接三次握手时需要先发送SYN的机制，通过发送大量SYN包使得服务端建立大量半连接，消耗非常多的CPU和内存。针对这种攻击，很多解决方案就是在TCP层就使用相关算法识别异常流量，直接拒绝建立连接。但是，如果攻击者控制很多机器对一个资源消耗比较大的服务接口发起正常访问请求，那么这个方式就无效了。</p>
+
+<p>由于难于区分是否是正常用户的请求，因此DDOS是非常难以防范的，但仍有一些措施能够尽量地减少DDOS带来的影响，如下：</p>
+
+<ul>
+<li>合理使用缓存、异步等措施提高应用性能。应用抗并发的能力越强，就越不容易被DDOS冲垮服务。</li>
+<li>合理使用云计算相关组件，自动识别高峰流量并做自动扩容。</li>
+<li><p>在应用中限制来自某一IP或者某一设备ID的请求频率。超过此频率就将其放入黑名单，下次请求直接拒绝服务。Java中可以通过Redis的incr和expire操作来达到。如下：</p>
+
+<pre><code class="``">  String ip = NetworkUtil.getClientIP(request, false); //获取客户端ip地址
+  String key = "ddos." + ip;
+  long count = suishenRedisTemplate.incr(key); //incr不会影响expire
+  if (count &gt; 10000) {
+      throw new AccessException("access too frequently with ip: "
+           + StringUtils.defaultString(ip));
+  } else {
+      if (count == 1) {
+          suishenRedisTemplate.expire(key, 10);
+      }
+      return true;
+  }
+</code></pre>
+
+<p>  上述代码即可将同一IP的请求限制在十秒钟10000次。</p>
+
+<p>  此逻辑越靠近访问链路的前面效果越好，比如直接在Nginx中拦截效果就要比在业务应用中做要好。</p></li>
+</ul>
+
+
+<p>还需要提到的是DDOS一个新的变种，反射型DDOS攻击，也被称为放大攻击。原理如下图所示：</p>
+
+<p><img src="http://www.rowkey.me/post_images/reflect-ddos.png" alt="" /></p>
+
+<p>此种攻击，攻击者并不直接攻击目标服务IP，而是伪造被攻击者的IP，发送请求包到网上一些开放的特殊服务的服务器（放大器。这些服务器由于协议的特点并不会验证源IP的真伪，于是会将数倍于请求报文的回复数据发送到被攻击者的IP，从而对后者间接形成DDOS攻击。任何设计不完善的、基于UDP请求的协议或者ICMP协议都能形成放大器，包括DNS请求、Ping请求、NTP monlist请求、SSDP协议（简单服务发现协议）等。此种攻击不需要大量的肉鸡、难以追踪，正变得越来越流行。防范此种攻击通常的手段就是进行DDOS流量清洗和增加ACL过滤规则。</p>
+
+<h2>Session fixation</h2>
+
+<p>Session fixation攻击，故名思议就是会话固定攻击。在我们平时的Web开发中都是基于Session做用户会话管理的。在浏览器中，Session的ID一般是存储在Cookie中的，甚至直接附带在query参数中。如果Session在未登录变为登录的情况下不发生改变的话，Session fixation攻击就形成了。</p>
+
+<p>一个攻击示例如下：</p>
+
+<ul>
+<li>攻击者进入网站<a href="http://xx.com%E3%80%82">http://xx.com%E3%80%82</a></li>
+<li>攻击者发送<a href="http://xx.com?JSESSIONID=123456%E7%BB%99%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E3%80%82">http://xx.com?JSESSIONID=123456%E7%BB%99%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E3%80%82</a></li>
+<li>用户点击此链接进入网站，由于URL后面有JSESSIONID，因此直接使用此做为Session的ID。</li>
+<li>用户成功登陆后，攻击者就可以利用伪造的Session ID获取用户的各种操作权限。</li>
+</ul>
+
+
+<p>此种攻击的关键点就在于Tomcat使用JSESSIONID做为Session ID。因此，防范此种攻击的核心之一就在于不能使用客户端传来的Session ID。此外还有以下方法：</p>
+
+<ul>
+<li>不要接受由GET或者POST参数指定的Session ID值。</li>
+<li>针对每一个请求都生成新的Session。</li>
+<li>只接受服务端生成的Session ID。</li>
+<li>为Session指定过期时间。</li>
+</ul>
+
+
+<p>Java Web项目中,可以实现一个拦截器, 将使用query参数传递JSESSIONID的请求的Session删除掉：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void doFilter(ServletRequest request, ServletResponse response,
+</span><span class='line'>                         FilterChain chain) throws IOException, ServletException
+</span><span class='line'>    ...
+</span><span class='line'>    
+</span><span class='line'>    if (httpRequest.isRequestedSessionIdFromURL()) {
+</span><span class='line'>        HttpSession session = httpRequest.getSession();
+</span><span class='line'>        if (session != null) {
+</span><span class='line'>            session.invalidate();
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此外，对于每一次登录后的Session都重新生成ID, 并设置合理的失效期。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public JSONResult login(@RequestBody LoginRequestBody requestBody,
+</span><span class='line'>                            HttpServletRequest request)
+</span><span class='line'>    ...
+</span><span class='line'>    boolean loginResult = doLogin();
+</span><span class='line'>    if(loginResult){
+</span><span class='line'>        request.changeSessionId(); //重新生成Session ID
+</span><span class='line'>        request.getSession().setMaxInactiveInterval(1800); //30分钟失效
+</span><span class='line'>    }
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>隐私数据存储</h2>
+
+<p>随着市面上发生一次次数据库被脱导致用户隐私数据被泄漏的事情，越来越多的人意识到了隐私的重要性，在选择一个应用的时候也越来越在意对自己隐私数据的保护。这里所说的隐私数据包括：手机号、实名、身份证号、家庭住址、单位地址、家庭情况、密码等等。那么在技术层面如何存储这些隐私数据来保障用户的隐私安全呢？</p>
+
+<ol>
+<li><p>使用单向散列算法</p>
+
+<p> 此种方式对明文进行加密后是无法恢复明文的，因此仅仅适用于密码这种不需要恢复明文只需要做验证的场景。</p></li>
+<li><p>使用加密算法</p>
+
+<p> 此种方式，在存储和使用用户数据的时候都进行加/解密运算，能够在一定程度上保护数据的安全性。但每次都要进行加解密使得代价有点高，而如果使用简单的算法则无法面对穷举或者字典攻击。并且加密的数据对于SQL等数据库查询语句优化是不友好的，操作都得通过程序进行。此外，算法所使用的密钥的安全也是一个问题，存储在哪里都有被拿到的机会。而如果进一步对于每个用户或者每条数据都使用不同的密钥，那么就会提高程序的逻辑复杂性。</p>
+
+<p> 还得考虑到日志采集、数据分析等非具体业务场景，这些隐私数据最终还是要变为明文进行流通，无法从根本上保证隐私数据的安全。</p></li>
+</ol>
+
+
+<p>综上分析，可以采取以下这种方案：</p>
+
+<ol>
+<li><p>每一个用户都有自己的密钥，对其手机号、身份证等隐私信息使用加密算法来混淆其中的几位。如：159efadsc2681。如此，在只是需要展示这些信息的地方无须解密，直接使用即可。只有诸如发送短信、用户信用验证时才需要解密。</p></li>
+<li><p>密钥存储在另一个库中，由另外一个团队维护、独立管理，具有最高级别的访问权限，访问QPS也受严格控制。</p></li>
+<li><p>如果给数据分析部门提供数据，则提供隐私数据转换后的数据。例如：对用户的归属地分析，那么可以提供身份证转化为地区归属地后的信息而不是直接提供身份证号。</p></li>
+</ol>
+
+
+<p>如此，即使脱库也无法解密所有数据。而且密钥库和业务库独立，单独脱一个库是没有意义的。密钥库的访问权限和访问频率也都受限制，即使是内部人员脱库都很容易被发现。</p>
+
+<p>总之，对诸如身份证号、通讯录、支付宝账号等隐私信息要注意加密或者散列存储，一定不要明文发送到客户端，展示也不要明文展示，只有当真正使用的时候再去获取明文。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java工程师应该知道的RPC]]></title>
+    <link href="http://www.rowkey.me/blog/2020/02/17/rpc/"/>
+    <updated>2020-02-17T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2020/02/17/rpc</id>
+    <content type="html"><![CDATA[<p>RPC, Remote Procedure Call,故名思议就是远程过程调用，一般都有跨语言支持。大规模分布式应用中普遍使用RPC来做内部服务、模块之间的数据通信，还有助于解耦服务、系统的垂直拆分，使得系统可扩展性更强，并能够让Java程序员用与开发本地程序一样的语法与方式去开发分布式应用程序。</p>
+
+<p>RPC分为客户端（服务调用方）和服务端（服务提供方），都运行在自己的JVM中。客户端只需要引入要使用的接口，接口的实现和运行都在服务端。RPC主要依赖的技术包括序列化、反序列化和数据传输协议。是一种定义与实现相分离的设计：</p>
+
+<p><img src="http://www.rowkey.me/post_images/rpc/rpc.png" alt="" /></p>
+
+<p>目前Java使用比较多的RPC方案主要有RMI、Hessian、Dubbo以及Thrift。</p>
+
+<p>这里需要提出的一点就是，这里的RPC主要指的内部服务之间的调用，因此虽然RESTful也可以用于内部服务间的调用（跨语言、跨网段、跨防火墙），但其主要用途还是为外部系统提供服务，因此本文没有将其包含在内。</p>
+
+<!--more-->
+
+
+<h2>RMI</h2>
+
+<p>RMI，remote method invoke, 远程方法调用。是JAVA自带的远程方法调用工具，其基于TCP连接，可以使用任意端口，不易跨网段调用，不能穿越防火墙。但它是JAVA语言最开始时的设计，后来很多框架的原理都基于RMI。其调用逻辑如下图所示：</p>
+
+<p><img src="http://www.rowkey.me/post_images/rpc/rmi.png" alt="" /></p>
+
+<ol>
+<li>服务注册：服务端注册服务绑定到注册中心registry。</li>
+<li>服务查找：客户端根据服务名从注册中心查询要使用的接口获取引用。</li>
+<li>服务调用：Stub序列化调用参数并将其发送给Skeleton，后者调用服务方法，并将结果序列化返回给Stub。</li>
+</ol>
+
+
+<p>其序列化和反序列化使用的都是JDK自带的序列化机制。</p>
+
+<p>这里服务注册管理中心是在服务端的。其实这个可以完全独立出来作为一个单独的服务，其他的RPC框架很多都是选择zookeepr充当此角色。</p>
+
+<p>可以使用Spring那一节讲的RmiServiceExporter和RmiProxyFactoryBean来使用RMI。</p>
+
+<h2>Hessian</h2>
+
+<p>Hessian是一个基于HTTP协议的RPC方案，其序列化机制是自己实现的，负载均衡和容错需要依赖于Web容器/服务。其体系结构和RMI类似，不过并没有注册中心Registry这一角色，而是通过使用地址来显式调用。其中需要使用HessianProxyFactory根据配置的地址create一个代理对象。使用此代理对象去调用服务。</p>
+
+<p><img src="http://www.rowkey.me/post_images/rpc/hessian.png" alt="" /></p>
+
+<p>和RMI一样，可以使用Spring那一节讲的HessianServiceExporter和HessianProxyFactoryBean来使用。</p>
+
+<h2>Thrift</h2>
+
+<p>Thrift是Facebook开源的RPC框架，现已进入Apache开源项目。其采用接口描述语言（IDL）定义 RPC 接口和数据类型，通过编译器生成不同语言的代码（支持 C++，Java，Python，Ruby等），数据传输采用二进制格式，是自己实现的序列化机制。没有注册中心的概念。</p>
+
+<p><img src="http://www.rowkey.me/post_images/rpc/thrift.png" alt="" /></p>
+
+<p>Thrift的使用需要先编写接口的IDL，然后使用它自带的工具生成代码。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>namespace java me.rowkey.pje.datatrans.rpc.thrift
+</span><span class='line'>
+</span><span class='line'>typedef i32 int
+</span><span class='line'>service TestService
+</span><span class='line'>{
+</span><span class='line'>    int add(1:int n1, 2:int n2),
+</span><span class='line'>}
+</span><span class='line'>
+</span><span class='line'>//代码生成
+</span><span class='line'>thrift --gen java TestService.thrift</span></code></pre></td></tr></table></div></figure>
+
+
+<p>以上即可在gen-java目录下生成TestService的Java代码TestService.java, 其中的核心是接口TestService.Iface，实现此类即可提供服务。需要注意的是Thrift有一个问题就是在接口比较多的时候，生成的Java代码文件太大。</p>
+
+<p>服务提供方：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TProcessor tprocessor = 
+</span><span class='line'>  new TestService.Processor&lt;TestService.Iface&gt;(new TestServiceImpl());
+</span><span class='line'>
+</span><span class='line'>TServerSocket serverTransport = new TServerSocket(8088);
+</span><span class='line'>TServer.Args tArgs = new TServer.Args(serverTransport);
+</span><span class='line'>tArgs.processor(tprocessor);
+</span><span class='line'>tArgs.protocolFactory(new TBinaryProtocol.Factory());
+</span><span class='line'>
+</span><span class='line'>// 简单的单线程服务模型
+</span><span class='line'>TServer server = new TSimpleServer(tArgs);
+</span><span class='line'>server.serve();</span></code></pre></td></tr></table></div></figure>
+
+
+<p>服务消费方：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TTransport transport = new TSocket("localhost", 8088, TIMEOUT);
+</span><span class='line'>TestService.Client testService = 
+</span><span class='line'>  new TestService.Client(new TBinaryProtocol(transport));
+</span><span class='line'>transport.open();
+</span><span class='line'>
+</span><span class='line'>int result = testService.add(1,2);
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>这里需要说明的一点就是，Thrift提供了多种服务器模型、数据传输协议以及传输层供选择：</p>
+
+<ul>
+<li><p>服务提供者的服务模型除了上面用的TSimpleServer简单单线程服务模型，还有几个常用的模型：</p>
+
+<ul>
+<li>TThreadPoolServer：线程池服务模型，使用标准的阻塞式IO，预先创建一组线程处理请求。</li>
+<li>TNonblockingServe：非阻塞式IO。</li>
+<li>THsHaServer: 半同步半异步的服务端模型。</li>
+</ul>
+</li>
+<li><p>数据传输协议除了上面例子使用的BinaryProtocol二进制格式，还有下面几种：</p>
+
+<ul>
+<li>TCompactProtocol : 压缩格式。</li>
+<li>TJSONProtocol : JSON格式。</li>
+<li>TSimpleJSONProtocol : 提供JSON只写协议, 生成的文件很容易通过脚本语言解析。</li>
+</ul>
+</li>
+<li><p>传输层除了上面例子的TServerSocket和TSocket，还有</p>
+
+<ul>
+<li>TFramedTransport：以frame为单位进行传输，非阻塞式服务中使用。</li>
+<li>TFileTransport：以文件形式进行传输。</li>
+<li>THttpClient: 以HTTP协议的形式进行传输。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Dubbo</h2>
+
+<p>Dubbo是阿里开源的服务治理框架。与前面讲的几个RPC协议相比，Dubbo不仅仅是一个RPC框架，还包含了服务治理方面的很多功能：</p>
+
+<ul>
+<li>服务注册</li>
+<li>服务自动发现</li>
+<li>负载均衡</li>
+<li>集群容错</li>
+</ul>
+
+
+<p>这里仅仅针对Dubbo的RPC协议来讲，其传输是基于TCP协议的，使用了高性能的NIO框架Netty，序列化可以有多种选择，默认使用Hessian的序列化实现。Dubbo默认使用Zookeeper作为服务注册、管理中心。</p>
+
+<p><img src="http://www.rowkey.me/post_images/rpc/dubbo.png" alt="" /></p>
+
+<p>一个基于Spring XML配置的使用例子如下：</p>
+
+<ul>
+<li><p>服务提供者XML配置</p>
+
+<pre><code class="``">  &lt;!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 --&gt;
+  &lt;dubbo:application name="test_server"/&gt;
+
+  &lt;!-- 使用zk注册中心暴露服务地址 --&gt;
+  &lt;dubbo:registry address="zookeeper://zk1.dmp.com:2181?backup=zk2.dmp.com:2181,zk3.dmp.com:2181" file="${catalina.base}/logs/eservice/dubbo.cache"/&gt;
+
+  &lt;dubbo:service path="emailService" interface="me.rowkey.pje.rpc.test.service.IEmailService" ref="emailApiService" /&gt;
+</code></pre></li>
+<li><p>服务消费者XML配置</p>
+
+<pre><code class="``">  &lt;!-- 提供方应用信息，用于计算依赖关系 --&gt;
+  &lt;dubbo:application name="test_consumer"/&gt;
+
+  &lt;!-- 使用zk注册中心 --&gt;
+  &lt;dubbo:registry address="zookeeper://zk1.dmp.com:2181?backup=zk2.dmp.com:2181,zk3.dmp.com:2181" /&gt;
+
+  &lt;dubbo:reference id="emailService" interface="me.rowkey.pje.rpc.test.service.IEmailService"/&gt;
+</code></pre>
+
+<p>  在相关bean中注入emailService即可使用。</p></li>
+</ul>
+
+
+<h2>序列化</h2>
+
+<p>序列化是RPC的一个很关键的地方，序列化、反序列的速度、尺寸大小都关系着RPC的性能。包括上面提到的几个序列化协议，现在使用较为普遍的Java序列化协议有以下几种：</p>
+
+<ol>
+<li><p>Java Serialiazer</p>
+
+<p> JDK自带的序列化机制, 使用起来比较方便。但是其是对象结构到内容的完全描述，包含所有的信息，因此速度较慢，占用空间也比较大，且只支持Java语言。一般不推荐使用。</p>
+
+<p> 需要注意的是字段serialVersionUID的作用是为了在序列化时保持版本的兼容性，即在版本升级时反序列化仍保持对象的唯一性。否则如果你在序列化后更改/删除了类的字段，那么再反序列化时就会抛出异常;而如果设置了此字段的值，那么会将不一样的field以type的预设值填充。</p>
+
+<pre><code class="`"> //序列化
+ ByteArrayOutputStream bout = new ByteArrayOutputStream();
+ ObjectOutputStream out = new ObjectOutputStream(bout);
+ out.writeObject(obj);
+ byte[] bytes = bout.toByteArray();
+
+ //反序列化
+ ObjectInputStream bin = new ObjectInputStream(new ByteArrayInputStream(bytes));
+ bin.readObject();
+</code></pre></li>
+<li><p>Hessian</p>
+
+<p> 底层是基于List和Hashmap实现的，着重于数据，附带简单的类型信息的方法，支持多种语言，兼容性比较好, 与JDK序列化相比高效且空间较小；但其在序列化的类有父类的时候，如果有字段相同，父类的值会覆盖子类的值，因此使用Hessian时一定要注意子类和父类不能有同名字段。</p>
+
+<p> 需要注意的一点，Hessian的实现里有v1和v2两种版本的协议支持，并不兼容，推荐使用Hessian2相关的类。</p>
+
+<p> 与后来出现的其他二进制序列化工具相比，其速度和空间都不是优势。</p>
+
+<pre><code class="`"> //序列化
+ ByteArrayOutputStream os = new ByteArrayOutputStream();
+ Hessian2Output out = new Hessian2Output(os);
+ out.startMessage();
+ TestUser user = new TestUser();
+ out.writeObject(user);
+ out.completeMessage();
+ out.flush();
+ byte[] bytes = os.toByteArray();
+ out.close();
+ os.close();
+
+ //反序列化
+ ByteArrayInputStream ins = new ByteArrayInputStream(bytes);
+ Hessian2Input input = new Hessian2Input(ins);
+ input.startMessage();
+ TestUser newUser = (TestUser)input.readObject();
+ input.completeMessage();
+ input.close();
+ ins.close();
+</code></pre></li>
+<li><p>MsgPack</p>
+
+<p> MsgPack是一个非常高效的对象序列化库，支持多种语言，有点像JSON，但是非常快，且占用空间也较小，号称比Protobuf还要快4倍。</p>
+
+<p> 使用MsgPack需要在序列化的类上加@Message注解；为了保证序列化向后兼容，新增加的属性需要加在类的最后面，且要加@Optional注解，否则反序列化会报错。</p>
+
+<p> 此外，MsgPack提供了动态类型的功能，通过接口Value来实现动态类型，首先将字节数组序列化为Value类型的对象，然后用converter转化为本身的类型。</p>
+
+<p> MsgPack不足的一点就是其序列化和反序列都非常消耗资源。</p>
+
+<pre><code class="`"> //TestUser.java
+ @Message
+ public class TestUser{
+     private String name;
+     private String mobile;
+     ...
+ }
+
+ TestUser user = new TestUser();
+ MessagePack messagePack = new MessagePack();
+
+ //序列化
+ byte[] bs = messagePack.write(user);
+
+ //反序列化
+ user = messagePack.read(bs, TestUser.class);
+</code></pre></li>
+<li><p>Kryo</p>
+
+<p> Kryo是一个快速高效的Java对象图形序列化框架，使用简单、速度快、序列化后体积小。实现代码非常简单，远远小于MsgPack。但其文档较少，跨语言支持也较差，适用于Java语言。目前Kryo的版本到了4.x, 对于之前2.X之前版本的很多问题都做了修复。</p>
+
+<pre><code class="`"> Kryo kryo = new Kryo();
+
+ // 序列化
+ ByteArrayOutputStream os = new ByteArrayOutputStream();
+ Output output = new Output(os);
+ TestUser user = new TestUser();
+ kryo.writeObject(output, user);
+ output.close();
+ byte[] bytes = os.toByteArray();
+
+ // 反序列化
+ Input input = new Input(new ByteArrayInputStream(bytes));
+ TestUser newUser = kryo.readObject(input, TestUser.class);
+ input.close();
+</code></pre></li>
+<li><p>Thrift</p>
+
+<p> 上面讲的Thrift RPC框架其内部的序列化机制可以单独使用，主要是对TBinaryProtocol的使用。和接口的生成方式类似，需要先定义IDL，再使用Thrift生成。其序列化性能比较高，空间占用也比较少。但其设计目标并非是单独做为序列化框架使用的，一般都是整体作为RPC框架使用的。</p>
+
+<p> 定义IDL:</p>
+
+<pre><code class="`"> //TestUser.thrift
+ namespace java me.rowkey.pje.datatrans.rpc.thrift
+
+ struct TestUser {
+     1: required string name
+     2: required string mobile
+ }
+
+ thrift --gen java TestUser.thrift
+</code></pre>
+
+<p> 使用生成的TestUser类做序列化和反序列化：</p>
+
+<pre><code class="`"> TestUser user = new TestUser(); //由thrift代码生成引擎生成
+
+ //序列化
+ ByteArrayOutputStream bos = new ByteArrayOutputStream();
+ user.write(new TBinaryProtocol(new TIOStreamTransport(bos)));
+ byte[] result = bos.toByteArray();
+ bos.close();
+
+ //反序列化
+ ByteArrayInputStream bis = new ByteArrayInputStream(result);
+ TestUser user = new TestUser();
+ user.read(new TBinaryProtocol(new TIOStreamTransport(bis)));
+ bis.close();
+</code></pre>
+
+<p> 需要注意的是由于Thrift序列化时,丢弃了部分信息，使用ID+Type来做标识，因此对新增的字段属性, 采用ID递增的方式标识并以Optional修饰来添加才能做到向后兼容。</p></li>
+<li><p>Protobuf</p>
+
+<p>Protobuf是Google开源的序列化框架，是Google公司内部的混合语言数据标准，用于RPC系统和持续数据存储系统，非常轻便高效，具有很好的可扩展性、也具有良好的向后兼容和向前兼容性。与上述的几种序列化框架对比，序列化数据紧凑、速度快、空间占用少、资源消耗较低、使用简单，但其缺点在于需要静态编译生成代码、可读性差、缺乏自描述、向后兼容有一定的约束限制。</p>
+
+<p>这里需要注意目前ProtoBuf的版本到了3.x，比2.x支持更多语言但更简洁。去掉了一些复杂的语法和特性，更强调约定而弱化语法。因此，如果是首次使用就直接使用3.x版本。这里也针对Protobuf 3来讲。</p>
+
+<p>首先需要编写.proto文件,并使用Protobuf代码生成引擎生成Java代码。</p>
+
+<pre><code class="`"> //TestUser.proto
+ syntax = "proto3";
+ option java_package = "me.rowkey.pje.datatrans.rpc.proto";
+ option java_outer_classname = "TestUserProto";
+ message TestUser
+ {
+     string name=1;
+     string mobile=2;
+ }
+
+ protoc --java_out=./ TestUser.proto
+</code></pre>
+
+<p>即生成TestUserProto.java，使用此类，即可完成序列化和反序列化：</p>
+
+<pre><code class="`"> //序列化
+ TestUserProto.TestUser testUser = 
+           TestUserProto.TestUser.newBuilder()
+           .setMobile("xxx")
+           .setName("xxx")
+           .build();
+
+ byte[] bytes = testUser.toByteArray();
+
+ //反序列化
+ testUser = TestUserProto.TestUser.parseFrom(bytes);
+</code></pre></li>
+</ol>
+
+
+<p>综上，对以上几个序列化框架做对比如下：</p>
+
+<p> | 优点 | 缺点
+&mdash;-|&mdash;&ndash;|&mdash;&mdash;
+Java | JDK自带实现，包含对象的所有信息| 速度较慢，占用空间也比较大，只支持Java语言
+Hessian | 支持语言比较多，兼容性较好 | 较慢
+MsgPack | 使用简单，速度快，体积小| 兼容性较差，耗资源
+Kryo | 速度快，序列化后体积小 | 跨语言支持较差，文档较少
+Thrift | 高效 | 需要静态编译；是Thrift内部序列化机制，很难和其他传输层协议共同使用
+Protobuf | 速度快 | 需要静态编译</p>
+
+<p>在兼顾使用简单、速度快、体积小且主要使用在Java开发的场景下，Kryo是比较好的方案；如果特别要求占用空间、性能，那么Protobuf则是更好的选择。此外，JSON其实也是一种序列化方式，如果比较关注阅读性的话，那么JSON是更好的选择。</p>
+
+<h2>提示</h2>
+
+<p>面对这些RPC框架，选择的时候应该从以下几方面进行考虑：</p>
+
+<ul>
+<li>是否允许代码侵入：即是否需要依赖相应的代码生成器生成代码，比如Thrift需要，而Dubbo、Hessian就不需要。</li>
+<li>是否需要长连接、二进制序列化获取高性能：如果需要性能比较高，那么果断选取基于TCP的Thrift、Dubbo。</li>
+<li>是否需要跨网段、跨防火墙：这种情况一般就需要选择基于Http协议的，Hessian和Thrift的HTTP Transport。</li>
+<li>是否需要跨语言调用：Thrift、Hessian对于语言的支持是比较丰富的，而Dubbo目前只支持Java语言。</li>
+</ul>
+
+
+<p>此外，除了上述框架之外，Google推出的基于HTTP 2.0的gRPC框架也开始得到了应用，其序列化协议基于Protobuf, 网络框架使用了Netty4。但其需要生成代码，可扩展性也比较差。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[我是科蜜，20年的...]]></title>
@@ -3576,81 +4321,6 @@ println(map2)
 <img src="http://www.rowkey.me/post_images/debug/arch-22.jpeg" alt="" />
 <img src="http://www.rowkey.me/post_images/debug/arch-23.jpeg" alt="" />
 <img src="http://www.rowkey.me/post_images/debug/arch-24.jpeg" alt="" /></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Java应用性能调优之调优准备]]></title>
-    <link href="http://www.rowkey.me/blog/2018/10/31/profile-ready/"/>
-    <updated>2018-10-31T14:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/10/31/profile-ready</id>
-    <content type="html"><![CDATA[<p>实际的开发工作中，有时候会遇到程序突然变得响应缓慢或者进程消失的情况。这时候就需要对程序进行问题排查和调优，找出产生问题的根源，并进行优化。</p>
-
-<!--more-->
-
-
-<ul>
-<li>调优概览：<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/README.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/README.md</a></li>
-<li>调优准备：<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter8-profile/ready.md</a></li>
-</ul>
-
-
-<blockquote><p>本文来自《Java工程师修炼之道》一书。</p></blockquote>
-
-<p><img src="http://www.rowkey.me/post_images/book-all.png" width="400"/></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[架构设计与原则（2018修订版）]]></title>
-    <link href="http://www.rowkey.me/blog/2018/09/20/arch-new/"/>
-    <updated>2018-09-20T14:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/09/20/arch-new</id>
-    <content type="html"><![CDATA[<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>的最新修订版。</p>
-
-<p><strong>来自公司内部分享</strong></p>
-
-<!--more-->
-
-
-<p><img src="http://www.rowkey.me/post_images/arch-new/arch-2.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-3.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-4.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-5.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-6.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-7.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-8.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-9.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-10.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-11.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-12.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-13.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-14.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-15.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-16.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-17.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-18.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-19.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-20.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-21.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-22.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-23.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-24.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-25.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-26.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-27.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-28.jpeg" alt="" />
-<img src="http://www.rowkey.me/post_images/arch-new/arch-29.jpeg" alt="" /></p>
-
-<p><strong>附录链接：</strong></p>
-
-<ul>
-<li><a href="https://www.ibm.com/developerworks/cn/rational/06/r-wenyu/index.html">软件架构 &ldquo;4+1&rdquo; 视图模型</a>: 逻辑视图、开发视图、过程视图、物理视图 + 场景视图</li>
-<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-research.md">技术调研文档模板</a>:技术方案调研输出</li>
-<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/tech-analysis.md">技术方案分析文档模板</a>: 技术方案选型，设计、评估和选择备选方案</li>
-<li><a href="https://github.com/superhj1987/awesome-tech-collections/blob/master/document/arch.md">系统设计文档模板</a>:系统架构设计</li>
-</ul>
-
 ]]></content>
   </entry>
   

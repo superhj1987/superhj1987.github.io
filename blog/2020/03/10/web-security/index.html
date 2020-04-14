@@ -1,0 +1,801 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Java工程师应该知道的Web安全 - 后端技术杂谈 | 飒然Hang</title>
+  <meta name="author" content="飒然Hang">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="Java工程师应该知道的Web安全 Mar 10th, 2020 Posted by 飒然Hang in security Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。 Web安全问题 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2020/03/10/web-security/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈 | 飒然Hang" type="application/atom+xml">
+  <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">Java工程师应该知道的Web安全</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2020-03-10T11:29:34+00:00" pubdate data-updated="true">Mar 10<sup>th</sup>, 2020</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/security/'>security</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。</p>
+
+<p>Web安全问题，从大的方面可以分为：</p>
+
+<ul>
+<li>客户端安全：通过浏览器进行攻击的安全问题。</li>
+<li>服务端安全：通过发送请求到服务端进行攻击的安全问题。</li>
+</ul>
+
+
+<p>常见的客户端安全问题有：</p>
+
+<ul>
+<li>跨站脚本攻击</li>
+<li>跨站点请求伪造</li>
+</ul>
+
+
+<p>常见的服务端安全问题有：</p>
+
+<ul>
+<li>SQL注入</li>
+<li>基于约束条件的SQL攻击</li>
+<li>DDOS攻击</li>
+<li>Session fixation</li>
+</ul>
+
+
+<p>本文主要针对这些问题进行讲述。</p>
+
+<!--more-->
+
+
+<h2>跨站脚本攻击</h2>
+
+<p>跨站脚本攻击，全称Cross Site Script（XSS），故名思议是跨越两个站点的攻击方式。一般指的是攻击方通过“HTML”注入的方式篡改了网页，插入了恶意的脚本，从而在用户浏览网页或者移动客户端使用WebView加载时，默默地做了一些控制操作。</p>
+
+<p>XSS可以说是客户端安全的首要问题，稍有不注意就会漏出相关接口被利用。</p>
+
+<p>一个XSS攻击的例子，如下：</p>
+
+<ul>
+<li>一个Java应用提供了一个接口可以上传个人动态，动态内容是富文本的。</li>
+<li><p>攻击者上传的内容如下：</p>
+
+<p>  <code>&lt;img src="1" onerror="alert('attack')"/&gt;</code></p></li>
+<li><p>在服务端和客户端程序未做任何过滤的情况下，其他用户访问这个动态的页面时，就会执行这个脚本。</p></li>
+</ul>
+
+
+<p>如果脚本不是一个alert，而是换成跳转到一个具有删除操作的URL或者脚本获取用户的Cookie然后发送到远程服务器上，可想而知危害有多大。</p>
+
+<p>防范此种攻击的常用方式有以下几种：</p>
+
+<ul>
+<li>对任何允许用户输入的地方做检查，防止其提交脚本相关特殊字符串，如script、onload、onerror等。客户端和服务端都要做检查。</li>
+<li>做输入过滤，即将特殊字符都过滤掉或者换成HTML转义后的字符。Java中可以使用Apache commons-lang中的StringEscapeUtils的escape前缀的方法来做转义。</li>
+<li>给Cookie属性设置上HttpOnly，可以防止脚本获取到Cookie。</li>
+<li>对输出内容做过滤。这个可在客户端做，也可在服务端做。服务端主要就是转义HTML字符，客户端可以使用escape方法来过滤。</li>
+</ul>
+
+
+<h2>跨站点请求伪造</h2>
+
+<p>跨站点请求伪造，全称Cross Site Request Forgery,简称CSRF。也是一种常见的攻击方式。</p>
+
+<p>此种攻击方式，主要是通过诱导用户点击某些链接，从而隐含地发起对其他站点的请求，进而进行数据操作。</p>
+
+<p>一个攻击示例如下：</p>
+
+<ul>
+<li>一个用户登录了一个站点，访问<a href="http://xx/delete_notes?id=xx%E5%8D%B3%E5%8F%AF%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%AC%94%E8%AE%B0%E3%80%82">http://xx/delete_notes?id=xx%E5%8D%B3%E5%8F%AF%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%AC%94%E8%AE%B0%E3%80%82</a></li>
+<li><p>攻击者在它的站点中构造一个页面，HTML页面含有以下内容：</p>
+
+<p>  <code>&lt;img src="http://xx/delete_notes?id=xx"/&gt;</code></p></li>
+<li><p>当用户被诱导访问攻击者的站点时就发起了一个删除笔记的请求。</p></li>
+</ul>
+
+
+<p>对于CSRF攻击的常用解决方案有以下几种：</p>
+
+<ul>
+<li>对重要请求要求验证码输入,这样就能防止在用户不知情的情况下，被发送请求。</li>
+<li>使用类似防盗链的机制，对header的refer进行检验以确认请求来自合法的源。</li>
+<li>对重要请求都附带一个服务端生成的随机token, 提交时对此token进行验证。这也是业界一个很普遍的做法。</li>
+</ul>
+
+
+<h2>SQL注入</h2>
+
+<p>SQL注入攻击是一个很常见的攻击方式，原理是通过发送特殊的参数，拼接服务端的SQL字符串，从而达到改变SQL功能的目的。</p>
+
+<p>一个攻击例子如下：</p>
+
+<ul>
+<li><p>服务端登录验证使用下面的方式,其中userName和userPwd都是用户直接上传的参数</p>
+
+<pre><code class="``">  String sql = "select * from user where user_name = '" + userName + "' and pwd = " + userPwd;
+</code></pre></li>
+<li>用户提交userName为admin&#8217;&ndash;,userPwd随便字符串xxx</li>
+<li>拼接好之后的SQL语句变成了：<code>select * from user where user_name = 'admmin'--' and pwd = 'xxx'</code>（&ndash;为SQL语句的注释）, 这样只要存在user_name为admin的用户，此语句就能成功执行并返回admin用户的信息。</li>
+</ul>
+
+
+<p>这里需要说明的是，如果服务器的请求错误信息没有做进一步封装，直接把原始的数据库错误返回，那么有经验的攻击者通过返回结果多次尝试就会有机会找出SQL注入的机会。</p>
+
+<p>防范此种攻击的方案有以下几个：</p>
+
+<ul>
+<li>在Java中构造SQL查询语句时，杜绝拼接用户参数，尤其是拼接SQL查询的where条件。全部使用PreparedStatement预编译语句, 通过？来传递参数。</li>
+<li>在业务层面，过滤、转义SQL特殊字符，Apache commons-lang中的StringEscapeUtil提供了escapeSQL的功能（最新的lang3已经删除此方法，因为其只是简单的替换&#8217;为&#8217;&lsquo;）。</li>
+</ul>
+
+
+<h2>基于约束条件的SQL攻击</h2>
+
+<p>基于约束条件的SQL攻击基于的原理如下：</p>
+
+<ul>
+<li>在处理SQL中的字符串时，字符串末尾的空格字符都会被删除，包括WHERE子句和INSERT语句，但LIKE子句除外。</li>
+<li>在任意INSERT查询中，SQL会根据varchar(n)来限制字符串的最大长度，即超过n的字符串只保留前n个字符。</li>
+</ul>
+
+
+<p>如此，我们设计一个用户表（暂且忽略设计的合理性），对其中的用户名和密码字段都设置为25个字符限制：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>CREATE TABLE test_user (
+</span><span class='line'>    `user_name` varchar(25),
+</span><span class='line'>    `pwd`  varchar(25)
+</span><span class='line'>);</span></code></pre></td></tr></table></div></figure>
+
+
+<p>有一个user_name为<code>user_test</code>的用户注册，于是向数据库添加一条记录。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>insert into test_user values("user_test","111111");</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接着，一个user_name为&#8217;user_test              1&#8217;(中间留有25个空格)的用户再来注册。一般的业务逻辑如下：</p>
+
+<ul>
+<li><p>判断用户名是否存在</p>
+
+<pre><code class="``">  select * from test_user where user_name = 'user_test              1'
+</code></pre>
+
+<p>  因为查询语句不会截断字符串，因此这样获取不到记录，表示用户不存在。</p></li>
+<li><p>用户名不存在，那么插入新用户。</p>
+
+<pre><code class="``">  insert into test_user values("user_test              1","123456")
+</code></pre></li>
+</ul>
+
+
+<p>这样，由于<code>user_name</code>约束为25个字符，那么新用户的<code>user_name</code>成为了&#8217;user_test      &lsquo;（后面是16个空格字符）。现在数据库记录如下（第二个记录后面是16个空格）：</p>
+
+<table>
+<thead>
+<tr>
+<th>user_name </th>
+<th> pwd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_test               </td>
+<td> 111111</td>
+</tr>
+<tr>
+<td>user_test               </td>
+<td> 123456</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>这样，当使用<code>user_name='user_test'</code>和<code>pwd='123456'</code>登录时，能匹配到第二条记录，登录是成功的。但是用户信息使用的第一条的记录，于是攻击者就获取到了第一个用户的操作权限。</p>
+
+<p>防范此种攻击的措施如下：</p>
+
+<ul>
+<li>为具有唯一性的那些列添加UNIQUE索引。</li>
+<li>在数据库操作前先将输入参数修剪为特定长度。</li>
+</ul>
+
+
+<h2>DDOS攻击</h2>
+
+<p>DDOS，全称Distributed Denial of Service, 分布式拒绝服务攻击。攻击者利用很多台机器同时向某个服务发送大量请求，人为构造并发压力，从而使得服务被冲垮，无法为正常用户提供服务。常见的DDOS攻击包括：</p>
+
+<ul>
+<li>SYN flood</li>
+<li>UDP flood</li>
+<li>ICMP flood</li>
+</ul>
+
+
+<p>其中SYN flood是最为经典的DDOS攻击。其利用了TCP连接三次握手时需要先发送SYN的机制，通过发送大量SYN包使得服务端建立大量半连接，消耗非常多的CPU和内存。针对这种攻击，很多解决方案就是在TCP层就使用相关算法识别异常流量，直接拒绝建立连接。但是，如果攻击者控制很多机器对一个资源消耗比较大的服务接口发起正常访问请求，那么这个方式就无效了。</p>
+
+<p>由于难于区分是否是正常用户的请求，因此DDOS是非常难以防范的，但仍有一些措施能够尽量地减少DDOS带来的影响，如下：</p>
+
+<ul>
+<li>合理使用缓存、异步等措施提高应用性能。应用抗并发的能力越强，就越不容易被DDOS冲垮服务。</li>
+<li>合理使用云计算相关组件，自动识别高峰流量并做自动扩容。</li>
+<li><p>在应用中限制来自某一IP或者某一设备ID的请求频率。超过此频率就将其放入黑名单，下次请求直接拒绝服务。Java中可以通过Redis的incr和expire操作来达到。如下：</p>
+
+<pre><code class="``">  String ip = NetworkUtil.getClientIP(request, false); //获取客户端ip地址
+  String key = "ddos." + ip;
+  long count = suishenRedisTemplate.incr(key); //incr不会影响expire
+  if (count &gt; 10000) {
+      throw new AccessException("access too frequently with ip: "
+           + StringUtils.defaultString(ip));
+  } else {
+      if (count == 1) {
+          suishenRedisTemplate.expire(key, 10);
+      }
+      return true;
+  }
+</code></pre>
+
+<p>  上述代码即可将同一IP的请求限制在十秒钟10000次。</p>
+
+<p>  此逻辑越靠近访问链路的前面效果越好，比如直接在Nginx中拦截效果就要比在业务应用中做要好。</p></li>
+</ul>
+
+
+<p>还需要提到的是DDOS一个新的变种，反射型DDOS攻击，也被称为放大攻击。原理如下图所示：</p>
+
+<p><img src="/post_images/reflect-ddos.png" alt="" /></p>
+
+<p>此种攻击，攻击者并不直接攻击目标服务IP，而是伪造被攻击者的IP，发送请求包到网上一些开放的特殊服务的服务器（放大器。这些服务器由于协议的特点并不会验证源IP的真伪，于是会将数倍于请求报文的回复数据发送到被攻击者的IP，从而对后者间接形成DDOS攻击。任何设计不完善的、基于UDP请求的协议或者ICMP协议都能形成放大器，包括DNS请求、Ping请求、NTP monlist请求、SSDP协议（简单服务发现协议）等。此种攻击不需要大量的肉鸡、难以追踪，正变得越来越流行。防范此种攻击通常的手段就是进行DDOS流量清洗和增加ACL过滤规则。</p>
+
+<h2>Session fixation</h2>
+
+<p>Session fixation攻击，故名思议就是会话固定攻击。在我们平时的Web开发中都是基于Session做用户会话管理的。在浏览器中，Session的ID一般是存储在Cookie中的，甚至直接附带在query参数中。如果Session在未登录变为登录的情况下不发生改变的话，Session fixation攻击就形成了。</p>
+
+<p>一个攻击示例如下：</p>
+
+<ul>
+<li>攻击者进入网站<a href="http://xx.com%E3%80%82">http://xx.com%E3%80%82</a></li>
+<li>攻击者发送<a href="http://xx.com?JSESSIONID=123456%E7%BB%99%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E3%80%82">http://xx.com?JSESSIONID=123456%E7%BB%99%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E3%80%82</a></li>
+<li>用户点击此链接进入网站，由于URL后面有JSESSIONID，因此直接使用此做为Session的ID。</li>
+<li>用户成功登陆后，攻击者就可以利用伪造的Session ID获取用户的各种操作权限。</li>
+</ul>
+
+
+<p>此种攻击的关键点就在于Tomcat使用JSESSIONID做为Session ID。因此，防范此种攻击的核心之一就在于不能使用客户端传来的Session ID。此外还有以下方法：</p>
+
+<ul>
+<li>不要接受由GET或者POST参数指定的Session ID值。</li>
+<li>针对每一个请求都生成新的Session。</li>
+<li>只接受服务端生成的Session ID。</li>
+<li>为Session指定过期时间。</li>
+</ul>
+
+
+<p>Java Web项目中,可以实现一个拦截器, 将使用query参数传递JSESSIONID的请求的Session删除掉：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public void doFilter(ServletRequest request, ServletResponse response,
+</span><span class='line'>                         FilterChain chain) throws IOException, ServletException
+</span><span class='line'>    ...
+</span><span class='line'>    
+</span><span class='line'>    if (httpRequest.isRequestedSessionIdFromURL()) {
+</span><span class='line'>        HttpSession session = httpRequest.getSession();
+</span><span class='line'>        if (session != null) {
+</span><span class='line'>            session.invalidate();
+</span><span class='line'>        }
+</span><span class='line'>    }
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<p>此外，对于每一次登录后的Session都重新生成ID, 并设置合理的失效期。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>public JSONResult login(@RequestBody LoginRequestBody requestBody,
+</span><span class='line'>                            HttpServletRequest request)
+</span><span class='line'>    ...
+</span><span class='line'>    boolean loginResult = doLogin();
+</span><span class='line'>    if(loginResult){
+</span><span class='line'>        request.changeSessionId(); //重新生成Session ID
+</span><span class='line'>        request.getSession().setMaxInactiveInterval(1800); //30分钟失效
+</span><span class='line'>    }
+</span><span class='line'>    ...
+</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>隐私数据存储</h2>
+
+<p>随着市面上发生一次次数据库被脱导致用户隐私数据被泄漏的事情，越来越多的人意识到了隐私的重要性，在选择一个应用的时候也越来越在意对自己隐私数据的保护。这里所说的隐私数据包括：手机号、实名、身份证号、家庭住址、单位地址、家庭情况、密码等等。那么在技术层面如何存储这些隐私数据来保障用户的隐私安全呢？</p>
+
+<ol>
+<li><p>使用单向散列算法</p>
+
+<p> 此种方式对明文进行加密后是无法恢复明文的，因此仅仅适用于密码这种不需要恢复明文只需要做验证的场景。</p></li>
+<li><p>使用加密算法</p>
+
+<p> 此种方式，在存储和使用用户数据的时候都进行加/解密运算，能够在一定程度上保护数据的安全性。但每次都要进行加解密使得代价有点高，而如果使用简单的算法则无法面对穷举或者字典攻击。并且加密的数据对于SQL等数据库查询语句优化是不友好的，操作都得通过程序进行。此外，算法所使用的密钥的安全也是一个问题，存储在哪里都有被拿到的机会。而如果进一步对于每个用户或者每条数据都使用不同的密钥，那么就会提高程序的逻辑复杂性。</p>
+
+<p> 还得考虑到日志采集、数据分析等非具体业务场景，这些隐私数据最终还是要变为明文进行流通，无法从根本上保证隐私数据的安全。</p></li>
+</ol>
+
+
+<p>综上分析，可以采取以下这种方案：</p>
+
+<ol>
+<li><p>每一个用户都有自己的密钥，对其手机号、身份证等隐私信息使用加密算法来混淆其中的几位。如：159efadsc2681。如此，在只是需要展示这些信息的地方无须解密，直接使用即可。只有诸如发送短信、用户信用验证时才需要解密。</p></li>
+<li><p>密钥存储在另一个库中，由另外一个团队维护、独立管理，具有最高级别的访问权限，访问QPS也受严格控制。</p></li>
+<li><p>如果给数据分析部门提供数据，则提供隐私数据转换后的数据。例如：对用户的归属地分析，那么可以提供身份证转化为地区归属地后的信息而不是直接提供身份证号。</p></li>
+</ol>
+
+
+<p>如此，即使脱库也无法解密所有数据。而且密钥库和业务库独立，单独脱一个库是没有意义的。密钥库的访问权限和访问频率也都受限制，即使是内部人员脱库都很容易被发现。</p>
+
+<p>总之，对诸如身份证号、通讯录、支付宝账号等隐私信息要注意加密或者散列存储，一定不要明文发送到客户端，展示也不要明文展示，只有当真正使用的时候再去获取明文。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2020/02/17/rpc/" title="下一篇: Java工程师应该知道的RPC">Java工程师应该知道的RPC &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<p>中华万年历/微鲤看看技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">各研发职位</a>，感兴趣者可发送简历到<a href="mailto:hang@weli.cn">hang@weli.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2020/03/10/web-security/">Java工程师应该知道的Web安全</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/02/17/rpc/">Java工程师应该知道的RPC</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/01/27/kobe/">我是科蜜，20年的...</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/01/23/my2019/">我的2019</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/12/20/manage-notes/">《管理的常识》学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/12/18/tech-talk/">技术琐话</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/11/23/middle-talk/">中台简谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/10/23/how-to-tech-share/">如何进行有效的技术分享（演讲）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/09/28/restful/">数据传输之RESTful</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2019/08/23/solve-problem/">如何培养解决问题的意识</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2020 - 飒然Hang -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "Java工程师应该知道的Web安全",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "528dd6945e3a48c2a954",
+   client_secret: "e71312e081ef3dd87cc3425ada7080cd3b296f0d"
+};
+getRecentCommentsList(opt);
+</script>
+
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

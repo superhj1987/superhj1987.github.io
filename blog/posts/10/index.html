@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 Android中dip、dp、sp、pt和px的区别 Aug 5th, 2011 Android有以下几个度量单位： dip: device &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 《七周七语言》读后感 Nov 17th, 2012 在微博上看到Robbin老大推荐《七周七语言》一书，去豆瓣上查了一下发现大家对这本书的评价也是非常高， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -119,6 +119,112 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2012/11/17/seven-language/">《七周七语言》读后感</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-11-17T13:39:34+00:00" pubdate data-updated="true">Nov 17<sup>th</sup>, 2012</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>在微博上看到Robbin老大推荐《七周七语言》一书，去豆瓣上查了一下发现大家对这本书的评价也是非常高，于是就想着去读一下。书买了之后由于找工作一直没有来得及看，随着前段时间把工作定了，就着手对这本书的学习了。从书名来看，顾名思义就是讲了七种不同的编程语言。自己浏览了一下目录，心里也大致衡量了一下，对于这七种语言，我觉得我以后会用到的或者说是能去学的应该也就Ruby、Scala两个，所以就计划大体地浏览一下这七门语言，先有个大概的了解就好。这样每天利用上午的两个小时，一共大约两周的时间，大体把这本书看完了。</p>
+
+<p>这本书一共讲了四种编程范型：面向对象编程、原型编程、约束-逻辑编程、函数式编程。面向对象编程有Ruby和Scala；原型编程是Io；约束-逻辑编程是Prolog;函数式编程有Scala、Erlang、Clojure、Haskell。对于这几种编程范型，书里面最后一章进行了很好的总结，在这里也就不重复了。</p>
+
+<p>在阅读这本书的过程中，经常会在看到某个语言的某个特性时让自己有种狂喜的感觉，让自己感到特别兴奋，有一股强烈的冲动去学习它、去运用到实际中。自己在这过程中也产生了一些想法，思考了一些问题。</p>
+
+<ul>
+<li><p>书的一开始是Ruby那一章。其实几年前就曾听闻Ruby on rails的威名，也知道ItEye就是使用的这个技术，知道Ruby以注重程序员效率为主。之前花了点时间进行了学习，但一直没有一个练手的项目，所以也就停留在似懂非懂的地步。这次看这一章，第一感觉仍然是惊喜于Ruby语法的灵活。写Ruby代码就觉得是在说话一样，而且各种方式都可以，让人非常舒服。另外，Ruby的纯面向对象和动态类型特性都极大地提高了编程效率。对于Ruby在性能、并发方面的弱点，随着现在硬件性能的提高以及Ruby自身的改进，已经越来越不是问题。</p></li>
+<li><p>对于Io这个语言，自己很陌生，是第一次听说。不过它的原型编程，自己曾在JavaScript中接触过。Io的另一个特色是万事万物皆消息，这个东西确实挺新颖，在处理并发的时候使用actor发送消息、处理消息能达到不错的效果。此外，它的future让我想起了Java中的FutureTask和Future，不知道Java是不是参考Io的。这个机制在多线程环境中也是个很不错的方案。</p></li>
+<li><p>Prolog，也是第一次听说，更是第一次听说声明式编程语言和逻辑编程语言。貌似只要描述一个事实和推论，就能写出解决很多难题的程序来。里面对于数独和八皇后问题的编码解决，让我真的是叹为观止。此外，自己也第一次知道了尾递归优化这个技术，对于递归调用，这个优化的确能够大大节省内存占用。但是真的对于这种语言很不适应，也就没太仔细地看。不过，不得不承认的是DSL语言在特定领域确实是无可比拟的。</p></li>
+<li><p>Scala，一门混合编程语言，算是面向对象语言与函数式语言之间的桥梁。其运行于JVM之上，加上对函数式编程的支持，使得很多基于Java开发的系统可以在之前的基础上进行改进，极大地提高了编程效率。而且其使用val关键字声明值不可变的变量以及其actor使用了线程池的方式都是对并发不错的解决方案。看到这个语言，我强烈地感觉Scala是一个能够取代Java的高级语言，也特别想去学习一下。也有了计划去进一步接触和使用。</p></li>
+<li><p>Erlang，这个语言之前看到过，知道是一个针对并发的编程语言。不过看了书才知道其是基于Prolog而来的。其“就让它崩溃”的错误处理策略显得非常健壮，另外并发方面采用的是开销极小的轻量级进程也是一个优势。最让我惊叹的是它的列表解析功能，一个典型的例子就是能够轻易的向一个列表中加入新的属性。</p></li>
+<li><p>Clojure，又一个陌生的语言，一个JVM上的Lisp实现，也就是一个Lisp方言。对于Lisp自己也是从未接触过。不过从Lisp字面上的意思来看就是一个列表语言，即取列表第一个元素作函数，其余元素做参数。另外就是在Lisp中数据即代码、代码即数据。这里最让我惊异的是其采用事务内存STM和原子来解决并发问题，算是一个亮点。此外，使用延迟计算解决斐波那契数列和阶乘问题以及Clojure-Java互操作对Java语言的扩展也都是很突出的优势。</p></li>
+<li><p>最后一个语言Haskell是一个纯函数编程语言，也是本书一个让自己看了很久也没搞明白的语言。可能是对于函数式编程自己就是个小白的缘故吧。不过好歹是弄明白了柯里化的意思，也看到了惰性计算的好处。此外，对其中的monad这个为了弥补函数式编程在命令式风格编程方面的缺陷采用的技术，自己看了好几遍还是很迷糊。书上说这是Haskell的精髓，弄懂这个能学到很多东西。自己打算以后有时间再回过头来好好研究一下这个东西。</p></li>
+</ul>
+
+
+<p>总之，这本书确实是一本不可多得的好书，值得好好研读一下。强烈推荐！</p>
+</div>
+  
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2012/08/15/terracotta/">关于terracotta在tomcat集群中做session共享的问题</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-08-15T13:39:34+00:00" pubdate data-updated="true">Aug 15<sup>th</sup>, 2012</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>手头上的一个项目“陕西省专业技术人员继续教育学习与管理平台”是服务于全陕西省130万专技人员的高并发且事务逻辑较复杂的一个系统，不管是编码上还是系统架构部署上都具有一定的挑战性。在考虑了现有设备以及系统负载的基础上，整个系统架构采用了六台服务器，分别是：WEB门户服务器（WEB门户+Oracle数据库）、学习管理平台服务器、系统核心数据库、资源下载服务器、在线点播服务器、数据库备份服务器。</p>
+
+<p>系统运行了数月，WEB门户采用的apache+mod_jk+memcached+4tomcat能够正常应付目前的访问。管理学习系统虽然由于一些在线课程还未上线，最大的并发还未开始，但目前课程文件的上传、人员的表单录入等对服务器的造成的负载经常使服务器响应缓慢甚至不响应。考虑到开始采用的nginx+4tomcat+ip_hash，ip_hash本身策略的缺陷使负载不能很好地均衡，于是使用memcached做集群的session共享。此时出现了一个到现在还让我搞不清楚的现象：系统session中存入一些timestamp的Date对象，读取的时候，竟然会读成UNIX原始时间戳。一直没办法解决这个问题，只能采用ip_hash的方式运行着，一旦出现服务器不响应的情况就重启tomcat。</p>
+
+<p>这几天上网查资料的时候，发现terracotta可以做tomcat集群的session共享，由于其是jvm级别的cluster解决方案且采用find-gained changes机制，因此在性能要优于memcached，关键是其是jvm堆级别的复制，储存任何值都没任何问题。按照官网的说明把所有东西都配置好了，却发现session无法正常共享。写了个测试的jsp，打印出session id，单独访问某一个tomcat，发现id在不停的换，我一开始怀疑是terracotta没安好的问题，就又重装了一遍，问题依旧。这时突然发现在IE下session是正常的，其他浏览器下session就不正常，总是不停地换，按说没有关闭浏览器是不会重新生成session的。使用fiddler来检测请求和响应的header，发现一个奇怪的问题，chrome请求一个页面时比使用IE时，多了一个对/favicon.ico的请求，而这个请求得到的响应(404)中会产生新的session id使session发生变化。（什么原因，怎么解释？）在网站的根目录下上传一个favicon.ico即可解决此问题。为了证实是favicon.ico不存在造成的问题，我在页面中请求了一个不存在的js文件，结果session id又开始不停地变。把所有不存在的文件的引用都删掉能够解决此问题，但是在没有使用terracotta前根本不存在此问题，我猜想是不是terraccota在检测到404错误的时候，就会重新生成session的缘故啊。查了一下tomcat的文档，发现context有个属性sessionCookiePath，尝试着把这个值设置为了&#8221;/&ldquo;，结果一切正常了，即使再有404错误，session也不会再变了。这是为什么？在文档中对sessionCookiePath的解释是：</p>
+
+<pre>
+The path to be used for all session cookies created for this context. If set, this overrides any path set by the web application. If not set, the value specified by the web application will be used, or the context path used if the web application does not explicitly set one. To configure all web application to use an empty path (this can be useful for portlet specification implementations) set this attribute to / in the global CATALINA_BASE/conf/context.xml file.
+</pre>
+
+
+<p>不指定此值的时候，是使用的web app中的或者是直接使用context path。我猜测terracotta是接受了此值，但在处理404资源的时候，这个path无法识别，故以为是新的一个会话，造成session改变的缘故。</p>
+
+<p>不管咋样，暂且算是解决了此问题，原因也是猜测的。有空得看一下terracotta的源代码，看看究竟是什么原因造成的。</p>
+
+<p>其实这个项目在部署运行中，出现过各种问题，因此也做过很多架构的变动。到目前还是不能让人满意，只能在后续的维护中继续改进了。</p>
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -820,6 +926,14 @@ canvas.drawBitmap(mBitmap, r, dstRect, null);
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2020/03/10/web-security/">Java工程师应该知道的Web安全</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/02/17/rpc/">Java工程师应该知道的RPC</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2020/01/27/kobe/">我是科蜜，20年的&#8230;</a>
       	</li>
     	
@@ -849,14 +963,6 @@ canvas.drawBitmap(mBitmap, r, dstRect, null);
     	
      	<li>
       	  <a href="/blog/2019/08/23/solve-problem/">如何培养解决问题的意识</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2019/07/27/springboot/">使用Spring Boot快速开发</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2019/06/29/log/">Java开发框架之日志</a>
       	</li>
     	
 	</ul>
