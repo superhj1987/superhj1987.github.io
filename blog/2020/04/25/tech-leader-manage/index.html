@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>async源码分析 - 后端技术杂谈 | 飒然Hang</title>
+  <title>技术管理者标准管理模板 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Async源码分析 Aug 22nd, 2014 Posted by 飒然Hang in nodejs 最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码： async.waterfall = function (tasks, &hellip;">
+  <meta name="description" content="技术管理者标准管理模板 Apr 25th, 2020 Posted by 飒然Hang in manage 对于公司技术团队新晋升的一些研发Leader、主管等管理人员，即使在大公司具有完善的培训机制，大多说人在一开始还是会手足无措，不能很好地做到从个人贡献者到团队贡献者角色的转变。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/2014/08/22/node-async-analysis/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2020/04/25/tech-leader-manage/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -118,7 +118,7 @@
   
   <header>
     
-      <h1 class="post-title">Async源码分析</h1>
+      <h1 class="post-title">技术管理者标准管理模板</h1>
     
     
       <p class="post-meta">
@@ -134,7 +134,7 @@
   
 
 
-<time datetime="2014-08-22T08:08:28+00:00" pubdate data-updated="true">Aug 22<sup>nd</sup>, 2014</time>
+<time datetime="2020-04-25T11:29:34+00:00" pubdate data-updated="true">Apr 25<sup>th</sup>, 2020</time>
         
         
   
@@ -144,7 +144,7 @@
 
 <span class="categories">
   
-    <a class='category' href='/blog/categories/nodejs/'>nodejs</a>
+    <a class='category' href='/blog/categories/manage/'>manage</a>
   
 </span>
 
@@ -155,76 +155,158 @@
   </header>
 
 
-<div class="post-content"><p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
+<div class="post-content"><p>对于公司技术团队新晋升的一些研发Leader、主管等管理人员，即使在大公司具有完善的培训机制，大多说人在一开始还是会手足无措，不能很好地做到从个人贡献者到团队贡献者角色的转变。于是根据自己以及公司内部很多技术管理者的工作经验梳理出了一些技术管理者的管理模板，可以作为管理工作的实践参考。</p>
 
-<pre>
-    async.waterfall = function (tasks, callback) {
-        callback = callback || function () {};
-        if (!_isArray(tasks)) {
-          var err = new Error('First argument to waterfall must be an array of functions');
-          return callback(err);
-        }
-        if (!tasks.length) {
-            return callback();
-        }
-        var wrapIterator = function (iterator) {
-            return function (err) {
-                if (err) {
-                    callback.apply(null, arguments);
-                    callback = function () {};
-                }
-                else {
-                    var args = Array.prototype.slice.call(arguments, 1);
-                    var next = iterator.next();
-                    if (next) {
-                        args.push(wrapIterator(next));
-                    }
-                    else {
-                        args.push(callback);
-                    }
-                    async.setImmediate(function () {
-                        iterator.apply(null, args);
-                    });
-                }
-            };
-        };
-        wrapIterator(async.iterator(tasks))();
-    };
- </pre>
+<!--more-->
 
 
-<p></p>
+<p><img src="/post_images/tech-manage.png" alt="" /></p>
 
-<!-- more -->
+<h2>看方向</h2>
 
-
-<p></p>
-
-<p>开始先对参数进行了检查，判断tasks是否是一个function数组。然后使用了一个内部函数wrapIterator封装了实现。wrapIterator的参数带出了async.iterator函数：</p>
-
-<pre> 
-    async.iterator = function (tasks) {
-        var makeCallback = function (index) {
-            var fn = function () {
-                if (tasks.length) {
-                    tasks[index].apply(null, arguments);
-                }
-                return fn.next(); //这个地方有必要么？？？
-            };
-            fn.next = function () {
-                return (index < tasks.length - 1) ? makeCallback(index + 1): null;
-            };
-            return fn;
-        };
-        return makeCallback(0);
-    };
-</pre>
+<ul>
+<li><p>向上级明确团队的职责</p></li>
+<li><p>基于职责确定团队的使命、目标</p></li>
+<li><p>把职责、使命向团队成员传达清楚</p></li>
+<li><p>做好团队规划，模板可见：<a href="https://thoughts.etouch.cn/workspaces/5e05da41105e640014d321ff/docs/5e05dc560f08320001836c1a">https://thoughts.etouch.cn/workspaces/5e05da41105e640014d321ff/docs/5e05dc560f08320001836c1a</a></p></li>
+<li><p>建立团队的WIki，包括：职责、使命、目标、团队规划、人员分工、规章制度等</p></li>
+</ul>
 
 
-<p> <br/>
-这个函数，其主要实现是其内部函数makeCallback。其功能就是迭代tasks，封装其中的每一个function,让其执行后返回下一个function,以此实现迭代。</p>
+<h2>管事</h2>
 
-<p>接下来，再回到wrapIterator，此function是对iterator的封装。执行后返回的是一个匿名function。其明确的参数只有一个err。当err不为空的时候，直接执行callback function。否则从index为1开始取出参数列表，并把iterator的下一个function包装之后push到args中（如果没有下一个function了则push回调函数）。接下来，则执行当前的iterator，执行的参数是下一个iterator function（作为这一步的回调函数）以及参数（如果当前的iterator被调用时传递了其他参数）。这样在当前iterator中回调下一个iterator，依次迭代执行，直至执行完所有function和callback。</p>
+<ul>
+<li><p>OKR</p>
+
+<ul>
+<li><p>制定团队OKR，对齐公司和部门OKR</p></li>
+<li><p>跟进团队成员的个人OKR制定和进度跟踪</p></li>
+<li><p>跟踪OKR进展，识别高绩效人才</p></li>
+</ul>
+</li>
+<li><p>技术管理</p>
+
+<ul>
+<li><p>参与技术方向决策，将研发规范、例会等信息明确传达给团队成员并推进</p>
+
+<ul>
+<li><p>技术评审规范</p></li>
+<li><p>代码风格规范</p></li>
+<li><p>代码开发规范</p></li>
+<li><p>代码管理规范</p></li>
+<li><p>CodeReview规范</p></li>
+</ul>
+</li>
+<li><p>组织技术评审、CodeReview</p></li>
+<li><p>制定学习分享机制并切实推行</p></li>
+<li><p>团队所负责维护的系统的周期巡检</p></li>
+<li><p>公司层面基础技术以及成熟开源项目的引入和推进</p></li>
+</ul>
+</li>
+<li><p>项目管理</p>
+
+<ul>
+<li><p>技术方案确定</p>
+
+<ul>
+<li><p>技术选型</p></li>
+<li><p>技术架构</p></li>
+<li><p>技术难点</p></li>
+<li><p>性能瓶颈</p></li>
+<li><p>上下游系统</p></li>
+<li><p>功能模块</p></li>
+</ul>
+</li>
+<li><p>根据技术评审的结果预估开发工期并做好关键时间点的把控</p>
+
+<ul>
+<li><p>系统、模块、功能的设计以及简述</p></li>
+<li><p>参与的研发人员以及分工</p></li>
+<li><p>预估工时</p></li>
+<li><p>预计完成时间</p></li>
+<li><p>关键时间点、里程碑</p></li>
+<li><p>确定会议机制：晨会、周会</p></li>
+</ul>
+</li>
+<li><p>创建并保持项目文档的更新</p>
+
+<ul>
+<li><p>技术调研文档</p></li>
+<li><p>方案选型文档</p></li>
+<li><p>需求文档</p></li>
+<li><p>系统设计文档</p></li>
+</ul>
+</li>
+<li><p>项目风险管理</p></li>
+<li><p>项目质量管理，包括代码质量把控和监控告警设施的接入</p></li>
+<li><p>协调资源推进项目进展</p></li>
+</ul>
+</li>
+<li><p>技术产品运营</p>
+
+<ul>
+<li><p>提炼团队项目的公共抽象部分，组件化和平台化</p></li>
+<li><p>组件、技术平台的推广</p></li>
+</ul>
+</li>
+<li><p>成本管理</p>
+
+<ul>
+<li><p>技术选型时把成本做为重要考量项</p></li>
+<li><p>提升团队资源的利用率</p></li>
+<li><p>关注团队的人力成本和技术成本</p></li>
+<li><p>关注团队的产出价值</p></li>
+</ul>
+</li>
+<li><p>流程改进</p>
+
+<ul>
+<li><p>定位阻碍研发的流程节点，寻找有效的解决方案</p></li>
+<li><p>寻求有效工具或者方案提升关键流程效率</p></li>
+</ul>
+</li>
+<li><p>制度建设</p>
+
+<ul>
+<li><p>明确公司和部门的规章制度并推进实行</p></li>
+<li><p>根据团队需要，制定团队规章制度</p></li>
+<li><p>制定SOP，保障下限水准</p></li>
+<li><p>明确团队例会制度</p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>管人</h2>
+
+<ul>
+<li><p>定期的一对一沟通</p>
+
+<ul>
+<li><p>你所负责业务的完成情况到现在怎么样？目标完成情况怎么样？</p></li>
+<li><p>这段时间自我评价绩效如何？什么原因？</p></li>
+<li><p>你个人有没有什么你觉得我应该知道的？</p></li>
+</ul>
+</li>
+<li><p>关注团队成员职业规划和能力成长，给与指导和建议</p></li>
+<li><p>关注团队成员工作状态</p></li>
+<li><p>组织团建，提高团队凝聚力</p></li>
+</ul>
+
+
+<h2>管理仪表盘</h2>
+
+<p>建立自己的管理仪表盘，关注关键数据</p>
+
+<ul>
+<li><p>系统监控数据（QPS、硬件资源使用率、错误数等）->提前发现系统瓶颈，消除隐患；提高资源利用率，降低成本</p></li>
+<li><p>项目构建报告（单元测试覆盖率报告、代码质量报告、构建失败与成功概况）-> 关注项目研发质量，保障持续交付</p></li>
+<li><p>项目/任务进度->保证项目/任务正常进行</p></li>
+<li><p>业务关键数据指标->关注业务价值，提升团队成员成就感</p></li>
+<li><p>OKR进度->关注OKR实现状况，识别高绩效人员</p></li>
+<li><p>团队成员的每日/周的工作状况->关注团队成员状况</p></li>
+</ul>
+
 </div>
 <!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
   <img src="/images/blog_images/h.png"/>
@@ -288,10 +370,8 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2014/08/27/nginx-loadbalance/" title="上一篇: Nginx负载均衡">&laquo; Nginx负载均衡 </a>
       
-      
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2014/08/14/grow-up-in-tech/" title="下一篇: 技术的成长">技术的成长 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2020/03/10/web-security/" title="下一篇: Java工程师应该知道的Web安全">Java工程师应该知道的Web安全 &raquo;</a>
       
     </div>
   </footer>
@@ -494,7 +574,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "async源码分析",
+   issue_title: "技术管理者标准管理模板",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
