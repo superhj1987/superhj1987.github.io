@@ -20,7 +20,7 @@ categories: manage
 
 - 把职责、使命向团队成员传达清楚
 
-- 做好团队规划，模板可见：[https://thoughts.etouch.cn/workspaces/5e05da41105e640014d321ff/docs/5e05dc560f08320001836c1a](https://thoughts.etouch.cn/workspaces/5e05da41105e640014d321ff/docs/5e05dc560f08320001836c1a)
+- 做好团队规划，包括：规模、分工、梯队、资源盘点等
 
 - 建立团队的WIki，包括：职责、使命、目标、团队规划、人员分工、规章制度等
 
