@@ -1,9 +1,9 @@
 ---
 layout: post
 title: "研发效能杂谈"
-date: 2019-05-30 19:29:34 +0800
+date: 2020-05-30 19:29:34 +0800
 comments: true
-categories: misc
+categories: manage
 ---
 
 企业效能分为研发效能和内部IT系统建设两部分。
