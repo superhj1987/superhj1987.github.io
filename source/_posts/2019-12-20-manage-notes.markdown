@@ -26,4 +26,4 @@ categories: manage
 
 书籍链接：<https://book.douban.com/subject/26901342/>
 
-![](/post_images/manage.png)
+<img src="/post_images/manage.png" width="300"/>
