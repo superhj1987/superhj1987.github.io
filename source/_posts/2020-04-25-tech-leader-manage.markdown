@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "技术管理者标准管理模板"
+title: "技术管理标准模板"
 date: 2020-04-25 19:29:34 +0800
 comments: true
 categories: manage
