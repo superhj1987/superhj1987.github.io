@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-07-17T15:48:30+00:00</updated>
+  <updated>2020-07-17T15:59:10+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -1262,7 +1262,7 @@ Protobuf | 速度快 | 需要静态编译</p>
     <link href="http://www.rowkey.me/blog/2019/12/18/tech-talk/"/>
     <updated>2019-12-18T11:29:34+00:00</updated>
     <id>http://www.rowkey.me/blog/2019/12/18/tech-talk</id>
-    <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：<a href="https://www.rowkey.me/blog/talks/">技术琐话</a></p>
+    <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：<a href="http://www.rowkey.me/blog/talks/">技术琐话</a></p>
 ]]></content>
   </entry>
   
