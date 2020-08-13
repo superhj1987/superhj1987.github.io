@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 工作总结@2014 Jan 15th, 2015 突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。 对自己来说， &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 Kafka学习笔记 - 介绍 May 30th, 2015 什么是kafka 最近公司需要上基于nginx log的数据统计系统。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -119,6 +119,123 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/05/30/kafka-intro/">Kafka学习笔记 - 介绍</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-05-30T12:06:18+00:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>什么是kafka</h2>
+
+<p>最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说：Kafka是一个分布式、分区、冗余的commit日志service。它提供了一种特殊设计的消息系统功能。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/05/30/kafka-intro/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/">关于SpringMVC中model的attribute无法指定别名的解决方案</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-21T04:00:00+00:00" pubdate data-updated="true">Jan 21<sup>st</sup>, 2015</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+
+<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
+
+<p><strong>Controller</strong>:</p>
+
+<pre>
+@Controller
+@RequestMapping("/api")
+public class ApiController extends BaseController {
+
+    @RequestMapping(value = "/test", headers = "Accept=application/json")
+    public void authUser(ModelMap modelMap, Account acc) {
+        ResultPack.packOk(modelMap);
+    }
+}
+
+public class Account{
+    private static final long serialVersionUID = 750752375611621980L;
+
+    private long id;
+    private String userName;
+    private String password;
+    private AccountType type = AccountType.ADMIN;
+    private long timeTag;
+    private int status = 1;
+    ...
+    ...
+}
+</pre>
+
+
+<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
+
+<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
+
+<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -562,125 +679,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/06/04/sys-arch/">谈谈系统架构这个东西</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-06-04T13:29:34+00:00" pubdate data-updated="true">Jun 4<sup>th</sup>, 2014</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>架构这个词在很多人看来都是很高大上的一个东西。事实上，搞架构的这些人却也都是些大神，至少都是在这个领域浸淫N久的专家级人物。现在很火的全栈工程师这个概念，就是架构师的另一种表现形式。</p>
-
-<p>之于架构，其含义无非是从技术细节跳出来自上而下宏观地看待系统的一个思维，就好比建筑设计一样。架构师的角色和建筑设计师在某种意义上是相同的。在微博上看到蔡学镛分享过这么一个架构设计流程的图，从中或多或少能看出架构设计一个大概的流程。</p>
-
-<p><img src="/images/blog_images/arch-1.jpg" alt="arch-1" /></p>
-
-<p>首当其冲的，肯定是需要对整个系统的业务进行拆分，进行业务设计，目的就是要捋清楚系统是干什么的，能提供什么功能，对系统的需求要做到详尽的分析和考虑。不过这部分，在我参与过的一些项目看来，尤其是对现在普遍使用的敏捷开发流程来说，无需考虑的太面面俱到，但至少不能太窄或者偏离正轨，后续的开发过程会不断的反馈回来进行调整。</p>
-
-<p>接下来，系统的业务明确之后，交互设计和领域建模便可以同时执行。当然，这里我是觉得交互设计和架构师是没啥关系的，顶多就是两者要相辅相成。而领域建模这个就显得很重要了。领域建模是业务设计的主要逻辑，把现实中的业务转化成抽象的对象，这个确实是能力的体现了。我觉得这一部分很多出色的架构师相比其他人突出的一个很关键的地方。</p>
-
-<p>技术模块设计则是在理解了系统的业务需求之后，对整体的一个技术框架上的设计。这里对于技术架构，我一直有一个分不太清楚的东西，就是软件架构和系统架构。说到底，这两者都是软件层面的含义，所不同的是前者到了代码层面，而系统架构则是到了软件层面。软件架构是位于系统架构之上的。一个系统，使用了Spring、Hibernater然后用了MVC设计模式，这就是软件架构；一个系统分成负载均衡模块、Link模块、队列模块、数据模块、推送模块等等则就是系统架构。再往下就应该是部署架构了，比如系统部署了几个结点、结点之间的关系、网络的规划结构、系统的高可用、可扩展等等。当然对于一个系统来说，数据的设计是可以拿出来重点进行的，毕竟对于互联网应用来说，数据 is all，系统的很多性能、效率问题是和数据的存储设计有密切关系的。</p>
-
-<p>到最后，业务之上的这些设计会反作用于业务，将系统的关键点反馈回来，从而对业务进行调整，进而再推进整个架构的流程。现在很火的敏捷开发，某种角度看来就是一个不断迭代、反馈的过程，是传统架构设计的一种演化形式。</p>
-
-<p>谈到架构，那么如何才能具有架构能力呢？借鉴在知乎上看到一个回答：</p>
-
-<ul>
-<li>视野开阔，知道可以直接用哪个开源项目来满足这样那样的需求。多数时候其实我们并不需要重复造轮子。视野窄的架构师会放着捷径不走，不断让团队重复造轮子，直至把项目拖死。</li>
-<li>精通设计模式，但又不泛用。不设计过度，不在各种细节问题上需求蔓延。所有架构设计都是为了满足产品需求的，不满足需求或者过度设计都是菜鸟行为。</li>
-<li>把系统拆分成多个子系统或模块，模块之间尽量松耦合，使得原先只能串行的开发任务，可以并行开展，也就是说良好的设计可以通过投入更多人力来缩短工期。反之拙劣的设计需要一个人维护一大坨代码，无法通过加人并行开发来缩短工期。</li>
-<li>能清楚地知道系统的瓶颈在什么地方，不断地定位技术难度、研发进度、性能、内存等各方面的瓶颈，不断调整骨干力量解决瓶颈，在风险爆发之前就消除隐患。</li>
-<li>行业经验带来的直觉和预见性，可以预先需求可能产生怎样的变化，提前把可扩展性、后向兼容性设计好。但仍然不要过度设计</li>
-</ul>
-
-
-<p>以上对架构的一些理解，很多地方自认还是有点迷糊。在进行系统设计的时候，也经常摸不着头脑，把不同层次的东西混为一谈。记得蔡学镛大神之前还分享过一张图片，对架构讲的挺透彻的。不明白的时候看看这个，会有种茅塞顿开的感觉。</p>
-
-<p><img src="/images/blog_images/arch-2.jpg" alt="arch-2" /></p>
-</div>
-  
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2013/11/11/web-security-notes/">《白帽子讲Web安全》读书笔记</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-11T13:30:20+00:00" pubdate data-updated="true">Nov 11<sup>th</sup>, 2013</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
-
-<p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
-
-<h3>一、世界观安全</h3>
-
-<ol>
-<li>黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客，后者则指的是工作在反黑客领域的安全技术专家。</li>
-<li>安全问题的本质是信任的问题。并且安全是一个持续的过程，并不存在所谓的银弹。</li>
-<li>安全三要素：机密性、完整性、可用性</li>
-<li>一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。</li>
-<li>白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/11/11/web-security-notes/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -752,6 +750,14 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2020/07/31/project-manage/">项目管理标准模板</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/07/31/dev-efficacy-talk/">研发效能杂谈</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
       	</li>
     	
@@ -781,14 +787,6 @@
     	
      	<li>
       	  <a href="/blog/2019/12/20/manage-notes/">《管理的常识》学习笔记</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2019/12/18/tech-talk/">技术琐话</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2019/11/23/middle-talk/">中台简谈</a>
       	</li>
     	
 	</ul>
