@@ -4,7 +4,7 @@
   <title><![CDATA[Category: manage | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/manage/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-08-13T11:06:20+00:00</updated>
+  <updated>2020-08-13T11:13:49+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -606,6 +606,7 @@
 <ul>
 <li>技术平台：技术设施的复用</li>
 <li>数据中台：数据沉淀和输出能力</li>
+<li>移动中台：前端组件、跨平台开发、插件化、热加载</li>
 <li>业务中台
 
 <ul>
