@@ -237,8 +237,6 @@ categories: manage
 - 传达团队的代码规则、质量基准
 - LGTM（Looks good to me）
 
-[谷歌代码审查指南](https://github.com/google/eng-practices/blob/master/review/index.md)
-
 方式
 
 - 代码入库前的设计时检查：在设计阶段进行代码审查
@@ -259,6 +257,8 @@ categories: manage
 
 - 互相尊重
 - 基于讨论
+
+[谷歌代码审查指南](https://github.com/google/eng-practices/blob/master/review/index.md)
 
 ##### c. 快速反馈、增量开发
 
