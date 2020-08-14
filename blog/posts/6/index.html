@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 如何读取ClassPath下的资源 Feb 20th, 2017 最近在写一些公共组件时，碰到了需要读取classpath下文件的场景。 &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 JVM诊断调优CheatSheet Mar 23rd, 2017 包含诊断调优java应用的各种命令以及jvm配置示例。 常用Shell命令 查看网络状况 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -119,6 +119,67 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/03/23/java-profile-cheatsheet/">JVM诊断调优CheatSheet</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-03-23T11:29:34+00:00" pubdate data-updated="true">Mar 23<sup>rd</sup>, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>包含诊断调优java应用的各种命令以及jvm配置示例。</p>
+
+<h2>常用Shell命令</h2>
+
+<ul>
+<li><p>查看网络状况</p>
+
+<pre><code>  netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
+</code></pre></li>
+<li><p>使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存。</p>
+
+<pre><code>  #!/bin/bash
+  for i in `ps -ef | egrep -v "awk|$0" | awk '/'$1'/{print $2}'`
+  do
+      mymem=`cat /proc/$i/status 2&gt; /dev/null | grep VmRSS | awk '{print $2" " $3}'`
+      cpu=`top -n 1 -b |awk '/'$i'/{print $9}'`
+  done
+</code></pre></li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2017/03/23/java-profile-cheatsheet/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -604,71 +665,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/08/27/server-basic-tech-stack/">谈谈互联网后端基础设施</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-08-27T15:10:34+00:00" pubdate data-updated="true">Aug 27<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p><strong><em>本文更新于2018.09.14, 更新了后端基础设施框图，增加了负载均衡、Web服务器以及大数据存储和多维数据分析等部分</em></strong></p>
-
-<p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：</p>
-
-<p><a href="/images/blog_images/server_basic_stack/server-basic-tech-stack.png" target="_blank"><img src="/images/blog_images/server_basic_stack/server-basic-tech-stack.png"/></a></p>
-
-<ul>
-<li><a href="#Api%E7%BD%91%E5%85%B3">Api网关</a></li>
-<li><a href="#%E4%B8%9A%E5%8A%A1%E5%BA%94%E7%94%A8%E5%92%8C%E5%90%8E%E7%AB%AF%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6">业务应用和后端基础框架</a></li>
-<li><a href="#%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6">基础服务软件</a></li>
-<li><a href="#%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8">文件存储</a></li>
-<li><a href="#%E7%BB%9F%E4%B8%80%E8%AE%A4%E8%AF%81%E4%B8%AD%E5%BF%83">统一认证中心</a></li>
-<li><a href="#%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F">单点登录系统</a></li>
-<li><a href="#%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83">统一配置中心</a></li>
-<li><a href="#%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%A1%86%E6%9E%B6">服务治理框架</a></li>
-<li><a href="#%E7%BB%9F%E4%B8%80%E8%B0%83%E5%BA%A6%E4%B8%AD%E5%BF%83">统一调度中心</a></li>
-<li><a href="#%E7%BB%9F%E4%B8%80%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1">统一日志服务</a></li>
-<li><a href="#%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD">数据基础设施</a></li>
-<li><a href="#%E6%95%85%E9%9A%9C%E7%9B%91%E6%8E%A7">故障监控</a></li>
-<li><a href="#%E6%89%A9%E5%B1%95">扩展</a></li>
-</ul>
-
-
-<p>这里的后端基础设施主要指的是应用在线上稳定运行需要依赖的关键组件/服务等。开发或者搭建好以上的后端基础设施，一般情况下是能够支撑很长一段时间内的业务的。此外，对于一个完整的架构来说，还有很多应用感知不到的系统基础服务，如负载均衡、自动化部署、系统安全等，并没有包含在本文的描述范围内。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/08/27/server-basic-tech-stack/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -744,6 +740,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
       	</li>
     	
      	<li>
+      	  <a href="/blog/2020/08/01/cd/">持续交付这点事</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2020/07/31/project-manage/">项目管理标准模板</a>
       	</li>
     	
@@ -773,10 +773,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2020/01/23/my2019/">我的2019</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2019/12/20/manage-notes/">《管理的常识》学习笔记</a>
       	</li>
     	
 	</ul>

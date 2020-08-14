@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 Spring注解概览 Oct 28th, 2017 从Java5.0开始，Java开始支持注解。Spring做为Java生态中的领军框架，从2. &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 如何实现延时触发/定时器 Dec 28th, 2017 问题 微信公众平台后台有一个功能即定时群发消息，如明晚的20:00群发一条图文消息。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -119,6 +119,50 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/12/28/delay-trigger/">如何实现延时触发/定时器</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-12-28T11:29:34+00:00" pubdate data-updated="true">Dec 28<sup>th</sup>, 2017</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>问题</h2>
+
+<p>微信公众平台后台有一个功能即定时群发消息，如明晚的20:00群发一条图文消息。那么这种延时触发的逻辑如何实现呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2017/12/28/delay-trigger/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -529,67 +573,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2017/03/23/java-profile-cheatsheet/">JVM诊断调优CheatSheet</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2017-03-23T11:29:34+00:00" pubdate data-updated="true">Mar 23<sup>rd</sup>, 2017</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>包含诊断调优java应用的各种命令以及jvm配置示例。</p>
-
-<h2>常用Shell命令</h2>
-
-<ul>
-<li><p>查看网络状况</p>
-
-<pre><code>  netstat -n | awk '/^tcp/ {++S[$NF]} END {for(a in S) print a, S[a]}'
-</code></pre></li>
-<li><p>使用top去获取进程cpu使用率；使用/proc文件查看进程所占内存。</p>
-
-<pre><code>  #!/bin/bash
-  for i in `ps -ef | egrep -v "awk|$0" | awk '/'$1'/{print $2}'`
-  do
-      mymem=`cat /proc/$i/status 2&gt; /dev/null | grep VmRSS | awk '{print $2" " $3}'`
-      cpu=`top -n 1 -b |awk '/'$i'/{print $9}'`
-  done
-</code></pre></li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2017/03/23/java-profile-cheatsheet/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -665,6 +648,10 @@
       	</li>
     	
      	<li>
+      	  <a href="/blog/2020/08/01/cd/">持续交付这点事</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2020/07/31/project-manage/">项目管理标准模板</a>
       	</li>
     	
@@ -694,10 +681,6 @@
     	
      	<li>
       	  <a href="/blog/2020/01/23/my2019/">我的2019</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2019/12/20/manage-notes/">《管理的常识》学习笔记</a>
       	</li>
     	
 	</ul>
