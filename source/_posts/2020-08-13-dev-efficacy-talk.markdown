@@ -118,7 +118,7 @@ categories: manage
 	- 要求每次部署都要进行审计，以确切知道到底修改了哪些内容。
 	- 文档自动化、自文档
 
-具体可见：[持续交付这点事](https://www.rowkey.cn/blog/2020/08/01/cd/)
+具体可见：[持续交付这点事](https://www.rowkey.cn/blog/2020/06/15/cd/)
 
 ### 3.3 工程方法
 
