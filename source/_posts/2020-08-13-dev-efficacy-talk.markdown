@@ -36,7 +36,7 @@ categories: manage
 
 对应于第一部分中讲述的软件开发流程，如果想要提升研发效能，那么需要落实到研发流程（组织结构、项目管理、持续交付）、工程方法、个人效能以管理和文化的实践上。本文重点从研发流程、工程方法两方面来讲。
 
-![](/post_images/dev/whole.png)
+<img src="/post_images/dev/whole.png" width="800"/>
 
 ### 3.1 衡量指标  
 
