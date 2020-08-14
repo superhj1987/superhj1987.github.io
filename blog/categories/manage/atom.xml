@@ -4,7 +4,7 @@
   <title><![CDATA[Category: manage | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/manage/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-08-14T06:53:06+00:00</updated>
+  <updated>2020-08-14T06:54:45+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -165,6 +165,29 @@
 <h3>3.3 持续交付</h3>
 
 <p>持续交付指的是在短周期内完成软件产品，以保证软件保持在随时可以发布的状态。让每一个变更都经过一条自动化的检验流水线，来检查每一个变更的质量，通过就进入下一个阶段。<strong>其不是一种工具，而是一种实践！</strong></p>
+
+<ul>
+<li><strong>不要阻塞开发人员</strong></li>
+<li>每个团队指定构建负责人或者发布工程师：优化交付流水线，提升交付效率</li>
+<li>项目状态，应该对参与整个过程（包括构建、部署、测试和发布）的所有人都是可见的</li>
+<li>风险管理
+
+<ul>
+<li><strong>迭代增量式交付</strong>是有效风险管理的关键</li>
+<li>手工测试环境、试运行环境和生产环境总是需要严格的访问控制</li>
+<li>让风险识别成为每日立会的一部分</li>
+</ul>
+</li>
+<li>审计
+
+<ul>
+<li>手工测试环境、试运行环境和生产环境总是需要严格的访问控制：指定谁能够访问“特权”环境。</li>
+<li>要求每次部署都要进行审计，以确切知道到底修改了哪些内容。</li>
+<li>文档自动化、自文档</li>
+</ul>
+</li>
+</ul>
+
 
 <p>具体可见：<a href="https://www.rowkey.cn/blog/2020/08/01/cd/">持续交付这点事</a></p>
 
