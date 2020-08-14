@@ -4,7 +4,7 @@
   <title><![CDATA[Category: manage | 后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/blog/categories/manage/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2020-08-14T06:54:45+00:00</updated>
+  <updated>2020-08-14T08:30:17+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -52,7 +52,7 @@
 
 <p>对应于第一部分中讲述的软件开发流程，如果想要提升研发效能，那么需要落实到研发流程（组织结构、项目管理、持续交付）、工程方法、个人效能以管理和文化的实践上。本文重点从研发流程、工程方法两方面来讲。</p>
 
-<p><img src="//post_images/dev/whole.png" alt="" /></p>
+<p><img src="http://www.rowkey.me/post_images/dev/whole.png" width="800"/></p>
 
 <h3>3.1 衡量指标</h3>
 
