@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 Android中的intent调用代码总结 Feb 8th, 2011 显示Web网页 Uri uri = Uri.parse("http://www. &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 多activity中退出整个程序 May 30th, 2011 问题 多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -119,6 +119,87 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2011/05/30/android-exit-multi-activity/">多activity中退出整个程序</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-05-30T13:39:34+00:00" pubdate data-updated="true">May 30<sup>th</sup>, 2011</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>问题</h2>
+
+<p>多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。</p>
+
+<h2>网上资料</h2>
+
+<p>finish()和system(0)都只能退出单个activity。杀进程等的等方式都不行~~~</p>
+
+<h2>解决问题</h2>
+
+<p>我们知道Android的窗口类提供了历史栈，我们可以通过stack的原理来巧妙的实现，这里我们在D窗口打开A窗口时在Intent中直接加入标志Intent.FLAG_ACTIVITY_CLEAR_TOP，再次开启A时将会清除该进程空间的所有Activity。</p>
+
+<p>在D中使用下面的代码:</p>
+
+<pre>
+Intent intent = new Intent(); 
+intent.setClass(D.this, A.class);
+intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  //注意本行的FLAG设置
+startActivity(intent);
+finish();//关掉自己
+</pre>
+
+
+<p>在A中加入代码：</p>
+
+<pre>
+@Override
+protected void onNewIntent(Intent intent) {
+// TODO Auto-generated method stub
+super.onNewIntent(intent);
+//退出
+        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
+finish();
+}
+}
+</pre>
+
+
+<p>A的Manifest.xml配置成android:launchMode=&ldquo;singleTop&rdquo;</p>
+
+<h2>原理总结</h2>
+
+<p>一般A是程序的入口点，从D起一个A的activity，加入标识Intent.FLAG_ACTIVITY_CLEAR_TOP这个过程中会把栈中B，C，都清理掉。因为A是android:launchMode=&ldquo;singleTop&rdquo;
+不会调用oncreate(),而是响应onNewIntent（）这时候判断Intent.FLAG_ACTIVITY_CLEAR_TOP，然后把A finish（）掉。
+栈中A,B,C,D全部被清理。所以整个程序退出了。</p>
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -640,6 +721,10 @@ canvas.drawBitmap(mBitmap, r, dstRect, null);
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2021/01/13/my2020/">我的2020</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2020/08/13/dev-efficacy-talk/">研发效能杂谈</a>
       	</li>
     	
@@ -673,10 +758,6 @@ canvas.drawBitmap(mBitmap, r, dstRect, null);
     	
      	<li>
       	  <a href="/blog/2020/01/27/kobe/">我是科蜜，20年的&#8230;</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/01/23/my2019/">我的2019</a>
       	</li>
     	
 	</ul>
