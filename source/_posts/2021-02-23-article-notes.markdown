@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "阅文笔记（一）"
-date: 2021-02-33 19:29:34 +0800
+date: 2021-02-23 19:29:34 +0800
 comments: true
 categories: study
 ---
