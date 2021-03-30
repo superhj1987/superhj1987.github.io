@@ -10,7 +10,7 @@ categories: study
 
 <!--more-->
 
-##《张一鸣：为什么 BAT 挖不走我们的人才？》
+## 一.《张一鸣：为什么 BAT 挖不走我们的人才？》
 
 <https://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&mid=2651821900&idx=1&sn=04fd5b9295c4a69b3fee3bbc38b53209>
 
@@ -24,7 +24,7 @@ categories: study
 	- 公平理性按照岗位职级和绩效考核定薪酬
 - 好的特质：满足感
 
-## 《没有被了解的API？一个老码农眼中的API世界》
+## 二. 《没有被了解的API？一个老码农眼中的API世界》
 
 <https://mp.weixin.qq.com/s?__biz=MzAwOTcyNzA0OQ==&mid=2658975476&idx=1&sn=6b912551bddce66214a80987042fe963>
 > 文章有点难懂，不过API的设计和实现确实是一个值得好好思考的事情。
@@ -65,7 +65,7 @@ categories: study
    		- API设计人才的流失
    		- 开放与控制
 
-## 《疫情下技术的应对之道-成本篇》
+## 三. 《疫情下技术的应对之道-成本篇》
 
 <https://mp.weixin.qq.com/s?__biz=MzUxMTEwODc5OA==&mid=2247483665&idx=1&sn=663a412b14cff8d39a86f0c2db7c25b8>
 
@@ -99,7 +99,7 @@ categories: study
         - 架构优化，基础组件平台化、池化部署。提高资源复用程度，避免重复建设
     - 基于工具化、智能化、可视化，保证成本优化能持续地、低成本地进行，要成为日常技术运营工作的一部分，一个常态。
 
-## 《如果只定一个指标，研发的考核指标应该是什么？》
+## 四. 《如果只定一个指标，研发的考核指标应该是什么？》
 
 <https://mp.weixin.qq.com/s?__biz=MzIzNzg5MTcxNA==&mid=2247484101&idx=1&sn=c58aa0f94e5fce08ff0ba9a46427a4df>
 
@@ -115,7 +115,7 @@ categories: study
 	- 追求卓越。卓越用数字量化，用数字说话。
 - 任何任务，产出或提交产物需要定义清楚，软件研发的提交物应该明确包括API与测试用例。
 
-## 《美团张川：做了8年平台，我总结了平台的5道坎》
+## 五. 《美团张川：做了8年平台，我总结了平台的5道坎》
 
 <https://mp.weixin.qq.com/s/bwcJGpR2iwai-LJY0sMoew>
 
@@ -150,7 +150,7 @@ categories: study
 	- 剃须刀（LTV，生命周期总价值）vs   电冰箱（CAC，用户获取成本）
 	- 关注NPS（净推荐值），客户推荐的概率。在低频业务里面降低CAC（获客成本），在高频业务中提升LTV（生命周期总价值）
 
-##《翻译漫谈 - 地道中文怎么写？英中翻译要避免哪些坑？》
+## 六. 《翻译漫谈 - 地道中文怎么写？英中翻译要避免哪些坑？》
 
 <https://mp.weixin.qq.com/s?__biz=MzU3NjkxNTQ0Ng==&mid=2247483696&idx=1&sn=14b59459ae953d12b68da3ca43708ab3>
 
@@ -176,7 +176,7 @@ categories: study
 	- 善用工具，包括辞典、搜索引擎、计算机辅助工具（CAT）等等，寻找最准确、最适合所译内容的词汇和表达
 	- 不做字对字的翻译，译文没有翻译腔，即在理解源语言文本所蕴含意思的基础上，摆脱源语言的句子结构、表达习惯，灵活运用目标语言，准确恰当地表达原文含义
 
-## 《聊聊数据库的未来，写在 PingCAP 成立五周年前夕》
+## 七. 《聊聊数据库的未来，写在 PingCAP 成立五周年前夕》
 
 <https://mp.weixin.qq.com/s?__biz=MzI3NDIxNTQyOQ==&mid=2247491223&idx=1&sn=e5cb7dd392e54228f6897d0d7b74551f>
 
