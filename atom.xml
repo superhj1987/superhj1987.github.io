@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2021-03-26T10:12:33+00:00</updated>
+  <updated>2021-03-30T03:09:00+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -23,7 +23,7 @@
 <!--more-->
 
 
-<h2>《张一鸣：为什么 BAT 挖不走我们的人才？》</h2>
+<h2>一.《张一鸣：为什么 BAT 挖不走我们的人才？》</h2>
 
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&amp;mid=2651821900&amp;idx=1&amp;sn=04fd5b9295c4a69b3fee3bbc38b53209">https://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&amp;mid=2651821900&amp;idx=1&amp;sn=04fd5b9295c4a69b3fee3bbc38b53209</a></p>
 
@@ -44,7 +44,7 @@
 </ul>
 
 
-<h2>《没有被了解的API？一个老码农眼中的API世界》</h2>
+<h2>二. 《没有被了解的API？一个老码农眼中的API世界》</h2>
 
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzAwOTcyNzA0OQ==&amp;mid=2658975476&amp;idx=1&amp;sn=6b912551bddce66214a80987042fe963">https://mp.weixin.qq.com/s?__biz=MzAwOTcyNzA0OQ==&amp;mid=2658975476&amp;idx=1&amp;sn=6b912551bddce66214a80987042fe963</a></p>
 
@@ -121,7 +121,7 @@
 </ul>
 
 
-<h2>《疫情下技术的应对之道-成本篇》</h2>
+<h2>三. 《疫情下技术的应对之道-成本篇》</h2>
 
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMTEwODc5OA==&amp;mid=2247483665&amp;idx=1&amp;sn=663a412b14cff8d39a86f0c2db7c25b8">https://mp.weixin.qq.com/s?__biz=MzUxMTEwODc5OA==&amp;mid=2247483665&amp;idx=1&amp;sn=663a412b14cff8d39a86f0c2db7c25b8</a></p>
 
@@ -186,7 +186,7 @@
 </ul>
 
 
-<h2>《如果只定一个指标，研发的考核指标应该是什么？》</h2>
+<h2>四. 《如果只定一个指标，研发的考核指标应该是什么？》</h2>
 
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNzg5MTcxNA==&amp;mid=2247484101&amp;idx=1&amp;sn=c58aa0f94e5fce08ff0ba9a46427a4df">https://mp.weixin.qq.com/s?__biz=MzIzNzg5MTcxNA==&amp;mid=2247484101&amp;idx=1&amp;sn=c58aa0f94e5fce08ff0ba9a46427a4df</a></p>
 
@@ -209,7 +209,7 @@
 </ul>
 
 
-<h2>《美团张川：做了8年平台，我总结了平台的5道坎》</h2>
+<h2>五. 《美团张川：做了8年平台，我总结了平台的5道坎》</h2>
 
 <p><a href="https://mp.weixin.qq.com/s/bwcJGpR2iwai-LJY0sMoew">https://mp.weixin.qq.com/s/bwcJGpR2iwai-LJY0sMoew</a></p>
 
@@ -279,7 +279,7 @@
 </ul>
 
 
-<h2>《翻译漫谈 - 地道中文怎么写？英中翻译要避免哪些坑？》</h2>
+<h2>六. 《翻译漫谈 - 地道中文怎么写？英中翻译要避免哪些坑？》</h2>
 
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzU3NjkxNTQ0Ng==&amp;mid=2247483696&amp;idx=1&amp;sn=14b59459ae953d12b68da3ca43708ab3">https://mp.weixin.qq.com/s?__biz=MzU3NjkxNTQ0Ng==&amp;mid=2247483696&amp;idx=1&amp;sn=14b59459ae953d12b68da3ca43708ab3</a></p>
 
@@ -320,7 +320,7 @@
 </ul>
 
 
-<h2>《聊聊数据库的未来，写在 PingCAP 成立五周年前夕》</h2>
+<h2>七. 《聊聊数据库的未来，写在 PingCAP 成立五周年前夕》</h2>
 
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzI3NDIxNTQyOQ==&amp;mid=2247491223&amp;idx=1&amp;sn=e5cb7dd392e54228f6897d0d7b74551f">https://mp.weixin.qq.com/s?__biz=MzI3NDIxNTQyOQ==&amp;mid=2247491223&amp;idx=1&amp;sn=e5cb7dd392e54228f6897d0d7b74551f</a></p>
 
