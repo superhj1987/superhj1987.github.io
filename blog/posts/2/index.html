@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 我是科蜜，20年的&#8230; Jan 27th, 2020 5：30左右突然惊醒，拿起手机一看有同学给我发微信说科比挂了。我大大的问号， &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 Java工程师应该知道的RPC Feb 17th, 2020 RPC, Remote Procedure Call,故名思议就是远程过程调用，一般都有跨语言支持 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -119,6 +119,56 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2020/02/17/rpc/">Java工程师应该知道的RPC</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2020-02-17T11:29:34+00:00" pubdate data-updated="true">Feb 17<sup>th</sup>, 2020</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>RPC, Remote Procedure Call,故名思议就是远程过程调用，一般都有跨语言支持。大规模分布式应用中普遍使用RPC来做内部服务、模块之间的数据通信，还有助于解耦服务、系统的垂直拆分，使得系统可扩展性更强，并能够让Java程序员用与开发本地程序一样的语法与方式去开发分布式应用程序。</p>
+
+<p>RPC分为客户端（服务调用方）和服务端（服务提供方），都运行在自己的JVM中。客户端只需要引入要使用的接口，接口的实现和运行都在服务端。RPC主要依赖的技术包括序列化、反序列化和数据传输协议。是一种定义与实现相分离的设计：</p>
+
+<p><img src="/post_images/rpc/rpc.png" alt="" /></p>
+
+<p>目前Java使用比较多的RPC方案主要有RMI、Hessian、Dubbo以及Thrift。</p>
+
+<p>这里需要提出的一点就是，这里的RPC主要指的内部服务之间的调用，因此虽然RESTful也可以用于内部服务间的调用（跨语言、跨网段、跨防火墙），但其主要用途还是为外部系统提供服务，因此本文没有将其包含在内。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2020/02/17/rpc/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -514,48 +564,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2019/06/29/log/">Java开发框架之日志</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2019-06-29T11:29:34+00:00" pubdate data-updated="true">Jun 29<sup>th</sup>, 2019</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2019/06/29/log/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         <a href="/" class="prev">←上一页</a>
@@ -627,6 +635,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2021/03/31/ali-manage/">阿里巴巴管理三板斧</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2021/02/23/article-notes/">阅文笔记（一）</a>
       	</li>
     	
@@ -660,10 +672,6 @@
     	
      	<li>
       	  <a href="/blog/2020/03/10/web-security/">Java工程师应该知道的Web安全</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/02/17/rpc/">Java工程师应该知道的RPC</a>
       	</li>
     	
 	</ul>
