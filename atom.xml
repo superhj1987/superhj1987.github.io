@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
   <link href="http://www.rowkey.me/atom.xml" rel="self"/>
   <link href="http://www.rowkey.me/"/>
-  <updated>2021-04-28T09:42:22+00:00</updated>
+  <updated>2021-08-15T09:30:24+00:00</updated>
   <id>http://www.rowkey.me/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
@@ -12,6 +12,61 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[做游戏业务以来的一些感悟]]></title>
+    <link href="http://www.rowkey.me/blog/2021/08/13/ali-game/"/>
+    <updated>2021-08-13T11:29:34+00:00</updated>
+    <id>http://www.rowkey.me/blog/2021/08/13/ali-game</id>
+    <content type="html"><![CDATA[<p>今天看了一下自己的博客，发现已经四个月没有写过文章了。其实自己准备中的东西还有几篇，但从去年年底开始负责游戏业务以来，一直处于一个学习的状态，身上的压力也一直没有降下来。对于游戏这个行业，自己完全是一个新手，各种方法论、行业趋势、游戏开发的各种概念对我来说都是完全陌生的领域。这期间学习了不少游戏行业从研发到运营到发行的知识，但到现在也没有一款可以拿得出手的游戏，所以这方面的东西也没法拿出来输出给别人。没有得到过证明的东西，如果误导别人那就是大错特错了。不过，大半年的学习，总归还是有一些基本的概念和教训是可以总结一下的。</p>
+
+<!--more-->
+
+
+<h2>游戏行业现状</h2>
+
+<p>目前国内的游戏公司做的游戏概括起来有以下两大类（来自于App Annie的分类）。</p>
+
+<ol>
+<li>硬核游戏，也叫做重度游戏。细分的话又包括RPG、赛车、射击、动作、策略、运动等。这部分游戏基本都是大厂在做，推广方式是重运营的，也结合买量。变现方式也基本都是游戏内充值。</li>
+<li>休闲游戏。相比起硬核游戏，可以叫做中轻度游戏。细分的话又包括模拟经营、益智解谜、阶级、超休闲等。这类游戏大厂也有涉猎，但以中小公司居多。这类游戏的开发人力、开发周期等等都是小于硬核游戏的。面向的玩家也偏大众一些。推广方式也主要是以买量为主。变现方式一般是通过游戏内广告。</li>
+</ol>
+
+
+<p>进一步的如果通过变现方式来区分，又可以分为</p>
+
+<ol>
+<li>IAP游戏，即付费充值游戏。在游戏版号政策出现之前，游戏都可以做成付费充值的。目前，则只有拥有游戏版号的游戏才能这么做。</li>
+<li>IAA游戏，即广告变现游戏。目前对游戏的监管还没有要求所有游戏都要有版号。通过游戏内广告进行变现的游戏是目前没有版号的公司的方式。这类游戏本质上也成了一个流量生意。</li>
+</ol>
+
+
+<p>还值得一提的是，去年疫情期间，接着18、19年网赚类APP（趣头条、惠头条、刷宝）的势头，网赚类游戏也有了一波红利期。到现在的游戏榜单上，网赚类游戏也一直稳定在头部，下滑趋势并不明显。算是一个新起的游戏品类。这类游戏在游戏的玩法上叠加了一层提现逻辑，能够一定程度的提高游戏留存，然后通过分享还能降低获客成本。</p>
+
+<p>此外，还有一个超休闲游戏的概念。这类游戏源自国外Vodoo、Crazylabs等公司，玩家上手门槛极低，一局游戏的时长也非常短，基本也都是IAA类游戏。这类游戏的开发成本、周期都很低，一般都是刚开始做游戏的公司选择的品类。但这类游戏能够成功的关键在于极低的获客成本，所以抓热点、玩法创意都极其重要。</p>
+
+<h2>自己在做的</h2>
+
+<p>由于对游戏行业完全是个门外汉，所以决定做之前，和很多游戏行业的前辈请教了很多东西。综合多方面的考虑和建议，选择了超休闲游戏做为一开始的尝试。然后陆陆续续出了三四款超休闲游戏，没有什么水花，后来又转换方向为中度休闲模拟经营类游戏。</p>
+
+<p>整个过程是伴随着教训的，一些坑不管别人怎么说，该踩的还是要踩。</p>
+
+<h2>得到的教训</h2>
+
+<ol>
+<li>选择做超休闲游戏确实是成本低的最佳选择。但是决定这类游戏成功的关键自己又把握不住，那么成本低也没有意义。这是一开始自己非常错误的一个决策。</li>
+<li>使用应用APP的项目迭代方式是不适合游戏尤其是第一个版本的开发节奏的。游戏这种内容型APP，内容是最关键的，如果内容不够充实，那么推广起来是没有任何意义的。这就好比电影或者一本书，可以出续篇，但是已有的东西再去改，带来的效果就不是那么有意义了。</li>
+<li>做适合团队基因的游戏是最合适的。鉴于一些招人的客观原因，选择某个品类游戏，然后去找合适的人事非常困难的。那么可以试着先把团队搭建成功，再去做适合团队基因的游戏会是一个更好的选择。</li>
+<li>自己不懂的东西要交给懂得的人来做，即使付出昂贵的成本。这比用小的成本招来不懂的人来做要好的多。不懂的人做不出东西来，那么整个团队的价值就是浪费的。懂得人来做，即使成本贵很多，但是团队的价值会覆盖掉这些成本。</li>
+<li>做决断尤其是对人要果断。不能因小失大，时间成本和机会成本是非常大的。</li>
+</ol>
+
+
+<h2>结语</h2>
+
+<p>不破不立，相比之前做研发，现在走出了自己的舒适区，压力很大，但是斗劲十足，也好久没有这种兴奋感了。虽然一直说自己更喜欢写代码、做架构，但是现在的工作状态更让自己有活力。希望后面的结果会越来越好吧。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[阿里巴巴管理三板斧]]></title>
@@ -3308,208 +3363,6 @@ Protobuf | 速度快 | 需要静态编译</p>
 <p>掌握了这些方法论后，则需要不断的模仿学习、实践，并且最重要的是多总结，要把平时工作中自己实践的、看到别人实践的不断的总结梳理，形成自己的知识体系，这样才能真正成为自己的技能，才能在遇到问题时做到有条不紊，从容应对，同时也能进一步完善自己解决问题的方法论、专业能力和经验，形成良性闭环。例如在很多公司都会有故障解决的一套指导流程，比如在碰到服务器响应变慢时，先通知受影响方，然后组织相关人员，如果有经验则第一时间修复，无经验则需要从最近的变动着手，先排查哪几方面问题，再排查哪几方面问题，这个流程即在实践过程中不断沉淀下来的知识体系。</p>
 
 <p>总结来说，就是掌握解决问题的方法论，带着Owner意识多去实践解决问题，多去模范学习别人如何解决问题，多去总结沉淀成自己的知识体系和方法论形成闭环。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[使用Spring Boot快速开发]]></title>
-    <link href="http://www.rowkey.me/blog/2019/07/27/springboot/"/>
-    <updated>2019-07-27T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/07/27/springboot</id>
-    <content type="html"><![CDATA[<p>Java开发中常用的Spring现在变得越来越复杂，越来越不好上手。这一点Spring Source自己也注意到了，因此推出了Spring Boot，旨在简化使用Spring的门槛，大大降低Spring的配置工作，并且能够很容易地将应用打包为可独立运行的程序（即不依赖于第三方容器，可以独立以jar或者war包的形式运行）。其带来的开发效率的提升使得Spring Boot被看做至少近5年来Spring乃至整个Java社区最有影响力的项目之一，也被人看作是Java EE开发的颠覆者。另一方面来说，Spring Boot也顺应了现在微服务（MicroServices）的理念，可以用来构建基于Spring框架的可独立部署应用程序。</p>
-
-<!--more-->
-
-
-<h2>一. 使用</h2>
-
-<p>一个简单的pom配置示例如下：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
-<span class='line-number'>24</span>
-<span class='line-number'>25</span>
-<span class='line-number'>26</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;parent&gt;        
-</span><span class='line'>   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        
-</span><span class='line'>   &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;        
-</span><span class='line'>   &lt;version&gt;1.4.7.RELEASE&lt;/version&gt;
-</span><span class='line'>&lt;/parent&gt;
-</span><span class='line'>    
-</span><span class='line'>...
-</span><span class='line'>    
-</span><span class='line'>&lt;dependencies&gt;        
-</span><span class='line'>   &lt;dependency&gt;                
-</span><span class='line'>       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;                
-</span><span class='line'>       &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;        
-</span><span class='line'>   &lt;/dependency&gt;
-</span><span class='line'>&lt;/dependencies&gt;
-</span><span class='line'>
-</span><span class='line'>&lt;build&gt;
-</span><span class='line'>    &lt;plugins&gt;
-</span><span class='line'>       &lt;plugin&gt;
-</span><span class='line'>           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-</span><span class='line'>           &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
-</span><span class='line'>           &lt;configuration&gt;
-</span><span class='line'>               &lt;executable&gt;true&lt;/executable&gt;
-</span><span class='line'>            &lt;/configuration&gt;
-</span><span class='line'>       &lt;/plugin&gt;
-</span><span class='line'>    &lt;/plugins&gt;
-</span><span class='line'>&lt;/build&gt;</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用spring-boot-starter-parent作为当前项目的parent将Spring Boot应用相关的一系列依赖（dependency）、插件（plugins）等等配置共享；添加spring-boot-starter-web这个依赖，是为了构建一个独立运行的Web应用；spring-boot-maven-plugin用于将Spring Boot应用以可执行jar包的形式发布出去。</p>
-
-<p>接着可以添加相应的Controller实现：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@RestController  
-</span><span class='line'>public class MyController {
-</span><span class='line'>@RequestMapping("/")
-</span><span class='line'>   public String hello() {
-</span><span class='line'>      return "Hello World!";
-</span><span class='line'>   }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>这里的RestController是一个复合注解，包括@Controller和@ResponseBody。</p>
-
-<p>最后，要让Spring Boot可以独立运行和部署，我们需要一个Main方法入口， 比如：</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>@SpringBootApplication
-</span><span class='line'>public class BootDemo extends SpringBootServletInitializer{    
-</span><span class='line'>   public static void main(String[] args) throws Exception {        
-</span><span class='line'>       SpringApplication.run(BootDemo.class, args);    
-</span><span class='line'>   }
-</span><span class='line'>}</span></code></pre></td></tr></table></div></figure>
-
-
-<p>使用mvn package打包后（可以是jar，也可以是war），java -jar xx.war/jar即可运行一个Web项目，而之所以继承SpringBootServletInitializer是为了能够让打出来的war包也可以放入容器中直接运行，其加载原理在3.4.4节的零XML配置中讲过。</p>
-
-<p>这里需要注意上面spring-boot-maven-plugin这个插件将executable配置为了true，此种配置打出来的jar/war包其压缩格式并非传统的jar/war包，实际上是一个bash文件，可以作为shell脚本直接执行，解压的话需要使用unzip命令。</p>
-
-<p>从最根本上来讲，Spring Boot就是一些库和插件的集合，屏蔽掉了很多配置加载、打包等自动化工作，其底层还是基于Spring的各个组件。</p>
-
-<p>这里需要注意的是，Spring Boot推崇对项目进行零xml配置。但是就笔者看来，相比起注解配置是糅杂在代码中，每次更新都需要重新编译，XML这种和代码分离的方式耦合性和可维护性则显得更为合理一些，而且在配置复杂时也更清晰。因此，采用Java Config作为应用和组件扫描（component scan）入口，采用XML做其他的配置是一种比较好的方式。此外，当集成外部已有系统的时候， 通过XML集中明确化配置也是更为合理的一种方式。</p>
-
-<h2>二. 原理浅析</h2>
-
-<p><img src="http://www.rowkey.me/post_images/spring-boot-process.png" alt="" /></p>
-
-<p>Spring Boot的基础组件之一就是4.1讲过的一些注解配置，除此之外，它也提供了自己的注释。其总体的运行流程如上图所示。</p>
-
-<ol>
-<li><p>@EnableAutoConfiguration</p>
-
-<p> 这个Annotation就是Java Config的典型代表，标注了这个Annotation的Java类会以Java代码的形式（对应于XML定义的形式）提供一系列的Bean定义和实例，结合AnnotationConfigApplicationContext和自动扫描的功能，就可以构建一个基于Spring容器的Java应用了。</p>
-
-<p> @EnableAutoConfiguration的定义信息如下 ：</p>
-
-<pre><code class="`"> @Target(ElementType.TYPE)
- @Retention(RetentionPolicy.RUNTIME)
- @Documented
- @Inherited
- @AutoConfigurationPackage
- @Import(EnableAutoConfigurationImportSelector.class)
- public @interface EnableAutoConfiguration {
-</code></pre>
-
-<p> 标注了此注解的类会发生一系列初始化动作：</p>
-
-<ul>
-<li><p>SpringBoot扫描到@EnableAutoConfiguration注解时，就使用Spring框架的SpringFactoriesLoader去扫描classpath下所有META-INF/spring.factories文件的配置信息（META-INF/spring.providers声明了当前Starter依赖的Jar包）。其中包括一些callback接口（在前中后等不同时机执行）：</p>
-
-<ul>
-<li>org.springframework.boot.SpringApplicationRunListener</li>
-<li>org.springframework.context.ApplicationContextInitializer</li>
-<li>org.springframework.context.ApplicationListener</li>
-</ul>
-</li>
-<li><p>然后Spring Boot加载符合当前场景需要的配置类型并供当前或者下一步的流程使用，这里说的场景就是提取以 org.springframework.boot.autoconfigure.EnableAutoConfiguration作为key标志的一系列Java配置类，然后将这些Java配置类中的Bean定义加载到Spring容器中。</p></li>
-</ul>
-
-
-<p> 此外，我们可以使用Spring3系列引入的@Conditional，通过像@ConditionalOnClass、@ConditionalOnMissingBean等具体的类型和条件来进一步筛选通过SpringFactoriesLoader加载的类。</p></li>
-<li><p>Spring Boot启动</p>
-
-<p> 每一个Spring Boot应用都有一个入口类，在其中定义main方法，然后使用SpringApplication这个类来加载指定配置并运行SpringBoot Application。如上面写过的入口类：</p>
-
-<pre><code class="`   "> @SpringBootApplication
- public class BootDemo extends SpringBootServletInitializer{    
-    public static void main(String[] args) throws Exception {        
-        SpringApplication.run(BootDemo.class, args);    
-    }
- }
-</code></pre>
-
-<p> @SpringBootApplication注解是一个复合注解，包括了@Configuraiton、@EnableAutoConfiguration以及@ComponentScan。通过SpringApplication的run方法，Spring就使用BootDemo作为Java配置类来读取相关配置、加载和扫描相关的bean。</p>
-
-<p> 这样，基于@SpringBootApplication注解，Spring容器会自动完成指定语义的一系列工作，包括@EnableAutoConfiguration要求的东西，如：从SpringBoot提供的多个starter模块中加载Java Config配置（META-INF/spring.factories中声明的xxAutoConfiguration），然后将这些Java Config配置筛选上来的Bean定义加入Spring容器中，再refresh容器。一个Spring Boot应用即启动完成。</p></li>
-</ol>
-
-
-<h2>三. 模块组成</h2>
-
-<p>Spring Boot是由非常多的模块组成的，可以通过pom文件引入进来。EnableAutoConfiguration机制会进行插件化加载进行自动配置，这里模块化机制的原理主要是通过判断相应的类/文件是否存在来实现的。其中几个主要的模块如下:</p>
-
-<ol>
-<li><p>spring-boot-starter-web</p>
-
-<p> 此模块就是标记此项目是一个Web应用，Spring Boot会自动准备好相关的依赖和配置。</p>
-
-<p> 这里Spring Boot默认使用Tomcat作为嵌入式Web容器，可以通过声明spring-boot-starter-jetty的dependency来换成Jetty。</p></li>
-<li><p>spring-boot-starter-logging</p>
-
-<p> Spring Boot对此项目开启SLF4J和Logback日志支持。</p></li>
-<li><p>spring-boot-starter-redis</p>
-
-<p>  Spring Boot对此项目开启Redis相关依赖和配置来做数据存储。</p></li>
-<li><p>spring-boot-starter-jdbc</p>
-
-<p>  Spring Boot对此项目开启JDBC操作相关依赖和配置来做数据存储。</p>
-
-<p>  这里需要说明的是，Spring Boot提供的功能非常丰富，因此显得非常笨重复杂。其实依赖于模块插件化机制，我们可以只配置自己需要使用的功能，从而对应用进行瘦身，避免无用的配置影响应用启动速度。</p></li>
-</ol>
-
-
-<h2>四. 总结</h2>
-
-<p>Spring Boot给大家使用Spring做后端应用开发带来了非常大的便利，能够大大提高搭建应用雏形框架的速度，只需要关注实现业务逻辑即可。其“黑魔法”一样的插件化机制使得能够根据自己的需要引入所需的组件，提供了非常好的灵活性。如果非遗留Spring项目，直接使用Spring Boot是比较好的选择；遗留项目也可以通过配置达到无缝结合。</p>
-
-<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
 ]]></content>
   </entry>
   

@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: front - 后端技术杂谈 | 飒然Hang</title>
+  <title>做游戏业务以来的一些感悟 - 后端技术杂谈 | 飒然Hang</title>
   <meta name="author" content="飒然Hang">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Category: front">
+  <meta name="description" content="做游戏业务以来的一些感悟 Aug 13th, 2021 Posted by 飒然Hang in work 今天看了一下自己的博客，发现已经四个月没有写过文章了。其实自己准备中的东西还有几篇，但从去年年底开始负责游戏业务以来，一直处于一个学习的状态，身上的压力也一直没有降下来。对于游戏这个行业， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/categories/front/">
+  <link rel="canonical" href="http://www.rowkey.me/blog/2021/08/13/ali-game/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -117,58 +117,170 @@
   <article class="post clearfix">
   
   <header>
-    <h1 class="post-title">Category: Front</h1>
+    
+      <h1 class="post-title">做游戏业务以来的一些感悟</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2021-08-13T11:29:34+00:00" pubdate data-updated="true">Aug 13<sup>th</sup>, 2021</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">飒然Hang</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+        
+      </p>
     
   </header>
+
+
+<div class="post-content"><p>今天看了一下自己的博客，发现已经四个月没有写过文章了。其实自己准备中的东西还有几篇，但从去年年底开始负责游戏业务以来，一直处于一个学习的状态，身上的压力也一直没有降下来。对于游戏这个行业，自己完全是一个新手，各种方法论、行业趋势、游戏开发的各种概念对我来说都是完全陌生的领域。这期间学习了不少游戏行业从研发到运营到发行的知识，但到现在也没有一款可以拿得出手的游戏，所以这方面的东西也没法拿出来输出给别人。没有得到过证明的东西，如果误导别人那就是大错特错了。不过，大半年的学习，总归还是有一些基本的概念和教训是可以总结一下的。</p>
+
+<!--more-->
+
+
+<h2>游戏行业现状</h2>
+
+<p>目前国内的游戏公司做的游戏概括起来有以下两大类（来自于App Annie的分类）。</p>
+
+<ol>
+<li>硬核游戏，也叫做重度游戏。细分的话又包括RPG、赛车、射击、动作、策略、运动等。这部分游戏基本都是大厂在做，推广方式是重运营的，也结合买量。变现方式也基本都是游戏内充值。</li>
+<li>休闲游戏。相比起硬核游戏，可以叫做中轻度游戏。细分的话又包括模拟经营、益智解谜、阶级、超休闲等。这类游戏大厂也有涉猎，但以中小公司居多。这类游戏的开发人力、开发周期等等都是小于硬核游戏的。面向的玩家也偏大众一些。推广方式也主要是以买量为主。变现方式一般是通过游戏内广告。</li>
+</ol>
+
+
+<p>进一步的如果通过变现方式来区分，又可以分为</p>
+
+<ol>
+<li>IAP游戏，即付费充值游戏。在游戏版号政策出现之前，游戏都可以做成付费充值的。目前，则只有拥有游戏版号的游戏才能这么做。</li>
+<li>IAA游戏，即广告变现游戏。目前对游戏的监管还没有要求所有游戏都要有版号。通过游戏内广告进行变现的游戏是目前没有版号的公司的方式。这类游戏本质上也成了一个流量生意。</li>
+</ol>
+
+
+<p>还值得一提的是，去年疫情期间，接着18、19年网赚类APP（趣头条、惠头条、刷宝）的势头，网赚类游戏也有了一波红利期。到现在的游戏榜单上，网赚类游戏也一直稳定在头部，下滑趋势并不明显。算是一个新起的游戏品类。这类游戏在游戏的玩法上叠加了一层提现逻辑，能够一定程度的提高游戏留存，然后通过分享还能降低获客成本。</p>
+
+<p>此外，还有一个超休闲游戏的概念。这类游戏源自国外Vodoo、Crazylabs等公司，玩家上手门槛极低，一局游戏的时长也非常短，基本也都是IAA类游戏。这类游戏的开发成本、周期都很低，一般都是刚开始做游戏的公司选择的品类。但这类游戏能够成功的关键在于极低的获客成本，所以抓热点、玩法创意都极其重要。</p>
+
+<h2>自己在做的</h2>
+
+<p>由于对游戏行业完全是个门外汉，所以决定做之前，和很多游戏行业的前辈请教了很多东西。综合多方面的考虑和建议，选择了超休闲游戏做为一开始的尝试。然后陆陆续续出了三四款超休闲游戏，没有什么水花，后来又转换方向为中度休闲模拟经营类游戏。</p>
+
+<p>整个过程是伴随着教训的，一些坑不管别人怎么说，该踩的还是要踩。</p>
+
+<h2>得到的教训</h2>
+
+<ol>
+<li>选择做超休闲游戏确实是成本低的最佳选择。但是决定这类游戏成功的关键自己又把握不住，那么成本低也没有意义。这是一开始自己非常错误的一个决策。</li>
+<li>使用应用APP的项目迭代方式是不适合游戏尤其是第一个版本的开发节奏的。游戏这种内容型APP，内容是最关键的，如果内容不够充实，那么推广起来是没有任何意义的。这就好比电影或者一本书，可以出续篇，但是已有的东西再去改，带来的效果就不是那么有意义了。</li>
+<li>做适合团队基因的游戏是最合适的。鉴于一些招人的客观原因，选择某个品类游戏，然后去找合适的人事非常困难的。那么可以试着先把团队搭建成功，再去做适合团队基因的游戏会是一个更好的选择。</li>
+<li>自己不懂的东西要交给懂得的人来做，即使付出昂贵的成本。这比用小的成本招来不懂的人来做要好的多。不懂的人做不出东西来，那么整个团队的价值就是浪费的。懂得人来做，即使成本贵很多，但是团队的价值会覆盖掉这些成本。</li>
+<li>做决断尤其是对人要果断。不能因小失大，时间成本和机会成本是非常大的。</li>
+</ol>
+
+
+<h2>结语</h2>
+
+<p>不破不立，相比之前做研发，现在走出了自己的舒适区，压力很大，但是斗劲十足，也好久没有这种兴奋感了。虽然一直说自己更喜欢写代码、做架构，但是现在的工作状态更让自己有活力。希望后面的结果会越来越好吧。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
   
-  <script type="text/javascript">
-$(document).ready(function(){
-	$("#nav-menu a").removeClass("current");
-	var thisPath = location.pathname;
-	if(thisPath.indexOf("java") > -1){
-		$("#nav-menu .java-nav").addClass("current");
-	}else if(thisPath.indexOf("architecture") > -1){
-		$("#nav-menu .architecture-nav").addClass("current");
-	}else if(thisPath.indexOf("manage") > -1){
-		$("#nav-menu .manage-nav").addClass("current");
-	}else if(thisPath.indexOf("talk") > -1){
-		$("#nav-menu .talk-nav").addClass("current");
-	}else{
-		$("#nav-menu .categories-nav").addClass("current");
-	}
-	$(".post-title").text("Front");
-});
-</script>
-<div style="padding-top:20px"><a href="/blog/categories/front/atom.xml">http://www.rowkey.me/blog/categories/front/atom.xml</a></div>
-<div id="archives" class="category">
-
-
-
   
-  <div class="al_year">2015</div>
-
-<div class="archives-post clearfix">
   
-<h2><a href="/blog/2015/12/21/front-these-years/">前端这些年</a></h2>
-<div class="al_meta">
-<time datetime="2015-12-21T10:53:48+00:00" pubdate><span class='month'>Dec</span> <span class='day'>21</span> <span class='year'>2015</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/front/'>front</a></span>
-</footer>
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
 
 </div>
-</div>
 
-</div>
-  
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2021/03/31/ali-manage/" title="下一篇: 阿里巴巴管理三板斧">阿里巴巴管理三板斧 &raquo;</a>
+      
+    </div>
+  </footer>
 </article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
 
   </div>
 </div>
 
-<aside id="secondary">
-<div id="sidebar">
+  <aside id="secondary">
+  <div id="sidebar">
   
     <section class="widget" style="font-size:9pt" id="copyright">
 <p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
@@ -308,7 +420,7 @@ $(document).ready(function(){
 	</ul>
 </section>
   
-</div>
+  </div>
 </aside>
 
 
@@ -357,7 +469,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "Category: front",
+   issue_title: "做游戏业务以来的一些感悟",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
