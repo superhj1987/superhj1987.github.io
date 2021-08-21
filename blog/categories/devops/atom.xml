@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: devops | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/blog/categories/devops/atom.xml" rel="self"/>
-  <link href="http://www.rowkey.me/"/>
-  <updated>2021-08-15T09:30:24+00:00</updated>
-  <id>http://www.rowkey.me/</id>
+  <link href="https://www.rowkey.cn/blog/categories/devops/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2021-08-21T12:43:03+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[关于terracotta在tomcat集群中做session共享的问题]]></title>
-    <link href="http://www.rowkey.me/blog/2012/08/15/terracotta/"/>
+    <link href="https://www.rowkey.cn/blog/2012/08/15/terracotta/"/>
     <updated>2012-08-15T13:39:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2012/08/15/terracotta</id>
+    <id>https://www.rowkey.cn/blog/2012/08/15/terracotta</id>
     <content type="html"><![CDATA[<p>手头上的一个项目“陕西省专业技术人员继续教育学习与管理平台”是服务于全陕西省130万专技人员的高并发且事务逻辑较复杂的一个系统，不管是编码上还是系统架构部署上都具有一定的挑战性。在考虑了现有设备以及系统负载的基础上，整个系统架构采用了六台服务器，分别是：WEB门户服务器（WEB门户+Oracle数据库）、学习管理平台服务器、系统核心数据库、资源下载服务器、在线点播服务器、数据库备份服务器。</p>
 
 <p>系统运行了数月，WEB门户采用的apache+mod_jk+memcached+4tomcat能够正常应付目前的访问。管理学习系统虽然由于一些在线课程还未上线，最大的并发还未开始，但目前课程文件的上传、人员的表单录入等对服务器的造成的负载经常使服务器响应缓慢甚至不响应。考虑到开始采用的nginx+4tomcat+ip_hash，ip_hash本身策略的缺陷使负载不能很好地均衡，于是使用memcached做集群的session共享。此时出现了一个到现在还让我搞不清楚的现象：系统session中存入一些timestamp的Date对象，读取的时候，竟然会读成UNIX原始时间戳。一直没办法解决这个问题，只能采用ip_hash的方式运行着，一旦出现服务器不响应的情况就重启tomcat。</p>

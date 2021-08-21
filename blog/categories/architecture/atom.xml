@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: architecture | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/blog/categories/architecture/atom.xml" rel="self"/>
-  <link href="http://www.rowkey.me/"/>
-  <updated>2021-08-15T09:30:24+00:00</updated>
-  <id>http://www.rowkey.me/</id>
+  <link href="https://www.rowkey.cn/blog/categories/architecture/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2021-08-21T12:43:03+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[中台简谈]]></title>
-    <link href="http://www.rowkey.me/blog/2019/11/23/middle-talk/"/>
+    <link href="https://www.rowkey.cn/blog/2019/11/23/middle-talk/"/>
     <updated>2019-11-23T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/11/23/middle-talk</id>
+    <id>https://www.rowkey.cn/blog/2019/11/23/middle-talk</id>
     <content type="html"><![CDATA[<blockquote><p>面对新事物，先接纳，再判断。不要轻易就否定，即使经过自己的思考后确实没啥价值，这期间的思考过程也是一种知识梳理和思维锻炼。</p></blockquote>
 
 <p>2019年技术圈最火的一个词非“中台”莫属了。联想到公司已经在持续做的平台化，其实会让人感到混乱。平台和中台有啥区别？有了中台，那么前台和后台又指的什么？本文是自己在调研中台概念中沉淀出来的一些思考。</p>
@@ -149,9 +149,9 @@
   
   <entry>
     <title type="html"><![CDATA[数据传输之RESTful]]></title>
-    <link href="http://www.rowkey.me/blog/2019/09/28/restful/"/>
+    <link href="https://www.rowkey.cn/blog/2019/09/28/restful/"/>
     <updated>2019-09-28T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/09/28/restful</id>
+    <id>https://www.rowkey.cn/blog/2019/09/28/restful</id>
     <content type="html"><![CDATA[<p>REST，全称表现层状态转移（Representational State Transfer）, 指的是资源在网络中以某种表现形式进行状态转移，是一种架构风格。其描述的是在网络中Client和Server的一种交互形式。简单来说就是用HTTP URL来定位资源，用HTTP的各种method来描述操作。其关键的三个概念如下：</p>
 
 <ul>
@@ -378,9 +378,9 @@ public UserNote getUserNoteInfo(@PathVariable long noteId) {
   
   <entry>
     <title type="html"><![CDATA[微服务杂谈]]></title>
-    <link href="http://www.rowkey.me/blog/2019/05/30/msa/"/>
+    <link href="https://www.rowkey.cn/blog/2019/05/30/msa/"/>
     <updated>2019-05-30T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/05/30/msa</id>
+    <id>https://www.rowkey.cn/blog/2019/05/30/msa</id>
     <content type="html"><![CDATA[<p>这几年在Java工程师招聘时，会看到很多人的简历都写着使用了Spring Cloud做微服务实现，使用Docker做自动化部署，并且也会把这些做为自己的亮点。而比较有趣的这其中以小公司出来的人为绝大多数，大的公司出来的人简历上倒是很少提这些东西。</p>
 
 <p>对于我自己来说，从15年就开始关注这一块，看过马丁.福勒最开始的关于微服务的论文、也看过不少对微服务的论证的英文文章和书，也研究过Spring Cloud、Sofa等开源实现以及Service mesh。考虑到我们公司研发团队人力不足、基础设施不完善，当初是没有推行微服务的。但随着看到上述的那种简历越来越多，有时候我也会疑问：难道真的不用微服务就落后了吗？公司的同事如果不掌握这些就真的没有竞争力了吗。而随着最近公司业务的逐步提升，研发人员越来越多，借着在梳理公司的微服务落地计划时，也梳理了一下微服务的相关知识点，也是本文的主要内容。</p>
@@ -692,9 +692,9 @@ public UserNote getUserNoteInfo(@PathVariable long noteId) {
   
   <entry>
     <title type="html"><![CDATA[缓存这些事]]></title>
-    <link href="http://www.rowkey.me/blog/2019/02/25/cache/"/>
+    <link href="https://www.rowkey.cn/blog/2019/02/25/cache/"/>
     <updated>2019-02-25T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/02/25/cache</id>
+    <id>https://www.rowkey.cn/blog/2019/02/25/cache</id>
     <content type="html"><![CDATA[<p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md</a></strong></p>
 
 <p>缓存是为了弥补持久化存储服务如数据库的性能缓慢而出现的一种将数据存储在内存中，从而大大提高应用性能的服务。如缓存五分钟法则所讲：如果一个数据频繁被访问，那么就应该放内存中。这里的缓存就是一种读写效率都非常高的存储方案，能够应对高并发的访问请求，通常情况下也不需要持久化的保证。但相对其他存储来说，缓存一般是基于内存的，成本比较昂贵，因此不能滥用。</p>
@@ -1124,9 +1124,9 @@ Object grabResutl = jedis.eval(REDIS_SCRIPT_GRAB_GIFT, Lists.newArrayList("test:
   
   <entry>
     <title type="html"><![CDATA[如何应对在线故障]]></title>
-    <link href="http://www.rowkey.me/blog/2018/11/22/online-debug/"/>
+    <link href="https://www.rowkey.cn/blog/2018/11/22/online-debug/"/>
     <updated>2018-11-22T14:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/11/22/online-debug</id>
+    <id>https://www.rowkey.cn/blog/2018/11/22/online-debug</id>
     <content type="html"><![CDATA[<p>线上运行的Java应用突然没有响应、响应缓慢，进程突然消失，遇到这些情况应该如何应对呢？</p>
 
 <p><strong>来自公司内部分享</strong></p>

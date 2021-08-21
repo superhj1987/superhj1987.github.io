@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: work | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/blog/categories/work/atom.xml" rel="self"/>
-  <link href="http://www.rowkey.me/"/>
-  <updated>2021-08-15T09:30:24+00:00</updated>
-  <id>http://www.rowkey.me/</id>
+  <link href="https://www.rowkey.cn/blog/categories/work/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2021-08-21T12:43:03+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[做游戏业务以来的一些感悟]]></title>
-    <link href="http://www.rowkey.me/blog/2021/08/13/ali-game/"/>
+    <link href="https://www.rowkey.cn/blog/2021/08/13/ali-game/"/>
     <updated>2021-08-13T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2021/08/13/ali-game</id>
+    <id>https://www.rowkey.cn/blog/2021/08/13/ali-game</id>
     <content type="html"><![CDATA[<p>今天看了一下自己的博客，发现已经四个月没有写过文章了。其实自己准备中的东西还有几篇，但从去年年底开始负责游戏业务以来，一直处于一个学习的状态，身上的压力也一直没有降下来。对于游戏这个行业，自己完全是一个新手，各种方法论、行业趋势、游戏开发的各种概念对我来说都是完全陌生的领域。这期间学习了不少游戏行业从研发到运营到发行的知识，但到现在也没有一款可以拿得出手的游戏，所以这方面的东西也没法拿出来输出给别人。没有得到过证明的东西，如果误导别人那就是大错特错了。不过，大半年的学习，总归还是有一些基本的概念和教训是可以总结一下的。</p>
 
 <!--more-->
@@ -41,13 +41,13 @@
 </ol>
 
 
-<p>还值得一提的是，去年疫情期间，接着18、19年网赚类APP（趣头条、惠头条、刷宝）的势头，网赚类游戏也有了一波红利期。到现在的游戏榜单上，网赚类游戏也一直稳定在头部，下滑趋势并不明显。算是一个新起的游戏品类。这类游戏在游戏的玩法上叠加了一层提现逻辑，能够一定程度的提高游戏留存，然后通过分享还能降低获客成本。</p>
+<p>还值得一提的是，去年疫情期间，接着18、19年网赚类APP（趣头条、惠头条、刷宝）的势头，网赚类游戏也有了一波红利期。到现在的游戏榜单上，网赚类游戏也一直稳定在头部，下滑趋势并不明显。算是一个新起的游戏品类。这类游戏在游戏的玩法上叠加了一层提现逻辑，能够一定程度的提高游戏留存，通过分享还能降低获客成本。</p>
 
 <p>此外，还有一个超休闲游戏的概念。这类游戏源自国外Vodoo、Crazylabs等公司，玩家上手门槛极低，一局游戏的时长也非常短，基本也都是IAA类游戏。这类游戏的开发成本、周期都很低，一般都是刚开始做游戏的公司选择的品类。但这类游戏能够成功的关键在于极低的获客成本，所以抓热点、玩法创意都极其重要。</p>
 
 <h2>自己在做的</h2>
 
-<p>由于对游戏行业完全是个门外汉，所以决定做之前，和很多游戏行业的前辈请教了很多东西。综合多方面的考虑和建议，选择了超休闲游戏做为一开始的尝试。然后陆陆续续出了三四款超休闲游戏，没有什么水花，后来又转换方向为中度休闲模拟经营类游戏。</p>
+<p>由于对游戏行业完全是个门外汉，所以决定做之前，和很多游戏行业的前辈请教了很多东西。综合多方面的考虑和建议，选择了超休闲游戏做为一开始的尝试。陆陆续续出了三四款超休闲游戏，没有什么水花，后来又转换方向为中度休闲模拟经营类游戏。</p>
 
 <p>整个过程是伴随着教训的，一些坑不管别人怎么说，该踩的还是要踩。</p>
 
@@ -56,7 +56,7 @@
 <ol>
 <li>选择做超休闲游戏确实是成本低的最佳选择。但是决定这类游戏成功的关键自己又把握不住，那么成本低也没有意义。这是一开始自己非常错误的一个决策。</li>
 <li>使用应用APP的项目迭代方式是不适合游戏尤其是第一个版本的开发节奏的。游戏这种内容型APP，内容是最关键的，如果内容不够充实，那么推广起来是没有任何意义的。这就好比电影或者一本书，可以出续篇，但是已有的东西再去改，带来的效果就不是那么有意义了。</li>
-<li>做适合团队基因的游戏是最合适的。鉴于一些招人的客观原因，选择某个品类游戏，然后去找合适的人事非常困难的。那么可以试着先把团队搭建成功，再去做适合团队基因的游戏会是一个更好的选择。</li>
+<li>做适合团队基因的游戏是最合适的。鉴于一些招人的客观原因，选择某个品类游戏，然后去找合适的人是非常困难的。那么可以试着先把团队搭建成功，再去做适合团队基因的游戏会是一个更好的选择。</li>
 <li>自己不懂的东西要交给懂得的人来做，即使付出昂贵的成本。这比用小的成本招来不懂的人来做要好的多。不懂的人做不出东西来，那么整个团队的价值就是浪费的。懂得人来做，即使成本贵很多，但是团队的价值会覆盖掉这些成本。</li>
 <li>做决断尤其是对人要果断。不能因小失大，时间成本和机会成本是非常大的。</li>
 </ol>
@@ -70,9 +70,9 @@
   
   <entry>
     <title type="html"><![CDATA[我的2020]]></title>
-    <link href="http://www.rowkey.me/blog/2021/01/13/my2020/"/>
+    <link href="https://www.rowkey.cn/blog/2021/01/13/my2020/"/>
     <updated>2021-01-13T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2021/01/13/my2020</id>
+    <id>https://www.rowkey.cn/blog/2021/01/13/my2020</id>
     <content type="html"><![CDATA[<p>最近因为新业务的事情一直没有写文章，发现已经4个月没有产出。年初给自己定的每个月至少产出一篇文章的目标算是啪啪打自己脸了。不过虽然2021年已经过去大半个月了，2020年的总结还是要补上的。</p>
 
 <!--more-->
@@ -244,9 +244,9 @@
   
   <entry>
     <title type="html"><![CDATA[我的2019]]></title>
-    <link href="http://www.rowkey.me/blog/2020/01/23/my2019/"/>
+    <link href="https://www.rowkey.cn/blog/2020/01/23/my2019/"/>
     <updated>2020-01-23T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/01/23/my2019</id>
+    <id>https://www.rowkey.cn/blog/2020/01/23/my2019</id>
     <content type="html"><![CDATA[<p>和去年一样，本文来自自己给部门的公开信。内容经过脱敏。</p>
 
 <hr />
@@ -450,9 +450,9 @@
   
   <entry>
     <title type="html"><![CDATA[技术 in Netflix]]></title>
-    <link href="http://www.rowkey.me/blog/2019/04/13/netflix/"/>
+    <link href="https://www.rowkey.cn/blog/2019/04/13/netflix/"/>
     <updated>2019-04-13T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/04/13/netflix</id>
+    <id>https://www.rowkey.cn/blog/2019/04/13/netflix</id>
     <content type="html"><![CDATA[<p>综合市面上的公开资料总结了Netflix在技术上面的一些实践和创新，从中能够得到不少启发和提示。</p>
 
 <p><strong>来自公司内部分享</strong></p>
@@ -484,9 +484,9 @@
   
   <entry>
     <title type="html"><![CDATA[技术面试的应该与不应该]]></title>
-    <link href="http://www.rowkey.me/blog/2019/03/08/interview-basic/"/>
+    <link href="https://www.rowkey.cn/blog/2019/03/08/interview-basic/"/>
     <updated>2019-03-08T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/03/08/interview-basic</id>
+    <id>https://www.rowkey.cn/blog/2019/03/08/interview-basic</id>
     <content type="html"><![CDATA[<p>进入软件开发这个行业差不多10年，做为候选人被面试过，也做为面试官面试过别人。这几年做为后者的角色越来越多，慢慢总结出来了一些技术面试的原则，也是自己在实践的一些原则。</p>
 
 <!--more-->

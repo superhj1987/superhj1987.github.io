@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: nginx | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/blog/categories/nginx/atom.xml" rel="self"/>
-  <link href="http://www.rowkey.me/"/>
-  <updated>2021-08-15T09:30:24+00:00</updated>
-  <id>http://www.rowkey.me/</id>
+  <link href="https://www.rowkey.cn/blog/categories/nginx/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2021-08-21T12:43:03+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Nginx源码分析之启动过程]]></title>
-    <link href="http://www.rowkey.me/blog/2014/09/24/nginx-bootstrap/"/>
+    <link href="https://www.rowkey.cn/blog/2014/09/24/nginx-bootstrap/"/>
     <updated>2014-09-24T09:38:57+00:00</updated>
-    <id>http://www.rowkey.me/blog/2014/09/24/nginx-bootstrap</id>
+    <id>https://www.rowkey.cn/blog/2014/09/24/nginx-bootstrap</id>
     <content type="html"><![CDATA[<p>nginx的启动过程代码主要分布在src/core以及src/os/unix目录下。启动流程的函数调用序列：main(src/core/nginx.c)→ngx_init_cycle(src/core/ngx_cycle.c)→ngx_master_process_cycle(src/os/)。nginx的启动过程就是围绕着这三个函数进行的。</p>
 
 <p>main函数的处理过程总体上可以概括如下：</p>
@@ -859,9 +859,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[Nginx负载均衡]]></title>
-    <link href="http://www.rowkey.me/blog/2014/08/27/nginx-loadbalance/"/>
+    <link href="https://www.rowkey.cn/blog/2014/08/27/nginx-loadbalance/"/>
     <updated>2014-08-27T06:32:50+00:00</updated>
-    <id>http://www.rowkey.me/blog/2014/08/27/nginx-loadbalance</id>
+    <id>https://www.rowkey.cn/blog/2014/08/27/nginx-loadbalance</id>
     <content type="html"><![CDATA[<h2>目录</h2>
 
 <ul>
@@ -1136,9 +1136,9 @@ for ( ;; ) {
   
   <entry>
     <title type="html"><![CDATA[Nginx源码分析之基本数据结构]]></title>
-    <link href="http://www.rowkey.me/blog/2014/07/25/nginx-data-structure/"/>
+    <link href="https://www.rowkey.cn/blog/2014/07/25/nginx-data-structure/"/>
     <updated>2014-07-25T09:08:02+00:00</updated>
-    <id>http://www.rowkey.me/blog/2014/07/25/nginx-data-structure</id>
+    <id>https://www.rowkey.cn/blog/2014/07/25/nginx-data-structure</id>
     <content type="html"><![CDATA[<h3>引言</h3>
 
 <p>nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ngx_core.h中把几乎所有的头文件都集合起来。也因此造成了nginx各部分源代码的耦合。但实际上nginx各个部分逻辑划分还是很明确的，整体上是一种松散的结构。</p>

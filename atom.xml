@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/atom.xml" rel="self"/>
-  <link href="http://www.rowkey.me/"/>
-  <updated>2021-08-15T09:30:24+00:00</updated>
-  <id>http://www.rowkey.me/</id>
+  <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2021-08-21T12:43:03+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[做游戏业务以来的一些感悟]]></title>
-    <link href="http://www.rowkey.me/blog/2021/08/13/ali-game/"/>
+    <link href="https://www.rowkey.cn/blog/2021/08/13/ali-game/"/>
     <updated>2021-08-13T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2021/08/13/ali-game</id>
+    <id>https://www.rowkey.cn/blog/2021/08/13/ali-game</id>
     <content type="html"><![CDATA[<p>今天看了一下自己的博客，发现已经四个月没有写过文章了。其实自己准备中的东西还有几篇，但从去年年底开始负责游戏业务以来，一直处于一个学习的状态，身上的压力也一直没有降下来。对于游戏这个行业，自己完全是一个新手，各种方法论、行业趋势、游戏开发的各种概念对我来说都是完全陌生的领域。这期间学习了不少游戏行业从研发到运营到发行的知识，但到现在也没有一款可以拿得出手的游戏，所以这方面的东西也没法拿出来输出给别人。没有得到过证明的东西，如果误导别人那就是大错特错了。不过，大半年的学习，总归还是有一些基本的概念和教训是可以总结一下的。</p>
 
 <!--more-->
@@ -41,13 +41,13 @@
 </ol>
 
 
-<p>还值得一提的是，去年疫情期间，接着18、19年网赚类APP（趣头条、惠头条、刷宝）的势头，网赚类游戏也有了一波红利期。到现在的游戏榜单上，网赚类游戏也一直稳定在头部，下滑趋势并不明显。算是一个新起的游戏品类。这类游戏在游戏的玩法上叠加了一层提现逻辑，能够一定程度的提高游戏留存，然后通过分享还能降低获客成本。</p>
+<p>还值得一提的是，去年疫情期间，接着18、19年网赚类APP（趣头条、惠头条、刷宝）的势头，网赚类游戏也有了一波红利期。到现在的游戏榜单上，网赚类游戏也一直稳定在头部，下滑趋势并不明显。算是一个新起的游戏品类。这类游戏在游戏的玩法上叠加了一层提现逻辑，能够一定程度的提高游戏留存，通过分享还能降低获客成本。</p>
 
 <p>此外，还有一个超休闲游戏的概念。这类游戏源自国外Vodoo、Crazylabs等公司，玩家上手门槛极低，一局游戏的时长也非常短，基本也都是IAA类游戏。这类游戏的开发成本、周期都很低，一般都是刚开始做游戏的公司选择的品类。但这类游戏能够成功的关键在于极低的获客成本，所以抓热点、玩法创意都极其重要。</p>
 
 <h2>自己在做的</h2>
 
-<p>由于对游戏行业完全是个门外汉，所以决定做之前，和很多游戏行业的前辈请教了很多东西。综合多方面的考虑和建议，选择了超休闲游戏做为一开始的尝试。然后陆陆续续出了三四款超休闲游戏，没有什么水花，后来又转换方向为中度休闲模拟经营类游戏。</p>
+<p>由于对游戏行业完全是个门外汉，所以决定做之前，和很多游戏行业的前辈请教了很多东西。综合多方面的考虑和建议，选择了超休闲游戏做为一开始的尝试。陆陆续续出了三四款超休闲游戏，没有什么水花，后来又转换方向为中度休闲模拟经营类游戏。</p>
 
 <p>整个过程是伴随着教训的，一些坑不管别人怎么说，该踩的还是要踩。</p>
 
@@ -56,7 +56,7 @@
 <ol>
 <li>选择做超休闲游戏确实是成本低的最佳选择。但是决定这类游戏成功的关键自己又把握不住，那么成本低也没有意义。这是一开始自己非常错误的一个决策。</li>
 <li>使用应用APP的项目迭代方式是不适合游戏尤其是第一个版本的开发节奏的。游戏这种内容型APP，内容是最关键的，如果内容不够充实，那么推广起来是没有任何意义的。这就好比电影或者一本书，可以出续篇，但是已有的东西再去改，带来的效果就不是那么有意义了。</li>
-<li>做适合团队基因的游戏是最合适的。鉴于一些招人的客观原因，选择某个品类游戏，然后去找合适的人事非常困难的。那么可以试着先把团队搭建成功，再去做适合团队基因的游戏会是一个更好的选择。</li>
+<li>做适合团队基因的游戏是最合适的。鉴于一些招人的客观原因，选择某个品类游戏，然后去找合适的人是非常困难的。那么可以试着先把团队搭建成功，再去做适合团队基因的游戏会是一个更好的选择。</li>
 <li>自己不懂的东西要交给懂得的人来做，即使付出昂贵的成本。这比用小的成本招来不懂的人来做要好的多。不懂的人做不出东西来，那么整个团队的价值就是浪费的。懂得人来做，即使成本贵很多，但是团队的价值会覆盖掉这些成本。</li>
 <li>做决断尤其是对人要果断。不能因小失大，时间成本和机会成本是非常大的。</li>
 </ol>
@@ -70,9 +70,9 @@
   
   <entry>
     <title type="html"><![CDATA[阿里巴巴管理三板斧]]></title>
-    <link href="http://www.rowkey.me/blog/2021/03/31/ali-manage/"/>
+    <link href="https://www.rowkey.cn/blog/2021/03/31/ali-manage/"/>
     <updated>2021-03-31T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2021/03/31/ali-manage</id>
+    <id>https://www.rowkey.cn/blog/2021/03/31/ali-manage</id>
     <content type="html"><![CDATA[<p>去年年底受阿里云的邀请参加了一次湖畔大学的参观学习活动，其中有一堂管理的课程《阿里集团管理三板斧》，讲师是阿里的新商业学院院长-正雄。这堂课让我在市面上公开的一些阿里的管理认知上对其有了进一步的了解和启发。以下是在课堂上的一些笔记。</p>
 
 <!--more-->
@@ -97,7 +97,7 @@
 <li>管理三板斧：针对人</li>
 <li><p>整体观：业务 组织 文化 三位一体</p>
 
-<p>  <img src="http://www.rowkey.me/post_images/ali-manage/whole.jpg" alt="" /></p>
+<p>  <img src="https://www.rowkey.cn/post_images/ali-manage/whole.jpg" alt="" /></p>
 
 <ul>
 <li>平常人做非凡事 -> 非凡人平常心做非凡事</li>
@@ -111,9 +111,9 @@
 </ul>
 </li>
 <li>领导力梯队
-  <img src="http://www.rowkey.me/post_images/ali-manage/team.jpg" alt="" /></li>
+  <img src="https://www.rowkey.cn/post_images/ali-manage/team.jpg" alt="" /></li>
 <li>腿部三板斧
-  <img src="http://www.rowkey.me/post_images/ali-manage/leg.jpg" alt="" />
+  <img src="https://www.rowkey.cn/post_images/ali-manage/leg.jpg" alt="" />
 
 <ul>
 <li>结果和过程都要：为过程鼓掌，为结果复盘
@@ -136,19 +136,19 @@
 </ul>
 </li>
 <li>腰部三板斧
-  <img src="http://www.rowkey.me/post_images/ali-manage/waist.jpg" alt="" />
+  <img src="https://www.rowkey.cn/post_images/ali-manage/waist.jpg" alt="" />
 
 <ul>
 <li>超越伯乐：职能部门不招应届生</li>
 </ul>
 </li>
 <li>头部三板斧：眼光、胸怀、看未来的能力
-  <img src="http://www.rowkey.me/post_images/ali-manage/head.jpg" alt="" /></li>
+  <img src="https://www.rowkey.cn/post_images/ali-manage/head.jpg" alt="" /></li>
 <li>业务、组织、文化三位一体
-  <img src="http://www.rowkey.me/post_images/ali-manage/integration.jpg" alt="" /></li>
+  <img src="https://www.rowkey.cn/post_images/ali-manage/integration.jpg" alt="" /></li>
 <li><p>数字化变革时代的理念变迁</p>
 
-<p>  <img src="http://www.rowkey.me/post_images/ali-manage/trans.jpg" alt="" /></p></li>
+<p>  <img src="https://www.rowkey.cn/post_images/ali-manage/trans.jpg" alt="" /></p></li>
 <li><p>终局思维</p></li>
 </ul>
 
@@ -161,9 +161,9 @@
   
   <entry>
     <title type="html"><![CDATA[阅文笔记（一）]]></title>
-    <link href="http://www.rowkey.me/blog/2021/02/23/article-notes/"/>
+    <link href="https://www.rowkey.cn/blog/2021/02/23/article-notes/"/>
     <updated>2021-02-23T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2021/02/23/article-notes</id>
+    <id>https://www.rowkey.cn/blog/2021/02/23/article-notes</id>
     <content type="html"><![CDATA[<p>记录在阅读公众号、博客上一些好的文章时的笔记和心得。</p>
 
 <!--more-->
@@ -486,7 +486,7 @@
 <li>整个架构的中心是一个场景覆盖度足够广，且具有无限的水平伸缩能力的存储系统。大部分数据的流动被限制在这个数据库内部，这样应用层就可以几乎做到无状态，因为这个中心的数据库负责了绝大部分状态，每个应用可以通过自己的缓存来进行加速。</li>
 <li>缓存层需要离业务层更近</li>
 <li>HTAP
-<img src="http://www.rowkey.me/post_images/htap.jpg" alt="" /></li>
+<img src="https://www.rowkey.cn/post_images/htap.jpg" alt="" /></li>
 </ul>
 </li>
 <li>未来
@@ -503,9 +503,9 @@
   
   <entry>
     <title type="html"><![CDATA[我的2020]]></title>
-    <link href="http://www.rowkey.me/blog/2021/01/13/my2020/"/>
+    <link href="https://www.rowkey.cn/blog/2021/01/13/my2020/"/>
     <updated>2021-01-13T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2021/01/13/my2020</id>
+    <id>https://www.rowkey.cn/blog/2021/01/13/my2020</id>
     <content type="html"><![CDATA[<p>最近因为新业务的事情一直没有写文章，发现已经4个月没有产出。年初给自己定的每个月至少产出一篇文章的目标算是啪啪打自己脸了。不过虽然2021年已经过去大半个月了，2020年的总结还是要补上的。</p>
 
 <!--more-->
@@ -677,9 +677,9 @@
   
   <entry>
     <title type="html"><![CDATA[研发效能杂谈]]></title>
-    <link href="http://www.rowkey.me/blog/2020/08/13/dev-efficacy-talk/"/>
+    <link href="https://www.rowkey.cn/blog/2020/08/13/dev-efficacy-talk/"/>
     <updated>2020-08-13T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/08/13/dev-efficacy-talk</id>
+    <id>https://www.rowkey.cn/blog/2020/08/13/dev-efficacy-talk</id>
     <content type="html"><![CDATA[<p>研发效能是什么？为什么现在都在谈如何提高研发效能？研发效能对于一个企业到底有多重要？本文按照Why、What、How三步走沉淀梳理了研发效能相关的知识点。</p>
 
 <!--more-->
@@ -704,7 +704,7 @@
 
 <p>一个软件研发的完整流程如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/post_images/dev/devprocess.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/dev/devprocess.png" alt="" /></p>
 
 <p>此流程交付期望产品的效率和能力，即研发效能。更进一步的《研发效率破局之道》中将研发效能定义为团队能够持续地为用户产生有效价值的效率，包括 <strong>有效性（Effectiveness）、效率（Efficiency）和可持续性（Sustainability）</strong> 三个方面。其增加的可持续性指出研发效能应该着眼于长期效果。</p>
 
@@ -714,7 +714,7 @@
 
 <p>对应于第一部分中讲述的软件开发流程，如果想要提升研发效能，那么需要落实到研发流程（组织结构、项目管理、持续交付）、工程方法、个人效能以管理和文化的实践上。本文重点从研发流程、工程方法两方面来讲。</p>
 
-<p><img src="http://www.rowkey.me/post_images/dev/whole.png" width="800"/></p>
+<p><img src="https://www.rowkey.cn/post_images/dev/whole.png" width="800"/></p>
 
 <h3>3.1 衡量指标</h3>
 
@@ -1017,9 +1017,9 @@
   
   <entry>
     <title type="html"><![CDATA[项目管理标准模板]]></title>
-    <link href="http://www.rowkey.me/blog/2020/07/31/project-manage/"/>
+    <link href="https://www.rowkey.cn/blog/2020/07/31/project-manage/"/>
     <updated>2020-07-31T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/07/31/project-manage</id>
+    <id>https://www.rowkey.cn/blog/2020/07/31/project-manage</id>
     <content type="html"><![CDATA[<p>之前写了一篇<a href="https://www.rowkey.cn/blog/2020/04/25/tech-leader-manage/">《技术管理标准模板》</a>，其中项目管理部分并没有具体深入，而这一技能不仅仅是对于技术Leader的要求，从我的经验看来，只要是程序员，具有项目管理能力都是如虎添翼的，即使你走的是专业路线。本文即基于自己的经验，从项目的启动和迭代阶段总结了敏捷项目管理的一些标准动作。</p>
 
 <!--more-->
@@ -1113,9 +1113,9 @@
   
   <entry>
     <title type="html"><![CDATA[你要成为什么样的人？]]></title>
-    <link href="http://www.rowkey.me/blog/2020/06/27/mytalk/"/>
+    <link href="https://www.rowkey.cn/blog/2020/06/27/mytalk/"/>
     <updated>2020-06-27T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/06/27/mytalk</id>
+    <id>https://www.rowkey.cn/blog/2020/06/27/mytalk</id>
     <content type="html"><![CDATA[<p>今天参加了TGO鲲鹏会的小组会议，其中ksyun提了一个问题挺发人深思的，大体的意思就是你什么时候才明确地知道以后要成为什么样的人？</p>
 
 <p>对于这个问题，自己挺有感触的。自己在这方面算是开悟比较早的，现在从事的事情也是自己在初中时候就确定的，虽然细节略有不同。</p>
@@ -1139,9 +1139,9 @@
   
   <entry>
     <title type="html"><![CDATA[持续交付这点事]]></title>
-    <link href="http://www.rowkey.me/blog/2020/06/15/cd/"/>
+    <link href="https://www.rowkey.cn/blog/2020/06/15/cd/"/>
     <updated>2020-06-15T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/06/15/cd</id>
+    <id>https://www.rowkey.cn/blog/2020/06/15/cd</id>
     <content type="html"><![CDATA[<p>持续交付指的是在短周期内完成软件产品，以保证软件保持在随时可以发布的状态。让每一个变更都经过一条自动化的检验流水线，来检查每一个变更的质量，通过就进入下一个阶段。<strong>其不是一种工具，而是一种实践！</strong></p>
 
 <!--more-->
@@ -1262,7 +1262,7 @@
 
 <p><strong>让开发者不受阻塞、不受不必要的干扰 -> 持续开发</strong></p>
 
-<p><img src="http://www.rowkey.me/post_images/dev/localdev.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/dev/localdev.png" alt="" /></p>
 
 <ul>
 <li>确保自动化测试、构建部署脚本都能够在开发机上运行</li>
@@ -1298,7 +1298,7 @@
 
 <h3>2.2 规范化、自动化核心步骤</h3>
 
-<p><img src="http://www.rowkey.me/post_images/dev/localdev-detail.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/dev/localdev-detail.png" alt="" /></p>
 
 <ul>
 <li>提高开发环境的效率: 环境获取的服务化、自助化；环境的一体化、一致性
@@ -1408,7 +1408,7 @@
 
 <p>部署流水线就是对软件交付流程的建模。</p>
 
-<p><img src="http://www.rowkey.me/post_images/dev/deploy-pipeline.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/dev/deploy-pipeline.png" alt="" /></p>
 
 <p>实现部署流水线的一些共识如下：</p>
 
@@ -1534,7 +1534,7 @@
 
 <p>Devops是这些年很流行的一个概念，其目的就是打通研发和运维环节，以达到全员目标一致，保障软件高效交付。</p>
 
-<p><img src="http://www.rowkey.me/post_images/dev/devops.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/dev/devops.png" alt="" /></p>
 
 <ul>
 <li>职能团队提供平台和工具，让全栈工程师能够自己处理端到端的工作，实现DevOps。</li>
@@ -1564,15 +1564,15 @@
   
   <entry>
     <title type="html"><![CDATA[《清教徒的礼物》学习笔记]]></title>
-    <link href="http://www.rowkey.me/blog/2020/05/31/qjt/"/>
+    <link href="https://www.rowkey.cn/blog/2020/05/31/qjt/"/>
     <updated>2020-05-31T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/05/31/qjt</id>
+    <id>https://www.rowkey.cn/blog/2020/05/31/qjt</id>
     <content type="html"><![CDATA[<p>同学推荐的一本管理书籍，主要是讲的美国的管理文化在世界各地的普及，尤其是日本和中国。阐述了清教徒（第一批欧洲移民，起源于英国，在北美殖民地得以实践与发展）的一些特质，也是美国能够打赢两次世界大战的原因，包括：建造“人间天国”的坚定信念；亲力亲为的技师精神；集体主义；组织能力：善于协调各种财力、物力和人力的组织能力。并且在书的最后给出了管理黄金时代优秀实务背后的25条原理。看完这本书，对于其中的一些东西很有共鸣，比如：自下而上的管理、专家（职业经理人）崇拜的危害等。</p>
 
 <!--more-->
 
 
-<p><img src="http://www.rowkey.me/post_images/qjt-notes.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/qjt-notes.png" alt="" /></p>
 
 <ul>
 <li>清教的四个特点
@@ -1633,21 +1633,21 @@
 
 <p>书籍链接：<a href="https://book.douban.com/subject/26760576/">https://book.douban.com/subject/26760576/</a></p>
 
-<p><img src="http://www.rowkey.me/post_images/qjt.png" width="300"/></p>
+<p><img src="https://www.rowkey.cn/post_images/qjt.png" width="300"/></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[技术管理标准模板]]></title>
-    <link href="http://www.rowkey.me/blog/2020/04/25/tech-leader-manage/"/>
+    <link href="https://www.rowkey.cn/blog/2020/04/25/tech-leader-manage/"/>
     <updated>2020-04-25T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/04/25/tech-leader-manage</id>
+    <id>https://www.rowkey.cn/blog/2020/04/25/tech-leader-manage</id>
     <content type="html"><![CDATA[<p>对于技术团队新晋升的一些研发Leader，即使在大公司具有完善的培训机制，大多数人在一开始还是会手足无措，不能很好地做到从个人贡献者到团队贡献者角色的转变。于是根据自己以及公司内部很多技术管理者的工作经验梳理出了一些技术管理者的管理模板，可以作为管理工作的实践参考。</p>
 
 <!--more-->
 
 
-<p><img src="http://www.rowkey.me/post_images/tech-manage.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/tech-manage.png" alt="" /></p>
 
 <h2>看方向</h2>
 
@@ -1800,9 +1800,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java工程师应该知道的Web安全]]></title>
-    <link href="http://www.rowkey.me/blog/2020/03/10/web-security/"/>
+    <link href="https://www.rowkey.cn/blog/2020/03/10/web-security/"/>
     <updated>2020-03-10T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/03/10/web-security</id>
+    <id>https://www.rowkey.cn/blog/2020/03/10/web-security</id>
     <content type="html"><![CDATA[<p>Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。</p>
 
 <p>Web安全问题，从大的方面可以分为：</p>
@@ -2035,7 +2035,7 @@
 
 <p>还需要提到的是DDOS一个新的变种，反射型DDOS攻击，也被称为放大攻击。原理如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/post_images/reflect-ddos.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/reflect-ddos.png" alt="" /></p>
 
 <p>此种攻击，攻击者并不直接攻击目标服务IP，而是伪造被攻击者的IP，发送请求包到网上一些开放的特殊服务的服务器（放大器。这些服务器由于协议的特点并不会验证源IP的真伪，于是会将数倍于请求报文的回复数据发送到被攻击者的IP，从而对后者间接形成DDOS攻击。任何设计不完善的、基于UDP请求的协议或者ICMP协议都能形成放大器，包括DNS请求、Ping请求、NTP monlist请求、SSDP协议（简单服务发现协议）等。此种攻击不需要大量的肉鸡、难以追踪，正变得越来越流行。防范此种攻击通常的手段就是进行DDOS流量清洗和增加ACL过滤规则。</p>
 
@@ -2150,14 +2150,14 @@
   
   <entry>
     <title type="html"><![CDATA[Java工程师应该知道的RPC]]></title>
-    <link href="http://www.rowkey.me/blog/2020/02/17/rpc/"/>
+    <link href="https://www.rowkey.cn/blog/2020/02/17/rpc/"/>
     <updated>2020-02-17T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/02/17/rpc</id>
+    <id>https://www.rowkey.cn/blog/2020/02/17/rpc</id>
     <content type="html"><![CDATA[<p>RPC, Remote Procedure Call,故名思议就是远程过程调用，一般都有跨语言支持。大规模分布式应用中普遍使用RPC来做内部服务、模块之间的数据通信，还有助于解耦服务、系统的垂直拆分，使得系统可扩展性更强，并能够让Java程序员用与开发本地程序一样的语法与方式去开发分布式应用程序。</p>
 
 <p>RPC分为客户端（服务调用方）和服务端（服务提供方），都运行在自己的JVM中。客户端只需要引入要使用的接口，接口的实现和运行都在服务端。RPC主要依赖的技术包括序列化、反序列化和数据传输协议。是一种定义与实现相分离的设计：</p>
 
-<p><img src="http://www.rowkey.me/post_images/rpc/rpc.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/rpc/rpc.png" alt="" /></p>
 
 <p>目前Java使用比较多的RPC方案主要有RMI、Hessian、Dubbo以及Thrift。</p>
 
@@ -2170,7 +2170,7 @@
 
 <p>RMI，remote method invoke, 远程方法调用。是JAVA自带的远程方法调用工具，其基于TCP连接，可以使用任意端口，不易跨网段调用，不能穿越防火墙。但它是JAVA语言最开始时的设计，后来很多框架的原理都基于RMI。其调用逻辑如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/post_images/rpc/rmi.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/rpc/rmi.png" alt="" /></p>
 
 <ol>
 <li>服务注册：服务端注册服务绑定到注册中心registry。</li>
@@ -2189,7 +2189,7 @@
 
 <p>Hessian是一个基于HTTP协议的RPC方案，其序列化机制是自己实现的，负载均衡和容错需要依赖于Web容器/服务。其体系结构和RMI类似，不过并没有注册中心Registry这一角色，而是通过使用地址来显式调用。其中需要使用HessianProxyFactory根据配置的地址create一个代理对象。使用此代理对象去调用服务。</p>
 
-<p><img src="http://www.rowkey.me/post_images/rpc/hessian.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/rpc/hessian.png" alt="" /></p>
 
 <p>和RMI一样，可以使用Spring那一节讲的HessianServiceExporter和HessianProxyFactoryBean来使用。</p>
 
@@ -2197,7 +2197,7 @@
 
 <p>Thrift是Facebook开源的RPC框架，现已进入Apache开源项目。其采用接口描述语言（IDL）定义 RPC 接口和数据类型，通过编译器生成不同语言的代码（支持 C++，Java，Python，Ruby等），数据传输采用二进制格式，是自己实现的序列化机制。没有注册中心的概念。</p>
 
-<p><img src="http://www.rowkey.me/post_images/rpc/thrift.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/rpc/thrift.png" alt="" /></p>
 
 <p>Thrift的使用需要先编写接口的IDL，然后使用它自带的工具生成代码。</p>
 
@@ -2313,7 +2313,7 @@
 
 <p>这里仅仅针对Dubbo的RPC协议来讲，其传输是基于TCP协议的，使用了高性能的NIO框架Netty，序列化可以有多种选择，默认使用Hessian的序列化实现。Dubbo默认使用Zookeeper作为服务注册、管理中心。</p>
 
-<p><img src="http://www.rowkey.me/post_images/rpc/dubbo.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/rpc/dubbo.png" alt="" /></p>
 
 <p>一个基于Spring XML配置的使用例子如下：</p>
 
@@ -2545,9 +2545,9 @@ Protobuf | 速度快 | 需要静态编译</p>
   
   <entry>
     <title type="html"><![CDATA[我是科蜜，20年的...]]></title>
-    <link href="http://www.rowkey.me/blog/2020/01/27/kobe/"/>
+    <link href="https://www.rowkey.cn/blog/2020/01/27/kobe/"/>
     <updated>2020-01-27T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/01/27/kobe</id>
+    <id>https://www.rowkey.cn/blog/2020/01/27/kobe</id>
     <content type="html"><![CDATA[<p>5：30左右突然惊醒，拿起手机一看有同学给我发微信说科比挂了。我大大的问号，赶快看了一下朋友圈和网易新闻，已经有人发出了国外网站正式的报道。。。心里顿时五味陈杂，一时不知道如何是好。一个陪伴了自己整个少年时代的偶像说没就没了，还是以这种意外的方式，相信好胜心那么强的他也是非常不甘心的。也许有人会说，人家这么一个超级巨星，你们这些粉丝矫情啥，人家都不认识你。确实，我的存在对他来说是无所谓的，但是他对我的意义却是不一般，我也相信他对于无数他的粉丝都有不一样的意义。</p>
 
 <!--more-->
@@ -2569,9 +2569,9 @@ Protobuf | 速度快 | 需要静态编译</p>
   
   <entry>
     <title type="html"><![CDATA[我的2019]]></title>
-    <link href="http://www.rowkey.me/blog/2020/01/23/my2019/"/>
+    <link href="https://www.rowkey.cn/blog/2020/01/23/my2019/"/>
     <updated>2020-01-23T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/01/23/my2019</id>
+    <id>https://www.rowkey.cn/blog/2020/01/23/my2019</id>
     <content type="html"><![CDATA[<p>和去年一样，本文来自自己给部门的公开信。内容经过脱敏。</p>
 
 <hr />
@@ -2775,9 +2775,9 @@ Protobuf | 速度快 | 需要静态编译</p>
   
   <entry>
     <title type="html"><![CDATA[《管理的常识》学习笔记]]></title>
-    <link href="http://www.rowkey.me/blog/2019/12/20/manage-notes/"/>
+    <link href="https://www.rowkey.cn/blog/2019/12/20/manage-notes/"/>
     <updated>2019-12-20T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/12/20/manage-notes</id>
+    <id>https://www.rowkey.cn/blog/2019/12/20/manage-notes</id>
     <content type="html"><![CDATA[<blockquote><p>作者是陈春花教授，既是企业管理教授也有企业高管经历，是国内管理大师级的人物，写了非常多的管理著作，其公众号“春暖花开”会经常分享她对管理的一些思考，非常值得订阅。《管理的常识》此书主要讲了管理理论中的一些常识，包括了管理的概念、组织、组织结构、领导、激励、决策等。让自己印象深刻的包括管理最终只以成就做为衡量标准；职能部门是不能具有权利的；群体决策并不是最好的决策方式，而是风险较小的决策方式。推荐企业管理者阅读此书。</p></blockquote>
 
 <p>今年随着公司人员规模的不断扩大，自己越发意识到了管理的重要性。尤其对于技术管理者来说，程序员的思维和管理者的思维有很多地方是截然不同的，如果不做好认知的改变和思维的转变，很容易用惯性思维来做事，那么一个非常优秀的研发工程师很可能会成为一个非常不合格的管理者。所以，自己一直在寻找管理的书籍、课程来学习。其中，《管理的常识》这本书是极客邦TGO寄来的礼物，仔细阅读了一下，还是有不少启发的。</p>
@@ -2787,7 +2787,7 @@ Protobuf | 速度快 | 需要静态编译</p>
 
 <p>先给出自己笔记的思维导图，如下：</p>
 
-<p><a href="http://www.rowkey.me/post_images/manage-notes.png" target="_blank"><img src="http://www.rowkey.me/post_images/manage-notes.png"/></a></p>
+<p><a href="https://www.rowkey.cn/post_images/manage-notes.png" target="_blank"><img src="https://www.rowkey.cn/post_images/manage-notes.png"/></a></p>
 
 <p>其中让自己印象比较深刻的几点：</p>
 
@@ -2802,24 +2802,24 @@ Protobuf | 速度快 | 需要静态编译</p>
 
 <p>书籍链接：<a href="https://book.douban.com/subject/26901342/">https://book.douban.com/subject/26901342/</a></p>
 
-<p><img src="http://www.rowkey.me/post_images/manage.png" width="300"/></p>
+<p><img src="https://www.rowkey.cn/post_images/manage.png" width="300"/></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[技术琐话]]></title>
-    <link href="http://www.rowkey.me/blog/2019/12/18/tech-talk/"/>
+    <link href="https://www.rowkey.cn/blog/2019/12/18/tech-talk/"/>
     <updated>2019-12-18T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/12/18/tech-talk</id>
-    <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：<a href="http://www.rowkey.me/blog/talks/">技术琐话</a></p>
+    <id>https://www.rowkey.cn/blog/2019/12/18/tech-talk</id>
+    <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：<a href="https://www.rowkey.cn/blog/talks/">技术琐话</a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[中台简谈]]></title>
-    <link href="http://www.rowkey.me/blog/2019/11/23/middle-talk/"/>
+    <link href="https://www.rowkey.cn/blog/2019/11/23/middle-talk/"/>
     <updated>2019-11-23T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/11/23/middle-talk</id>
+    <id>https://www.rowkey.cn/blog/2019/11/23/middle-talk</id>
     <content type="html"><![CDATA[<blockquote><p>面对新事物，先接纳，再判断。不要轻易就否定，即使经过自己的思考后确实没啥价值，这期间的思考过程也是一种知识梳理和思维锻炼。</p></blockquote>
 
 <p>2019年技术圈最火的一个词非“中台”莫属了。联想到公司已经在持续做的平台化，其实会让人感到混乱。平台和中台有啥区别？有了中台，那么前台和后台又指的什么？本文是自己在调研中台概念中沉淀出来的一些思考。</p>
@@ -2878,7 +2878,7 @@ Protobuf | 速度快 | 需要静态编译</p>
 
 <h3>总体架构</h3>
 
-<p><img src="http://www.rowkey.me/post_images/middle-office-arch.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/middle-office-arch.png" alt="" /></p>
 
 <h3>建设思路</h3>
 
@@ -2951,9 +2951,9 @@ Protobuf | 速度快 | 需要静态编译</p>
   
   <entry>
     <title type="html"><![CDATA[如何进行有效的技术分享（演讲）]]></title>
-    <link href="http://www.rowkey.me/blog/2019/10/23/how-to-tech-share/"/>
+    <link href="https://www.rowkey.cn/blog/2019/10/23/how-to-tech-share/"/>
     <updated>2019-10-23T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/10/23/how-to-tech-share</id>
+    <id>https://www.rowkey.cn/blog/2019/10/23/how-to-tech-share</id>
     <content type="html"><![CDATA[<p>讲述如何准备一次技术分享（演讲）以及演讲中的注意事项。来自内部分享PPT，后续会发布<strong>详细版</strong>。</p>
 
 <!--more-->
@@ -3096,9 +3096,9 @@ Protobuf | 速度快 | 需要静态编译</p>
   
   <entry>
     <title type="html"><![CDATA[数据传输之RESTful]]></title>
-    <link href="http://www.rowkey.me/blog/2019/09/28/restful/"/>
+    <link href="https://www.rowkey.cn/blog/2019/09/28/restful/"/>
     <updated>2019-09-28T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/09/28/restful</id>
+    <id>https://www.rowkey.cn/blog/2019/09/28/restful</id>
     <content type="html"><![CDATA[<p>REST，全称表现层状态转移（Representational State Transfer）, 指的是资源在网络中以某种表现形式进行状态转移，是一种架构风格。其描述的是在网络中Client和Server的一种交互形式。简单来说就是用HTTP URL来定位资源，用HTTP的各种method来描述操作。其关键的三个概念如下：</p>
 
 <ul>
@@ -3110,7 +3110,7 @@ Protobuf | 速度快 | 需要静态编译</p>
 
 <p>REST经常被用来规范API的设计以及数据传输的格式，可以统一给各种客户端提供接口,包括Web、iOS、Android和其他的服务。REST不需要显式的前端页面，只需要按照格式返回数据即可。符合REST风格的API称为RESTful API，符合RESTFul规范的架构称为RESTful架构。如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/post_images/restful/restful.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/restful/restful.png" alt="" /></p>
 
 <!--more-->
 
@@ -3277,7 +3277,7 @@ Protobuf | 速度快 | 需要静态编译</p>
 
 <p>OAuth2.0的验证流程如下图所示：</p>
 
-<p><img src="http://www.rowkey.me/post_images/restful/oauth.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/post_images/restful/oauth.png" alt="" /></p>
 
 <ul>
 <li>得到授权码code。</li>
@@ -3343,9 +3343,9 @@ Protobuf | 速度快 | 需要静态编译</p>
   
   <entry>
     <title type="html"><![CDATA[如何培养解决问题的意识]]></title>
-    <link href="http://www.rowkey.me/blog/2019/08/23/solve-problem/"/>
+    <link href="https://www.rowkey.cn/blog/2019/08/23/solve-problem/"/>
     <updated>2019-08-23T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2019/08/23/solve-problem</id>
+    <id>https://www.rowkey.cn/blog/2019/08/23/solve-problem</id>
     <content type="html"><![CDATA[<p>解决问题其实并不是最终的目的，需要加一个修饰词成为有效地解决问题，这才是最终的目的。那么如何有效地解决问题呢？这是有一些方法论做指导的。要培养解决问题的能力，需要首先掌握这些方法论。解决问题分为三步走：识别问题、分析问题、解决问题。</p>
 
 <!--more-->

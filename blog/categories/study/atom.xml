@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: study | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/blog/categories/study/atom.xml" rel="self"/>
-  <link href="http://www.rowkey.me/"/>
-  <updated>2021-08-15T09:30:24+00:00</updated>
-  <id>http://www.rowkey.me/</id>
+  <link href="https://www.rowkey.cn/blog/categories/study/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2021-08-21T12:43:03+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[阅文笔记（一）]]></title>
-    <link href="http://www.rowkey.me/blog/2021/02/23/article-notes/"/>
+    <link href="https://www.rowkey.cn/blog/2021/02/23/article-notes/"/>
     <updated>2021-02-23T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2021/02/23/article-notes</id>
+    <id>https://www.rowkey.cn/blog/2021/02/23/article-notes</id>
     <content type="html"><![CDATA[<p>记录在阅读公众号、博客上一些好的文章时的笔记和心得。</p>
 
 <!--more-->
@@ -357,9 +357,9 @@
   
   <entry>
     <title type="html"><![CDATA[2017年读过的书]]></title>
-    <link href="http://www.rowkey.me/blog/2018/02/06/2017books/"/>
+    <link href="https://www.rowkey.cn/blog/2018/02/06/2017books/"/>
     <updated>2018-02-06T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2018/02/06/2017books</id>
+    <id>https://www.rowkey.cn/blog/2018/02/06/2017books</id>
     <content type="html"><![CDATA[<p>2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
 
 <!--more-->
@@ -426,9 +426,9 @@
   
   <entry>
     <title type="html"><![CDATA[2016年读过的书]]></title>
-    <link href="http://www.rowkey.me/blog/2016/12/30/2016books/"/>
+    <link href="https://www.rowkey.cn/blog/2016/12/30/2016books/"/>
     <updated>2016-12-30T09:13:46+00:00</updated>
-    <id>http://www.rowkey.me/blog/2016/12/30/2016books</id>
+    <id>https://www.rowkey.cn/blog/2016/12/30/2016books</id>
     <content type="html"><![CDATA[<p>16年由于工作、身体等各种原因，阅读的书籍并不多。主要集中在技术方面。</p>
 
 <ul>
@@ -454,9 +454,9 @@
   
   <entry>
     <title type="html"><![CDATA[2015年读过的书]]></title>
-    <link href="http://www.rowkey.me/blog/2015/11/20/2015books/"/>
+    <link href="https://www.rowkey.cn/blog/2015/11/20/2015books/"/>
     <updated>2015-11-20T09:13:46+00:00</updated>
-    <id>http://www.rowkey.me/blog/2015/11/20/2015books</id>
+    <id>https://www.rowkey.cn/blog/2015/11/20/2015books</id>
     <content type="html"><![CDATA[<h2>技术</h2>
 
 <h3>1. 精益数据分析</h3>
@@ -517,9 +517,9 @@
   
   <entry>
     <title type="html"><![CDATA[技术的成长]]></title>
-    <link href="http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech/"/>
+    <link href="https://www.rowkey.cn/blog/2014/08/14/grow-up-in-tech/"/>
     <updated>2014-08-14T08:38:01+00:00</updated>
-    <id>http://www.rowkey.me/blog/2014/08/14/grow-up-in-tech</id>
+    <id>https://www.rowkey.cn/blog/2014/08/14/grow-up-in-tech</id>
     <content type="html"><![CDATA[<p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
 
 <p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>

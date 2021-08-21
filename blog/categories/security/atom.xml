@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: security | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="http://www.rowkey.me/blog/categories/security/atom.xml" rel="self"/>
-  <link href="http://www.rowkey.me/"/>
-  <updated>2021-08-15T09:30:24+00:00</updated>
-  <id>http://www.rowkey.me/</id>
+  <link href="https://www.rowkey.cn/blog/categories/security/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2021-08-21T12:43:03+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[飒然Hang]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java工程师应该知道的Web安全]]></title>
-    <link href="http://www.rowkey.me/blog/2020/03/10/web-security/"/>
+    <link href="https://www.rowkey.cn/blog/2020/03/10/web-security/"/>
     <updated>2020-03-10T11:29:34+00:00</updated>
-    <id>http://www.rowkey.me/blog/2020/03/10/web-security</id>
+    <id>https://www.rowkey.cn/blog/2020/03/10/web-security</id>
     <content type="html"><![CDATA[<p>Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。</p>
 
 <p>Web安全问题，从大的方面可以分为：</p>
@@ -338,9 +338,9 @@
   
   <entry>
     <title type="html"><![CDATA[ShellShock这点事]]></title>
-    <link href="http://www.rowkey.me/blog/2014/09/29/shell-shock/"/>
+    <link href="https://www.rowkey.cn/blog/2014/09/29/shell-shock/"/>
     <updated>2014-09-29T13:49:46+00:00</updated>
-    <id>http://www.rowkey.me/blog/2014/09/29/shell-shock</id>
+    <id>https://www.rowkey.cn/blog/2014/09/29/shell-shock</id>
     <content type="html"><![CDATA[<h2>前言</h2>
 
 <p>在微博上看到最近安全界爆出了一个危害比之前的“心脏流血”（Heartbleed Bug）还要大很多的Bash代码注入漏洞：CVE-2014-6271 “shellshock”漏洞，然后随之而来一系列相关漏洞。详情可以看这些链接：<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271">CVE-2014-6271</a> 、<a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-7169">CVE-2014-7169</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7186">CVE-2014-7186</a>、<a href="https://access.redhat.com/security/cve/CVE-2014-7187">CVE-2014-7187</a>、<a href="https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6277">CVE-2014-6277</a>。世界上Linux服务器的占有份额是很大的，而bash又是Linux不可或缺的一个部分。可想而知，这个漏洞的破坏力有多大。这个从名字上就可以看出来，ShellShock是医学上的一种严重的疾病，中文叫做“弹震症”，指的是受到爆炸冲击后导致浑身颤抖、思维混乱等症状。这个命名很形象地反映了问题的严重性。</p>
@@ -444,9 +444,9 @@ http-header = Referer:() { :; }; ping -c 163.com
   
   <entry>
     <title type="html"><![CDATA[《白帽子讲Web安全》读书笔记]]></title>
-    <link href="http://www.rowkey.me/blog/2013/11/11/web-security-notes/"/>
+    <link href="https://www.rowkey.cn/blog/2013/11/11/web-security-notes/"/>
     <updated>2013-11-11T13:30:20+00:00</updated>
-    <id>http://www.rowkey.me/blog/2013/11/11/web-security-notes</id>
+    <id>https://www.rowkey.cn/blog/2013/11/11/web-security-notes</id>
     <content type="html"><![CDATA[<p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
 
 <p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
