@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: android | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/android/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: android | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/android/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Android异步加载图片]]></title>
-    <link href="https://www.rowkey.cn/blog/2013/05/02/android-image-load/"/>
+    <link href="http://www.rowkey.me/blog/2013/05/02/android-image-load/"/>
     <updated>2013-05-02T12:02:50+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2013/05/02/android-image-load</id>
+    <id>http://www.rowkey.me/blog/2013/05/02/android-image-load</id>
     <content type="html"><![CDATA[<p>对于Android中的异步加载图片，自己总结了两种方式，如下：</p>
 
 <p>1.<pre>
@@ -136,9 +136,9 @@ new AsyncLoadImage().execute(new Object[]{imageView,imagePath,maxNumPixels});
   
   <entry>
     <title type="html"><![CDATA[Android中dip、dp、sp、pt和px的区别]]></title>
-    <link href="https://www.rowkey.cn/blog/2011/08/05/android-dip-sp/"/>
+    <link href="http://www.rowkey.me/blog/2011/08/05/android-dip-sp/"/>
     <updated>2011-08-05T13:39:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2011/08/05/android-dip-sp</id>
+    <id>http://www.rowkey.me/blog/2011/08/05/android-dip-sp</id>
     <content type="html"><![CDATA[<p>Android有以下几个度量单位：</p>
 
 <ul>
@@ -207,9 +207,9 @@ x = 160 / 72 = 2.2222
   
   <entry>
     <title type="html"><![CDATA[多activity中退出整个程序]]></title>
-    <link href="https://www.rowkey.cn/blog/2011/05/30/android-exit-multi-activity/"/>
+    <link href="http://www.rowkey.me/blog/2011/05/30/android-exit-multi-activity/"/>
     <updated>2011-05-30T13:39:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2011/05/30/android-exit-multi-activity</id>
+    <id>http://www.rowkey.me/blog/2011/05/30/android-exit-multi-activity</id>
     <content type="html"><![CDATA[<h2>问题</h2>
 
 <p>多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。</p>
@@ -260,9 +260,9 @@ finish();
   
   <entry>
     <title type="html"><![CDATA[Android中的intent调用代码总结]]></title>
-    <link href="https://www.rowkey.cn/blog/2011/02/08/android-intent/"/>
+    <link href="http://www.rowkey.me/blog/2011/02/08/android-intent/"/>
     <updated>2011-02-08T13:39:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2011/02/08/android-intent</id>
+    <id>http://www.rowkey.me/blog/2011/02/08/android-intent</id>
     <content type="html"><![CDATA[<h3>显示Web网页</h3>
 
 <pre><code>Uri uri = Uri.parse("http://www.android123.com.cn");
@@ -416,9 +416,9 @@ startActivity(intent);
   
   <entry>
     <title type="html"><![CDATA[Android位图总结]]></title>
-    <link href="https://www.rowkey.cn/blog/2010/12/18/android-bitmap/"/>
+    <link href="http://www.rowkey.me/blog/2010/12/18/android-bitmap/"/>
     <updated>2010-12-18T13:39:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2010/12/18/android-bitmap</id>
+    <id>http://www.rowkey.me/blog/2010/12/18/android-bitmap</id>
     <content type="html"><![CDATA[<p>由于项目中牵扯到了对位图(android.graphics.Bitmap)的操作，于是对照Android的参考文档详细地研究了一下Android提供的位图相关功能。</p>
 
 <h2>一、对位图的获取</h2>

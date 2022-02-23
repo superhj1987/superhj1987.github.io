@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: misc | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/misc/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: misc | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/misc/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[你要成为什么样的人？]]></title>
-    <link href="https://www.rowkey.cn/blog/2020/06/27/mytalk/"/>
+    <link href="http://www.rowkey.me/blog/2020/06/27/mytalk/"/>
     <updated>2020-06-27T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2020/06/27/mytalk</id>
+    <id>http://www.rowkey.me/blog/2020/06/27/mytalk</id>
     <content type="html"><![CDATA[<p>今天参加了TGO鲲鹏会的小组会议，其中ksyun提了一个问题挺发人深思的，大体的意思就是你什么时候才明确地知道以后要成为什么样的人？</p>
 
 <p>对于这个问题，自己挺有感触的。自己在这方面算是开悟比较早的，现在从事的事情也是自己在初中时候就确定的，虽然细节略有不同。</p>
@@ -41,9 +41,9 @@
   
   <entry>
     <title type="html"><![CDATA[我是科蜜，20年的...]]></title>
-    <link href="https://www.rowkey.cn/blog/2020/01/27/kobe/"/>
+    <link href="http://www.rowkey.me/blog/2020/01/27/kobe/"/>
     <updated>2020-01-27T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2020/01/27/kobe</id>
+    <id>http://www.rowkey.me/blog/2020/01/27/kobe</id>
     <content type="html"><![CDATA[<p>5：30左右突然惊醒，拿起手机一看有同学给我发微信说科比挂了。我大大的问号，赶快看了一下朋友圈和网易新闻，已经有人发出了国外网站正式的报道。。。心里顿时五味陈杂，一时不知道如何是好。一个陪伴了自己整个少年时代的偶像说没就没了，还是以这种意外的方式，相信好胜心那么强的他也是非常不甘心的。也许有人会说，人家这么一个超级巨星，你们这些粉丝矫情啥，人家都不认识你。确实，我的存在对他来说是无所谓的，但是他对我的意义却是不一般，我也相信他对于无数他的粉丝都有不一样的意义。</p>
 
 <!--more-->
@@ -65,18 +65,18 @@
   
   <entry>
     <title type="html"><![CDATA[技术琐话]]></title>
-    <link href="https://www.rowkey.cn/blog/2019/12/18/tech-talk/"/>
+    <link href="http://www.rowkey.me/blog/2019/12/18/tech-talk/"/>
     <updated>2019-12-18T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2019/12/18/tech-talk</id>
+    <id>http://www.rowkey.me/blog/2019/12/18/tech-talk</id>
     <content type="html"><![CDATA[<p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：<a href="//blog/talks/">技术琐话</a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[如何进行有效的技术分享（演讲）]]></title>
-    <link href="https://www.rowkey.cn/blog/2019/10/23/how-to-tech-share/"/>
+    <link href="http://www.rowkey.me/blog/2019/10/23/how-to-tech-share/"/>
     <updated>2019-10-23T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2019/10/23/how-to-tech-share</id>
+    <id>http://www.rowkey.me/blog/2019/10/23/how-to-tech-share</id>
     <content type="html"><![CDATA[<p>讲述如何准备一次技术分享（演讲）以及演讲中的注意事项。来自内部分享PPT，后续会发布<strong>详细版</strong>。</p>
 
 <!--more-->
@@ -219,9 +219,9 @@
   
   <entry>
     <title type="html"><![CDATA[如何培养解决问题的意识]]></title>
-    <link href="https://www.rowkey.cn/blog/2019/08/23/solve-problem/"/>
+    <link href="http://www.rowkey.me/blog/2019/08/23/solve-problem/"/>
     <updated>2019-08-23T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2019/08/23/solve-problem</id>
+    <id>http://www.rowkey.me/blog/2019/08/23/solve-problem</id>
     <content type="html"><![CDATA[<p>解决问题其实并不是最终的目的，需要加一个修饰词成为有效地解决问题，这才是最终的目的。那么如何有效地解决问题呢？这是有一些方法论做指导的。要培养解决问题的能力，需要首先掌握这些方法论。解决问题分为三步走：识别问题、分析问题、解决问题。</p>
 
 <!--more-->

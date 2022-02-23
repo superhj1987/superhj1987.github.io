@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: kotlin | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/kotlin/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: kotlin | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/kotlin/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Kotlin语法简明指南]]></title>
-    <link href="https://www.rowkey.cn/blog/2018/12/08/kotlin-notes/"/>
+    <link href="http://www.rowkey.me/blog/2018/12/08/kotlin-notes/"/>
     <updated>2018-12-08T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2018/12/08/kotlin-notes</id>
+    <id>http://www.rowkey.me/blog/2018/12/08/kotlin-notes</id>
     <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
 
 <p>本文对其语法作了简要概括。</p>

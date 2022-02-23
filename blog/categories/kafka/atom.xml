@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: kafka | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/kafka/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: kafka | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/kafka/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[kafka学习笔记 - Consumer开发的一些关键点]]></title>
-    <link href="https://www.rowkey.cn/blog/2015/05/30/kafka-consumer/"/>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-consumer/"/>
     <updated>2015-05-30T14:00:18+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2015/05/30/kafka-consumer</id>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-consumer</id>
     <content type="html"><![CDATA[<p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
 
 <p><img src="//images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
@@ -104,9 +104,9 @@
   
   <entry>
     <title type="html"><![CDATA[kafka学习笔记 - 使用与配置]]></title>
-    <link href="https://www.rowkey.cn/blog/2015/05/30/kafka-usage/"/>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-usage/"/>
     <updated>2015-05-30T13:01:18+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2015/05/30/kafka-usage</id>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-usage</id>
     <content type="html"><![CDATA[<h2>目录</h2>
 
 <ul>
@@ -267,9 +267,9 @@
   
   <entry>
     <title type="html"><![CDATA[kafka学习笔记 - 介绍]]></title>
-    <link href="https://www.rowkey.cn/blog/2015/05/30/kafka-intro/"/>
+    <link href="http://www.rowkey.me/blog/2015/05/30/kafka-intro/"/>
     <updated>2015-05-30T12:06:18+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2015/05/30/kafka-intro</id>
+    <id>http://www.rowkey.me/blog/2015/05/30/kafka-intro</id>
     <content type="html"><![CDATA[<h2>什么是kafka</h2>
 
 <p>最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。其中kafka则是linkedin一个专门为日志而产生的service。官方文档上如是说：Kafka是一个分布式、分区、冗余的commit日志service。它提供了一种特殊设计的消息系统功能。</p>

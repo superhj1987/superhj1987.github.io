@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: hadoop | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/hadoop/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: hadoop | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/hadoop/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Hbase关键的几个点]]></title>
-    <link href="https://www.rowkey.cn/blog/2015/06/10/hbase-about/"/>
+    <link href="http://www.rowkey.me/blog/2015/06/10/hbase-about/"/>
     <updated>2015-06-10T02:59:59+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2015/06/10/hbase-about</id>
+    <id>http://www.rowkey.me/blog/2015/06/10/hbase-about</id>
     <content type="html"><![CDATA[<h2>一. 什么时候需要HBase</h2>
 
 <ol>

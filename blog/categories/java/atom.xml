@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: java | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/java/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: java | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/java/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java工程师应该知道的Web安全]]></title>
-    <link href="https://www.rowkey.cn/blog/2020/03/10/web-security/"/>
+    <link href="http://www.rowkey.me/blog/2020/03/10/web-security/"/>
     <updated>2020-03-10T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2020/03/10/web-security</id>
+    <id>http://www.rowkey.me/blog/2020/03/10/web-security</id>
     <content type="html"><![CDATA[<p>Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。</p>
 
 <p>Web安全问题，从大的方面可以分为：</p>
@@ -338,9 +338,9 @@
   
   <entry>
     <title type="html"><![CDATA[Java工程师应该知道的RPC]]></title>
-    <link href="https://www.rowkey.cn/blog/2020/02/17/rpc/"/>
+    <link href="http://www.rowkey.me/blog/2020/02/17/rpc/"/>
     <updated>2020-02-17T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2020/02/17/rpc</id>
+    <id>http://www.rowkey.me/blog/2020/02/17/rpc</id>
     <content type="html"><![CDATA[<p>RPC, Remote Procedure Call,故名思议就是远程过程调用，一般都有跨语言支持。大规模分布式应用中普遍使用RPC来做内部服务、模块之间的数据通信，还有助于解耦服务、系统的垂直拆分，使得系统可扩展性更强，并能够让Java程序员用与开发本地程序一样的语法与方式去开发分布式应用程序。</p>
 
 <p>RPC分为客户端（服务调用方）和服务端（服务提供方），都运行在自己的JVM中。客户端只需要引入要使用的接口，接口的实现和运行都在服务端。RPC主要依赖的技术包括序列化、反序列化和数据传输协议。是一种定义与实现相分离的设计：</p>
@@ -705,9 +705,9 @@ Protobuf | 速度快 | 需要静态编译</p>
   
   <entry>
     <title type="html"><![CDATA[使用Spring Boot快速开发]]></title>
-    <link href="https://www.rowkey.cn/blog/2019/07/27/springboot/"/>
+    <link href="http://www.rowkey.me/blog/2019/07/27/springboot/"/>
     <updated>2019-07-27T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2019/07/27/springboot</id>
+    <id>http://www.rowkey.me/blog/2019/07/27/springboot</id>
     <content type="html"><![CDATA[<p>Java开发中常用的Spring现在变得越来越复杂，越来越不好上手。这一点Spring Source自己也注意到了，因此推出了Spring Boot，旨在简化使用Spring的门槛，大大降低Spring的配置工作，并且能够很容易地将应用打包为可独立运行的程序（即不依赖于第三方容器，可以独立以jar或者war包的形式运行）。其带来的开发效率的提升使得Spring Boot被看做至少近5年来Spring乃至整个Java社区最有影响力的项目之一，也被人看作是Java EE开发的颠覆者。另一方面来说，Spring Boot也顺应了现在微服务（MicroServices）的理念，可以用来构建基于Spring框架的可独立部署应用程序。</p>
 
 <!--more-->
@@ -868,9 +868,9 @@ public class BootDemo extends SpringBootServletInitializer{
   
   <entry>
     <title type="html"><![CDATA[Java开发框架之日志]]></title>
-    <link href="https://www.rowkey.cn/blog/2019/06/29/log/"/>
+    <link href="http://www.rowkey.me/blog/2019/06/29/log/"/>
     <updated>2019-06-29T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2019/06/29/log</id>
+    <id>http://www.rowkey.me/blog/2019/06/29/log</id>
     <content type="html"><![CDATA[<p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
 
 <!--more-->
@@ -1526,9 +1526,9 @@ LOGGER.info("...");
   
   <entry>
     <title type="html"><![CDATA[Kotlin语法简明指南]]></title>
-    <link href="https://www.rowkey.cn/blog/2018/12/08/kotlin-notes/"/>
+    <link href="http://www.rowkey.me/blog/2018/12/08/kotlin-notes/"/>
     <updated>2018-12-08T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2018/12/08/kotlin-notes</id>
+    <id>http://www.rowkey.me/blog/2018/12/08/kotlin-notes</id>
     <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
 
 <p>本文对其语法作了简要概括。</p>

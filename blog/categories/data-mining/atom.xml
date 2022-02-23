@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: data-mining | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/data-mining/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: data-mining | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/data-mining/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[推荐系统杂谈]]></title>
-    <link href="https://www.rowkey.cn/blog/2016/08/30/recommend-sys/"/>
+    <link href="http://www.rowkey.me/blog/2016/08/30/recommend-sys/"/>
     <updated>2016-08-30T12:39:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2016/08/30/recommend-sys</id>
+    <id>http://www.rowkey.me/blog/2016/08/30/recommend-sys</id>
     <content type="html"><![CDATA[<p>推荐系统是近些年非常火的技术，不管是电商类软件还是新闻类app，都号称有精准的推荐系统能给你推送你最感兴趣的内容。现象级的资讯类app“今日头条”就得益于此成为了势头非常猛的一款产品。本文就针对推荐系统讲述一些相关概念和实践经验。</p>
 
 <p>首先需要明确的就是推荐系统的目标，一般来说不外乎以下几个：</p>
@@ -112,7 +112,7 @@
 
 <p>推荐算法的基本流程如下图所示：</p>
 
-<p><img src="https://www.rowkey.cn/images/blog_images/recommend-sys/recommend-sys.png" style="width:400px"/></p>
+<p><img src="http://www.rowkey.me/images/blog_images/recommend-sys/recommend-sys.png" style="width:400px"/></p>
 
 <h3>数据ETL-2</h3>
 
@@ -198,9 +198,9 @@
   
   <entry>
     <title type="html"><![CDATA[基于内容和用户画像的个性化推荐]]></title>
-    <link href="https://www.rowkey.cn/blog/2016/04/07/up-recommend/"/>
+    <link href="http://www.rowkey.me/blog/2016/04/07/up-recommend/"/>
     <updated>2016-04-07T06:59:44+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2016/04/07/up-recommend</id>
+    <id>http://www.rowkey.me/blog/2016/04/07/up-recommend</id>
     <content type="html"><![CDATA[<p>目前比较流行的个性化推荐算法有以下几种：</p>
 
 <ul>
@@ -306,9 +306,9 @@
   
   <entry>
     <title type="html"><![CDATA[数据杂谈]]></title>
-    <link href="https://www.rowkey.cn/blog/2016/02/23/data-talk/"/>
+    <link href="http://www.rowkey.me/blog/2016/02/23/data-talk/"/>
     <updated>2016-02-23T10:44:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2016/02/23/data-talk</id>
+    <id>http://www.rowkey.me/blog/2016/02/23/data-talk</id>
     <content type="html"><![CDATA[<h2>目录</h2>
 
 <ul>

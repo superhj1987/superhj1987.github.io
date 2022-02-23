@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: life | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/life/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: life | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/life/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[杂感一篇]]></title>
-    <link href="https://www.rowkey.cn/blog/2013/07/06/no-name/"/>
+    <link href="http://www.rowkey.me/blog/2013/07/06/no-name/"/>
     <updated>2013-07-06T08:57:45+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2013/07/06/no-name</id>
+    <id>http://www.rowkey.me/blog/2013/07/06/no-name</id>
     <content type="html"><![CDATA[<p>最近两部关于青春的片子《致青春》和《中国合伙人》，对于前者这种爱情的东西，从某个时间段开始，我早已不再关注。后者讲述的奋斗、梦想，却是我特别想看一看的。虽然我知道成功学这东西，完全是一群成功了的人在吹嘘当年自己有多苦逼，后来变得多NB。但是他们的成功却的确能触动自己心里的那根神经，唤起自己当初的激情。</p>
 
 <p>十几年前，自己无意之中说出的一句话，到现在也算一直坚持了下来。虽然没有功成名就，但到现在还是不至于令自己失望的。平淡的日子往往让自己忘了自己当初的梦想，也忘了走向它的这条路。今天看《中国合伙人》这部影片又像当初看《社交网络》一样让自己全身瞬间充满了能量，同时也让自己拷问着自己：还坚持当初的梦想吗？正在为梦想努力吗？努力有收获吗？其实，现实中大多数人在说自己梦想的时候都能侃侃而谈，而真正能付诸于努力的人却寥寥可数。为梦想而努力，结果不一定是成功，但没有为此而努力过，那也许会成为一辈子最大的憾事。</p>
@@ -28,9 +28,9 @@
   
   <entry>
     <title type="html"><![CDATA[无题]]></title>
-    <link href="https://www.rowkey.cn/blog/2013/05/13/no-name/"/>
+    <link href="http://www.rowkey.me/blog/2013/05/13/no-name/"/>
     <updated>2013-05-13T15:02:50+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2013/05/13/no-name</id>
+    <id>http://www.rowkey.me/blog/2013/05/13/no-name</id>
     <content type="html"><![CDATA[<p>5.11-5.12，176公里，千岛湖镇-汾口-千岛湖镇，环湖一周。相信这将会是我未来永远难忘的一段经历。</p>
 
 <p>开始的计划是5.11中午从千岛湖镇出发，历经96公里前往汾口，18：00左右到达目的地。没想到走了大约20公里之后遇到了各种上坡路，尤其一段一公里的大上坡，让我们实在无法保持速度。全身各种疼，大腿完全是无知觉地在做机械运动，有无数次想放弃的冲动。如此艰难的挣扎，造成的后果就是从枫树岭开始的20公里山路只能摸黑前进，中间好几次撞到石头差点栽到地上。所幸的是有一辆自行车是有车灯的，不然还真不知道如何前行。最后到达汾口的时候已经是晚上快9点了。虽然远远晚于原定计划，但顺利到达目的地的喜悦还是让我们挺开心的。</p>

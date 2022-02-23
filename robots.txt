@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: https://www.rowkey.cn/sitemap.xml 
+Sitemap: http://www.rowkey.me/sitemap.xml 

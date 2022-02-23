@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: java8 | 后端技术杂谈 | 飒然Hang]]></title>
-  <link href="https://www.rowkey.cn/blog/categories/java8/atom.xml" rel="self"/>
-  <link href="https://www.rowkey.cn/"/>
-  <updated>2021-08-21T12:43:03+00:00</updated>
-  <id>https://www.rowkey.cn/</id>
+  <title><![CDATA[Category: java8 | 后端技术杂谈]]></title>
+  <link href="http://www.rowkey.me/blog/categories/java8/atom.xml" rel="self"/>
+  <link href="http://www.rowkey.me/"/>
+  <updated>2022-02-23T09:38:27+00:00</updated>
+  <id>http://www.rowkey.me/</id>
   <author>
-    <name><![CDATA[飒然Hang]]></name>
+    <name><![CDATA[Mr.H]]></name>
     <email><![CDATA[superhj1987@126.com]]></email>
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[[译]更好地使用Java8中的方法引用]]></title>
-    <link href="https://www.rowkey.cn/blog/2017/09/02/java8-method-reference-work/"/>
+    <link href="http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work/"/>
     <updated>2017-09-02T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2017/09/02/java8-method-reference-work</id>
+    <id>http://www.rowkey.me/blog/2017/09/02/java8-method-reference-work</id>
     <content type="html"><![CDATA[<p>在Java8中，使用方法引用非常简单，如String::isEmpty，但无法使用它否定的方法引用。本文内容即如何解决此问题使得我们能够更加全面地使用方法引用。</p>
 
 <!--more-->
@@ -202,9 +202,9 @@ Stream.of("A", "", "B").filter(asPredicate(String::isEmpty).negate()).count();
   
   <entry>
     <title type="html"><![CDATA[[译]在Java中提升函数以更好地“函数式”编程]]></title>
-    <link href="https://www.rowkey.cn/blog/2017/08/18/lift-functions/"/>
+    <link href="http://www.rowkey.me/blog/2017/08/18/lift-functions/"/>
     <updated>2017-08-18T11:29:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2017/08/18/lift-functions</id>
+    <id>http://www.rowkey.me/blog/2017/08/18/lift-functions</id>
     <content type="html"><![CDATA[<p>Java8中的Stream和Optional给我们带来了函数式编程的乐趣，但Java仍然缺少很多函数编程的关键特性。Lambda表达式、Optional和Stream只是函数式编程的冰山一角。这也导致了<a href="https://github.com/vavr-io/vavr">varvr</a>和<a href="https://github.com/functionaljava/functionaljava">functionlajava</a>这些类库的出现，他们都源于Haskell这个纯函数式编程语言。</p>
 
 <p>如果想要更加地“函数式”编程，那么首先要注意的是不要过早的中断monad(一种设计模式，表示将一个运算过程通过函数拆解成互相连接的多个步骤。只要提供下一步运算所需的函数，整个运算就会自动进行下去, Optional、Stream都是monad)，比如，很多人经常会在还不需要的时候就调用了Optional.get()和Stream.collect()提前终止monad。本文主要讲述如何通过提升方法来使得代码更&#8221;函数式&#8221;。</p>
@@ -275,9 +275,9 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
   
   <entry>
     <title type="html"><![CDATA[[译]Java8 Top Tips]]></title>
-    <link href="https://www.rowkey.cn/blog/2016/08/03/java-8-top-tips/"/>
+    <link href="http://www.rowkey.me/blog/2016/08/03/java-8-top-tips/"/>
     <updated>2016-08-03T14:30:34+00:00</updated>
-    <id>https://www.rowkey.cn/blog/2016/08/03/java-8-top-tips</id>
+    <id>http://www.rowkey.me/blog/2016/08/03/java-8-top-tips</id>
     <content type="html"><![CDATA[<p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
 
 <p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
