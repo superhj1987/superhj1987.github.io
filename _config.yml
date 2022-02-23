@@ -2,13 +2,8 @@
 #      Main Configs       #
 # ----------------------- #
 
-<<<<<<< HEAD
 url: http://www.rowkey.me
 title: 后端技术杂谈
-=======
-url: https://www.rowkey.cn
-title: 后端技术杂谈 | 飒然Hang
->>>>>>> bfe5833bf73a0ccfda999a766237eead58b21fae
 subtitle: What、Why、How
 head: 后端技术杂谈
 author: Mr.H
