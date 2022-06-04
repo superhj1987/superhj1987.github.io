@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "阅文笔记（一）"
+title: "阅文笔记202205"
 date: 2022-05-04 19:29:34 +0800
 comments: true
 categories: study
