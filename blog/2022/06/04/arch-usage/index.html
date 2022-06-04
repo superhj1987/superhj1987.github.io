@@ -1,0 +1,943 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>架构简明指南2022最新版 - 后端技术杂谈</title>
+  <meta name="author" content="Mr.H">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="架构简明指南2022最新版 Jun 4th, 2022 Posted by Mr.H in architecture 《Clean Architecture》一书中对于软件架构目的的解释： The goal of software architecture is to miminize the &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2022/06/04/arch-usage/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">架构简明指南2022最新版</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2022-06-04T11:29:34+00:00" pubdate data-updated="true">Jun 4<sup>th</sup>, 2022</time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mr.H</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/architecture/'>architecture</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>《Clean Architecture》一书中对于软件架构目的的解释：</p>
+
+<blockquote><p>The goal of software architecture is to miminize the human resources required to build and maintain the required system.</p></blockquote>
+
+<p>即：软件架构的目的就是将构建和维护系统需要的人力成本降到最低。</p>
+
+<p>因此，可以得出架构设计的关键思维就是判断和取舍（程序设计的关键思维是逻辑和实现），即如何选择技术、组合技术使得需要的人力资源最少。</p>
+
+<p>需要注意的一点是，脱离业务谈架构是不合理的，技术架构及其演进都是业务目标驱动的。</p>
+
+<!--more-->
+
+
+<h2>架构六步思考法</h2>
+
+<blockquote><p>笔者对美团总架构师夏华夏一次分享提出的架构六步思考法的理解。</p></blockquote>
+
+<p><img src="/post_images/arch-six-think.png" width="450"/></p>
+
+<p>这里尤其需要注意的一点是在面对问题时，首先要试图将未知问题转化为已知问题，而不是创造新问题。</p>
+
+<h2>架构手段</h2>
+
+<p>架构的目的就是解决复杂度，主要包括高性能、高可用以及可扩展三方面。此外，分布式系统是架构工作中面对的典型复杂系统，对于其中常见的问题有一些常用应对手段。</p>
+
+<h3>高可用</h3>
+
+<blockquote><p>高可用=系统构建在多机=分布式系统</p></blockquote>
+
+<ul>
+<li>冗余：同城多活或者异地多活</li>
+<li>降级：需要对各个关键节点建立降级预案。能够在超出预估流量时，保证大部分用户的服务是正常的。包括一个请求经过的多有节点。以轮训实现的直播系统为例：</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th>节点 </th>
+<th> 手段 </th>
+<th> 说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端     </td>
+<td> 拉取频率降级 </td>
+<td> 服务端实时修改轮训时间</td>
+</tr>
+<tr>
+<td>.        </td>
+<td> 防雪崩策略 </td>
+<td> 轮训出错后，自动指数级增大轮训时间</td>
+</tr>
+<tr>
+<td>.        </td>
+<td> 点赞消息合并 </td>
+<td> 在客户端合并，减少服务端处理消息数目</td>
+</tr>
+<tr>
+<td>Nginx      </td>
+<td> 接口限流 </td>
+<td> 针对接口，限制QPS</td>
+</tr>
+<tr>
+<td>业务容器   </td>
+<td> 拉取条数自动降级 </td>
+<td> 可在线修改每种消息类型的返回条数</td>
+</tr>
+<tr>
+<td>.        </td>
+<td> 上行频率降级 </td>
+<td> 可降级点赞、评论的频率限制</td>
+</tr>
+<tr>
+<td>Kafka      </td>
+<td>  容灾队列 </td>
+<td> Kafka故障时写入容灾队列</td>
+</tr>
+<tr>
+<td>消息处理BG </td>
+<td> 自动丢弃消息 </td>
+<td> 非重要消息可以视情况丢弃</td>
+</tr>
+<tr>
+<td>.        </td>
+<td> 处理延迟降级 </td>
+<td> 根据延迟大小，采用加锁串行和不加锁并行处理策略</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>全链路业务监控：对请求链路上的所有结点都加入监控。包括客户端的APM、错误日志、JVM监控、QPS、状态码、延时、服务器资源的基础监控（带宽、CPU、内存、IO）等。示例如下：</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th>节点 </th>
+<th> 监控内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端     </td>
+<td> APM</td>
+</tr>
+<tr>
+<td>Nginx      </td>
+<td> 错误码监控和报警；访问QPS、接口耗时分布、带宽</td>
+</tr>
+<tr>
+<td>业务应用   </td>
+<td> 错误日志、QPS、状态码、延时；JVM；依赖服务的QPS、状态码、延时</td>
+</tr>
+<tr>
+<td>Kafka      </td>
+<td> 消息堆积</td>
+</tr>
+<tr>
+<td>消息处理BG </td>
+<td> 错误日志；JVM；消息处理数目，消息处理延时</td>
+</tr>
+<tr>
+<td>基础资源   </td>
+<td> 带宽、CPU利用率、内存、磁盘</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>高性能</h3>
+
+<blockquote><p>分布式系统的副产品</p></blockquote>
+
+<ul>
+<li>数据库集群</li>
+<li>缓存架构</li>
+<li>负载均衡</li>
+<li>NoSQL：不局限于关系型数据库，在合适的场景下选择NoSQL数据库会带来性能的提升</li>
+<li>异构索引：分区情况下，为提升未按拆分键进行查询的场景的性能，通过构建异构索引表。先通过查询异构索引表得到目标记录的主键，然后再根据记录主键查询，从而避免全库全表扫描</li>
+</ul>
+
+
+<p><strong>低延迟方案</strong>[系统响应性能提升]</p>
+
+<ul>
+<li><strong>异步</strong>：队列缓冲、异步请求。</li>
+<li><strong>并发</strong>：利用多CPU多线程执行业务逻辑。</li>
+<li><strong>就近原则</strong>：缓存、梯度存储。</li>
+<li><strong>减少IO</strong>：合并细粒度接口为粗粒度接口、频繁的覆盖操作可以只做最后一次操作。这里一个需要特别注意的地方: <strong>代码中尽量避免在循环中调用外部服务，更好的做法是使用粗粒度批量接口在循环外面只进行一次请求。</strong></li>
+<li><strong>分区</strong>：频繁访问的数据集规模保持在合理的范围。</li>
+</ul>
+
+
+<p><strong>高吞吐方案</strong></p>
+
+<ul>
+<li>分层调用：接入层、逻辑层、数据层，通过Proxy或者Router对逻辑层做集群管理</li>
+<li>异步并发</li>
+</ul>
+
+
+<h3>可扩展</h3>
+
+<ul>
+<li>分层架构/简洁架构：单向依赖，职责清晰。</li>
+<li>SOA：面向服务架构，服务粒度较大。</li>
+<li>微内核：可插拔式架构，适用于客户端。</li>
+<li>微服务：适用于复杂的大型系统，细粒度服务。</li>
+</ul>
+
+
+<p><strong>系统扩展思路</strong></p>
+
+<ul>
+<li>通过克隆扩展->高可用</li>
+<li>通过拆分不同的东西来扩展->垂直扩展</li>
+<li>拆分类似的东西来扩展->水平扩展</li>
+</ul>
+
+
+<h3>分布式系统</h3>
+
+<ol>
+<li><p>海量请求问题</p>
+
+<p> 本质即如何达到高吞吐、低延迟、高可用，上文已经讲述。</p></li>
+<li><p>大量服务器管理</p>
+
+<ul>
+<li>故障恢复和可扩展性：分布式目录服务、消息队列服务、分布式事务系统</li>
+<li>运维便利性：自动部署工具、集中日志分析系统、全链路监控</li>
+</ul>
+</li>
+<li><p>开发效率</p>
+
+<ul>
+<li>复杂通信编程：微服务框架、异步编程工具</li>
+<li>大量模块分工：Iaas/Paas/Saas云服务</li>
+</ul>
+</li>
+</ol>
+
+
+<h2>架构原则</h2>
+
+<p><img src="/images/blog_images/arch-spec.png" alt="" /></p>
+
+<ul>
+<li><strong>避免过度设计</strong>：简单的架构就是最好的架构。最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。</li>
+<li><strong>冗余设计</strong>：对服务、数据库的做结点冗余，保证服务的高可用。通过数据库主从模式、应用集群来实现。</li>
+<li><strong>多活数据中心</strong>：为了容灾，从根本上保障应用的高可用性。需要构建多活的数据中心，以防止一个数据中心由于不可控因素出现故障后，引起整个系统的不可用。</li>
+<li><strong>无状态设计</strong>：API、接口等的设计不能有前后依赖关系，一个资源不受其他资源改动的影响。无状态的系统才能更好地进行扩展。如果非得有状态，则要么客户端管理状态，要么服务端用分布式缓存管理状态。</li>
+<li><strong>可回滚</strong>：对于任何业务尤其是关键业务，都具有恢复机制。可以使用基于日志的WAL、基于事件的Event sourcing等来实现可回滚。</li>
+<li><strong>可禁用/自我保护</strong>：具有限流机制，当上游的流量超过自身的负载能力时，能够拒绝溢出的请求。可以通过手动开关或者自动开关（监测异常流量行为），在应用前端挡住流量。限流算法包括：令牌桶（支持突发流量）、漏桶（匀速流量）、计数器以及信号量（限制并发访问的数量）。此外永远不要信赖第三方服务的可靠性，依赖于第三方的功能务必有服务降级措施以及熔断管理，如：对于每一个网络操作，都需要设置超时时间，超过这个时间就放弃或者返回兜底响应。</li>
+<li><strong>问题可追踪</strong>：当系统出现问题时，能够定位请求的轨迹、每一步的请求信息等。分布式链路追踪系统即解决的此方面的问题。</li>
+<li><strong>可监控</strong>：可监控是保障系统能够稳定运行的关键。包括对业务逻辑的监控、应用进程的监控以及应用依赖的CPU、硬盘等系统资源的监控。每一个系统都需要做好这几个层面的监控。</li>
+<li><strong>故障隔离</strong>：将系统依赖的资源(线程、CPU)和服务隔离开来能够使得某个服务的故障不会影响其他服务的调用。通过线程池或者分散部署结点可以对故障进行隔离。此外，为不同的用户提供单独的访问通道，不仅仅能够做故障隔离，也有利于做用户权限控制。</li>
+<li><strong>成熟可控的技术选型</strong>：使用市面上主流、成熟、文档、支持资源多的技术，选择合适的而非最火的技术实现系统。如果面对自研和开源技术的选择，需要考虑契合度：如果功能需求契合度很高，那么选择开源即可；如果开源技术是需求的子集或者超集，那么要衡量吃透这个开源技术的成本和自研的成本那个高。</li>
+<li><strong>梯级存储</strong>：内存->SSD硬盘->传统硬盘->磁带，可以根据数据的重要性和生命周期对数据进行分级存储。</li>
+<li><strong>缓存设计</strong>：隔离请求与后端逻辑、存储，是就近原则的一种机制。包括客户端缓存（预先下发资源）、Nginx缓存、本地缓存以及分布式缓存。</li>
+<li><strong>异步设计</strong>：对于调用方不关注结果或者允许结果延时返回的接口，采用队列进行异步响应能够很大程度提高系统性能；调用其他服务的时候不去等待服务方返回结果直接返回，同样能够提升系统响应性能。异步队列也是解决分布式事务的常用手段。</li>
+<li><strong>前瞻性设计</strong>：根据行业经验和对业务量的预判，提前把可扩展性、后向兼容性、容量预警设计好。以防止超过系统容量后造成各种问题影响服务。</li>
+<li><strong>水平扩展</strong>：相比起垂直扩展，能够通过堆机器解决问题是最优先考虑的问题，系统的负载能力也才能接近无限扩展。此外，基于<strong>云计算</strong>技术根据系统的负载自动调整容量能够在节省成本的同时保证服务的可用性。</li>
+<li><strong>小步构建和发布</strong>：快速迭代项目，快速试错。不能有跨度时间过长的项目规划。</li>
+<li><strong>自动化</strong>：打包、测试的自动化称为持续集成，部署的自动化称为持续部署。自动化机制是快速迭代和试错的基础保证。</li>
+</ul>
+
+
+<h2>技术选型原则</h2>
+
+<ol>
+<li>是否是生产级别、成熟的产品。<strong>生产级、可运维、可治理、成熟稳定</strong>的技术是首选。技术是有生命周期的，需要保持对新技术的敏感度，但切忌不要在技术的早期就开始使用。版本号、用的公司数量、文档完善度、运维支持能力（日志、命令行、控制台、故障检测恢复能力）都是成熟度的体现。</li>
+<li>新技术的引入一定要坚持<strong>少即是多</strong>的原则，能不引入新技术尽量不要引入新技术。毕竟新技术的引入既有学习成本，又有维护成本。并且对于一个公司来说技术栈越多，那么学习和维护成本就越高，技术栈知识无法共享，技术体系无法建立，会严重影响研发效率和业务规模化能力。如果到了必须要引入的地步，一定要有严格的技术评审流程。</li>
+<li>在引入一项新技术之前，要充分调研<strong>了解新技术的先决条件</strong>，不能盲目引入。对于确实需要引入但是目前还不满足先决条件的，需要做好阶段性规划，先打好基础，再适时引入新技术。</li>
+<li><strong>不要盲目跟风大公司</strong>。很多时候适合大公司的技术并不适合小公司。毕竟大公司有充足的人力、资源和时间，这是小公司无法相比的。</li>
+<li><strong>技术是带有文化特性的</strong>。在国外流行的技术，在国内未必流行。在选型的时候，尽量采用在国内有文化基础，已经落地开花的技术。此外，不同公司流行的技术文化也不相同，需要考虑自己公司的业务模式、已有技术生态和开发人员技能等。</li>
+<li><strong>使用能掌控的技术</strong>。需要根据业务规模、团队规模和人员水平，经过综合评估对技术进行分析，以决定是否引入。</li>
+<li>对于关键技术一定要找到<strong>合适的人</strong>来使用和研发。交给不合适的人，不仅无法解决问题，反而会制造更多的问题。</li>
+<li><strong>抵制技术的宗教信仰</strong>，技术没有绝对的好坏优劣，只有合适与不合适、使用场景等。</li>
+<li><strong>实践出真知</strong>。对新技术的引入一定要在仔细研究其文档的基础上跑样例、做压力测试，甚至通读其源码，经过一些试点项目验证后再逐渐扩大使用规模。</li>
+<li>对于某些复杂、重量级技术的落地是有生命周期的，务必要<strong>通盘考虑，制定落地计划，分阶段推进</strong>技术的落地（引入、定制改造、小规模试点再到逐步扩大生产规模）。</li>
+<li><strong>自研、开源、购买</strong>的选择。如果不是最擅长也提供不了差异化竞争优势的技术在成本允许的情况下直接采用开源或者购买即可；处在关键链路上的核心技术，一定要有定制或者自研的能力。此外，创业公司尽量采用开源技术或者购买云服务，而随着公司业务规模的增长，那么逐渐需要有定制和自研能力。</li>
+</ol>
+
+
+<p>此外，对于开源技术还需要注意：</p>
+
+<ol>
+<li><strong>是否是一线互联网公司落地产品</strong>。例如阿里开源的很多软件都是其在内部经过生产环境验证过的，形成了闭环的。而很多第三方软件服务商则仅仅是开源，并没有自身的需求，因此需要社区一起使用反馈从而形成闭环，这也就意味着你要和他一起踩坑形成闭环。</li>
+<li><strong>是否有背书的大公司或者组织</strong>。例如Google一开始推出的K8S并不具有优势，然而由于Google的强大号召力和背书能力，因此促使大批用户使用从而形成了闭环，使得K8S目前基本垄断了容器PAAS市场。同样的，Apache下的开源项目绝大多数也是可以值得信赖的。</li>
+<li><strong>开源社区是否活跃</strong>。Github上的stars的数量是一个重要指标，同时会参考其代码和文档更新频率（尤其是最近几年），这些指标直接反应开源产品的生命力。</li>
+</ol>
+
+
+<h2>数据设计原则</h2>
+
+<ul>
+<li>注意存储效率
+
+<ul>
+<li>减少事务</li>
+<li>减少联表查询</li>
+<li>适当使用索引</li>
+<li>考虑使用缓存</li>
+</ul>
+</li>
+<li>避免依赖于数据库的运算功能(函数、存储器、触发器等)，将负载放在更容易扩展的业务应用端</li>
+<li>数据统计场景中，实时性要求较高的数据统计可以用Redis；非实时数据则可以使用单独表，通过队列异步运算或者定时计算更新数据。此外，对于一致性要求较高的统计数据，需要依靠事务或者定时校对机制保证准确性。</li>
+<li>索引区分度法则：辨识度超过20%的属性，如果有查询需求，就应该建立索引。</li>
+<li>对于数值型数据，可以使用保序压缩方式在保证顺序不变的前提下减少字符串长度。如：进行36进制转化即一种保序压缩方式。</li>
+<li>大量数据的去重计数如果允许误差可以选择基数估计算法（Hyperhyperlog、Loglogcount）或者布隆过滤器。</li>
+</ul>
+
+
+<h2>系统稳定性原则</h2>
+
+<ul>
+<li>灰度发布，尽量减少影响的范围</li>
+<li>慢查询review</li>
+<li>防御式编程，不要相信任何人和服务：自动熔断，手动降级</li>
+<li>SOP(标准操作流程)：工具化、自动化</li>
+<li><strong>例行巡检！！！</strong>：DB、调用链、P90响应时间</li>
+<li>容量规划：见下面“容量规划”部分</li>
+</ul>
+
+
+<p>SOP示例：</p>
+
+<table>
+<thead>
+<tr>
+<th>需求管理 </th>
+<th> 项目开发 </th>
+<th>  测试  </th>
+<th>  发布上线 </th>
+<th> 监控报警 </th>
+<th> 故障处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task管理、技术评审、<strong>上下游依赖变化review</strong> </td>
+<td> 分支管理、交叉代码Review、代码规范、日志规范、代码静态检查 </td>
+<td> 单元测试、冒烟测试、回归测试、办公室测试、线上压测 </td>
+<td> 线上发布、验证业务效果 </td>
+<td> 业务指标监控、系统监控dashboard </td>
+<td> 第一时间向上级反馈、及时周知业务方：问题、影响范围、解决方案、预计恢复时间、线上服务降级</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>系统容量规划</h2>
+
+<p>需要对系统/关键模块做好评估、量化，以防止超出容量时不至于压垮服务器，仍然能够服务于大部分用户。</p>
+
+<p><img src="/post_images/capacity-plan.png" alt="" /></p>
+
+<ol>
+<li>根据流量模型、历史数据、预测算法预估未来某一个时间点的业务量：QPS、每日数据量等。</li>
+<li>评估单点最大承载量（数据库的单点承载数据量、应用服务器的单点承载并发量）【通过性能测试】，根据业务量计算需要部署的结点数目，做1.5倍部署（DID原则）。</li>
+<li>性能压测验证整个系统的负载能力。</li>
+<li>设计达到容量预估值时的预警、限流、快速恢复措施以及后续扩展方案。</li>
+</ol>
+
+
+<p>PS: 在容量预估中，机器数目的计算遵循DID原则：20倍设计、3倍实施/实现、1.5倍部署。即需要部署1.5倍的可承载预估业务流量的机器数目。</p>
+
+<h2>架构隐患分析</h2>
+
+<h3>FEMA方法分析表格</h3>
+
+<ul>
+<li>功能点：用户角度</li>
+<li>故障模式：系统会出现的故障，量化描述</li>
+<li>故障影响：功能点会受到什么影响</li>
+<li>严重程度：对业务的影响程度。致命/高/中/低/无</li>
+<li>故障原因：故障出现的原因</li>
+<li>故障概率：某个具体故障原因发生的概率</li>
+<li>风险程度：综合考虑严重程度和故障概率，严重程度 × 故障概率</li>
+<li>已有措施：故障发生时的应对措施。包括检测告警、容错、自恢复等。</li>
+<li>规避措施：降低故障发生概率而做的事情，包括技术手段和管理手段。</li>
+<li>解决措施：此问题的彻底解决办法</li>
+<li>后续规划：后续改进计划，包括技术手段、管理手段，可以是规避措施，也可以是解决措施。风险程度越高的隐患解决的优先级越高</li>
+</ul>
+
+
+<h3>FEMA方法分析示例</h3>
+
+<table>
+<thead>
+<tr>
+<th>功能点 </th>
+<th> 故障模式 </th>
+<th> 故障影响 </th>
+<th> 严重程度 </th>
+<th> 故障原因 </th>
+<th> 故障概率 </th>
+<th> 风险程度 </th>
+<th> 已有措施 </th>
+<th> 规避措施 </th>
+<th> 解决措施 </th>
+<th> 后续规划</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>登录 </td>
+<td> 用户中心MySQL响应时间超过5秒 </td>
+<td> 用户登录缓慢 </td>
+<td> 高 </td>
+<td> MySQL中有慢查询 </td>
+<td> 高 </td>
+<td> 高 </td>
+<td> 慢查询监测 </td>
+<td> 杀死慢查询进程；重启MySQL </td>
+<td> 无 </td>
+<td> 优化慢查询语句</td>
+</tr>
+<tr>
+<td>刷新资讯列表 </td>
+<td> Redis无法访问 </td>
+<td> 当Redis无法访问，那么基于Redis的画像、内容等都无法响应，会影响100%的用户 </td>
+<td> 高 </td>
+<td> Redis服务宕机 </td>
+<td> 低 </td>
+<td> 中 </td>
+<td> 无 </td>
+<td> 无 </td>
+<td> 无 </td>
+<td> 依赖于UCloud的Redis服务会有风险，需要自建Redis分摊风险</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>架构重构的原则</h2>
+
+<p>一个系统的架构是随着业务而不断演化的，因此不可避免地会留下很多技术债。如果一味地不去管，那么总有一天技术债会爆发出来造成意想不到的破坏。因此很多时候对架构的重构是必须的。其需要遵循的原则如下：</p>
+
+<ul>
+<li>确定重构的目的和必要性：为了业务需要；有无其他备选方案</li>
+<li>定义“重构完成”的界限</li>
+<li>渐进式重构</li>
+<li>确定当前的架构状态</li>
+<li>不要忽略数据</li>
+<li>管理好技术债务</li>
+<li>远离那些虚荣的东西</li>
+<li>做好面对压力的准备</li>
+<li>了解业务</li>
+<li>做好面对非技术因素的准备</li>
+<li>能够掌握代码质量</li>
+</ul>
+
+
+<h2>架构改造实施模式</h2>
+
+<ul>
+<li>拆迁者模式：根据业务需求，对架构进行重新设计，也就是一次性重写所有代码。此种模式成本大，不能很好地支撑持续交付，架构改造风险也较大。</li>
+<li>绞杀者模式：保持遗留系统不变，新的功能重新开发为新的系统/服务，逐渐替代掉遗留系统。适用于庞大难以更改的遗留系统。</li>
+<li>修缮者模式：将旧的待改造的部分/模块进行隔离（通过增加中间层解决，中间层可以是抽象类、接口等），通过迭代，在原有遗留系统内部对其进行逐步改造，改造的同时要保证与其他部分仍能协同工作。</li>
+</ul>
+
+
+<h2>在线数据迁移</h2>
+
+<p>在线数据迁移指将正在提供线上服务的数据，从一个地方迁移到另一个地方，迁移过程中服务不受影响。这种场景是系统演进过程中都会出现的问题，包括业务演进的需要和性能扩展的需要。典型的步骤如下：</p>
+
+<p><img src="/post_images/data-mig.png" alt="" /></p>
+
+<ol>
+<li>上线双写：在业务系统里写代码，同时向新旧数据存储写入数据。此步骤完成后，需要进行一致性验证，包括存储维度和业务维度。前者指对比原数据存储和新数据存储中的数据对比，后者指从用户看到的数据维度进行对比。</li>
+<li>历史数据迁移：将历史数据从旧存储迁移到新存储。包括离线和在线两种。离线是编写批量处理程序或者依靠数据存储的同步机制从旧存储查询历史数据（开启双写以前的数据）插入到新存储中。在线指的是依赖数据存储的同步机制在线同步数据，如MySQL的binlog、MongoDB的OpLog。此过程，建议在部分数据迁移后就进行一致性验证，通过后再全量数据迁移。</li>
+<li>切读：通过灰度的方式逐渐切换请求到新系统上，灰度可以通过在代码中埋入开关来逐步的放大读新系统的请求量。一般的流程：预发布/Tcpcopy环境(验证代码运行正常)->办公室环境/线上环境uid白名单（内部用户，验证功能正常）->线上环境百分比0.1%、1%、%10%（进一步验证功能正常以及性能和资源压力）->线上环境全量。此过程建议持续一到两周。</li>
+<li>清理：数据迁移验证通过后，清理业务系统的双写代码和开关代码等逻辑代码、旧存储的数据和配套系统以及旧的资源等。</li>
+</ol>
+
+
+<p>某些情况下，可以先做历史数据搬迁，然后再写入新数据。需要谨慎的处理搬迁这段时间里产生的新数据，一般使用 queue 缓存写入的方式，称为“追数据”。</p>
+
+<p>此外，如果是单一功能的在线数据迁移，可以参考Redis Cluster数据重分配的实现机制。</p>
+
+<ol>
+<li>离线程序迁移数据，并维护数据迁移状态：未迁移、迁移中、迁移完成。</li>
+<li>业务代码做统一控制。发生数据读写时，如果数据状态是迁移中，那么阻塞等待至迁移完毕再执行后续操作；如果数据的状态是迁移完成或者是新数据则直接执行后续逻辑；如果数据状态是未迁移，那么就主动发起迁移或者等待离线迁移完成。</li>
+</ol>
+
+
+<h2>其他</h2>
+
+<ul>
+<li>系统设计流程四部走：识别复杂度->设计备选方案->评估和选择备选方案->详细方案设计</li>
+<li>讨论技术方案时，以是否合理为依据，而不要以工作量少为依据。</li>
+<li>对遗留系统进行垂直分离成本比较大时，可以考虑直接clone项目部署单独的集群，用服务地址分隔开，不同的接口走不同的服务地址。</li>
+</ul>
+
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2022/05/04/article-notes/" title="下一篇: 阅文笔记202205">阅文笔记202205 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<p>中华万年历/微鲤看看技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">各研发职位</a>，感兴趣者可发送简历到<a href="mailto:hang@weli.cn">hang@weli.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/05/04/article-notes/">阅文笔记202205</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/03/31/ali-manage/">阿里巴巴管理三板斧</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/01/13/my2020/">我的2020</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/08/13/dev-efficacy-talk/">研发效能杂谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/07/31/project-manage/">项目管理标准模板</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/05/31/qjt/">《清教徒的礼物》学习笔记</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2022 - Mr.H - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "架构简明指南2022最新版",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
