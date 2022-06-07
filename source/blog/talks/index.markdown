@@ -26,9 +26,9 @@ $(document).ready(function(){
 
 - 技术如何共享核心的财务KPI？
 
-	![](/images/blog_images/tech_talk/kpi1.jpg)
+	<img src="/images/blog_images/tech_talk/kpi1.jpg" width="500"/>
 	
-	![](/images/blog_images/tech_talk/kpi2.jpg)
+	<img src="/images/blog_images/tech_talk/kpi2.jpg" width="500"/>
 
 ### 2022.06.06
 
