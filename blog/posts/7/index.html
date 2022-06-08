@@ -14,7 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 [译]使用Groovy的AST Transformation实现DSL Nov 12th, 2016 最近在看一些java开源项目时， &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 [译]JDK自带工具之问题排查场景示例 Nov 16th, 2016 目录 引言
+问题排查场景 获取正在运行的JVM列表
+Java堆的DUMP
+分析堆直方图 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -119,6 +122,74 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/11/16/java-trouble-shooting/">[译]JDK自带工具之问题排查场景示例</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-16T14:21:34+00:00" pubdate data-updated="true">Nov 16<sup>th</sup>, 2016</time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E5%BC%95%E8%A8%80">引言</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%9C%BA%E6%99%AF">问题排查场景</a>
+
+<ul>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84JVM%E5%88%97%E8%A1%A8">获取正在运行的JVM列表</a></li>
+<li><a href="#Java%E5%A0%86%E7%9A%84DUMP">Java堆的DUMP</a></li>
+<li><a href="#%E5%88%86%E6%9E%90%E5%A0%86%E7%9B%B4%E6%96%B9%E5%9B%BE">分析堆直方图</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8BDump">线程Dump</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8CJava%E9%A3%9E%E8%A1%8C%E8%AE%B0%E5%BD%95%E5%99%A8(Java%20Flight%20Recorder">运行Java飞行记录器(Java Flight Recorder)</a>)</li>
+<li><a href="#%E5%90%8E%E8%AE%B0">后记</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优工具以及它们的惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
+
+<h2><a name='引言'></a>引言</h2>
+
+<p>在Java世界中，我们的很多开发工作从编码、调试到调优都在使用GUI工具。我们经常尝试在本地构建一套和线上一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下是无法在本地重现线上问题的。例如，我们没有权限获取真实客户端提交到线上服务端的数据。</p>
+
+<p>由此，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也不可能有合适的办法来进行排查。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
+
+<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据实际需求逐渐地安装其中的工具)。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/11/16/java-trouble-shooting/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -620,52 +691,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/06/27/java-backend-study/">Java后端工程师学习大纲</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-06-27T13:39:34+00:00" pubdate data-updated="true">Jun 27<sup>th</sup>, 2016</time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>之前自己总结过的<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>，其涵盖的技术点比较全面，并非一朝一夕能够全部覆盖到的。对于一些还没有入门或者刚刚入门的Java后端工程师，如果一下子需要学习如此多的知识，想必很多人会望而却步。</p>
-
-<p>本文截取了技能树中的一些关键技能点，并辅以学习资料和书籍推荐，做为Java后端工程师的一个入门或者入职学习计划，基本上涵盖了一个合格的Java后端工程师必备的技能点，是一个相对完整的从基础到高级的修炼过程。当然，这只是一个大纲性指引的东西，也主要针对的是Java后端这个职位，并不会面面俱到，也不会很详细的讲述。毕竟其中每一个知识点深入下去都是可以成书的。另外，像数据结构、计算机网络等计算机科学基础知识，我认为是从事计算机专业的人必备的知识点，因此并不包括在内。如果要一个很全的知识点可以移步<a href="http://www.rowkey.me/blog/2016/06/17/java-skill-tree/">Java后端工程师技能树</a>。</p>
-
-<p><strong>本大纲于2016.07.07最新更新</strong>^_^&hellip;</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/06/27/java-backend-study/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -747,6 +772,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
       	</li>
     	
      	<li>
+      	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
       	</li>
     	
@@ -772,10 +801,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/05/31/qjt/">《清教徒的礼物》学习笔记</a>
       	</li>
     	
 	</ul>
