@@ -12,6 +12,11 @@ on:
     branches: [ "source" ]
   pull_request:
     branches: [ "source" ]
+  workflow_dispatch:
+    inputs:
+      BuildArgs:
+        type: string
+        description: A value for ``
 
 jobs:
   build-deploy:
