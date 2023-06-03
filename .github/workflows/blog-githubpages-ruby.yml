@@ -16,10 +16,11 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        ruby-version: ['2.2.10']
+        ruby-version: ['2.6']
+
 
     steps:
     - uses: actions/checkout@v3
