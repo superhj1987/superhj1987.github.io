@@ -30,7 +30,7 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Generate pages
-      run: rake generate
+      run: bundle exec rake generate
     - name: Deploy pages
       uses: peaceiris/actions-gh-pages@v3
       with:
