@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Web3学习笔记-Web是什么？"
+title: "Web3学习笔记-Web3是什么？"
 date: 2023-05-29 19:29:34 +0800
 comments: true
 categories: web3
