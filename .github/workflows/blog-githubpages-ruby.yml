@@ -13,3 +13,28 @@ on:
   pull_request:
     branches: [ "source" ]
   workflow_dispatch:
+
+jobs:
+  build-deploy:
+    runs-on: macos-12
+    strategy:
+      matrix:
+        ruby-version: ['2.2.10']
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: source
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Generate pages
+      run: rake generate
+    - name: Deploy pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        publish_branch: master
