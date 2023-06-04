@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="[译]使用Groovy的AST Transformation实现DSL Nov 12th, 2016 Posted by Mr.RowKey in java 最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build. &hellip;">
+  <meta name="description" content="[译]使用Groovy的AST Transformation实现DSL Posted by Mr.RowKey in java 最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build. &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -134,7 +134,7 @@
   
 
 
-<time datetime="2016-11-12T13:21:34+00:00" pubdate data-updated="true">Nov 12<sup>th</sup>, 2016</time>
+<time datetime="2016-11-12T21:21:34+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -192,7 +192,7 @@ db.orders.add('{"dispatch" : { "status" : "Default", "address": { "line1" : "Roa
 
 <ol>
 <li><strong><em>use</em></strong> 是Groovy的一个供Groovy Categories使用的默认方法，和Scala中的implicit以及c#中的扩展方法类似。</li>
-<li>在add、tranform函数中的双引号参数是Groovy中的GString，可以使用$来做字符串替换-在Groovy的世界中，你可能听过&#8221;You need a $ in GString ;)&ldquo;这种说法。它会解析出现在$后面的表达式然后替换为表达式的字符串输出。此外，GString是延迟解析的，只有当toString被调用或者做为参数传递给函数的时候，GString才会对其中的$做解析。因此，上面的例子中age并没有定义，会在GString被解析的时候产生问题。</li>
+<li>在add、tranform函数中的双引号参数是Groovy中的GString，可以使用$来做字符串替换-在Groovy的世界中，你可能听过"You need a $ in GString ;)&ldquo;这种说法。它会解析出现在$后面的表达式然后替换为表达式的字符串输出。此外，GString是延迟解析的，只有当toString被调用或者做为参数传递给函数的时候，GString才会对其中的$做解析。因此，上面的例子中age并没有定义，会在GString被解析的时候产生问题。</li>
 </ol>
 
 
@@ -248,7 +248,7 @@ public class StatementTransformation implements ASTTransformation {
 
 <p>接下来看看如何使用上面的代码。</p>
 
-<p>Reader读取所有的DSL文件，在的例子中，我们把它们叫做delta文件。对于每一个deleta文件，我创建了一个新的GroovyShell并让它去解析代码(delta文件中的)。这里的shell用我自定义的AST transformer做了相应的配置。shell解析出一个对象并传递给Parser。这样Pardser得到的结点其中的GString已经全被转换为了普通String，&#8217;use&#8217;也已经被转换为了&#8217;using&#8217;方法。</p>
+<p>Reader读取所有的DSL文件，在的例子中，我们把它们叫做delta文件。对于每一个deleta文件，我创建了一个新的GroovyShell并让它去解析代码(delta文件中的)。这里的shell用我自定义的AST transformer做了相应的配置。shell解析出一个对象并传递给Parser。这样Pardser得到的结点其中的GString已经全被转换为了普通String，'use'也已经被转换为了'using'方法。</p>
 
 <pre><code>@Slf4j
 public class Reader {
@@ -465,7 +465,11 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -498,10 +502,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -557,7 +557,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Kafka学习笔记 - 介绍 May 30th, 2015 Posted by Mr.RowKey in kafka 什么是kafka 最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+ &hellip;">
+  <meta name="description" content="Kafka学习笔记 - 介绍 Posted by Mr.RowKey in kafka 什么是kafka 最近公司需要上基于nginx log的数据统计系统。其中一个重要的结点即分布式日志收集。在调研了多种方案之后，最终确定了flume+kafka+storm+hbase的系统架构。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -134,7 +134,7 @@
   
 
 
-<time datetime="2015-05-30T12:06:18+00:00" pubdate data-updated="true">May 30<sup>th</sup>, 2015</time>
+<time datetime="2015-05-30T20:06:18+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -220,7 +220,7 @@
 
 <p>日志的partition分布在kafka集群的服务器上，其中的每一个服务器都控制一组分区上的数据和请求。每一个分区通过一定数量的服务器的冗余提高容错率。</p>
 
-<p>每一个partition都有一个服务器作为&#8221;leader&#8221;，零个或者多个服务器作为“followers”。对于某一个partition,Leader控制所有的读写请求，followers被动地去冗余leader。如果leader发生了故障，那么followers中的一个会自动地成为新的leader。每一个服务器对于其中的一部分partition是做为leader,对于其他的partition则是做为follower，这样就能很好的在集群内部做好负载均衡。</p>
+<p>每一个partition都有一个服务器作为"leader"，零个或者多个服务器作为“followers”。对于某一个partition,Leader控制所有的读写请求，followers被动地去冗余leader。如果leader发生了故障，那么followers中的一个会自动地成为新的leader。每一个服务器对于其中的一部分partition是做为leader,对于其他的partition则是做为follower，这样就能很好的在集群内部做好负载均衡。</p>
 
 <h3>生产者</h3>
 
@@ -430,7 +430,11 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -463,10 +467,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -522,7 +522,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

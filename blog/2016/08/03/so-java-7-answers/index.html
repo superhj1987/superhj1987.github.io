@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="[译]StackOverflow: 你没见过的七个最好的Java答案 Aug 3rd, 2016 Posted by Mr.RowKey in dzone, java, translate 原文：https://dzone.com/articles/stackoverflow-7-of-the- &hellip;">
+  <meta name="description" content="[译]StackOverflow: 你没见过的七个最好的Java答案 Posted by Mr.RowKey in dzone, java, translate 原文：https://dzone.com/articles/stackoverflow-7-of-the-best-java- &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -134,7 +134,7 @@
   
 
 
-<time datetime="2016-08-03T12:30:34+00:00" pubdate data-updated="true">Aug 3<sup>rd</sup>, 2016</time>
+<time datetime="2016-08-03T20:30:34+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -186,11 +186,11 @@
 
 <p>实际上，当NullPointerException(或者其他exception)在系统出现的时候，我们可以发出一个告警。因为这种异常一般情况下都是业务代码逻辑有问题造成(笔者注)。</p>
 
-<h2>为什么这段代码使用随机字符串打印出了&#8221;hello world&#8221;</h2>
+<h2>为什么这段代码使用随机字符串打印出了"hello world"</h2>
 
 <p>问题链接：<a href="http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world">http://stackoverflow.com/questions/15182496/why-does-this-code-using-random-strings-print-hello-world</a></p>
 
-<p>这个问题给出了下面的代码，并打印出了&#8221;hello world&#8221;。</p>
+<p>这个问题给出了下面的代码，并打印出了"hello world"。</p>
 
 <pre><code>System.out.println(randomString(-229985452) + " " + randomString(-147909649));
 
@@ -216,7 +216,7 @@ public static String randomString(int i){
 
 <p>Random(-147909649).nextInt(27)产生的前六个数字：23, 15, 18, 12, 4, 0</p>
 
-<p>这样，最终输出的就是&#8221;hello world&#8221;。</p>
+<p>这样，最终输出的就是"hello world"。</p>
 
 <h2>为什么两个时间戳相减(in 1927)得出一个奇怪的结果？</h2>
 
@@ -234,7 +234,7 @@ public static String randomString(int i){
 }
 </code></pre>
 
-<p>按说上面的代码最后的结果应该是1，但实际的输出却是353。其实，这是一个时区的问题。1927年12月31号24:00，上海时间往回调整了5分钟52秒，因此&#8221;1927-12-31 23:54:08&#8221;发生了两次，Java将后面一次实例化成了本地的这个时间。因此和前一秒的差距成了353。</p>
+<p>按说上面的代码最后的结果应该是1，但实际的输出却是353。其实，这是一个时区的问题。1927年12月31号24:00，上海时间往回调整了5分钟52秒，因此"1927-12-31 23:54:08"发生了两次，Java将后面一次实例化成了本地的这个时间。因此和前一秒的差距成了353。</p>
 
 <p>我们需要指出，如果你试着来运行这段代码，结果并不一定是353。<a href="http://stackoverflow.com/a/6841479/5982245">Jon Skeet指出了这一点</a>，在时区数据库项目2014版中，这个改变的时间点改到了1900-12-31，因此成了344秒的差距。</p>
 
@@ -244,7 +244,7 @@ public static String randomString(int i){
 
 <p>这里有一个很明显的问题：如果有exception被抛出，但是没有任何办法去catch，那么应用会崩溃吗？或者如这个问题所问：是否可以写一段Java代码让一个假设的java.lang.ChuckNorrisException无法被捕获。</p>
 
-<p>答案是可以，但是这里有一个&#8221;但是&#8221;。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。<a href="http://stackoverflow.com/a/13883510/5982245">jtahlborn</a>给出了完整的解决办法。</p>
+<p>答案是可以，但是这里有一个"但是"。你可以编译一段代码抛出一个ChuckNorrisException，但是在Runtime时动态生成一个并不继承于Throwable接口的ChuckNorrisException类。当然，为了让这个过程可以进行，你需要关闭掉字节码验证。<a href="http://stackoverflow.com/a/13883510/5982245">jtahlborn</a>给出了完整的解决办法。</p>
 
 <h2>哈希表</h2>
 
@@ -400,7 +400,11 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -433,10 +437,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -492,7 +492,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

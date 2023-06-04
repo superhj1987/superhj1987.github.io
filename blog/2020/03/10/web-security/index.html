@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Java工程师应该知道的Web安全 Mar 10th, 2020 Posted by Mr.RowKey in java, security Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的 &hellip;">
+  <meta name="description" content="Java工程师应该知道的Web安全 Posted by Mr.RowKey in java, security Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。 Web安全问题， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -134,7 +134,7 @@
   
 
 
-<time datetime="2020-03-10T11:29:34+00:00" pubdate data-updated="true">Mar 10<sup>th</sup>, 2020</time>
+<time datetime="2020-03-10T19:29:34+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -254,7 +254,7 @@
 
 <pre><code class="``">  String sql = "select * from user where user_name = '" + userName + "' and pwd = " + userPwd;
 </code></pre></li>
-<li>用户提交userName为admin&#8217;&ndash;,userPwd随便字符串xxx</li>
+<li>用户提交userName为admin'&ndash;,userPwd随便字符串xxx</li>
 <li>拼接好之后的SQL语句变成了：<code>select * from user where user_name = 'admmin'--' and pwd = 'xxx'</code>（&ndash;为SQL语句的注释）, 这样只要存在user_name为admin的用户，此语句就能成功执行并返回admin用户的信息。</li>
 </ul>
 
@@ -265,7 +265,7 @@
 
 <ul>
 <li>在Java中构造SQL查询语句时，杜绝拼接用户参数，尤其是拼接SQL查询的where条件。全部使用PreparedStatement预编译语句, 通过？来传递参数。</li>
-<li>在业务层面，过滤、转义SQL特殊字符，Apache commons-lang中的StringEscapeUtil提供了escapeSQL的功能（最新的lang3已经删除此方法，因为其只是简单的替换&#8217;为&#8217;&lsquo;）。</li>
+<li>在业务层面，过滤、转义SQL特殊字符，Apache commons-lang中的StringEscapeUtil提供了escapeSQL的功能（最新的lang3已经删除此方法，因为其只是简单的替换'为'&lsquo;）。</li>
 </ul>
 
 
@@ -297,7 +297,7 @@
 </pre></td><td class='code'><pre><code class=''><span class='line'>insert into test_user values("user_test","111111");</span></code></pre></td></tr></table></div></figure>
 
 
-<p>接着，一个user_name为&#8217;user_test              1&#8217;(中间留有25个空格)的用户再来注册。一般的业务逻辑如下：</p>
+<p>接着，一个user_name为'user_test              1'(中间留有25个空格)的用户再来注册。一般的业务逻辑如下：</p>
 
 <ul>
 <li><p>判断用户名是否存在</p>
@@ -313,7 +313,7 @@
 </ul>
 
 
-<p>这样，由于<code>user_name</code>约束为25个字符，那么新用户的<code>user_name</code>成为了&#8217;user_test      &lsquo;（后面是16个空格字符）。现在数据库记录如下（第二个记录后面是16个空格）：</p>
+<p>这样，由于<code>user_name</code>约束为25个字符，那么新用户的<code>user_name</code>成为了'user_test      &lsquo;（后面是16个空格字符）。现在数据库记录如下（第二个记录后面是16个空格）：</p>
 
 <table>
 <thead>
@@ -638,7 +638,11 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -671,10 +675,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -730,7 +730,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

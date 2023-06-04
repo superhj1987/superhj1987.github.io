@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Kotlin语法简明指南 Dec 8th, 2018 Posted by Mr.RowKey in java, kotlin Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日， &hellip;">
+  <meta name="description" content="Kotlin语法简明指南 Posted by Mr.RowKey in java, kotlin Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -134,7 +134,7 @@
   
 
 
-<time datetime="2018-12-08T11:29:34+00:00" pubdate data-updated="true">Dec 8<sup>th</sup>, 2018</time>
+<time datetime="2018-12-08T19:29:34+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -233,71 +233,86 @@
 <p> Kotlin中没有语句结束符，当然为了与java保持一致性，也可以使用;号作为语句结束符。</p></li>
 <li><p>字符串连接符</p>
 
-<p> 跟java一样，如果你需要把一个字符串写在多行里，可以使用+号连接字符串。代码可以这样写：</p>
+<p> 跟java一样，如果你需要把一个字符串写在多行里，可以使用+号连接字符串。代码可以这样写：</p></li>
+</ol>
 
-<pre><code>val str = "hello" + "world" + "!!!";
+
+<pre><code class="```">   val str = "hello" + "world" + "!!!";
 </code></pre>
 
-<p> Kotlin中的写法也可以这样：</p>
+<pre><code>Kotlin中的写法也可以这样：
 
-<pre><code class="`"> val str = """hello
- world
- !!!
- """
+```
+val str = """hello
+world
+!!!
+"""
 </code></pre>
 
-<p> 三个”号之间不在需要+号进行连接，不过字符串中的格式符都会被保留，包括回车和tab。</p></li>
-<li><p>字符串模板</p>
+<pre><code class="```        ">
+    三个”号之间不在需要+号进行连接，不过字符串中的格式符都会被保留，包括回车和tab。
 
-<p> Kotlin提供了$符来做字符串内的变量替换，并且可以做一些字符串操作。如下：</p>
+1. 字符串模板
 
-<pre><code class="`"> var name = "hj"
- var strTemplate = "My name is $name"//My name is hj
+    Kotlin提供了$符来做字符串内的变量替换，并且可以做一些字符串操作。如下：
 
- strTemplate = "My name is ${name.replace("j","a")}"// My name is ha
-</code></pre></li>
-<li><p>一切皆对象</p>
+    ```
+    var name = "hj"
+    var strTemplate = "My name is $name"//My name is hj
 
-<p> Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。</p></li>
-<li><p>if条件表达式</p>
+    strTemplate = "My name is ${name.replace("j","a")}"// My name is ha
+    ```
 
-<p> Kotlin中支持if条件表达式。</p>
+1. 一切皆对象
 
-<pre><code class="`">val a = if(x &gt; 0) 1 else 2
-fun maxOf(a: Int, b: Int) = if (a &gt; b) a else b
-</code></pre></li>
-<li><p>循环</p>
+    Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。
 
-<p> Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。</p>
+1. if条件表达式
 
-<pre><code class="`"> for(i in 1..10){
-     println(i)
- }
+    Kotlin中支持if条件表达式。
 
- for(i in 1..10 step 2){
-     println(i)
- }
+    ```
+   val a = if(x &gt; 0) 1 else 2
+   fun maxOf(a: Int, b: Int) = if (a &gt; b) a else b
+    ```
 
- for(i in 10 downTo 1 step 1){
-     println(i)
- }
+1. 循环
 
- for (i in 1 until 10) {
-     // i in [1, 10) 排除了 10
-     println(i)
- }
+    Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。
 
- for(c in 'A'..'Z'){
-     println(c)
- }
+    ```
+    for(i in 1..10){
+        println(i)
+    }
+
+    for(i in 1..10 step 2){
+        println(i)
+    }
+
+    for(i in 10 downTo 1 step 1){
+        println(i)
+    }
+
+    for (i in 1 until 10) {
+        // i in [1, 10) 排除了 10
+        println(i)
+    }
+
+    for(c in 'A'..'Z'){
+        println(c)
+    }
 </code></pre>
 
-<p> 需要注意的是在Kotlin中不再支持Java的for循环形式：</p>
+<pre><code>需要注意的是在Kotlin中不再支持Java的for循环形式：
 
-<pre><code class="`"> for(int i =0;i &lt; 10;i++){
-     ...
- }
-</code></pre></li>
+```
+for(int i =0;i &lt; 10;i++){
+    ...
+}
+```
+</code></pre>
+
+<ol>
 <li><p>when</p>
 
 <p>  Kotlin中没有switch。提供when做分支条件选择。</p>
@@ -322,7 +337,7 @@ fun maxOf(a: Int, b: Int) = if (a &gt; b) a else b
 <p>   when 既可以被当做表达式使用也可以被当做语句使用。如果它被当做表达式， 符合条件的分支的值就是整个表达式的值，如果当做语句使用， 则忽略个别分支的值。</p></li>
 <li><p>操作符重载</p>
 
-<p> Kotlin提供了操作符重载的支持。对于常用的”+“、&#8221;-&ldquo;等操作符，创建带有operator且名称符合要求的方法，即可实现。如：</p>
+<p> Kotlin提供了操作符重载的支持。对于常用的”+“、"-&ldquo;等操作符，创建带有operator且名称符合要求的方法，即可实现。如：</p>
 
 <pre><code class="`"> data class Point(val x: Int, val y: Int)
 
@@ -714,7 +729,11 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -747,10 +766,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -806,7 +821,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="响应式微服务架构-分布式系统设计原则 Jun 7th, 2018 Posted by Mr.RowKey in architecture O’Reilly的电子书《Reactive Microservices Architecture》讲述了微服务/分布式系统的一些设计原则， &hellip;">
+  <meta name="description" content="响应式微服务架构-分布式系统设计原则 Posted by Mr.RowKey in architecture O’Reilly的电子书《Reactive Microservices Architecture》讲述了微服务/分布式系统的一些设计原则，本文是笔者阅读完此书后的理解。书籍地址： &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -134,7 +134,7 @@
   
 
 
-<time datetime="2018-06-07T11:29:34+00:00" pubdate data-updated="true">Jun 7<sup>th</sup>, 2018</time>
+<time datetime="2018-06-07T19:29:34+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -224,7 +224,7 @@
 
 <p>命令溯源和事件溯源是不同的语义。重放命令意味着会重放其带来的副作用。而重放事件则是执行状态的改变。需要根据具体场景的不同选择使用哪种溯源技术。</p>
 
-<p>使用EventLog可以避免&#8221;对象关系不匹配&#8221;的问题（ORM中经常出现）。而由于其自身天然适合异步消息传输，因此绝大多数情况下，Event Log是微服务中最佳的持久化模型。</p>
+<p>使用EventLog可以避免"对象关系不匹配"的问题（ORM中经常出现）。而由于其自身天然适合异步消息传输，因此绝大多数情况下，Event Log是微服务中最佳的持久化模型。</p>
 
 <h3>拥抱异步消息传输</h3>
 
@@ -236,7 +236,7 @@
 
 <p>然而目前微服务的默认通信协议以REST为主，其本质是同步通信机制，比较适用于可控的服务调用或者紧耦合的服务调用上。</p>
 
-<p>此外，使用异步消息传输的另一个需求在于对消息的持续流处理（可能是无界的）。也是我们从“data at rest”到&#8221;data in motion&#8221;的理念的改变。之前的数据是离线被使用的，而现在的数据是被在线处理的。应用对数据变更的响应需要达到实时级别：当变动发生，需要实时进行持续的查询、聚合并反馈给最终的应用。这个理念的形成经历了三个主要阶段：</p>
+<p>此外，使用异步消息传输的另一个需求在于对消息的持续流处理（可能是无界的）。也是我们从“data at rest”到"data in motion"的理念的改变。之前的数据是离线被使用的，而现在的数据是被在线处理的。应用对数据变更的响应需要达到实时级别：当变动发生，需要实时进行持续的查询、聚合并反馈给最终的应用。这个理念的形成经历了三个主要阶段：</p>
 
 <ol>
 <li><p>&ldquo;data at rest&rdquo;: 将大量数据存储在HDFS类似的数据存储媒介中，然后使用离线批处理技术去处理这些数据，一般会有数个小时的延迟。</p></li>
@@ -274,7 +274,7 @@
 
 <p>每一个微服务都可以看做一个安全的小岛，提供了确定性和强一致性，上面的时间和“目前”都是绝对的。但是当离开一个微服务的边界时，就进入了一片充满非确定性的大海-分布式系统的世界。如很多人所说，构建分布式系统是困难的。但现实世界同时也提供了如何解决诸如弹性、可伸缩、隔离性等分布式问题的解决思路。因此，即使构建分布式系统是困难的，但是我们也不应该退化为单体应用，而是学习如何使用一系列的设计原则、抽象概念和工具来管理它。</p>
 
-<p>正如Pat Helland在《Data on the Outside versus Data on the Inside.”》对&#8221;data on the inside&#8221;和“data on the outside”的对比所说：内部的数据就是我们本地的“目前”，而外部数据-事件即是来自过去的信息，服务之间的命令则是“对未来的希望”。</p>
+<p>正如Pat Helland在《Data on the Outside versus Data on the Inside.”》对"data on the inside"和“data on the outside”的对比所说：内部的数据就是我们本地的“目前”，而外部数据-事件即是来自过去的信息，服务之间的命令则是“对未来的希望”。</p>
 
 <h3>服务发现</h3>
 
@@ -286,7 +286,7 @@
 
 <h3>API管理</h3>
 
-<p>API管理解决的问题在于如何将服务的协议和API统一管理起来，以方便服务的调用。包括协议和数据版本的升级和后退等。解决此问题可以通过引入一个负责序列化编码、协议维护以及数据传输的层，甚至直接将服务版本化。这在DDD中被称作&#8221;Anti-Corruption&#8221;层，可以加入到服务本身或者在API网关中实现。</p>
+<p>API管理解决的问题在于如何将服务的协议和API统一管理起来，以方便服务的调用。包括协议和数据版本的升级和后退等。解决此问题可以通过引入一个负责序列化编码、协议维护以及数据传输的层，甚至直接将服务版本化。这在DDD中被称作"Anti-Corruption"层，可以加入到服务本身或者在API网关中实现。</p>
 
 <p>假如一个客户端需要调用10个服务（每一个都有不同的API）来完成一个任务，那么对于这个客户端来说是非常繁琐的。相比起让客户端直接去调用服务，更好的方式是让客户端通过API网关服务来调用。API网关负责接受客户端的请求，然后路由请求到相应的服务（如果有必要需要转换协议），组装响应并将其返回给客户端。这样，做为客户端和服务之间的一层其就能够简化client-to-service协议。但这里如果是中心化的则很难达到高可用和可扩展性，所以使用去中心化技术（比如服务发现）实现API网关则是更好的选择。</p>
 
@@ -512,7 +512,11 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -545,10 +549,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -604,7 +604,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

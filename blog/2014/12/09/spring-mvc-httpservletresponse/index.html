@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="SpringMVC的controller传递HttpServletResponse参数的那点事 Dec 9th, 2014 Posted by Mr.RowKey in spring @RequestMapping(value = "cardDown", method = &hellip;">
+  <meta name="description" content="SpringMVC的controller传递HttpServletResponse参数的那点事 Posted by Mr.RowKey in spring @RequestMapping(value = "cardDown", method = RequestMethod.GET, &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -134,7 +134,7 @@
   
 
 
-<time datetime="2014-12-09T02:05:41+00:00" pubdate data-updated="true">Dec 9<sup>th</sup>, 2014</time>
+<time datetime="2014-12-09T10:05:41+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -237,13 +237,14 @@ mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 <li><p>接着回到3，调用完ServletInvocableHandlerMethod.invokeAndHandle后，接着调用getModelAndView(mavContainer, modelFactory, webRequest)</p></li>
 <li><p>ServletInvocableHandlerMethod.getModelAndView</p>
 
-<p><pre>
-modelFactory.updateModel(webRequest, mavContainer);</p>
+<pre>
+modelFactory.updateModel(webRequest, mavContainer);
 
-<p>if (mavContainer.isRequestHandled()) {
+if (mavContainer.isRequestHandled()) {
     return null;
 }
-</pre></p>
+</pre>
+
 
 <p>这里当mavContainer的requestHandled被设置为true时,视图返回null。</p></li>
 </ol>
@@ -391,7 +392,11 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -424,10 +429,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -483,7 +484,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

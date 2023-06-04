@@ -14,10 +14,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="谈谈Java内存管理 May 7th, 2016 Posted by Mr.RowKey in java 目录 一. 背景知识
+  <meta name="description" content="谈谈Java内存管理 Posted by Mr.RowKey in java 目录 一. 背景知识
 二. Jvm虚拟机内存简介
 三. 垃圾收集
-四. Java7、8带来的一些变化 对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑， &hellip;">
+四. Java7、8带来的一些变化 对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -137,7 +137,7 @@
   
 
 
-<time datetime="2016-05-07T06:59:44+00:00" pubdate data-updated="true">May 7<sup>th</sup>, 2016</time>
+<time datetime="2016-05-07T14:59:44+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -356,16 +356,16 @@
 <li><p>Copying Collector 复制算法</p></li>
 <li><p>Mark-标记</p>
 
-<p> 从&#8221;GC roots&#8221;开始扫描(这里的roots包括线程栈、静态常量等)，给能够沿着roots到达的对象标记为&#8221;live&#8221;,最终所有能够到达的对象都被标记为&#8221;live&#8221;,而无法到达的对象则为&#8221;dead&#8221;。效率和存活对象的数量是线性相关的。</p></li>
+<p> 从"GC roots"开始扫描(这里的roots包括线程栈、静态常量等)，给能够沿着roots到达的对象标记为"live",最终所有能够到达的对象都被标记为"live",而无法到达的对象则为"dead"。效率和存活对象的数量是线性相关的。</p></li>
 <li><p>Sweep-清除</p>
 
-<p> 扫描堆，定位到所有&#8221;dead&#8221;对象，并清理掉。效率和堆的大小是线性相关的。</p></li>
+<p> 扫描堆，定位到所有"dead"对象，并清理掉。效率和堆的大小是线性相关的。</p></li>
 <li><p>Compact-压缩</p>
 
 <p> 对于对象的清除，会产生一些内存碎片，这时候就需要对这些内存进行压缩、整理。包括：relocate(将存货的对象移动到一起，从而释放出连续的可用内存)、remap(收集所有的对象引用指向新的对象地址)。效率和存活对象的数量是线性相关的。</p></li>
 <li><p>Copy-复制</p>
 
-<p> 将内存分为&#8221;from&#8221;和&#8221;to&#8221;两个区域，垃圾回收时，将from区域的存活对象整体复制到to区域中。效率和存活对象的数量是线性相关的。</p></li>
+<p> 将内存分为"from"和"to"两个区域，垃圾回收时，将from区域的存活对象整体复制到to区域中。效率和存活对象的数量是线性相关的。</p></li>
 </ul>
 
 
@@ -531,7 +531,7 @@
 <ul>
 <li>-XX:+UseParallelGC -XX:+UseParallelOldGC启用此收集器</li>
 <li>Server模式的默认老年代收集器</li>
-<li>Parallel Scavenge的老年代版本，使用多线程和&#8221;mark-sweep&#8221;算法</li>
+<li>Parallel Scavenge的老年代版本，使用多线程和"mark-sweep"算法</li>
 <li>关注点在吞吐量以及CPU资源敏感的场合使用</li>
 <li>一般使用Parallel Scavenge + Parallel Old可以达到最大吞吐量保证</li>
 </ul>
@@ -806,7 +806,11 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -839,10 +843,6 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -898,7 +898,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

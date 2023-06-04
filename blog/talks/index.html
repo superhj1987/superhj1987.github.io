@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="技术琐话 日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合。 2022.07.22 凡是被很多人或者自己许多次重复的好习惯，都要将其自动化，绑定到工具之中，以&#8221;Don&rsquo;t make me &hellip;">
+  <meta name="description" content="技术琐话 日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合。 2022.07.22 凡是被很多人或者自己许多次重复的好习惯，都要将其自动化，绑定到工具之中，以"Don&rsquo;t make me think" &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -142,7 +142,7 @@ $(document).ready(function(){
 <h3>2022.07.22</h3>
 
 <ul>
-<li>凡是被很多人或者自己许多次重复的好习惯，都要将其自动化，绑定到工具之中，以&#8221;Don&rsquo;t make me think&#8221;的方式来推广最佳实践。</li>
+<li>凡是被很多人或者自己许多次重复的好习惯，都要将其自动化，绑定到工具之中，以"Don&rsquo;t make me think"的方式来推广最佳实践。</li>
 <li><a href="https://mp.weixin.qq.com/s/ugZ1BlppI-2n-eol5PCztg">研发体系支撑价值驱动的业务创新</a>里讲的XasCode，和我之前看过的”Code is Law“本质是一样的。研发体系中，能够通过Code解决的问题都能够实现比人与人传播更好的保证下限的效果，并且一定程度上是可以提高效率的。比如打包过程的口口相传转变为脚本化、平台化获得地质量和效率提升都是显而易见的。</li>
 </ul>
 
@@ -207,7 +207,7 @@ $(document).ready(function(){
 <li>在元素能够映射为唯一数字时，大数据查重算法一般会选用bitmap能够尽量少的占用内存,直接将元素映射到bit数组的相应位置上。</li>
 <li>在元素无法转换为唯一数字时，经常的用法是取其hash值，此时由于有碰撞，经典的hashmap实现是用链表法解决。当接受误差的时候，可以选择bloomfilter能够节省内存占用。</li>
 <li>文章讲的算法是精确查重，在元素可以对应唯一数字时比bitmap没有任何优势。在元素无法对应唯一数字时，这个对比的应该是hashmap的各种实现。但是本质上你还是要存储这么多元素。这个对比哈希碰撞的经典算法（开放地址法、重hash法、开链法）并没感觉有什么明显优势。</li>
-<li>bitmap、bloomfilter是解决&#8221;查元素存不存在&#8221;，并不具有经典hashmap的&#8221;根据key获取value&#8221;的功能。虽然后者也能够支持&#8221;查元素存不存在&#8221;。</li>
+<li>bitmap、bloomfilter是解决"查元素存不存在"，并不具有经典hashmap的"根据key获取value"的功能。虽然后者也能够支持"查元素存不存在"。</li>
 </ul>
 </li>
 <li><p>最近在做微服务的落地规划时接触到了Cookie cutter scaling这个名词。文章里的说明是相对于单体应用，Cookie cutter scaling的特点就是通过嵌入式lib做组件化，能够便于扩展，从而不引入分布式复杂度就能够承载大流量。但其实现在的单体应用也基本都是这样做的了，并非是Cookie cutter scaling的特点了。不知道是否理解有偏差。<a href="https://paulhammant.com/2014/12/07/moniliths-cookiecutters-or-microservices/">Monoliths, Cookie-Cutter or Microservices?</a>、<a href="https://paulhammant.com/2011/11/29/cookie-cutter-scaling/">Cookie Cutter Scaling</a></p></li>
@@ -337,7 +337,11 @@ $(document).ready(function(){
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
       	</li>
     	
      	<li>
@@ -370,10 +374,6 @@ $(document).ready(function(){
     	
      	<li>
       	  <a href="/blog/2020/06/27/mytalk/">你要成为什么样的人？</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2020/06/15/cd/">持续交付这点事</a>
       	</li>
     	
 	</ul>
@@ -429,7 +429,7 @@ $(document).ready(function(){
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2022 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 
