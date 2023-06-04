@@ -19,7 +19,7 @@ jobs:
     runs-on: macos-12
     strategy:
       matrix:
-        ruby-version: ['2.2.10']
+        ruby-version: ['2.3']
 
     steps:
     - uses: actions/checkout@v3
