@@ -1,0 +1,510 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>后端技术杂谈</title>
+  <meta name="author" content="Mr.RowKey">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 Java学习笔记 代码点与代码单元 codePoint codeUnit
+这里当字符串中有辅助字符时，代码点是两个代码单元，需要以下遍历： int cp = &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/posts/12/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			  <div class="col-8" id="main">
+    <div class="res-cons">
+      <article class="post">
+        <div class="post-content" style="background-color: #f8f8f8;border: 1px solid #ddd;border-radius: 3px;overflow: auto;padding: .5em 2.4em 0 2.4em;"><p>日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：<a href="/blog/talks/"><strong>技术琐话</strong></a></p>
+        </div>
+      </article>
+    
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2010/07/13/java-notes/">Java学习笔记</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-07-13T21:39:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><ol>
+<li><p>代码点与代码单元 codePoint codeUnit
+这里当字符串中有辅助字符时，代码点是两个代码单元，需要以下遍历：
+ <pre>
+ int cp = sentence.codePointAt(i);
+ if(Character.isSupplementaryCodePoint(cp)){
+      i += 2;
+ }else{
+      i++;
+ }
+ </pre></p></li>
+<li><p>String类对象->不可变字符串
+不能修改字符串中的字符：编译器可以将字符串共享，以此带来高效率。</p></li>
+<li>当将一个字符串与一个非字符串的值进行拼接时，后者将被转换成字符串。</li>
+<li>任何一个对象都可以转换成字符串。</li>
+<li>检测两字符串是否相等，而不区分大小写，可用equalsIgnoreCase()方法</li>
+<li>Java中允许一个数组长度为0，不同于null。</li>
+<li>Java中的多维数组实际上是数组的数组。</li>
+<li>一个对象变量实际上是一个对象指针。</li>
+<li>用clone()方法获得对象的完整拷贝。</li>
+<li>不能编写返回引用可变对象的访问器方法。</li>
+<li>一个方法可以访问所属类的所有对象的私有数据。</li>
+<li>Sytem类中有一个setOut方法是一个本地方法，不是用Java语言实现的，可以绕过Java的存取控制机制(out是final的)。</li>
+<li>每个类都可以有一个main方法，可用来进行单元测试。</li>
+<li>一个方法不能修改一个基本数据；
+一个方法可以改变一个对象参数的状态；
+一个方法不能让对象参数引用一个新的对象。</li>
+<li>方法签名：方法名、参数类型。</li>
+<li><p>初始化块机制
+首先运行初始化快，然后才运行构造器的主体部分
+静态域初始化块：</p>
+
+<pre><code>static{
+}
+</code></pre></li>
+<li><p>只能使用*导入一个包，如：</p>
+
+<pre><code>import java.util.*;
+</code></pre></li>
+<li><p>静态导入：静态方法、静态域</p>
+
+<pre><code>import static java.lang.System.*;
+</code></pre></li>
+<li><p>如果没有指定public或private，那么这个部分（类、方法或者变量）可被同一个包中的所有方法访问</p></li>
+<li>包作用域：默认情况下是包可见的</li>
+<li>包密封:(package sealing) jar文件密封包</li>
+<li>/<em>*…</em>/-&gt;文档注释 javadoc
+标记+自由格式，其中标记由”@”开始</li>
+<li>类设计技巧：
+
+<ul>
+<li>一定要将数据设为私有；</li>
+<li>一定要对数据初始化；</li>
+<li>不要在类中使用过多的基本数据类型；</li>
+<li>不是所有的域都需要独立的域访问器和域更改器；</li>
+<li>使用标准格式进行类的定义；</li>
+<li>将职责过多的类进行分解；</li>
+<li>类名和方法名要能够体现它们的职责。</li>
+</ul>
+</li>
+<li>Java中的所有继承都是公有继承：超类和子类</li>
+<li>覆盖（Override）子类使用super调用超类的方法以及构造器</li>
+<li>一个对象变量可以引用多种实际类型的现象叫做多态（Polymorphism）
+运行能够自动地选择调用的适当方法的现象称为动态绑定</li>
+<li>虚拟机预先为各个类创建了一个方法表</li>
+<li>在覆盖一个方法时，子类方法不能低于超类方法的可见性</li>
+<li>阻止继承的两种方法：final类的方法自动成为final方法（不包括域），final方法</li>
+<li>内联的概念：如果一个方法没有被覆盖并且很短，编译器就能够对它进行优化处理。</li>
+<li>强制类型转换：
+只能在继承层次内进行类型转换；
+在将超类转换成子类的前应使用instanceof进行检查</li>
+<li>抽象类可以包含非抽象方法，也可以不包含抽象方法。抽象方法充当着占位的角色，具体实现在子类中。
+抽象类不能被实例化
+只有子类实现了所有抽象方法，子类才不是抽象的了</li>
+<li>子类不能访问超类的私有域</li>
+<li>hashcode: 由对象导出的一个整型值
+每个对象都有一个默认的散列码，其值为对象的存储地址</li>
+<li>两个相等的对象要求必须返回一个相等的散列码</li>
+<li>自动打包规范要求boolean byte char=0:x;</li>
+<li>同步器：
+
+<ul>
+<li>CountDownLatch：利用它可以实现类似计数器的功能。比如有一个任务A，它要等待其他4个任务执行完毕之后才能执行，此时就可以利用CountDownLatch来实现这种功能。</li>
+<li>CyclicBarrier：字面意思为回环栅栏，通过它可以实现让一组线程等待至某个状态之后再全部同时执行。叫做回环是因为当所有等待线程都被释放以后，CyclicBarrier可以被重用。我们暂且把这个状态就叫做barrier，当调用await()方法之后，线程就处于barrier。</li>
+<li>Semaphore：信号量，Semaphore可以控制同时访问的线程个数，通过acquire()获取一个许可，如果没有就等待。通过release()释放一个许可。</li>
+</ul>
+</li>
+<li>四个基本的抽象流类：InputStream OutputStream Reader Writer(这些对象由其他方法返回)</li>
+<li>注意流过滤器的运用</li>
+<li>对象序列化：ObjectOutputstream ObjectInputStream writeObject() readObject()
+类必须实现Serializable 接口</li>
+<li>Java使用SHA编码的前8字节作为类的指纹
+在序列化的过程中内存地址会被替换为序列号（唯一）</li>
+<li>流类关注的是文件内容，而File类关注的是文件在磁盘上的存储</li>
+</ol>
+
+</div>
+  
+  
+
+
+      </article>
+    
+      <div class="page-navigator">
+        
+        
+            <a href="/blog/posts/11" class="prev"><<上一页</a>
+        
+        
+        <div class="center"><a href="/blog/archives">所有文章</a></div>
+      </div>
+     </div>
+  </div>
+    
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<p>中华万年历/微鲤看看技术团队长期求<a href="https://m.zhipin.com/weijd/v2/job/0cdf0b4c4c3029521nN5392-FFc~" style="font-weight: bold" target="_blank">各研发职位</a>，感兴趣者可发送简历到<a href="mailto:hang@weli.cn">hang@weli.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2023/07/30/build-gpt-chatbot/">【译】如何构建开源的类ChatGPT聊天机器人</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记-Web3是什么？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage_%E5%89%AF%E6%9C%AC/">架构简明指南2022最新版</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/05/04/article-notes/">阅文笔记202205</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/03/31/ali-manage/">阿里巴巴管理三板斧</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/01/13/my2020/">我的2020</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/08/13/dev-efficacy-talk/">研发效能杂谈</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/07/31/project-manage/">项目管理标准模板</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+  </aside>
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
