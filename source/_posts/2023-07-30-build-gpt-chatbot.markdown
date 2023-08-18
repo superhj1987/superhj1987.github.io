@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "【译】如何构建开源的类似ChatGPT的聊天机器人"
+title: "【译】如何基于开源技术构建类似ChatGPT的聊天机器人"
 date: 2023-07-30 19:29:34 +0800
 comments: true
 categories: AGI
