@@ -1,0 +1,921 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Langchain代理和OpenAI函数调用的区别 - 后端技术杂谈</title>
+  <meta name="author" content="Mr.RowKey">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="Langchain代理和OpenAI函数调用的区别 Posted by Mr.RowKey in agi 最近在实现LLM调用外部工具的时候，突然意识到貌似OpenAI的Function Calling和LangChain的Agent都能达到相同的结果，只是实现方式不同。因此这里来对比一下。 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2023/11/30/openai-func/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">Langchain代理和OpenAI函数调用的区别</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2023-11-30T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mr.RowKey</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/agi/'>agi</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>最近在实现LLM调用外部工具的时候，突然意识到貌似OpenAI的Function Calling和LangChain的Agent都能达到相同的结果，只是实现方式不同。因此这里来对比一下。</p>
+
+<!--more-->
+
+
+<h2>OpenAI Functions Calling</h2>
+
+<p>OpenAI函数允许更好地控制AI调用的函数，因为我们必须解析AI的响应，找出AI想要调用的函数，并将参数传递给该函数。我们可以在每个阶段干预并修改被调用函数或其参数。</p>
+
+<p>假设我们想让AI使用一个REST API，而不指定它可以执行的操作。我们提供一个通用的REST API客户端，让AI决定使用哪种HTTP方法和哪些参数。</p>
+
+<h2>定义一个函数</h2>
+
+<p>首先，我们必须准备一个可用Function的描述。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>functions = [
+</span><span class='line'>{
+</span><span class='line'>    "type": "function",
+</span><span class='line'>    "function": {
+</span><span class='line'>        "name": "call_rest_api",
+</span><span class='line'>        "description": "Sends a request to the REST API",
+</span><span class='line'>        "parameters": {
+</span><span class='line'>            "type": "object",
+</span><span class='line'>            "properties": {
+</span><span class='line'>                "method": {
+</span><span class='line'>                    "type": "string",
+</span><span class='line'>                    "description": "The HTTP method to be used",
+</span><span class='line'>                    "enum": ["GET", "POST", "PUT", "DELETE"],
+</span><span class='line'>                },
+</span><span class='line'>                "url": {
+</span><span class='line'>                    "type": "string",
+</span><span class='line'>                    "description": "The URL of the endpoint. Value placeholders must be replaced with actual values.",
+</span><span class='line'>                },
+</span><span class='line'>                "body": {
+</span><span class='line'>                    "type": "string",
+</span><span class='line'>                    "description": "A string representation of the JSON that should be sent as the request body.",
+</span><span class='line'>                },
+</span><span class='line'>
+</span><span class='line'>            },
+</span><span class='line'>            "required": ["method", "url"],
+</span><span class='line'>        },
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>除了描述之外，还需要一个函数的实现。毕竟，当我们收到一个表示AI想要调用函数的响应时，我们将负责调用该函数。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def call_rest_api(self, arguments):
+</span><span class='line'>    arguments = json.loads(arguments)
+</span><span class='line'>    # reques.in is a hosted, fake REST API that we can use for testing
+</span><span class='line'>    url = 'https://reqres.in' + arguments['url']
+</span><span class='line'>    body = arguments.get('body', {})
+</span><span class='line'>    response = None
+</span><span class='line'>    if arguments['method'] == 'GET':
+</span><span class='line'>        response = requests.get(url)
+</span><span class='line'>    elif arguments['method'] == 'POST':
+</span><span class='line'>        response = requests.post(url, json=body)
+</span><span class='line'>    elif arguments['method'] == 'PUT':
+</span><span class='line'>        response = requests.put(url, json=body)
+</span><span class='line'>    elif arguments['method'] == 'DELETE':
+</span><span class='line'>        response = requests.delete(url)
+</span><span class='line'>    else:
+</span><span class='line'>        raise ValueError(arguments)
+</span><span class='line'>
+</span><span class='line'>    if response.status_code == 200:
+</span><span class='line'>        return json.dumps(response.json())
+</span><span class='line'>    else:
+</span><span class='line'>        return f"Status code: {response.status_code}"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>该函数是通用的，可以处理发送到任何端点的任何HTTP请求。需要列出可用的端点和支持的HTTP方法。我更喜欢将这些参数收集到一个变量中，稍后用于生成提示：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>available_apis = [
+</span><span class='line'>        {'method': 'GET', 'url': '/api/users?page=[page_id]', 'description': 'Lists employees. The response is paginated. You may need to request more than one to get them all. For example,/api/users?page=2.'},
+</span><span class='line'>        {'method': 'GET', 'url': '/api/users/[user_id]', 'description': 'Returns information about the employee identified by the given id. For example,/api/users/2'},
+</span><span class='line'>        {'method': 'POST', 'url': '/api/users', 'description': 'Creates a new employee profile. This function accepts JSON body containing two fields: name and job'},
+</span><span class='line'>        {'method': 'PUT', 'url': '/api/users/[user_id]', 'description': 'Updates employee information. This function accepts JSON body containing two fields: name and job. The user_id in the URL must be a valid identifier of an existing employee.'},
+</span><span class='line'>        {'method': 'DELETE', 'url': '/api/users/[user_id]', 'description': 'Removes the employee identified by the given id. Before you call this function, find the employee information and make sure the id is correct. Do NOT call this function if you didn\'t retrieve user info. Iterate over all pages until you find it or make sure it doesn\'t exist'}
+</span><span class='line'>    ]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接着需要定义AI的任务和可用的功能。为此，准备以下系统提示词。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>messages = [
+</span><span class='line'>    {"role": "system", 
+</span><span class='line'>    "content": "You are an HR helper who makes API calls on behalf of an HR representative，You have access to the following APIs: " 
+</span><span class='line'>        + json.dumps(self.available_apis)
+</span><span class='line'>        + "If a function requires an identifier, list all employees first to find the proper value. You may need to list more than one page"
+</span><span class='line'>        + "If you were asked to create, update, or delete a user, perform the action and reply with a confirmation telling what you have done"
+</span><span class='line'>    }
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最终，可以与AI进行交互。我们定义一个函数call_ai。该函数接受用户的提示，并将提示传递给之前定义的OpenAI模型的上下文描述。上下文描述还包含了可用函数的描述。如果AI回复的消息包含function_call，我们会调用一个函数。该消息包括函数名和参数。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def call_ai(self, new_message):
+</span><span class='line'>    if new_message:
+</span><span class='line'>        self.messages.append({"role": "user", "content": new_message})
+</span><span class='line'>
+</span><span class='line'>    response = self.client.chat.completions.create(
+</span><span class='line'>        model="gpt-3.5-turbo-1106",
+</span><span class='line'>        messages=self.messages,
+</span><span class='line'>        tools=self.functions,
+</span><span class='line'>        tool_choice="auto",
+</span><span class='line'>    )
+</span><span class='line'>
+</span><span class='line'>    msg = response.choices[0].message
+</span><span class='line'>    self.messages.append(msg)
+</span><span class='line'>    if msg.content:
+</span><span class='line'>        logging.debug(msg.content)
+</span><span class='line'>    if tool_calls:
+</span><span class='line'>        msg.content = "" # required due to a bug in the SDK. We cannot send a message with None content
+</span><span class='line'>        for tool_call in tool_calls:
+</span><span class='line'>            # we may get a request to call more than one function(!)
+</span><span class='line'>            function_name = tool_call.function.name
+</span><span class='line'>            function_args = json.loads(tool_call.function.arguments)
+</span><span class='line'>            if function_name == 'call_rest_api':
+</span><span class='line'>                # ['function_call']['arguments'] contains the arguments of the function
+</span><span class='line'>                logging.debug(function_args)
+</span><span class='line'>                # Here, we call the requested function and get a response as a string
+</span><span class='line'>                function_response = self.call_rest_api(function_args)
+</span><span class='line'>                logging.debug(function_response)
+</span><span class='line'>                # We add the response to messages
+</span><span class='line'>                self.messages.append({
+</span><span class='line'>                    "tool_call_id": tool_call.id,
+</span><span class='line'>                    "role": "tool",
+</span><span class='line'>                    "name": function_name,
+</span><span class='line'>                    "content": function_response
+</span><span class='line'>                })
+</span><span class='line'>
+</span><span class='line'>                self.call_ai(new_message=None) # pass the function response back to AI
+</span><span class='line'>    else:
+</span><span class='line'>      # return the final response
+</span><span class='line'>      return msg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一方面，这样的实现使代码变得非常冗长。就像下面所看到的，我们必须选择要调用的Python函数，传递参数，将响应添加到聊天记录中（作为一个带有role设置为tool的消息），然后再次调用AI并更新聊天记录。</p>
+
+<p>另一方面，我们对被调用的函数保持完全控制。我们可以调用不同的函数，改变参数，或者传递一个虚假的响应给人工智能，而不是调用一个函数。</p>
+
+<p>通过OpenAI的实现，我们还可以轻松创建长时间运行的工作流程，在数据库中存储聊天记录，在AI请求的函数调用后等待几个小时或几天，当我们收到回复时继续工作流程。</p>
+
+<h2>使用Langchain代理进行函数调用</h2>
+
+<p>Langchain代理隐藏了调用函数的复杂性。我们仍然需要提供函数描述和实现，或者使用其中一个可用的Langchain工具包。Langchain工具包是一种快捷方式，允许我们跳过编写函数及其描述的步骤。相反，我们使用工具包作者准备的代码。</p>
+
+<p>在Langchain中，我们必须选择其中一种可用的代理类型。代理类型定义了提示，以便向模型介绍可用的功能。</p>
+
+<p>代理类型实现了各种交互样式。例如，在conversational-react-description代理中，提示的指令部分如下所示：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>To use a tool, please use the following format:
+</span><span class='line'>
+</span><span class='line'>Thought: Do I need to use a tool? Yes
+</span><span class='line'>Action: the action to take, should be one of [{tool_names}]
+</span><span class='line'>Action Input: the input to the action
+</span><span class='line'>Observation: the result of the action
+</span><span class='line'>
+</span><span class='line'>When you have a response to say to the Human, or if you do not need to use a tool, you MUST use the format:
+</span><span class='line'>
+</span><span class='line'>Thought: Do I need to use a tool? No
+</span><span class='line'>{ai_prefix}: [your response here]
+</span><span class='line'>
+</span><span class='line'>## https://github.com/langchain-ai/langchain/blob/9731ce5a406d5a7bb1878a54b265a6f7c728effc/libs/langchain/langchain/agents/conversational/prompt.py</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当使用此提示时，Langchain会让AI生成输出，直到它产生Action Input: 之后的第一个换行符。此时，Langchain会中断AI调用，找到使用Action: 行返回的名称的函数，并将Action Input: 的值作为参数传递。</p>
+
+<p>稍后，当函数返回响应时，响应被添加到提示中的Observation: 行，并且Langchain再次调用LLM来继续处理提示。LLM可能会产生另一个Action: + Action Input: 对，以调用另一个函数或生成以Final Answer: 开头的行，将响应返回给用户。</p>
+
+<p>一个流行的zero-shot-react-description几乎具有相同的提示。</p>
+
+<h2>在Langchain中使用OpenAI Function Calling</h2>
+
+<p>选择一个代理类型，该类型使用OpenAI函数，但隐藏了选择函数和传递参数的复杂性。使用配置Langchain代理的标准代码结构，但选择OPENAI_FUNCTIONS AgentType。</p>
+
+<p>Langchain试图将整个函数描述打包成一条消息，而长描述很容易超过消息长度限制，因此不得不缩短提示。如果需要所有的端点，可以将call_rest_api函数拆分成多个函数，每个函数处理一个端点。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import json
+</span><span class='line'>import requests
+</span><span class='line'>from langchain import OpenAI
+</span><span class='line'>from langchain.agents import initialize_agent, Tool
+</span><span class='line'>from langchain.agents import AgentType
+</span><span class='line'>from langchain.chat_models import ChatOpenAI
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>def call_rest_api(method_and_url):
+</span><span class='line'>    method, url = method_and_url.split(' ')
+</span><span class='line'>    url = 'https://reqres.in' + url
+</span><span class='line'>    response = None
+</span><span class='line'>    if method == 'GET':
+</span><span class='line'>        response = requests.get(url)
+</span><span class='line'>    elif method == 'DELETE':
+</span><span class='line'>        response = requests.delete(url)
+</span><span class='line'>    else:
+</span><span class='line'>        raise ValueError(method)
+</span><span class='line'>
+</span><span class='line'>    if response.status_code == 200:
+</span><span class='line'>        return response.json()
+</span><span class='line'>    else:
+</span><span class='line'>        return f"Status code: {response.status_code}"
+</span><span class='line'>
+</span><span class='line'>available_apis = [
+</span><span class='line'>        {'api ': 'GET /api/users?page=[page_id]', 'description': 'Lists employees. The response is paginated. You may need to request more than one to get them all. For example,/api/users?page=2.'},
+</span><span class='line'>        {'api': 'DELETE /api/users/[numeric user_id]', 'description': 'Removes the employee identified by the given id. Before you call this function, find the employee information and make sure the id is correct. Do NOT call this function if you didn\'t retrieve user info. Iterate over all pages until you find it or make sure it doesn\'t exist'}
+</span><span class='line'>    ]
+</span><span class='line'>
+</span><span class='line'>api_description = json.dumps(available_apis)
+</span><span class='line'>
+</span><span class='line'>function_description = f"""Sends a request to the REST API.
+</span><span class='line'>
+</span><span class='line'>Accepts a single parameter containing two parts:
+</span><span class='line'>* method - The HTTP method to be used (GET, POST, PUT, or DELETE)
+</span><span class='line'>* url - The URL of the endpoint. Value placeholders must be replaced with actual values.
+</span><span class='line'>
+</span><span class='line'>For example: GET /api/users?page=1 or DELETE /api/users/13
+</span><span class='line'>
+</span><span class='line'>To find users by name, use the GET method first.
+</span><span class='line'>
+</span><span class='line'>Available endpoints:
+</span><span class='line'>{api_description}"""
+</span><span class='line'>
+</span><span class='line'>llm = ChatOpenAI(temperature=0, model="gpt-4", openai_api_key='sk-...')
+</span><span class='line'>tools = [
+</span><span class='line'>    Tool(
+</span><span class='line'>        name = "REST",
+</span><span class='line'>        func=call_rest_api,
+</span><span class='line'>        description=function_description
+</span><span class='line'>    )
+</span><span class='line'>]
+</span><span class='line'>
+</span><span class='line'>agent = initialize_agent(tools, llm, agent=AgentType.OPENAI_FUNCTIONS, verbose=True)
+</span><span class='line'>agent.run("Fire Lawson")</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在控制台中，可以看到Agent的详细日志：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Invoking: `REST` with `GET /api/users?page=1`
+</span><span class='line'>{'page': 1, 'per_page': 6, 'total': 12, 'total_pages': 2, 'data': [...
+</span><span class='line'>
+</span><span class='line'>Invoking: `REST` with `GET /api/users?page=2`
+</span><span class='line'>{'page': 2, 'per_page': 6, 'total': 12, 'total_pages': 2, 'data': [{'id': 7, 'email': 'michael.lawson@reqres.in', 'first_name': 'Michael', 'last_name': 'Lawson', 'avatar': 'https://reqres.in/img/faces/7-image.jpg'}, ...
+</span><span class='line'>
+</span><span class='line'>Invoking: `REST` with `DELETE /api/users/7`
+</span><span class='line'>Status code: 204
+</span><span class='line'>
+</span><span class='line'>User Lawson has been successfully removed from the system.</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>如何选择？</h2>
+
+<p>如果我有一个简单的函数和简短的描述，优先选择Langchain，因为Langchain隐藏了许多实现细节，让我们专注于准备提示。</p>
+
+<p>当函数的描述不再适合于一条信息时，那只能使用OpenAI函数，而不使用Langchain。</p>
+
+<p>此外，调试提示词时，建议切换到OpenAI函数。它不会神奇地解决问题，必须编写整个函数调用代码。因此使得调试将更加容易。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2023/07/30/build-gpt-chatbot_%E5%89%AF%E6%9C%AC/" title="下一篇: 【译】如何基于开源技术构建类似ChatGPT的聊天机器人">【译】如何基于开源技术构建类似ChatGPT的聊天机器人 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2023/11/30/openai-func/">Langchain代理和OpenAI函数调用的区别</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2023/07/30/build-gpt-chatbot_%E5%89%AF%E6%9C%AC/">【译】如何基于开源技术构建类似ChatGPT的聊天机器人</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记-Web3是什么？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/05/04/article-notes/">阅文笔记202205</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/03/31/ali-manage/">阿里巴巴管理三板斧</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/01/13/my2020/">我的2020</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2020/08/13/dev-efficacy-talk/">研发效能杂谈</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2023 - Mr.RowKey - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "Langchain代理和OpenAI函数调用的区别",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
