@@ -3,7 +3,7 @@ layout: post
 title: "Langchain代理和OpenAI函数调用的区别"
 date: 2023-11-30 19:29:34 +0800
 comments: true
-categories: AGI
+categories: GenAI
 ---
 
 最近在实现LLM调用外部工具的时候，突然意识到貌似OpenAI的Function Calling和LangChain的Agent都能达到相同的结果，只是实现方式不同。因此这里来对比一下。

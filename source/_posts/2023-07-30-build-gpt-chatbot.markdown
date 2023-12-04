@@ -3,7 +3,7 @@ layout: post
 title: "【译】如何基于开源技术构建类似ChatGPT的聊天机器人"
 date: 2023-07-30 19:29:34 +0800
 comments: true
-categories: AGI
+categories: GenAI
 ---
 
 原文：<https://hacks.mozilla.org/2023/07/so-you-want-to-build-your-own-open-source-chatbot/?continueFlag=6d9bf218cf6b0fd3ad8c94275089c5a0> by Stephen Hood
