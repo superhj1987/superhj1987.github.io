@@ -1,0 +1,154 @@
+---
+layout: post
+title: "AI技术概览（PPT版）"
+date: 2024-2-29 19:29:34 +0800
+comments: true
+categories: AGI
+---
+
+随着ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要来了，2023年一整年由于业务的需要自己的主要精力主要放在了AI这部分的跟进与研究。年底给公司的管理层做了一次AI技术的科普分享。这里先放出PPT，详细内容待后续的文章补充。
+
+<!--more-->
+
+## **AI已来**
+
+**AI元年：2023**
+
+![](/post_images/ai/aistart.png)
+
+- **之前**
+    - 垂直类AI应用：美颜、换脸、推荐、自动驾驶等，每个模型解决特定问题，“人工智障”的对话机器人
+    - 使用门槛高，主要是研发环节的直接接触
+    - 以“今日头条”为代表的个性化推荐系统相关AI人才的哄抢
+- **现在**
+    - 大模型，生成式AI：AI对话、AI绘画、AI视频、AI音乐，一个模型解决所有问题
+    - 使用门槛低，自然语言编程（GPTs store）
+    - 以“ChatGPT”（2022年11月30号）为代表的大模型人才的哄抢
+
+## **AI是什么**
+
+- **人工智能**：使机器能够以类似于人类智能的方式执行复杂任务的科学和工程，是一门多个领域的交叉学科。
+    - 机器：运算速度、记忆容量、钢铁身躯
+- 人类：~~判断力、创造力、对人类情感的理解~~与同理、逻辑推理能力
+- **三大学派**：符号主义、连接主义、行为主义
+- 符号主义：机器拟人心
+- 连接主义：机器拟人脑
+- 行为主义：机器拟人身
+- **AGI**：人工通用智能，也可以叫做通用人工智能或者强人工智能。指的是人工智能系统应该能够像人类一样具备广泛的智能能力，而不仅仅是在某些特定的任务或领域中表现出色。
+- **Agent**：AI智能体，能够感知其环境并以自主的方式在该环境中行动以达成其目标的系统。
+
+## AI发展大事记
+
+- **人工智能的萌芽**：人工智能之父图灵，1950年提出图灵测试。
+- **人工智能的起点**：1956年达特茅斯会议，开启人工智能第一次高潮
+- **第一次低谷**：20世纪70年代初，各种人工智能承诺无法兑现
+- **人工智能第二次高潮**：20世纪80年代，知识工程和专家系统为代表的符号主义
+- **第二次低谷**：20世纪80年代末到90年代初时期，专家系统的局限性
+- **平稳期**：20世纪90年-2000年初。1997年深蓝”击败国际象棋冠军
+- **人工智能第三次高潮**：2006年，深度学习算法的提出；2012年AlexNet在ImageNet挑战赛的横空出世；2016、2017年AlphaGo打败围棋冠军
+- **AI元年**：2023年，生成式AI-ChatGPT、StableDifussion、MidJourney
+
+## **机器学习、深度学习**
+
+![](/post_images/ai/ml.png)
+
+- 实现人工智能的方法。
+- 机器学习：一种可以让机器根据历史经验自动改进自身的学习算法。
+- 深度学习：机器学习的一种，“无监督特征学习”（Unsupervised Feature Learning），以多层神经网络为代表。
+    - 人类认知过程：**分层迭代，逐级抽象**
+
+## **LLM**
+
+![](/post_images/ai/llm.png)
+
+- GenAI：相对于判别式AI（Discriminative AI），能够生成新的内容->AIGC
+- LLM是生成式AI的一种
+- 最可能通向AGI的方法：Transformer
+- 大语言模型：文本->x，多模态->多模态
+    - NLP
+    - 涌现：鹦鹉vs乌鸦；人类智能的本质？
+
+## **大模型产业链**
+
+![](/post_images/ai/llmlayer.png)
+
+![](/post_images/ai/llmlayer2.png)
+
+- 大模型=计算机 or 操作系统, GPTs store
+- 我们的位置 -> **应用层!**
+
+## GenAI应用概览
+
+![](/post_images/ai/genai.png)
+
+![](/post_images/ai/genairank.png)
+
+GenAI数据：https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd
+
+## ChatBot
+
+- [ChatGPT](https://chat.openai.com/)
+- [微软Copilot](https://copilot.microsoft.com/)：微软基于ChatGPT的ChatBot应用，集成了DALL.E-3、suno.ai等插件
+- [KimiChat](https://kimi.moonshot.cn/chat): 大尺寸上下文（文字、pdf文档等)、实时联网
+- 其他大模型的ChatBot：Claude+、文心一言、豆包、讯飞星火、通义千问...
+- [POE](https://poe.com/)：ChatBot聚合
+
+## **AI绘画**
+
+- [Stable Diffusion](https://stability.ai/stable-image)：http://sd.wekoi.cc，生态最丰富的开源图像生成项目
+- [DALL-E 3](https://openai.com/dall-e-3)：http://wekit.wekoi.cc，语义理解能力最强的图像生成产品
+- [Midjourney:](https://www.midjourney.com/home) 质量最好的图像生成产品
+- 一些大模型聊天机器人自带的绘图：插件、Agent方式
+- [Magnific.ai](https://magnific.ai/): 图像精修， https://mp.weixin.qq.com/s/x3F59AcMxG8bmajXO3OXmg
+- [Meta SAM](https://segment-anything.com/demo): 图像分割
+
+## AI语音
+
+- [Whisper](https://openai.com/research/whisper)：基于大模型的ASR，自动语言识别
+- [Elevenlabs](https://elevenlabs.io/)：TTS，目前最先进的商业化TTS
+- [OpenAI TTS](https://platform.openai.com/docs/guides/text-to-speech): TTS，OpenAI开源
+- [Suno.ai](https://suno.ai/): 文生音乐，https://app.suno.ai/song/9a782a3b-fde7-44ae-896f-c4d57698efa9/ (中文版的 I'll Be There For You，根据中国文化做稍微的改动)
+- [so-vits-svc](https://github.com/svc-develop-team/so-vits-svc)：歌声转换，[孙燕姿唱周杰伦的歌](https://www.youtube.com/watch?v=sN4ZFwySyow)
+
+## AI视频
+
+- [Runway](https://app.runwayml.com/): 目前技术最先进的视频生成产品
+- [Pika](https://pika.art/my-library)：文本->视频，720p, 4秒
+- [Morph Studio](https://www.morphstudio.com/)：文本->视频，1080P，7秒 [文生视频“黑马”Morph Studio来袭：好用、1080P 、7秒时长还免费](https://mp.weixin.qq.com/s/krSEoCHPBFuXsbkLm7E5rA)
+- [Stable Video Diffusion](https://stability.ai/stable-video): StableAI开源的视频生成技术，https://replicate.com/stability-ai/stable-video-diffusion
+- [HeyGen](https://app.heygen.com/login)：数字人播报视频生成，[霉霉说中文](https://www.youtube.com/watch?v=PnpaLTB2Eck)
+- [WonderStudio](https://app.wonderdynamics.com/:): 视频CG角色替换，https://www.youtube.com/watch?v=YuUsunFIJCU
+- 图片 -> 真人跳舞视频：通义千问“全民舞王”
+    - [MagicDance](https://boese0601.github.io/magicdance/)
+    - [Animate Anyone](https://humanaigc.github.io/animate-anyone/)
+
+## 其他
+
+- 文本->3D
+    - [Mesah.ai](https://mesh.ai/)
+    - [Tripo3D.ai](https://www.tripo3d.ai/)
+- 图片->网页: https://screenshottocode.com/
+- 图片/文本->网页、UI：https://v0.dev/
+
+## **我们可以做什么**
+
+- 基于大模型的产品研发
+    - Mate
+    - 测算
+- 个人
+    - 文章总结摘要：https://kimi.moonshot.cn/chat/cm6p88kudu6f77a0fqig
+    - 写儿童故事：https://chat.openai.com/share/6c86a6a3-5cda-45e8-af10-4bb4cd2476fb
+    - 专业问题解答：https://chat.openai.com/share/0d9de7f4-eba3-4eba-be2b-0dd89b146d53
+- 工作
+- 辅助编程: Genie、Github Copilot
+- 分析需求文档，输出摘要和模块
+- 基于LLM的研发全流程
+    
+    ![](/post_images/llmsdlc.png)
+    
+
+## **展望**
+
+- 新摩尔定律：宇宙中的智能数量每18个月翻一番
+- 所有的应用都值得用AI重构一遍
+- AI不会取代人类，但会AI的会取代不会AI的人类
