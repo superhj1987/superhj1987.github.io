@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "AI技术概览（PPT版）"
-date: 2024-02-29 19:29:34 +0800
+date: 2024-02-01 19:29:34 +0800
 comments: true
 categories: AGI
 ---
