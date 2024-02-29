@@ -1,12 +1,12 @@
 ---
 layout: post
 title: "AI技术概览（PPT版）"
-date: 2024-2-29 19:29:34 +0800
+date: 2024-02-29 19:29:34 +0800
 comments: true
 categories: AGI
 ---
 
-随着ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要来了，2023年一整年由于业务的需要自己的主要精力主要放在了AI这部分的跟进与研究。年底给公司的管理层做了一次AI技术的科普分享。这里先放出PPT，详细内容待后续的文章补充。
+随着2022年底ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要到来。由于业务的需要，2023年自己的主要精力主要放在了AI这部分的跟进与研究。年底给公司做了一次AI技术的科普分享，这里先放出PPT，详细内容待后续的文章补充。
 
 <!--more-->
 
@@ -14,7 +14,7 @@ categories: AGI
 
 **AI元年：2023**
 
-![](/post_images/ai/aistart.png)
+<img src="/post_images/ai/aistart.png" width="450"/>
 
 - **之前**
     - 垂直类AI应用：美颜、换脸、推荐、自动驾驶等，每个模型解决特定问题，“人工智障”的对话机器人
@@ -50,7 +50,7 @@ categories: AGI
 
 ## **机器学习、深度学习**
 
-![](/post_images/ai/ml.png)
+<img src="/post_images/ai/ml.png" width="450"/>
 
 - 实现人工智能的方法。
 - 机器学习：一种可以让机器根据历史经验自动改进自身的学习算法。
@@ -59,7 +59,7 @@ categories: AGI
 
 ## **LLM**
 
-![](/post_images/ai/llm.png)
+<img src="/post_images/ai/llm.png" width="450"/>
 
 - GenAI：相对于判别式AI（Discriminative AI），能够生成新的内容->AIGC
 - LLM是生成式AI的一种
@@ -70,18 +70,18 @@ categories: AGI
 
 ## **大模型产业链**
 
-![](/post_images/ai/llmlayer.png)
+<img src="/post_images/ai/llmlayer.png" width="450"/>
 
-![](/post_images/ai/llmlayer2.png)
+<img src="/post_images/ai/llmlayer2.png" width="450"/>
 
 - 大模型=计算机 or 操作系统, GPTs store
 - 我们的位置 -> **应用层!**
 
 ## GenAI应用概览
 
-![](/post_images/ai/genai.png)
+<img src="/post_images/ai/genai.png" width="450"/>
 
-![](/post_images/ai/genairank.png)
+<img src="/post_images/ai/genairank.png" width="450"/>
 
 GenAI数据：https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd
 
@@ -95,8 +95,8 @@ GenAI数据：https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd
 
 ## **AI绘画**
 
-- [Stable Diffusion](https://stability.ai/stable-image)：http://sd.wekoi.cc，生态最丰富的开源图像生成项目
-- [DALL-E 3](https://openai.com/dall-e-3)：http://wekit.wekoi.cc，语义理解能力最强的图像生成产品
+- [Stable Diffusion](https://stability.ai/stable-image)：生态最丰富的开源图像生成项目
+- [DALL-E 3](https://openai.com/dall-e-3)：语义理解能力最强的图像生成产品
 - [Midjourney:](https://www.midjourney.com/home) 质量最好的图像生成产品
 - 一些大模型聊天机器人自带的绘图：插件、Agent方式
 - [Magnific.ai](https://magnific.ai/): 图像精修， https://mp.weixin.qq.com/s/x3F59AcMxG8bmajXO3OXmg
@@ -142,7 +142,7 @@ GenAI数据：https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd
 - 分析需求文档，输出摘要和模块
 - 基于LLM的研发全流程
     
-    ![](/post_images/llmsdlc.png)
+    <img src="/post_images/ai/llmsdlc.png" width="450"/>
     
 
 ## **展望**
