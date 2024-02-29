@@ -1,0 +1,705 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>AI技术概览（PPT版） - 后端技术杂谈</title>
+  <meta name="author" content="Mr.RowKey">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="AI技术概览（PPT版） Posted by Mr.RowKey in agi 随着ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要来了，2023年一整年由于业务的需要自己的主要精力主要放在了AI这部分的跟进与研究。 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://www.rowkey.me/blog/2024/02/29/ai-best-practice/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  }
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <!-- cnzz统计 -->
+    <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1257166229'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s4.cnzz.com/z_stat.php%3Fid%3D1257166229%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="manage-nav" href="/blog/categories/genai">GenAI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">AI技术概览（PPT版）</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2024-02-29T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Mr.RowKey</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/agi/'>agi</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>随着ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要来了，2023年一整年由于业务的需要自己的主要精力主要放在了AI这部分的跟进与研究。年底给公司的管理层做了一次AI技术的科普分享。这里先放出PPT，详细内容待后续的文章补充。</p>
+
+<!--more-->
+
+
+<h2><strong>AI已来</strong></h2>
+
+<p><strong>AI元年：2023</strong></p>
+
+<p><img src="/post_images/ai/aistart.png" alt="" /></p>
+
+<ul>
+<li><strong>之前</strong>
+
+<ul>
+<li>垂直类AI应用：美颜、换脸、推荐、自动驾驶等，每个模型解决特定问题，“人工智障”的对话机器人</li>
+<li>使用门槛高，主要是研发环节的直接接触</li>
+<li>以“今日头条”为代表的个性化推荐系统相关AI人才的哄抢</li>
+</ul>
+</li>
+<li><strong>现在</strong>
+
+<ul>
+<li>大模型，生成式AI：AI对话、AI绘画、AI视频、AI音乐，一个模型解决所有问题</li>
+<li>使用门槛低，自然语言编程（GPTs store）</li>
+<li>以“ChatGPT”（2022年11月30号）为代表的大模型人才的哄抢</li>
+</ul>
+</li>
+</ul>
+
+
+<h2><strong>AI是什么</strong></h2>
+
+<ul>
+<li><strong>人工智能</strong>：使机器能够以类似于人类智能的方式执行复杂任务的科学和工程，是一门多个领域的交叉学科。
+
+<ul>
+<li>机器：运算速度、记忆容量、钢铁身躯</li>
+</ul>
+</li>
+<li>人类：<del>判断力、创造力、对人类情感的理解</del>与同理、逻辑推理能力</li>
+<li><strong>三大学派</strong>：符号主义、连接主义、行为主义</li>
+<li>符号主义：机器拟人心</li>
+<li>连接主义：机器拟人脑</li>
+<li>行为主义：机器拟人身</li>
+<li><strong>AGI</strong>：人工通用智能，也可以叫做通用人工智能或者强人工智能。指的是人工智能系统应该能够像人类一样具备广泛的智能能力，而不仅仅是在某些特定的任务或领域中表现出色。</li>
+<li><strong>Agent</strong>：AI智能体，能够感知其环境并以自主的方式在该环境中行动以达成其目标的系统。</li>
+</ul>
+
+
+<h2>AI发展大事记</h2>
+
+<ul>
+<li><strong>人工智能的萌芽</strong>：人工智能之父图灵，1950年提出图灵测试。</li>
+<li><strong>人工智能的起点</strong>：1956年达特茅斯会议，开启人工智能第一次高潮</li>
+<li><strong>第一次低谷</strong>：20世纪70年代初，各种人工智能承诺无法兑现</li>
+<li><strong>人工智能第二次高潮</strong>：20世纪80年代，知识工程和专家系统为代表的符号主义</li>
+<li><strong>第二次低谷</strong>：20世纪80年代末到90年代初时期，专家系统的局限性</li>
+<li><strong>平稳期</strong>：20世纪90年-2000年初。1997年深蓝”击败国际象棋冠军</li>
+<li><strong>人工智能第三次高潮</strong>：2006年，深度学习算法的提出；2012年AlexNet在ImageNet挑战赛的横空出世；2016、2017年AlphaGo打败围棋冠军</li>
+<li><strong>AI元年</strong>：2023年，生成式AI-ChatGPT、StableDifussion、MidJourney</li>
+</ul>
+
+
+<h2><strong>机器学习、深度学习</strong></h2>
+
+<p><img src="/post_images/ai/ml.png" alt="" /></p>
+
+<ul>
+<li>实现人工智能的方法。</li>
+<li>机器学习：一种可以让机器根据历史经验自动改进自身的学习算法。</li>
+<li>深度学习：机器学习的一种，“无监督特征学习”（Unsupervised Feature Learning），以多层神经网络为代表。
+
+<ul>
+<li>人类认知过程：<strong>分层迭代，逐级抽象</strong></li>
+</ul>
+</li>
+</ul>
+
+
+<h2><strong>LLM</strong></h2>
+
+<p><img src="/post_images/ai/llm.png" alt="" /></p>
+
+<ul>
+<li>GenAI：相对于判别式AI（Discriminative AI），能够生成新的内容->AIGC</li>
+<li>LLM是生成式AI的一种</li>
+<li>最可能通向AGI的方法：Transformer</li>
+<li>大语言模型：文本->x，多模态->多模态
+
+<ul>
+<li>NLP</li>
+<li>涌现：鹦鹉vs乌鸦；人类智能的本质？</li>
+</ul>
+</li>
+</ul>
+
+
+<h2><strong>大模型产业链</strong></h2>
+
+<p><img src="/post_images/ai/llmlayer.png" alt="" /></p>
+
+<p><img src="/post_images/ai/llmlayer2.png" alt="" /></p>
+
+<ul>
+<li>大模型=计算机 or 操作系统, GPTs store</li>
+<li>我们的位置 -> <strong>应用层!</strong></li>
+</ul>
+
+
+<h2>GenAI应用概览</h2>
+
+<p><img src="/post_images/ai/genai.png" alt="" /></p>
+
+<p><img src="/post_images/ai/genairank.png" alt="" /></p>
+
+<p>GenAI数据：<a href="https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd">https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd</a></p>
+
+<h2>ChatBot</h2>
+
+<ul>
+<li><a href="https://chat.openai.com/">ChatGPT</a></li>
+<li><a href="https://copilot.microsoft.com/">微软Copilot</a>：微软基于ChatGPT的ChatBot应用，集成了DALL.E-3、suno.ai等插件</li>
+<li><a href="https://kimi.moonshot.cn/chat">KimiChat</a>: 大尺寸上下文（文字、pdf文档等)、实时联网</li>
+<li>其他大模型的ChatBot：Claude+、文心一言、豆包、讯飞星火、通义千问&hellip;</li>
+<li><a href="https://poe.com/">POE</a>：ChatBot聚合</li>
+</ul>
+
+
+<h2><strong>AI绘画</strong></h2>
+
+<ul>
+<li><a href="https://stability.ai/stable-image">Stable Diffusion</a>：<a href="http://sd.wekoi.cc%EF%BC%8C%E7%94%9F%E6%80%81%E6%9C%80%E4%B8%B0%E5%AF%8C%E7%9A%84%E5%BC%80%E6%BA%90%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E9%A1%B9%E7%9B%AE">http://sd.wekoi.cc%EF%BC%8C%E7%94%9F%E6%80%81%E6%9C%80%E4%B8%B0%E5%AF%8C%E7%9A%84%E5%BC%80%E6%BA%90%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E9%A1%B9%E7%9B%AE</a></li>
+<li><a href="https://openai.com/dall-e-3">DALL-E 3</a>：<a href="http://wekit.wekoi.cc%EF%BC%8C%E8%AF%AD%E4%B9%89%E7%90%86%E8%A7%A3%E8%83%BD%E5%8A%9B%E6%9C%80%E5%BC%BA%E7%9A%84%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E4%BA%A7%E5%93%81">http://wekit.wekoi.cc%EF%BC%8C%E8%AF%AD%E4%B9%89%E7%90%86%E8%A7%A3%E8%83%BD%E5%8A%9B%E6%9C%80%E5%BC%BA%E7%9A%84%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90%E4%BA%A7%E5%93%81</a></li>
+<li><a href="https://www.midjourney.com/home">Midjourney:</a> 质量最好的图像生成产品</li>
+<li>一些大模型聊天机器人自带的绘图：插件、Agent方式</li>
+<li><a href="https://magnific.ai/">Magnific.ai</a>: 图像精修， <a href="https://mp.weixin.qq.com/s/x3F59AcMxG8bmajXO3OXmg">https://mp.weixin.qq.com/s/x3F59AcMxG8bmajXO3OXmg</a></li>
+<li><a href="https://segment-anything.com/demo">Meta SAM</a>: 图像分割</li>
+</ul>
+
+
+<h2>AI语音</h2>
+
+<ul>
+<li><a href="https://openai.com/research/whisper">Whisper</a>：基于大模型的ASR，自动语言识别</li>
+<li><a href="https://elevenlabs.io/">Elevenlabs</a>：TTS，目前最先进的商业化TTS</li>
+<li><a href="https://platform.openai.com/docs/guides/text-to-speech">OpenAI TTS</a>: TTS，OpenAI开源</li>
+<li><a href="https://suno.ai/">Suno.ai</a>: 文生音乐，<a href="https://app.suno.ai/song/9a782a3b-fde7-44ae-896f-c4d57698efa9/%C2%A0">https://app.suno.ai/song/9a782a3b-fde7-44ae-896f-c4d57698efa9/%C2%A0</a>(中文版的 I'll Be There For You，根据中国文化做稍微的改动)</li>
+<li><a href="https://github.com/svc-develop-team/so-vits-svc">so-vits-svc</a>：歌声转换，<a href="https://www.youtube.com/watch?v=sN4ZFwySyow">孙燕姿唱周杰伦的歌</a></li>
+</ul>
+
+
+<h2>AI视频</h2>
+
+<ul>
+<li><a href="https://app.runwayml.com/">Runway</a>: 目前技术最先进的视频生成产品</li>
+<li><a href="https://pika.art/my-library">Pika</a>：文本->视频，720p, 4秒</li>
+<li><a href="https://www.morphstudio.com/">Morph Studio</a>：文本->视频，1080P，7秒 <a href="https://mp.weixin.qq.com/s/krSEoCHPBFuXsbkLm7E5rA">文生视频“黑马”Morph Studio来袭：好用、1080P 、7秒时长还免费</a></li>
+<li><a href="https://stability.ai/stable-video">Stable Video Diffusion</a>: StableAI开源的视频生成技术，<a href="https://replicate.com/stability-ai/stable-video-diffusion">https://replicate.com/stability-ai/stable-video-diffusion</a></li>
+<li><a href="https://app.heygen.com/login">HeyGen</a>：数字人播报视频生成，<a href="https://www.youtube.com/watch?v=PnpaLTB2Eck">霉霉说中文</a></li>
+<li><a href="https://app.wonderdynamics.com/:">WonderStudio</a>: 视频CG角色替换，<a href="https://www.youtube.com/watch?v=YuUsunFIJCU">https://www.youtube.com/watch?v=YuUsunFIJCU</a></li>
+<li>图片 -> 真人跳舞视频：通义千问“全民舞王”
+
+<ul>
+<li><a href="https://boese0601.github.io/magicdance/">MagicDance</a></li>
+<li><a href="https://humanaigc.github.io/animate-anyone/">Animate Anyone</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>其他</h2>
+
+<ul>
+<li>文本->3D
+
+<ul>
+<li><a href="https://mesh.ai/">Mesah.ai</a></li>
+<li><a href="https://www.tripo3d.ai/">Tripo3D.ai</a></li>
+</ul>
+</li>
+<li>图片->网页: <a href="https://screenshottocode.com/">https://screenshottocode.com/</a></li>
+<li>图片/文本->网页、UI：<a href="https://v0.dev/">https://v0.dev/</a></li>
+</ul>
+
+
+<h2><strong>我们可以做什么</strong></h2>
+
+<ul>
+<li>基于大模型的产品研发
+
+<ul>
+<li>Mate</li>
+<li>测算</li>
+</ul>
+</li>
+<li>个人
+
+<ul>
+<li>文章总结摘要：<a href="https://kimi.moonshot.cn/chat/cm6p88kudu6f77a0fqig">https://kimi.moonshot.cn/chat/cm6p88kudu6f77a0fqig</a></li>
+<li>写儿童故事：<a href="https://chat.openai.com/share/6c86a6a3-5cda-45e8-af10-4bb4cd2476fb">https://chat.openai.com/share/6c86a6a3-5cda-45e8-af10-4bb4cd2476fb</a></li>
+<li>专业问题解答：<a href="https://chat.openai.com/share/0d9de7f4-eba3-4eba-be2b-0dd89b146d53">https://chat.openai.com/share/0d9de7f4-eba3-4eba-be2b-0dd89b146d53</a></li>
+</ul>
+</li>
+<li>工作</li>
+<li>辅助编程: Genie、Github Copilot</li>
+<li>分析需求文档，输出摘要和模块</li>
+<li><p>基于LLM的研发全流程</p>
+
+<p>  <img src="/post_images/llmsdlc.png" alt="" /></p></li>
+</ul>
+
+
+<h2><strong>展望</strong></h2>
+
+<ul>
+<li>新摩尔定律：宇宙中的智能数量每18个月翻一番</li>
+<li>所有的应用都值得用AI重构一遍</li>
+<li>AI不会取代人类，但会AI的会取代不会AI的人类</li>
+</ul>
+
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2023/11/30/openai-func/" title="下一篇: Langchain代理和OpenAI函数调用的区别">Langchain代理和OpenAI函数调用的区别 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div>
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2024/02/29/ai-best-practice/">AI技术概览（PPT版）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2023/11/30/openai-func/">Langchain代理和OpenAI函数调用的区别</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2023/07/30/build-gpt-chatbot/">【译】如何基于开源技术构建类似ChatGPT的聊天机器人</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记-Web3是什么？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/05/04/article-notes/">阅文笔记202205</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/03/31/ali-manage/">阿里巴巴管理三板斧</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/01/13/my2020/">我的2020</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="http://toutiao.io/" target="_blank">开发者头条</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2024 - Mr.RowKey - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "AI技术概览（PPT版）",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
