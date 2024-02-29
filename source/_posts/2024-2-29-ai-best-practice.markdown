@@ -133,8 +133,6 @@ GenAI数据：https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd
 ## **我们可以做什么**
 
 - 基于大模型的产品研发
-    - Mate
-    - 测算
 - 个人
     - 文章总结摘要：https://kimi.moonshot.cn/chat/cm6p88kudu6f77a0fqig
     - 写儿童故事：https://chat.openai.com/share/6c86a6a3-5cda-45e8-af10-4bb4cd2476fb
