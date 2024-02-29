@@ -3,7 +3,7 @@ layout: post
 title: "AI技术概览（PPT版）"
 date: 2024-02-01 19:29:34 +0800
 comments: true
-categories: AGI
+categories: GenAI
 ---
 
 随着2022年底ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要到来。由于业务的需要，2023年自己的主要精力主要放在了AI这部分的跟进与研究。年底给公司做了一次AI技术的科普分享，这里先放出PPT，详细内容待后续的文章补充。
