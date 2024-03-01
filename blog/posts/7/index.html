@@ -7,14 +7,14 @@
 <head>
   <meta charset="utf-8">
   <title>后端技术杂谈</title>
-  <meta name="author" content="Mr.RowKey">
+  <meta name="author" content="MrRowKey">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 JVM诊断调优CheatSheet 包含诊断调优java应用的各种命令以及jvm配置示例。 常用Shell命令 查看网络状况 netstat -n | awk &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 《Java工程师修炼之道》内容概览 开源部分：https://github.com/superhj1987/pragmatic-java-engineer &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/posts/7/">
+  <link rel="canonical" href="https://www.rowkey.cn/blog/posts/7/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -120,6 +120,54 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2017/08/10/pragmatic-java-engineer/">《Java工程师修炼之道》内容概览</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2017-08-10T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>开源部分：<a href="https://github.com/superhj1987/pragmatic-java-engineer">https://github.com/superhj1987/pragmatic-java-engineer</a></p>
+
+<p>最近几个月由于工作和正在筹备《Java工程师修炼之道》一书的原因一直没有写新的文章。不过，忙里偷闲，自己陆续读完了《格鲁夫给经理人的第一课》、《架构真经》、《聊聊架构》这几本书，收获了不少干货，之前自己挖坑的《一些架构设计原则》一文后面会尽快填上。本文则先介绍一下《Java工程师修炼之道》一书^_^。</p>
+
+<p>《Java工程师修炼之道》一书主要内容是Java后端工程师必备的基本技能大纲。内容主要来自于公司内的后端工程师学习计划、自己以前的一些博客文章和自己从业以来积累的知识库。但由于后端工程师的每一个技能点都具有一定的深度，都不是一两篇文章就能讲述清楚的，因此本书不可能对每一个技能点都讲的特别透彻。</p>
+
+<p>本书可以看做是一本Java工程师的入职指南，也可以看做一本串联Java后端技能点的参考手册。对其中每一个技能点的学习，推荐通过他们的官方文档来深入学习，此外，本书也给出了自己觉得有价值的参考学习书籍。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2017/08/10/pragmatic-java-engineer/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -611,61 +659,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/08/30/recommend-sys/">推荐系统杂谈</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-08-30T20:39:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>推荐系统是近些年非常火的技术，不管是电商类软件还是新闻类app，都号称有精准的推荐系统能给你推送你最感兴趣的内容。现象级的资讯类app“今日头条”就得益于此成为了势头非常猛的一款产品。本文就针对推荐系统讲述一些相关概念和实践经验。</p>
-
-<p>首先需要明确的就是推荐系统的目标，一般来说不外乎以下几个：</p>
-
-<ul>
-<li>用户满意性：首当其冲的，推荐系统主要就是为了满足用户的需求，因此准确率是评判一个推荐系统好坏的最关键指标。</li>
-<li>多样性：虽然推荐系统最主要还是满足用户的兴趣，但是也要兼顾内容的多样性，对于权重不同的兴趣都要做到兼顾。</li>
-<li>新颖性：用户看到的内容是那些他们之前没有听说过的物品。简单的做法就是在推荐列表去掉用户之前有过行为的那些内容。</li>
-<li>惊喜度：和新颖性类似，但新颖性只是用户没看到过的但是确实是和他行为是相关的，而惊喜度是用户既没有看过和他之前的行为也不相关，但用户看到后的确是喜欢的。</li>
-<li>实时性：推荐系统要根据用户的上下文来实时更新推荐内容，用户的兴趣也是随着时间而改变的，需要实时更新。</li>
-<li>推荐透明度：对于用户看到的最终结果，要让用户知道推荐此内容的原因。比如，“买过这本书的人同时也买过”、"你购买过的xx和此商品类似"。</li>
-<li>覆盖率：挖掘长尾内容也是推荐系统很重要的目标。因此，推荐的内容覆盖到的内容越多越好。</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/08/30/recommend-sys/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -739,6 +732,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2024/02/29/pj/">《Java工程师修炼之道》Gitbook上线</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2024/02/01/ai/">AI技术概览（PPT版）</a>
       	</li>
     	
@@ -772,10 +769,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2021/03/31/ali-manage/">阿里巴巴管理三板斧</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2021/01/13/my2020/">我的2020</a>
       	</li>
     	
 	</ul>
@@ -830,7 +823,7 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2024 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2024 - MrRowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 

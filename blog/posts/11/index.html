@@ -7,14 +7,14 @@
 <head>
   <meta charset="utf-8">
   <title>后端技术杂谈</title>
-  <meta name="author" content="Mr.RowKey">
+  <meta name="author" content="MrRowKey">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 Nginx源码分析之基本数据结构 引言 nginx实现中有很多结构体，一般命名为ngx_xxx_t。这些结构体分散在许多头文件中。src/core/ &hellip;">
+  <meta name="description" content="日常的工作学习中，经常会看到好的知识点，对自己有提示的一句话，或者是自己突然想通了一件事情。这里以“技术琐话”作为主题来聚合：技术琐话 技术的成长 最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://www.rowkey.me/blog/posts/11/">
+  <link rel="canonical" href="https://www.rowkey.cn/blog/posts/11/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -120,6 +120,50 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2014/08/14/grow-up-in-tech/">技术的成长</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-14T16:38:01+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验，而在技术深度上却一直停滞不前。这其中确也有因为之前做产品没有太多空闲时间的缘故，但更多的还是自己一直不得章法。对nginx源码的学习，一拖再拖，想成为这方面的专家却也不知道努力挤出时间或者说没有好的方法让自己合理安排出时间。</p>
+
+<p>毕业的时候自己选择这里，就是想安心的做技术，以求在技术上得到长足的进步。现在却发现在做着一些没那么有技术含量的东西，像某人所说：上学的时候给我一定的时间也能够做出来。虽然我觉得上学的时候，大部分进公司做的东西也能做出来（除非是那种需要基于一定的环境像大数据、高并发才能做的）。但其实我明白，那句话的意思主要强调的是应该潜心去研究一门技术，比如hadoop、storm等，成为一个领域的专家。这也的确是自己的软肋，也的确该好好加强。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/08/14/grow-up-in-tech/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -731,87 +775,6 @@ x = 160 / 72 = 2.2222
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2011/05/30/android-exit-multi-activity/">多activity中退出整个程序</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-05-30T21:39:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>问题</h2>
-
-<p>多activity中退出整个程序，例如从A->B->C->D，这时我需要从D直接退出程序。</p>
-
-<h2>网上资料</h2>
-
-<p>finish()和system(0)都只能退出单个activity。杀进程等的等方式都不行~~~</p>
-
-<h2>解决问题</h2>
-
-<p>我们知道Android的窗口类提供了历史栈，我们可以通过stack的原理来巧妙的实现，这里我们在D窗口打开A窗口时在Intent中直接加入标志Intent.FLAG_ACTIVITY_CLEAR_TOP，再次开启A时将会清除该进程空间的所有Activity。</p>
-
-<p>在D中使用下面的代码:</p>
-
-<pre>
-Intent intent = new Intent(); 
-intent.setClass(D.this, A.class);
-intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);  //注意本行的FLAG设置
-startActivity(intent);
-finish();//关掉自己
-</pre>
-
-
-<p>在A中加入代码：</p>
-
-<pre>
-@Override
-protected void onNewIntent(Intent intent) {
-// TODO Auto-generated method stub
-super.onNewIntent(intent);
-//退出
-        if ((Intent.FLAG_ACTIVITY_CLEAR_TOP & intent.getFlags()) != 0) {
-finish();
-}
-}
-</pre>
-
-
-<p>A的Manifest.xml配置成android:launchMode=&ldquo;singleTop&rdquo;</p>
-
-<h2>原理总结</h2>
-
-<p>一般A是程序的入口点，从D起一个A的activity，加入标识Intent.FLAG_ACTIVITY_CLEAR_TOP这个过程中会把栈中B，C，都清理掉。因为A是android:launchMode=&ldquo;singleTop&rdquo;
-不会调用oncreate(),而是响应onNewIntent（）这时候判断Intent.FLAG_ACTIVITY_CLEAR_TOP，然后把A finish（）掉。
-栈中A,B,C,D全部被清理。所以整个程序退出了。</p>
-</div>
-  
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -885,6 +848,10 @@ finish();
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2024/02/29/pj/">《Java工程师修炼之道》Gitbook上线</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2024/02/01/ai/">AI技术概览（PPT版）</a>
       	</li>
     	
@@ -918,10 +885,6 @@ finish();
     	
      	<li>
       	  <a href="/blog/2021/03/31/ali-manage/">阿里巴巴管理三板斧</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2021/01/13/my2020/">我的2020</a>
       	</li>
     	
 	</ul>
@@ -976,7 +939,7 @@ finish();
   </div>
   <footer id="footer">
   	<div class="container">
-	Copyright &copy; 2024 - Mr.RowKey - 京ICP备20027460号 -
+	Copyright &copy; 2024 - MrRowKey - 京ICP备20027460号 -
   <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
   - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
 
