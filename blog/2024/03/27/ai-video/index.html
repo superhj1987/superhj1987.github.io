@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>实践了一下AI视频... - 后端技术杂谈</title>
+  <title>如何使用AI生成长视频？ - 后端技术杂谈</title>
   <meta name="author" content="MrHJ">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="实践了一下AI视频... Posted by MrHJ in genai 今年最火的AI技术应该是OpenAI在春节期间发布的Sora了。相比起其他视频生成产品就3、4秒的时长，Sora是碾压式的存在。但Sora没有对外开放，所以要生成长视频，暂时也没有其他完整的好的方案。综合各种资料来看， &hellip;">
+  <meta name="description" content="如何使用AI生成长视频？ Posted by MrHJ in genai 今年最火的AI技术应该是OpenAI在春节期间发布的Sora了。相比起其他视频生成产品就3、4秒的时长，Sora是碾压式的存在。但Sora没有对外开放，所以要生成长视频，暂时也没有其他完整的好的方案。综合各种资料来看， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -119,7 +119,7 @@
   
   <header>
     
-      <h1 class="post-title">实践了一下AI视频...</h1>
+      <h1 class="post-title">如何使用AI生成长视频？</h1>
     
     
       <p class="post-meta">
@@ -168,7 +168,7 @@
 <li>单帧图片
 
 <ul>
-<li>使用Midjourney，DALL-E 3进行文/图生图</li>
+<li>使用Midjourney（V6的语义理解能力有明显提升），DALL-E 3（语义理解能力较好）进行文/图生图</li>
 <li>审查已生成图片中的细节问题，调整、更换合适的主题内容，并重新生成符合要求的图片</li>
 <li>使用PS处理图片中的不合理细节，添加未被AI生成的元素</li>
 <li>使用Stable Diffusion图生图进行图片放大和细节优化</li>
@@ -180,14 +180,12 @@
 
 <ul>
 <li>使用RunWay/Pika/SVD/Animatediff实现图片生成短视频，可以综合利用各个视频服务的优点，如RunWay的运动笔刷、Pika的面部表情等，其中Pika还可以对局部视频进行重绘。</li>
-<li>使用Deforum制作图片到图片转场效果视频</li>
-<li>使用Topaz video将部分视频放大</li>
 </ul>
 </li>
 <li>视频合成
 
 <ul>
-<li>使用AE/iMove进行短视频片段合成与特效转场处理</li>
+<li>使用剪映/iMove进行短视频片段合成与特效转场处理</li>
 <li>添加配音和配乐，根据卡点节奏进行视频剪辑与重新生成内容替换(如需要声音)</li>
 </ul>
 </li>
@@ -224,8 +222,8 @@
 <li><p>图像需要保持一致性，包括人物和周围场景</p>
 
 <ul>
-<li>DALL-E 3</li>
-<li>Midjourney V6</li>
+<li>DALL-E 3：一致性可以通过GenID</li>
+<li>Midjourney V6: 最新版有了ref，一致性功能</li>
 </ul>
 </li>
 <li><p>图生视频这一步，需要结合多种视频软件一起使用。每个软件的特点如下：</p>
@@ -383,7 +381,7 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
 	<ul class="widget-list">
 		
      	<li>
-      	  <a href="/blog/2024/03/27/ai-video/">实践了一下AI视频...</a>
+      	  <a href="/blog/2024/03/27/ai-video/">如何使用AI生成长视频？</a>
       	</li>
     	
      	<li>
@@ -516,7 +514,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "实践了一下AI视频...",
+   issue_title: "如何使用AI生成长视频？",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
