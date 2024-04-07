@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "实践了一下AI视频..."
+title: "如何使用AI生成长视频？"
 date: 2024-03-27 19:29:34 +0800
 comments: true
 categories: GenAI
@@ -14,7 +14,7 @@ categories: GenAI
 
 1. 脚本确认：拆分镜头，初步确定生成内容。这一步就是需要针对要生成的内容撰写剧本，并拆分成数个镜头。
 2. 单帧图片
-    - 使用Midjourney，DALL-E 3进行文/图生图
+    - 使用Midjourney（V6的语义理解能力有明显提升），DALL-E 3（语义理解能力较好）进行文/图生图
     - 审查已生成图片中的细节问题，调整、更换合适的主题内容，并重新生成符合要求的图片
     - 使用PS处理图片中的不合理细节，添加未被AI生成的元素
     - 使用Stable Diffusion图生图进行图片放大和细节优化
@@ -22,10 +22,8 @@ categories: GenAI
     - 人物不一致可以使用换脸进行统一
 3. 图生视频
     - 使用RunWay/Pika/SVD/Animatediff实现图片生成短视频，可以综合利用各个视频服务的优点，如RunWay的运动笔刷、Pika的面部表情等，其中Pika还可以对局部视频进行重绘。
-    - 使用Deforum制作图片到图片转场效果视频
-    - 使用Topaz video将部分视频放大
 4. 视频合成
-    - 使用AE/iMove进行短视频片段合成与特效转场处理
+    - 使用剪映/iMove进行短视频片段合成与特效转场处理
     - 添加配音和配乐，根据卡点节奏进行视频剪辑与重新生成内容替换(如需要声音)
 
 每一步使用的软件以及关键点如下：
@@ -56,8 +54,8 @@ categories: GenAI
     每一个分镜后续会通过Midjourney进行图片生成。现在请给出每一个分镜脚本以及对应的Midjourney提示词，以Markdown Table的方式输出。
     ```
 2. 图像需要保持一致性，包括人物和周围场景
-    - DALL-E 3
-    - Midjourney V6
+    - DALL-E 3：一致性可以通过GenID
+    - Midjourney V6: 最新版有了ref，一致性功能
 
 3. 图生视频这一步，需要结合多种视频软件一起使用。每个软件的特点如下：
     - [Pixverse](https://pixverse.ai/): 免费无限生成，有一致性角色功能(效果一般)，可用于无限生成视频后择优选取
