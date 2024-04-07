@@ -60,12 +60,12 @@ categories: GenAI
     - Midjourney V6
 
 3. 图生视频这一步，需要结合多种视频软件一起使用。每个软件的特点如下：
-    - Pixverse：https://pixverse.ai/，免费无限生成，有一致性角色功能(效果一般)，可用于无限抽盲盒
-    - Runway:https://app.runwayml.com/，每次生成消耗5积分，做角色动作和部分运动镜头会好一点
-    - Pika:https://pika.art/，每次生消耗10积分，做角色动作和面部表情
-    - Stable Video:https://www.stablevideo.com/，每次生成消耗10积分，做镜头运动会好一点，适合风景
+    - [Pixverse](https://pixverse.ai/): 免费无限生成，有一致性角色功能(效果一般)，可用于无限生成视频后择优选取
+    - [Runway](https://app.runwayml.com/): 每次生成消耗5积分，做角色动作和部分运动镜头会好一点
+    - [Pika](https://pika.art/): 每次生消耗10积分，做角色动作和面部表情
+    - [Stable Video](https://www.stablevideo.com): 每次生成消耗10积分，适合生成风景视频
 
-    换脸的话，可以使用roop或者facefusion，这里有其colob版本：<https://github.com/dream80/roop_colab>。
+    换脸的话，可以使用roop或者facefusion，这里有其colab版本：<https://github.com/dream80/roop_colab>。
 
 4. 视频拼接，可以使用剪映或者苹果电脑上的iMovie。
 
