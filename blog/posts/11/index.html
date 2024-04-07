@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 技术的成长 最近因为一件事情，让自己突然对自己产生了巨大的怀疑。工作一年多，仔细想想貌似真的只是在积累项目经验， &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ Async源码分析 最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码： &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -120,6 +120,86 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2014/08/22/node-async-analysis/">Async源码分析</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-08-22T16:08:28+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近在使用到node js的async库的时候，对其waterfall的实现感觉很奇妙，于是看了一下源码：</p>
+
+<pre>
+    async.waterfall = function (tasks, callback) {
+        callback = callback || function () {};
+        if (!_isArray(tasks)) {
+          var err = new Error('First argument to waterfall must be an array of functions');
+          return callback(err);
+        }
+        if (!tasks.length) {
+            return callback();
+        }
+        var wrapIterator = function (iterator) {
+            return function (err) {
+                if (err) {
+                    callback.apply(null, arguments);
+                    callback = function () {};
+                }
+                else {
+                    var args = Array.prototype.slice.call(arguments, 1);
+                    var next = iterator.next();
+                    if (next) {
+                        args.push(wrapIterator(next));
+                    }
+                    else {
+                        args.push(callback);
+                    }
+                    async.setImmediate(function () {
+                        iterator.apply(null, args);
+                    });
+                }
+            };
+        };
+        wrapIterator(async.iterator(tasks))();
+    };
+ </pre>
+
+
+<p></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2014/08/22/node-async-analysis/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -676,105 +756,6 @@ The path to be used for all session cookies created for this context. If set, th
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2011/08/05/android-dip-sp/">Android中dip、dp、sp、pt和px的区别</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-08-05T21:39:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>Android有以下几个度量单位：</p>
-
-<ul>
-<li><p> dip: device independent pixels(设备独立像素). 不同设备有不同的显示效果,这个和设备硬件有关，一般我们为了支持WVGA、HVGA和QVGA 推荐使用这个，不依赖像素。</p></li>
-<li><p> px: pixels(像素). 不同设备显示效果相同，一般我们HVGA代表320x480像素，这个用的比较多。</p></li>
-<li><p> pt: point，是一个标准的长度单位，1pt＝1/72英寸，用于印刷业，非常简单易用；</p></li>
-<li><p> sp: scaled pixels(放大像素). 主要用于字体显示best for textsize。</p></li>
-</ul>
-
-
-<p>由此，根据 google 的建议，TextView 的字号最好使用 sp 做单位，而且查看TextView的源码可知Android默认使用sp作为字号单位。</p>
-
-<p>关于换算（以 sp 和 pt 为例）
-查看　TextView 等类的源码，可知：</p>
-
-<pre>
-case COMPLEX_UNIT_PX: 
-      return value; 
-case COMPLEX_UNIT_SP: 
-      return value * metrics.scaledDensity; 
-case COMPLEX_UNIT_PT: 
-      return value * metrics.xdpi * (1.0f/72); 
-
-－－－－－－－－－－－－－－－－－－－－－－－－－－ 
-scaledDensity = DENSITY_DEVICE / (float) DENSITY_DEFAULT; 
-xdpi = DENSITY_DEVICE; 
-
-－－－－－－－－－－－－－－－－－－－－－－－－－－ 
-DENSITY_DEFAULT = DENSITY_MEDIUM = 160; 
-
-============================================ 
-</pre>
-
-
-<p>   所以： 假设　pt 和 sp 取相同的值 1，则可设 1pt 和 1sp 之间系数为 x，</p>
-
-<pre>
-1 * DENSITY_DEVICE / 72 = x * 1 * DENSITY_DEVICE / 160  =&gt; 
-x = 160 / 72 = 2.2222 
-</pre>
-
-
-<p>也就是说在 Android 中，  1pt 大概等于 2.22sp</p>
-
-<p>以上供参考，如果 UI 能够以 sp 为单位提供设计是最好的，如果设计中没有 sp
-的概念，则开发人员也可以通过适当的换算取近似值。</p>
-
-<p>   过去，程序员通常以像素为单位设计计算机用户界面。例如，定义一个宽度为300像素的表单字段，列之间的间距为5个像素，图标大小为16×16像素 等。这样处理的问题在于，如果在一个每英寸点数（dpi）更高的新显示器上运行该程序，则用户界面会显得很小。在有些情况下，用户界面可能会小到难以看清 内容。</p>
-
-<p>与分辨率无关的度量单位可以解决这一问题。Android支持下列所有单位。</p>
-
-<ul>
-<li><p>px（像素）：屏幕上的点。</p></li>
-<li><p>in（英寸）：长度单位。</p></li>
-<li><p>mm（毫米）：长度单位。</p></li>
-<li><p>pt（磅）：1/72英寸。</p></li>
-<li><p>dp（与密度无关的像素）：一种基于屏幕密度的抽象单位。在每英寸160点的显示器上，1dp = 1px。</p></li>
-<li><p>dip：与dp相同，多用于android/ophone示例中。</p></li>
-<li><p>sp（与刻度无关的像素）：与dp类似，但是可以根据用户的字体大小首选项进行缩放。</p></li>
-</ul>
-
-
-<p>为了使用户界面能够在现在和将来的显示器类型上正常显示，建议大家始终使用sp作为文字大小的单位，将dip作为其他元素的单位。当然，也可以考虑使用矢量图形，而不是用位图。</p>
-</div>
-  
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -848,6 +829,10 @@ x = 160 / 72 = 2.2222
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2024/03/27/ai-video/">实践了一下AI视频...</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2024/02/29/pj/">《Java工程师修炼之道》GitBook上线</a>
       	</li>
     	
@@ -881,10 +866,6 @@ x = 160 / 72 = 2.2222
     	
      	<li>
       	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2021/03/31/ali-manage/">阿里巴巴管理三板斧</a>
       	</li>
     	
 	</ul>
