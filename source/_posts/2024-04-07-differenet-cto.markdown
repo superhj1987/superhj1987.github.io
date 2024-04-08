@@ -8,7 +8,9 @@ categories: GenAI
 
 原文链接：<https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html>
 
+```
 我的想法：其实CTO这个角色的职责还是要根据CEO的期望来定。初创团队CTO一般就是一个高级开发工程师，随着团队规模增大，会逐渐转换为架构师、技术经理，最后有些CTO会去负责基础技术研究，有些CTO则统管整个研发团队，还有一些则会去管理部分业务。不管如何，这个职责还是要看CEO心里的期望是什么。
+```
 
 <!-- more -->
 
@@ -38,6 +40,6 @@ categories: GenAI
 - Aspatore Inside the Minds Series, [Leading CTOs](http://www.amazon.com/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.com%2FInside-Minds-Technology-Officers-Peoplesoft%2Fdp%2F1587620561&tag=allthingsdist-20&linkCode=ur2&camp=1789&creative=9325)
 - [Mark Minevich](http://www.markminevich.com/), [The CTO Handbook](http://www.amazon.com/gp/redirect.html?ie=UTF8&location=http%3A%2F%2Fwww.amazon.com%2FCTO-Job-Manual-Leadership-Technology%2Fdp%2F1587623676&tag=allthingsdist-20&linkCode=ur2&camp=1789&creative=9325)
 - [Tom Berray](http://cabotinc.com/berray.html) and Raj Sampath, [the Role of the CTO: Four Models for Success](http://www.brixtonspa.com/Career/The_Role_of_the_CTO_4Models.pdf)
-- [Roger Smith](http://ctonet.blogspot.com/), [the Role of the Chief Technology Officer in Strategic Innovation], Project Execution, and Mentoring](http://www.modelbenders.com/papers/CTOStrategy_SmithR.pdf)
+- [Roger Smith](http://ctonet.blogspot.com/), [the Role of the Chief Technology Officer in Strategic Innovation, Project Execution, and Mentoring](http://www.modelbenders.com/papers/CTOStrategy_SmithR.pdf)
 - [Roger Smith](http://ctonet.blogspot.com/), [5 Patterns of the Chief Technology Officer](http://www.ctonet.org/documents/5PatternsofCTO.pdf)
 
