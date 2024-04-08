@@ -3,7 +3,7 @@ layout: post
 title: "不同的CTO角色 by Werner Vogels (Amazon CTO)"
 date: 2024-04-07 19:29:34 +0800
 comments: true
-categories: GenAI
+categories: manage
 ---
 
 原文链接：<https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html>
