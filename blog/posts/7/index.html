@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 谈谈架构 之前开头的《架构设计原则》一文一直没有把坑填上。而最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、 &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ [译]在Java中提升函数以更好地“函数式”编程 Java8中的Stream和Optional给我们带来了函数式编程的乐趣， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -120,50 +120,6 @@
         </div>
       </article>
     
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2017/08/24/arch/">谈谈架构</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2017-08-24T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>之前开头的《架构设计原则》一文一直没有把坑填上。而最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述，正好算是对此文的完成和补充。</p>
-
-<p><a href="/arch-ppt/index.html" target="_blank">PPT观看</a></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2017/08/24/arch/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
     
     
       <article class="post">
@@ -630,6 +586,77 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
 
       </article>
     
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/11/02/java-profile/">Java调优经验谈</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-02T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E8%B0%83%E4%BC%98%E5%87%86%E5%A4%87">调优准备</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90">性能分析</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98">性能调优</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE">其他优化建议</a></li>
+<li><a href="#JVM%E5%8F%82%E6%95%B0%E8%BF%9B%E9%98%B6">JVM参数进阶</a></li>
+</ul>
+
+
+<p>对于调优这个事情来说，一般就是三个过程：</p>
+
+<ul>
+<li>性能监控：问题没有发生，你并不知道你需要调优什么。此时需要一些系统、应用的监控工具来发现问题。</li>
+<li>性能分析：问题已经发生，但是你并不知道问题到底出在哪里。此时就需要使用工具、经验对系统、应用进行瓶颈分析，以求定位到问题原因。</li>
+<li>性能调优：经过上一步的分析定位到了问题所在，需要对问题进行解决，使用代码、配置等手段进行优化。</li>
+</ul>
+
+
+<p>Java调优也不外乎这三步。</p>
+
+<p>此外，本文所讲的性能分析、调优等是抛开以下因素的：</p>
+
+<ul>
+<li>系统底层环境：硬件、操作系统等</li>
+<li>数据结构和算法的使用</li>
+<li>外部系统如数据库、缓存的使用</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/11/02/java-profile/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
       <div class="page-navigator">
         
         
@@ -711,10 +738,6 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
       	</li>
     	
      	<li>
-      	  <a href="/blog/2024/02/29/pj/">《Java工程师修炼之道》GitBook上线</a>
-      	</li>
-    	
-     	<li>
       	  <a href="/blog/2024/02/01/ai/">AI技术概览（PPT版）</a>
       	</li>
     	
@@ -740,6 +763,10 @@ Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
     	
      	<li>
       	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
       	</li>
     	
 	</ul>

@@ -14,11 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ Java调优经验谈 目录 调优准备
-性能分析
-性能调优
-其他优化建议
-JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性能监控 &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ BTrace原理浅析 之前在看agentzh的此篇博文动态追踪技术漫谈时，领会到了动态追踪技术的强大之处， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -124,77 +120,6 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
         </div>
       </article>
     
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2016/11/02/java-profile/">Java调优经验谈</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2016-11-02T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>目录</h2>
-
-<ul>
-<li><a href="#%E8%B0%83%E4%BC%98%E5%87%86%E5%A4%87">调优准备</a></li>
-<li><a href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90">性能分析</a></li>
-<li><a href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98">性能调优</a></li>
-<li><a href="#%E5%85%B6%E4%BB%96%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE">其他优化建议</a></li>
-<li><a href="#JVM%E5%8F%82%E6%95%B0%E8%BF%9B%E9%98%B6">JVM参数进阶</a></li>
-</ul>
-
-
-<p>对于调优这个事情来说，一般就是三个过程：</p>
-
-<ul>
-<li>性能监控：问题没有发生，你并不知道你需要调优什么。此时需要一些系统、应用的监控工具来发现问题。</li>
-<li>性能分析：问题已经发生，但是你并不知道问题到底出在哪里。此时就需要使用工具、经验对系统、应用进行瓶颈分析，以求定位到问题原因。</li>
-<li>性能调优：经过上一步的分析定位到了问题所在，需要对问题进行解决，使用代码、配置等手段进行优化。</li>
-</ul>
-
-
-<p>Java调优也不外乎这三步。</p>
-
-<p>此外，本文所讲的性能分析、调优等是抛开以下因素的：</p>
-
-<ul>
-<li>系统底层环境：硬件、操作系统等</li>
-<li>数据结构和算法的使用</li>
-<li>外部系统如数据库、缓存的使用</li>
-</ul>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2016/11/02/java-profile/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
     
     
       <article class="post">
@@ -650,6 +575,60 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
 
       </article>
     
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/05/07/javamm/">谈谈Java内存管理</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-05-07T14:59:44+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E4%B8%80.%20%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86">一. 背景知识</a></li>
+<li><a href="#%E4%BA%8C.%20Jvm%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%86%85%E5%AD%98%E7%AE%80%E4%BB%8B">二. Jvm虚拟机内存简介</a></li>
+<li><a href="#%E4%B8%89.%20%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86">三. 垃圾收集</a></li>
+<li><a href="#%E5%9B%9B.%20Java7%E3%80%818%E5%B8%A6%E6%9D%A5%E7%9A%84%E4%B8%80%E4%BA%9B%E5%8F%98%E5%8C%96">四. Java7、8带来的一些变化</a></li>
+</ul>
+
+
+<p><img src="/images/blog_images/javamm/java.jpg" alt="java" /></p>
+
+<p>对于一个Java程序员来说，大多数情况下的确是无需对内存的分配、释放做太多考虑，对Jvm也无需有多么深的理解的。但是在写程序的过程中却也往往因为这样而造成了一些不容易察觉到的内存问题，并且在内存问题出现的时候，也不能很快的定位并解决。因此，了解并掌握Java的内存管理是一个合格的Java程序员必需的技能，也只有这样才能写出更好的程序，更好地优化程序的性能。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/05/07/javamm/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
       <div class="page-navigator">
         
         
@@ -731,10 +710,6 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
       	</li>
     	
      	<li>
-      	  <a href="/blog/2024/02/29/pj/">《Java工程师修炼之道》GitBook上线</a>
-      	</li>
-    	
-     	<li>
       	  <a href="/blog/2024/02/01/ai/">AI技术概览（PPT版）</a>
       	</li>
     	
@@ -760,6 +735,10 @@ JVM参数进阶 对于调优这个事情来说，一般就是三个过程： 性
     	
      	<li>
       	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
       	</li>
     	
 	</ul>
