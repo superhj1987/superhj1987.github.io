@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 2017年读过的书 2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程， &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 正则表达式简明指南 公司使用的markdown解析类库一直有一些解析上的问题，最近给fix了。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -120,6 +120,59 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2018/03/10/regx/">正则表达式简明指南</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-03-10T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>公司使用的markdown解析类库一直有一些解析上的问题，最近给fix了。而markdown解析主要是对正则表达式的使用。中间恶补了一下相关知识，在此梳理一下。</p>
+
+<h2>什么是正则表达式</h2>
+
+<p>正则表达式就是用一个“字符串”来描述一个特征，然后去验证另一个“字符串”是否符合这个特征。简单的一个例子：用字符串"a"来验证字符串s是否是"a"，形如s.match(&ldquo;a&rdquo;)。概括来说有以下作用：</p>
+
+<ul>
+<li>验证字符串是否符合指定特征，比如验证是否是合法的邮件地址。</li>
+<li>查找字符串，从一个长的文本中查找符合指定特征的字符串，比查找固定字符串更加灵活。</li>
+<li>替换字符串，比普通的基于字符串的替换更灵活。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2018/03/10/regx/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -524,50 +577,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2017/08/24/arch/">谈谈架构</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2017-08-24T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>之前开头的《架构设计原则》一文一直没有把坑填上。而最近在公司内部做了一次架构交流/培训，把架构的概念、架构的形式、架构设计原则都做了阐述，正好算是对此文的完成和补充。</p>
-
-<p><a href="/arch-ppt/index.html" target="_blank">PPT观看</a></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2017/08/24/arch/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -641,6 +650,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2024/04/07/differenet-cto/">不同的CTO角色 by Werner Vogels (Amazon CTO)</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2024/03/27/ai-video/">如何使用AI生成长视频？</a>
       	</li>
     	
@@ -674,10 +687,6 @@
     	
      	<li>
       	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
       	</li>
     	
 	</ul>

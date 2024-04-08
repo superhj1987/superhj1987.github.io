@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>AI技术概览（PPT版） - 后端技术杂谈</title>
+  <title>不同的CTO角色 by Werner Vogels (Amazon CTO) - 后端技术杂谈</title>
   <meta name="author" content="MrRowKey">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="AI技术概览（PPT版） Posted by MrRowKey in genai 随着2022年底ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要到来。由于业务的需要，2023年自己的主要精力主要放在了AI这部分的跟进与研究。 &hellip;">
+  <meta name="description" content="不同的CTO角色 by Werner Vogels (Amazon CTO) Posted by MrRowKey in genai 原文链接：https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="https://www.rowkey.cn/blog/2024/02/01/ai/">
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2024/04/07/differenet-cto/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -119,7 +119,7 @@
   
   <header>
     
-      <h1 class="post-title">AI技术概览（PPT版）</h1>
+      <h1 class="post-title">不同的CTO角色 by Werner Vogels (Amazon CTO)</h1>
     
     
       <p class="post-meta">
@@ -135,7 +135,7 @@
   
 
 
-<time datetime="2024-02-01T19:29:34+08:00" pubdate data-updated="true"></time>
+<time datetime="2024-04-07T19:29:34+08:00" pubdate data-updated="true"></time>
         
         
   
@@ -156,222 +156,45 @@
   </header>
 
 
-<div class="post-content"><p>随着2022年底ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要到来。由于业务的需要，2023年自己的主要精力主要放在了AI这部分的跟进与研究。年底给公司做了一次AI技术的科普分享，这里先放出PPT，详细内容待后续的文章补充。</p>
+<div class="post-content"><p>原文链接：<a href="https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html">https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html</a></p>
 
-<!--more-->
+<p>我的想法：其实CTO这个角色的职责还是要根据CEO的期望来定。初创团队CTO一般就是一个高级开发工程师，随着团队规模增大，会逐渐转换为架构师、技术经理，最后有些CTO会去负责基础技术研究，有些CTO则统管整个研发团队，还有一些则会去管理部分业务。不管如何，这个职责还是要看CEO心里的期望是什么。</p>
+
+<!-- more -->
 
 
-<h2><strong>AI已来</strong></h2>
+<p>我曾经为一个关于企业创新中首席技术官角色的小型讨论会准备演讲稿，我再次意识到围绕CTO角色存在相当多的混淆。讨论CTO角色时总是首先遇到的问题是，没有一个公认的定义来说明CTO的实际工作内容。这个角色根据公司的类型以及技术在公司中的角色非常不同。</p>
 
-<p><img src="/post_images/ai/aistart.png" width="450"/></p>
+<p>一段时间以前，我做了一些挖掘，研究CTO角色的历史以及如何最好地分类它们。我在这里发布，因为它可能具有普遍的兴趣。一些我使用的来源在这个笔记的末尾。</p>
 
-<ul>
-<li><strong>AI元年：2023</strong></li>
-<li><strong>之前</strong>
+<p>当Edge的创始人约翰·布罗克曼采访内森·默夫沃德时，他的第一个问题是“什么是CTO”，对此内森回答说：</p>
 
-<ul>
-<li>垂直类AI应用：美颜、换脸、推荐、自动驾驶等，每个模型解决特定问题，“人工智障”的对话机器人</li>
-<li>使用门槛高，主要是研发环节的直接接触</li>
-<li>以“今日头条”为代表的个性化推荐系统相关AI人才的哄抢</li>
-</ul>
-</li>
-<li><strong>现在</strong>
+<p>“我哪知道。你知道的，当比尔和我讨论我接受这份工作时，有一刻他说，好的，那些成功的CTO的杰出例子是什么。大约五分钟后我们决定，好吧，肯定有一些，但我们并没有准确知道谁是伟大的CTO，因为许多实际上是伟大的CTO们并没有那个头衔，至少一些有那个头衔的人可以说并不擅长它。</p>
+
+<p>我的工作是在微软思考未来的技术。如果你想拥有一个伟大的未来，你必须开始在现在思考它，因为当未来到来时，你将没有时间。”</p>
+
+<p>第一个CTO在八十年代末出现。许多公司开始利用其研发实验室交付的结果，这些实验室的主管被提升到可以使用技术为公司提供战略优势的位置。这个角色发展成了非常不同的职位，有几种方式可以对它们进行分类。有充分的理由遵循任何一个分类模型，但我相信汤姆·贝瑞的四象限提供了关于什么使CTO成功的最佳框架：</p>
 
 <ul>
-<li>大模型，生成式AI：AI对话、AI绘画、AI视频、AI音乐，一个模型解决所有问题</li>
-<li>使用门槛低，自然语言编程（GPTs store）</li>
-<li>以“ChatGPT”（2022年11月30号）为代表的大模型人才的哄抢</li>
-</ul>
-</li>
+<li>基础设施管理者 - 在CIO的角色变得过于复杂的公司中，CTO承担了基础设施和IT运营的责任：数据中心运营、网络运营、应用开发和维护、安全性和其他直线功能。CIO保留了如何在组织内实际使用技术的责任。这主要是在IT处于纯支持角色的传统业务中使用的模型。</li>
+<li>技术愿景家和运营经理 - 这种模式通常在.com和其他以信息技术为关键因素实施商业战略的技术导向公司中发现。CTO负责确定如何使用技术来实施商业战略。这是角色的“技术愿景家”方面。但随后，CTO负责实际集成和运行技术，即“运营经理”的角色。在这种模式中，CTO通常是业务的共同创始人或第一批雇员之一。</li>
+<li>面向外部的技术专家 - 我们经常在使用技术为客户和合作伙伴提供产品和服务的公司中看到这种模型；CTO是客户和内部开发之间的中介，并且是产品组合开发的主要影响者。CTO与关键客户保持着不断的联系，并显著参与市场研究。一些较大的软件公司成功使用了这种模式，拥有多个CTO，他们是经验丰富的技术专家，其主要任务是成为客户的桥梁。一些中间件领域的软件公司的CTO还将客户联系描述为他们的主要活动。</li>
+<li>大思考者 - 在这个模型中的CTO主要花时间评估如何在内部使用技术来开发新的商业模式和业务线，以及如何预先阻止竞争对手使用技术来颠覆市场。这个CTO的责任通常包括高级技术、竞争分析、技术评估、原型实验室、合作伙伴关系、计划和架构标准。</li>
 </ul>
 
 
-<h2><strong>AI是什么</strong></h2>
+<p>在前两个模型中，CTO直接管理一个工程部门，他/她在组织中的影响力主要通过他们自己组织中的技术开发来施加。我遇到过管理拥有500 - 1000名工程师或更多的部门的CTO。</p>
+
+<p>在最后两个模型中，CTO扮演的角色需要他/她影响其他部门执行新的方向。为了保证这种影响力水平，CTO通常是执行团队的一部分或接近执行团队，通常向CEO汇报。CTO确实监督一个小团队（通常根据公司的大小为10-50名工程师），该团队充当高风险技术方向的孵化器。</p>
+
+<p>以下是一些参考链接。</p>
 
 <ul>
-<li><strong>人工智能</strong>：使机器能够以类似于人类智能的方式执行复杂任务的科学和工程，是一门多个领域的交叉学科。
-
-<ul>
-<li>机器：运算速度、记忆容量、钢铁身躯</li>
-</ul>
-</li>
-<li>人类：<del>判断力、创造力、对人类情感的理解</del>与同理、逻辑推理能力</li>
-<li><strong>三大学派</strong>：符号主义、连接主义、行为主义
-
-<ul>
-<li>符号主义：机器拟人心</li>
-<li>连接主义：机器拟人脑</li>
-<li>行为主义：机器拟人身</li>
-</ul>
-</li>
-<li><strong>AGI</strong>：人工通用智能，也可以叫做通用人工智能或者强人工智能。指的是人工智能系统应该能够像人类一样具备广泛的智能能力，而不仅仅是在某些特定的任务或领域中表现出色。</li>
-<li><strong>Agent</strong>：AI智能体，能够感知其环境并以自主的方式在该环境中行动以达成其目标的系统。</li>
-</ul>
-
-
-<h2>AI发展大事记</h2>
-
-<ul>
-<li><strong>人工智能的萌芽</strong>：人工智能之父图灵，1950年提出图灵测试。</li>
-<li><strong>人工智能的起点</strong>：1956年达特茅斯会议，开启人工智能第一次高潮</li>
-<li><strong>第一次低谷</strong>：20世纪70年代初，各种人工智能承诺无法兑现</li>
-<li><strong>人工智能第二次高潮</strong>：20世纪80年代，知识工程和专家系统为代表的符号主义</li>
-<li><strong>第二次低谷</strong>：20世纪80年代末到90年代初时期，专家系统的局限性</li>
-<li><strong>平稳期</strong>：20世纪90年-2000年初。1997年深蓝”击败国际象棋冠军</li>
-<li><strong>人工智能第三次高潮</strong>：2006年，深度学习算法的提出；2012年AlexNet在ImageNet挑战赛的横空出世；2016、2017年AlphaGo打败围棋冠军</li>
-<li><strong>AI元年</strong>：2023年，生成式AI-ChatGPT、StableDifussion、MidJourney</li>
-</ul>
-
-
-<h2><strong>机器学习、深度学习</strong></h2>
-
-<p><img src="/post_images/ai/ml.png" width="450"/></p>
-
-<ul>
-<li>实现人工智能的方法。</li>
-<li>机器学习：一种可以让机器根据历史经验自动改进自身的学习算法。</li>
-<li>深度学习：机器学习的一种，“无监督特征学习”（Unsupervised Feature Learning），以多层神经网络为代表。
-
-<ul>
-<li>人类认知过程：<strong>分层迭代，逐级抽象</strong></li>
-</ul>
-</li>
-</ul>
-
-
-<h2><strong>LLM</strong></h2>
-
-<p><img src="/post_images/ai/llm.png" width="450"/></p>
-
-<ul>
-<li>GenAI：相对于判别式AI（Discriminative AI），能够生成新的内容->AIGC</li>
-<li>LLM是生成式AI的一种</li>
-<li>最可能通向AGI的方法：Transformer</li>
-<li>大语言模型：文本->x，多模态->多模态
-
-<ul>
-<li>NLP</li>
-<li>涌现：鹦鹉vs乌鸦；人类智能的本质？</li>
-</ul>
-</li>
-</ul>
-
-
-<h2><strong>大模型产业链</strong></h2>
-
-<p><img src="/post_images/ai/llmlayer.png" width="450"/></p>
-
-<p><img src="/post_images/ai/llmlayer2.png" width="450"/></p>
-
-<ul>
-<li>大模型=计算机 or 操作系统, GPTs store</li>
-<li>我们的位置 -> <strong>应用层!</strong></li>
-</ul>
-
-
-<h2>GenAI应用概览</h2>
-
-<p><img src="/post_images/ai/genai.png" width="450"/></p>
-
-<p><img src="/post_images/ai/genairank.png" width="450"/></p>
-
-<p>GenAI数据：<a href="https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd">https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd</a></p>
-
-<h2>ChatBot</h2>
-
-<ul>
-<li><a href="https://chat.openai.com/">ChatGPT</a></li>
-<li><a href="https://copilot.microsoft.com/">微软Copilot</a>：微软基于ChatGPT的ChatBot应用，集成了DALL.E-3、suno.ai等插件</li>
-<li><a href="https://kimi.moonshot.cn/chat">KimiChat</a>: 大尺寸上下文（文字、pdf文档等)、实时联网</li>
-<li>其他大模型的ChatBot：Claude+、文心一言、豆包、讯飞星火、通义千问&hellip;</li>
-<li><a href="https://poe.com/">POE</a>：ChatBot聚合</li>
-</ul>
-
-
-<h2><strong>AI绘画</strong></h2>
-
-<ul>
-<li><a href="https://stability.ai/stable-image">Stable Diffusion</a>：生态最丰富的开源图像生成项目</li>
-<li><a href="https://openai.com/dall-e-3">DALL-E 3</a>：语义理解能力最强的图像生成产品</li>
-<li><a href="https://www.midjourney.com/home">Midjourney:</a> 质量最好的图像生成产品</li>
-<li>一些大模型聊天机器人自带的绘图：插件、Agent方式</li>
-<li><a href="https://magnific.ai/">Magnific.ai</a>: 图像精修， <a href="https://mp.weixin.qq.com/s/x3F59AcMxG8bmajXO3OXmg">https://mp.weixin.qq.com/s/x3F59AcMxG8bmajXO3OXmg</a></li>
-<li><a href="https://segment-anything.com/demo">Meta SAM</a>: 图像分割</li>
-</ul>
-
-
-<h2>AI语音</h2>
-
-<ul>
-<li><a href="https://openai.com/research/whisper">Whisper</a>：基于大模型的ASR，自动语言识别</li>
-<li><a href="https://elevenlabs.io/">Elevenlabs</a>：TTS，目前最先进的商业化TTS</li>
-<li><a href="https://platform.openai.com/docs/guides/text-to-speech">OpenAI TTS</a>: TTS，OpenAI开源</li>
-<li><a href="https://suno.ai/">Suno.ai</a>: 文生音乐，<a href="https://app.suno.ai/song/9a782a3b-fde7-44ae-896f-c4d57698efa9/%C2%A0">https://app.suno.ai/song/9a782a3b-fde7-44ae-896f-c4d57698efa9/%C2%A0</a>(中文版的 I'll Be There For You，根据中国文化做稍微的改动)</li>
-<li><a href="https://github.com/svc-develop-team/so-vits-svc">so-vits-svc</a>：歌声转换，<a href="https://www.youtube.com/watch?v=sN4ZFwySyow">孙燕姿唱周杰伦的歌</a></li>
-</ul>
-
-
-<h2>AI视频</h2>
-
-<ul>
-<li><a href="https://app.runwayml.com/">Runway</a>: 目前技术最先进的视频生成产品</li>
-<li><a href="https://pika.art/my-library">Pika</a>：文本->视频，720p, 4秒</li>
-<li><a href="https://www.morphstudio.com/">Morph Studio</a>：文本->视频，1080P，7秒 <a href="https://mp.weixin.qq.com/s/krSEoCHPBFuXsbkLm7E5rA">文生视频“黑马”Morph Studio来袭：好用、1080P 、7秒时长还免费</a></li>
-<li><a href="https://stability.ai/stable-video">Stable Video Diffusion</a>: StableAI开源的视频生成技术，<a href="https://replicate.com/stability-ai/stable-video-diffusion">https://replicate.com/stability-ai/stable-video-diffusion</a></li>
-<li><a href="https://app.heygen.com/login">HeyGen</a>：数字人播报视频生成，<a href="https://www.youtube.com/watch?v=PnpaLTB2Eck">霉霉说中文</a></li>
-<li><a href="https://app.wonderdynamics.com/:">WonderStudio</a>: 视频CG角色替换，<a href="https://www.youtube.com/watch?v=YuUsunFIJCU">https://www.youtube.com/watch?v=YuUsunFIJCU</a></li>
-<li>图片 -> 真人跳舞视频：通义千问“全民舞王”
-
-<ul>
-<li><a href="https://boese0601.github.io/magicdance/">MagicDance</a></li>
-<li><a href="https://humanaigc.github.io/animate-anyone/">Animate Anyone</a></li>
-</ul>
-</li>
-</ul>
-
-
-<h2>其他</h2>
-
-<ul>
-<li>文本->3D
-
-<ul>
-<li><a href="https://mesh.ai/">Mesah.ai</a></li>
-<li><a href="https://www.tripo3d.ai/">Tripo3D.ai</a></li>
-</ul>
-</li>
-<li>图片->网页: <a href="https://screenshottocode.com/">https://screenshottocode.com/</a></li>
-<li>图片/文本->网页、UI：<a href="https://v0.dev/">https://v0.dev/</a></li>
-</ul>
-
-
-<h2><strong>我们可以做什么</strong></h2>
-
-<ul>
-<li>基于大模型的产品研发</li>
-<li>个人
-
-<ul>
-<li>文章总结摘要：<a href="https://kimi.moonshot.cn/chat/cm6p88kudu6f77a0fqig">https://kimi.moonshot.cn/chat/cm6p88kudu6f77a0fqig</a></li>
-<li>写儿童故事：<a href="https://chat.openai.com/share/6c86a6a3-5cda-45e8-af10-4bb4cd2476fb">https://chat.openai.com/share/6c86a6a3-5cda-45e8-af10-4bb4cd2476fb</a></li>
-<li>专业问题解答：<a href="https://chat.openai.com/share/0d9de7f4-eba3-4eba-be2b-0dd89b146d53">https://chat.openai.com/share/0d9de7f4-eba3-4eba-be2b-0dd89b146d53</a></li>
-</ul>
-</li>
-<li>工作</li>
-<li>辅助编程: Genie、Github Copilot</li>
-<li>分析需求文档，输出摘要和模块</li>
-<li><p>基于LLM的研发全流程</p>
-
-<p>  <img src="/post_images/ai/llmsdlc.png" width="450"/></p></li>
-</ul>
-
-
-<h2><strong>展望</strong></h2>
-
-<ul>
-<li>新摩尔定律：宇宙中的智能数量每18个月翻一番</li>
-<li>所有的应用都值得用AI重构一遍</li>
-<li>AI不会取代人类，但会AI的会取代不会AI的人类</li>
+<li>Aspatore Inside the Minds Series, <a href="http://www.amazon.com/gp/redirect.html?ie=UTF8&amp;location=http%3A%2F%2Fwww.amazon.com%2FInside-Minds-Technology-Officers-Peoplesoft%2Fdp%2F1587620561&amp;tag=allthingsdist-20&amp;linkCode=ur2&amp;camp=1789&amp;creative=9325">Leading CTOs</a></li>
+<li><a href="http://www.markminevich.com/">Mark Minevich</a>, <a href="http://www.amazon.com/gp/redirect.html?ie=UTF8&amp;location=http%3A%2F%2Fwww.amazon.com%2FCTO-Job-Manual-Leadership-Technology%2Fdp%2F1587623676&amp;tag=allthingsdist-20&amp;linkCode=ur2&amp;camp=1789&amp;creative=9325">The CTO Handbook</a></li>
+<li><a href="http://cabotinc.com/berray.html">Tom Berray</a> and Raj Sampath, <a href="http://www.brixtonspa.com/Career/The_Role_of_the_CTO_4Models.pdf">the Role of the CTO: Four Models for Success</a></li>
+<li><a href="http://ctonet.blogspot.com/">Roger Smith</a>, [the Role of the Chief Technology Officer in Strategic Innovation], Project Execution, and Mentoring](<a href="http://www.modelbenders.com/papers/CTOStrategy_SmithR.pdf">http://www.modelbenders.com/papers/CTOStrategy_SmithR.pdf</a>)</li>
+<li><a href="http://ctonet.blogspot.com/">Roger Smith</a>, <a href="http://www.ctonet.org/documents/5PatternsofCTO.pdf">5 Patterns of the Chief Technology Officer</a></li>
 </ul>
 
 </div>
@@ -439,10 +262,8 @@ if (browser.versions.mobile) {//判断是否是移动设备打开。browser代�
     
     <div class="meta">
       
-        <a class="basic-alignment left" style="float:left !important" href="/blog/2024/02/29/pj/" title="上一篇: 《Java工程师修炼之道》GitBook上线">&laquo; 《Java工程师修炼之道》GitBook上线 </a>
       
-      
-        <a class="basic-alignment right" style="float:right !important" href="/blog/2023/11/30/openai-func/" title="下一篇: Langchain代理和OpenAI函数调用的区别">Langchain代理和OpenAI函数调用的区别 &raquo;</a>
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2024/03/27/ai-video/" title="下一篇: 如何使用AI生成长视频？">如何使用AI生成长视频？ &raquo;</a>
       
     </div>
   </footer>
@@ -647,7 +468,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "AI技术概览（PPT版）",
+   issue_title: "不同的CTO角色 by Werner Vogels (Amazon CTO)",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",

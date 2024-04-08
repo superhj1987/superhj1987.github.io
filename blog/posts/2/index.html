@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 阿里巴巴管理三板斧 去年年底受阿里云的邀请参加了一次湖畔大学的参观学习活动，其中有一堂管理的课程《阿里集团管理三板斧》， &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 做游戏业务以来的一些感悟 今天看了一下自己的博客，发现已经四个月没有写过文章了。其实自己准备中的东西还有几篇， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -120,6 +120,48 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2021-08-13T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>今天看了一下自己的博客，发现已经四个月没有写过文章了。其实自己准备中的东西还有几篇，但从去年年底开始负责游戏业务以来，一直处于一个学习的状态，身上的压力也一直没有降下来。对于游戏这个行业，自己完全是一个新手，各种方法论、行业趋势、游戏开发的各种概念对我来说都是完全陌生的领域。这期间学习了不少游戏行业从研发到运营到发行的知识，但到现在也没有一款可以拿得出手的游戏，所以这方面的东西也没法拿出来输出给别人。没有得到过证明的东西，如果误导别人那就是大错特错了。不过，大半年的学习，总归还是有一些基本的概念和教训是可以总结一下的。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2021/08/13/game/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -529,56 +571,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2020/02/17/rpc/">Java工程师应该知道的RPC</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2020-02-17T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>RPC, Remote Procedure Call,故名思议就是远程过程调用，一般都有跨语言支持。大规模分布式应用中普遍使用RPC来做内部服务、模块之间的数据通信，还有助于解耦服务、系统的垂直拆分，使得系统可扩展性更强，并能够让Java程序员用与开发本地程序一样的语法与方式去开发分布式应用程序。</p>
-
-<p>RPC分为客户端（服务调用方）和服务端（服务提供方），都运行在自己的JVM中。客户端只需要引入要使用的接口，接口的实现和运行都在服务端。RPC主要依赖的技术包括序列化、反序列化和数据传输协议。是一种定义与实现相分离的设计：</p>
-
-<p><img src="/post_images/rpc/rpc.png" alt="" /></p>
-
-<p>目前Java使用比较多的RPC方案主要有RMI、Hessian、Dubbo以及Thrift。</p>
-
-<p>这里需要提出的一点就是，这里的RPC主要指的内部服务之间的调用，因此虽然RESTful也可以用于内部服务间的调用（跨语言、跨网段、跨防火墙），但其主要用途还是为外部系统提供服务，因此本文没有将其包含在内。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2020/02/17/rpc/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         <a href="/" class="prev">←上一页</a>
@@ -652,6 +644,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2024/04/07/differenet-cto/">不同的CTO角色 by Werner Vogels (Amazon CTO)</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2024/03/27/ai-video/">如何使用AI生成长视频？</a>
       	</li>
     	
@@ -685,10 +681,6 @@
     	
      	<li>
       	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
       	</li>
     	
 	</ul>
