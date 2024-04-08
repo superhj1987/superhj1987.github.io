@@ -1,9 +1,0 @@
----
-layout: post
-title: "《Java工程师修炼之道》GitBook上线"
-date: 2024-02-29 19:29:34 +0800
-comments: true
-categories: java
----
-
-<https://rowkey-books.gitbook.io/pragmatic-java-engineer/>
