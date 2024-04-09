@@ -1,18 +1,16 @@
 ---
 layout: post
-title: "不同的CTO角色 by Werner Vogels (Amazon CTO)"
+title: "技术管理修炼之道-不同的CTO角色 by Werner Vogels (Amazon CTO)"
 date: 2024-04-07 19:29:34 +0800
 comments: true
-categories: manage
+categories: pragmatic-tech-manage
 ---
 
-原文链接：<https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html>
-
-```
-我的想法：其实CTO这个角色的职责还是要根据CEO的期望来定。初创团队CTO一般就是一个高级开发工程师，随着团队规模增大，会逐渐转换为架构师、技术经理，最后有些CTO会去负责基础技术研究，有些CTO则统管整个研发团队，还有一些则会去管理部分业务。不管如何，这个职责还是要看CEO心里的期望是什么。
-```
+这是来自开源项目[awespme-cto](https://github.com/kuchin/awesome-cto)的一篇文章，也是自己曾有过的疑问。自己目前担任CTO这个岗位已经6年多了，现在对这个问题的认知：其实CTO这个角色的职责还是要根据CEO的期望来定。初创团队CTO一般就是一个高级开发工程师，随着团队规模增大，会逐渐转换为架构师、技术经理，最后有些CTO会去负责基础技术研究，有些CTO则统管整个研发团队，还有一些则会去管理部分业务。不管如何，这个职责还是要看CEO心里的期望是什么。
 
 <!-- more -->
+
+----
 
 我曾经为一个关于企业创新中首席技术官角色的小型讨论会准备演讲稿，我再次意识到围绕CTO角色存在相当多的混淆。讨论CTO角色时总是首先遇到的问题是，没有一个公认的定义来说明CTO的实际工作内容。这个角色根据公司的类型以及技术在公司中的角色非常不同。
 
@@ -43,3 +41,4 @@ categories: manage
 - [Roger Smith](http://ctonet.blogspot.com/), [the Role of the Chief Technology Officer in Strategic Innovation, Project Execution, and Mentoring](http://www.modelbenders.com/papers/CTOStrategy_SmithR.pdf)
 - [Roger Smith](http://ctonet.blogspot.com/), [5 Patterns of the Chief Technology Officer](http://www.ctonet.org/documents/5PatternsofCTO.pdf)
 
+原文链接：<https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html>
