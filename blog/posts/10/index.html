@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ Hbase关键的几个点 一. 什么时候需要HBase 半结构化或非结构化数据 &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 系统负载能力浅析 &mdash;本文于2015.12.23最新更新&mdash; 互联网时代，高并发是一个老生常谈的话题。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -120,6 +120,52 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/09/09/load-analysis/">系统负载能力浅析</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-09-09T18:42:58+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p><strong><em>&mdash;本文于2015.12.23最新更新&mdash;</em></strong></p>
+
+<p>互联网时代，高并发是一个老生常谈的话题。无论对于一个web站点还是app应用，高峰时能承载的并发请求都是衡量一个系统性能的关键标志。像阿里双十一顶住了上亿的峰值请求、订单也确实体现了阿里的技术水平（当然有钱也是一个原因）。</p>
+
+<p>那么，何为系统负载能力？怎么衡量？相关因素有哪些？又如何优化呢？</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2015/09/09/load-analysis/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -856,77 +902,6 @@ public class Account{
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2014/08/27/nginx-loadbalance/">Nginx负载均衡</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-08-27T14:32:50+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>目录</h2>
-
-<ul>
-<li><a href="#%E4%B8%80%20%E7%89%B9%E7%82%B9">一 特点</a></li>
-<li><a href="#%E4%BA%8C%20%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">二 负载均衡</a></li>
-<li><a href="#%E4%B8%89%20%E5%8A%A8%E6%80%81%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1">三 动态负载均衡</a></li>
-<li><a href="#%E5%9B%9B%20%E4%BC%98%E5%8A%BF%E5%92%8C%E5%8A%A3%E5%8A%BF">四 优势和劣势</a></li>
-<li><a href="#%E4%BA%94%20Tengine">五 Tengine</a></li>
-</ul>
-
-
-<p><strong><em>本文最新更新于2016.11.01</em></strong></p>
-
-<h2><a name='一 特点'></a>一 特点</h2>
-
-<h3>1.1 应用情况</h3>
-
-<p>Nginx做为一个强大的Web服务器软件，具有高性能、高并发性和低内存占用的特点。此外，其也能够提供强大的反向代理功能。俄罗斯大约有超过20%的虚拟主机采用Nginx作为反向代理服务器,在国内也有腾讯、新浪、网易等多家网站在使用Nginx作为反向代理服务器。据Netcraft统计，世界上最繁忙的网站中有11.48%使用Nginx作为其服务器或者代理服务器。基于反向代理的功能，Nginx作为负载均衡主要有以下几点理由：</p>
-
-<ol>
-<li>高并发连接</li>
-<li>内存消耗少</li>
-<li>配置文件非常简单</li>
-<li>成本低廉</li>
-<li>支持Rewrite重写规则</li>
-<li>内置的健康检查功能</li>
-<li>节省带宽</li>
-<li>稳定性高</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2014/08/27/nginx-loadbalance/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -1004,6 +979,10 @@ public class Account{
       	</li>
     	
      	<li>
+      	  <a href="/blog/2024/04/07/codertocto/">CTO都必须是程序员出身吗？为什么架构师做不了CTO？</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2024/03/27/ai-video/">如何使用AI生成长视频？</a>
       	</li>
     	
@@ -1033,10 +1012,6 @@ public class Account{
     	
      	<li>
       	  <a href="/blog/2022/02/13/my2021/">我的2021</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2021/08/13/game/">做游戏业务以来的一些感悟</a>
       	</li>
     	
 	</ul>
