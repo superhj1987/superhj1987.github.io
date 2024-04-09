@@ -1,12 +1,12 @@
 ---
 layout: post
-title: "技术管理修炼之道-不同的CTO角色 by Werner Vogels (Amazon CTO)"
+title: "不同的CTO角色 by Werner Vogels (Amazon CTO)"
 date: 2024-04-07 19:29:34 +0800
 comments: true
-categories: pragmatic-tech-manage
+categories: manage
 ---
 
-这是来自开源项目[awespme-cto](https://github.com/kuchin/awesome-cto)的一篇文章，也是自己曾有过的疑问。自己目前担任CTO这个岗位已经6年多了，现在对这个问题的认知：其实CTO这个角色的职责还是要根据CEO的期望来定。初创团队CTO一般就是一个高级开发工程师，随着团队规模增大，会逐渐转换为架构师、技术经理，最后有些CTO会去负责基础技术研究，有些CTO则统管整个研发团队，还有一些则会去管理部分业务。不管如何，这个职责还是要看CEO心里的期望是什么。
+这是来自开源项目[awesome-cto](https://github.com/kuchin/awesome-cto)的一篇文章，也是自己曾有过的疑问。自己目前担任CTO这个岗位已经6年多了，现在对这个问题的认知：其实CTO这个角色的职责还是要根据CEO的期望来定。初创团队CTO一般就是一个高级开发工程师，随着团队规模增大，会逐渐转换为架构师、技术经理，最后有些CTO会去负责基础技术研究，有些CTO则统管整个研发团队，还有一些则会去管理部分业务。不管如何，这个职责还是要看CEO心里的期望是什么。
 
 <!-- more -->
 
