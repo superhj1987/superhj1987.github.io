@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "CTO都必须是程序员出身吗？为什么架构师做不了CTO？"
-date: 2024-04-07 19:29:34 +0800
+date: 2024-04-08 19:29:34 +0800
 comments: true
 categories: manage
 ---
