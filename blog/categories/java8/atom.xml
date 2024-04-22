@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java8 | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/java8/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -297,31 +297,31 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 
 <p>不要用在参数或者域中。<a href="http://blog.joda.org/2015/08/java-se-8-optional-pragmatic-approach.html">阅读这篇博文</a>可以看到如何正确使用Optional进行编码。幸运的是，IntelliJ IDEA可以打开inspections去检查你是否遵循了这些推荐规范。</p>
 
-<p><img src="/images/blog_images/java8/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
+<p><img src="//images/blog_images/java8/OptionalParamWarning.png" alt="OptionalParamWarning.png" /></p>
 
 <p>要尽早在Optional出现的地方对它进行处理。IntelliJ IDEA会阻止Optional出现在你代码的各个地方，所以记住一定要在Optional出现的地方就对他进行处理。</p>
 
-<p><img src="/images/blog_images/java8/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
+<p><img src="//images/blog_images/java8/OptionalUseImmediately.png" alt="OptionalUseImmediately.png" /></p>
 
 <h3>不能简单地调用get()方法</h3>
 
 <p>Optional是用来表示这个值是有可能为空的，让你做好应对的准备。因此，很重要的一点就是在使用这个值之前务必要检查其是否存在。简单地调用get方法而不是先调用isPresent可能会导致产生空指针异常。幸运的是，IntelliJ IDEA再一次提供了对此种方案的检查。</p>
 
-<p><img src="/images/blog_images/java8/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
+<p><img src="//images/blog_images/java8/OptionalGetWithoutIsPresent.png" alt="OptionalGetWithoutIsPresent.png" /></p>
 
 <h3>更加优雅的方案</h3>
 
 <p>如下代码，isPresent和get当然能够解决这个问题。</p>
 
-<p><img src="/images/blog_images/java8/OptionalSimple.png" alt="OptionalSimple.png" /></p>
+<p><img src="//images/blog_images/java8/OptionalSimple.png" alt="OptionalSimple.png" /></p>
 
 <p>但是这里有更加优雅的方式，你可以使用orElse来设置一个默认值。</p>
 
-<p><img src="/images/blog_images/java8/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
+<p><img src="//images/blog_images/java8/OptionalOrElse.png" alt="OptionalOrElse.png" /></p>
 
 <p>或者你可以使用orElseGet来设置当值为null的时候去调用的方法。虽然看着和前面的方案没有什么大的不同。但是提供的方法应该仅仅在需要调用的时候才被调用。那么当这是个代价昂贵的方法时，那么使用lambda会带来更好的性能提升。</p>
 
-<p><img src="/images/blog_images/java8/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
+<p><img src="//images/blog_images/java8/OptionalOrElseGet.png" alt="OptionalOrElseGet.png" /></p>
 
 <h2>使用Lambda表达式</h2>
 
@@ -331,25 +331,25 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 
 <p>函数式编程对于长的lambda表达式是欢迎的，但是对于仅仅使用Java开发很多年的人发现编写短的lambda表达式会更容易一些。你甚至会想把表达式缩减到一行，也很容易把长的表达式重构成一个方法。</p>
 
-<p><img src="/images/blog_images/java8/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaExtractMethod.png" alt="LambdaExtractMethod.png" /></p>
 
 <p>当然，这些甚至牵扯到了方法引用(Method References)。方法引用可能看着有点陌生，但是由于其能让代码达到更好的阅读性，还是有很大应用价值的。后面，我会讲到这个概念。</p>
 
-<p><img src="/images/blog_images/java8/LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaCollapseToMethodRef.png" alt="LambdaCollapseToMethodRef.png" /></p>
 
 <h3>显式声明</h3>
 
 <p>在lambda表达式中是没有类型信息的，所以你会发现在参数中包含类型信息是非常有用的。</p>
 
-<p><img src="/images/blog_images/java8/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaExplicitParamTypes.png" alt="LambdaExplicitParamTypes.png" /></p>
 
 <p>如你所见，这会变得很笨重。所以我更喜欢赋予参数有意义的名字。当然，无论你是否这么做，Intellij IDEA都会让你可以看到参数的类型信息。</p>
 
-<p><img src="/images/blog_images/java8/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaParamTypes.png" alt="LambdaParamTypes.png" /></p>
 
 <p>甚至lambda表示的函数接口也能看到。</p>
 
-<p><img src="/images/blog_images/java8/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaFunctionalInterface.png" alt="LambdaFunctionalInterface.png" /></p>
 
 <h2>设计Lambda表达式</h2>
 
@@ -361,7 +361,7 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 
 <p>能够让你创建一个参数，这个参数是一个lambda而不是一个Object。这个特性的最好的一点就是它会智能建议一个匹配规格的已存在的函数接口。</p>
 
-<p><img src="/images/blog_images/java8/LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaExtractFunctionalParameter.png" alt="LambdaExtractFunctionalParameter.png" /></p>
 
 <h3>使用存在的函数接口</h3>
 
@@ -371,15 +371,15 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 
 <p>如果你确实需要创建自己的函数接口，那么用这个注解去标记它。看起来不需要这么做，但是Intellij IDEA会在你的函数接口没有符合规范时提示你。当没有方法实现这个接口时，它会提示你。</p>
 
-<p><img src="/images/blog_images/java8/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaFunctionalInterfaceNoMethod.png" alt="LambdaFunctionalInterfaceNoMethod.png" /></p>
 
 <p>当方法太多时，也会提示你。</p>
 
-<p><img src="/images/blog_images/java8/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaFunctionalInterfaceTooManyMethods.png" alt="LambdaFunctionalInterfaceTooManyMethods.png" /></p>
 
 <p>当你把注解应用到一个类而不是接口时，也会发出提醒。</p>
 
-<p><img src="/images/blog_images/java8/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
+<p><img src="//images/blog_images/java8/LambdaFunctionalInterfaceNotInterface.png" alt="LambdaFunctionalInterfaceNotInterface.png" /></p>
 
 <p>Lambda表达式可以被用在任何有一个Single Abstract Method的接口中，但是它不能够应用到一个抽象类中。看起来没有啥逻辑，但它就是这样的。</p>
 
@@ -399,23 +399,23 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 </ul>
 
 
-<p><img src="/images/blog_images/java8/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
+<p><img src="//images/blog_images/java8/StreamWrappingExample.png" alt="StreamWrappingExample.png" /></p>
 
 <p>这样做也会让代码看起来很舒服。当然，如果这么做，会增加代码的行数。</p>
 
 <p>你可以修改一下格式化设置使点号对齐。</p>
 
-<p><img src="/images/blog_images/java8/StreamWrapping.png" alt="StreamWrapping.png" /></p>
+<p><img src="//images/blog_images/java8/StreamWrapping.png" alt="StreamWrapping.png" /></p>
 
 <h3>使用方法引用(Method References)</h3>
 
 <p>你可能需要一会儿才能习惯这个奇怪的语法。但是，当我们能够正确地使用，它确实能够提高程序的可阅读性。考虑下面的代码：</p>
 
-<p><img src="/images/blog_images/java8/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
+<p><img src="//images/blog_images/java8/StreamSimpleFilter.png" alt="StreamSimpleFilter.png" /></p>
 
 <p>对比一下使用新引入的Objects类的辅助方法(helper methods)：</p>
 
-<p><img src="/images/blog_images/java8/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
+<p><img src="//images/blog_images/java8/StreamMethodRefFilter.png" alt="StreamMethodRefFilter.png" /></p>
 
 <p>后面的代码能够更加明显地表明它想保存的值。IntelliJ IDEA会提示你何时一个lambda可以被替换成方法引用。</p>
 
@@ -423,15 +423,15 @@ public Optional&lt;Double&gt; divideFirstTwo(NumberProvider numberProvider, Math
 
 <p>使用新的集合方法：forEach。IDEA会提示你。</p>
 
-<p><img src="/images/blog_images/java8/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
+<p><img src="//images/blog_images/java8/StreamRepalceForWithForEach.png" alt="StreamRepalceForWithForEach.png" /></p>
 
 <p>使用Streams API相比起使用循环和if语句更加清晰明了。例如：</p>
 
-<p><img src="/images/blog_images/java8/StreamBefore.png" alt="StreamBefore.png" /></p>
+<p><img src="//images/blog_images/java8/StreamBefore.png" alt="StreamBefore.png" /></p>
 
 <p>IDEA会建议重构为：</p>
 
-<p><img src="/images/blog_images/java8/StreamAfter.png" alt="StreamAfter.png" /></p>
+<p><img src="//images/blog_images/java8/StreamAfter.png" alt="StreamAfter.png" /></p>
 
 <p>我做的性能测试表示这个重构是令人惊奇的-无论性能是不变、提升还是变差，都是不能被预测的。因此，当你的应用对性能要求很苛刻的话，重构的时候务必做好测试。</p>
 

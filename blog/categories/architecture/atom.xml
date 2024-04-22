@@ -4,7 +4,7 @@
   <title><![CDATA[Category: architecture | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/architecture/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -228,7 +228,7 @@
 
 <h2>架构原则</h2>
 
-<p><img src="/images/blog_images/arch-spec.png" alt="" /></p>
+<p><img src="//images/blog_images/arch-spec.png" alt="" /></p>
 
 <ul>
 <li><strong>避免过度设计</strong>：简单的架构就是最好的架构。最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。</li>
@@ -339,7 +339,7 @@
 
 <p>需要对系统/关键模块做好评估、量化，以防止超出容量时不至于压垮服务器，仍然能够服务于大部分用户。</p>
 
-<p><img src="/post_images/capacity-plan.png" alt="" /></p>
+<p><img src="//post_images/capacity-plan.png" alt="" /></p>
 
 <ol>
 <li>根据流量模型、历史数据、预测算法预估未来某一个时间点的业务量：QPS、每日数据量等。</li>
@@ -451,7 +451,7 @@
 
 <p>在线数据迁移指将正在提供线上服务的数据，从一个地方迁移到另一个地方，迁移过程中服务不受影响。这种场景是系统演进过程中都会出现的问题，包括业务演进的需要和性能扩展的需要。典型的步骤如下：</p>
 
-<p><img src="/post_images/data-mig.png" alt="" /></p>
+<p><img src="//post_images/data-mig.png" alt="" /></p>
 
 <ol>
 <li>上线双写：在业务系统里写代码，同时向新旧数据存储写入数据。此步骤完成后，需要进行一致性验证，包括存储维度和业务维度。前者指对比原数据存储和新数据存储中的数据对比，后者指从用户看到的数据维度进行对比。</li>
@@ -545,7 +545,7 @@
 
 <h3>总体架构</h3>
 
-<p><img src="/post_images/middle-office-arch.png" alt="" /></p>
+<p><img src="//post_images/middle-office-arch.png" alt="" /></p>
 
 <h3>建设思路</h3>
 
@@ -632,7 +632,7 @@
 
 <p>REST经常被用来规范API的设计以及数据传输的格式，可以统一给各种客户端提供接口,包括Web、iOS、Android和其他的服务。REST不需要显式的前端页面，只需要按照格式返回数据即可。符合REST风格的API称为RESTful API，符合RESTFul规范的架构称为RESTful架构。如下图所示：</p>
 
-<p><img src="/post_images/restful/restful.png" alt="" /></p>
+<p><img src="//post_images/restful/restful.png" alt="" /></p>
 
 <!--more-->
 
@@ -787,7 +787,7 @@ Accept: application/json
 
 <p>OAuth2.0的验证流程如下图所示：</p>
 
-<p><img src="/post_images/restful/oauth.png" alt="" /></p>
+<p><img src="//post_images/restful/oauth.png" alt="" /></p>
 
 <ul>
 <li>得到授权码code。</li>
@@ -919,7 +919,7 @@ public UserNote getUserNoteInfo(@PathVariable long noteId) {
 
 <p>是否选择微服务取决于你要设计的系统的复杂度。微服务是用来把控复杂系统的，但是随之而来的就是引入了微服务本身的复杂度。需要解决包括自动化部署、监控、容错处理、最终一致性等其他分布式系统面临的问题。即使已经有一些普遍使用的解决方案，但是仍然是有不小的成本的。</p>
 
-<p><img src="/post_images/msa/productivity.png" alt="" /></p>
+<p><img src="//post_images/msa/productivity.png" alt="" /></p>
 
 <p>生产力和复杂度的关系如图所示，可见系统越复杂，微服务带来的收益越大。此外，无论是单体应用还是微服务，团队的技能都需要能够把控住。</p>
 
@@ -1020,7 +1020,7 @@ public UserNote getUserNoteInfo(@PathVariable long noteId) {
 
 <p>在引入微服务之后，传统的单体应用变为了一个一个服务，之前一个应用直接提供接口给客户端访问的架构不再适用。微服务架构下，针对不同设备的接口做为BFF层（Backend For Frontend），也叫做用户体验适配层，负责聚合、编排微服务的数据转换成前端需要的数据。服务之间的调用则在允许的情况下（允许延迟）尽可能使用异步消息传递方式，如此形成<strong>面向用户体验的微服务架构设计模式</strong>。如下图所示：</p>
 
-<p><img src="/post_images/msa/msa-arch.png" alt="" /></p>
+<p><img src="//post_images/msa/msa-arch.png" alt="" /></p>
 
 <p><strong>Client -> API Gateway -> BFF（Backend For Frontend） -> Downstream Microservices</strong></p>
 
@@ -1105,7 +1105,7 @@ public UserNote getUserNoteInfo(@PathVariable long noteId) {
 
 <p> 上述的微服务框架都是侵入式的，服务化的过程都需要进行代码改造。Service Mesh则是下一代微服务架构，最明显的特征就是无入侵。采用sidecar模式来解决系统架构微服务化后的服务间通信和治理问题。如下图所示：</p>
 
-<p> <img src="/post_images/msa/sm.png" alt="" /></p>
+<p> <img src="//post_images/msa/sm.png" alt="" /></p>
 
 <p> 目前主流的开源实现包括：</p>
 
@@ -1128,7 +1128,7 @@ public UserNote getUserNoteInfo(@PathVariable long noteId) {
 
 <p>综上，目前公司技术团队技术栈是Spring，并且已有服务的实现都是基于Dubbo，因此选择Spring Cloud Netflix做为基础的微服务框架，对其中不成熟或者缺乏的组件，选择业界更为成熟的组件替代即可。</p>
 
-<p><img src="/post_images/msa/msa-basic.png" alt="" /></p>
+<p><img src="//post_images/msa/msa-basic.png" alt="" /></p>
 
 <ul>
 <li>API网关：Zuul</li>

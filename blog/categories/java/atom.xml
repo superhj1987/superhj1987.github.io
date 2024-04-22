@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/java/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -245,7 +245,7 @@
 
 <p>还需要提到的是DDOS一个新的变种，反射型DDOS攻击，也被称为放大攻击。原理如下图所示：</p>
 
-<p><img src="/post_images/reflect-ddos.png" alt="" /></p>
+<p><img src="//post_images/reflect-ddos.png" alt="" /></p>
 
 <p>此种攻击，攻击者并不直接攻击目标服务IP，而是伪造被攻击者的IP，发送请求包到网上一些开放的特殊服务的服务器（放大器。这些服务器由于协议的特点并不会验证源IP的真伪，于是会将数倍于请求报文的回复数据发送到被攻击者的IP，从而对后者间接形成DDOS攻击。任何设计不完善的、基于UDP请求的协议或者ICMP协议都能形成放大器，包括DNS请求、Ping请求、NTP monlist请求、SSDP协议（简单服务发现协议）等。此种攻击不需要大量的肉鸡、难以追踪，正变得越来越流行。防范此种攻击通常的手段就是进行DDOS流量清洗和增加ACL过滤规则。</p>
 
@@ -345,7 +345,7 @@
 
 <p>RPC分为客户端（服务调用方）和服务端（服务提供方），都运行在自己的JVM中。客户端只需要引入要使用的接口，接口的实现和运行都在服务端。RPC主要依赖的技术包括序列化、反序列化和数据传输协议。是一种定义与实现相分离的设计：</p>
 
-<p><img src="/post_images/rpc/rpc.png" alt="" /></p>
+<p><img src="//post_images/rpc/rpc.png" alt="" /></p>
 
 <p>目前Java使用比较多的RPC方案主要有RMI、Hessian、Dubbo以及Thrift。</p>
 
@@ -358,7 +358,7 @@
 
 <p>RMI，remote method invoke, 远程方法调用。是JAVA自带的远程方法调用工具，其基于TCP连接，可以使用任意端口，不易跨网段调用，不能穿越防火墙。但它是JAVA语言最开始时的设计，后来很多框架的原理都基于RMI。其调用逻辑如下图所示：</p>
 
-<p><img src="/post_images/rpc/rmi.png" alt="" /></p>
+<p><img src="//post_images/rpc/rmi.png" alt="" /></p>
 
 <ol>
 <li>服务注册：服务端注册服务绑定到注册中心registry。</li>
@@ -377,7 +377,7 @@
 
 <p>Hessian是一个基于HTTP协议的RPC方案，其序列化机制是自己实现的，负载均衡和容错需要依赖于Web容器/服务。其体系结构和RMI类似，不过并没有注册中心Registry这一角色，而是通过使用地址来显式调用。其中需要使用HessianProxyFactory根据配置的地址create一个代理对象。使用此代理对象去调用服务。</p>
 
-<p><img src="/post_images/rpc/hessian.png" alt="" /></p>
+<p><img src="//post_images/rpc/hessian.png" alt="" /></p>
 
 <p>和RMI一样，可以使用Spring那一节讲的HessianServiceExporter和HessianProxyFactoryBean来使用。</p>
 
@@ -385,7 +385,7 @@
 
 <p>Thrift是Facebook开源的RPC框架，现已进入Apache开源项目。其采用接口描述语言（IDL）定义 RPC 接口和数据类型，通过编译器生成不同语言的代码（支持 C++，Java，Python，Ruby等），数据传输采用二进制格式，是自己实现的序列化机制。没有注册中心的概念。</p>
 
-<p><img src="/post_images/rpc/thrift.png" alt="" /></p>
+<p><img src="//post_images/rpc/thrift.png" alt="" /></p>
 
 <p>Thrift的使用需要先编写接口的IDL，然后使用它自带的工具生成代码。</p>
 
@@ -482,7 +482,7 @@ int result = testService.add(1,2);
 
 <p>这里仅仅针对Dubbo的RPC协议来讲，其传输是基于TCP协议的，使用了高性能的NIO框架Netty，序列化可以有多种选择，默认使用Hessian的序列化实现。Dubbo默认使用Zookeeper作为服务注册、管理中心。</p>
 
-<p><img src="/post_images/rpc/dubbo.png" alt="" /></p>
+<p><img src="//post_images/rpc/dubbo.png" alt="" /></p>
 
 <p>一个基于Spring XML配置的使用例子如下：</p>
 
@@ -789,7 +789,7 @@ public class BootDemo extends SpringBootServletInitializer{
 
 <h2>二. 原理浅析</h2>
 
-<p><img src="/post_images/spring-boot-process.png" alt="" /></p>
+<p><img src="//post_images/spring-boot-process.png" alt="" /></p>
 
 <p>Spring Boot的基础组件之一就是4.1讲过的一些注解配置，除此之外，它也提供了自己的注释。其总体的运行流程如上图所示。</p>
 

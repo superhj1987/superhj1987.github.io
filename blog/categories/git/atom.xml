@@ -4,7 +4,7 @@
   <title><![CDATA[Category: git | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/git/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -22,7 +22,7 @@
 
 <p>其实一般情况下，只需要掌握git的几个常用命令即可，但是在使用的过程中难免会遇到各种复杂的需求，这时候经常需要搜索，非常麻烦，故总结了一下自己平常会用到的git操作。</p>
 
-<p><img src="/images/blog_images/git-process.png" alt="git-process" /></p>
+<p><img src="//images/blog_images/git-process.png" alt="git-process" /></p>
 
 <p>上图所示，使用git的流程一般如此，通常使用图中的六个命令即可。</p>
 

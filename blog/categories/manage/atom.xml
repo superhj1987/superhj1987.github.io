@@ -4,7 +4,7 @@
   <title><![CDATA[Category: manage | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/manage/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -140,7 +140,7 @@
 <li>管理三板斧：针对人</li>
 <li><p>整体观：业务 组织 文化 三位一体</p>
 
-<p>  <img src="/post_images/ali-manage/whole.jpg" alt="" /></p>
+<p>  <img src="//post_images/ali-manage/whole.jpg" alt="" /></p>
 
 <ul>
 <li>平常人做非凡事 -> 非凡人平常心做非凡事</li>
@@ -154,9 +154,9 @@
 </ul>
 </li>
 <li>领导力梯队
-  <img src="/post_images/ali-manage/team.jpg" alt="" /></li>
+  <img src="//post_images/ali-manage/team.jpg" alt="" /></li>
 <li>腿部三板斧
-  <img src="/post_images/ali-manage/leg.jpg" alt="" />
+  <img src="//post_images/ali-manage/leg.jpg" alt="" />
 
 <ul>
 <li>结果和过程都要：为过程鼓掌，为结果复盘
@@ -179,19 +179,19 @@
 </ul>
 </li>
 <li>腰部三板斧
-  <img src="/post_images/ali-manage/waist.jpg" alt="" />
+  <img src="//post_images/ali-manage/waist.jpg" alt="" />
 
 <ul>
 <li>超越伯乐：职能部门不招应届生</li>
 </ul>
 </li>
 <li>头部三板斧：眼光、胸怀、看未来的能力
-  <img src="/post_images/ali-manage/head.jpg" alt="" /></li>
+  <img src="//post_images/ali-manage/head.jpg" alt="" /></li>
 <li>业务、组织、文化三位一体
-  <img src="/post_images/ali-manage/integration.jpg" alt="" /></li>
+  <img src="//post_images/ali-manage/integration.jpg" alt="" /></li>
 <li><p>数字化变革时代的理念变迁</p>
 
-<p>  <img src="/post_images/ali-manage/trans.jpg" alt="" /></p></li>
+<p>  <img src="//post_images/ali-manage/trans.jpg" alt="" /></p></li>
 <li><p>终局思维</p></li>
 </ul>
 
@@ -231,7 +231,7 @@
 
 <p>一个软件研发的完整流程如下图所示：</p>
 
-<p><img src="/post_images/dev/devprocess.png" alt="" /></p>
+<p><img src="//post_images/dev/devprocess.png" alt="" /></p>
 
 <p>此流程交付期望产品的效率和能力，即研发效能。更进一步的《研发效率破局之道》中将研发效能定义为团队能够持续地为用户产生有效价值的效率，包括 <strong>有效性（Effectiveness）、效率（Efficiency）和可持续性（Sustainability）</strong> 三个方面。其增加的可持续性指出研发效能应该着眼于长期效果。</p>
 

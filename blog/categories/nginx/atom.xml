@@ -4,7 +4,7 @@
   <title><![CDATA[Category: nginx | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/nginx/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -898,7 +898,7 @@ for ( ;; ) {
 
 <h3>1.2 架构</h3>
 
-<p><img src="/images/blog_images/nginx/ngx_arch.jpg" alt="" /></p>
+<p><img src="//images/blog_images/nginx/ngx_arch.jpg" alt="" /></p>
 
 <p>上图为来自官方的一张总体架构图。</p>
 
@@ -948,14 +948,14 @@ for ( ;; ) {
 
 <p> 轮询的原理很简单，首先我们介绍一下轮询的基本流程。如下是处理一次请求的流程图：</p>
 
-<p> <img src="/images/blog_images/nginx/ngx_wr.png" alt="" /></p>
+<p> <img src="//images/blog_images/nginx/ngx_wr.png" alt="" /></p>
 
 <p> 图中有两点需要注意，第一，如果可以把加权轮询算法分为先深搜索和先广搜索，那么nginx采用的是先深搜索算法，即将首先将请求都分给高权重的机器，直到该机器的权值降到了比其他机器低，才开始将请求分给下一个高权重的机器；第二，当所有后端机器都down掉时，nginx会立即将所有机器的标志位清成初始状态，以避免造成所有的机器都处在timeout的状态，从而导致整个前端被夯住。</p></li>
 <li><p>ip hash</p>
 
 <p> ip hash是nginx内置的另一个负载均衡的策略，流程和轮询很类似，只是其中的算法和具体的策略有些变化，如下图所示：</p>
 
-<p> <img src="/images/blog_images/nginx/ngx_iphash.png" alt="" /></p>
+<p> <img src="//images/blog_images/nginx/ngx_iphash.png" alt="" /></p>
 
 <p> ip hash算法的核心实现如下：</p>
 
@@ -1066,7 +1066,7 @@ for ( ;; ) {
 
 <p>Nginx属于典型的微内核设计，其内核非常简洁和优雅，同时具有非常高的可扩展性。如下图所示：</p>
 
-<p><img src="/images/blog_images/nginx/ngx_micro.png" alt="" /></p>
+<p><img src="//images/blog_images/nginx/ngx_micro.png" alt="" /></p>
 
 <p>Nginx是纯C语言的实现，其可扩展性在于其模块化的设计。目前，Nginx已经有很多的第三方模块，大大扩展了自身的功能。nginx_lua_module可以将Lua语言嵌入到Nginx配置中，从而利用Lua极大增强了Nginx本身的编程能力，甚至可以不用配合其它脚本语言（如PHP或Python等），只靠Nginx本身就可以实现复杂业务的处理。</p>
 
@@ -1074,7 +1074,7 @@ for ( ;; ) {
 
 <p>nginx的配置架构如下图所示：</p>
 
-<p><img src="/images/blog_images/nginx/ngx_config.png" alt="" /></p>
+<p><img src="//images/blog_images/nginx/ngx_config.png" alt="" /></p>
 
 <p>Nginx支持热部署，几乎可以做到7*24不间断运行，即使运行数个月也不需要重新启动。能够在不间断服务的情况下，对软件版本进行进行升级。Nginx的配置文件非常简单，风格跟程序一样通俗易懂，能够支持perl语法。使用nginx –s reload可以在运行时加载配置文件，便于运行时扩容/减容。重新加载配置时，master进程发送命令给当前正在运行的worker进程worker进程接到命令后会在处理完当前任务后退出。同时，master进程会启动新的worker进程来接管工作。</p>
 

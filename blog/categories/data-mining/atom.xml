@@ -4,7 +4,7 @@
   <title><![CDATA[Category: data-mining | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/data-mining/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -72,13 +72,13 @@
 
 <p>个性化推荐系统的典型架构如下图所示：</p>
 
-<p><img src="/images/blog_images/recommend-sys/recommend-sys-arch.png" alt="recommend-sys" /></p>
+<p><img src="//images/blog_images/recommend-sys/recommend-sys-arch.png" alt="recommend-sys" /></p>
 
 <p>在线业务系统的日志接入数据高速公路，再由数据高速公路迅速运转到离线数据处理平台和在线流计算平台；离线数据处理平台周期性地以批处理方式加工过去一段时间的数据，得到人群标签和其他模型参数，存放在高速缓存中，供在线业务系统使用，与此同时，在线流计算平台实时对线上的日志数据做处理，对离线计算出的数据进行补充、修正等；在线业务系统综合离线特征和在线特征使用一定的逻辑得到输出供业务使用，产生的日志流入数据高速公路。</p>
 
 <p>基于此框架，个性化推荐系统的典型流程如下所示：</p>
 
-<p><img src="/images/blog_images/recommend-sys/recommend-process.png" alt="recommend" /></p>
+<p><img src="//images/blog_images/recommend-sys/recommend-process.png" alt="recommend" /></p>
 
 <p>可知，一个推荐系统主要有以下模块组成：</p>
 
@@ -222,7 +222,7 @@
 
 <p>综合上面讲述的各个部分即可实现一个基于内容和用户画像的个性化推荐系统。如下图所示：</p>
 
-<p><img src="/images/blog_images/up-recommend.png" alt="uc_interest" /></p>
+<p><img src="//images/blog_images/up-recommend.png" alt="uc_interest" /></p>
 
 <!--more-->
 
@@ -298,7 +298,7 @@
 
 <p>用户对于某一个内容的兴趣度(可以认为是CTR)：</p>
 
-<p><img src="/images/blog_images/uc_interest.jpg" alt="uc_interest" /></p>
+<p><img src="//images/blog_images/uc_interest.jpg" alt="uc_interest" /></p>
 
 <p>其中i=1&hellip;N是内容c具有的标签，m(ci)指的内容c和标签i的关联度(可以简单认为是1),n(ui)指的是用户u的标签i的权重值,当用户不具有此标签时n(ui)=0，q&copy;指的是内容c的质量，可以使用点击率(click/pv)表示。</p>
 ]]></content>
@@ -488,11 +488,11 @@
 
 <p>下图为一个典型的大数据系统架构：</p>
 
-<p><img src="/images/blog_images/data-arch.png" alt="data-arch" /></p>
+<p><img src="//images/blog_images/data-arch.png" alt="data-arch" /></p>
 
 <p>这里还需要提到的是Lambda架构这个概念。Lambda架构是由Storm的作者Nathan Marz提出的一个实时大数据处理框架。目标是设计出一个能满足实时大数据系统关键特性的架构，包括有：高容错、低延时和可扩展等。Lambda架构整合离线计算和实时计算，融合不可变性（Immunability），读写分离和复杂性隔离等一系列架构原则，可集成Hadoop，Kafka，Storm，Spark，Hbase等各类大数据组件。</p>
 
-<p><img src="/images/blog_images/lambda-arch.png" alt="lambda-arch" /></p>
+<p><img src="//images/blog_images/lambda-arch.png" alt="lambda-arch" /></p>
 
 <p>Lambda架构是由三层组成：批处理层、服务层和速度层，总体可由query = function(alldata)这个公式来表示。</p>
 
@@ -558,13 +558,13 @@
 
 <p>个性化推荐系统的典型架构如下图所示：</p>
 
-<p><img src="/images/blog_images/recommend-sys/recommend-sys-arch.png" alt="recommend-sys" /></p>
+<p><img src="//images/blog_images/recommend-sys/recommend-sys-arch.png" alt="recommend-sys" /></p>
 
 <p>在线业务系统的日志接入数据高速公路，再由数据高速公路迅速运转到离线数据处理平台和在线流计算平台；离线数据处理平台周期性地以批处理方式加工过去一段时间的数据，得到人群标签和其他模型参数，存放在高速缓存中，供在线业务系统使用，与此同时，在线流计算平台实时对线上的日志数据做处理，对离线计算出的数据进行补充、修正等；在线业务系统综合离线特征和在线特征使用一定的逻辑得到输出供业务使用，产生的日志流入数据高速公路。</p>
 
 <p>基于此框架，个性化推荐系统的典型流程如下：</p>
 
-<p><img src="/images/blog_images/recommend-sys/recommend-sys.png" alt="recommend-sys" /></p>
+<p><img src="//images/blog_images/recommend-sys/recommend-sys.png" alt="recommend-sys" /></p>
 
 <p>其他更为详细的，个性化推荐牵扯到的算法、细节还有很多，留待后续推荐系统相关文章中再谈。</p>
 

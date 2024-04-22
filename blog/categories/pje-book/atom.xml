@@ -4,7 +4,7 @@
   <title><![CDATA[Category: pje-book | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/pje-book/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -29,7 +29,7 @@
 
 <p>REST经常被用来规范API的设计以及数据传输的格式，可以统一给各种客户端提供接口,包括Web、iOS、Android和其他的服务。REST不需要显式的前端页面，只需要按照格式返回数据即可。符合REST风格的API称为RESTful API，符合RESTFul规范的架构称为RESTful架构。如下图所示：</p>
 
-<p><img src="/post_images/restful/restful.png" alt="" /></p>
+<p><img src="//post_images/restful/restful.png" alt="" /></p>
 
 <!--more-->
 
@@ -184,7 +184,7 @@ Accept: application/json
 
 <p>OAuth2.0的验证流程如下图所示：</p>
 
-<p><img src="/post_images/restful/oauth.png" alt="" /></p>
+<p><img src="//post_images/restful/oauth.png" alt="" /></p>
 
 <ul>
 <li>得到授权码code。</li>
@@ -319,7 +319,7 @@ public class BootDemo extends SpringBootServletInitializer{
 
 <h2>二. 原理浅析</h2>
 
-<p><img src="/post_images/spring-boot-process.png" alt="" /></p>
+<p><img src="//post_images/spring-boot-process.png" alt="" /></p>
 
 <p>Spring Boot的基础组件之一就是4.1讲过的一些注解配置，除此之外，它也提供了自己的注释。其总体的运行流程如上图所示。</p>
 

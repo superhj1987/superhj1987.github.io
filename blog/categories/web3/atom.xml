@@ -4,7 +4,7 @@
   <title><![CDATA[Category: web3 | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/web3/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -36,7 +36,7 @@
 
 <p>Gartner有一个区块链科技成熟度曲线，如下所示：</p>
 
-<p><img src="/post_images/web3/gartner-bc.png" alt="" /></p>
+<p><img src="//post_images/web3/gartner-bc.png" alt="" /></p>
 
 <p>可见，Web3还处于早期状态，相比而言，和Web3紧密相关的区块链则已经处于了成熟期之后，尤其是加密货币相关的技术。</p>
 
@@ -52,12 +52,12 @@
 </li>
 <li><p>链接论：1用自己的帐号 2用平台账号 3用钱包</p>
 
-<p>   <img src="/post_images/web3/what-link.png" alt="" /></p></li>
+<p>   <img src="//post_images/web3/what-link.png" alt="" /></p></li>
 <li><p>网络论：Web3是构建网络的全方法，由用户社区拥有。整合了1的去中心化协议和2的现代化功能服务</p></li>
 </ul>
 
 
-<p><img src="/post_images/web3/what-table.png" alt="" /></p>
+<p><img src="//post_images/web3/what-table.png" alt="" /></p>
 
 <p>概括来讲，Web3.0是由区块链支撑的价值互联网，用户的数据归用户个人所有。在区块链上运行的协议、应用程序和社区统称为 Web3.0。</p>
 
@@ -75,15 +75,15 @@
 
 <p>Web3由三要素构成：</p>
 
-<p><img src="/post_images/web3/what-elements.png" alt="" /></p>
+<p><img src="//post_images/web3/what-elements.png" alt="" /></p>
 
 <p>模块的组合见：</p>
 
-<p><img src="/post_images/web3/what-module.png" alt="" /></p>
+<p><img src="//post_images/web3/what-module.png" alt="" /></p>
 
 <p>对于Web3来说，在认知层面可以概括为：I don&rsquo;t know i don&rsquo;t know。</p>
 
-<p><img src="/post_images/web3/what-know.png" alt="" /></p>
+<p><img src="//post_images/web3/what-know.png" alt="" /></p>
 
 <h2>货币</h2>
 

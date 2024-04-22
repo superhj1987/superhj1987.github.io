@@ -4,7 +4,7 @@
   <title><![CDATA[Category: hadoop | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/hadoop/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -70,7 +70,7 @@
 
 <p>将HTable的存储结构理解为</p>
 
-<p><img src="/images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
+<p><img src="//images/blog_images/hbase_data.jpg" alt="hbase-data" /></p>
 
 <p>即HTable按Row key自动排序，每个Row包含任意数量个Columns，Columns之间按Column key自动排序，每个Column包含任意数量个Values。理解该存储结构将有助于查询结果的迭代。</p>
 

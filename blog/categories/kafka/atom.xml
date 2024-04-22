@@ -4,7 +4,7 @@
   <title><![CDATA[Category: kafka | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/kafka/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -20,13 +20,13 @@
     <id>https://www.rowkey.cn/blog/2015/05/30/kafka-consumer</id>
     <content type="html"><![CDATA[<p>Kafka的consumer是以pull的形式获取消息数据的。不同于队列和发布-订阅模式，kafka采用了consumer group的模式。通常的，一般采用一个consumer中的一个group对应一个业务，配合多个producer提供数据。</p>
 
-<p><img src="/images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
+<p><img src="//images/blog_images/kafka-consumer.jpg" alt="pic" /></p>
 
 <h2>一. 消费过的数据无法再次消费</h2>
 
 <p>在user level上，一旦消费过topic里的数据，那么就无法再次用同一个groupid消费同一组数据。如果想要再次消费数据，要么换另一个groupid，要么使用镜像：</p>
 
-<p><img src="/images/blog_images/kafka-consumer-1.jpg" alt="pic" /></p>
+<p><img src="//images/blog_images/kafka-consumer-1.jpg" alt="pic" /></p>
 
 <p>此外，low level的api提供了一些机制去设置partion和offset。</p>
 
@@ -295,7 +295,7 @@
 
 <p>总体结构如下图：</p>
 
-<p><img src="/images/blog_images/producer_consumer.png" alt="" />p</p>
+<p><img src="//images/blog_images/producer_consumer.png" alt="" />p</p>
 
 <ul>
 <li>kafka将消息以category的方式保存在一起，称为topic</li>
@@ -311,7 +311,7 @@
 
 <p>一个topic指的是消息发布到的一个分类或者feed名称。对于每一个topic，kafka集群都保存了一个分区log，如下：</p>
 
-<p><img src="/images/blog_images/log_anatomy.png" alt="" /></p>
+<p><img src="//images/blog_images/log_anatomy.png" alt="" /></p>
 
 <p>每一个分区都是一个提交日志，一系列有序的、不可变顺序的消息连续地追加到上面。</p>
 

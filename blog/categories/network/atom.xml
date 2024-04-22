@@ -4,7 +4,7 @@
   <title><![CDATA[Category: network | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/network/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -54,7 +54,7 @@
 
 <p>网络编程中，读取客户端的数据需要调用recvfrom。在默认情况下，这个调用会一直阻塞直到数据接收完毕，就是一个同步阻塞的IO方式。这也是最简单的IO模型，在通常fd较少、就绪很快的情况下使用是没有问题的。</p>
 
-<p><img src="/images/blog_images/io/bio.png" alt="bio" /></p>
+<p><img src="//images/blog_images/io/bio.png" alt="bio" /></p>
 
 <h3>同步非阻塞</h3>
 
@@ -62,7 +62,7 @@
 
 <p>这种方式在编程中对socket设置O_NONBLOCK即可。但此方式仅仅针对网络IO有效，对磁盘IO并没有作用。因为本地文件IO就没有被认为是阻塞，我们所说的网络IO的阻塞是因为网路IO有无限阻塞的可能，而本地文件除非是被锁住，否则是不可能无限阻塞的，因此只有锁这种情况下，O_NONBLOCK才会有作用。而且，磁盘IO时要么数据在内核缓冲区中直接可以返回，要么需要调用物理设备去读取，这时候进程的其他工作都需要等待。因此，后续的IO复用和信号驱动IO对文件IO也是没有意义的。</p>
 
-<p><img src="/images/blog_images/io/nio.png" alt="bio" /></p>
+<p><img src="//images/blog_images/io/nio.png" alt="bio" /></p>
 
 <p>此外，需要说明的一点是nginx和node中对于本地文件的IO是用线程的方式模拟非阻塞的效果的，而对于静态文件的io，使用zero copy(例如sendfile)的效率是非常高的。</p>
 
@@ -70,7 +70,7 @@
 
 <p>接着上面的列子，你点一份饭然后循环的去问好没好显然有点得不偿失，还不如就等在那里直到准备好，但是当你点了好几样饭菜的时候，你每次都去问一下所有饭菜的状态(未做好/已做好)肯定比你每次阻塞在那里等着好多了。当然，你问的时候是需要阻塞的，一直到有准备好的饭菜或者你等的不耐烦(超时)。这就引出了IO复用，也叫多路IO就绪通知。这是一种进程预先告知内核的能力，让内核发现进程指定的一个或多个IO条件就绪了，就通知进程。使得一个进程能在一连串的事件上等待。</p>
 
-<p><img src="/images/blog_images/io/mulio.png" alt="bio" /></p>
+<p><img src="//images/blog_images/io/mulio.png" alt="bio" /></p>
 
 <p>IO复用的实现方式目前主要有select、poll和epoll。</p>
 
@@ -113,7 +113,7 @@
 
 <p>上文的就餐方式还是需要你每次都去问一下饭菜状况。于是，你再次不耐烦了，就跟老板说，哪个饭菜好了就通知我一声吧。然后就自己坐在桌子那里干自己的事情。更甚者，你可以把手机号留给老板，自己出门，等饭菜好了直接发条短信给你。这就类似信号驱动的IO模型。</p>
 
-<p><img src="/images/blog_images/io/sigio.png" alt="bio" /></p>
+<p><img src="//images/blog_images/io/sigio.png" alt="bio" /></p>
 
 <p>流程如下：</p>
 
@@ -130,7 +130,7 @@
 
 <p>之前的就餐方式，到最后总是需要你自己去把饭菜端到餐桌。这下你也不耐烦了，于是就告诉老板，能不能饭好了直接端到你的面前或者送到你的家里(外卖)。这就是异步非阻塞IO了。</p>
 
-<p><img src="/images/blog_images/io/aio.png" alt="bio" /></p>
+<p><img src="//images/blog_images/io/aio.png" alt="bio" /></p>
 
 <p>对比信号驱动IO，异步IO的主要区别在于：信号驱动由内核告诉我们何时可以开始一个IO操作(数据在内核缓冲区中)，而异步IO则由内核通知IO操作何时已经完成(数据已经在用户空间中)。</p>
 

@@ -4,7 +4,7 @@
   <title><![CDATA[Category: genai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/genai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -687,7 +687,7 @@ User Lawson has been successfully removed from the system.
 
 <p>准备好了吗?那么,让我们从技术栈的底层开始&hellip;&hellip;下图是聊天机器人的技术调研概览图。</p>
 
-<p><img src="/post_images/gpt-chatbot/stack.png" alt="" /></p>
+<p><img src="//post_images/gpt-chatbot/stack.png" alt="" /></p>
 
 <h2>决定托管的位置和方式</h2>
 
@@ -823,7 +823,7 @@ User Lawson has been successfully removed from the system.
 
 <p>我们原型所采取的路径如下图所示：</p>
 
-<p><img src="/post_images/gpt-chatbot/tech-path.png" alt="" /></p>
+<p><img src="//post_images/gpt-chatbot/tech-path.png" alt="" /></p>
 
 <p>这种学习不仅只有技术本身，我们还了解到:</p>
 

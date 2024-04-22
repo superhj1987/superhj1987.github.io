@@ -4,7 +4,7 @@
   <title><![CDATA[Category: study | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/study/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2024-04-22T12:12:16+00:00</updated>
+  <updated>2024-04-22T12:13:16+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[MrRowKey]]></name>
@@ -340,7 +340,7 @@
 <li>整个架构的中心是一个场景覆盖度足够广，且具有无限的水平伸缩能力的存储系统。大部分数据的流动被限制在这个数据库内部，这样应用层就可以几乎做到无状态，因为这个中心的数据库负责了绝大部分状态，每个应用可以通过自己的缓存来进行加速。</li>
 <li>缓存层需要离业务层更近</li>
 <li>HTAP
-<img src="/post_images/htap.jpg" alt="" /></li>
+<img src="//post_images/htap.jpg" alt="" /></li>
 </ul>
 </li>
 <li>未来
