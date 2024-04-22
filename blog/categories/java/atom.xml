@@ -1,1 +1,2023 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
+  <title><![CDATA[Category: java | 后端技术杂谈]]></title>
+  <link href="https://www.rowkey.cn/blog/categories/java/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2024-04-22T12:12:16+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
+  <author>
+    <name><![CDATA[MrRowKey]]></name>
+    <email><![CDATA[superhj1987@126.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Java工程师应该知道的Web安全]]></title>
+    <link href="https://www.rowkey.cn/blog/2020/03/10/web-security/"/>
+    <updated>2020-03-10T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2020/03/10/web-security</id>
+    <content type="html"><![CDATA[<p>Java开发很大的一个应用场景就是Web，即使不是Web, 很多时候也是采用的和Web类似的处理方式。因此了解目前常见的Web安全问题并做防范是非常关键的。</p>
+
+<p>Web安全问题，从大的方面可以分为：</p>
+
+<ul>
+<li>客户端安全：通过浏览器进行攻击的安全问题。</li>
+<li>服务端安全：通过发送请求到服务端进行攻击的安全问题。</li>
+</ul>
+
+
+<p>常见的客户端安全问题有：</p>
+
+<ul>
+<li>跨站脚本攻击</li>
+<li>跨站点请求伪造</li>
+</ul>
+
+
+<p>常见的服务端安全问题有：</p>
+
+<ul>
+<li>SQL注入</li>
+<li>基于约束条件的SQL攻击</li>
+<li>DDOS攻击</li>
+<li>Session fixation</li>
+</ul>
+
+
+<p>本文主要针对这些问题进行讲述。</p>
+
+<!--more-->
+
+
+<h2>跨站脚本攻击</h2>
+
+<p>跨站脚本攻击，全称Cross Site Script（XSS），故名思议是跨越两个站点的攻击方式。一般指的是攻击方通过“HTML”注入的方式篡改了网页，插入了恶意的脚本，从而在用户浏览网页或者移动客户端使用WebView加载时，默默地做了一些控制操作。</p>
+
+<p>XSS可以说是客户端安全的首要问题，稍有不注意就会漏出相关接口被利用。</p>
+
+<p>一个XSS攻击的例子，如下：</p>
+
+<ul>
+<li>一个Java应用提供了一个接口可以上传个人动态，动态内容是富文本的。</li>
+<li><p>攻击者上传的内容如下：</p>
+
+<p>  <code>&lt;img src="1" onerror="alert('attack')"/&gt;</code></p></li>
+<li><p>在服务端和客户端程序未做任何过滤的情况下，其他用户访问这个动态的页面时，就会执行这个脚本。</p></li>
+</ul>
+
+
+<p>如果脚本不是一个alert，而是换成跳转到一个具有删除操作的URL或者脚本获取用户的Cookie然后发送到远程服务器上，可想而知危害有多大。</p>
+
+<p>防范此种攻击的常用方式有以下几种：</p>
+
+<ul>
+<li>对任何允许用户输入的地方做检查，防止其提交脚本相关特殊字符串，如script、onload、onerror等。客户端和服务端都要做检查。</li>
+<li>做输入过滤，即将特殊字符都过滤掉或者换成HTML转义后的字符。Java中可以使用Apache commons-lang中的StringEscapeUtils的escape前缀的方法来做转义。</li>
+<li>给Cookie属性设置上HttpOnly，可以防止脚本获取到Cookie。</li>
+<li>对输出内容做过滤。这个可在客户端做，也可在服务端做。服务端主要就是转义HTML字符，客户端可以使用escape方法来过滤。</li>
+</ul>
+
+
+<h2>跨站点请求伪造</h2>
+
+<p>跨站点请求伪造，全称Cross Site Request Forgery,简称CSRF。也是一种常见的攻击方式。</p>
+
+<p>此种攻击方式，主要是通过诱导用户点击某些链接，从而隐含地发起对其他站点的请求，进而进行数据操作。</p>
+
+<p>一个攻击示例如下：</p>
+
+<ul>
+<li>一个用户登录了一个站点，访问<a href="http://xx/delete_notes?id=xx%E5%8D%B3%E5%8F%AF%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%AC%94%E8%AE%B0%E3%80%82">http://xx/delete_notes?id=xx%E5%8D%B3%E5%8F%AF%E5%88%A0%E9%99%A4%E4%B8%80%E4%B8%AA%E7%AC%94%E8%AE%B0%E3%80%82</a></li>
+<li><p>攻击者在它的站点中构造一个页面，HTML页面含有以下内容：</p>
+
+<p>  <code>&lt;img src="http://xx/delete_notes?id=xx"/&gt;</code></p></li>
+<li><p>当用户被诱导访问攻击者的站点时就发起了一个删除笔记的请求。</p></li>
+</ul>
+
+
+<p>对于CSRF攻击的常用解决方案有以下几种：</p>
+
+<ul>
+<li>对重要请求要求验证码输入,这样就能防止在用户不知情的情况下，被发送请求。</li>
+<li>使用类似防盗链的机制，对header的refer进行检验以确认请求来自合法的源。</li>
+<li>对重要请求都附带一个服务端生成的随机token, 提交时对此token进行验证。这也是业界一个很普遍的做法。</li>
+</ul>
+
+
+<h2>SQL注入</h2>
+
+<p>SQL注入攻击是一个很常见的攻击方式，原理是通过发送特殊的参数，拼接服务端的SQL字符串，从而达到改变SQL功能的目的。</p>
+
+<p>一个攻击例子如下：</p>
+
+<ul>
+<li><p>服务端登录验证使用下面的方式,其中userName和userPwd都是用户直接上传的参数</p>
+
+<pre><code class="``">  String sql = "select * from user where user_name = '" + userName + "' and pwd = " + userPwd;
+</code></pre></li>
+<li>用户提交userName为admin'&ndash;,userPwd随便字符串xxx</li>
+<li>拼接好之后的SQL语句变成了：<code>select * from user where user_name = 'admmin'--' and pwd = 'xxx'</code>（&ndash;为SQL语句的注释）, 这样只要存在user_name为admin的用户，此语句就能成功执行并返回admin用户的信息。</li>
+</ul>
+
+
+<p>这里需要说明的是，如果服务器的请求错误信息没有做进一步封装，直接把原始的数据库错误返回，那么有经验的攻击者通过返回结果多次尝试就会有机会找出SQL注入的机会。</p>
+
+<p>防范此种攻击的方案有以下几个：</p>
+
+<ul>
+<li>在Java中构造SQL查询语句时，杜绝拼接用户参数，尤其是拼接SQL查询的where条件。全部使用PreparedStatement预编译语句, 通过？来传递参数。</li>
+<li>在业务层面，过滤、转义SQL特殊字符，Apache commons-lang中的StringEscapeUtil提供了escapeSQL的功能（最新的lang3已经删除此方法，因为其只是简单的替换'为'&lsquo;）。</li>
+</ul>
+
+
+<h2>基于约束条件的SQL攻击</h2>
+
+<p>基于约束条件的SQL攻击基于的原理如下：</p>
+
+<ul>
+<li>在处理SQL中的字符串时，字符串末尾的空格字符都会被删除，包括WHERE子句和INSERT语句，但LIKE子句除外。</li>
+<li>在任意INSERT查询中，SQL会根据varchar(n)来限制字符串的最大长度，即超过n的字符串只保留前n个字符。</li>
+</ul>
+
+
+<p>如此，我们设计一个用户表（暂且忽略设计的合理性），对其中的用户名和密码字段都设置为25个字符限制：</p>
+
+<pre><code>CREATE TABLE test_user (
+    `user_name` varchar(25),
+    `pwd`  varchar(25)
+);
+</code></pre>
+
+<p>有一个user_name为<code>user_test</code>的用户注册，于是向数据库添加一条记录。</p>
+
+<pre><code>insert into test_user values("user_test","111111");
+</code></pre>
+
+<p>接着，一个user_name为'user_test              1'(中间留有25个空格)的用户再来注册。一般的业务逻辑如下：</p>
+
+<ul>
+<li><p>判断用户名是否存在</p>
+
+<pre><code class="``">  select * from test_user where user_name = 'user_test              1'
+</code></pre>
+
+<p>  因为查询语句不会截断字符串，因此这样获取不到记录，表示用户不存在。</p></li>
+<li><p>用户名不存在，那么插入新用户。</p>
+
+<pre><code class="``">  insert into test_user values("user_test              1","123456")
+</code></pre></li>
+</ul>
+
+
+<p>这样，由于<code>user_name</code>约束为25个字符，那么新用户的<code>user_name</code>成为了'user_test      &lsquo;（后面是16个空格字符）。现在数据库记录如下（第二个记录后面是16个空格）：</p>
+
+<table>
+<thead>
+<tr>
+<th>user_name </th>
+<th> pwd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>user_test               </td>
+<td> 111111</td>
+</tr>
+<tr>
+<td>user_test               </td>
+<td> 123456</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>这样，当使用<code>user_name='user_test'</code>和<code>pwd='123456'</code>登录时，能匹配到第二条记录，登录是成功的。但是用户信息使用的第一条的记录，于是攻击者就获取到了第一个用户的操作权限。</p>
+
+<p>防范此种攻击的措施如下：</p>
+
+<ul>
+<li>为具有唯一性的那些列添加UNIQUE索引。</li>
+<li>在数据库操作前先将输入参数修剪为特定长度。</li>
+</ul>
+
+
+<h2>DDOS攻击</h2>
+
+<p>DDOS，全称Distributed Denial of Service, 分布式拒绝服务攻击。攻击者利用很多台机器同时向某个服务发送大量请求，人为构造并发压力，从而使得服务被冲垮，无法为正常用户提供服务。常见的DDOS攻击包括：</p>
+
+<ul>
+<li>SYN flood</li>
+<li>UDP flood</li>
+<li>ICMP flood</li>
+</ul>
+
+
+<p>其中SYN flood是最为经典的DDOS攻击。其利用了TCP连接三次握手时需要先发送SYN的机制，通过发送大量SYN包使得服务端建立大量半连接，消耗非常多的CPU和内存。针对这种攻击，很多解决方案就是在TCP层就使用相关算法识别异常流量，直接拒绝建立连接。但是，如果攻击者控制很多机器对一个资源消耗比较大的服务接口发起正常访问请求，那么这个方式就无效了。</p>
+
+<p>由于难于区分是否是正常用户的请求，因此DDOS是非常难以防范的，但仍有一些措施能够尽量地减少DDOS带来的影响，如下：</p>
+
+<ul>
+<li>合理使用缓存、异步等措施提高应用性能。应用抗并发的能力越强，就越不容易被DDOS冲垮服务。</li>
+<li>合理使用云计算相关组件，自动识别高峰流量并做自动扩容。</li>
+<li><p>在应用中限制来自某一IP或者某一设备ID的请求频率。超过此频率就将其放入黑名单，下次请求直接拒绝服务。Java中可以通过Redis的incr和expire操作来达到。如下：</p>
+
+<pre><code class="``">  String ip = NetworkUtil.getClientIP(request, false); //获取客户端ip地址
+  String key = "ddos." + ip;
+  long count = suishenRedisTemplate.incr(key); //incr不会影响expire
+  if (count &gt; 10000) {
+      throw new AccessException("access too frequently with ip: "
+           + StringUtils.defaultString(ip));
+  } else {
+      if (count == 1) {
+          suishenRedisTemplate.expire(key, 10);
+      }
+      return true;
+  }
+</code></pre>
+
+<p>  上述代码即可将同一IP的请求限制在十秒钟10000次。</p>
+
+<p>  此逻辑越靠近访问链路的前面效果越好，比如直接在Nginx中拦截效果就要比在业务应用中做要好。</p></li>
+</ul>
+
+
+<p>还需要提到的是DDOS一个新的变种，反射型DDOS攻击，也被称为放大攻击。原理如下图所示：</p>
+
+<p><img src="/post_images/reflect-ddos.png" alt="" /></p>
+
+<p>此种攻击，攻击者并不直接攻击目标服务IP，而是伪造被攻击者的IP，发送请求包到网上一些开放的特殊服务的服务器（放大器。这些服务器由于协议的特点并不会验证源IP的真伪，于是会将数倍于请求报文的回复数据发送到被攻击者的IP，从而对后者间接形成DDOS攻击。任何设计不完善的、基于UDP请求的协议或者ICMP协议都能形成放大器，包括DNS请求、Ping请求、NTP monlist请求、SSDP协议（简单服务发现协议）等。此种攻击不需要大量的肉鸡、难以追踪，正变得越来越流行。防范此种攻击通常的手段就是进行DDOS流量清洗和增加ACL过滤规则。</p>
+
+<h2>Session fixation</h2>
+
+<p>Session fixation攻击，故名思议就是会话固定攻击。在我们平时的Web开发中都是基于Session做用户会话管理的。在浏览器中，Session的ID一般是存储在Cookie中的，甚至直接附带在query参数中。如果Session在未登录变为登录的情况下不发生改变的话，Session fixation攻击就形成了。</p>
+
+<p>一个攻击示例如下：</p>
+
+<ul>
+<li>攻击者进入网站<a href="http://xx.com%E3%80%82">http://xx.com%E3%80%82</a></li>
+<li>攻击者发送<a href="http://xx.com?JSESSIONID=123456%E7%BB%99%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E3%80%82">http://xx.com?JSESSIONID=123456%E7%BB%99%E4%B8%80%E4%B8%AA%E7%94%A8%E6%88%B7%E3%80%82</a></li>
+<li>用户点击此链接进入网站，由于URL后面有JSESSIONID，因此直接使用此做为Session的ID。</li>
+<li>用户成功登陆后，攻击者就可以利用伪造的Session ID获取用户的各种操作权限。</li>
+</ul>
+
+
+<p>此种攻击的关键点就在于Tomcat使用JSESSIONID做为Session ID。因此，防范此种攻击的核心之一就在于不能使用客户端传来的Session ID。此外还有以下方法：</p>
+
+<ul>
+<li>不要接受由GET或者POST参数指定的Session ID值。</li>
+<li>针对每一个请求都生成新的Session。</li>
+<li>只接受服务端生成的Session ID。</li>
+<li>为Session指定过期时间。</li>
+</ul>
+
+
+<p>Java Web项目中,可以实现一个拦截器, 将使用query参数传递JSESSIONID的请求的Session删除掉：</p>
+
+<pre><code>public void doFilter(ServletRequest request, ServletResponse response,
+                         FilterChain chain) throws IOException, ServletException
+    ...
+
+    if (httpRequest.isRequestedSessionIdFromURL()) {
+        HttpSession session = httpRequest.getSession();
+        if (session != null) {
+            session.invalidate();
+        }
+    }
+    ...
+}
+</code></pre>
+
+<p>此外，对于每一次登录后的Session都重新生成ID, 并设置合理的失效期。</p>
+
+<pre><code>public JSONResult login(@RequestBody LoginRequestBody requestBody,
+                            HttpServletRequest request)
+    ...
+    boolean loginResult = doLogin();
+    if(loginResult){
+        request.changeSessionId(); //重新生成Session ID
+        request.getSession().setMaxInactiveInterval(1800); //30分钟失效
+    }
+    ...
+}
+</code></pre>
+
+<h2>隐私数据存储</h2>
+
+<p>随着市面上发生一次次数据库被脱导致用户隐私数据被泄漏的事情，越来越多的人意识到了隐私的重要性，在选择一个应用的时候也越来越在意对自己隐私数据的保护。这里所说的隐私数据包括：手机号、实名、身份证号、家庭住址、单位地址、家庭情况、密码等等。那么在技术层面如何存储这些隐私数据来保障用户的隐私安全呢？</p>
+
+<ol>
+<li><p>使用单向散列算法</p>
+
+<p> 此种方式对明文进行加密后是无法恢复明文的，因此仅仅适用于密码这种不需要恢复明文只需要做验证的场景。</p></li>
+<li><p>使用加密算法</p>
+
+<p> 此种方式，在存储和使用用户数据的时候都进行加/解密运算，能够在一定程度上保护数据的安全性。但每次都要进行加解密使得代价有点高，而如果使用简单的算法则无法面对穷举或者字典攻击。并且加密的数据对于SQL等数据库查询语句优化是不友好的，操作都得通过程序进行。此外，算法所使用的密钥的安全也是一个问题，存储在哪里都有被拿到的机会。而如果进一步对于每个用户或者每条数据都使用不同的密钥，那么就会提高程序的逻辑复杂性。</p>
+
+<p> 还得考虑到日志采集、数据分析等非具体业务场景，这些隐私数据最终还是要变为明文进行流通，无法从根本上保证隐私数据的安全。</p></li>
+</ol>
+
+
+<p>综上分析，可以采取以下这种方案：</p>
+
+<ol>
+<li><p>每一个用户都有自己的密钥，对其手机号、身份证等隐私信息使用加密算法来混淆其中的几位。如：159efadsc2681。如此，在只是需要展示这些信息的地方无须解密，直接使用即可。只有诸如发送短信、用户信用验证时才需要解密。</p></li>
+<li><p>密钥存储在另一个库中，由另外一个团队维护、独立管理，具有最高级别的访问权限，访问QPS也受严格控制。</p></li>
+<li><p>如果给数据分析部门提供数据，则提供隐私数据转换后的数据。例如：对用户的归属地分析，那么可以提供身份证转化为地区归属地后的信息而不是直接提供身份证号。</p></li>
+</ol>
+
+
+<p>如此，即使脱库也无法解密所有数据。而且密钥库和业务库独立，单独脱一个库是没有意义的。密钥库的访问权限和访问频率也都受限制，即使是内部人员脱库都很容易被发现。</p>
+
+<p>总之，对诸如身份证号、通讯录、支付宝账号等隐私信息要注意加密或者散列存储，一定不要明文发送到客户端，展示也不要明文展示，只有当真正使用的时候再去获取明文。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java工程师应该知道的RPC]]></title>
+    <link href="https://www.rowkey.cn/blog/2020/02/17/rpc/"/>
+    <updated>2020-02-17T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2020/02/17/rpc</id>
+    <content type="html"><![CDATA[<p>RPC, Remote Procedure Call,故名思议就是远程过程调用，一般都有跨语言支持。大规模分布式应用中普遍使用RPC来做内部服务、模块之间的数据通信，还有助于解耦服务、系统的垂直拆分，使得系统可扩展性更强，并能够让Java程序员用与开发本地程序一样的语法与方式去开发分布式应用程序。</p>
+
+<p>RPC分为客户端（服务调用方）和服务端（服务提供方），都运行在自己的JVM中。客户端只需要引入要使用的接口，接口的实现和运行都在服务端。RPC主要依赖的技术包括序列化、反序列化和数据传输协议。是一种定义与实现相分离的设计：</p>
+
+<p><img src="/post_images/rpc/rpc.png" alt="" /></p>
+
+<p>目前Java使用比较多的RPC方案主要有RMI、Hessian、Dubbo以及Thrift。</p>
+
+<p>这里需要提出的一点就是，这里的RPC主要指的内部服务之间的调用，因此虽然RESTful也可以用于内部服务间的调用（跨语言、跨网段、跨防火墙），但其主要用途还是为外部系统提供服务，因此本文没有将其包含在内。</p>
+
+<!--more-->
+
+
+<h2>RMI</h2>
+
+<p>RMI，remote method invoke, 远程方法调用。是JAVA自带的远程方法调用工具，其基于TCP连接，可以使用任意端口，不易跨网段调用，不能穿越防火墙。但它是JAVA语言最开始时的设计，后来很多框架的原理都基于RMI。其调用逻辑如下图所示：</p>
+
+<p><img src="/post_images/rpc/rmi.png" alt="" /></p>
+
+<ol>
+<li>服务注册：服务端注册服务绑定到注册中心registry。</li>
+<li>服务查找：客户端根据服务名从注册中心查询要使用的接口获取引用。</li>
+<li>服务调用：Stub序列化调用参数并将其发送给Skeleton，后者调用服务方法，并将结果序列化返回给Stub。</li>
+</ol>
+
+
+<p>其序列化和反序列化使用的都是JDK自带的序列化机制。</p>
+
+<p>这里服务注册管理中心是在服务端的。其实这个可以完全独立出来作为一个单独的服务，其他的RPC框架很多都是选择zookeepr充当此角色。</p>
+
+<p>可以使用Spring那一节讲的RmiServiceExporter和RmiProxyFactoryBean来使用RMI。</p>
+
+<h2>Hessian</h2>
+
+<p>Hessian是一个基于HTTP协议的RPC方案，其序列化机制是自己实现的，负载均衡和容错需要依赖于Web容器/服务。其体系结构和RMI类似，不过并没有注册中心Registry这一角色，而是通过使用地址来显式调用。其中需要使用HessianProxyFactory根据配置的地址create一个代理对象。使用此代理对象去调用服务。</p>
+
+<p><img src="/post_images/rpc/hessian.png" alt="" /></p>
+
+<p>和RMI一样，可以使用Spring那一节讲的HessianServiceExporter和HessianProxyFactoryBean来使用。</p>
+
+<h2>Thrift</h2>
+
+<p>Thrift是Facebook开源的RPC框架，现已进入Apache开源项目。其采用接口描述语言（IDL）定义 RPC 接口和数据类型，通过编译器生成不同语言的代码（支持 C++，Java，Python，Ruby等），数据传输采用二进制格式，是自己实现的序列化机制。没有注册中心的概念。</p>
+
+<p><img src="/post_images/rpc/thrift.png" alt="" /></p>
+
+<p>Thrift的使用需要先编写接口的IDL，然后使用它自带的工具生成代码。</p>
+
+<pre><code>namespace java me.rowkey.pje.datatrans.rpc.thrift
+
+typedef i32 int
+service TestService
+{
+    int add(1:int n1, 2:int n2),
+}
+
+//代码生成
+thrift --gen java TestService.thrift
+</code></pre>
+
+<p>以上即可在gen-java目录下生成TestService的Java代码TestService.java, 其中的核心是接口TestService.Iface，实现此类即可提供服务。需要注意的是Thrift有一个问题就是在接口比较多的时候，生成的Java代码文件太大。</p>
+
+<p>服务提供方：
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TProcessor tprocessor =
+</span><span class='line'>    new TestService.Processor&lt;TestService.Iface&gt;(new TestServiceImpl());&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;TServerSocket serverTransport = new TServerSocket(8088);
+</span><span class='line'>TServer.Args tArgs = new TServer.Args(serverTransport);
+</span><span class='line'>tArgs.processor(tprocessor);
+</span><span class='line'>tArgs.protocolFactory(new TBinaryProtocol.Factory());&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;// 简单的单线程服务模型
+</span><span class='line'>TServer server = new TSimpleServer(tArgs);
+</span><span class='line'>server.serve();</span></code></pre></td></tr></table></div></figure></p>
+
+<p>服务消费方：</p>
+
+<pre><code>TTransport transport = new TSocket("localhost", 8088, TIMEOUT);
+TestService.Client testService = 
+    new TestService.Client(new TBinaryProtocol(transport));
+transport.open();
+
+int result = testService.add(1,2);
+...
+</code></pre>
+
+<p>这里需要说明的一点就是，Thrift提供了多种服务器模型、数据传输协议以及传输层供选择：</p>
+
+<ul>
+<li><p>服务提供者的服务模型除了上面用的TSimpleServer简单单线程服务模型，还有几个常用的模型：</p>
+
+<ul>
+<li>TThreadPoolServer：线程池服务模型，使用标准的阻塞式IO，预先创建一组线程处理请求。</li>
+<li>TNonblockingServe：非阻塞式IO。</li>
+<li>THsHaServer: 半同步半异步的服务端模型。</li>
+</ul>
+</li>
+<li><p>数据传输协议除了上面例子使用的BinaryProtocol二进制格式，还有下面几种：</p>
+
+<ul>
+<li>TCompactProtocol : 压缩格式。</li>
+<li>TJSONProtocol : JSON格式。</li>
+<li>TSimpleJSONProtocol : 提供JSON只写协议, 生成的文件很容易通过脚本语言解析。</li>
+</ul>
+</li>
+<li><p>传输层除了上面例子的TServerSocket和TSocket，还有</p>
+
+<ul>
+<li>TFramedTransport：以frame为单位进行传输，非阻塞式服务中使用。</li>
+<li>TFileTransport：以文件形式进行传输。</li>
+<li>THttpClient: 以HTTP协议的形式进行传输。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>Dubbo</h2>
+
+<p>Dubbo是阿里开源的服务治理框架。与前面讲的几个RPC协议相比，Dubbo不仅仅是一个RPC框架，还包含了服务治理方面的很多功能：</p>
+
+<ul>
+<li>服务注册</li>
+<li>服务自动发现</li>
+<li>负载均衡</li>
+<li>集群容错</li>
+</ul>
+
+
+<p>这里仅仅针对Dubbo的RPC协议来讲，其传输是基于TCP协议的，使用了高性能的NIO框架Netty，序列化可以有多种选择，默认使用Hessian的序列化实现。Dubbo默认使用Zookeeper作为服务注册、管理中心。</p>
+
+<p><img src="/post_images/rpc/dubbo.png" alt="" /></p>
+
+<p>一个基于Spring XML配置的使用例子如下：</p>
+
+<ul>
+<li><p>服务提供者XML配置</p>
+
+<pre><code class="``">  &lt;!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 --&gt;
+  &lt;dubbo:application name="test_server"/&gt;
+
+  &lt;!-- 使用zk注册中心暴露服务地址 --&gt;
+  &lt;dubbo:registry address="zookeeper://zk1.dmp.com:2181?backup=zk2.dmp.com:2181,zk3.dmp.com:2181" file="${catalina.base}/logs/eservice/dubbo.cache"/&gt;
+
+  &lt;dubbo:service path="emailService" interface="me.rowkey.pje.rpc.test.service.IEmailService" ref="emailApiService" /&gt;
+</code></pre></li>
+<li><p>服务消费者XML配置</p>
+
+<pre><code class="``">  &lt;!-- 提供方应用信息，用于计算依赖关系 --&gt;
+  &lt;dubbo:application name="test_consumer"/&gt;
+
+  &lt;!-- 使用zk注册中心 --&gt;
+  &lt;dubbo:registry address="zookeeper://zk1.dmp.com:2181?backup=zk2.dmp.com:2181,zk3.dmp.com:2181" /&gt;
+
+  &lt;dubbo:reference id="emailService" interface="me.rowkey.pje.rpc.test.service.IEmailService"/&gt;
+</code></pre>
+
+<p>  在相关bean中注入emailService即可使用。</p></li>
+</ul>
+
+
+<h2>序列化</h2>
+
+<p>序列化是RPC的一个很关键的地方，序列化、反序列的速度、尺寸大小都关系着RPC的性能。包括上面提到的几个序列化协议，现在使用较为普遍的Java序列化协议有以下几种：</p>
+
+<ol>
+<li><p>Java Serialiazer</p>
+
+<p> JDK自带的序列化机制, 使用起来比较方便。但是其是对象结构到内容的完全描述，包含所有的信息，因此速度较慢，占用空间也比较大，且只支持Java语言。一般不推荐使用。</p>
+
+<p> 需要注意的是字段serialVersionUID的作用是为了在序列化时保持版本的兼容性，即在版本升级时反序列化仍保持对象的唯一性。否则如果你在序列化后更改/删除了类的字段，那么再反序列化时就会抛出异常;而如果设置了此字段的值，那么会将不一样的field以type的预设值填充。</p>
+
+<pre><code class="`"> //序列化
+ ByteArrayOutputStream bout = new ByteArrayOutputStream();
+ ObjectOutputStream out = new ObjectOutputStream(bout);
+ out.writeObject(obj);
+ byte[] bytes = bout.toByteArray();
+
+ //反序列化
+ ObjectInputStream bin = new ObjectInputStream(new ByteArrayInputStream(bytes));
+ bin.readObject();
+</code></pre></li>
+<li><p>Hessian</p>
+
+<p> 底层是基于List和Hashmap实现的，着重于数据，附带简单的类型信息的方法，支持多种语言，兼容性比较好, 与JDK序列化相比高效且空间较小；但其在序列化的类有父类的时候，如果有字段相同，父类的值会覆盖子类的值，因此使用Hessian时一定要注意子类和父类不能有同名字段。</p>
+
+<p> 需要注意的一点，Hessian的实现里有v1和v2两种版本的协议支持，并不兼容，推荐使用Hessian2相关的类。</p>
+
+<p> 与后来出现的其他二进制序列化工具相比，其速度和空间都不是优势。</p>
+
+<pre><code class="`"> //序列化
+ ByteArrayOutputStream os = new ByteArrayOutputStream();
+ Hessian2Output out = new Hessian2Output(os);
+ out.startMessage();
+ TestUser user = new TestUser();
+ out.writeObject(user);
+ out.completeMessage();
+ out.flush();
+ byte[] bytes = os.toByteArray();
+ out.close();
+ os.close();
+
+ //反序列化
+ ByteArrayInputStream ins = new ByteArrayInputStream(bytes);
+ Hessian2Input input = new Hessian2Input(ins);
+ input.startMessage();
+ TestUser newUser = (TestUser)input.readObject();
+ input.completeMessage();
+ input.close();
+ ins.close();
+</code></pre></li>
+<li><p>MsgPack</p>
+
+<p> MsgPack是一个非常高效的对象序列化库，支持多种语言，有点像JSON，但是非常快，且占用空间也较小，号称比Protobuf还要快4倍。</p>
+
+<p> 使用MsgPack需要在序列化的类上加@Message注解；为了保证序列化向后兼容，新增加的属性需要加在类的最后面，且要加@Optional注解，否则反序列化会报错。</p>
+
+<p> 此外，MsgPack提供了动态类型的功能，通过接口Value来实现动态类型，首先将字节数组序列化为Value类型的对象，然后用converter转化为本身的类型。</p>
+
+<p> MsgPack不足的一点就是其序列化和反序列都非常消耗资源。</p>
+
+<pre><code class="`"> //TestUser.java
+ @Message
+ public class TestUser{
+     private String name;
+     private String mobile;
+     ...
+ }
+
+ TestUser user = new TestUser();
+ MessagePack messagePack = new MessagePack();
+
+ //序列化
+ byte[] bs = messagePack.write(user);
+
+ //反序列化
+ user = messagePack.read(bs, TestUser.class);
+</code></pre></li>
+<li><p>Kryo</p>
+
+<p> Kryo是一个快速高效的Java对象图形序列化框架，使用简单、速度快、序列化后体积小。实现代码非常简单，远远小于MsgPack。但其文档较少，跨语言支持也较差，适用于Java语言。目前Kryo的版本到了4.x, 对于之前2.X之前版本的很多问题都做了修复。</p>
+
+<pre><code class="`"> Kryo kryo = new Kryo();
+
+ // 序列化
+ ByteArrayOutputStream os = new ByteArrayOutputStream();
+ Output output = new Output(os);
+ TestUser user = new TestUser();
+ kryo.writeObject(output, user);
+ output.close();
+ byte[] bytes = os.toByteArray();
+
+ // 反序列化
+ Input input = new Input(new ByteArrayInputStream(bytes));
+ TestUser newUser = kryo.readObject(input, TestUser.class);
+ input.close();
+</code></pre></li>
+<li><p>Thrift</p>
+
+<p> 上面讲的Thrift RPC框架其内部的序列化机制可以单独使用，主要是对TBinaryProtocol的使用。和接口的生成方式类似，需要先定义IDL，再使用Thrift生成。其序列化性能比较高，空间占用也比较少。但其设计目标并非是单独做为序列化框架使用的，一般都是整体作为RPC框架使用的。</p>
+
+<p> 定义IDL:</p>
+
+<pre><code class="`"> //TestUser.thrift
+ namespace java me.rowkey.pje.datatrans.rpc.thrift
+
+ struct TestUser {
+     1: required string name
+     2: required string mobile
+ }
+
+ thrift --gen java TestUser.thrift
+</code></pre>
+
+<p> 使用生成的TestUser类做序列化和反序列化：</p>
+
+<pre><code class="`"> TestUser user = new TestUser(); //由thrift代码生成引擎生成
+
+ //序列化
+ ByteArrayOutputStream bos = new ByteArrayOutputStream();
+ user.write(new TBinaryProtocol(new TIOStreamTransport(bos)));
+ byte[] result = bos.toByteArray();
+ bos.close();
+
+ //反序列化
+ ByteArrayInputStream bis = new ByteArrayInputStream(result);
+ TestUser user = new TestUser();
+ user.read(new TBinaryProtocol(new TIOStreamTransport(bis)));
+ bis.close();
+</code></pre>
+
+<p> 需要注意的是由于Thrift序列化时,丢弃了部分信息，使用ID+Type来做标识，因此对新增的字段属性, 采用ID递增的方式标识并以Optional修饰来添加才能做到向后兼容。</p></li>
+<li><p>Protobuf</p>
+
+<p>Protobuf是Google开源的序列化框架，是Google公司内部的混合语言数据标准，用于RPC系统和持续数据存储系统，非常轻便高效，具有很好的可扩展性、也具有良好的向后兼容和向前兼容性。与上述的几种序列化框架对比，序列化数据紧凑、速度快、空间占用少、资源消耗较低、使用简单，但其缺点在于需要静态编译生成代码、可读性差、缺乏自描述、向后兼容有一定的约束限制。</p>
+
+<p>这里需要注意目前ProtoBuf的版本到了3.x，比2.x支持更多语言但更简洁。去掉了一些复杂的语法和特性，更强调约定而弱化语法。因此，如果是首次使用就直接使用3.x版本。这里也针对Protobuf 3来讲。</p>
+
+<p>首先需要编写.proto文件,并使用Protobuf代码生成引擎生成Java代码。</p>
+
+<pre><code class="`"> //TestUser.proto
+ syntax = "proto3";
+ option java_package = "me.rowkey.pje.datatrans.rpc.proto";
+ option java_outer_classname = "TestUserProto";
+ message TestUser
+ {
+     string name=1;
+     string mobile=2;
+ }
+
+ protoc --java_out=./ TestUser.proto
+</code></pre>
+
+<p>即生成TestUserProto.java，使用此类，即可完成序列化和反序列化：</p>
+
+<pre><code class="`"> //序列化
+ TestUserProto.TestUser testUser = 
+           TestUserProto.TestUser.newBuilder()
+           .setMobile("xxx")
+           .setName("xxx")
+           .build();
+
+ byte[] bytes = testUser.toByteArray();
+
+ //反序列化
+ testUser = TestUserProto.TestUser.parseFrom(bytes);
+</code></pre></li>
+</ol>
+
+
+<p>综上，对以上几个序列化框架做对比如下：</p>
+
+<p> | 优点 | 缺点
+&mdash;-|&mdash;&ndash;|&mdash;&mdash;
+Java | JDK自带实现，包含对象的所有信息| 速度较慢，占用空间也比较大，只支持Java语言
+Hessian | 支持语言比较多，兼容性较好 | 较慢
+MsgPack | 使用简单，速度快，体积小| 兼容性较差，耗资源
+Kryo | 速度快，序列化后体积小 | 跨语言支持较差，文档较少
+Thrift | 高效 | 需要静态编译；是Thrift内部序列化机制，很难和其他传输层协议共同使用
+Protobuf | 速度快 | 需要静态编译</p>
+
+<p>在兼顾使用简单、速度快、体积小且主要使用在Java开发的场景下，Kryo是比较好的方案；如果特别要求占用空间、性能，那么Protobuf则是更好的选择。此外，JSON其实也是一种序列化方式，如果比较关注阅读性的话，那么JSON是更好的选择。</p>
+
+<h2>提示</h2>
+
+<p>面对这些RPC框架，选择的时候应该从以下几方面进行考虑：</p>
+
+<ul>
+<li>是否允许代码侵入：即是否需要依赖相应的代码生成器生成代码，比如Thrift需要，而Dubbo、Hessian就不需要。</li>
+<li>是否需要长连接、二进制序列化获取高性能：如果需要性能比较高，那么果断选取基于TCP的Thrift、Dubbo。</li>
+<li>是否需要跨网段、跨防火墙：这种情况一般就需要选择基于Http协议的，Hessian和Thrift的HTTP Transport。</li>
+<li>是否需要跨语言调用：Thrift、Hessian对于语言的支持是比较丰富的，而Dubbo目前只支持Java语言。</li>
+</ul>
+
+
+<p>此外，除了上述框架之外，Google推出的基于HTTP 2.0的gRPC框架也开始得到了应用，其序列化协议基于Protobuf, 网络框架使用了Netty4。但其需要生成代码，可扩展性也比较差。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[使用Spring Boot快速开发]]></title>
+    <link href="https://www.rowkey.cn/blog/2019/07/27/springboot/"/>
+    <updated>2019-07-27T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2019/07/27/springboot</id>
+    <content type="html"><![CDATA[<p>Java开发中常用的Spring现在变得越来越复杂，越来越不好上手。这一点Spring Source自己也注意到了，因此推出了Spring Boot，旨在简化使用Spring的门槛，大大降低Spring的配置工作，并且能够很容易地将应用打包为可独立运行的程序（即不依赖于第三方容器，可以独立以jar或者war包的形式运行）。其带来的开发效率的提升使得Spring Boot被看做至少近5年来Spring乃至整个Java社区最有影响力的项目之一，也被人看作是Java EE开发的颠覆者。另一方面来说，Spring Boot也顺应了现在微服务（MicroServices）的理念，可以用来构建基于Spring框架的可独立部署应用程序。</p>
+
+<!--more-->
+
+
+<h2>一. 使用</h2>
+
+<p>一个简单的pom配置示例如下：</p>
+
+<pre><code>&lt;parent&gt;        
+   &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;        
+   &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;        
+   &lt;version&gt;1.4.7.RELEASE&lt;/version&gt;
+&lt;/parent&gt;
+
+...
+
+&lt;dependencies&gt;        
+   &lt;dependency&gt;                
+       &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;                
+       &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;        
+   &lt;/dependency&gt;
+&lt;/dependencies&gt;
+
+&lt;build&gt;
+    &lt;plugins&gt;
+       &lt;plugin&gt;
+           &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+           &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+           &lt;configuration&gt;
+               &lt;executable&gt;true&lt;/executable&gt;
+            &lt;/configuration&gt;
+       &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre>
+
+<p>使用spring-boot-starter-parent作为当前项目的parent将Spring Boot应用相关的一系列依赖（dependency）、插件（plugins）等等配置共享；添加spring-boot-starter-web这个依赖，是为了构建一个独立运行的Web应用；spring-boot-maven-plugin用于将Spring Boot应用以可执行jar包的形式发布出去。</p>
+
+<p>接着可以添加相应的Controller实现：</p>
+
+<pre><code>@RestController  
+public class MyController {
+@RequestMapping("/")
+   public String hello() {
+    return "Hello World!";
+   }
+}
+</code></pre>
+
+<p>这里的RestController是一个复合注解，包括@Controller和@ResponseBody。</p>
+
+<p>最后，要让Spring Boot可以独立运行和部署，我们需要一个Main方法入口， 比如：</p>
+
+<pre><code>@SpringBootApplication
+public class BootDemo extends SpringBootServletInitializer{    
+   public static void main(String[] args) throws Exception {        
+       SpringApplication.run(BootDemo.class, args);    
+   }
+}
+</code></pre>
+
+<p>使用mvn package打包后（可以是jar，也可以是war），java -jar xx.war/jar即可运行一个Web项目，而之所以继承SpringBootServletInitializer是为了能够让打出来的war包也可以放入容器中直接运行，其加载原理在3.4.4节的零XML配置中讲过。</p>
+
+<p>这里需要注意上面spring-boot-maven-plugin这个插件将executable配置为了true，此种配置打出来的jar/war包其压缩格式并非传统的jar/war包，实际上是一个bash文件，可以作为shell脚本直接执行，解压的话需要使用unzip命令。</p>
+
+<p>从最根本上来讲，Spring Boot就是一些库和插件的集合，屏蔽掉了很多配置加载、打包等自动化工作，其底层还是基于Spring的各个组件。</p>
+
+<p>这里需要注意的是，Spring Boot推崇对项目进行零xml配置。但是就笔者看来，相比起注解配置是糅杂在代码中，每次更新都需要重新编译，XML这种和代码分离的方式耦合性和可维护性则显得更为合理一些，而且在配置复杂时也更清晰。因此，采用Java Config作为应用和组件扫描（component scan）入口，采用XML做其他的配置是一种比较好的方式。此外，当集成外部已有系统的时候， 通过XML集中明确化配置也是更为合理的一种方式。</p>
+
+<h2>二. 原理浅析</h2>
+
+<p><img src="/post_images/spring-boot-process.png" alt="" /></p>
+
+<p>Spring Boot的基础组件之一就是4.1讲过的一些注解配置，除此之外，它也提供了自己的注释。其总体的运行流程如上图所示。</p>
+
+<ol>
+<li><p>@EnableAutoConfiguration</p>
+
+<p> 这个Annotation就是Java Config的典型代表，标注了这个Annotation的Java类会以Java代码的形式（对应于XML定义的形式）提供一系列的Bean定义和实例，结合AnnotationConfigApplicationContext和自动扫描的功能，就可以构建一个基于Spring容器的Java应用了。</p>
+
+<p> @EnableAutoConfiguration的定义信息如下 ：</p>
+
+<pre><code class="`"> @Target(ElementType.TYPE)
+ @Retention(RetentionPolicy.RUNTIME)
+ @Documented
+ @Inherited
+ @AutoConfigurationPackage
+ @Import(EnableAutoConfigurationImportSelector.class)
+ public @interface EnableAutoConfiguration {
+</code></pre>
+
+<p> 标注了此注解的类会发生一系列初始化动作：</p>
+
+<ul>
+<li><p>SpringBoot扫描到@EnableAutoConfiguration注解时，就使用Spring框架的SpringFactoriesLoader去扫描classpath下所有META-INF/spring.factories文件的配置信息（META-INF/spring.providers声明了当前Starter依赖的Jar包）。其中包括一些callback接口（在前中后等不同时机执行）：</p>
+
+<ul>
+<li>org.springframework.boot.SpringApplicationRunListener</li>
+<li>org.springframework.context.ApplicationContextInitializer</li>
+<li>org.springframework.context.ApplicationListener</li>
+</ul>
+</li>
+<li><p>然后Spring Boot加载符合当前场景需要的配置类型并供当前或者下一步的流程使用，这里说的场景就是提取以 org.springframework.boot.autoconfigure.EnableAutoConfiguration作为key标志的一系列Java配置类，然后将这些Java配置类中的Bean定义加载到Spring容器中。</p></li>
+</ul>
+
+
+<p> 此外，我们可以使用Spring3系列引入的@Conditional，通过像@ConditionalOnClass、@ConditionalOnMissingBean等具体的类型和条件来进一步筛选通过SpringFactoriesLoader加载的类。</p></li>
+<li><p>Spring Boot启动</p>
+
+<p> 每一个Spring Boot应用都有一个入口类，在其中定义main方法，然后使用SpringApplication这个类来加载指定配置并运行SpringBoot Application。如上面写过的入口类：</p>
+
+<pre><code class="`   "> @SpringBootApplication
+ public class BootDemo extends SpringBootServletInitializer{    
+    public static void main(String[] args) throws Exception {        
+        SpringApplication.run(BootDemo.class, args);    
+    }
+ }
+</code></pre>
+
+<p> @SpringBootApplication注解是一个复合注解，包括了@Configuraiton、@EnableAutoConfiguration以及@ComponentScan。通过SpringApplication的run方法，Spring就使用BootDemo作为Java配置类来读取相关配置、加载和扫描相关的bean。</p>
+
+<p> 这样，基于@SpringBootApplication注解，Spring容器会自动完成指定语义的一系列工作，包括@EnableAutoConfiguration要求的东西，如：从SpringBoot提供的多个starter模块中加载Java Config配置（META-INF/spring.factories中声明的xxAutoConfiguration），然后将这些Java Config配置筛选上来的Bean定义加入Spring容器中，再refresh容器。一个Spring Boot应用即启动完成。</p></li>
+</ol>
+
+
+<h2>三. 模块组成</h2>
+
+<p>Spring Boot是由非常多的模块组成的，可以通过pom文件引入进来。EnableAutoConfiguration机制会进行插件化加载进行自动配置，这里模块化机制的原理主要是通过判断相应的类/文件是否存在来实现的。其中几个主要的模块如下:</p>
+
+<ol>
+<li><p>spring-boot-starter-web</p>
+
+<p> 此模块就是标记此项目是一个Web应用，Spring Boot会自动准备好相关的依赖和配置。</p>
+
+<p> 这里Spring Boot默认使用Tomcat作为嵌入式Web容器，可以通过声明spring-boot-starter-jetty的dependency来换成Jetty。</p></li>
+<li><p>spring-boot-starter-logging</p>
+
+<p> Spring Boot对此项目开启SLF4J和Logback日志支持。</p></li>
+<li><p>spring-boot-starter-redis</p>
+
+<p>  Spring Boot对此项目开启Redis相关依赖和配置来做数据存储。</p></li>
+<li><p>spring-boot-starter-jdbc</p>
+
+<p>  Spring Boot对此项目开启JDBC操作相关依赖和配置来做数据存储。</p>
+
+<p>  这里需要说明的是，Spring Boot提供的功能非常丰富，因此显得非常笨重复杂。其实依赖于模块插件化机制，我们可以只配置自己需要使用的功能，从而对应用进行瘦身，避免无用的配置影响应用启动速度。</p></li>
+</ol>
+
+
+<h2>四. 总结</h2>
+
+<p>Spring Boot给大家使用Spring做后端应用开发带来了非常大的便利，能够大大提高搭建应用雏形框架的速度，只需要关注实现业务逻辑即可。其“黑魔法”一样的插件化机制使得能够根据自己的需要引入所需的组件，提供了非常好的灵活性。如果非遗留Spring项目，直接使用Spring Boot是比较好的选择；遗留项目也可以通过配置达到无缝结合。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Java开发框架之日志]]></title>
+    <link href="https://www.rowkey.cn/blog/2019/06/29/log/"/>
+    <updated>2019-06-29T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2019/06/29/log</id>
+    <content type="html"><![CDATA[<p>日志在应用开发中是一个非常关键的部分。有经验的工程师能够凭借以往的经验判断出哪里该打印日志、该以何种级别打印日志。这样就能够在线上发生问题的时候快速定位并解决问题，极大的减少应用的运维成本。</p>
+
+<!--more-->
+
+
+<p>使用控制台输出其实也算日志的一种，在容器中会打印到容器的日志文件中。但是，控制台输出过于简单，缺乏日志中级别控制、异步、缓冲等特性，因此在开发中要杜绝使用控制台输出作为日志（System.out.println）。而Java中已经有很多成熟的日志框架供大家使用：</p>
+
+<ul>
+<li>JDK Logging</li>
+<li>Apache Log4j</li>
+<li>Apache Log4j2</li>
+<li>Logback</li>
+</ul>
+
+
+<p>此外，还有两个用于实现日志统一的框架：Apache Commons-Logging、SLF4j。与上述框架的不同之处在于，其只是一个门面，并没有日志框架的具体实现,可以认为是日志接口框架。</p>
+
+<p>对于这些日志框架来说，一般会解决日志中的以下问题：</p>
+
+<ul>
+<li>日志的级别: 定义日志级别来区分不同级别日志的输出路径、形式等，帮助我们适应从开发调试到部署上线等不同阶段对日志输出粒度的不同需求。</li>
+<li>日志的输出目的地：包括控制台、文件、GUI组件，甚至是套接口服务器、UNIX Syslog守护进程等。</li>
+<li>日志的输出格式：日志的输出格式（JSON、XML）。</li>
+<li>日志的输出优化：缓存、异步等。</li>
+</ul>
+
+
+<p>这里需要说的是，目前有几个框架提供了占位符的日志输出方式，然而其最终是用indexOf去循环查找再对信息进行拼接的，会消耗CPU。建议使用正确估算大小的StringBuilder拼装输出信息，除非是实在无法确定日志是否输出才用占位符。</p>
+
+<h2>一. JDK Logging</h2>
+
+<p>JDK Logging就是JDK自带的日志操作类，在java.util.logging包下面，通常被简称为JUL。</p>
+
+<h3>配置</h3>
+
+<p>JDK Logging配置文件默认位于$JAVA_HOME/jre/lib/logging.properties中，可以使用系统属性java.util.logging.config.file指定相应的配置文件对默认的配置文件进行覆盖。</p>
+
+<pre><code>handlers= java.util.logging.FileHandler,java.util.logging.ConsoleHandler
+.handlers = java.util.logging.FileHandler,java.util.logging.ConsoleHandler #rootLogger使用的Handler
+.level= INFO #rootLogger的日志级别
+
+##以下是FileHandler的配置
+java.util.logging.FileHandler.pattern = %h/java%u.log
+java.util.logging.FileHandler.limit = 50000
+java.util.logging.FileHandler.count = 1
+java.util.logging.FileHandler.formatter =java.util.logging.XMLFormatter #配置相应的日志Formatter。
+
+##以下是ConsoleHandler的配置
+java.util.logging.ConsoleHandler.level = INFO
+java.util.logging.ConsoleHandler.formatter =java.util.logging.SimpleFormatter #配置相应的日志Formatter。
+
+#针对具体的某个logger的日志级别配置
+me.rowkey.pje.log.level = SEVERE
+
+#设置此logger不会继承成上一级logger的配置
+me.rokey.pje.log.logger.useParentHandlers = false 
+</code></pre>
+
+<p>这里需要说明的是logger默认是继承的，如me.rowkey.pje.log的logger会继承me.rowkey.pje的logger配置，可以对logger配置handler和useParentHandlers（默认是为true）属性, 其中useParentHandler表示是否继承父logger的配置。</p>
+
+<p>JDK Logging的日志级别比较多，从高到低为：OFF(2<sup>31</sup>-1)—>SEVERE(1000)—>WARNING(900)—>INFO(800)—>CONFIG(700)—>FINE(500)—>FINER(400)—>FINEST(300)—>ALL(-2<sup>31</sup>)。</p>
+
+<h3>使用</h3>
+
+<p>JDK Logging的使用非常简单：</p>
+
+<pre><code>public class LoggerTest{
+
+    private static final Logger LOGGER = Logger.getLogger(xx.class.getName());
+
+    public static void main(String[] args){
+        LOGGER.info("logger info");
+    }
+}
+...
+</code></pre>
+
+<h3>性能优化</h3>
+
+<p>JDK Logging是一个比较简单的日志框架，并没有提供异步、缓冲等优化手段。也不建议大家使用此框架。</p>
+
+<h2>二. Log4j</h2>
+
+<p>Log4j应该是目前Java开发中用的最为广泛的日志框架。</p>
+
+<h3>配置</h3>
+
+<p>Log4j支持XML、Proerties配置，通常还是使用Properties：</p>
+
+<pre><code>root_log_dir=${catalina.base}/logs/app/
+
+# 设置rootLogger的日志级别以及appender
+log4j.rootLogger=INFO,default
+
+# 设置Spring Web的日志级别
+log4j.logger.org.springframework.web = ERROR
+
+# 设置default appender为控制台输出
+log4j.appender.default=org.apache.log4j.ConsoleAppender
+log4j.appender.default.layout=org.apache.log4j.PatternLayout
+log4j.appender.default.layout.ConversionPattern=[%-d{HH\:mm\:ss} %-3r %-5p %l] &gt;&gt; %m (%t)%n
+
+# 设置新的logger，在程序中使用Logger.get("myLogger")即可使用
+log4j.logger.myLogger=INFO,A2
+
+# 设置另一个appender为按照日期轮转的文件输出
+log4j.appender.A2=org.apache.log4j.DailyRollingFileAppender
+log4j.appender.A2.File=${root_log_dir}log.txt
+log4j.appender.A2.Append=true
+log4j.appender.A2.DatePattern= yyyyMMdd'.txt'
+log4j.appender.A2.layout=org.apache.log4j.PatternLayout
+log4j.appender.A2.layout.ConversionPattern=[%-d{HH\:mm\:ss} %-3r %-5p %l] &gt;&gt; %m (%t)%n
+
+log4j.logger.myLogger1 = INFO,A3
+
+# 设置另一个appender为RollingFileAppender，能够限制日志文件个数
+log4j.appender.A3 = org.apache.log4j.RollingFileAppender
+log4j.appender.A3.Append = true
+log4j.appender.A3.BufferedIO = false
+log4j.appender.dA3.File = /home/popo/tomcat-yixin-pa/logs/pa.log
+log4j.appender.A3.Encoding = UTF-8
+log4j.appender.A3.layout = org.apache.log4j.PatternLayout
+log4j.appender.A3.layout.ConversionPattern = [%-5p]%d{ISO8601}, [Class]%-c{1}, %m%n
+log4j.appender.A3.MaxBackupIndex = 3 #最大文件个数
+log4j.appender.A3.MaxFileSize = 1024MB
+</code></pre>
+
+<p>如果Log4j文件不直接在classpath下的话，可以使用PropertyConfigurator来进行配置：</p>
+
+<pre><code>PropertyConfigurator.configure("...");
+</code></pre>
+
+<p>Log4j的日志级别相对于JDK Logging来说，简化了一些：DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL。</p>
+
+<p>这里的logger默认是会继承父Logger的配置（rootLogger是所有logger的父logger），如上面myLogger的输出会同时在控制台和文件中出现。如果不想这样，那么只需要如下设置:</p>
+
+<pre><code>log4j.additivity.myLogger=false
+</code></pre>
+
+<h3>使用</h3>
+
+<p>程序中对于Log4j的使用也非常简单：</p>
+
+<pre><code>import org.apache.log4j.Logger;
+
+
+private static final Logger LOGGER = Logger.getLogger(xx.class.getName());
+...
+LOGGER.info("logger info");
+...
+</code></pre>
+
+<p>这里需要注意的是，虽然Log4j可以根据配置文件中日志级别的不同做不同的输出，但由于字符串创建或者拼接也是耗资源的，因此，下面的用法是不合理的。</p>
+
+<pre><code>LOGGER.debug("...");
+</code></pre>
+
+<p>合理的做法应该是首先判断当前的日志级别是什么，再去做相应的输出，如：</p>
+
+<pre><code>if(LOGGER.isDebugEnabled()){
+    LOGGER.debug("...");
+}
+</code></pre>
+
+<p>当然，如果是必须输出的日志可以不做此判断，比如catch异常打印错误日志的地方。</p>
+
+<h3>性能优化</h3>
+
+<p>Log4j为了应对某一时间里大量的日志信息进入Appender的问题提供了缓冲来进一步优化性能：</p>
+
+<pre><code>log4j.appender.A3.BufferedIO=true   
+#Buffer单位为字节，默认是8K，IO BLOCK大小默认也是8K 
+log4j.appender.A3.BufferSize=8192 
+</code></pre>
+
+<p>以上表示当日志内容达到8k时，才会将日志输出到日志输出目的地。</p>
+
+<p>除了缓冲以外，Log4j还提供了AsyncAppender来做异步日志。但是AsyncAppender只能够通过xml配置使用：</p>
+
+<pre><code>&lt;appender name="A2"
+   class="org.apache.log4j.DailyRollingFileAppender"&gt;
+   &lt;layout class="org.apache.log4j.PatternLayout"&gt;
+       &lt;param name="ConversionPattern" value="%m%n" /&gt;
+   &lt;/layout&gt;
+   &lt;param name="DatePattern" value="'.'yyyy-MM-dd-HH" /&gt;        
+   &lt;param name="File" value="app.log" /&gt;
+   &lt;param name="BufferedIO" value="true" /&gt;
+   &lt;!-- 8K为一个写单元 --&gt;
+   &lt;param name="BufferSize" value="8192" /&gt;
+&lt;/appender&gt;
+
+&lt;appender name="async" class="org.apache.log4j.AsyncAppender"&gt;
+   &lt;appender-ref ref="A2"/&gt;
+&lt;/appender&gt;
+</code></pre>
+
+<h2>三. Log4j2</h2>
+
+<p>2015年8月，官方正式宣布Log4j 1.x系列生命终结，推荐大家升级到Log4j2，并号称在修正了Logback固有的架构问题的同时，改进了许多Logback所具有的功能。Log4j2与Log4j1发生了很大的变化，并不兼容。并且Log4j2不仅仅提供了日志的实现，也提供了门面，目的是统一日志框架。其主要包含两部分：</p>
+
+<ul>
+<li>log4j-api： 作为日志接口层，用于统一底层日志系统</li>
+<li>log4j-core : 作为上述日志接口的实现，是一个实际的日志框架</li>
+</ul>
+
+
+<h3>配置</h3>
+
+<p>Log4j2的配置方式只支持XML、JSON以及YAML，不再支持Properties文件,其配置文件的加载顺序如下：</p>
+
+<ul>
+<li>log4j2-test.json/log4j2-test.jsn</li>
+<li>log4j2-test.xml</li>
+<li>log4j2.json/log4j2.jsn文件</li>
+<li>log4j2.xml</li>
+</ul>
+
+
+<p>如果想要自定义配置文件位置，需要设置系统属性log4j.configurationFile。</p>
+
+<pre><code>System.setProperty("log4j.configurationFile", "...");
+或者
+-Dlog4j.configurationFile="xx"
+</code></pre>
+
+<p>配置文件示例：</p>
+
+<pre><code>&lt;!--log4j2.xml--&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;Configuration status="WARN" monitorInterval="30"&gt;
+&lt;Appenders&gt;
+  &lt;Console name="Console" target="SYSTEM_OUT"&gt;
+    &lt;PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/&gt;
+  &lt;/Console&gt;
+  &lt;File name="File" fileName="app.log" bufferedIO="true" immediateFlush="true"&gt;
+    &lt;PatternLayout&gt;
+      &lt;pattern&gt;%d %p %C{1.} [%t] %m%n&lt;/pattern&gt;
+    &lt;/PatternLayout&gt;
+  &lt;/File&gt;
+  &lt;RollingFile name="RollingFile" fileName="logs/app.log"
+                     filePattern="log/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz"&gt;
+      &lt;PatternLayout pattern="%d{yyyy-MM-dd 'at' HH:mm:ss z} %-5level %class{36} %L %M - %msg%xEx%n"/&gt;
+      &lt;SizeBasedTriggeringPolicy size="50MB"/&gt;
+      &lt;!-- DefaultRolloverStrategy属性如不设置，则默认为最多同一文件夹下7个文件，这里设置了20 --&gt;
+      &lt;DefaultRolloverStrategy max="20"/&gt;
+  &lt;/RollingFile&gt;
+&lt;/Appenders&gt;
+&lt;Loggers&gt;
+  &lt;logger name="myLogger" level="error" additivity="false"&gt;
+    &lt;AppenderRef ref="File" /&gt;
+  &lt;/logger&gt;
+  &lt;Root level="debug"&gt;
+    &lt;AppenderRef ref="Console"/&gt;
+  &lt;/Root&gt;
+&lt;/Loggers&gt;
+&lt;/Configuration&gt;
+</code></pre>
+
+<p>上面的monitorInterval使得配置变动能够被实时监测并更新，且能够在配置发生改变时不会丢失任何日志事件;additivity和Log4j一样也是为了让Looger不继承父Logger的配置；Configuration中的status用于设置Log4j2自身内部的信息输出，当设置成trace时，你会看到Log4j2内部各种详细输出。</p>
+
+<p>Log4j2在日志级别方面也有了一些改动：TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR &lt; FATAL, 并且能够很简单的自定义自己的日志级别。</p>
+
+<pre><code>&lt;CustomLevels&gt;
+    &lt;CustomLevel name="NOTICE" intLevel="450" /&gt;
+    &lt;CustomLevel name="VERBOSE" intLevel="550" /&gt;
+&lt;/CustomLevels&gt;
+</code></pre>
+
+<p>上面的intLevel值是为了与默认提供的标准级别进行对照的。</p>
+
+<h3>使用</h3>
+
+<p>使用方式也很简单：</p>
+
+<pre><code>private static final Logger LOGGER = LogManager.getLogger(xx.class);
+
+LOGGER.debug("log4j debug message");
+</code></pre>
+
+<p>这里需要注意的是其中的Logger是log4j-api中定义的接口，而Log4j1中的Logger则是类。</p>
+
+<p>相比起之前我们需要先判断日志级别，再输出日志，Log4j2提供了占位符功能：</p>
+
+<pre><code>LOGGER.debug("error: {} ", e.getMessage());
+</code></pre>
+
+<h3>性能优化</h3>
+
+<p>在性能方面，Log4j2引入了基于LMAX的Disruptor的无锁异步日志实现进一步提升异步日志的性能：</p>
+
+<pre><code>&lt;AsyncLogger name="asyncTestLogger" level="trace" includeLocation="true"&gt;
+    &lt;AppenderRef ref="Console"/&gt;
+&lt;/AsyncLogger&gt;
+</code></pre>
+
+<p>需要注意的是，由于默认日志位置信息并没有被传给异步Logger的I/O线程，因此这里的includeLocation必须要设置为true。</p>
+
+<p>和Log4j一样，Log4j2也提供了缓冲配置来优化日志输出性能。</p>
+
+<pre><code>&lt;Appenders&gt;
+  &lt;File name="File" fileName="app.log" bufferedIO="true" immediateFlush="true"&gt;
+    &lt;PatternLayout&gt;
+      &lt;pattern&gt;%d %p %C{1.} [%t] %m%n&lt;/pattern&gt;
+    &lt;/PatternLayout&gt;
+  &lt;/File&gt;
+&lt;/Appenders&gt;
+</code></pre>
+
+<h2>四. Logback</h2>
+
+<p>Logback是由Log4j创始人设计的又一个开源日志组件，相对Log4j而言，在各个方面都有了很大改进。</p>
+
+<p>Logback当前分成三个模块：</p>
+
+<ul>
+<li>logback-core是其它两个模块的基础模块。</li>
+<li>logback-classic是Log4j的一个改良版本。logback-classic完整实现SLF4J API使你可以很方便地更换成其它日志系统如Log4j或JDK Logging。</li>
+<li>logback-access访问模块与Servlet容器集成提供通过HTTP来访问日志的功能。</li>
+</ul>
+
+
+<h3>配置</h3>
+
+<p>Logback的配置文件如下：</p>
+
+<pre><code>&lt;!--logback.xml--&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;configuration&gt;
+
+    &lt;property name="root_log_dir" value="${catalina.base}/logs/app/"/&gt;
+
+    &lt;appender name="ROLLING_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+       &lt;File&gt;${root_log_dir}app.log&lt;/File&gt;
+       &lt;Append&gt;true&lt;/Append&gt;
+       &lt;encoder&gt;
+           &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+       &lt;/encoder&gt;
+       &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;
+           &lt;fileNamePattern&gt;${root_log_dir}app.log.%d{yyyy-MM-dd}.%i&lt;/fileNamePattern&gt;
+           &lt;maxHistory&gt;30&lt;/maxHistory&gt; #只保留最近30天的日志文件
+           &lt;TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"&gt;#每天的日志按照100MB分割
+                &lt;MaxFileSize&gt;100MB&lt;/MaxFileSize&gt;
+            &lt;/TimeBasedFileNamingAndTriggeringPolicy&gt;
+            &lt;totalSizeCap&gt;20GB&lt;/totalSizeCap&gt;#日志总的大小上限，超过此值则异步删除旧的日志
+       &lt;/rollingPolicy&gt;
+    &lt;/appender&gt;
+
+    &lt;appender name="ROLLING_FILE_APPENDER_2" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+       &lt;File&gt;${root_log_dir}mylog.log&lt;/File&gt;
+       &lt;Append&gt;true&lt;/Append&gt;
+       &lt;encoder&gt;
+           &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+       &lt;/encoder&gt;
+       #下面的日志rolling策略和ROLLING_FILE_APPENDER的等价，保留最近30天的日志，每天的日志按照100MB分隔，日志总的大小上限为20GB
+       &lt;rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy"&gt;
+            &lt;fileNamePattern&gt;mylog.log-%d{yyyy-MM-dd}.%i&lt;/fileNamePattern&gt;
+            &lt;maxFileSize&gt;100MB&lt;/maxFileSize&gt;
+            &lt;maxHistory&gt;30&lt;/maxHistory&gt;
+            &lt;totalSizeCap&gt;20GB&lt;/totalSizeCap&gt;
+        &lt;/rollingPolicy&gt;
+    &lt;/appender&gt;
+
+     &lt;appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender"&gt;
+       &lt;encoder&gt;
+         &lt;pattern&gt;%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n&lt;/pattern&gt;
+       &lt;/encoder&gt;
+     &lt;/appender&gt;
+
+    &lt;logger name="myLogger" level="INFO" additivity="false"&gt;
+        &lt;appender-ref ref="ROLLING_FILE_APPENDER" /&gt;
+    &lt;/logger&gt;
+
+     &lt;root level="DEBUG"&gt;          
+       &lt;appender-ref ref="STDOUT" /&gt;
+     &lt;/root&gt;  
+
+&lt;/configuration&gt;
+</code></pre>
+
+<p>Logback的配置文件读取顺序（默认都是读取classpath下的）：logback.groovy -> logback-test.xml -> logback.xml。如果想要自定义配置文件路径，那么只有通过修改logback.configurationFile的系统属性。</p>
+
+<pre><code>System.setProperty("logback.configurationFile", "...");
+或者
+-Dlogback.configurationFile="xx"
+</code></pre>
+
+<p>Logback的日志级别：TRACE &lt; DEBUG &lt; INFO &lt; WARN &lt; ERROR。如果logger没有被分配级别，那么它将从有被分配级别的最近的祖先那里继承级别。root logger 默认级别是 DEBUG。</p>
+
+<p>Logback中的logger同样也是有继承机制的。配置文件中的additivit也是为了不去继承rootLogger的配置，从而避免输出多份日志。</p>
+
+<p>为了方便Log4j到Logback的迁移，官网提供了log4j.properties到logback.xml的转换工具：<a href="https://logback.qos.ch/translator/">https://logback.qos.ch/translator/</a>。</p>
+
+<h3>使用</h3>
+
+<p>Logback由于是天然与SLF4J集成的，因此它的使用也就是SLF4J的使用。</p>
+
+<pre><code>import org.slf4j.LoggerFactory;
+
+private static final Logger LOGGER=LoggerFactory.getLogger(xx.class);
+
+LOGGER.info(" this is a test in {}", xx.class.getName())
+</code></pre>
+
+<p>SLF4J同样支持占位符。</p>
+
+<p>此外，如果想要打印json格式的日志（例如，对接日志到Logstash中），那么可以使用logstash-logback-encoder做为RollingFileAppender的encoder。</p>
+
+<pre><code>&lt;encoder class="net.logstash.logback.encoder.LogstashEncoder" &gt;
+...
+&lt;/encoder&gt;
+</code></pre>
+
+<h3>性能优化</h3>
+
+<p>Logback提供了AsyncAppender进行异步日志输出，此异步appender实现上利用了队列做缓冲，使得日志输出性能得到提高。</p>
+
+<pre><code>&lt;appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender"&gt;
+      &lt;File&gt;${root_log_dir}app.log&lt;/File&gt;
+      &lt;Append&gt;true&lt;/Append&gt;
+      &lt;encoder&gt;
+          &lt;pattern&gt;%date [%level] [%thread] %logger{80} [%file : %line] %msg%n&lt;/pattern&gt;
+      &lt;/encoder&gt;
+      &lt;rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"&gt;
+          &lt;fileNamePattern&gt;${root_log_dir}app.log.%d&lt;/fileNamePattern&gt;
+      &lt;/rollingPolicy&gt;
+&lt;/appender&gt;
+&lt;appender name ="ASYNC" class= "ch.qos.logback.classic.AsyncAppender"&gt;  
+       &lt;discardingThreshold &gt;0&lt;/discardingThreshold&gt;  
+
+       &lt;queueSize&gt;512&lt;/queueSize&gt;  
+
+       &lt;appender-ref ref ="FILE_APPENDER"/&gt;  
+&lt;/appender&gt;  
+</code></pre>
+
+<p>这里需要特别注意以下两个参数的配置：</p>
+
+<ul>
+<li>queueSize：队列的长度,该值会影响性能，需要合理配置。</li>
+<li>discardingThreshold：日志丢弃的阈值，即达到队列长度的多少会丢弃TRACT、DEBUG、INFO级别的日志，默认是80%，设置为0表示不丢弃日志。</li>
+</ul>
+
+
+<p>此外，由于是异步输出，为了保证日志一定会被输出以及后台线程能够被及时关闭，在应用退出时需要显示关闭logback。有两种方式：</p>
+
+<ul>
+<li><p>在程序退出的地方（ServletContextListener的contextDestroyed方法、Spring Bean的destroy方法）显式调用下面的代码。</p>
+
+<pre><code class="``">  LoggerContext loggerContext = (LoggerContext) LoggerFactory.getILoggerFactory();
+  loggerContext.stop();
+</code></pre></li>
+<li><p>在logback配置文件里，做如下配置。</p>
+
+<pre><code class="``">  &lt;configuration&gt;
+
+      &lt;shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/&gt;
+      .... 
+  &lt;/configuration&gt;
+</code></pre></li>
+</ul>
+
+
+<h2>五. 日志门面</h2>
+
+<p>前面的四个框架是实际的日志框架。对于开发者而言，每种日志都有不同的写法。如果我们以实际的日志框架来进行编写，代码就限制死了，之后就很难再更换日志系统，很难做到无缝切换。</p>
+
+<p>Java开发中经常提到面向接口编程，所以我们应该是按照一套统一的API来进行日志编程，实际的日志框架来实现这套API，这样的话，即使更换日志框架，也可以做到无缝切换。</p>
+
+<p>这就是Commons-Logging与SLF4J这种日志门面框架的初衷。</p>
+
+<h3>Apache Commons-Logging</h3>
+
+<p>Apache Commons-Logging经常被简称为JCL，是Apache开源的日志门面框架。Spring中使用的日志框架就是JCL，使用起来非常简单。</p>
+
+<pre><code>import org.apache.commons.logging.LogFactory;
+
+private static final Log LOGGER = LogFactory.getLog(xx.class);
+
+LOGGER.info("...");
+</code></pre>
+
+<p>使用JCL需要先引入JCL的依赖：</p>
+
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;commons-logging&lt;/groupId&gt;
+    &lt;artifactId&gt;commons-logging&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>再来看一下如何让JCL使用其他日志实现框架:</p>
+
+<ol>
+<li>这里当没有其他日志jar包存在的时候，JCL有自己的默认日志实现，默认的实现是对JUL的包装，即当没有其他任何日志包时，通过JCL调用的就是JUL做日志操作。</li>
+<li>使用Log4j作为日志实现框架，那么只需要引入Log4j的jar包即可。</li>
+<li><p>使用Log4j2作为日志实现，那么除了Log4j2的jar包，还需要引入Log4j2与Commons-Logging的集成包（使用SPI机制提供了自己的LogFactory实现）：</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-jcl&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Logback作为日志实现，那么由于Logback的调用是通过SLF4J的，因此需要引入jcl-over-slf4j包（直接覆盖了JCL的类），并同时引入SLF4J以及Logback的jar包。</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;jcl-over-slf4j&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+</ol>
+
+
+<h3>SLF4J</h3>
+
+<p>SLF4J（Simple Logging Facade for Java）为Java提供的简单日志Facade。允许用户以自己的喜好，在工程中通过SLF4J接入不同的日志实现。与JCL不同的是，SLF4J只提供接口，没有任何实现（可以认为Logback是默认的实现）。</p>
+
+<p>SLF4J的使用前提是引入SLF4J的jar包:</p>
+
+<pre><code>&lt;!-- SLF4J --&gt;
+&lt;dependency&gt;
+   &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+   &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+   &lt;version&gt;xx&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+
+<p>再看一下SLF4J如何和其他日志实现框架集成。</p>
+
+<ol>
+<li><p>使用JUL作为日志实现，需要引入slf4j-jdk14包。</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-jdk14&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Log4j作为日志实现，需要引入slf4j-log4j12和log4j两个jar包。</p>
+
+<pre><code class="`"> &lt;!-- slf4j-log4j --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-log4j12&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+
+ &lt;!-- log4j --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Log4j2作为日志实现，需要引入log4j-slf4j-impl依赖。</p>
+
+<pre><code class="`"> &lt;!-- log4j2 --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-api&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-core&lt;/artifactId&gt;
+     &lt;version&gt;xx/version&gt;
+ &lt;/dependency&gt;
+ &lt;!-- log4j-slf4j-impl （用于log4j2与slf4j集成） --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.apache.logging.log4j&lt;/groupId&gt;
+     &lt;artifactId&gt;log4j-slf4j-impl&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>使用Logback作为日志实现，只需要引入logback包即可。</p></li>
+</ol>
+
+
+<h2>六. 日志集成</h2>
+
+<p>上面说到了四种日志实现框架和两种日志门面框架。面对这么多的选择，即便是一个刚刚开始做的应用，也会由于依赖的第三方库使用的日志框架五花八门而造成日志配置和使用上的烦恼。得益于JCL和SLF4J，我们可以很容易的把日志都统一为一种实现，从而可以进行集中配置和使用。这里就以用Logback统一日志实现为例：</p>
+
+<ol>
+<li><p>配置好Logback的依赖：</p>
+
+<pre><code class="`"> &lt;!-- slf4j-api --&gt;
+ &lt;dependency&gt;
+     &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+     &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+     &lt;version&gt;xx&lt;/version&gt;
+ &lt;/dependency&gt;
+ &lt;!-- logback --&gt;
+ &lt;dependency&gt; 
+     &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt; 
+     &lt;artifactId&gt;logback-core&lt;/artifactId&gt; 
+     &lt;version&gt;xx&lt;/version&gt; 
+ &lt;/dependency&gt;
+ &lt;!-- logback-classic（已含有对slf4j的集成包） --&gt; 
+ &lt;dependency&gt; 
+     &lt;groupId&gt;ch.qos.logback&lt;/groupId&gt; 
+     &lt;artifactId&gt;logback-classic&lt;/artifactId&gt; 
+     &lt;version&gt;xx&lt;/version&gt; 
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换Log4j到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;log4j-over-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+&lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换JUL到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;jul-to-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+<li><p>切换JCL到SLF4J</p>
+
+<pre><code class="`"> &lt;dependency&gt;
+    &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+    &lt;artifactId&gt;jcl-over-slf4j&lt;/artifactId&gt;
+    &lt;version&gt;xx&lt;/verison&gt;
+ &lt;/dependency&gt;
+</code></pre></li>
+</ol>
+
+
+<p>这里需要注意的是，做了以上配置后，务必要排除其他日志包的存在，如Log4j。此外，在日常开发中经常由于各个依赖的库间接引入了其他日志库，造成日志框架的循环转换。比如同时引入了log4j-over-slf4j和slf4j-log4j12的情况，当使用SLF4J调用日志操作时就会形成循环调用。</p>
+
+<p>笔者目前比较推崇的是使用SLF4J统一所有框架接口，然后都转换到Logback的底层实现。但这里需要说明的是Logback的作者是为了弥补Log4j的各种缺点而优化实现了SLF4J以及Logback，但不知为何作者又推出了Log4j2以期取代Log4j和Logback。所以，如果是一个新的项目，那么直接跳过Log4j和Logback选择Log4j2也是一个不错的选择, 官网也提供了Log4j到Log4j2的迁移说明。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Kotlin语法简明指南]]></title>
+    <link href="https://www.rowkey.cn/blog/2018/12/08/kotlin-notes/"/>
+    <updated>2018-12-08T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2018/12/08/kotlin-notes</id>
+    <content type="html"><![CDATA[<p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
+
+<p>本文对其语法作了简要概括。</p>
+
+<!--more-->
+
+
+<p><strong>Kotlin版本：1.3.11</strong></p>
+
+<ol>
+<li><p>包的定义</p>
+
+<p> 与Java类似，但包的定义与目录结构无需匹配，源代码可以在文件系统任意位置。</p>
+
+<p> 与Java有一点不同，导入包的时候，可以使用import as实现重命名来解决名字冲突的问题。如：</p>
+
+<pre><code class="`"> import me.rowkey.MainClass as aClass // aClass 代表“me.rowkey.MainClass”
+</code></pre></li>
+<li><p>没有类型的Java</p>
+
+<p> 虽然Kotlin是静态语言，但其引入的安全类型推断让其无须声明类型。使用val/var即可，其中val定义只读变量，var定义可变变量。</p>
+
+<pre><code class="`"> var str1 : String = "a" //有初始值，可以省略类型
+ val str2 : String //无初始值，不能省略类型
+ str2 = "b"
+ var str = "i can change"
+ val immutableStr = "i cannot change"
+</code></pre></li>
+<li><p>不需要的public</p>
+
+<p> Kotlin中默认的可见性修饰符是public，所以public修饰符不需要写。其他修饰符如下：</p>
+
+<ul>
+<li>private：只在类内部/声明文件内部可见。</li>
+<li>protected：private+子类中可见。</li>
+<li>internal: 同一模块（编译在一起的一套Kotlin文件）可见。</li>
+</ul>
+</li>
+<li><p>函数定义</p>
+
+<p> 用fun关键字声明函数</p>
+
+<pre><code class="`"> fun main(args: Array&lt;String&gt;) {
+  ...
+ }
+</code></pre>
+
+<p> 其中，函数参数使用 Pascal 表示法定义，即 name: type。参数用逗号隔开。每个参数必须有显式类型。</p>
+
+<p> Kotlin中还能够直接通过表达式做为函数体来定义函数。</p>
+
+<pre><code class="`"> fun sum(a : Int, b : Int) = a + b
+</code></pre>
+
+<p> Kotlin中的函数和Java中的方法是一致的，但与Java不同的是，Kotlin中的函数可以属于任何类，文件当中直接定义则作为“包级函数”，和类的使用方式一致</p></li>
+<li><p>默认参数值</p>
+
+<p> 函数的参数可以指定默认值。</p>
+
+<pre><code class="`"> fun getList(list: Array&lt;String&gt;, offset: Int = 0, size: Int = list.size) { …… }
+</code></pre>
+
+<p> 不指定第2个参数调用方法时，offset参数取默认值0, size参数默认取第一个参数的size。</p></li>
+<li><p>可变参数</p>
+
+<p> 函数的参数（通常是最后一个）可以用 vararg 修饰符标记：</p>
+
+<pre><code class="`"> fun printIntArray(vararg input: Int) {
+     for (i in input) {
+         println(i)
+     }
+ }
+</code></pre></li>
+<li><p>不需要的语句结束符</p>
+
+<p> Kotlin中没有语句结束符，当然为了与java保持一致性，也可以使用;号作为语句结束符。</p></li>
+<li><p>字符串连接符</p>
+
+<p> 跟java一样，如果你需要把一个字符串写在多行里，可以使用+号连接字符串。代码可以这样写：</p></li>
+</ol>
+
+
+<pre><code class="```">   val str = "hello" + "world" + "!!!";
+</code></pre>
+
+<pre><code>Kotlin中的写法也可以这样：
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>val str = """hello
+</span><span class='line'>world
+</span><span class='line'>!!!
+</span><span class='line'>"""
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code class="```        "&gt;
+</span><span class='line'>    三个”号之间不在需要+号进行连接，不过字符串中的格式符都会被保留，包括回车和tab。
+</span><span class='line'>
+</span><span class='line'>1. 字符串模板
+</span><span class='line'>
+</span><span class='line'>    Kotlin提供了$符来做字符串内的变量替换，并且可以做一些字符串操作。如下：
+</span><span class='line'>
+</span><span class='line'>    ```
+</span><span class='line'>    var name = "hj"
+</span><span class='line'>    var strTemplate = "My name is $name"//My name is hj
+</span><span class='line'>
+</span><span class='line'>    strTemplate = "My name is ${name.replace("j","a")}"// My name is ha
+</span><span class='line'>    ```
+</span><span class='line'>
+</span><span class='line'>1. 一切皆对象
+</span><span class='line'>
+</span><span class='line'>    Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。
+</span><span class='line'>
+</span><span class='line'>1. if条件表达式
+</span><span class='line'>
+</span><span class='line'>    Kotlin中支持if条件表达式。
+</span><span class='line'>
+</span><span class='line'>    ```
+</span><span class='line'>   val a = if(x &gt; 0) 1 else 2
+</span><span class='line'>   fun maxOf(a: Int, b: Int) = if (a &gt; b) a else b
+</span><span class='line'>    ```
+</span><span class='line'>
+</span><span class='line'>1. 循环
+</span><span class='line'>
+</span><span class='line'>    Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。
+</span><span class='line'>
+</span><span class='line'>    ```
+</span><span class='line'>    for(i in 1..10){
+</span><span class='line'>        println(i)
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    for(i in 1..10 step 2){
+</span><span class='line'>        println(i)
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    for(i in 10 downTo 1 step 1){
+</span><span class='line'>        println(i)
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    for (i in 1 until 10) {
+</span><span class='line'>        // i in [1, 10) 排除了 10
+</span><span class='line'>        println(i)
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    for(c in 'A'..'Z'){
+</span><span class='line'>        println(c)
+</span><span class='line'>    }
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;需要注意的是在Kotlin中不再支持Java的for循环形式：
+</span></code></pre></td></tr></table></div></figure>
+for(int i =0;i &lt; 10;i++){
+    ...
+}
+```
+</code></pre>
+
+<ol>
+<li><p>when</p>
+
+<p>  Kotlin中没有switch。提供when做分支条件选择。</p>
+
+<pre><code class="``">  when (x) {
+     1 -&gt; print("x == 1")
+     2 -&gt; print("x == 2")
+     3, 4 -&gt; print("x == 3 or x == 4")
+     in 10..99999 -&gt; print("x &gt; 10")
+     else -&gt; { // 注意这个块
+         print("x is neither 1 nor 2")
+     }
+ }
+
+ when {
+     x.isOdd() -&gt; print("x is odd")
+     x.isEven() -&gt; print("x is even")
+     else -&gt; print("x is funny")
+  }
+</code></pre>
+
+<p>   when 既可以被当做表达式使用也可以被当做语句使用。如果它被当做表达式， 符合条件的分支的值就是整个表达式的值，如果当做语句使用， 则忽略个别分支的值。</p></li>
+<li><p>操作符重载</p>
+
+<p> Kotlin提供了操作符重载的支持。对于常用的”+“、"-&ldquo;等操作符，创建带有operator且名称符合要求的方法，即可实现。如：</p>
+
+<pre><code class="`"> data class Point(val x: Int, val y: Int)
+
+ operator fun Point.unaryMinus() = Point(-x, -y)
+
+ val point = Point(10, 20)
+
+ fun main() {
+     println(-point)  // 输出“Point(x=-10, y=-20)”
+ }
+</code></pre>
+
+<p> 上面即完成了对-的重载。</p></li>
+<li><p>集合</p>
+
+<p>Kotlin把集合分为可变集合和不可变集合。其创建需要通过标准库的方法：listOf()、 mutableListOf()、 setOf()、 mutableSetOf()、hashMapOf()、mutableHashMapOf()</p>
+
+<pre><code>val list = listOf("1","2","3",""4)
+val set = setOf("1","2")
+val map = hashMapOf("name" to "hj","sex" to "male")
+</code></pre>
+
+<p>这些集合类实现了操作符重载，如下：</p>
+
+<pre><code>val list1 = list - listOf("1","2")
+val list2 = list + "2"
+println(list1[0])
+
+val map = hashMapOf("name" to "hj","sex" to "male")
+val map1 = map + ("name2" to "hah") //{"name":"hj","name2":"ha","sex":"male"}
+val map2 = map - "name"//{"sex":"male"}
+println(map2)
+</code></pre>
+
+<p>Map的遍历如下：</p>
+
+<pre><code>for ((k, v) in map) {
+    println("$k -&gt; $v")
+}
+</code></pre>
+
+<p>Kotlin中的集合具有类似Java中的Stream的操作如filter、map、foreach等。</p>
+
+<pre><code>val positives = list.filter { x -&gt; x &gt; 0 }
+//val positives = list.filter { it &gt; 0 }
+</code></pre></li>
+<li><p>Elvis操作符</p>
+
+<p> 三目运算符通常以这种形式出现：</p>
+
+<pre><code class="`"> String displayName = name != null ? name : "Unknown";
+</code></pre>
+
+<p> Kotlin中可以简化为：</p>
+
+<pre><code class="`"> val displayName = name ?: "Unknown";
+</code></pre></li>
+<li><p>可空/非可空引用/函数返回值</p>
+
+<p> Kotlin中区分一个引用可以容纳null和不能容纳null。默认的引用是不可空的。</p>
+
+<pre><code class="`"> var a = "abc"
+ a = null // 编译错误    ```
+</code></pre>
+
+<p> 需要使用?使其变为可空引用。</p>
+
+<pre><code class="`"> var b : String ? = "abc"
+ b = null
+</code></pre>
+
+<p> 如此，后续如果你调用a的任何方法都可以，但是调用b的会有编译错误。会强制去检查b是否为空</p>
+
+<pre><code class="`"> val l = if (b != null) b.length else -1
+</code></pre>
+
+<p> 也可以使用?做安全调用</p>
+
+<pre><code class="`"> b?.length()
+</code></pre>
+
+<p> b不为空才会执行后续的操作。配合let可以执行其他非自身的操作。</p>
+
+<pre><code class="`"> b?.let{
+     print("a")
+ )
+</code></pre>
+
+<p> 同样的，对于函数参数以及返回值，默认也是非空的，只有加了?才允许传控制且要求做空值检测。</p>
+
+<pre><code class="`"> fun parseInt(str: String?): Int? {
+     // ……
+     if(str == null){
+         return null
+     }
+
+     ...
+     return ..
+ }
+
+ val r = parseInt(null)
+ r?.let{
+     print r
+ }
+</code></pre></li>
+<li><p>try with resources</p>
+
+<pre><code class="`"> val stream = Files.newInputStream(Paths.get("/some/file.txt"))
+ stream.buffered().reader().use { reader -&gt;
+     println(reader.readText())
+ }
+</code></pre></li>
+<li><p>延迟属性</p>
+
+<p> Kotlin提供了延迟属性的支持，即只有在你第一次开始使用的时候才会真正初始化。默认使用同步锁保证只有一个线程初始化。下面例子改成了不使用同步锁，可以多线程执行。</p>
+
+<pre><code class="`"> val p by lazy(LazyThreadSafetyMode.PUBLICATION) {
+     println("computed!")
+     "Hello"
+ }
+ println(p)
+</code></pre></li>
+<li><p>类</p>
+
+<ul>
+<li>无须public修饰符。文件名和类也没有任何关联。</li>
+<li><p>创建对象不需要使用new关键字</p>
+
+<pre><code class="``">  val test = Test()
+</code></pre></li>
+<li><p>对于类属性，默认会有get()和set()两个方法。直接访问属性或者给属性设置值都会调用这两个方法。</p>
+
+<pre><code class="``">  class Test {
+      var counter = 0 // 注意：这个初始器直接为幕后字段赋值
+      get() {
+          println("getter")
+          return field
+      }
+      set(value) {
+          println("setter")
+          field = value
+      }
+
+
+  }
+
+  val test = Test()
+  test.counter = 10
+  println(test.counter)
+</code></pre></li>
+<li><p>主构造函数和次构造函数。Kotlin中一个类可以有一个主构造函数以及一个或多个次构造函数。主构造函数是类头的一部分：它跟在类名（与可选的类型参数）后。主构造函数里的参数如果用val或者var修饰则成为类的属性。如果类有一个主构造函数，每个次构造函数需要委托给主构造函数。主构造函数不能包含任何的代码。初始化的代码可以放到以 init 关键字作为前缀的初始化块（即时没有主构造函数，也会在次构造函数前执行）。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      init{
+
+      }
+
+      constructor(counter: Int, name: String, sex: String) : this(counter, name) {
+
+      }
+
+  }
+
+  val test = Test(10)
+  println(test.counter)
+</code></pre></li>
+<li><p>Kotlin中引入了解构函数来对对象进行解构。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      operator fun component1() : Int{
+          return counter
+      }
+
+      operator fun component2() : String{
+          return name
+      }
+
+  }
+
+  val (counter,name) = Test(10)
+</code></pre>
+
+<p>  如此，也和map一样可以用在集合迭代中。</p>
+
+<pre><code class="``">  val testList = listOf(Test(1),Test(2))
+  for((k,v) in testList){
+      ...
+  }
+</code></pre></li>
+<li><p>Kotlin中引入了数据类的概念。对于此种类，会默认根据主构造函数的属性生成equals()/hashCode()、toString()、componentN()、copy()这几个函数。</p>
+
+<pre><code class="``">  data class User(val name: String, val age: Int)
+</code></pre></li>
+<li><p>Kotlin中提供了对象声明来实现单例模式。</p>
+
+<pre><code class="``">  object SingleInstance {
+      fun test(input: String) = println(input)
+  }
+
+  fun main(args: Array&lt;String&gt;) {
+      SingleInstance.test("hj")
+  }
+</code></pre></li>
+<li><p>Kotlin中提供了密封类来表示受限的类继承结构：当一个值为有限集中的类型、而不能有任何其他类型时。可以看做是枚举类的扩展。密封类需要在类名前面添加 sealed 修饰符。其所有子类都必须在与密封类自身相同的文件中声明。</p>
+
+<pre><code class="``">  sealed class DataType
+  data class Card(val number: Double) :DataType()
+  data class Timeline(val e1: DataType, val e2: DataType) : DataType()
+  object Illegal : DataType()
+</code></pre></li>
+<li><p>Kotlin的类中引入了伴生对象来声明静态方法、属性以及编译期常量（也可以在object中定义）。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      companion object {
+          const val TYPE = 1
+              val title = "haha"
+
+              fun testStatic(){
+              println("static method")
+          }
+  }
+</code></pre></li>
+<li><p>对一个对象调用多个方法。</p>
+
+<pre><code class="``">  class Test(val counter : Int){
+      fun test1(){
+
+      }
+
+      fun test2(){
+
+      }
+  }
+
+
+  val test = Test(1)
+  with(test){
+      test1()
+      test2()
+  }
+</code></pre></li>
+</ul>
+</li>
+</ol>
+
+
+<p>以上为Kotlin中的基本语法说明，其他诸如委托、lambda函数、协程、与Java互操作等可见<a href="https://www.kotlincn.net/docs/reference/">https://www.kotlincn.net/docs/reference/</a>。</p>
+]]></content>
+  </entry>
+  
+</feed>

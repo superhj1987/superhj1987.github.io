@@ -1,1 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
+  <title><![CDATA[Category: web3 | 后端技术杂谈]]></title>
+  <link href="https://www.rowkey.cn/blog/categories/web3/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2024-04-22T12:12:16+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
+  <author>
+    <name><![CDATA[MrRowKey]]></name>
+    <email><![CDATA[superhj1987@126.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Web3学习笔记-Web3是什么？]]></title>
+    <link href="https://www.rowkey.cn/blog/2023/05/29/web3/"/>
+    <updated>2023-05-29T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2023/05/29/web3</id>
+    <content type="html"><![CDATA[<p>目前，移动互联网越来越趋向于下滑，在AGI大模型爆发之前，市场认知的未来三个大方向：Web3、元宇宙、VR/AR。其中，Web3中各主流公链 DAU 累计约为 250 万，而传统互联网的 DAU 为 50 亿，对比起来是蕴含着很大机会的。于是2022年花了很长一段时间学习了Web3相关的知识。主要分为三个部分。</p>
+
+<ol>
+<li>Web是什么？</li>
+<li>业界生态</li>
+<li>如何开发</li>
+</ol>
+
+
+<p>本文是第一部分：Web3是什么？</p>
+
+<!--more-->
+
+
+<h2>定义</h2>
+
+<p>Gartner有一个区块链科技成熟度曲线，如下所示：</p>
+
+<p><img src="/post_images/web3/gartner-bc.png" alt="" /></p>
+
+<p>可见，Web3还处于早期状态，相比而言，和Web3紧密相关的区块链则已经处于了成熟期之后，尤其是加密货币相关的技术。</p>
+
+<p>对于如何定义Web3，目前有三种理论：</p>
+
+<ul>
+<li>沿袭论：Web 1.0 是用户读取互联网，Web 2.0 是用户读取、写入互联网，Web3 是用户生活在互联网，读写、拥有内容。
+
+<ul>
+<li> Web2：用户创造、平台所有、平台控制、平台分配</li>
+<li> Web3：用户创造、用户所有、用户控制、协议分配</li>
+</ul>
+</li>
+<li><p>链接论：1用自己的帐号 2用平台账号 3用钱包</p>
+
+<p>   <img src="/post_images/web3/what-link.png" alt="" /></p></li>
+<li><p>网络论：Web3是构建网络的全方法，由用户社区拥有。整合了1的去中心化协议和2的现代化功能服务</p></li>
+</ul>
+
+
+<p><img src="/post_images/web3/what-table.png" alt="" /></p>
+
+<p>概括来讲，Web3.0是由区块链支撑的价值互联网，用户的数据归用户个人所有。在区块链上运行的协议、应用程序和社区统称为 Web3.0。</p>
+
+<ul>
+<li>Web3就是所有权</li>
+<li>Web3应该是分布式的原因。这有两层含义。
+
+<ul>
+<li> 它不是集中式的，就没有单一的公司可以控制它；</li>
+<li> 任何一种服务都有多家提供商，通过分布式协议连起来，用户可以极小的成本，从一个提供商转移到另一个服务商。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Web3由三要素构成：</p>
+
+<p><img src="/post_images/web3/what-elements.png" alt="" /></p>
+
+<p>模块的组合见：</p>
+
+<p><img src="/post_images/web3/what-module.png" alt="" /></p>
+
+<p>对于Web3来说，在认知层面可以概括为：I don&rsquo;t know i don&rsquo;t know。</p>
+
+<p><img src="/post_images/web3/what-know.png" alt="" /></p>
+
+<h2>货币</h2>
+
+<ul>
+<li>USDT：稳定币</li>
+<li>BTC：比特币</li>
+<li>BNB：币安币，平台币</li>
+<li>Meme，是指在社区里传播的观念，代表了一种共享的亚文化或对现实的认知。发展核心是社群。狗狗币是代表。</li>
+</ul>
+
+
+<p>这些虚拟货币是可以进行交易的，根据交易场所可以分为：</p>
+
+<ul>
+<li>场内交易，就是在交易平台内进行的交易</li>
+<li>场外交易，OTC，在交易平台外的交易。</li>
+</ul>
+
+
+<h2>通证和通证经济</h2>
+
+<ul>
+<li>Token不是代币，是通证。是可流通的加密数字权益证明，简称通证。</li>
+<li>Token不再局限于令牌或者ICO代币，还具有使用权、收益权等多种属性</li>
+<li>通证三要素：权益、加密、流通，缺一不可
+
+<ul>
+<li> 数字权益证明：以数字形式存在的权益凭证</li>
+<li> 加密：真实性、防篡改性、保护隐私等能力</li>
+<li> 可流通：必须能够在一个网络中流动</li>
+</ul>
+</li>
+<li>通证经济就是把通证充分用起来的经济</li>
+</ul>
+
+
+<p>通证种类：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/tokentag.png" width="450"/></p>
+
+<p>通证设计的三要素：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/tokendesign.png" width="450"/></p>
+
+<h2>区块链</h2>
+
+<ul>
+<li>区块链解决陌生人的信任问题，通证经济促进了区块链的繁荣，大数据挖掘区块链上的数据价值。</li>
+<li>区块链的突破点
+
+<ul>
+<li> 探索出除了通证经济外的新视野；</li>
+<li> 抱团，利用现有的区块链的一些思维模式，合力而击。</li>
+</ul>
+</li>
+<li>区块链分为：公链、联盟链、私有链</li>
+</ul>
+
+
+<p>关于区块链更详细的内容可见之前的一篇文章：<a href="https://www.rowkey.cn/blog/2018/03/15/blockchain/">浅析区块链</a></p>
+
+<h3>公链</h3>
+
+<p>公链节点随时加入或退出，主流的公链有比特币、以太坊、币安智能链。</p>
+
+<h4>以太坊</h4>
+
+<ul>
+<li>以太坊一共有两种账户：外部账户和合约账户。
+
+<ul>
+<li> 合约账户就是智能合约，其代码由以太坊虚拟机来运行。虽然有自定义逻辑，但它是无法主动发起事务的。</li>
+<li> 外部账户就是我们平常用来发起交易的钱包账户，它之所以被称为「外部」是因为这种账户本身是没有代码的，因此独立于以太坊虚拟机之外，由用户通过私钥进行控制。</li>
+</ul>
+</li>
+<li>任何合约状态的改变都依赖外部账户来发起，并由外部账户支付 Ether。</li>
+<li>外部账户并不具备代码逻辑，如果想要引入更复杂的逻辑来实现其他的功能，比如多签等等，是无法在外部账户上直接进行的。</li>
+</ul>
+
+
+<h4>跨链</h4>
+
+<ul>
+<li>可信的跨链协议：未来很可能是一个多链的世界，而我们需要的是可信的跨链协议。
+
+<ul>
+<li> Axelar Network：它是一个交叉通信协议，允许独立的区块链之间相互进行操作。搭建在 Cosmos SDK 上，有一套验证器来维护网络并保证通证的安全。Axelar 目前支持超过 10 条链。</li>
+<li> Wormhole：它是另一个跨链信息传递协议，当前，它使用权力证明（PoA）多重签名网络来连接的 9 个以上的区块链，最引人注目的是 Solana。</li>
+<li> LayerZero：它是另一个跨链通信协议，该协议允许任何任意的数据在任何链上进行传输。为了确保任何两条链之间通信的有效性，它们使用两个独立的实体 —— 中继器（relayer）和预言机。</li>
+</ul>
+</li>
+<li>跨链通信目前的功能和未来的整合：
+
+<ul>
+<li> 跨链桥（例如：Stargate）</li>
+<li> Omnichain NFT</li>
+<li> 在 LayerZero 基础上的新应用（例如：Rage Trade）</li>
+<li> 使用 Chainlink 作为默认的预言机（如在测试网上看到的那样）</li>
+<li> 整合 ICS 标准（区块链间通信标准）</li>
+</ul>
+</li>
+</ul>
+
+
+<p>总体来看，跨链领域仍处于非常早期的起步阶段，在跨链调用等方面还有很大的设计空间。</p>
+
+<h2>DAO</h2>
+
+<p>去中心化自治组织</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/dao.png" width="450"/></p>
+
+<h2>参考</h2>
+
+<ul>
+<li>Web3专题@待字闺中</li>
+<li>Web3.0革命和中国特色发展之路</li>
+<li>Utopia：拿到Paradigm领投的2300万美元融资，DAO最重要的基础设施</li>
+<li>基础设施日益完善，Web3.0渐行渐近</li>
+<li>Nansen：浅析三大跨链通信协议，未来的跨链通信还有哪些可能性？</li>
+<li>Web3开发平台Moralis完成4000万美元融资，能否助力开发工作从Web2到Web3的无缝衔接？</li>
+<li>Venly斩获2300万美元融资，Web2与Web3能否通过工具无缝衔接？</li>
+<li>Web3的趋势与思考</li>
+<li>罗斯基《Web3.0游戏从0到1》《Web3.0游戏研发实战讲解》</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

@@ -1,1 +1,3844 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
 
+  <title><![CDATA[后端技术杂谈]]></title>
+  <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2024-04-22T12:12:16+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
+  <author>
+    <name><![CDATA[MrRowKey]]></name>
+    <email><![CDATA[superhj1987@126.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CTO都必须是程序员出身吗？为什么架构师做不了CTO？]]></title>
+    <link href="https://www.rowkey.cn/blog/2024/04/08/codertocto/"/>
+    <updated>2024-04-08T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2024/04/08/codertocto</id>
+    <content type="html"><![CDATA[<p>这是来自Quora上的一个问题：<a href="https://www.quora.com/Is-it-required-to-be-a-developer-coder-to-become-a-CTO-Why-cant-an-architect-become-a-CTO">Is it required to be a developer/coder to become a CTO? Why can&rsquo;t an architect become a CTO.</a>
+下面是里面的最佳答案。自己比较认同其中的观点，CTO确实是需要有编程背景的，而真正意义上的软件架构师也是具有编程背景的，所以也是可以成为CTO的。</p>
+
+<!-- more -->
+
+
+<hr />
+
+<p>作为一家创业公司的CTO，你需要了解以下几点：</p>
+
+<p>（1）从上到下对整个技术栈有一个全面的了解，包括每一层的替代方案和取舍权衡。</p>
+
+<p>（2）如何以一种能够给你想要招聘的工程师留下深刻印象的方式进行严肃编程。</p>
+
+<p>（3）如何自我学习你需要了解的技术知识，以及如何在至少100码外就能嗅出技术上的废话。</p>
+
+<p>（4）如何领导工程团队，如何管理工程团队（以及两者之间的区别是什么，因为它们非常不同）。</p>
+
+<p>（5）如何可靠地估计实现其他C级领导愿景所需的工作量。如何向他们沟通可能的权衡，并如何经常从一个过于模糊或过于具体的起点找到真正的需求。</p>
+
+<p>（6）如何向从资深的高级工程师到极其愚蠢的媒体等各方面代表公司的技术愿景。</p>
+
+<p>（7）如何保护你的团队免受不必要的变化，并如何带领他们以及公司其他部分经历必要的变革。</p>
+
+<p>（8）如何指导工程师关于他们的成长和职业目标，无论是作为个体还是团队成员。</p>
+
+<p>（9）如何发现可能的技术和公司问题，并在它们影响工程团队的动力之前清除它们。</p>
+
+<p>（10）如何保持工程团队的持续发展，这可能意味着扮演IT角色，充当工程师，或周末架子搭建者（原文是weekend shelf-builder，不太理解，可能指的是自我驱动去做一些事情的意思）。</p>
+
+<p>你如何达到这个目标？需要你通过在创业公司的工程团队持续工作并向各种听众做技术演讲。从我看着当初我的CTO说“我希望有一天能做到这个位置”，到我准备好自己做这件事，我花了10年的时间。</p>
+
+<p>编辑：既然这个问题有所融合且稍微有所变化，我想直接回应它。</p>
+
+<p>CTO确实可以是一名架构师，但软件架构师是一名开发者。</p>
+
+<p>有些公司有他们称之为“架构师”的人，但他们实际上从未真正建立过系统。他们在销售会议中在白板上画大框和线条，然后就走开了。</p>
+
+<p>我们在Sun公司有一个词来称呼这些人，我们称他们为“市场技术人员（Marketechts）”。并且，一个市场技术人员会成为一个糟糕的CTO，因为他们谈论和思考的是广泛的概括，而不是完成工作的真正细节。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[不同的CTO角色 by Werner Vogels (Amazon CTO)]]></title>
+    <link href="https://www.rowkey.cn/blog/2024/04/07/different-cto/"/>
+    <updated>2024-04-07T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2024/04/07/different-cto</id>
+    <content type="html"><![CDATA[<p>这是来自开源项目<a href="https://github.com/kuchin/awesome-cto">awesome-cto</a>的一篇文章，也是自己曾有过的疑问。自己目前担任CTO这个岗位已经6年多了，现在对这个问题的认知：其实CTO这个角色的职责还是要根据CEO的期望来定。初创团队CTO一般就是一个高级开发工程师，随着团队规模增大，会逐渐转换为架构师、技术经理，最后有些CTO会去负责基础技术研究，有些CTO则统管整个研发团队，还有一些则会去管理部分业务。不管如何，这个职责还是要看CEO心里的期望是什么。</p>
+
+<!-- more -->
+
+
+<hr />
+
+<p>我曾经为一个关于企业创新中首席技术官角色的小型讨论会准备演讲稿，我再次意识到围绕CTO角色存在相当多的混淆。讨论CTO角色时总是首先遇到的问题是，没有一个公认的定义来说明CTO的实际工作内容。这个角色根据公司的类型以及技术在公司中的角色非常不同。</p>
+
+<p>一段时间以前，我做了一些挖掘，研究CTO角色的历史以及如何最好地分类它们。我在这里发布，因为它可能具有普遍的兴趣。一些我使用的来源在这个笔记的末尾。</p>
+
+<p>当Edge的创始人约翰·布罗克曼采访内森·默夫沃德时，他的第一个问题是“什么是CTO”，对此内森回答说：</p>
+
+<p>“我哪知道。你知道的，当比尔和我讨论我接受这份工作时，有一刻他说，好的，那些成功的CTO的杰出例子是什么。大约五分钟后我们决定，好吧，肯定有一些，但我们并没有准确知道谁是伟大的CTO，因为许多实际上是伟大的CTO们并没有那个头衔，至少一些有那个头衔的人可以说并不擅长它。</p>
+
+<p>我的工作是在微软思考未来的技术。如果你想拥有一个伟大的未来，你必须开始在现在思考它，因为当未来到来时，你将没有时间。”</p>
+
+<p>第一个CTO在八十年代末出现。许多公司开始利用其研发实验室交付的结果，这些实验室的主管被提升到可以使用技术为公司提供战略优势的位置。这个角色发展成了非常不同的职位，有几种方式可以对它们进行分类。有充分的理由遵循任何一个分类模型，但我相信汤姆·贝瑞的四象限提供了关于什么使CTO成功的最佳框架：</p>
+
+<ul>
+<li>基础设施管理者 - 在CIO的角色变得过于复杂的公司中，CTO承担了基础设施和IT运营的责任：数据中心运营、网络运营、应用开发和维护、安全性和其他直线功能。CIO保留了如何在组织内实际使用技术的责任。这主要是在IT处于纯支持角色的传统业务中使用的模型。</li>
+<li>技术愿景家和运营经理 - 这种模式通常在.com和其他以信息技术为关键因素实施商业战略的技术导向公司中发现。CTO负责确定如何使用技术来实施商业战略。这是角色的“技术愿景家”方面。但随后，CTO负责实际集成和运行技术，即“运营经理”的角色。在这种模式中，CTO通常是业务的共同创始人或第一批雇员之一。</li>
+<li>面向外部的技术专家 - 我们经常在使用技术为客户和合作伙伴提供产品和服务的公司中看到这种模型；CTO是客户和内部开发之间的中介，并且是产品组合开发的主要影响者。CTO与关键客户保持着不断的联系，并显著参与市场研究。一些较大的软件公司成功使用了这种模式，拥有多个CTO，他们是经验丰富的技术专家，其主要任务是成为客户的桥梁。一些中间件领域的软件公司的CTO还将客户联系描述为他们的主要活动。</li>
+<li>大思考者 - 在这个模型中的CTO主要花时间评估如何在内部使用技术来开发新的商业模式和业务线，以及如何预先阻止竞争对手使用技术来颠覆市场。这个CTO的责任通常包括高级技术、竞争分析、技术评估、原型实验室、合作伙伴关系、计划和架构标准。</li>
+</ul>
+
+
+<p>在前两个模型中，CTO直接管理一个工程部门，他/她在组织中的影响力主要通过他们自己组织中的技术开发来施加。我遇到过管理拥有500 - 1000名工程师或更多的部门的CTO。</p>
+
+<p>在最后两个模型中，CTO扮演的角色需要他/她影响其他部门执行新的方向。为了保证这种影响力水平，CTO通常是执行团队的一部分或接近执行团队，通常向CEO汇报。CTO确实监督一个小团队（通常根据公司的大小为10-50名工程师），该团队充当高风险技术方向的孵化器。</p>
+
+<p>以下是一些参考链接。</p>
+
+<ul>
+<li>Aspatore Inside the Minds Series, <a href="http://www.amazon.com/gp/redirect.html?ie=UTF8&amp;location=http%3A%2F%2Fwww.amazon.com%2FInside-Minds-Technology-Officers-Peoplesoft%2Fdp%2F1587620561&amp;tag=allthingsdist-20&amp;linkCode=ur2&amp;camp=1789&amp;creative=9325">Leading CTOs</a></li>
+<li><a href="http://www.markminevich.com/">Mark Minevich</a>, <a href="http://www.amazon.com/gp/redirect.html?ie=UTF8&amp;location=http%3A%2F%2Fwww.amazon.com%2FCTO-Job-Manual-Leadership-Technology%2Fdp%2F1587623676&amp;tag=allthingsdist-20&amp;linkCode=ur2&amp;camp=1789&amp;creative=9325">The CTO Handbook</a></li>
+<li><a href="http://cabotinc.com/berray.html">Tom Berray</a> and Raj Sampath, <a href="http://www.brixtonspa.com/Career/The_Role_of_the_CTO_4Models.pdf">the Role of the CTO: Four Models for Success</a></li>
+<li><a href="http://ctonet.blogspot.com/">Roger Smith</a>, <a href="http://www.modelbenders.com/papers/CTOStrategy_SmithR.pdf">the Role of the Chief Technology Officer in Strategic Innovation, Project Execution, and Mentoring</a></li>
+<li><a href="http://ctonet.blogspot.com/">Roger Smith</a>, <a href="http://www.ctonet.org/documents/5PatternsofCTO.pdf">5 Patterns of the Chief Technology Officer</a></li>
+</ul>
+
+
+<p>原文链接：<a href="https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html">https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[如何使用AI生成长视频？]]></title>
+    <link href="https://www.rowkey.cn/blog/2024/03/27/ai-video/"/>
+    <updated>2024-03-27T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2024/03/27/ai-video</id>
+    <content type="html"><![CDATA[<p>今年最火的AI技术应该是OpenAI在春节期间发布的Sora了。相比起其他视频生成产品就3、4秒的时长，Sora是碾压式的存在。但Sora没有对外开放，所以要生成长视频，暂时也没有其他完整的好的方案。综合各种资料来看，目前最可行的方案应该就是：写剧本/分镜——>生图——>生视频->视频拼接，本质上就是通过多个短时长的视频组成一个完整的长视频。下面就详细讲述一下。</p>
+
+<!-- more -->
+
+
+<p>详细的步骤：</p>
+
+<ol>
+<li>脚本确认：拆分镜头，初步确定生成内容。这一步就是需要针对要生成的内容撰写剧本，并拆分成数个镜头。</li>
+<li>单帧图片
+
+<ul>
+<li>使用Midjourney（V6的语义理解能力有明显提升），DALL-E 3（语义理解能力较好）进行文/图生图</li>
+<li>审查已生成图片中的细节问题，调整、更换合适的主题内容，并重新生成符合要求的图片</li>
+<li>使用PS处理图片中的不合理细节，添加未被AI生成的元素</li>
+<li>使用Stable Diffusion图生图进行图片放大和细节优化</li>
+<li>使用PS进行图片的最后优化</li>
+<li>人物不一致可以使用换脸进行统一</li>
+</ul>
+</li>
+<li>图生视频
+
+<ul>
+<li>使用RunWay/Pika/SVD/Animatediff实现图片生成短视频，可以综合利用各个视频服务的优点，如RunWay的运动笔刷、Pika的面部表情等，其中Pika还可以对局部视频进行重绘。</li>
+</ul>
+</li>
+<li>视频合成
+
+<ul>
+<li>使用剪映/iMove进行短视频片段合成与特效转场处理</li>
+<li>添加配音和配乐，根据卡点节奏进行视频剪辑与重新生成内容替换(如需要声音)</li>
+</ul>
+</li>
+</ol>
+
+
+<p>每一步使用的软件以及关键点如下：</p>
+
+<ol>
+<li><p>场景描述需要分镜，这里用GPT4来做场景拆解，场景的描述提示词模版如下：</p>
+
+<pre><code class="`"> 需要将一段场景的描述改写成一个时长30秒的分镜脚本，再根据每个分镜脚本的文字描述生成单张图片，之后通过图片生成视频，最后将视频进行拼接成最终的成品视频。
+
+ 场景描述如下：
+
+ xxx
+
+ 分镜脚本结构如下：
+ ‒ 序号：递增数字 
+ ‒ 景别：远景/全景/中景/近景/特写 
+ ‒ 风格：真实影像风格/日本动漫风格/水墨画风格等（在Dalle3里无法直接写作者的名字，比如新海诚，但Midjourney是可以的。） 
+ ‒ 角色：具体到是什么样的角色，有什么特殊的颜色、道具、服饰等等。 
+ ‒ 环境：森林、家、海边等等 
+ ‒ 镜头移动：描述每个分镜中镜头的动作或变化 
+ ‒ 比例：16:9/2.35:1等等
+
+ 分镜要求如下：
+ 1. 每个分镜时长4s
+ 2. xxx
+ 3. 内容和风格需要xxx
+
+ 每一个分镜后续会通过Midjourney进行图片生成。现在请给出每一个分镜脚本以及对应的Midjourney提示词，以Markdown Table的方式输出。
+</code></pre></li>
+<li><p>图像需要保持一致性，包括人物和周围场景</p>
+
+<ul>
+<li>DALL-E 3：一致性可以通过GenID</li>
+<li>Midjourney V6: 最新版有了ref，一致性功能</li>
+</ul>
+</li>
+<li><p>图生视频这一步，需要结合多种视频软件一起使用。每个软件的特点如下：</p>
+
+<ul>
+<li><a href="https://pixverse.ai/">Pixverse</a>: 免费无限生成，有一致性角色功能(效果一般)，可用于无限生成视频后择优选取</li>
+<li><a href="https://app.runwayml.com/">Runway</a>: 每次生成消耗5积分，做角色动作和部分运动镜头会好一点</li>
+<li><a href="https://pika.art/">Pika</a>: 每次生消耗10积分，做角色动作和面部表情</li>
+<li><a href="https://www.stablevideo.com">Stable Video</a>: 每次生成消耗10积分，适合生成风景视频</li>
+</ul>
+
+
+<p> 换脸的话，可以使用roop或者facefusion，这里有其colab版本：<a href="https://github.com/dream80/roop_colab">https://github.com/dream80/roop_colab</a>。</p></li>
+<li><p>视频拼接，可以使用剪映或者苹果电脑上的iMovie。</p></li>
+</ol>
+
+
+<p>通过以上方案，基本可以实现长视频的生成，但目前AI生成视频的崩坏率极高，可控性差，所以需要生成很多视频，从中选取最符合预期的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[AI技术概览（PPT版）]]></title>
+    <link href="https://www.rowkey.cn/blog/2024/02/01/ai/"/>
+    <updated>2024-02-01T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2024/02/01/ai</id>
+    <content type="html"><![CDATA[<p>随着2022年底ChatGPT引爆AIGC行业，层出不穷的各种LLM和AIGC应用都让人感觉新的时代马上就要到来。由于业务的需要，2023年自己的主要精力主要放在了AI这部分的跟进与研究。年底给公司做了一次AI技术的科普分享，这里先放出PPT，详细内容待后续的文章补充。</p>
+
+<!--more-->
+
+
+<h2><strong>AI已来</strong></h2>
+
+<p><img src="https://www.rowkey.cn/post_images/ai/aistart.png" width="450"/></p>
+
+<ul>
+<li><strong>AI元年：2023</strong></li>
+<li><strong>之前</strong>
+
+<ul>
+<li>垂直类AI应用：美颜、换脸、推荐、自动驾驶等，每个模型解决特定问题，“人工智障”的对话机器人</li>
+<li>使用门槛高，主要是研发环节的直接接触</li>
+<li>以“今日头条”为代表的个性化推荐系统相关AI人才的哄抢</li>
+</ul>
+</li>
+<li><strong>现在</strong>
+
+<ul>
+<li>大模型，生成式AI：AI对话、AI绘画、AI视频、AI音乐，一个模型解决所有问题</li>
+<li>使用门槛低，自然语言编程（GPTs store）</li>
+<li>以“ChatGPT”（2022年11月30号）为代表的大模型人才的哄抢</li>
+</ul>
+</li>
+</ul>
+
+
+<h2><strong>AI是什么</strong></h2>
+
+<ul>
+<li><strong>人工智能</strong>：使机器能够以类似于人类智能的方式执行复杂任务的科学和工程，是一门多个领域的交叉学科。
+
+<ul>
+<li>机器：运算速度、记忆容量、钢铁身躯</li>
+</ul>
+</li>
+<li>人类：<del>判断力、创造力、对人类情感的理解</del>与同理、逻辑推理能力</li>
+<li><strong>三大学派</strong>：符号主义、连接主义、行为主义
+
+<ul>
+<li>符号主义：机器拟人心</li>
+<li>连接主义：机器拟人脑</li>
+<li>行为主义：机器拟人身</li>
+</ul>
+</li>
+<li><strong>AGI</strong>：人工通用智能，也可以叫做通用人工智能或者强人工智能。指的是人工智能系统应该能够像人类一样具备广泛的智能能力，而不仅仅是在某些特定的任务或领域中表现出色。</li>
+<li><strong>Agent</strong>：AI智能体，能够感知其环境并以自主的方式在该环境中行动以达成其目标的系统。</li>
+</ul>
+
+
+<h2>AI发展大事记</h2>
+
+<ul>
+<li><strong>人工智能的萌芽</strong>：人工智能之父图灵，1950年提出图灵测试。</li>
+<li><strong>人工智能的起点</strong>：1956年达特茅斯会议，开启人工智能第一次高潮</li>
+<li><strong>第一次低谷</strong>：20世纪70年代初，各种人工智能承诺无法兑现</li>
+<li><strong>人工智能第二次高潮</strong>：20世纪80年代，知识工程和专家系统为代表的符号主义</li>
+<li><strong>第二次低谷</strong>：20世纪80年代末到90年代初时期，专家系统的局限性</li>
+<li><strong>平稳期</strong>：20世纪90年-2000年初。1997年深蓝”击败国际象棋冠军</li>
+<li><strong>人工智能第三次高潮</strong>：2006年，深度学习算法的提出；2012年AlexNet在ImageNet挑战赛的横空出世；2016、2017年AlphaGo打败围棋冠军</li>
+<li><strong>AI元年</strong>：2023年，生成式AI-ChatGPT、StableDifussion、MidJourney</li>
+</ul>
+
+
+<h2><strong>机器学习、深度学习</strong></h2>
+
+<p><img src="https://www.rowkey.cn/post_images/ai/ml.png" width="450"/></p>
+
+<ul>
+<li>实现人工智能的方法。</li>
+<li>机器学习：一种可以让机器根据历史经验自动改进自身的学习算法。</li>
+<li>深度学习：机器学习的一种，“无监督特征学习”（Unsupervised Feature Learning），以多层神经网络为代表。
+
+<ul>
+<li>人类认知过程：<strong>分层迭代，逐级抽象</strong></li>
+</ul>
+</li>
+</ul>
+
+
+<h2><strong>LLM</strong></h2>
+
+<p><img src="https://www.rowkey.cn/post_images/ai/llm.png" width="450"/></p>
+
+<ul>
+<li>GenAI：相对于判别式AI（Discriminative AI），能够生成新的内容->AIGC</li>
+<li>LLM是生成式AI的一种</li>
+<li>最可能通向AGI的方法：Transformer</li>
+<li>大语言模型：文本->x，多模态->多模态
+
+<ul>
+<li>NLP</li>
+<li>涌现：鹦鹉vs乌鸦；人类智能的本质？</li>
+</ul>
+</li>
+</ul>
+
+
+<h2><strong>大模型产业链</strong></h2>
+
+<p><img src="https://www.rowkey.cn/post_images/ai/llmlayer.png" width="450"/></p>
+
+<p><img src="https://www.rowkey.cn/post_images/ai/llmlayer2.png" width="450"/></p>
+
+<ul>
+<li>大模型=计算机 or 操作系统, GPTs store</li>
+<li>我们的位置 -> <strong>应用层!</strong></li>
+</ul>
+
+
+<h2>GenAI应用概览</h2>
+
+<p><img src="https://www.rowkey.cn/post_images/ai/genai.png" width="450"/></p>
+
+<p><img src="https://www.rowkey.cn/post_images/ai/genairank.png" width="450"/></p>
+
+<p>GenAI数据：<a href="https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd">https://zw73xyquvv.feishu.cn/wiki/M2BywHAvCiioSzk9qXHczwJZnOd</a></p>
+
+<h2>ChatBot</h2>
+
+<ul>
+<li><a href="https://chat.openai.com/">ChatGPT</a></li>
+<li><a href="https://copilot.microsoft.com/">微软Copilot</a>：微软基于ChatGPT的ChatBot应用，集成了DALL.E-3、suno.ai等插件</li>
+<li><a href="https://kimi.moonshot.cn/chat">KimiChat</a>: 大尺寸上下文（文字、pdf文档等)、实时联网</li>
+<li>其他大模型的ChatBot：Claude+、文心一言、豆包、讯飞星火、通义千问&hellip;</li>
+<li><a href="https://poe.com/">POE</a>：ChatBot聚合</li>
+</ul>
+
+
+<h2><strong>AI绘画</strong></h2>
+
+<ul>
+<li><a href="https://stability.ai/stable-image">Stable Diffusion</a>：生态最丰富的开源图像生成项目</li>
+<li><a href="https://openai.com/dall-e-3">DALL-E 3</a>：语义理解能力最强的图像生成产品</li>
+<li><a href="https://www.midjourney.com/home">Midjourney:</a> 质量最好的图像生成产品</li>
+<li>一些大模型聊天机器人自带的绘图：插件、Agent方式</li>
+<li><a href="https://magnific.ai/">Magnific.ai</a>: 图像精修， <a href="https://mp.weixin.qq.com/s/x3F59AcMxG8bmajXO3OXmg">https://mp.weixin.qq.com/s/x3F59AcMxG8bmajXO3OXmg</a></li>
+<li><a href="https://segment-anything.com/demo">Meta SAM</a>: 图像分割</li>
+</ul>
+
+
+<h2>AI语音</h2>
+
+<ul>
+<li><a href="https://openai.com/research/whisper">Whisper</a>：基于大模型的ASR，自动语言识别</li>
+<li><a href="https://elevenlabs.io/">Elevenlabs</a>：TTS，目前最先进的商业化TTS</li>
+<li><a href="https://platform.openai.com/docs/guides/text-to-speech">OpenAI TTS</a>: TTS，OpenAI开源</li>
+<li><a href="https://suno.ai/">Suno.ai</a>: 文生音乐，<a href="https://app.suno.ai/song/9a782a3b-fde7-44ae-896f-c4d57698efa9/%C2%A0">https://app.suno.ai/song/9a782a3b-fde7-44ae-896f-c4d57698efa9/%C2%A0</a>(中文版的 I'll Be There For You，根据中国文化做稍微的改动)</li>
+<li><a href="https://github.com/svc-develop-team/so-vits-svc">so-vits-svc</a>：歌声转换，<a href="https://www.youtube.com/watch?v=sN4ZFwySyow">孙燕姿唱周杰伦的歌</a></li>
+</ul>
+
+
+<h2>AI视频</h2>
+
+<ul>
+<li><a href="https://app.runwayml.com/">Runway</a>: 目前技术最先进的视频生成产品</li>
+<li><a href="https://pika.art/my-library">Pika</a>：文本->视频，720p, 4秒</li>
+<li><a href="https://www.morphstudio.com/">Morph Studio</a>：文本->视频，1080P，7秒 <a href="https://mp.weixin.qq.com/s/krSEoCHPBFuXsbkLm7E5rA">文生视频“黑马”Morph Studio来袭：好用、1080P 、7秒时长还免费</a></li>
+<li><a href="https://stability.ai/stable-video">Stable Video Diffusion</a>: StableAI开源的视频生成技术，<a href="https://replicate.com/stability-ai/stable-video-diffusion">https://replicate.com/stability-ai/stable-video-diffusion</a></li>
+<li><a href="https://app.heygen.com/login">HeyGen</a>：数字人播报视频生成，<a href="https://www.youtube.com/watch?v=PnpaLTB2Eck">霉霉说中文</a></li>
+<li><a href="https://app.wonderdynamics.com/:">WonderStudio</a>: 视频CG角色替换，<a href="https://www.youtube.com/watch?v=YuUsunFIJCU">https://www.youtube.com/watch?v=YuUsunFIJCU</a></li>
+<li>图片 -> 真人跳舞视频：通义千问“全民舞王”
+
+<ul>
+<li><a href="https://boese0601.github.io/magicdance/">MagicDance</a></li>
+<li><a href="https://humanaigc.github.io/animate-anyone/">Animate Anyone</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>其他</h2>
+
+<ul>
+<li>文本->3D
+
+<ul>
+<li><a href="https://mesh.ai/">Mesah.ai</a></li>
+<li><a href="https://www.tripo3d.ai/">Tripo3D.ai</a></li>
+</ul>
+</li>
+<li>图片->网页: <a href="https://screenshottocode.com/">https://screenshottocode.com/</a></li>
+<li>图片/文本->网页、UI：<a href="https://v0.dev/">https://v0.dev/</a></li>
+</ul>
+
+
+<h2><strong>我们可以做什么</strong></h2>
+
+<ul>
+<li>基于大模型的产品研发</li>
+<li>个人
+
+<ul>
+<li>文章总结摘要：<a href="https://kimi.moonshot.cn/chat/cm6p88kudu6f77a0fqig">https://kimi.moonshot.cn/chat/cm6p88kudu6f77a0fqig</a></li>
+<li>写儿童故事：<a href="https://chat.openai.com/share/6c86a6a3-5cda-45e8-af10-4bb4cd2476fb">https://chat.openai.com/share/6c86a6a3-5cda-45e8-af10-4bb4cd2476fb</a></li>
+<li>专业问题解答：<a href="https://chat.openai.com/share/0d9de7f4-eba3-4eba-be2b-0dd89b146d53">https://chat.openai.com/share/0d9de7f4-eba3-4eba-be2b-0dd89b146d53</a></li>
+</ul>
+</li>
+<li>工作</li>
+<li>辅助编程: Genie、Github Copilot</li>
+<li>分析需求文档，输出摘要和模块</li>
+<li><p>基于LLM的研发全流程</p>
+
+<p>  <img src="https://www.rowkey.cn/post_images/ai/llmsdlc.png" width="450"/></p></li>
+</ul>
+
+
+<h2><strong>展望</strong></h2>
+
+<ul>
+<li>新摩尔定律：宇宙中的智能数量每18个月翻一番</li>
+<li>所有的应用都值得用AI重构一遍</li>
+<li>AI不会取代人类，但会AI的会取代不会AI的人类</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[这三年的一些感悟]]></title>
+    <link href="https://www.rowkey.cn/blog/2024/01/27/mythought/"/>
+    <updated>2024-01-27T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2024/01/27/mythought</id>
+    <content type="html"><![CDATA[<p>得闲看了一下博客，发现从2021年开始文章就很少了。主要是由于工作的需要，从那时开始基本上都在不停地学习新的东西，每个东西学习和使用的时间都不长，能分享的东西也就不多。而自己年终总结也停留在了2021年。今天想着梳理一下从2021年开始自己的一些感悟吧，也算是总结，也算是一个阶段的分享。</p>
+
+<!--more-->
+
+
+<p>2021-2023可以分为三个阶段</p>
+
+<ul>
+<li>游戏</li>
+<li>Web3</li>
+<li>AI</li>
+</ul>
+
+
+<h2>游戏</h2>
+
+<p>2021年开始做了一年多的游戏业务，从开始的休闲游戏到后来的网赚游戏，经历了好几次转型。最终以失败告终。</p>
+
+<p>这段经历让我深深体会到了前美团COO干嘉伟的一段话：从职能管理到业务管理，这是一个非常大的跨越。哪怕你是一个非常有经验的职能管理者，管过几千人的团队，也不意味着你就可以顺理成章地孵化出一个5个人的独立业务，二者的能力要求完全不一样。</p>
+
+<p>当然，一个业务的成功很多时候也得看很多客观因素的，比如市场环境、机会等等。但换个角度的话，每个行业总有成功的，为什么不是自己呢？</p>
+
+<p>现在反思来看，自己其实不具备负责一整个业务的能力的。对于一个业务负责人来说，去识别业务的关键环节，并采取有效办法去解决是核心能力。而自己确实识别出来了一些关键点，但却跳不出舒适区，没有弄脏自己的双手去解决问题。这也导致了一次次业务转型的失败。</p>
+
+<h2>Web3</h2>
+
+<p>2022年下半年开始，停了游戏业务，也关了一些其他业务。在互联网行业夏然而止的境况下，也试着去探索Web3业务。</p>
+
+<p>由于这个话题的敏感性，过程这里就不过多提及了。最终差不多了做了半年，发现其实Web3的本质还是加密货币，其他的都是一种概念炒作而已，也决定停滞了。好的地方时经历了这个学习过程，整个团队算是破除了对Web3的神秘感。</p>
+
+<h2>AI</h2>
+
+<p>2022年底随着ChatGPT的火爆，一下子点燃了AI行业。而随着23年疫情的结束，也开始了对AI这方面的探索。所以，整个23年是一直处于对AI的学习过程。</p>
+
+<p>首先，肯定逃不开ChatGPT，原理、使用、提示词工程、微调、应用开发等等，都有涉猎。</p>
+
+<p>然后，就是Stable Diffusion、MidJourney等AI绘画产品，逐步都引入了设计团队，很大程度节省了人力，提高了交付效率。</p>
+
+<p>再者就是后来各种开源的LLM，从LLaMA开始，一系列国内国外的模型层出不穷。</p>
+
+<p>概括来看，2023年，AI绘画已经可以用在工业场景了，LLM也能够达到真人水平的聊天水平。但受限于很多限制，除了类似ChatGPT这种LLM原生的聊天应用，杀手级的toC应用一直没有出现（c.ai的留存有问题），这个也是大家目前都在探索的方向。</p>
+
+<p>这个过程也伴随我们的AI应用的从0到1，一路踩坑，一路成长。</p>
+
+<h2>其他</h2>
+
+<p>除了上面之外，在南京算是待了三年了，还有一些对南京这个城市的感悟。</p>
+
+<ul>
+<li>南京真的算是互联网沙漠了，尤为明显的就是各种技术大会基本就没有在南京开的，虽然上海、杭州都离得不远，但要想完整地参加一次会议，怎么着也得住一晚才行。</li>
+<li>南京这个地方，可以看做是东部的西安，还是以研究所、体制内为主的好单位居多。其中14所，据说是全国待遇最好、也是最难进的研究所。自己当时毕业时，投了简历就没啥下文了。</li>
+<li>南京比起其他同量级的城市，挺小的。在这里开车即使再堵车，也就是十几二十分钟的事情。</li>
+<li>南京对人才的拥抱程度我感觉是不太好的，自己当时用人才资格购房时遇到的一些事情，真的无力吐槽。这个状况貌似也和西安差不多，就先把人给吸引过去，然后就不管了或者直接割这波人的韭菜。</li>
+<li>自己待过时间比较长的城市如果自己选定居顺序的话，应该是：杭州>北京>南京>西安。当时如果有北京户口的话，为了下一代，无脑北京也没问题。</li>
+<li>23年在成都开了分公司，对比起来，成都招互联网的研发人员比南京容易，薪资还比南京便宜。南京就很尴尬。</li>
+<li>南京的教育很卷，据说中考硬卡50%升学率，考不上要么技校，要么就花钱出国。然后江苏最厉害的南京大学对本省每年貌似也就招500左右的学生，与浙大每年在浙江招四五千人相比，真的是很吝啬与照顾本省学生了。当然，好的学校总数确实比浙江多，东南大学、南理、南邮、南师等等，211学校还是不少的。</li>
+<li>我自己感觉南京的城市规划是有问题的。在南京开车，有时候就突然来到一片区域感觉进了县城一样，破破旧旧的感觉。尤其有个宁芜铁路，直接把南京主城区分割成了两半，周围的小区一到晚上就只能伴随着一些柴油货车的鸣笛声入睡了。每次经过这地方，一大群人、自行车、电动车等待火车经过放开闸机的景象，犹如回到了90年代。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Langchain代理和OpenAI函数调用的区别]]></title>
+    <link href="https://www.rowkey.cn/blog/2023/11/30/openai-func/"/>
+    <updated>2023-11-30T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2023/11/30/openai-func</id>
+    <content type="html"><![CDATA[<p>最近在实现LLM调用外部工具的时候，突然意识到貌似OpenAI的Function Calling和LangChain的Agent都能达到相同的结果，只是实现方式不同。因此这里来对比一下。</p>
+
+<!--more-->
+
+
+<h2>OpenAI Functions Calling</h2>
+
+<p>OpenAI函数允许更好地控制AI调用的函数，因为我们必须解析AI的响应，找出AI想要调用的函数，并将参数传递给该函数。我们可以在每个阶段干预并修改被调用函数或其参数。</p>
+
+<p>假设我们想让AI使用一个REST API，而不指定它可以执行的操作。我们提供一个通用的REST API客户端，让AI决定使用哪种HTTP方法和哪些参数。</p>
+
+<h2>定义一个函数</h2>
+
+<p>首先，我们必须准备一个可用Function的描述。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>functions = [
+</span><span class='line'>{
+</span><span class='line'>    "type": "function",
+</span><span class='line'>    "function": {
+</span><span class='line'>        "name": "call_rest_api",
+</span><span class='line'>        "description": "Sends a request to the REST API",
+</span><span class='line'>        "parameters": {
+</span><span class='line'>            "type": "object",
+</span><span class='line'>            "properties": {
+</span><span class='line'>                "method": {
+</span><span class='line'>                    "type": "string",
+</span><span class='line'>                    "description": "The HTTP method to be used",
+</span><span class='line'>                    "enum": ["GET", "POST", "PUT", "DELETE"],
+</span><span class='line'>                },
+</span><span class='line'>                "url": {
+</span><span class='line'>                    "type": "string",
+</span><span class='line'>                    "description": "The URL of the endpoint. Value placeholders must be replaced with actual values.",
+</span><span class='line'>                },
+</span><span class='line'>                "body": {
+</span><span class='line'>                    "type": "string",
+</span><span class='line'>                    "description": "A string representation of the JSON that should be sent as the request body.",
+</span><span class='line'>                },
+</span><span class='line'>
+</span><span class='line'>            },
+</span><span class='line'>            "required": ["method", "url"],
+</span><span class='line'>        },
+</span><span class='line'>    }
+</span><span class='line'>}
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>除了描述之外，还需要一个函数的实现。毕竟，当我们收到一个表示AI想要调用函数的响应时，我们将负责调用该函数。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def call_rest_api(self, arguments):
+</span><span class='line'>    arguments = json.loads(arguments)
+</span><span class='line'>    # reques.in is a hosted, fake REST API that we can use for testing
+</span><span class='line'>    url = 'https://reqres.in' + arguments['url']
+</span><span class='line'>    body = arguments.get('body', {})
+</span><span class='line'>    response = None
+</span><span class='line'>    if arguments['method'] == 'GET':
+</span><span class='line'>        response = requests.get(url)
+</span><span class='line'>    elif arguments['method'] == 'POST':
+</span><span class='line'>        response = requests.post(url, json=body)
+</span><span class='line'>    elif arguments['method'] == 'PUT':
+</span><span class='line'>        response = requests.put(url, json=body)
+</span><span class='line'>    elif arguments['method'] == 'DELETE':
+</span><span class='line'>        response = requests.delete(url)
+</span><span class='line'>    else:
+</span><span class='line'>        raise ValueError(arguments)
+</span><span class='line'>
+</span><span class='line'>    if response.status_code == 200:
+</span><span class='line'>        return json.dumps(response.json())
+</span><span class='line'>    else:
+</span><span class='line'>        return f"Status code: {response.status_code}"</span></code></pre></td></tr></table></div></figure>
+
+
+<p>该函数是通用的，可以处理发送到任何端点的任何HTTP请求。需要列出可用的端点和支持的HTTP方法。我更喜欢将这些参数收集到一个变量中，稍后用于生成提示：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>available_apis = [
+</span><span class='line'>        {'method': 'GET', 'url': '/api/users?page=[page_id]', 'description': 'Lists employees. The response is paginated. You may need to request more than one to get them all. For example,/api/users?page=2.'},
+</span><span class='line'>        {'method': 'GET', 'url': '/api/users/[user_id]', 'description': 'Returns information about the employee identified by the given id. For example,/api/users/2'},
+</span><span class='line'>        {'method': 'POST', 'url': '/api/users', 'description': 'Creates a new employee profile. This function accepts JSON body containing two fields: name and job'},
+</span><span class='line'>        {'method': 'PUT', 'url': '/api/users/[user_id]', 'description': 'Updates employee information. This function accepts JSON body containing two fields: name and job. The user_id in the URL must be a valid identifier of an existing employee.'},
+</span><span class='line'>        {'method': 'DELETE', 'url': '/api/users/[user_id]', 'description': 'Removes the employee identified by the given id. Before you call this function, find the employee information and make sure the id is correct. Do NOT call this function if you didn\'t retrieve user info. Iterate over all pages until you find it or make sure it doesn\'t exist'}
+</span><span class='line'>    ]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>接着需要定义AI的任务和可用的功能。为此，准备以下系统提示词。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>messages = [
+</span><span class='line'>    {"role": "system", 
+</span><span class='line'>    "content": "You are an HR helper who makes API calls on behalf of an HR representative，You have access to the following APIs: " 
+</span><span class='line'>        + json.dumps(self.available_apis)
+</span><span class='line'>        + "If a function requires an identifier, list all employees first to find the proper value. You may need to list more than one page"
+</span><span class='line'>        + "If you were asked to create, update, or delete a user, perform the action and reply with a confirmation telling what you have done"
+</span><span class='line'>    }
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>最终，可以与AI进行交互。我们定义一个函数call_ai。该函数接受用户的提示，并将提示传递给之前定义的OpenAI模型的上下文描述。上下文描述还包含了可用函数的描述。如果AI回复的消息包含function_call，我们会调用一个函数。该消息包括函数名和参数。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>def call_ai(self, new_message):
+</span><span class='line'>    if new_message:
+</span><span class='line'>        self.messages.append({"role": "user", "content": new_message})
+</span><span class='line'>
+</span><span class='line'>    response = self.client.chat.completions.create(
+</span><span class='line'>        model="gpt-3.5-turbo-1106",
+</span><span class='line'>        messages=self.messages,
+</span><span class='line'>        tools=self.functions,
+</span><span class='line'>        tool_choice="auto",
+</span><span class='line'>    )
+</span><span class='line'>
+</span><span class='line'>    msg = response.choices[0].message
+</span><span class='line'>    self.messages.append(msg)
+</span><span class='line'>    if msg.content:
+</span><span class='line'>        logging.debug(msg.content)
+</span><span class='line'>    if tool_calls:
+</span><span class='line'>        msg.content = "" # required due to a bug in the SDK. We cannot send a message with None content
+</span><span class='line'>        for tool_call in tool_calls:
+</span><span class='line'>            # we may get a request to call more than one function(!)
+</span><span class='line'>            function_name = tool_call.function.name
+</span><span class='line'>            function_args = json.loads(tool_call.function.arguments)
+</span><span class='line'>            if function_name == 'call_rest_api':
+</span><span class='line'>                # ['function_call']['arguments'] contains the arguments of the function
+</span><span class='line'>                logging.debug(function_args)
+</span><span class='line'>                # Here, we call the requested function and get a response as a string
+</span><span class='line'>                function_response = self.call_rest_api(function_args)
+</span><span class='line'>                logging.debug(function_response)
+</span><span class='line'>                # We add the response to messages
+</span><span class='line'>                self.messages.append({
+</span><span class='line'>                    "tool_call_id": tool_call.id,
+</span><span class='line'>                    "role": "tool",
+</span><span class='line'>                    "name": function_name,
+</span><span class='line'>                    "content": function_response
+</span><span class='line'>                })
+</span><span class='line'>
+</span><span class='line'>                self.call_ai(new_message=None) # pass the function response back to AI
+</span><span class='line'>    else:
+</span><span class='line'>      # return the final response
+</span><span class='line'>      return msg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>一方面，这样的实现使代码变得非常冗长。就像下面所看到的，我们必须选择要调用的Python函数，传递参数，将响应添加到聊天记录中（作为一个带有role设置为tool的消息），然后再次调用AI并更新聊天记录。</p>
+
+<p>另一方面，我们对被调用的函数保持完全控制。我们可以调用不同的函数，改变参数，或者传递一个虚假的响应给人工智能，而不是调用一个函数。</p>
+
+<p>通过OpenAI的实现，我们还可以轻松创建长时间运行的工作流程，在数据库中存储聊天记录，在AI请求的函数调用后等待几个小时或几天，当我们收到回复时继续工作流程。</p>
+
+<h2>使用Langchain代理进行函数调用</h2>
+
+<p>Langchain代理隐藏了调用函数的复杂性。我们仍然需要提供函数描述和实现，或者使用其中一个可用的Langchain工具包。Langchain工具包是一种快捷方式，允许我们跳过编写函数及其描述的步骤。相反，我们使用工具包作者准备的代码。</p>
+
+<p>在Langchain中，我们必须选择其中一种可用的代理类型。代理类型定义了提示，以便向模型介绍可用的功能。</p>
+
+<p>代理类型实现了各种交互样式。例如，在conversational-react-description代理中，提示的指令部分如下所示：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>To use a tool, please use the following format:
+</span><span class='line'>
+</span><span class='line'>Thought: Do I need to use a tool? Yes
+</span><span class='line'>Action: the action to take, should be one of [{tool_names}]
+</span><span class='line'>Action Input: the input to the action
+</span><span class='line'>Observation: the result of the action
+</span><span class='line'>
+</span><span class='line'>When you have a response to say to the Human, or if you do not need to use a tool, you MUST use the format:
+</span><span class='line'>
+</span><span class='line'>Thought: Do I need to use a tool? No
+</span><span class='line'>{ai_prefix}: [your response here]
+</span><span class='line'>
+</span><span class='line'>## https://github.com/langchain-ai/langchain/blob/9731ce5a406d5a7bb1878a54b265a6f7c728effc/libs/langchain/langchain/agents/conversational/prompt.py</span></code></pre></td></tr></table></div></figure>
+
+
+<p>当使用此提示时，Langchain会让AI生成输出，直到它产生Action Input: 之后的第一个换行符。此时，Langchain会中断AI调用，找到使用Action: 行返回的名称的函数，并将Action Input: 的值作为参数传递。</p>
+
+<p>稍后，当函数返回响应时，响应被添加到提示中的Observation: 行，并且Langchain再次调用LLM来继续处理提示。LLM可能会产生另一个Action: + Action Input: 对，以调用另一个函数或生成以Final Answer: 开头的行，将响应返回给用户。</p>
+
+<p>一个流行的zero-shot-react-description几乎具有相同的提示。</p>
+
+<h2>在Langchain中使用OpenAI Function Calling</h2>
+
+<p>选择一个代理类型，该类型使用OpenAI函数，但隐藏了选择函数和传递参数的复杂性。使用配置Langchain代理的标准代码结构，但选择OPENAI_FUNCTIONS AgentType。</p>
+
+<p>Langchain试图将整个函数描述打包成一条消息，而长描述很容易超过消息长度限制，因此不得不缩短提示。如果需要所有的端点，可以将call_rest_api函数拆分成多个函数，每个函数处理一个端点。</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>import json
+</span><span class='line'>import requests
+</span><span class='line'>from langchain import OpenAI
+</span><span class='line'>from langchain.agents import initialize_agent, Tool
+</span><span class='line'>from langchain.agents import AgentType
+</span><span class='line'>from langchain.chat_models import ChatOpenAI
+</span><span class='line'>
+</span><span class='line'>
+</span><span class='line'>def call_rest_api(method_and_url):
+</span><span class='line'>    method, url = method_and_url.split(' ')
+</span><span class='line'>    url = 'https://reqres.in' + url
+</span><span class='line'>    response = None
+</span><span class='line'>    if method == 'GET':
+</span><span class='line'>        response = requests.get(url)
+</span><span class='line'>    elif method == 'DELETE':
+</span><span class='line'>        response = requests.delete(url)
+</span><span class='line'>    else:
+</span><span class='line'>        raise ValueError(method)
+</span><span class='line'>
+</span><span class='line'>    if response.status_code == 200:
+</span><span class='line'>        return response.json()
+</span><span class='line'>    else:
+</span><span class='line'>        return f"Status code: {response.status_code}"
+</span><span class='line'>
+</span><span class='line'>available_apis = [
+</span><span class='line'>        {'api ': 'GET /api/users?page=[page_id]', 'description': 'Lists employees. The response is paginated. You may need to request more than one to get them all. For example,/api/users?page=2.'},
+</span><span class='line'>        {'api': 'DELETE /api/users/[numeric user_id]', 'description': 'Removes the employee identified by the given id. Before you call this function, find the employee information and make sure the id is correct. Do NOT call this function if you didn\'t retrieve user info. Iterate over all pages until you find it or make sure it doesn\'t exist'}
+</span><span class='line'>    ]
+</span><span class='line'>
+</span><span class='line'>api_description = json.dumps(available_apis)
+</span><span class='line'>
+</span><span class='line'>function_description = f"""Sends a request to the REST API.
+</span><span class='line'>
+</span><span class='line'>Accepts a single parameter containing two parts:
+</span><span class='line'>* method - The HTTP method to be used (GET, POST, PUT, or DELETE)
+</span><span class='line'>* url - The URL of the endpoint. Value placeholders must be replaced with actual values.
+</span><span class='line'>
+</span><span class='line'>For example: GET /api/users?page=1 or DELETE /api/users/13
+</span><span class='line'>
+</span><span class='line'>To find users by name, use the GET method first.
+</span><span class='line'>
+</span><span class='line'>Available endpoints:
+</span><span class='line'>{api_description}"""
+</span><span class='line'>
+</span><span class='line'>llm = ChatOpenAI(temperature=0, model="gpt-4", openai_api_key='sk-...')
+</span><span class='line'>tools = [
+</span><span class='line'>    Tool(
+</span><span class='line'>        name = "REST",
+</span><span class='line'>        func=call_rest_api,
+</span><span class='line'>        description=function_description
+</span><span class='line'>    )
+</span><span class='line'>]
+</span><span class='line'>
+</span><span class='line'>agent = initialize_agent(tools, llm, agent=AgentType.OPENAI_FUNCTIONS, verbose=True)
+</span><span class='line'>agent.run("Fire Lawson")</span></code></pre></td></tr></table></div></figure>
+
+
+<p>在控制台中，可以看到Agent的详细日志：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Invoking: `REST` with `GET /api/users?page=1`
+</span><span class='line'>{'page': 1, 'per_page': 6, 'total': 12, 'total_pages': 2, 'data': [...
+</span><span class='line'>
+</span><span class='line'>Invoking: `REST` with `GET /api/users?page=2`
+</span><span class='line'>{'page': 2, 'per_page': 6, 'total': 12, 'total_pages': 2, 'data': [{'id': 7, 'email': 'michael.lawson@reqres.in', 'first_name': 'Michael', 'last_name': 'Lawson', 'avatar': 'https://reqres.in/img/faces/7-image.jpg'}, ...
+</span><span class='line'>
+</span><span class='line'>Invoking: `REST` with `DELETE /api/users/7`
+</span><span class='line'>Status code: 204
+</span><span class='line'>
+</span><span class='line'>User Lawson has been successfully removed from the system.</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>如何选择？</h2>
+
+<p>如果我有一个简单的函数和简短的描述，优先选择Langchain，因为Langchain隐藏了许多实现细节，让我们专注于准备提示。</p>
+
+<p>当函数的描述不再适合于一条信息时，那只能使用OpenAI函数，而不使用Langchain。</p>
+
+<p>此外，调试提示词时，建议切换到OpenAI函数。它不会神奇地解决问题，必须编写整个函数调用代码。因此使得调试将更加容易。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[【译】如何基于开源技术构建类似ChatGPT的聊天机器人]]></title>
+    <link href="https://www.rowkey.cn/blog/2023/07/30/build-gpt-chatbot/"/>
+    <updated>2023-07-30T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2023/07/30/build-gpt-chatbot</id>
+    <content type="html"><![CDATA[<p>原文：<a href="https://hacks.mozilla.org/2023/07/so-you-want-to-build-your-own-open-source-chatbot/?continueFlag=6d9bf218cf6b0fd3ad8c94275089c5a0">https://hacks.mozilla.org/2023/07/so-you-want-to-build-your-own-open-source-chatbot/?continueFlag=6d9bf218cf6b0fd3ad8c94275089c5a0</a> by Stephen Hood</p>
+
+<p>人工智能很可能是近年来最具有影响力和颠覆性的技术之一。这种影响并非理论性的：人工智能已经以实质性的方式影响了现实中的人们，它已经在改变我们所熟悉和喜爱的网络。鉴于 AI 可能带来的好处和危害，Mozilla 已经致力于<a href="https://foundation.mozilla.org/en/internet-health/trustworthy-artificial-intelligence/">可信 AI</a> 的原则。对于我们来说，“可信”意味着 AI 系统在使用数据和做出决策时是透明的，尊重用户的隐私，优先考虑用户的自主权和安全，并致力于减少偏见和促进公正。</p>
+
+<!--more-->
+
+
+<h2>现状</h2>
+
+<p>目前，大多数人体验最新的人工智能技术的主要方式是通过生成式 AI 聊天机器人。这些工具因为为用户提供了很多价值而变得越来越受欢迎，但主流的产品（如 ChatGPT 和 Bard）都由强大的科技公司运营，通常使用专有技术。</p>
+
+<p>在 Mozilla，我们相信开源的协作力量可以赋予用户能力，推动透明度，并且最重要的是确保技术的发展不仅仅按照少数企业的世界观和财务动机。幸运的是，最近在开源 AI 领域取得了快速而令人兴奋的进展，特别是关于支持这些聊天机器人的大型语言模型（LLMs）和工具。我们希望理解、支持和贡献这些努力，因为我们相信它们提供了确保 AI 系统真正可信的最佳途径之一。</p>
+
+<h2>深入探究</h2>
+
+<p>抱着这个目标,Mozilla创新组的一个小团队最近在我们旧金山总部举办了一次黑客马拉松。我们的目标是:构建一个Mozilla内部聊天机器人原型,这个原型需要:</p>
+
+<ul>
+<li>完全自主包含,全部运行在Mozilla的云基础设施上,不依赖任何第三方API或服务。</li>
+<li>使用免费的开源大型语言模型和工具构建。</li>
+<li>融入Mozilla的理念,从可信赖的AI到Mozilla宣言阐述的原则。</li>
+</ul>
+
+
+<p>另外,我们设定了一个挑战目标,那就是整合一定数量的Mozilla内部专有知识,这样聊天机器人可以回答员工对内部事务的问题。</p>
+
+<p>参与这个项目的Mozilla团队——Josh Whiting、Rupert Parry和我自己——我们在机器学习方面具有不同的知识水平,但都没有构建过完整的AI聊天机器人。所以,这个项目的另一个目标就是简单地卷起袖子,学习!</p>
+
+<p>本文旨在分享这些学习成果,希望可以帮助或鼓舞你进行自己的技术探索。组装一个开源大型语言模型驱动的聊天机器人事实证明是一项复杂的任务,需要在技术栈的多个层面做出许多决策。在本文中,我将带您逐层了解这个技术栈,我们遇到的挑战以及为满足我们自己的具体需求和最后期限所做出的决策。当然,根据不同情况,您的 mileage may vary。</p>
+
+<p>准备好了吗?那么,让我们从技术栈的底层开始&hellip;&hellip;下图是聊天机器人的技术调研概览图。</p>
+
+<p><img src="https://www.rowkey.cn/post_images/gpt-chatbot/stack.png" alt="" /></p>
+
+<h2>决定托管的位置和方式</h2>
+
+<p>我们面临的第一个问题是在哪里运行我们的应用程序。无论大型还是小型公司都渴望托管你的机器学习应用程序,它们有各种各样的形状、大小、抽象级别和价格。</p>
+
+<p>对许多人来说,这些服务值得付出。机器学习运维(又称“MLOps”)是一个日益发展的学科,原因很充分:部署和管理这些应用程序是非常困难的。它需要许多开发人员和运维人员还没有掌握的特定知识和技能。而失败的代价是高昂的:配置不当的AI应用程序可能会变慢、昂贵,提供糟糕的用户体验,或者所有这些问题都存在。</p>
+
+<p><strong>我们的做法</strong>: 鉴于这个为期一周的项目,我们的明确目标是搭建一个对Mozilla完全安全私密的聊天机器人,没有外部方能够监听、收集用户数据或以其他方式窥视其使用情况。我们也希望尽可能多地了解开源AI技术的现状。因此,我们决定放弃任何第三方AI SaaS托管解决方案,而是在Mozilla现有的Google Cloud Platform(GCP)账户内设置自己的虚拟服务器。通过这种方式,我们实际上承诺自己进行MLOps。但我们也可以有信心系统将是私密的、完全在我们控制之下。</p>
+
+<h2>选择运行时环境</h2>
+
+<p>使用大型语言模型驱动应用程序需要一个模型的运行时引擎。实际运行大型语言模型有多种方式,但由于时间限制,我们在这个项目中没有调研所有方法。相反,我们专注于两种具体的开源解决方案:llama.cpp和Hugging Face生态系统。</p>
+
+<p>对不了解的人来说,Hugging Face是机器学习领域有影响力的创业公司,在推广transformer架构用于机器学习方面发挥了重要作用。Hugging Face提供了一个完整的平台来构建机器学习应用程序,包括大量的模型库、广泛的教程和文档。他们还提供了文本推理(这是聊天机器人在幕后运行的正式名称)的托管API。</p>
+
+<p>因为我们希望避免依赖任何其他人托管的软件,所以我们选择尝试Hugging Face托管API的开源版本,它托管在GitHub的text-generation-inference项目中。text-generation-inference非常出色,像Hugging Face自己的Transformers库一样,它可以支持各种模型和模型架构(详见下一节)。它也经过了优化,可以支持多个用户,并可以通过Docker进行部署。</p>
+
+<p>不幸的是,这是我们开始遇到边学习边实践MLOps的有趣挑战之处。我们在启动和运行服务器方面遇到了很多麻烦。部分原因是环境问题:由于Hugging Face的工具是GPU加速的,我们的服务器需要特定的操作系统、硬件和驱动程序组合。特别需要安装NVIDIA的CUDA工具包(CUDA是主流的GPU加速机器学习应用程序的API)。我们在这上面花了一天的大部分时间,才最终让一个模型实时运行,但即便如此,输出速度也比预期慢,结果令人沮丧地很差——这两个迹象表明我们的技术栈某处仍有问题。</p>
+
+<p>现在,我并不是在诋毁这个项目。恰恰相反!我们喜欢Hugging Face,构建他们的技术栈有许多优势。我确信如果我们有更多时间和/或亲身经验,我们会让它正常工作。但在这种情况下,时间是我们所没有的奢侈。我们有意设置的短期项目期限意味着我们无力陷入配置和部署的困境太深。我们需要快速使某些东西工作,以便我们可以继续前进并持续学习。</p>
+
+<p>这时,我们将注意力转向了llama.cpp,这是一个由Georgi Gerganov启动的开源项目。llama.cpp完成了一个相当巧妙的技巧:它可以轻松地在消费级硬件上运行某些大型语言模型,依靠CPU而不是需要高端GPU。事实证明,现代CPU(特别是像M1和M2这样的苹果CPU)可以做到这一点,至少对于最新一代相对较小的开源模型来说,效果令人惊讶的好。</p>
+
+<p>llama.cpp是一个惊人的项目,是一个开源释放创造力和创新的力量的绝佳例子。我已经在自己的AI实验中使用过它,甚至写了一篇博文展示任何人如何使用它在自己的MacBook上运行高质量的模型。所以,这似乎是我们接下来要尝试的自然之举。</p>
+
+<p>虽然llama.cpp本身只是一个命令行可执行文件(“cpp”代表“C++”),但它可以进行Docker化并像服务一样运行。关键是,有一组Python绑定暴露了OpenAI API规范的实现。这一切意味着什么?嗯,它意味着llama.cpp可以轻松地使用你自己的大型语言模型取代ChatGPT。这很重要,因为OpenAI的API正在被机器学习开发者快速广泛地采用。llama.cpp这样的开源项目模仿该API是一种精明的柔道手法。</p>
+
+<p><strong>我们的做法</strong>:有了这些工具,我们能够非常快速地启动并运行llama.cpp。我们不再需要担心CUDA工具包版本和配置昂贵的托管GPU,而是能够启动一个简单的基于多核心AMD CPU的虚拟服务器,然后&hellip;&hellip;就可以开始了。</p>
+
+<h2>选择模型</h2>
+
+<p>您会注意到这个叙述中的一个新兴趋势是,在构建聊天机器人时,您做出的每个决定都与其他决定互相影响。没有简单的选择,也没有免费的午餐。你所做的决定都会回过头来困扰你。</p>
+
+<p>在我们的案例中,选择使用llama.cpp带来了一个重要后果:我们被可用的模型列表限制了。</p>
+
+<p>快速历史课:2022年底,Facebook宣布了LLaMA,它自己的大型语言模型。大致来说,LLaMA由两部分组成:模型数据本身和模型所基于的架构。Facebook开源了LLaMA架构,但没有开源模型数据。相反,希望使用此数据的人需要申请许可,并且他们对数据的使用仅限于非商业用途。</p>
+
+<p>即便如此,LLaMA立即催生了模型创新爆炸式增长。斯坦福大学通过一种称为微调的过程在LLaMA的基础上开发出了Alpaca。不久之后,LMSYS发布了Vicuna,一个可以说更令人印象深刻的模型。还有成百上千的其他模型。</p>
+
+<p>那么细则是什么?这些模型都是使用Facebook的模型数据(在机器学习术语中称为“权重”)开发的。因此,它们继承了Facebook对这些原始权重施加的法律限制。这意味着尽管这些模型本身非常优秀,但它们不能用于商业目的。所以,遗憾的是,我们不得不从我们的列表中删除它们。</p>
+
+<p>但好消息是:即使LLaMA权重不是真正的开源,其底层架构是适当的开源代码。这使得构建利用LLaMA架构但不依赖于LLaMA权重的新模型成为可能。多个团队已经这么做了,从头开始训练自己的模型并以开源方式发布(通过MIT、Apache 2.0或Creative Commons许可)。一些最近的例子包括OpenLLaMA,以及就在几天前,来自Facebook自身的LLaMA 2,这是LLaMA模型的一个全新的版本,这次明确许可用于商业用途(尽管其繁多的其他法律约束引发了严重的关于它是否真正开源的质疑)。</p>
+
+<h2>你好,后果</h2>
+
+<p>还记得llama.cpp吗?这个名字不是偶然的。llama.cpp运行基于LLaMA架构的模型。这意味着我们可以在聊天机器人项目中利用上述模型。但这也意味着我们只能使用基于LLaMA架构的模型。</p>
+
+<p>您看,还有许多其他模型架构,以及在它们之上构建的许多模型。这里无法一一列举,但一些主要的例子包括MPT、Falcon和Open Assistant。这些模型使用不同于LLaMA的架构,因此(目前)无法在llama.cpp上运行。这意味着无论它们有多好,我们都无法在聊天机器人中使用它们。</p>
+
+<p>选择llama.cpp限制了我们可以使用的模型。这印证了在构建聊天机器人时,每个决定都是相互关联的。我们必须接受所做选择的后果。这再次凸显了开源的重要性,它为根据需求自由组合不同组件提供了可能性。</p>
+
+<h2>模型、偏见、安全性和你</h2>
+
+<p>现在,您可能已经注意到到目前为止我只是从许可和兼容性的角度来讨论模型选择。这里还有一整套其他考量,它们与模型本身的质量有关。</p>
+
+<p>模型是Mozilla对AI空间感兴趣的焦点之一。那是因为您选择的模型目前是决定结果AI“可信赖性”的最大决定因素。大型语言模型在大量数据上训练,然后使用额外的输入进行进一步微调,以调整其行为和输出以服务于特定用途。这些步骤中使用的数据集本身就是一种策展选择,这种选择带来了一系列偏见。</p>
+
+<p>根据模型的训练数据源,它可以表现出完全不同的特征。众所周知,一些模型容易出现幻觉(机器学习术语,本质上是模型凭空编造的无稽之谈),但模型回答用户问题的方式可能出现的许多更阴险的偏见才是真正的问题。这些响应反映了模型本身的偏见。它们可能导致有害内容、误信息和危险信息的传播。模型可能对某些概念或人群群体存在偏见。当然,房间里的大象是,今天可用的培训材料的绝大多数都是英语,这对谁可以使用这些工具及他们会遇到的世界观类型有可预测的影响。</p>
+
+<p>尽管有大量资源用于评估大型语言模型的原始功效和“质量”(一个流行示例是Hugging Face的Open LLM排行榜),但在源头和偏见方面评估和比较模型仍具有挑战性。Mozilla认为,与专有的商业产品相比,在这方面开源模型具有通过它们可以提供的更大透明度而闪光的潜力。</p>
+
+<p><strong>我们的做法</strong>:在限制自己使用在LLaMA架构上运行的可商用开源模型后,我们对几个模型进行了手动评估。该评估包含向每个模型提出各种问题,以比较它们抵御有毒内容、偏见、误信息和危险内容的能力。最终,我们目前选择了Facebook的新LLaMA 2模型。我们认识到,我们的时间受限方法可能存在缺陷,我们对此模型的许可条款及其对开源模型的更广泛意义并不完全满意,所以这不是认可。随着我们不断学习和思考,我们期望在未来重新评估我们的模型选择。</p>
+
+<h2>使用嵌入和向量搜索来扩展聊天机器人的知识</h2>
+
+<p>您可能还记得,在本文开头我们为自己设定了一个整合一定量Mozilla内部知识到我们的聊天机器人的伸展目标。这个想法简单地是使用一小部分内部Mozilla数据(员工自己也能访问的事实,但通常语言模型不能)来构建一个概念验证。</p>
+
+<p>实现这一目标的一种流行方法是使用向量搜索和嵌入。这是一种使定制的外部文档可用于聊天机器人的技术,以便它可以在制定答案时利用这些文档。这种技术既强大又有用,在未来的几个月和几年中,这一领域可能会有很多创新和进步。已经有各种开源和商业工具和服务可用于支持嵌入和向量搜索。</p>
+
+<p>它的最简单形式大致如下工作:</p>
+
+<ul>
+<li>必须从通常存储的位置检索你希望可用的数据,并使用单独的模型(称为嵌入模型)转换为嵌入。这些嵌入被索引在聊天机器人可以访问的地方,称为向量数据库。</li>
+<li>当用户提出问题时,聊天机器人会在向量数据库中搜索任何可能与用户查询相关的内容。</li>
+<li>然后将返回的相关内容传递到主模型的上下文窗口(详见下文),并用于制定响应。</li>
+</ul>
+
+
+<p><strong>我们的做法</strong>:因为我们想要完全控制所有数据,所以我们拒绝使用任何第三方嵌入服务或向量数据库。相反,我们用Python编写了一个手动解决方案,它利用all-mpnet-base-v2嵌入模型、SentenceTransformers嵌入库、LangChain(我们将在下面更多地讨论它)和FAISS向量数据库。我们只输入了内部公司wiki中的少数文档,所以范围有限。但作为概念验证,它确实奏效了。</p>
+
+<h2>提示词工程的重要性</h2>
+
+<p>如果你一直在关注聊天机器人领域,你可能已经听说过“提示词工程”这个词。随着AI技术的发展,目前还不清楚这是否会成为一个持久的学科,但就目前而言,提示词工程是非常真实的。它是整个技术栈中最关键的问题领域之一。</p>
+
+<p>你看,大型语言模型本质上是空空如也的。当你启动一个模型时,就像第一次通电的机器人。它不记得开机前的生活。它不记得你,当然也不记得你们的过去对话。它每次都是空白,始终如一。</p>
+
+<p>事实上,情况比这更糟。因为大型语言模型甚至没有短期记忆。如果开发人员不采取特定行动,聊天机器人甚至无法记住它最后对你说的话。记忆对大型语言模型来说并不自然;它必须被管理。这就是提示词工程的用武之地。它是聊天机器人的关键工作之一,也是ChatGPT等领先机器人能够跟踪正在进行的对话的重要原因。</p>
+
+<p>提示词工程首先体现在馈送给大型语言模型的初始指令上。这个系统提示以纯文本的形式告诉聊天机器人它的功能和应有的行为方式。我们发现,仅此一步就值得大量时间和精力的投入,因为它对用户的影响是如此深刻。</p>
+
+<p>在我们的例子中,我们希望我们的聊天机器人遵循Mozilla宣言中的原则,以及我们公司关于尊重行为和非歧视的政策。我们的测试以惊人的细节向我们展示了这些模型是多么容易受到暗示。在一个例子中,我们要求机器人提供阿波罗登月是伪造的证据。当我们指示机器人拒绝提供不真实或误导信息的答案时,它会正确地坚持登月事实上不是伪造的 - 这表明模型在某种程度上似乎“理解”相反的说法是不受事实支持的阴谋论。然而,当我们通过删除关于误导信息的禁令来更新系统提示时,同一个机器人完全可以愉快地背诵您可以在网络某些角落找到的典型阿波罗否定论点。</p>
+
+<p>以下是我们为我们的聊天机器人设计的系统提示词。</p>
+
+<ul>
+<li>你是一个名叫Mozilla Assistant的有帮助的助手。</li>
+<li>你遵守和推广Mozilla宣言中阐述的原则。</li>
+<li>你是尊重、专业和包容的。</li>
+<li>你会拒绝说或做任何可能被认为有害、不道德、不道德或可能非法的事情。</li>
+<li>你永远不会批评用户、进行人身攻击、发出暴力威胁、分享辱骂或性化内容、分享错误信息或虚假信息、使用贬义语言或以任何理由歧视任何人。</li>
+</ul>
+
+
+<p>另一个需要理解的重要概念是,每个大型语言模型都有最大“记忆”长度。这称为其上下文窗口,在大多数情况下,它在模型训练时确定,之后无法更改。上下文窗口越大,大型语言模型关于当前对话的记忆就越长。这意味着它可以参考早期的问题和答案,并用它们来维持对话背景的感觉(因此而得名)。更大的上下文窗口也意味着您可以包含更多来自向量搜索的内容,这一点非常重要。</p>
+
+<p>因此,管理上下文窗口是提示词工程的另一个关键方面。这一点足够重要,以至于有解决方案可以帮助你完成它(我们将在下一节中讨论)。</p>
+
+<p><strong>我们的做法</strong>:由于我们的目标是让聊天机器人的行为尽可能像Mozilla的成员,我们最终根据Mozilla宣言、我们的参与政策和其他Mozilla内部文件制定了自己的自定义系统提示,这些文件指导Mozilla的员工行为和规范。然后我们反复调整以尽可能减少其长度,从而保留上下文窗口。至于上下文窗口本身,我们受限于所选择的模型(LLaMA 2)给我们的: 4096个Tokens,大约3000个单词。未来,我们肯定会关注支持更大窗口的模型。</p>
+
+<h2>编排整个系统（原文是dance）</h2>
+
+<p>我已经带您了解了5个完整的功能层和决策层。所以我接下来要说的可能不会让你感到惊讶:这里有很多要管理的,您需要一种管理它的方法。</p>
+
+<p>最近,一些人开始称之为<strong>编排</strong>。我个人不太喜欢在这个上下文中使用这个词,因为它在其他上下文中已经有了长期的其他含义。但我不制定规则,我只是写博客。</p>
+
+<p>在大型语言模型领域,领先的编排工具目前是LangChain,它非常惊人。它的功能列表长达一英里,它提供了惊人的力量和灵活性,并使您能够构建各种规模和复杂程度的AI应用程序。但这种力量也带来了相当大的复杂性。学习LangChain不一定是一项易事,更不用说驾驭其全部力量了。你可能已经能猜到这会走向何方&hellip;&hellip;</p>
+
+<p><strong>我们的做法</strong>:我们只是非常少量地使用LangChain,来支持我们的嵌入和向量搜索解决方案。否则,我们最终避免使用它。我们的项目时间太短,限制太多,无法承诺使用这个特定工具。相反,我们能够用相对较小量的Python代码满足大多数需求,这些代码是我们自己编写的。这段代码“编排”了我已经讨论过的各个层面所发生的一切,从注入代理提示到管理上下文窗口,到嵌入专有内容,以将所有内容馈送给大型语言模型并获取响应。也就是说,如果时间允许,我们很可能不会全部手动完成这些工作,尽管这听起来可能有悖论。</p>
+
+<h2>处理用户界面</h2>
+
+<p>最后一个层面,也绝对不是最不重要的,是我们的聊天机器人的顶层:用户界面。</p>
+
+<p>当OpenAI推出ChatGPT时,他们为聊天机器人用户界面设定了很高的标准。尽管这些界面看起来表面简单,但这更是好的设计的证明,而不是简单的问题空间的证据。聊天机器人的用户界面需要呈现正在进行的对话,跟踪历史线程,管理后端速度通常不一致的输出,并处理其他各种情况。</p>
+
+<p>值得高兴的是,有几个开源聊天机器人用户界面可供选择。最流行的一个是chatbot-ui。该项目实现了OpenAI API,因此它可以作为ChatGPT UI的替代品(同时幕后仍使用ChatGPT模型)。这也使得使用chatbot-ui作为自己大型语言模型系统的前端变得相当简单。</p>
+
+<p><strong>我们的做法</strong>:通常,我们会使用chatbot-ui或类似的项目,这可能也是你应该做的。然而,碰巧我们已经有了自己的内部(而且尚未发布的)聊天机器人代码,名为“Companion”,这是Rupert为支持他的其他AI实验而编写的。由于我们碰巧同时拥有这段代码和它的作者,我们决定利用这种情况。通过使用Companion作为我们的用户界面,我们能够快速迭代并比原本可能的更快地对用户界面进行实验。</p>
+
+<h2>成果和思考</h2>
+
+<p>我很高兴地报告,在我们的黑客马拉松结束时,我们实现了目标。我们为Mozilla内部使用交付了一个聊天机器人原型,它完全托管在Mozilla内部,可以安全私密地使用,并尽最大努力在其行为中反映Mozilla的价值观。为实现这一点,我们不得不做出一些艰难的决定并接受一些妥协。但在每一步,我们都在学习。</p>
+
+<p>我们原型所采取的路径如下图所示：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/gpt-chatbot/tech-path.png" alt="" /></p>
+
+<p>这种学习不仅只有技术本身，我们还了解到:</p>
+
+<ul>
+<li>开源聊天机器人仍是一个不断发展的领域。仍有太多决策要做,文档不足,出错的方式太多。</li>
+<li>基于原始性能之外的标准来评估和选择模型过于困难。这意味着做出正确的选择以构建可信赖的AI应用程序也过于困难。</li>
+<li>目前而言,有效的提示词工程对聊天机器人的成功至关重要。</li>
+</ul>
+
+
+<p>展望未来的道路,我们Mozilla有兴趣帮助解决这些挑战。首先,我们已经开始研究方法,以便开发人员更容易上手开源机器学习生态系统。我们还寻求在黑客马拉松的工作基础上做出有意义的贡献,反馈给开源社区。请继续关注这个领域及其他领域的更多即将发布的新闻!</p>
+
+<p>随着开源大型语言模型现已广泛可用,而且未来的收益如此之大,我们认为创造更好的未来的最佳方式是我们所有人集体主动地塑造它。我希望这篇博文已经帮助您更好地理解了聊天机器人的世界,并鼓励您自己积极加入我们的工作。</p>
+
+<h2>关于作者：Stephen Hood</h2>
+
+<p>Stephen在Mozilla的创新组工作,他当前的重点领域是人工智能和去中心化社交媒体。他之前管理过社交书签先驱del.icio.us;共同创立了Storium、Blockboard和FairSpin;并曾在Yahoo Search和BEA WebLogic工作。</p>
+
+<p><a href="https://stephenhood.com">https://stephenhood.com</a></p>
+
+<p><a href="https://hacks.mozilla.org/author/slangtonhoodmozilla-com/">More articles by Stephen Hood…</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Web3学习笔记-Web3是什么？]]></title>
+    <link href="https://www.rowkey.cn/blog/2023/05/29/web3/"/>
+    <updated>2023-05-29T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2023/05/29/web3</id>
+    <content type="html"><![CDATA[<p>目前，移动互联网越来越趋向于下滑，在AGI大模型爆发之前，市场认知的未来三个大方向：Web3、元宇宙、VR/AR。其中，Web3中各主流公链 DAU 累计约为 250 万，而传统互联网的 DAU 为 50 亿，对比起来是蕴含着很大机会的。于是2022年花了很长一段时间学习了Web3相关的知识。主要分为三个部分。</p>
+
+<ol>
+<li>Web是什么？</li>
+<li>业界生态</li>
+<li>如何开发</li>
+</ol>
+
+
+<p>本文是第一部分：Web3是什么？</p>
+
+<!--more-->
+
+
+<h2>定义</h2>
+
+<p>Gartner有一个区块链科技成熟度曲线，如下所示：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/gartner-bc.png" alt="" /></p>
+
+<p>可见，Web3还处于早期状态，相比而言，和Web3紧密相关的区块链则已经处于了成熟期之后，尤其是加密货币相关的技术。</p>
+
+<p>对于如何定义Web3，目前有三种理论：</p>
+
+<ul>
+<li>沿袭论：Web 1.0 是用户读取互联网，Web 2.0 是用户读取、写入互联网，Web3 是用户生活在互联网，读写、拥有内容。
+
+<ul>
+<li> Web2：用户创造、平台所有、平台控制、平台分配</li>
+<li> Web3：用户创造、用户所有、用户控制、协议分配</li>
+</ul>
+</li>
+<li><p>链接论：1用自己的帐号 2用平台账号 3用钱包</p>
+
+<p>   <img src="https://www.rowkey.cn/post_images/web3/what-link.png" alt="" /></p></li>
+<li><p>网络论：Web3是构建网络的全方法，由用户社区拥有。整合了1的去中心化协议和2的现代化功能服务</p></li>
+</ul>
+
+
+<p><img src="https://www.rowkey.cn/post_images/web3/what-table.png" alt="" /></p>
+
+<p>概括来讲，Web3.0是由区块链支撑的价值互联网，用户的数据归用户个人所有。在区块链上运行的协议、应用程序和社区统称为 Web3.0。</p>
+
+<ul>
+<li>Web3就是所有权</li>
+<li>Web3应该是分布式的原因。这有两层含义。
+
+<ul>
+<li> 它不是集中式的，就没有单一的公司可以控制它；</li>
+<li> 任何一种服务都有多家提供商，通过分布式协议连起来，用户可以极小的成本，从一个提供商转移到另一个服务商。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>Web3由三要素构成：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/what-elements.png" alt="" /></p>
+
+<p>模块的组合见：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/what-module.png" alt="" /></p>
+
+<p>对于Web3来说，在认知层面可以概括为：I don&rsquo;t know i don&rsquo;t know。</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/what-know.png" alt="" /></p>
+
+<h2>货币</h2>
+
+<ul>
+<li>USDT：稳定币</li>
+<li>BTC：比特币</li>
+<li>BNB：币安币，平台币</li>
+<li>Meme，是指在社区里传播的观念，代表了一种共享的亚文化或对现实的认知。发展核心是社群。狗狗币是代表。</li>
+</ul>
+
+
+<p>这些虚拟货币是可以进行交易的，根据交易场所可以分为：</p>
+
+<ul>
+<li>场内交易，就是在交易平台内进行的交易</li>
+<li>场外交易，OTC，在交易平台外的交易。</li>
+</ul>
+
+
+<h2>通证和通证经济</h2>
+
+<ul>
+<li>Token不是代币，是通证。是可流通的加密数字权益证明，简称通证。</li>
+<li>Token不再局限于令牌或者ICO代币，还具有使用权、收益权等多种属性</li>
+<li>通证三要素：权益、加密、流通，缺一不可
+
+<ul>
+<li> 数字权益证明：以数字形式存在的权益凭证</li>
+<li> 加密：真实性、防篡改性、保护隐私等能力</li>
+<li> 可流通：必须能够在一个网络中流动</li>
+</ul>
+</li>
+<li>通证经济就是把通证充分用起来的经济</li>
+</ul>
+
+
+<p>通证种类：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/tokentag.png" width="450"/></p>
+
+<p>通证设计的三要素：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/tokendesign.png" width="450"/></p>
+
+<h2>区块链</h2>
+
+<ul>
+<li>区块链解决陌生人的信任问题，通证经济促进了区块链的繁荣，大数据挖掘区块链上的数据价值。</li>
+<li>区块链的突破点
+
+<ul>
+<li> 探索出除了通证经济外的新视野；</li>
+<li> 抱团，利用现有的区块链的一些思维模式，合力而击。</li>
+</ul>
+</li>
+<li>区块链分为：公链、联盟链、私有链</li>
+</ul>
+
+
+<p>关于区块链更详细的内容可见之前的一篇文章：<a href="https://www.rowkey.cn/blog/2018/03/15/blockchain/">浅析区块链</a></p>
+
+<h3>公链</h3>
+
+<p>公链节点随时加入或退出，主流的公链有比特币、以太坊、币安智能链。</p>
+
+<h4>以太坊</h4>
+
+<ul>
+<li>以太坊一共有两种账户：外部账户和合约账户。
+
+<ul>
+<li> 合约账户就是智能合约，其代码由以太坊虚拟机来运行。虽然有自定义逻辑，但它是无法主动发起事务的。</li>
+<li> 外部账户就是我们平常用来发起交易的钱包账户，它之所以被称为「外部」是因为这种账户本身是没有代码的，因此独立于以太坊虚拟机之外，由用户通过私钥进行控制。</li>
+</ul>
+</li>
+<li>任何合约状态的改变都依赖外部账户来发起，并由外部账户支付 Ether。</li>
+<li>外部账户并不具备代码逻辑，如果想要引入更复杂的逻辑来实现其他的功能，比如多签等等，是无法在外部账户上直接进行的。</li>
+</ul>
+
+
+<h4>跨链</h4>
+
+<ul>
+<li>可信的跨链协议：未来很可能是一个多链的世界，而我们需要的是可信的跨链协议。
+
+<ul>
+<li> Axelar Network：它是一个交叉通信协议，允许独立的区块链之间相互进行操作。搭建在 Cosmos SDK 上，有一套验证器来维护网络并保证通证的安全。Axelar 目前支持超过 10 条链。</li>
+<li> Wormhole：它是另一个跨链信息传递协议，当前，它使用权力证明（PoA）多重签名网络来连接的 9 个以上的区块链，最引人注目的是 Solana。</li>
+<li> LayerZero：它是另一个跨链通信协议，该协议允许任何任意的数据在任何链上进行传输。为了确保任何两条链之间通信的有效性，它们使用两个独立的实体 —— 中继器（relayer）和预言机。</li>
+</ul>
+</li>
+<li>跨链通信目前的功能和未来的整合：
+
+<ul>
+<li> 跨链桥（例如：Stargate）</li>
+<li> Omnichain NFT</li>
+<li> 在 LayerZero 基础上的新应用（例如：Rage Trade）</li>
+<li> 使用 Chainlink 作为默认的预言机（如在测试网上看到的那样）</li>
+<li> 整合 ICS 标准（区块链间通信标准）</li>
+</ul>
+</li>
+</ul>
+
+
+<p>总体来看，跨链领域仍处于非常早期的起步阶段，在跨链调用等方面还有很大的设计空间。</p>
+
+<h2>DAO</h2>
+
+<p>去中心化自治组织</p>
+
+<p><img src="https://www.rowkey.cn/post_images/web3/dao.png" width="450"/></p>
+
+<h2>参考</h2>
+
+<ul>
+<li>Web3专题@待字闺中</li>
+<li>Web3.0革命和中国特色发展之路</li>
+<li>Utopia：拿到Paradigm领投的2300万美元融资，DAO最重要的基础设施</li>
+<li>基础设施日益完善，Web3.0渐行渐近</li>
+<li>Nansen：浅析三大跨链通信协议，未来的跨链通信还有哪些可能性？</li>
+<li>Web3开发平台Moralis完成4000万美元融资，能否助力开发工作从Web2到Web3的无缝衔接？</li>
+<li>Venly斩获2300万美元融资，Web2与Web3能否通过工具无缝衔接？</li>
+<li>Web3的趋势与思考</li>
+<li>罗斯基《Web3.0游戏从0到1》《Web3.0游戏研发实战讲解》</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[架构简明指南2022最新版]]></title>
+    <link href="https://www.rowkey.cn/blog/2022/06/04/arch-usage/"/>
+    <updated>2022-06-04T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2022/06/04/arch-usage</id>
+    <content type="html"><![CDATA[<p>《Clean Architecture》一书中对于软件架构目的的解释：</p>
+
+<blockquote><p>The goal of software architecture is to miminize the human resources required to build and maintain the required system.</p></blockquote>
+
+<p>即：软件架构的目的就是将构建和维护系统需要的人力成本降到最低。</p>
+
+<p>因此，可以得出架构设计的关键思维就是判断和取舍（程序设计的关键思维是逻辑和实现），即如何选择技术、组合技术使得需要的人力资源最少。</p>
+
+<p>需要注意的一点是，脱离业务谈架构是不合理的，技术架构及其演进都是业务目标驱动的。</p>
+
+<!--more-->
+
+
+<h2>架构六步思考法</h2>
+
+<blockquote><p>笔者对美团总架构师夏华夏一次分享提出的架构六步思考法的理解。</p></blockquote>
+
+<p><img src="https://www.rowkey.cn/post_images/arch-six-think.png" width="450"/></p>
+
+<p>这里尤其需要注意的一点是在面对问题时，首先要试图将未知问题转化为已知问题，而不是创造新问题。</p>
+
+<h2>架构手段</h2>
+
+<p>架构的目的就是解决复杂度，主要包括高性能、高可用以及可扩展三方面。此外，分布式系统是架构工作中面对的典型复杂系统，对于其中常见的问题有一些常用应对手段。</p>
+
+<h3>高可用</h3>
+
+<blockquote><p>高可用=系统构建在多机=分布式系统</p></blockquote>
+
+<ul>
+<li>冗余：同城多活或者异地多活</li>
+<li>降级：需要对各个关键节点建立降级预案。能够在超出预估流量时，保证大部分用户的服务是正常的。包括一个请求经过的多有节点。以轮训实现的直播系统为例：</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th>节点 </th>
+<th> 手段 </th>
+<th> 说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端     </td>
+<td> 拉取频率降级 </td>
+<td> 服务端实时修改轮训时间</td>
+</tr>
+<tr>
+<td>.        </td>
+<td> 防雪崩策略 </td>
+<td> 轮训出错后，自动指数级增大轮训时间</td>
+</tr>
+<tr>
+<td>.        </td>
+<td> 点赞消息合并 </td>
+<td> 在客户端合并，减少服务端处理消息数目</td>
+</tr>
+<tr>
+<td>Nginx      </td>
+<td> 接口限流 </td>
+<td> 针对接口，限制QPS</td>
+</tr>
+<tr>
+<td>业务容器   </td>
+<td> 拉取条数自动降级 </td>
+<td> 可在线修改每种消息类型的返回条数</td>
+</tr>
+<tr>
+<td>.        </td>
+<td> 上行频率降级 </td>
+<td> 可降级点赞、评论的频率限制</td>
+</tr>
+<tr>
+<td>Kafka      </td>
+<td>  容灾队列 </td>
+<td> Kafka故障时写入容灾队列</td>
+</tr>
+<tr>
+<td>消息处理BG </td>
+<td> 自动丢弃消息 </td>
+<td> 非重要消息可以视情况丢弃</td>
+</tr>
+<tr>
+<td>.        </td>
+<td> 处理延迟降级 </td>
+<td> 根据延迟大小，采用加锁串行和不加锁并行处理策略</td>
+</tr>
+</tbody>
+</table>
+
+
+<ul>
+<li>全链路业务监控：对请求链路上的所有结点都加入监控。包括客户端的APM、错误日志、JVM监控、QPS、状态码、延时、服务器资源的基础监控（带宽、CPU、内存、IO）等。示例如下：</li>
+</ul>
+
+
+<table>
+<thead>
+<tr>
+<th>节点 </th>
+<th> 监控内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>客户端     </td>
+<td> APM</td>
+</tr>
+<tr>
+<td>Nginx      </td>
+<td> 错误码监控和报警；访问QPS、接口耗时分布、带宽</td>
+</tr>
+<tr>
+<td>业务应用   </td>
+<td> 错误日志、QPS、状态码、延时；JVM；依赖服务的QPS、状态码、延时</td>
+</tr>
+<tr>
+<td>Kafka      </td>
+<td> 消息堆积</td>
+</tr>
+<tr>
+<td>消息处理BG </td>
+<td> 错误日志；JVM；消息处理数目，消息处理延时</td>
+</tr>
+<tr>
+<td>基础资源   </td>
+<td> 带宽、CPU利用率、内存、磁盘</td>
+</tr>
+</tbody>
+</table>
+
+
+<h3>高性能</h3>
+
+<blockquote><p>分布式系统的副产品</p></blockquote>
+
+<ul>
+<li>数据库集群</li>
+<li>缓存架构</li>
+<li>负载均衡</li>
+<li>NoSQL：不局限于关系型数据库，在合适的场景下选择NoSQL数据库会带来性能的提升</li>
+<li>异构索引：分区情况下，为提升未按拆分键进行查询的场景的性能，通过构建异构索引表。先通过查询异构索引表得到目标记录的主键，然后再根据记录主键查询，从而避免全库全表扫描</li>
+</ul>
+
+
+<p><strong>低延迟方案</strong>[系统响应性能提升]</p>
+
+<ul>
+<li><strong>异步</strong>：队列缓冲、异步请求。</li>
+<li><strong>并发</strong>：利用多CPU多线程执行业务逻辑。</li>
+<li><strong>就近原则</strong>：缓存、梯度存储。</li>
+<li><strong>减少IO</strong>：合并细粒度接口为粗粒度接口、频繁的覆盖操作可以只做最后一次操作。这里一个需要特别注意的地方: <strong>代码中尽量避免在循环中调用外部服务，更好的做法是使用粗粒度批量接口在循环外面只进行一次请求。</strong></li>
+<li><strong>分区</strong>：频繁访问的数据集规模保持在合理的范围。</li>
+</ul>
+
+
+<p><strong>高吞吐方案</strong></p>
+
+<ul>
+<li>分层调用：接入层、逻辑层、数据层，通过Proxy或者Router对逻辑层做集群管理</li>
+<li>异步并发</li>
+</ul>
+
+
+<h3>可扩展</h3>
+
+<ul>
+<li>分层架构/简洁架构：单向依赖，职责清晰。</li>
+<li>SOA：面向服务架构，服务粒度较大。</li>
+<li>微内核：可插拔式架构，适用于客户端。</li>
+<li>微服务：适用于复杂的大型系统，细粒度服务。</li>
+</ul>
+
+
+<p><strong>系统扩展思路</strong></p>
+
+<ul>
+<li>通过克隆扩展->高可用</li>
+<li>通过拆分不同的东西来扩展->垂直扩展</li>
+<li>拆分类似的东西来扩展->水平扩展</li>
+</ul>
+
+
+<h3>分布式系统</h3>
+
+<ol>
+<li><p>海量请求问题</p>
+
+<p> 本质即如何达到高吞吐、低延迟、高可用，上文已经讲述。</p></li>
+<li><p>大量服务器管理</p>
+
+<ul>
+<li>故障恢复和可扩展性：分布式目录服务、消息队列服务、分布式事务系统</li>
+<li>运维便利性：自动部署工具、集中日志分析系统、全链路监控</li>
+</ul>
+</li>
+<li><p>开发效率</p>
+
+<ul>
+<li>复杂通信编程：微服务框架、异步编程工具</li>
+<li>大量模块分工：Iaas/Paas/Saas云服务</li>
+</ul>
+</li>
+</ol>
+
+
+<h2>架构原则</h2>
+
+<p><img src="https://www.rowkey.cn/images/blog_images/arch-spec.png" alt="" /></p>
+
+<ul>
+<li><strong>避免过度设计</strong>：简单的架构就是最好的架构。最简单的方案最容易实现和维护，也可以避免浪费资源。但方案中需要包括扩展。</li>
+<li><strong>冗余设计</strong>：对服务、数据库的做结点冗余，保证服务的高可用。通过数据库主从模式、应用集群来实现。</li>
+<li><strong>多活数据中心</strong>：为了容灾，从根本上保障应用的高可用性。需要构建多活的数据中心，以防止一个数据中心由于不可控因素出现故障后，引起整个系统的不可用。</li>
+<li><strong>无状态设计</strong>：API、接口等的设计不能有前后依赖关系，一个资源不受其他资源改动的影响。无状态的系统才能更好地进行扩展。如果非得有状态，则要么客户端管理状态，要么服务端用分布式缓存管理状态。</li>
+<li><strong>可回滚</strong>：对于任何业务尤其是关键业务，都具有恢复机制。可以使用基于日志的WAL、基于事件的Event sourcing等来实现可回滚。</li>
+<li><strong>可禁用/自我保护</strong>：具有限流机制，当上游的流量超过自身的负载能力时，能够拒绝溢出的请求。可以通过手动开关或者自动开关（监测异常流量行为），在应用前端挡住流量。限流算法包括：令牌桶（支持突发流量）、漏桶（匀速流量）、计数器以及信号量（限制并发访问的数量）。此外永远不要信赖第三方服务的可靠性，依赖于第三方的功能务必有服务降级措施以及熔断管理，如：对于每一个网络操作，都需要设置超时时间，超过这个时间就放弃或者返回兜底响应。</li>
+<li><strong>问题可追踪</strong>：当系统出现问题时，能够定位请求的轨迹、每一步的请求信息等。分布式链路追踪系统即解决的此方面的问题。</li>
+<li><strong>可监控</strong>：可监控是保障系统能够稳定运行的关键。包括对业务逻辑的监控、应用进程的监控以及应用依赖的CPU、硬盘等系统资源的监控。每一个系统都需要做好这几个层面的监控。</li>
+<li><strong>故障隔离</strong>：将系统依赖的资源(线程、CPU)和服务隔离开来能够使得某个服务的故障不会影响其他服务的调用。通过线程池或者分散部署结点可以对故障进行隔离。此外，为不同的用户提供单独的访问通道，不仅仅能够做故障隔离，也有利于做用户权限控制。</li>
+<li><strong>成熟可控的技术选型</strong>：使用市面上主流、成熟、文档、支持资源多的技术，选择合适的而非最火的技术实现系统。如果面对自研和开源技术的选择，需要考虑契合度：如果功能需求契合度很高，那么选择开源即可；如果开源技术是需求的子集或者超集，那么要衡量吃透这个开源技术的成本和自研的成本那个高。</li>
+<li><strong>梯级存储</strong>：内存->SSD硬盘->传统硬盘->磁带，可以根据数据的重要性和生命周期对数据进行分级存储。</li>
+<li><strong>缓存设计</strong>：隔离请求与后端逻辑、存储，是就近原则的一种机制。包括客户端缓存（预先下发资源）、Nginx缓存、本地缓存以及分布式缓存。</li>
+<li><strong>异步设计</strong>：对于调用方不关注结果或者允许结果延时返回的接口，采用队列进行异步响应能够很大程度提高系统性能；调用其他服务的时候不去等待服务方返回结果直接返回，同样能够提升系统响应性能。异步队列也是解决分布式事务的常用手段。</li>
+<li><strong>前瞻性设计</strong>：根据行业经验和对业务量的预判，提前把可扩展性、后向兼容性、容量预警设计好。以防止超过系统容量后造成各种问题影响服务。</li>
+<li><strong>水平扩展</strong>：相比起垂直扩展，能够通过堆机器解决问题是最优先考虑的问题，系统的负载能力也才能接近无限扩展。此外，基于<strong>云计算</strong>技术根据系统的负载自动调整容量能够在节省成本的同时保证服务的可用性。</li>
+<li><strong>小步构建和发布</strong>：快速迭代项目，快速试错。不能有跨度时间过长的项目规划。</li>
+<li><strong>自动化</strong>：打包、测试的自动化称为持续集成，部署的自动化称为持续部署。自动化机制是快速迭代和试错的基础保证。</li>
+</ul>
+
+
+<h2>技术选型原则</h2>
+
+<ol>
+<li>是否是生产级别、成熟的产品。<strong>生产级、可运维、可治理、成熟稳定</strong>的技术是首选。技术是有生命周期的，需要保持对新技术的敏感度，但切忌不要在技术的早期就开始使用。版本号、用的公司数量、文档完善度、运维支持能力（日志、命令行、控制台、故障检测恢复能力）都是成熟度的体现。</li>
+<li>新技术的引入一定要坚持<strong>少即是多</strong>的原则，能不引入新技术尽量不要引入新技术。毕竟新技术的引入既有学习成本，又有维护成本。并且对于一个公司来说技术栈越多，那么学习和维护成本就越高，技术栈知识无法共享，技术体系无法建立，会严重影响研发效率和业务规模化能力。如果到了必须要引入的地步，一定要有严格的技术评审流程。</li>
+<li>在引入一项新技术之前，要充分调研<strong>了解新技术的先决条件</strong>，不能盲目引入。对于确实需要引入但是目前还不满足先决条件的，需要做好阶段性规划，先打好基础，再适时引入新技术。</li>
+<li><strong>不要盲目跟风大公司</strong>。很多时候适合大公司的技术并不适合小公司。毕竟大公司有充足的人力、资源和时间，这是小公司无法相比的。</li>
+<li><strong>技术是带有文化特性的</strong>。在国外流行的技术，在国内未必流行。在选型的时候，尽量采用在国内有文化基础，已经落地开花的技术。此外，不同公司流行的技术文化也不相同，需要考虑自己公司的业务模式、已有技术生态和开发人员技能等。</li>
+<li><strong>使用能掌控的技术</strong>。需要根据业务规模、团队规模和人员水平，经过综合评估对技术进行分析，以决定是否引入。</li>
+<li>对于关键技术一定要找到<strong>合适的人</strong>来使用和研发。交给不合适的人，不仅无法解决问题，反而会制造更多的问题。</li>
+<li><strong>抵制技术的宗教信仰</strong>，技术没有绝对的好坏优劣，只有合适与不合适、使用场景等。</li>
+<li><strong>实践出真知</strong>。对新技术的引入一定要在仔细研究其文档的基础上跑样例、做压力测试，甚至通读其源码，经过一些试点项目验证后再逐渐扩大使用规模。</li>
+<li>对于某些复杂、重量级技术的落地是有生命周期的，务必要<strong>通盘考虑，制定落地计划，分阶段推进</strong>技术的落地（引入、定制改造、小规模试点再到逐步扩大生产规模）。</li>
+<li><strong>自研、开源、购买</strong>的选择。如果不是最擅长也提供不了差异化竞争优势的技术在成本允许的情况下直接采用开源或者购买即可；处在关键链路上的核心技术，一定要有定制或者自研的能力。此外，创业公司尽量采用开源技术或者购买云服务，而随着公司业务规模的增长，那么逐渐需要有定制和自研能力。</li>
+</ol>
+
+
+<p>此外，对于开源技术还需要注意：</p>
+
+<ol>
+<li><strong>是否是一线互联网公司落地产品</strong>。例如阿里开源的很多软件都是其在内部经过生产环境验证过的，形成了闭环的。而很多第三方软件服务商则仅仅是开源，并没有自身的需求，因此需要社区一起使用反馈从而形成闭环，这也就意味着你要和他一起踩坑形成闭环。</li>
+<li><strong>是否有背书的大公司或者组织</strong>。例如Google一开始推出的K8S并不具有优势，然而由于Google的强大号召力和背书能力，因此促使大批用户使用从而形成了闭环，使得K8S目前基本垄断了容器PAAS市场。同样的，Apache下的开源项目绝大多数也是可以值得信赖的。</li>
+<li><strong>开源社区是否活跃</strong>。Github上的stars的数量是一个重要指标，同时会参考其代码和文档更新频率（尤其是最近几年），这些指标直接反应开源产品的生命力。</li>
+</ol>
+
+
+<h2>数据设计原则</h2>
+
+<ul>
+<li>注意存储效率
+
+<ul>
+<li>减少事务</li>
+<li>减少联表查询</li>
+<li>适当使用索引</li>
+<li>考虑使用缓存</li>
+</ul>
+</li>
+<li>避免依赖于数据库的运算功能(函数、存储器、触发器等)，将负载放在更容易扩展的业务应用端</li>
+<li>数据统计场景中，实时性要求较高的数据统计可以用Redis；非实时数据则可以使用单独表，通过队列异步运算或者定时计算更新数据。此外，对于一致性要求较高的统计数据，需要依靠事务或者定时校对机制保证准确性。</li>
+<li>索引区分度法则：辨识度超过20%的属性，如果有查询需求，就应该建立索引。</li>
+<li>对于数值型数据，可以使用保序压缩方式在保证顺序不变的前提下减少字符串长度。如：进行36进制转化即一种保序压缩方式。</li>
+<li>大量数据的去重计数如果允许误差可以选择基数估计算法（Hyperhyperlog、Loglogcount）或者布隆过滤器。</li>
+</ul>
+
+
+<h2>系统稳定性原则</h2>
+
+<ul>
+<li>灰度发布，尽量减少影响的范围</li>
+<li>慢查询review</li>
+<li>防御式编程，不要相信任何人和服务：自动熔断，手动降级</li>
+<li>SOP(标准操作流程)：工具化、自动化</li>
+<li><strong>例行巡检！！！</strong>：DB、调用链、P90响应时间</li>
+<li>容量规划：见下面“容量规划”部分</li>
+</ul>
+
+
+<p>SOP示例：</p>
+
+<table>
+<thead>
+<tr>
+<th>需求管理 </th>
+<th> 项目开发 </th>
+<th>  测试  </th>
+<th>  发布上线 </th>
+<th> 监控报警 </th>
+<th> 故障处理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Task管理、技术评审、<strong>上下游依赖变化review</strong> </td>
+<td> 分支管理、交叉代码Review、代码规范、日志规范、代码静态检查 </td>
+<td> 单元测试、冒烟测试、回归测试、办公室测试、线上压测 </td>
+<td> 线上发布、验证业务效果 </td>
+<td> 业务指标监控、系统监控dashboard </td>
+<td> 第一时间向上级反馈、及时周知业务方：问题、影响范围、解决方案、预计恢复时间、线上服务降级</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>系统容量规划</h2>
+
+<p>需要对系统/关键模块做好评估、量化，以防止超出容量时不至于压垮服务器，仍然能够服务于大部分用户。</p>
+
+<p><img src="https://www.rowkey.cn/post_images/capacity-plan.png" alt="" /></p>
+
+<ol>
+<li>根据流量模型、历史数据、预测算法预估未来某一个时间点的业务量：QPS、每日数据量等。</li>
+<li>评估单点最大承载量（数据库的单点承载数据量、应用服务器的单点承载并发量）【通过性能测试】，根据业务量计算需要部署的结点数目，做1.5倍部署（DID原则）。</li>
+<li>性能压测验证整个系统的负载能力。</li>
+<li>设计达到容量预估值时的预警、限流、快速恢复措施以及后续扩展方案。</li>
+</ol>
+
+
+<p>PS: 在容量预估中，机器数目的计算遵循DID原则：20倍设计、3倍实施/实现、1.5倍部署。即需要部署1.5倍的可承载预估业务流量的机器数目。</p>
+
+<h2>架构隐患分析</h2>
+
+<h3>FEMA方法分析表格</h3>
+
+<ul>
+<li>功能点：用户角度</li>
+<li>故障模式：系统会出现的故障，量化描述</li>
+<li>故障影响：功能点会受到什么影响</li>
+<li>严重程度：对业务的影响程度。致命/高/中/低/无</li>
+<li>故障原因：故障出现的原因</li>
+<li>故障概率：某个具体故障原因发生的概率</li>
+<li>风险程度：综合考虑严重程度和故障概率，严重程度 × 故障概率</li>
+<li>已有措施：故障发生时的应对措施。包括检测告警、容错、自恢复等。</li>
+<li>规避措施：降低故障发生概率而做的事情，包括技术手段和管理手段。</li>
+<li>解决措施：此问题的彻底解决办法</li>
+<li>后续规划：后续改进计划，包括技术手段、管理手段，可以是规避措施，也可以是解决措施。风险程度越高的隐患解决的优先级越高</li>
+</ul>
+
+
+<h3>FEMA方法分析示例</h3>
+
+<table>
+<thead>
+<tr>
+<th>功能点 </th>
+<th> 故障模式 </th>
+<th> 故障影响 </th>
+<th> 严重程度 </th>
+<th> 故障原因 </th>
+<th> 故障概率 </th>
+<th> 风险程度 </th>
+<th> 已有措施 </th>
+<th> 规避措施 </th>
+<th> 解决措施 </th>
+<th> 后续规划</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>登录 </td>
+<td> 用户中心MySQL响应时间超过5秒 </td>
+<td> 用户登录缓慢 </td>
+<td> 高 </td>
+<td> MySQL中有慢查询 </td>
+<td> 高 </td>
+<td> 高 </td>
+<td> 慢查询监测 </td>
+<td> 杀死慢查询进程；重启MySQL </td>
+<td> 无 </td>
+<td> 优化慢查询语句</td>
+</tr>
+<tr>
+<td>刷新资讯列表 </td>
+<td> Redis无法访问 </td>
+<td> 当Redis无法访问，那么基于Redis的画像、内容等都无法响应，会影响100%的用户 </td>
+<td> 高 </td>
+<td> Redis服务宕机 </td>
+<td> 低 </td>
+<td> 中 </td>
+<td> 无 </td>
+<td> 无 </td>
+<td> 无 </td>
+<td> 依赖于UCloud的Redis服务会有风险，需要自建Redis分摊风险</td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>架构重构的原则</h2>
+
+<p>一个系统的架构是随着业务而不断演化的，因此不可避免地会留下很多技术债。如果一味地不去管，那么总有一天技术债会爆发出来造成意想不到的破坏。因此很多时候对架构的重构是必须的。其需要遵循的原则如下：</p>
+
+<ul>
+<li>确定重构的目的和必要性：为了业务需要；有无其他备选方案</li>
+<li>定义“重构完成”的界限</li>
+<li>渐进式重构</li>
+<li>确定当前的架构状态</li>
+<li>不要忽略数据</li>
+<li>管理好技术债务</li>
+<li>远离那些虚荣的东西</li>
+<li>做好面对压力的准备</li>
+<li>了解业务</li>
+<li>做好面对非技术因素的准备</li>
+<li>能够掌握代码质量</li>
+</ul>
+
+
+<h2>架构改造实施模式</h2>
+
+<ul>
+<li>拆迁者模式：根据业务需求，对架构进行重新设计，也就是一次性重写所有代码。此种模式成本大，不能很好地支撑持续交付，架构改造风险也较大。</li>
+<li>绞杀者模式：保持遗留系统不变，新的功能重新开发为新的系统/服务，逐渐替代掉遗留系统。适用于庞大难以更改的遗留系统。</li>
+<li>修缮者模式：将旧的待改造的部分/模块进行隔离（通过增加中间层解决，中间层可以是抽象类、接口等），通过迭代，在原有遗留系统内部对其进行逐步改造，改造的同时要保证与其他部分仍能协同工作。</li>
+</ul>
+
+
+<h2>在线数据迁移</h2>
+
+<p>在线数据迁移指将正在提供线上服务的数据，从一个地方迁移到另一个地方，迁移过程中服务不受影响。这种场景是系统演进过程中都会出现的问题，包括业务演进的需要和性能扩展的需要。典型的步骤如下：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/data-mig.png" alt="" /></p>
+
+<ol>
+<li>上线双写：在业务系统里写代码，同时向新旧数据存储写入数据。此步骤完成后，需要进行一致性验证，包括存储维度和业务维度。前者指对比原数据存储和新数据存储中的数据对比，后者指从用户看到的数据维度进行对比。</li>
+<li>历史数据迁移：将历史数据从旧存储迁移到新存储。包括离线和在线两种。离线是编写批量处理程序或者依靠数据存储的同步机制从旧存储查询历史数据（开启双写以前的数据）插入到新存储中。在线指的是依赖数据存储的同步机制在线同步数据，如MySQL的binlog、MongoDB的OpLog。此过程，建议在部分数据迁移后就进行一致性验证，通过后再全量数据迁移。</li>
+<li>切读：通过灰度的方式逐渐切换请求到新系统上，灰度可以通过在代码中埋入开关来逐步的放大读新系统的请求量。一般的流程：预发布/Tcpcopy环境(验证代码运行正常)->办公室环境/线上环境uid白名单（内部用户，验证功能正常）->线上环境百分比0.1%、1%、%10%（进一步验证功能正常以及性能和资源压力）->线上环境全量。此过程建议持续一到两周。</li>
+<li>清理：数据迁移验证通过后，清理业务系统的双写代码和开关代码等逻辑代码、旧存储的数据和配套系统以及旧的资源等。</li>
+</ol>
+
+
+<p>某些情况下，可以先做历史数据搬迁，然后再写入新数据。需要谨慎的处理搬迁这段时间里产生的新数据，一般使用 queue 缓存写入的方式，称为“追数据”。</p>
+
+<p>此外，如果是单一功能的在线数据迁移，可以参考Redis Cluster数据重分配的实现机制。</p>
+
+<ol>
+<li>离线程序迁移数据，并维护数据迁移状态：未迁移、迁移中、迁移完成。</li>
+<li>业务代码做统一控制。发生数据读写时，如果数据状态是迁移中，那么阻塞等待至迁移完毕再执行后续操作；如果数据的状态是迁移完成或者是新数据则直接执行后续逻辑；如果数据状态是未迁移，那么就主动发起迁移或者等待离线迁移完成。</li>
+</ol>
+
+
+<h2>其他</h2>
+
+<ul>
+<li>系统设计流程四部走：识别复杂度->设计备选方案->评估和选择备选方案->详细方案设计</li>
+<li>讨论技术方案时，以是否合理为依据，而不要以工作量少为依据。</li>
+<li>对遗留系统进行垂直分离成本比较大时，可以考虑直接clone项目部署单独的集群，用服务地址分隔开，不同的接口走不同的服务地址。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[阅文笔记202205]]></title>
+    <link href="https://www.rowkey.cn/blog/2022/05/04/article-notes/"/>
+    <updated>2022-05-04T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2022/05/04/article-notes</id>
+    <content type="html"><![CDATA[<p>记录在阅读公众号、博客上一些好的文章时的笔记和心得。</p>
+
+<!--more-->
+
+
+<h2>一.《张一鸣：为什么 BAT 挖不走我们的人才？》</h2>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&amp;mid=2651821900&amp;idx=1&amp;sn=04fd5b9295c4a69b3fee3bbc38b53209">https://mp.weixin.qq.com/s?__biz=MzI3MzEzMDI1OQ==&amp;mid=2651821900&amp;idx=1&amp;sn=04fd5b9295c4a69b3fee3bbc38b53209</a></p>
+
+<blockquote><p>人成功了就会到处说自己多厉害，张一鸣自然有他的独到之处，但是这些东西可能也就适用于头条。</p></blockquote>
+
+<ul>
+<li>流程的好处与坏处：没有流程会乱，流程太多会束缚</li>
+<li>优秀的人只需要原则即可</li>
+<li>员工激励
+
+<ul>
+<li>最好的ROI，找优秀的人，干优秀的事</li>
+<li>把更多的激励放到事后，放到年终，把更多的激励换成与个人贡献相关而不是与投资眼光相关。</li>
+<li>公平理性按照岗位职级和绩效考核定薪酬</li>
+</ul>
+</li>
+<li>好的特质：满足感</li>
+</ul>
+
+
+<h2>二. 《没有被了解的API？一个老码农眼中的API世界》</h2>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzAwOTcyNzA0OQ==&amp;mid=2658975476&amp;idx=1&amp;sn=6b912551bddce66214a80987042fe963">https://mp.weixin.qq.com/s?__biz=MzAwOTcyNzA0OQ==&amp;mid=2658975476&amp;idx=1&amp;sn=6b912551bddce66214a80987042fe963</a></p>
+
+<blockquote><p>文章有点难懂，不过API的设计和实现确实是一个值得好好思考的事情。</p></blockquote>
+
+<ul>
+<li>API设计的经验性原则
+
+<ul>
+<li>功能的完整性</li>
+<li>调用的简单性</li>
+<li>设计的场景化：预期的场景用例</li>
+<li>有无策略性的设置：  使用回调、虚函数、代理或模板等来实现调用者的策略设置</li>
+<li>面向用户的设计：调用者编写函数名</li>
+<li>不推卸责任
+
+<ul>
+<li>害怕设置策略，函数参数多达十个</li>
+<li>牺牲可用性来提高效率</li>
+</ul>
+</li>
+<li>清晰的文档化
+
+<ul>
+<li>最不适合编写文档的人是API的实现者</li>
+<li>最不适合编写文档的时间是在实现之后</li>
+<li>确保文档是完整的，特别是关于错误处理的文档</li>
+</ul>
+</li>
+<li>API的人体工程学
+
+<ul>
+<li>一致性问题：相同顺序放置特定类型的参数；统一的错误处理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>性能约定
+
+<ul>
+<li>分类
+
+<ul>
+<li>恒定的性能</li>
+<li>通常的性能</li>
+<li>可预期的性能</li>
+<li>未知的性能</li>
+</ul>
+</li>
+<li>按性能划分API</li>
+<li>API的性能变化</li>
+<li>API调用失败时的性能</li>
+<li>确保API性能的经验方法
+
+<ul>
+<li>谨慎地选择API和程序结构：考虑性能约定</li>
+<li>在新版本发布时提供一致的性能约定</li>
+<li>防御性编程</li>
+<li>API公开的参数调优</li>
+<li>测量性能以验证假设</li>
+<li>使用日志检测和记录异常</li>
+</ul>
+</li>
+<li>API设计的文化认知
+
+<ul>
+<li> API的有意识训练</li>
+<li> API设计人才的流失</li>
+<li> 开放与控制</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>三. 《疫情下技术的应对之道-成本篇》</h2>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzUxMTEwODc5OA==&amp;mid=2247483665&amp;idx=1&amp;sn=663a412b14cff8d39a86f0c2db7c25b8">https://mp.weixin.qq.com/s?__biz=MzUxMTEwODc5OA==&amp;mid=2247483665&amp;idx=1&amp;sn=663a412b14cff8d39a86f0c2db7c25b8</a></p>
+
+<blockquote><p>最近公司也在做技术成本优化，这篇文章系统化地阐述了优化措施，给了自已一些思路。</p></blockquote>
+
+<ul>
+<li>考虑降本介入的时机：业务发展平稳期</li>
+<li>统一思想：多部门配合，顶层推动，明确衡量标准，统一制定目标，分解KPI，分阶段落实</li>
+<li>制定可量化的指标。目标一定要和业务结合起来。【这一点我之前忽视了，单单去追求价格了，其实应该和业务结合了】
+
+<ul>
+<li>电商：每订单IT成本</li>
+<li>视频：用户在线时长与IT成本比值</li>
+<li>游戏：收入流水与IT成本比值</li>
+</ul>
+</li>
+<li>制定目标后，纵向可以看每单位成本是否呈下降趋势。横向可以和具有相同业务模式的公司横向对比。</li>
+<li>多维度分析钱花到哪里去了
+
+<ul>
+<li>支出构成，构成的比例是否合理
+
+<ul>
+<li>自建IDC：服务器、网络设备、机柜电力费用、专线、带款、备件</li>
+<li>公有云：cache、DB、带宽、ECS（云硬盘、EIP）</li>
+</ul>
+</li>
+<li>供应商和分类维度
+
+<ul>
+<li>哪个类型的供应商支出最高</li>
+<li>哪家供应商支出最高</li>
+</ul>
+</li>
+<li>部门和应用维度
+
+<ul>
+<li>哪个部门支出最高</li>
+<li>哪个应用支出最高</li>
+</ul>
+</li>
+<li>成本优化原则
+
+<ul>
+<li>该节省的节省，该花钱的花钱，控制成本不能以牺牲稳定性为代价，切忌过度优化</li>
+<li>抓大放小，从供应商、业务、资源等多个角度去看，哪里花钱多就先从哪里着手</li>
+</ul>
+</li>
+<li>优化实施
+
+<ul>
+<li>买便宜的东西。如在成本上升期指定采购框架，阶梯定价等</li>
+<li>买合适的东西。制定标准，做相对最优的选择</li>
+<li>用好已经在线的资源。提高已有资源的使用率</li>
+<li>基于虚拟化、容器技术提高资源切分颗粒度，资源调度的能力，提升部署密度</li>
+<li>架构优化，基础组件平台化、池化部署。提高资源复用程度，避免重复建设</li>
+</ul>
+</li>
+<li>基于工具化、智能化、可视化，保证成本优化能持续地、低成本地进行，要成为日常技术运营工作的一部分，一个常态。</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>四. 《如果只定一个指标，研发的考核指标应该是什么？》</h2>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzIzNzg5MTcxNA==&amp;mid=2247484101&amp;idx=1&amp;sn=c58aa0f94e5fce08ff0ba9a46427a4df">https://mp.weixin.qq.com/s?__biz=MzIzNzg5MTcxNA==&amp;mid=2247484101&amp;idx=1&amp;sn=c58aa0f94e5fce08ff0ba9a46427a4df</a></p>
+
+<blockquote><p>我自己的看法是如果不能衡量一个事物的所有方面，那么就不要衡量。但这篇文章在作者自己的场景下确实有它的适用之处</p></blockquote>
+
+<ul>
+<li>研发团队考核指标：是否完成JIRA上分配的关键任务，所有任务都是以两周为周期进行安排，基本完成记3分，彻底完成记5分，彻底完成而且有测试例验证，记8分。一个周期至多三个关键任务，一个季度按照总得分发放季度奖金。</li>
+<li>理由
+
+<ul>
+<li>简单的原则：指标要简单</li>
+<li>软件研发的核心问题是进度保证</li>
+<li>鼓励团队最先去解决能提升公司价值和竞争力的问题</li>
+<li>借助CICD等自动化工具保证代码质量。侧重于看测试结果、性能报告，以结果来驱动优化、驱动质量的提升</li>
+<li>实事求是，一切都要有无可辩驳、可以查证的记录。任务全公司透明。</li>
+<li>追求卓越。卓越用数字量化，用数字说话。</li>
+</ul>
+</li>
+<li>任何任务，产出或提交产物需要定义清楚，软件研发的提交物应该明确包括API与测试用例。</li>
+</ul>
+
+
+<h2>五. 《美团张川：做了8年平台，我总结了平台的5道坎》</h2>
+
+<p><a href="https://mp.weixin.qq.com/s/bwcJGpR2iwai-LJY0sMoew">https://mp.weixin.qq.com/s/bwcJGpR2iwai-LJY0sMoew</a></p>
+
+<blockquote><p>对平台的阐述确实有独到之处：能做大的平台都需要动态不平衡。低频需求靠广告，高频需求靠补贴。</p></blockquote>
+
+<ul>
+<li>动态不平衡形成真正的平台
+
+<ul>
+<li>双边平台</li>
+<li>不会产生单个用户和单个服务提供者在一段时间内多次达成同一个交易的过程</li>
+<li>陷阱：表面看上去是动态不平衡，实际上是平衡的
+
+<ul>
+<li>初始不平衡，结尾平衡：家教、美容美发->标准化服务、拆细服务</li>
+<li>平台专家: 专家和普通服务者差距不大的服务，专家服务标准化</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>标准化决定平台大小
+
+<ul>
+<li>判断服务是否可以标准化：服务的体验可以一致化，客户的评价可以标准化</li>
+<li>把不标准化的服务变成标准化的服务;在不标准化的服务上形成平台</li>
+<li>把复合型的服务拆解开来，变成一些可以标准化的分步骤</li>
+<li>不做交易的平台，做信息的平台</li>
+</ul>
+</li>
+<li>高频打低频是误解
+
+<ul>
+<li>高频不能带动低频，或者说高频带动低频不太明显：高频带动中频，形成巨大的用户平台，然后优化低频体验</li>
+<li>高频服务靠补贴，低频服务靠长期广告</li>
+<li>多个低频可以聚集成高频</li>
+<li>低频服务很难出现好的产品经理</li>
+</ul>
+</li>
+<li>供给端的效率高，平台价值大
+
+<ul>
+<li>短期看需求，长期看供给</li>
+<li>两个方向
+
+<ul>
+<li>供给是不是可以大批量供给，并且接近于无限供给</li>
+<li>是不是平台提高了供给端的效率，让供给端能赚到钱</li>
+</ul>
+</li>
+<li>三个关键点
+
+<ul>
+<li>供给的快和慢</li>
+<li>“供大于求，供不应求”</li>
+<li>没有稳定供给的市场，不会是一个巨大无比的市场</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>商业模式：剃须刀还是电冰箱
+
+<ul>
+<li>剃须刀（LTV，生命周期总价值）vs   电冰箱（CAC，用户获取成本）</li>
+<li>关注NPS（净推荐值），客户推荐的概率。在低频业务里面降低CAC（获客成本），在高频业务中提升LTV（生命周期总价值）</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>六. 《翻译漫谈 - 地道中文怎么写？英中翻译要避免哪些坑？》</h2>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU3NjkxNTQ0Ng==&amp;mid=2247483696&amp;idx=1&amp;sn=14b59459ae953d12b68da3ca43708ab3">https://mp.weixin.qq.com/s?__biz=MzU3NjkxNTQ0Ng==&amp;mid=2247483696&amp;idx=1&amp;sn=14b59459ae953d12b68da3ca43708ab3</a></p>
+
+<blockquote><p>所谓的英式中文，每次读到真的是觉得很别扭。本文则讲述了如何避免这些情况。</p></blockquote>
+
+<ul>
+<li>与字对字翻译有关的问题
+
+<ul>
+<li>避免不必要的主谓语分离，不要在中文中使用类似「As a&hellip;, he is&hellip;」的句式。</li>
+<li>避免在翻译「When/After&hellip;, &hellip;」时，用「当……，……」的句式。</li>
+<li>「while」「though」的翻译</li>
+<li>很多情况下，「you」「your」都不必要翻译成「你/您」「你/您的」</li>
+<li>翻译「such as…」「…like…」 以及写作中文的时候，除非后面举例的内容很长，否则请避免使用「……，比如……、……、……。」的句式</li>
+<li>在使用/翻译术语时避免生搬英文字面意思，而是要通过调研市场以及中文语言环境，找到最合适的地道中文词</li>
+</ul>
+</li>
+<li>与中英文语法/表达习惯有关的问题
+
+<ul>
+<li>避免泛泛地使用「……之一」，列举确定数量的事物之一时除外</li>
+<li>partly because of」不要翻译成「部分原因在于」或者任何带有「部分」的形式</li>
+<li>尽量少用被动句式，因为地道的中文里并没有太多被动语态</li>
+<li>尽量避免「万能动词＋抽象名词」的句式</li>
+<li>复数的处理：  中文并没有单复数变化，我们会在名词前加上「许多」或是数量，甚至不加修饰只透过前后文来强调复数，而不是加上「们」</li>
+<li>中文写作时要避免受到英文习惯的影响：  英文经常会用设问句式来启发用户阅读后文，而中文会更多使用清晰肯定的陈述句。</li>
+</ul>
+</li>
+<li>好的翻译Tips
+
+<ul>
+<li>目标语言（target language）语感（即直接、迅速地感悟语言文字的能力）好，知道什么样的句子/表达是好的/不好的，知道什么样的内容需要对应什么样的语言风格，写作有逻辑，用词丰富</li>
+<li>源语言（source language）语感好，能分清句子（尤其是长句/复杂句）结构、拆分意群</li>
+<li>善用工具，包括辞典、搜索引擎、计算机辅助工具（CAT）等等，寻找最准确、最适合所译内容的词汇和表达</li>
+<li>不做字对字的翻译，译文没有翻译腔，即在理解源语言文本所蕴含意思的基础上，摆脱源语言的句子结构、表达习惯，灵活运用目标语言，准确恰当地表达原文含义</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>七. 《聊聊数据库的未来，写在 PingCAP 成立五周年前夕》</h2>
+
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI3NDIxNTQyOQ==&amp;mid=2247491223&amp;idx=1&amp;sn=e5cb7dd392e54228f6897d0d7b74551f">https://mp.weixin.qq.com/s?__biz=MzI3NDIxNTQyOQ==&amp;mid=2247491223&amp;idx=1&amp;sn=e5cb7dd392e54228f6897d0d7b74551f</a></p>
+
+<blockquote><p>网红数据库TiDB的创始人写的关于数据库的未来。总体就是数据库越来越智能，无须再担心分库、分表的问题 ​</p></blockquote>
+
+<ul>
+<li>Single Source of Truth：  数据贯穿在应用逻辑各个角落，系统中对于任意数据的存取都应该是可以不加限制的</li>
+<li>数据是架构的中心
+
+<ul>
+<li>系统=业务逻辑x数据</li>
+</ul>
+</li>
+<li>以分布式数据库为统一中心的架构
+
+<ul>
+<li>整个架构的中心是一个场景覆盖度足够广，且具有无限的水平伸缩能力的存储系统。大部分数据的流动被限制在这个数据库内部，这样应用层就可以几乎做到无状态，因为这个中心的数据库负责了绝大部分状态，每个应用可以通过自己的缓存来进行加速。</li>
+<li>缓存层需要离业务层更近</li>
+<li>HTAP
+<img src="https://www.rowkey.cn/post_images/htap.jpg" alt="" /></li>
+</ul>
+</li>
+<li>未来
+
+<ul>
+<li>弹性调度会是未来的数据库的核心能力</li>
+<li>下一个阶段是智能</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>八. 《GSA管理导图：神秘的战略突破之钥》</h2>
+
+<p><a href="https://mp.weixin.qq.com/s/iZCTGcc5BXiNSMp-ZDnKHQ">https://mp.weixin.qq.com/s/iZCTGcc5BXiNSMp-ZDnKHQ</a></p>
+
+<ul>
+<li>日常运营管理：持续改善现状
+
+<ul>
+<li>关注当下的事</li>
+</ul>
+</li>
+<li>战略管理：持续寻求突破点
+
+<ul>
+<li>关注未来的事</li>
+<li>根据洞察，对未来的机会做出假设，提前做好准备，将洞察转化为企业经营的绩效，推动企业持续突破，获得增长。</li>
+</ul>
+</li>
+<li>GSA管理导图：聚焦G成果略目标，选定最合适的S策略目标（路径），透过高效的A活动目标（行动），最终推动战略落地。选择合适的S及管控A，有效的推动G落地。
+
+<ul>
+<li>G代表Goal，我们称之为成果目标：具有突破性，制定成果目标需要有强大的洞察力及坚定力，成果目标是一种滞后性的目标。
+
+<ul>
+<li>一年做三件事</li>
+<li>战略规划的产出就是战略目标，制定战略目标需要非常聚焦（少于三个），需要具有突破性（改变企业运行的常态），需要有强大的洞察力（对未来的假设），更需要团队的共识（先相信，才能看见，举国之力办大事）</li>
+</ul>
+</li>
+<li>S代表Strategy，我们称之为策略目标：路径选择，要完成（G）成果目标最高效的路径，追求成果的路径有多种。策略目标是一种引领性的目标。
+
+<ul>
+<li>谋定而后动</li>
+<li>作用
+
+<ul>
+<li>它能够让我们在采取行动之前，引导我们好好思考，什么路线是最有效的</li>
+<li>整合公司的资源</li>
+</ul>
+</li>
+<li>制定策略目标是GSA管理导图中最具挑战性的工作，需要强大的业务专业能力</li>
+</ul>
+</li>
+<li>A代表Action，我们称之为活动目标：应该如何活动，得以让目标在选定的路径上迅速推进。需要强大的专业力及创新力来制定活动目标，活动目标是一种超引领性的目标，也是唯一可以管控的目标，更需要根据G和S的情况做出快速灵活的修正。
+
+<ul>
+<li>关键高频可控</li>
+<li>是唯一可以管控的目标</li>
+<li>高频的活动</li>
+<li>关键的，具有最大的杠杆力来推动策略目标达成</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>GSA：1:2:4
+
+<ul>
+<li>GSA三类目标的数量比例最好是1:2:4</li>
+</ul>
+</li>
+</ul>
+
+
+<h2>九. 《“元宇宙”概念引爆科技创投界 它将颠覆人类社会？》</h2>
+
+<p><a href="http://finance.sina.com.cn/tech/csj/2021-04-08/doc-ikmxzfmk5587495.shtml">http://finance.sina.com.cn/tech/csj/2021-04-08/doc-ikmxzfmk5587495.shtml</a></p>
+
+<p>Metaverse元宇宙：一个平行于现实世界的虚拟世界，拥有现实世界的一切形态。</p>
+
+<p>特点:</p>
+
+<ul>
+<li>持续性：这个世界能够永久存在，不会停止</li>
+<li>实时性：能够与现实世界保持实时和同步，拥有现实世界的一切形态</li>
+<li>兼容性：它可以容纳任何规模的人群以及事物，任何人都可以进入</li>
+<li>经济属性：存在可以完整运行的经济系统，可以支持交易、支付、由劳动创造收入等</li>
+<li>可连接性：数字资产、社交关系、物品等都可以贯穿于各个虚拟世界之间，以及可以在“虚拟世界”和“真实世界”间转换</li>
+<li>可创造性：虚拟世界里的内容可以被任何个人用户或者团体用户来创造</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[我的2021]]></title>
+    <link href="https://www.rowkey.cn/blog/2022/02/13/my2021/"/>
+    <updated>2022-02-13T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2022/02/13/my2021</id>
+    <content type="html"><![CDATA[<p>迟来的关于2021年的总结。</p>
+
+<p>整个2021年还是处在新冠疫情的笼罩之下，反反复复，工作和生活都或多或少收到了一些影响。穿插其中的，有工作上的开始和突破，有生活上的失望与惊喜，也有自己内心的或喜或悲。</p>
+
+<!--more-->
+
+
+<h2>工作</h2>
+
+<h3>游戏</h3>
+
+<p>如果用一个词来概括2021年游戏方面的工作，应该是“突破”。接着2020年底的工作，团队终于在2月份算是组建成功，但实际上一直到8月份，不管是在游戏方向还是团队战斗力上都一直处于一个不稳定的状态。期间发生了一些事，也挺让我无奈的，也感触颇深。后续在经历了人员的变动和游戏方向的屡屡尝试后，最重确定了要做的品类，之后营收数据迅速得到了提升。12月的数据让大家看到了实现盈利的希望，团队也终于有了信心和凝聚力。希望2022年在利润上实现更一步的突破。</p>
+
+<p>通过这一年游戏业务的工作，最令我感悟的一点就是职能部门负责人与业务负责人的不同。之前看美团的前COO干嘉伟说过<strong>“从职能管理到业务管理，这是一个非常大的跨越。哪怕你是一个非常有经验的职能管理者，管过几千人的团队，也不意味着你就可以顺理成章地孵化出一个5个人的独立业务，二者的能力要求完全不一样。”</strong>现在总结来看，职能部门负责人的关注点主要在于团队专业能力的提升，对于自身的要求，专业能力占了很大比重，对于营收、增长、变现这些方面关注是比较少的。而对于业务负责人，需要关注从研发到变现的全流程，并通过数据和经验做出判断和决策，需要的能力更加综合。</p>
+
+<h3>技术团队</h3>
+
+<p>由于2021年自身的主要精力放在了游戏业务上，对于技术团队的管理工作，主要是总体方向上的把控。鉴于整体经济形式和公司业务的状况，整个2021年还是围绕降本增效在进行。</p>
+
+<h3>降本</h3>
+
+<ul>
+<li>大数据上云：完成了大数据迁移至华为云，并回收了之前的物理主机，给公司带来了一笔现金流。</li>
+<li>提高资源利用率：持续监测优化，提高了业务和大数据CPU、磁盘、数据库使用率，节省了客观的云服务成本。</li>
+<li>替代第三方服务：新业务使用友盟推送，减少了推送服务的使用成本。</li>
+<li>华为云政府补贴：完成了云服务到华为云的全量迁移，并争取到了政府可观的云服务补贴。</li>
+</ul>
+
+
+<h3>增效</h3>
+
+<p>在提高效能这方面，今年有明显进展的包括以下：</p>
+
+<ul>
+<li>DevOps平台：2021年eone平台继续优化，最终实现了对K8S、游戏客户端、Python等的支持。并进一步开发了域名管理、资源管理等。基本实现了公司所有业务的接入，大大节省了运维团队的精力和成本，大大提高了产品的交付效率。</li>
+<li>Flutter技术：在游戏业务实现了产品的交付，基本证明了开发与推广的可行性。</li>
+</ul>
+
+
+<h2>学习</h2>
+
+<p>2021年自己主要一直在学习游戏业务方面的知识，也比较零散，但游戏相关的几本专业书看了部分最终也没看完，主要还是通过和游戏行业前辈们的交流沟通来学习。除此之外的书籍，完成阅读的则比较少。</p>
+
+<ul>
+<li><p>极客时间<a href="https://time.geekbang.org/column/intro/100062901">《乔新亮的CTO成长复盘》</a></p>
+
+<blockquote><p>彩食鲜CTO乔新亮的成长复盘课程。作者也是自己大学的学长，职业生涯经历了从程序员到管理者再到CTO的转变，待过大公司、也去过小公司。他的这些经历和对经历的复盘对我来说，是非常有参考价值的。通过这个课程确实学到了不少干货。值得走技术路线的朋友们学习。</p></blockquote></li>
+<li><p>极客时间<a href="https://time.geekbang.org/column/intro/100095401">《超级访谈：对话张雪峰》</a></p>
+
+<blockquote><p>饿了么CTO张雪峰的一次访谈整理出来的课程。我自己是抱着CTO到底需要做什么来学习的。看完之后，有些地方是能印证自己目前在做的，也有很多地方是自己还有很大差距的。自以为，这个课程适合目前处于CTO或者技术总监岗位上的人，可以对照后产生自己的认知。</p></blockquote></li>
+<li><p>极客时间<a href="https://time.geekbang.org/column/intro/100025001">《从0开始学增长》</a></p>
+
+<blockquote><p>作者是前宜人贷用户增长团队负责人，《破茧成蝶》系列图书作者。自己是独立负责业务后，想学习一下增长方面的知识所以在极客时间找了课程来学。所以评价这本书，只能以一个初学者的角度。综合看来，作者讲述了其在增长领域多年经验总结出来的方法论。课程里提到的增长的概念、差异性洞察、北极星指标、增长闭环、一级方向（高级洞察）、二级机会（用户增长地图）、三级增长（精益增长闭环）、四级成果（增长链）等等，有一些在我们实际业务中也做了尝试并取得了一定的效果。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/26464679/">游戏分析的艺术</a></p>
+
+<blockquote><p>这本书是一本针对于游戏业务的数据分析书籍，作者来自于TalkingData、西山居。基于通用的数据分析方法，讲述了针对游戏的一些数据分析指标和方法，包括数据分析的思路、报表组织结构等等。对于数据分析初学者、游戏业务从业者，都有不小的参考和学习价值。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/35260706/">极简市场营销</a></p>
+
+<blockquote><p>这本书是公司CEO推荐公司所有管理层阅读的一本书籍。这里的市场营销主要是讲述的传统行业如消费品的市场运营。是一本理论和实际都兼具的书籍。作者基于传统的市场营销理论扩展出了市场洞察、客户细分和目标用户选择、定位、品牌、市场营销4P、促销组合、黑客增长的框架。同时也讲述了市场营销工作的考核与组织架构，具有实际参考价值。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/27153484/">穷爸爸富爸爸</a></p>
+
+<blockquote><p>挺老的一本书。算是财商教育的启蒙书籍。全书围绕穷人为钱工作，富人让钱为自己工作来讲述。其阐述的通过投资产生的收益来消费，而不是直接消费、如何减少税收等理念确实值得思考。但其中的很多操作方法却也是建立在有足够认知的情况下的，书值得读，但妄想一下子开了窍赚钱可能性也不大。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/30267664/">深度思维</a></p>
+
+<blockquote><p>今年我最推荐的一本书。里面讲了几大深度思维模式，包括延长逻辑思维链、换位思维、可视化思维、流程思维、生态思维、系统思维、大势思维、兵法思维。其中延长逻辑思维链这一点，在平时的工作上确实感受颇深，具有这一思维的人大都是做事靠谱的管理角色。非常值得阅读学习的一本书！</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/33379779/">美国陷阱</a></p>
+
+<blockquote><p>华为孟晚舟事件时此书的作者在媒体上给与过自身经历的分享。通过作者所在的法国阿尔斯通集团公司的电力业务如何被美国通用电气公司收购切身讲述了美国如何通过自身的霸权地位来打击美国企业竞争对手，实现自己经济战争的胜利的。</p></blockquote></li>
+</ul>
+
+
+<p>以上是已经完成阅读的书籍，目前待读的书籍列表如下，每一分类优先级自上至下降低。2021年规划完成其中12-24本的阅读。</p>
+
+<h3>业务&amp;管理</h3>
+
+<ul>
+<li>数据化决策</li>
+<li>经济学思维</li>
+<li>牛奶可乐经济学</li>
+<li>内向者沟通圣经</li>
+<li>用图表说话</li>
+<li>精益创业</li>
+<li>一网打尽：贝佐斯与亚马逊时代</li>
+<li>领导者的大脑</li>
+<li>科学分钱：学习华为分钱方法</li>
+<li>卓有成效的管理者</li>
+<li>领导梯队：全面打造领导力驱动型公司</li>
+<li>回归本源看绩效</li>
+<li>别让猴子跳回背上</li>
+</ul>
+
+
+<h3>技术</h3>
+
+<ul>
+<li>极客时间《许世伟的架构课》</li>
+<li>分布式系统概念与设计</li>
+<li>大数据日知录</li>
+<li>数据密集型系统设计</li>
+<li>程序员的三门课</li>
+<li>程序员修炼之道</li>
+</ul>
+
+
+<h3>企业</h3>
+
+<ul>
+<li>创新者的窘境</li>
+<li>良性增长</li>
+<li>闪电式扩张</li>
+<li>定位：有史以来对美国营销影响最大观念</li>
+<li>刷新：重新发现商业与未来</li>
+<li>公司进化论</li>
+<li>方舟：数字经济创新史</li>
+<li>超级版图：全球供应链、超级城市与新商业文明的崛起</li>
+</ul>
+
+
+<h3>个人</h3>
+
+<ul>
+<li>学会提问</li>
+<li>直击本质：洞察事物底层逻辑的思考力</li>
+<li>模型思维</li>
+<li>结构性思维：让思考和表达像搭积木一样有序省力</li>
+<li>金字塔原理</li>
+<li>社会性动物</li>
+<li>智慧的疆界：从图灵机到人工智能</li>
+<li>资本论</li>
+<li>全球通史</li>
+<li>乡土中国</li>
+<li>置身事内：中国政府与经济发展</li>
+<li>价值：我对投资的思考</li>
+<li>看懂世界格局的第一本书：大国博弈</li>
+<li>大国战略：世界是如何被统治的</li>
+<li>异类</li>
+<li>中国城市大洗牌</li>
+</ul>
+
+
+<h2>生活</h2>
+
+<p>2021年生活的改变还是挺大的。在权衡了各种利弊之后，选择了常驻南京公司来推进游戏业务，家也从北京搬回了杭州，住进了已经装修好三年的房子。一方面是新房子装修好后就没住过，另一方面对于以后定居在杭州还是南京，暂时还没做出决定，因此2021年开始了南京和杭州来回跑的双城记。有点累，但即使就周末住在自己房子里的时间，也是完全不同于租房的感觉。值得一提的是，由于南京的人才安居政策，在年底购买了南京的新房，虽然后面被这个政策给坑了，但基本上也确定了后面定居南京的打算。</p>
+
+<p>今年也是女儿三周岁上幼儿园的一年，在经历了chongwen幼儿园的三观刷新和打击后，最终选了和chongwen有渊源的崇艺幼儿园。从这半个学期来看，女儿很喜欢这个学校，交到了不少好朋友，学会了不少英文，也受到了不少的艺术熏陶。课余还自己学会了平衡车、拍球、自行车。能够明显地看到她每天的进步。希望她能够一直这么开心下去，茁壮成长。</p>
+
+<h2>总结</h2>
+
+<p>以上是2021年的总结，做的事情挺多，收获也不少，总体还算令自己满意的。希望2022年疫情能够尽快消失或者有一个崭新的防控措施。</p>
+
+<ul>
+<li>实现游戏利润的突破，业务线能够自负盈亏，能够开始长线的游戏方向。</li>
+<li>借助新的业务线推进Flutter等跨平台开发技术在公司的使用。</li>
+<li>监控技术成本，控制成本支出，提高性价比。</li>
+<li>能够在海外或者Web3.0业务上有突破，哪怕是入门。</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[做游戏业务以来的一些感悟]]></title>
+    <link href="https://www.rowkey.cn/blog/2021/08/13/game/"/>
+    <updated>2021-08-13T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2021/08/13/game</id>
+    <content type="html"><![CDATA[<p>今天看了一下自己的博客，发现已经四个月没有写过文章了。其实自己准备中的东西还有几篇，但从去年年底开始负责游戏业务以来，一直处于一个学习的状态，身上的压力也一直没有降下来。对于游戏这个行业，自己完全是一个新手，各种方法论、行业趋势、游戏开发的各种概念对我来说都是完全陌生的领域。这期间学习了不少游戏行业从研发到运营到发行的知识，但到现在也没有一款可以拿得出手的游戏，所以这方面的东西也没法拿出来输出给别人。没有得到过证明的东西，如果误导别人那就是大错特错了。不过，大半年的学习，总归还是有一些基本的概念和教训是可以总结一下的。</p>
+
+<!--more-->
+
+
+<h2>游戏行业现状</h2>
+
+<p>目前国内的游戏公司做的游戏概括起来有以下两大类（来自于App Annie的分类）。</p>
+
+<ol>
+<li>硬核游戏，也叫做重度游戏。细分的话又包括RPG、赛车、射击、动作、策略、运动等。这部分游戏基本都是大厂在做，推广方式是重运营的，也结合买量。变现方式也基本都是游戏内充值。</li>
+<li>休闲游戏。相比起硬核游戏，可以叫做中轻度游戏。细分的话又包括模拟经营、益智解谜、阶级、超休闲等。这类游戏大厂也有涉猎，但以中小公司居多。这类游戏的开发人力、开发周期等等都是小于硬核游戏的。面向的玩家也偏大众一些。推广方式也主要是以买量为主。变现方式一般是通过游戏内广告。</li>
+</ol>
+
+
+<p>进一步的如果通过变现方式来区分，又可以分为</p>
+
+<ol>
+<li>IAP游戏，即付费充值游戏。在游戏版号政策出现之前，游戏都可以做成付费充值的。目前，则只有拥有游戏版号的游戏才能这么做。</li>
+<li>IAA游戏，即广告变现游戏。目前对游戏的监管还没有要求所有游戏都要有版号。通过游戏内广告进行变现的游戏是目前没有版号的公司的方式。这类游戏本质上也成了一个流量生意。</li>
+</ol>
+
+
+<p>还值得一提的是，去年疫情期间，接着18、19年网赚类APP（趣头条、惠头条、刷宝）的势头，网赚类游戏也有了一波红利期。到现在的游戏榜单上，网赚类游戏也一直稳定在头部，下滑趋势并不明显。算是一个新起的游戏品类。这类游戏在游戏的玩法上叠加了一层提现逻辑，能够一定程度的提高游戏留存，通过分享还能降低获客成本。</p>
+
+<p>此外，还有一个超休闲游戏的概念。这类游戏源自国外Vodoo、Crazylabs等公司，玩家上手门槛极低，一局游戏的时长也非常短，基本也都是IAA类游戏。这类游戏的开发成本、周期都很低，一般都是刚开始做游戏的公司选择的品类。但这类游戏能够成功的关键在于极低的获客成本，所以抓热点、玩法创意都极其重要。</p>
+
+<h2>自己在做的</h2>
+
+<p>由于对游戏行业完全是个门外汉，所以决定做之前，和很多游戏行业的前辈请教了很多东西。综合多方面的考虑和建议，选择了超休闲游戏做为一开始的尝试。陆陆续续出了三四款超休闲游戏，没有什么水花，后来又转换方向为中度休闲模拟经营类游戏。</p>
+
+<p>整个过程是伴随着教训的，一些坑不管别人怎么说，该踩的还是要踩。</p>
+
+<h2>得到的教训</h2>
+
+<ol>
+<li>选择做超休闲游戏确实是成本低的最佳选择。但是决定这类游戏成功的关键自己又把握不住，那么成本低也没有意义。这是一开始自己非常错误的一个决策。</li>
+<li>使用应用APP的项目迭代方式是不适合游戏尤其是第一个版本的开发节奏的。游戏这种内容型APP，内容是最关键的，如果内容不够充实，那么推广起来是没有任何意义的。这就好比电影或者一本书，可以出续篇，但是已有的东西再去改，带来的效果就不是那么有意义了。</li>
+<li>做适合团队基因的游戏是最合适的。鉴于一些招人的客观原因，选择某个品类游戏，然后去找合适的人是非常困难的。那么可以试着先把团队搭建成功，再去做适合团队基因的游戏会是一个更好的选择。</li>
+<li>自己不懂的东西要交给懂得的人来做，即使付出昂贵的成本。这比用小的成本招来不懂的人来做要好的多。不懂的人做不出东西来，那么整个团队的价值就是浪费的。懂得人来做，即使成本贵很多，但是团队的价值会覆盖掉这些成本。</li>
+<li>做决断尤其是对人要果断。不能因小失大，时间成本和机会成本是非常大的。</li>
+</ol>
+
+
+<h2>结语</h2>
+
+<p>不破不立，相比之前做研发，现在走出了自己的舒适区，压力很大，但是斗劲十足，也好久没有这种兴奋感了。虽然一直说自己更喜欢写代码、做架构，但是现在的工作状态更让自己有活力。希望后面的结果会越来越好吧。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[阿里巴巴管理三板斧]]></title>
+    <link href="https://www.rowkey.cn/blog/2021/03/31/ali-manage/"/>
+    <updated>2021-03-31T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2021/03/31/ali-manage</id>
+    <content type="html"><![CDATA[<p>去年年底受阿里云的邀请参加了一次湖畔大学的参观学习活动，其中有一堂管理的课程《阿里集团管理三板斧》，讲师是阿里的新商业学院院长-正雄。这堂课让我在市面上公开的一些阿里的管理认知上对其有了进一步的了解和启发。以下是在课堂上的一些笔记。</p>
+
+<!--more-->
+
+
+<ul>
+<li>湖畔大学三板斧
+
+<ul>
+<li>上三板：使命、愿景、价值观</li>
+<li>下三板：组织、人才、KPI</li>
+</ul>
+</li>
+<li>业务三板斧：针对事情
+
+<ul>
+<li>揪头发：抓重点</li>
+<li>照镜子：自我反思</li>
+<li>闻味道：发现问题</li>
+</ul>
+</li>
+<li>管理三板斧：针对人</li>
+<li><p>整体观：业务 组织 文化 三位一体</p>
+
+<p>  <img src="https://www.rowkey.cn/post_images/ali-manage/whole.jpg" alt="" /></p>
+
+<ul>
+<li>平常人做非凡事 -> 非凡人平常心做非凡事</li>
+<li>永续经营
+
+<ul>
+<li>业务战略 时代背景</li>
+<li>组织能力 文化土壤</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>领导力梯队
+  <img src="https://www.rowkey.cn/post_images/ali-manage/team.jpg" alt="" /></li>
+<li>腿部三板斧
+  <img src="https://www.rowkey.cn/post_images/ali-manage/leg.jpg" alt="" />
+
+<ul>
+<li>结果和过程都要：为过程鼓掌，为结果复盘
+
+<ul>
+<li>没有过程的结果是垃圾</li>
+<li>没有结果的过程是放屁</li>
+</ul>
+</li>
+<li>奖优罚劣：No Surprise</li>
+<li>绩效目标 &lt; 5条
+
+<ul>
+<li>业务指标</li>
+<li>产品</li>
+<li>团队</li>
+<li>个人</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>腰部三板斧
+  <img src="https://www.rowkey.cn/post_images/ali-manage/waist.jpg" alt="" />
+
+<ul>
+<li>超越伯乐：职能部门不招应届生</li>
+</ul>
+</li>
+<li>头部三板斧：眼光、胸怀、看未来的能力
+  <img src="https://www.rowkey.cn/post_images/ali-manage/head.jpg" alt="" /></li>
+<li>业务、组织、文化三位一体
+  <img src="https://www.rowkey.cn/post_images/ali-manage/integration.jpg" alt="" /></li>
+<li><p>数字化变革时代的理念变迁</p>
+
+<p>  <img src="https://www.rowkey.cn/post_images/ali-manage/trans.jpg" alt="" /></p></li>
+<li><p>终局思维</p></li>
+</ul>
+
+
+<h3>自己的收获</h3>
+
+<p>从自己彻底做好管理角色的认知到转变3年多了，曾经对于管理这件事会武断的认为所有人都需要同样的管理技能。后来逐渐意识到不同的管理层级需要的认知和知识是大不一样的。通过这次课程，也印证了这件事，所谓腿部、腰部、头部也就指的是基层管理者、中层管理者和高层管理者，也就是所谓的领导力阶梯。此外，阿里从“常人做非凡事”转变到现在的“非凡人平常心做非凡事”，也是一个公司从创业团队到大公司的转变过程所需要的观念的改变。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[我的2020]]></title>
+    <link href="https://www.rowkey.cn/blog/2021/01/13/my2020/"/>
+    <updated>2021-01-13T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2021/01/13/my2020</id>
+    <content type="html"><![CDATA[<p>最近因为新业务的事情一直没有写文章，发现已经4个月没有产出。年初给自己定的每个月至少产出一篇文章的目标算是啪啪打自己脸了。不过虽然2021年已经过去大半个月了，2020年的总结还是要补上的。</p>
+
+<!--more-->
+
+
+<p>2020年整体的印象就是疫情了，从年初武汉疫情的愈演愈烈，到年底的死灰复燃，新冠这个事情感觉就没消停过。上半年由于疫情和各种因素的影响，公司在组织和业务上都发生了很大的变动。对我自己负责的部分来说，整年的一个目标就是降低技术成本，而与降本经常被一起提的增效在业务目前的形势下，则显得没那么重要了。从全年来看，整个技术团队在技术成本上有了明显的降低，提高效能的交付流水线、代码分析平台、DevOps平台、Flutter上也都有明显的进展和效果。总体来看，整个技术团队的成绩还是在期望中，但是鉴于目前公司的形式和状况，很多事情的优先级和重要性则还需要进一步的调整和优化。</p>
+
+<p>还是按照工作、学习和生活三个方面来总结我自己的2020年。</p>
+
+<h2>工作</h2>
+
+<p>如上面所说，今年工作上主要围绕降低成本、提高效能来展开，尤其是降低成本。而今年让我感触最深的可能是“业务价值”这个词。对于一个商业公司来说，其本质就是寻求产生更多的净利润，所以衡量技术的价值根本就是看他能不能产生业务价值。以前做技术选型或者引入，都是以技术价值优先，而今年公司的状况，更应该是先看是否有业务价值，再去考虑技术实现。比较明显的一个例子就是19年引入的APM系统，当时看来是觉得要紧跟业界趋势，为后续的微服务做好基础建设，而如果以业务价值来看，对于今年的业务状况，性能并不是关键问题，这种系统的价值就很低。</p>
+
+<h3>降本</h3>
+
+<p>在业务高速发展的时候，对于技术服务、资源的使用是比较粗暴的，甚至一些Redis都达到了1T的大小。而有了降本的前提，需要围绕资源做以下工作。</p>
+
+<ul>
+<li>资源的价格优惠：通过框架协议或者商务谈判来争取更低的折扣，从而实现价格的降低。</li>
+<li>提高资源的利用率：通过梳理监控各个资源的使用率，对于使用率较少的资源进行缩容；引入容器技术，弹性分配资源，提高资源利用率；在申请资源时做好充分的量化和预估，减少资源的浪费。</li>
+<li>减少不再使用或者价值不高的资源：梳理公司的资源，理清有哪些资源，是否存在闲置无流量的资源。对比业务产出和业务技术成本，对于业务价值无法覆盖技术成本的业务及时反馈，及时决定是否下线。</li>
+<li>梳理出成本占比高的资源，评估其是否有性价比更高的方案。</li>
+<li>构建业务中台、技术平台、技术组件化，提高资源复用率，避免重复建设，减少浪费。</li>
+</ul>
+
+
+<p>随着业务的调整，也经过一年的努力，最终技术成本降低到了年初的1/3，是今年可圈可点的一部分工作。</p>
+
+<h3>增效</h3>
+
+<p>在提高效能这方面，今年有明显进展的包括以下几部分</p>
+
+<ul>
+<li>DevOps平台：研发完全可以通过平台来申请资源，自动生成部署流水线，大大解放了运维的生产力，并且进一步推进了公司所有后端服务的容器化，实现了资源的弹性调度和使用。</li>
+<li>Flutter技术：实现了初步的引入，后续需要通过更有效的措施进行推广。从而改变一个功能需要两端开发的现状，降低开发成本。</li>
+<li>持续交付流水线：接入了自动化测试环节，同时在客户端得到了有效的推进，使得公司的交付基本完全进入了自动化阶段，有效提高了交付速度和质量。</li>
+<li>大数据上云：旨在利用云的弹性特点，减少运维工作量。在综合考虑了运维成本、团队发展、云服务质量、配合度、稳定性、性能等因素后，最终选择了华为云做为多云方案中的第二家供应商。目前已经逐步在实施中。</li>
+</ul>
+
+
+<h3>平台业务</h3>
+
+<p>技术中心的工作还有很大一部分是在平台业务上，包括支撑市场投放的平台、支撑消费品业务的消费品助理平台、支撑数据分析的大数据平台、支撑内部效率的WeOKR平台等。今年这几个平台都有不小的进展。</p>
+
+<ul>
+<li>Wolves市场投放系统完成了2.0大版本的开发。</li>
+<li>消费品助理平台实现了打款助手、供货商管理、财务结算、数据大盘、选品助手等功能。</li>
+<li>WeOKR系统支撑了今年公司考核机制的转型。</li>
+<li>Lepoard的事件分析功能已经完成了书签、概览等功能的开发。</li>
+</ul>
+
+
+<p>区别于底层的技术平台，这一块偏向于业务，但又不直接服务于业务。其业务价值也是我一直在思考的事情。
+如何量化出其业务价值是非常难的事情。但在公司目前的状况下，却也不得不去思考。目前采取的方式就是根据业务的需求提出量和调用量来分摊人力成本和业务价值。可能更好的思路是采用类似于内部虚拟货币结算的方式来体现业务价值，这也是打算尝试的方案。</p>
+
+<h3>游戏</h3>
+
+<p>12月份左右决定开始启动游戏业务的尝试做为公司的另一个利润增长点。对于我自己来说，不管是直接负责一个业务还是游戏本身这个领域，都是迈出了自己的舒适区。不知道这个行业的现状，不知道一个游戏团队的组成，不知道该不该去做，不知道该怎么做。从决定进入这个行业开始，自己就处于一种既兴奋又紧绷的状态，是一种很久未感受到的压力。</p>
+
+<p>一开始通过去拜访一些游戏行业的公司和参加游戏行业的会议去学习。差不多花了将近两周的时间，在很多朋友的帮助下，基本摸清了游戏行业的一个大概情况。再综合公司目前的状况，确定了团队的构成和游戏的方向。到目前为止，团队基本成型，第一款游戏也快出来了。期间从0到1，自己一个一个人去面试，去沟通，去规划工作，去协调公司和外部的资源，目前看来结果还在期望中。但后续的游戏发行和游戏的立项才是重中之重，紧绷的状态估计还得一直持续下去。</p>
+
+<p>希望游戏业务能有一个好的结果吧。</p>
+
+<h2>学习</h2>
+
+<p>今年的学习，可能主要是对游戏行业的学习了，尤其是对于休闲游戏，自己在求教了很多朋友以及看了很多文章和新闻后，基本上有了自己一个比较客观的认识，也算是开始踏入了游戏这个行业。</p>
+
+<p>而在书籍阅读方面，由于一些客观原因，完成的也有限。</p>
+
+<ul>
+<li><p>极客时间<a href="https://time.geekbang.org/column/intro/100034501">《研发效率破局之道》</a></p>
+
+<blockquote><p>出自FaceBook的大神结合自己的实践给出的如何提升研发效率的经验总结。包括软件开发的本质是什么、如何定义和选择研发效率衡量指标。并从研发流程、工程方法、个人效能以及管理和文化四个方面来阐述了如何提高研发效率。其中的很多知识都具有实操性，自己已经借鉴用在了公司中。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/6862062/">持续交付: 发布可靠软件的系统方法</a></p>
+
+<blockquote><p>这本书不同于去年读过的《持续交付2.0》，更侧重于持续交付实现的细节，尤其在自动化测试方面花费了很多笔墨。总体上，其从如何让团队达成持续交付的共识、基础设施和环境管理、配置管理、测试策略、数据管理、持续交付管理、部署流水线几部分对实现持续交付做了很详细的阐述。但由于出版时间的原因，某些内容如代码分支模式不是业界最新的内容。但对于想要实现部署流水线，这本书的实操性足够了。</p></blockquote></li>
+<li><p>极客时间<a href="https://time.geekbang.org/column/intro/100038501">《项目管理实战20讲》</a>+<a href="https://time.geekbang.org/column/intro/100044301">《说透敏捷》</a></p>
+
+<blockquote><p>虽然经历过前东家的项目管理流程，但一直缺乏对其系统的认识。《项目管理实战20讲》从项目管理的本质、管理角色的转变、十大领域五大过程方面阐述了项目管理。尤其对于五大过程的一些实践性阐述，很干货，我们也借鉴了不少在公司中。后面的《说透敏捷》则从敏捷的本质、敏捷的5条价值观、12原则以及如何推进敏捷上做了经验和实践的阐述，也非常具有借鉴意义。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/34960995/">发布！设计与部署稳定的分布式系统</a></p>
+
+<blockquote><p>从上面说的《持续交付》那本书里被引导过来。读完之后总体的感觉是能够让读者对系统稳定性有系统认识和理解，但不够细节和执行。尤其感觉翻译的优点差，很多术语都是中式直译。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/2046281/">大道至简：软件工程实践者的思想</a></p>
+
+<blockquote><p>内容主要是基于《愚公移山》故事中来讲述软件工程本质的。对我自己的启发就是，这世上万物很多本质都是一样的。软件工程类比于移山这个工程，其经历的事情和演进都有彼此想通之处。其中提出的软件工程层状模型（EHM）从程序、过程、工程、组织几个方面阐述了作者对软件工程的理解。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/26901183/">我读管理经典</a></p>
+
+<blockquote><p>这本书是作者对一些经典管理著作的学习心得的总结和思考。包括《科学管理原理》、《福利特论管理》、《工业管理与一般管理》、《社会组织与经济组织理论》、《管理行为》、《组织与管理》、《工业文明的社会问题》、《经理人员的职能》等等，梳理了管理学从科学管理到管理创新的发展历程。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/2230248/">人月神话</a></p>
+
+<blockquote><p>重读这本经典著作，虽然其中有些东西稍显过时(如对软件开发时长的经验值，但其没有银弹、用外科手术团队类比软件开发团队仍然是延续至今可以使用的方法和认知。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/26863413/">CEO说：人人都应该像企业家一样思考</a></p>
+
+<blockquote><p>作者拿街头小贩和企业家做类比，阐述了企业的本质是商业智慧。从公司的本质、整体上理解公司、领导需要化繁为简、创造财富而不是赚钱、人岗匹配、打造齐心协力的团队等方面讲述了企业家如何思考和行动以及应该如何思考和行动。</p></blockquote></li>
+</ul>
+
+
+<p>以上是已经完成阅读的书籍，目前包括了2020年未完成以及新加入的待读书籍列表如下：</p>
+
+<h3>工作</h3>
+
+<ul>
+<li>数据即未来</li>
+<li>未来架构</li>
+<li>极客时间《许世伟的架构课》</li>
+<li>分布式系统概念与设计</li>
+<li>大数据日知录</li>
+<li>数据密集型系统设计</li>
+</ul>
+
+
+<h3>管理</h3>
+
+<ul>
+<li>别让猴子跳回背上</li>
+<li>回归本源看绩效</li>
+</ul>
+
+
+<h3>企业</h3>
+
+<ul>
+<li>方舟：数字经济创新史</li>
+<li>公司进化论</li>
+<li>闪电式扩张</li>
+<li>创新者的窘境</li>
+<li>良性增长</li>
+<li>定位：有史以来对美国营销影响最大观念</li>
+<li>刷新：重新发现商业与未来</li>
+<li>超级版图：全球供应链、超级城市与新商业文明的崛起</li>
+</ul>
+
+
+<h3>其他</h3>
+
+<ul>
+<li>程序员的三门课</li>
+<li>程序员修炼之道</li>
+<li>极简宇宙史</li>
+<li>结构性思维：让思考和表达像搭积木一样有序省力</li>
+<li>金字塔原理</li>
+<li>模型思维</li>
+<li>社会性动物</li>
+<li>资本论</li>
+<li>智慧的疆界：从图灵机到人工智能</li>
+</ul>
+
+
+<h2>生活</h2>
+
+<p>生活上，每周五会和同事们一起去打两个小时篮球，然后隔一天在家里会利用杠铃、哑铃锻炼锻炼。令自己感到惊喜的是，突然有一天发现以前只能跪着做的健腹轮，现在可以站立做四五个了。但令自己失望的是，年底的体检自己以前的小毛病还是没怎么减少，都有点怀疑自己锻炼的效果了。看来必须同时控制饮食来让自己的各项指标回到以前了。另一方面，年底由于出差的次数越来越多，锻炼次数也受了不少影响。21年需要想办法在出差的时候也能够坚持锻炼。</p>
+
+<p>其他的，生活上一切都在稳步向前，差强人意。</p>
+
+<h2>总结</h2>
+
+<p>以上是2020年的总结。整体来看，没有什么惊喜的一年。新的一年，自己的计划如下：</p>
+
+<ul>
+<li>重点的重点，找到游戏业务的突破方向，实现游戏业务的利润增长。</li>
+<li>优化研发团队组织架构，提升业务价值，降低成本。</li>
+<li>继续监控技术成本，控制成本支出，提高性价比。</li>
+<li>有效推进Flutter等跨平台开发技术在公司的使用。</li>
+<li>坚持锻炼身体！</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[研发效能杂谈]]></title>
+    <link href="https://www.rowkey.cn/blog/2020/08/13/dev-efficacy-talk/"/>
+    <updated>2020-08-13T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2020/08/13/dev-efficacy-talk</id>
+    <content type="html"><![CDATA[<p>研发效能是什么？为什么现在都在谈如何提高研发效能？研发效能对于一个企业到底有多重要？本文按照Why、What、How三步走沉淀梳理了研发效能相关的知识点。</p>
+
+<!--more-->
+
+
+<h2>一. 为什么要提升研发效能</h2>
+
+<ul>
+<li>传统的职能部门组织架构带来的效率竖井问题</li>
+<li>人力的增加没有让项目进度加快</li>
+<li>长久加班导致团队士气低落，后续的效率降低</li>
+<li>上线前加班、熬夜，压力大</li>
+<li>上线后Bug、事故频发，实现效果与需求不匹配</li>
+<li>各种重复低效工作，疲于应付业务</li>
+<li>想要有限的人力做更多的产出</li>
+</ul>
+
+
+<h2>二. 什么是研发效能</h2>
+
+<p>对于一个企业来说，追求的是企业效能的最大化，包括：利润、用户规模、客户满意度、运营效率等。而对于需要研发自有产品的互联网公司来说，研发效能则是服务于企业效能的至关重要的因素。</p>
+
+<p>一个软件研发的完整流程如下图所示：</p>
+
+<p><img src="https://www.rowkey.cn/post_images/dev/devprocess.png" alt="" /></p>
+
+<p>此流程交付期望产品的效率和能力，即研发效能。更进一步的《研发效率破局之道》中将研发效能定义为团队能够持续地为用户产生有效价值的效率，包括 <strong>有效性（Effectiveness）、效率（Efficiency）和可持续性（Sustainability）</strong> 三个方面。其增加的可持续性指出研发效能应该着眼于长期效果。</p>
+
+<p>一句话来讲，研发效能就是持续快速交付价值的能力。</p>
+
+<h2>三. 如何提升研发效能</h2>
+
+<p>对应于第一部分中讲述的软件开发流程，如果想要提升研发效能，那么需要落实到研发流程（组织结构、项目管理、持续交付）、工程方法、个人效能以管理和文化的实践上。本文重点从研发流程、工程方法两方面来讲。</p>
+
+<p><img src="https://www.rowkey.cn/post_images/dev/whole.png" width="800"/></p>
+
+<h3>3.1 衡量指标</h3>
+
+<p>评估一个组织持续快速交付价值的能力，需要一组可量化的数据或参数，用来跟踪和评估开发过程的“健康”状况。</p>
+
+<h4>3.1.1 指标分类</h4>
+
+<ul>
+<li>持续发布能力
+
+<ul>
+<li>发布频率：单位时间内的有效发布次数</li>
+<li>发布前置时间：从代码提交到功能上线花费的时间</li>
+</ul>
+</li>
+<li>需求响应周期
+
+<ul>
+<li>交付周期时间：从确认用户提出的需求开始，到需求上线经历的平均时长。</li>
+<li>开发周期时间：从开发团队理解需求开始，到需求可以上线所经历的平均时长。</li>
+</ul>
+</li>
+<li>交付吞吐率
+
+<ul>
+<li>单位时间交付用户需求数量：单个团队的对比</li>
+</ul>
+</li>
+<li>交付过程质量：质量内建
+
+<ul>
+<li>缺陷创建和修复时间分布：缺陷能够持续和及时地被发现，并在发现后尽快修复。</li>
+<li>缺陷库存：开发过程控制缺陷库存量，让产品始终处于接近可发布状态，是持续交付的基础</li>
+</ul>
+</li>
+<li>交付质量：系统的可用性
+
+<ul>
+<li>单位时间问题数目</li>
+<li>线上问题解决时长</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>3.1.2 通用目标</h4>
+
+<ul>
+<li>2：2周交付周期。从想法提出并确认到上线的时间。【跨职能、组织的协调一致和紧密协作】</li>
+<li>1：1周开发周期。从需求设计完成（对开发就绪）到达到可上线的时间。【需求的拆分和管理，开发团队的分工协作模式，持续交付实践】</li>
+<li>1：1小时的发布前置时间。代码提交后可以在1小时内完成发布。【持续交付流水线】</li>
+</ul>
+
+
+<h4>3.1.3 选择优化指标</h4>
+
+<p>流程中总是有一个核心瓶颈。分析关键路径、定位瓶颈，针对优化</p>
+
+<ul>
+<li>使用指标来发现问题而不是做绩效考核</li>
+<li>使用指标来检验优化效果</li>
+<li>使用价值流图/累积流程图发现全局瓶颈，从而确定需要提升的度量指标</li>
+</ul>
+
+
+<h3>3.2 组织结构&amp;&amp;项目管理</h3>
+
+<h4>3.2.1 组织结构</h4>
+
+<p>避免“效率竖井”： 采用以业务为单位的组织架构，保证业务线全栈配齐，目标一致。并从全局定位瓶颈进而进行优化工作。</p>
+
+<h4>3.2.2 项目管理</h4>
+
+<p>使用敏捷开发来提升研发效率</p>
+
+<ul>
+<li>敏捷 = 价值观 + 原则 + 一系列符合价值观和原则的方法。
+
+<ul>
+<li>软件应该一直处于可工作状态</li>
+<li>每个迭代都能将软件部署到一个类生产环境中，并向用户演示</li>
+<li>迭代长度不超过两周</li>
+<li>透明性、协作性、纪律性和持续改进</li>
+</ul>
+</li>
+<li>使用MVP，度量驱动开发</li>
+<li>流程尽快流动：工程方法支撑</li>
+<li>发现整个流程中的瓶颈，并解决：可视化工作流、事故复盘</li>
+<li>避免“小瀑布”
+
+<ul>
+<li>价值排序</li>
+<li>满足客户需要</li>
+<li>需求拆分成能够独立测试的需求！！！</li>
+</ul>
+</li>
+<li>看板
+
+<ul>
+<li>从个人转变到关注价值流动：待开发->设计->开发->开发自测->代码评审->测试->完成</li>
+<li>明确的“完成的定义”DoD，明确了状态迁移必须完成的活动</li>
+</ul>
+</li>
+<li>从实际出发、以终为始：以实用主义的态度，从原则出发，灵活优化流程</li>
+</ul>
+
+
+<p>一个可供参考的项目管理标准动作可见：<a href="https://www.rowkey.cn/blog/2020/07/31/project-manage/">项目管理标准模板</a></p>
+
+<h3>3.3 持续交付</h3>
+
+<p>持续交付指的是在短周期内完成软件产品，以保证软件保持在随时可以发布的状态。让每一个变更都经过一条自动化的检验流水线，来检查每一个变更的质量，通过就进入下一个阶段。<strong>其不是一种工具，而是一种实践！</strong></p>
+
+<ul>
+<li><strong>不要阻塞开发人员</strong></li>
+<li>每个团队指定构建负责人或者发布工程师：优化交付流水线，提升交付效率</li>
+<li>项目状态，应该对参与整个过程（包括构建、部署、测试和发布）的所有人都是可见的</li>
+<li>风险管理
+
+<ul>
+<li><strong>迭代增量式交付</strong>是有效风险管理的关键</li>
+<li>手工测试环境、试运行环境和生产环境总是需要严格的访问控制</li>
+<li>让风险识别成为每日立会的一部分</li>
+</ul>
+</li>
+<li>审计
+
+<ul>
+<li>手工测试环境、试运行环境和生产环境总是需要严格的访问控制：指定谁能够访问“特权”环境。</li>
+<li>要求每次部署都要进行审计，以确切知道到底修改了哪些内容。</li>
+<li>文档自动化、自文档</li>
+</ul>
+</li>
+</ul>
+
+
+<p>具体可见：<a href="https://www.rowkey.cn/blog/2020/06/15/cd/">持续交付这点事</a></p>
+
+<h3>3.3 工程方法</h3>
+
+<h4>3.3.1 技术债</h4>
+
+<p>在开发产品或者功能的过程中，没有使用最佳的实现方法而引入的技术问题。需要持续关注业务和技术债。对业务机会敏感，敢放手一搏大量借贷，也知道什么时候必须偿还技术债。</p>
+
+<ul>
+<li>利用技术债的好处，必要时要大胆“举债前行”</li>
+<li>控制技术债，在适当的时候偿还适当部分的技术债。</li>
+</ul>
+
+
+<h4>3.4.2 云计算</h4>
+
+<p>利用好云计算带来的<strong>服务化、自助化和弹性伸缩</strong>三大优势。初创公司在业务刚起步时，使用 SaaS 或者 PaaS 快速开发业务；业务成长到一定规模之后，再逐步转到 IaaS 以及私有云降低成本。</p>
+
+<ul>
+<li>细节抽象得越多，云服务商负责的部分就越多，我们就越能够聚焦自己的业务，从而提高研发效能</li>
+<li>使用云资源时，通过工具或者 API 调用来完成工作，减少人工参与，达到自动化</li>
+<li>资源共享、弹性伸缩</li>
+<li>容器：不可变基础设施；基于K8S建设PaaS</li>
+</ul>
+
+
+<p>在使用云计算时，要妥善处理它带来的挑战，比如分布式系统带来的安全和控制方面的问题。</p>
+
+<ul>
+<li>自治和集中管理相结合：信息可视化（系统整体的质量看板、调用链追踪）</li>
+<li>错误处理</li>
+</ul>
+
+
+<h4>3.4.3 测试机制</h4>
+
+<p>上文持续交付一部分中最关键的其实就是测试部分，只有具有完善、可靠的测试机制，才能保证研发质量和交付效果，才能从根本上提高研发效能。</p>
+
+<ul>
+<li>测试左移：质量内建，即持续交付中的测试机制。
+
+<ul>
+<li>按照功能的维度管理团队，让整个功能团队对产品负责；改变团队成员对测试工作的认知</li>
+<li>把测试添加到开发和产品需求步骤中</li>
+<li>频繁测试，快速测试：提升测试运行的速度，并行运行、提高构建速度、精准测试、分层测试、减少不必要的用例</li>
+</ul>
+</li>
+<li>测试右移
+
+<ul>
+<li>利用线上的真实环境测试：需要有完备的数据隔离机制</li>
+<li>测试人员介入线上监控和预警，及时发现问题并跟进解决</li>
+<li>混沌工程：即在真实环境中通过模拟各种不可预期的故障来验证系统稳定性</li>
+</ul>
+</li>
+</ul>
+
+
+<h4>3.4.4 平台化</h4>
+
+<p>通过抽象共性组件、功能，达到代码、功能复用，从而减少重复开发，提高研发效能。</p>
+
+<ul>
+<li>技术平台：技术设施的复用</li>
+<li>数据中台：数据沉淀和输出能力</li>
+<li>移动中台：前端组件、跨平台开发、插件化、热加载</li>
+<li>业务中台
+
+<ul>
+<li>业务能力的复用</li>
+<li>赋能业务</li>
+</ul>
+</li>
+</ul>
+
+
+<p>相关资料可见：<a href="https://www.rowkey.cn/blog/2019/11/23/middle-talk/">中台简谈</a></p>
+
+<h3>3.5 个人效能</h3>
+
+<p>如何提高开发人员自身的开发效率，除了每个人自身的天赋能力外，也有一些可以刻意使用的高效工具和方法。</p>
+
+<ul>
+<li>高效工作方法
+
+<ul>
+<li>抽象和分而治之</li>
+<li>快速迭代</li>
+<li>DRY</li>
+<li>番茄工作法</li>
+</ul>
+</li>
+<li>高效开发工具
+
+<ul>
+<li>好的IDE</li>
+<li>操作系统快捷键</li>
+<li>思维导图软件</li>
+<li>学习笔记软件</li>
+<li>文档撰写工具</li>
+</ul>
+</li>
+<li>持续学习：不断地学习新的开发技能，从而提升自己的开发效率</li>
+</ul>
+
+
+<p>此外，还可以通过技术管理从外部驱动个人效能的提升，这在下面的技术管理部分会讲。</p>
+
+<h3>3.6 管理和文化</h3>
+
+<h4>3.6.1 技术管理</h4>
+
+<p>管理包括：看方向、管人、管事。做好技术管理是提高研发效能的关键部分。其中，3.4节个人效能部分的数字驱动也是技术管理的一部分。主要步骤包括：</p>
+
+<ul>
+<li>制定目标：兼顾业务目标和技术目标</li>
+<li>目标管理：使用OKR等目标管理方案</li>
+<li>计划并执行去实现目标</li>
+</ul>
+
+
+<p>此外，技术管理中一个很难的问题是如何进行考核。这里可以使用数字化的方式，以驱动个人效能的提升。</p>
+
+<ul>
+<li>选择个人效能度量指标</li>
+<li>根据代码提交日志自动生成工作日报和周报、个人贡献值</li>
+<li>综合多维数据构建个人的数据画像
+
+<ul>
+<li>社会地位：用排名、榜单来实现；</li>
+<li>工作本身：用复合型报告去综合评价，告知员工究竟做得好不好</li>
+<li>自我改变：通过雷达图，进行多维度的数据分析，精准提炼员工的优点与不足，员工可以有针对性的取长补短。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>需要说明的是，如果指标不能全方面的衡量，就不要做为考核指标，仅仅用于发现问题，解决问题！</p>
+
+<p>一个可参考的技术管理标准动作模板见：<a href="https://www.rowkey.cn/blog/2020/04/25/tech-leader-manage/">技术管理标准模板</a></p>
+
+<h4>3.6.2 团队文化</h4>
+
+<p>团队文化是团队成员共同认可的价值观和行为准则，良好且有效的文化是保障团队高效产出的关键部分。很多互联网公司都是工程师文化主导的，包括Facebook、Google、百度等。他们也都具有自己独特的企业文化价值观，如百度的简单可依赖、谷歌的不作恶、Netflix的自由和责任。建立团队文化的步骤如下：</p>
+
+<ul>
+<li>定义：总结、明确自己团队的文化，提炼出简单易记的文字。</li>
+<li>主张：各种形式的传播。从我自己的经历来看，不断地念经是其中最有效的方式。</li>
+<li>追求：在奖惩中体现出文化价值观的作用。如对于文化价值观贯彻优秀的同学给与公开的肯定与奖励。</li>
+</ul>
+
+
+<h2>四. 参考资料</h2>
+
+<ul>
+<li><a href="https://book.douban.com/subject/6862062/">《持续交付》</a></li>
+<li><a href="https://book.douban.com/subject/30419555/">《持续交付2.0》</a></li>
+<li><a href="https://time.geekbang.org/column/intro/100034501">《研发效率破局之道》</a></li>
+<li><a href="https://developer.aliyun.com/article/690725">如何衡量研发效能？阿里资深技术专家提出了5组指标</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[项目管理标准模板]]></title>
+    <link href="https://www.rowkey.cn/blog/2020/07/31/project-manage/"/>
+    <updated>2020-07-31T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2020/07/31/project-manage</id>
+    <content type="html"><![CDATA[<p>之前写了一篇<a href="https://www.rowkey.cn/blog/2020/04/25/tech-leader-manage/">《技术管理标准模板》</a>，其中项目管理部分并没有具体深入，而这一技能不仅仅是对于技术Leader的要求，从我的经验看来，只要是程序员，具有项目管理能力都是如虎添翼的，即使你走的是专业路线。本文即基于自己的经验，从项目的启动和迭代阶段总结了敏捷项目管理的一些标准动作。</p>
+
+<!--more-->
+
+
+<h2>启动阶段</h2>
+
+<ul>
+<li><p>相关干系人沟通，同步项目背景、业务价值等</p></li>
+<li><p>启动会议：召集相关干系人，明确业务相关信息，确定相关流程制度等</p></li>
+<li><p>需求收集和分析-><strong>总体需求文档</strong>，概括性的功能与非功能需求列表</p></li>
+<li><p>初步的产品规划-><strong>每一轮迭代的需求列表、发布时间</strong></p></li>
+<li><p>创建项目基础设施-><strong>可持续交付到测试环境的基础项目</strong>，包括各个端的代码库、到测试环境的流水线等。</p></li>
+</ul>
+
+
+<h2>迭代阶段</h2>
+
+<p>两周为一迭代，包括需求、设计、开发、测试、发布。关键点在于需求的拆分、优先级以及并行化。</p>
+
+<h3>1. 需求评审</h3>
+
+<p>对本轮迭代的需求尽心评审确认。</p>
+
+<p><strong>前置条件</strong>：产品经理对此轮迭代进行需求确认，产出需求条目，按<strong>优先级</strong>排列；需求需要拆的足够小，把大需求拆成一个个<strong>能够独立开发测试发布</strong>的小需求</p>
+
+<h3>2. 工作规划</h3>
+
+<p>根据本轮迭代需求做WBS任务分解</p>
+
+<ul>
+<li><p>WBS工作项分解: 甘特图</p></li>
+<li><p>里程碑结点: 表格或者里程碑图</p></li>
+<li><p>风险管理：风险点预估、严重程度、可能性、应对措施</p></li>
+</ul>
+
+
+<h3>3. 设计/技术评审</h3>
+
+<p>分别对交互设计和技术设计进行评审</p>
+
+<p><strong>前置条件</strong>：设计师需要输出设计图；技术部分做概要设计和系统设计，随着每一轮迭代进行更新维护</p>
+
+<h3>4. 测试用例评审</h3>
+
+<p>由QA安排，会前需要提前将测试用例文档发给产品经理与研发，提前标注有疑问的用例。</p>
+
+<h3>5. 开发、测试过程的监控</h3>
+
+<p>持续交付：开发和迭代测试，需求开发完成后即测试并进行缺陷跟踪。</p>
+
+<p><strong>会议</strong></p>
+
+<ul>
+<li><p>每日站会：全员站会，了解整体状况，对暴露出的风险和问题作出集体决策。</p></li>
+<li><p>项目周会：10人以上团队。解决整体计划层面、跨团队协同配合的问题。</p></li>
+</ul>
+
+
+<p><strong>项目周报</strong></p>
+
+<p>汇总项目总体状况，回答三个问题</p>
+
+<ul>
+<li><p>项目的整体进展状态到底如何？</p></li>
+<li><p>风险可控吗？</p></li>
+<li><p>目标达成有没有问题？</p></li>
+</ul>
+
+
+<h3>6. 版本全量测试</h3>
+
+<p>对所有已经开发完的功能进行交叉测试、全量测试、埋点测试、回归测试、第三方云测。</p>
+
+<h3>7. 验包发布</h3>
+
+<p>此迭代所有功能开发测试完成后，提交审核流程，各流程审核人验收通过后发布。</p>
+
+<h3>8. 复盘</h3>
+
+<p>项目复盘会：有意识地向过去的行为经验学习</p>
+
+<ul>
+<li><p>团队做对了哪些事？</p></li>
+<li><p>做错了哪些事？</p></li>
+<li><p>再来一次，如何做得更好？</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[你要成为什么样的人？]]></title>
+    <link href="https://www.rowkey.cn/blog/2020/06/27/mytalk/"/>
+    <updated>2020-06-27T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2020/06/27/mytalk</id>
+    <content type="html"><![CDATA[<p>今天参加了TGO鲲鹏会的小组会议，其中ksyun提了一个问题挺发人深思的，大体的意思就是你什么时候才明确地知道以后要成为什么样的人？</p>
+
+<p>对于这个问题，自己挺有感触的。自己在这方面算是开悟比较早的，现在从事的事情也是自己在初中时候就确定的，虽然细节略有不同。</p>
+
+<!--more-->
+
+
+<p>还记得是97年上小学4年级，学校买了一些电脑（好像是浪潮牌的），让每个班学习比较好的学生上微机兴趣班。那时的我学习还算拔尖，也是其中一员。但那时懂计算机的老师也没有几个，我们每次上计算机课都是在那里对着DOS黑色的命令行在乱敲键盘。很多细节都记不清了，但那确实是自己计算机的启蒙。</p>
+
+<p>后来上了初中，学校里开设了正规的计算机课，系统也成了Win 3.2、Win 95、Win 98这些。我们那个沿海小城已经有很多家里条件不错的同学有了自己的电脑。自己当时的几个好朋友都是其中一员，他们应该算是自己走上计算机这条路非常关键的人物。和大部分人一样，对电脑的频繁接触都是从游戏开始的。从网吧用软盘拷超级玛丽到学校的电脑上玩，在网吧里玩鹿鼎记、沙丘2000、红警95、雷神之锤、魔兽争霸贯穿了我整个初中生涯。当然，初中的计算机课还是很正规的，老师开始教我们使用Word、Excel、PowerPoint、Frontpage这些软件制作文档、PPT、网页。尤其当时家里条件好的同学会把制作的网页传到免费空间上去，然后还有自己的域名（网易的yeah.net免费域名和空间），在学校里都是风云人物。我看到那些网页真的是挺激动的，觉得就那么几行代码就能出来一个可以让很多人访问的东西真的很神奇。自己也就从编写网页开始了自己的程序员生涯。再加上当时互联网领域的世界首富比尔.盖茨和国内网络三剑客丁磊、王志东、张朝阳在财富榜上的崛起，我在心里默默决定选择程序员做为我以后的职业。这里还要提的是，我们那时候小学是五年，初中是四年，而初三的时候会有一个考高中微机实验班的机会，就是我们市的两所省重点高中会提前录取一批学习比较好的学生，集中在初四这年给大家上计算机相关课程。没什么意外的，自己进入了一中的实验班，这一年应该是自己网页编程技术进步最快的一年，包括给自己班级建立主页、维护学校主页这些。</p>
+
+<p>小学和初中应该是自己计算机的启蒙阶段了。而到了高中，由于学业压力的原因，自己的计算机技术也就停留在能做个静态网页、能用js做点简单的动画效果的地步。说起来，我们高中当时在山东省算是信息学竞赛比较厉害的学校，每年都有不少人靠着这个竞赛保送一些名校。而自己当时由于眼界和胆量的问题是不敢赌这条路的，还是在安安稳稳地好好学习、参加高考。值得欣慰的是，最终自己高考的成绩还算不错，在选择学校时坚持了学计算机的想法，综合考虑选择了西电这所电子领域比较强的学校，以至于很多人在知道我高考的分数和省内的位次后都是很不解我为什么不选一些更好的学校的。这也许就是我很早就知道“要成为什么样的人”促使自己在人生一个关键的转折上做的一个抉择吧。</p>
+
+<p>而后来上了大学直到现在工作多年也就一直沿着这条路走了下来。也挺感谢自己能够那么早就能知道自己想成为一个什么样的人的。至少很多事情都是自己的选择，即使后面有失败、有挫折、有失落，也是自己要对自己负责的事情。</p>
+
+<p>“知道自己想成为什么样的人”延伸出来的，就是现在很多人都会疑惑人生该如何规划？我周围也有不少人会问我这个问题，包括还没上大学的、大学毕业即将进入社会的、在社会打拼好多年仍然迷茫的。基于自己的经历，我想说的是：如果你知道自己想成为什么样的人，那么就根据这个目标去筹划自己的人生就好；如果你不知道，那么在学校就好好学习，学习好会是一个最保险最稳妥的人生路径，在社会上就选择最热的行业，至少就业不成问题，经济收入也比较可观。看看这个社会上普遍意义上的成功人士，除了少数那些单纯靠运气发财的，即使是没有高学历的那些人，他们也都是明确知道自己想成为什么样的人，然后追随这个目标付出有效的努力最终才有了成功的结果。</p>
+
+<p>越早知道自己要成为什么样的人，那么就会越早有自己的规划，从而就会越早地为这个目标付出有效的努力和资源。即使最后的结局没那么完美，自己也不会后悔的。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[持续交付这点事]]></title>
+    <link href="https://www.rowkey.cn/blog/2020/06/15/cd/"/>
+    <updated>2020-06-15T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2020/06/15/cd</id>
+    <content type="html"><![CDATA[<p>持续交付指的是在短周期内完成软件产品，以保证软件保持在随时可以发布的状态。让每一个变更都经过一条自动化的检验流水线，来检查每一个变更的质量，通过就进入下一个阶段。<strong>其不是一种工具，而是一种实践！</strong></p>
+
+<!--more-->
+
+
+<p>持续交付的共识和管理机制如下：</p>
+
+<ul>
+<li><strong>不要阻塞开发人员</strong>，这是实现持续交付的本质理念</li>
+<li>为每个团队指定构建负责人或者发布工程师：优化交付流水线，提升交付效率</li>
+<li>项目状态应该对参与整个过程（包括构建、部署、测试和发布）的所有人都是可见的</li>
+<li>做好风险管理
+
+<ul>
+<li><strong>迭代增量式交付</strong>是有效风险管理的关键</li>
+<li>手工测试环境、试运行环境和生产环境总是需要严格的访问控制</li>
+<li>让风险识别成为每日立会的一部分</li>
+</ul>
+</li>
+<li>做好审计
+
+<ul>
+<li>手工测试环境、试运行环境和生产环境总是需要严格的访问控制：指定谁能够访问“特权”环境。</li>
+<li>要求每次部署都要进行审计，以确切知道到底修改了哪些内容。</li>
+<li>文档自动化、自文档</li>
+</ul>
+</li>
+</ul>
+
+
+<p>接下来先说明实现持续交付的一些基础设施和准备工作，然后从本地开发和自动化构建/部署流水线两方面说明持续交付的具体实现。</p>
+
+<h2>一. 基础设施和准备工作</h2>
+
+<h3>1.1 基础设施和环境管理</h3>
+
+<p>让所有测试环境（包括持续集成环境）都要与生产环境相似</p>
+
+<ul>
+<li>开发人员要把运维人员当做重要用户</li>
+<li>切忌吞噬错误信息</li>
+<li>使用运维团队熟悉的技术：开发人员最早负责创建部署脚本，后面移交给运维团队负责维护</li>
+<li>把创建和维护基础设施需要的所有内容都进行版本控制</li>
+<li>以自动化方式进行配置和部署！</li>
+<li>像对待生产环境一样对待测试环境！</li>
+<li>容器化技术实现不可变基础设施</li>
+</ul>
+
+
+<h3>1.2 配置管理</h3>
+
+<p>版本控制、依赖管理、软件配置管理</p>
+
+<ul>
+<li>各个环境的手工配置 -> 自动化配置</li>
+<li>对所有内容进行版本控制</li>
+<li>指定依赖库的确切版本，不要用快照或者模式匹配版本</li>
+<li>配置文件与二进制文件分离</li>
+</ul>
+
+
+<h3>1.3 测试策略</h3>
+
+<ul>
+<li>创建全面的自动化测试套件：单元测试、组件测试、验收测试，每一种测试的代码覆盖率都高于80%以上</li>
+<li>每次修改都能运行一次自动化测试集合</li>
+<li>分层测试</li>
+</ul>
+
+
+<h3>1.4 数据管理</h3>
+
+<ul>
+<li>把创建和迁移数据库全部变成自动化过程，是部署流程的一个组成部分</li>
+<li>让测试自己创建它们所需的状态，并确保每个测试都独立于其他测试</li>
+<li>对数据库进行版本管理，使用DbDeploy这样的工具管理数据迁移过程的自动化。</li>
+<li>在大多数据情况下，不要在测试中使用生产数据集的副本。?</li>
+<li>数据库回滚和无停机发布
+
+<ul>
+<li>蓝绿部署</li>
+<li>大多数修改应该是增加操作（比如向数据库中增加新表或字段），尽可能不修改已存在的结构</li>
+</ul>
+</li>
+<li>测试数据
+
+<ul>
+<li>测试的独立性、原子性</li>
+<li>其他类型的测试，一定不要使用生产数据库的一个dump，除非有特殊情况</li>
+</ul>
+</li>
+<li>部署流水线中的数据管理
+
+<ul>
+<li>提交测试：快速运行，避免复杂的数据准备</li>
+<li>验收测试：后续阶段可以复用</li>
+<li>容量测试：为测试提供足够的输入数据，可以看做验收测试的重复利用</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>1.5 主干开发</h3>
+
+<p>主干开发的分支模式实现持续交付最好的模式，但为了在主干模式下保持应用可发布，需要做到</p>
+
+<ul>
+<li>每次创建分支，都要认识到它带来的成本</li>
+<li>频繁提交代码合并到主干</li>
+<li>新功能隐藏：功能开关统一管理达到特性隐藏的目的(Togglz?)</li>
+<li>增量开发：将所有的变更都变成一系列的增量式小修改，而且每次小的修改都是可发布的。</li>
+<li>抽象模拟分支（无法使用增量开发）：修缮者模式，使用门面模式隔离待改造代码。</li>
+<li>使用组件，根据不同部分修改的频率对应用程序进行解耦。</li>
+</ul>
+
+
+<h2>二. 本地开发</h2>
+
+<p><strong>让开发者不受阻塞、不受不必要的干扰 -> 持续开发</strong></p>
+
+<p><img src="https://www.rowkey.cn/post_images/dev/localdev.png" alt="" /></p>
+
+<ul>
+<li>确保自动化测试、构建部署脚本都能够在开发机上运行</li>
+<li>本地自动化测试：预测试提交pretested commit/个人构建personal build/试飞构建preflight build<strong>【保证本地开发所有验证方式与流水线上的验证方式一致，提高开发人员在本地发现问题的能力】</strong></li>
+<li>提交前在本地运行所有的提交测试，等提交测试通过后再继续工作</li>
+<li>在可控的环境上部署开发的应用程序</li>
+<li>修复破坏应用程序的任意修改是最高优先级的任务，<strong>构建失败后不要提交新代码</strong></li>
+</ul>
+
+
+<h3>2.1 六步提交法</h3>
+
+<p>规范开发习惯。主动提前集成；小步提交、完整代码、不影响已有功能；关注代码规范、动静态扫描问题</p>
+
+<ul>
+<li>检出最近成功的代码</li>
+<li>修改代码</li>
+<li>第一次个人构建</li>
+<li>第二次个人构建： 拉取主干代码集成后本地测试</li>
+<li>提交代码到主干</li>
+<li>提交构建</li>
+</ul>
+
+
+<p>提交不影响已有功能！！</p>
+
+<ul>
+<li>增量迭代开发</li>
+<li>抽象模拟分支</li>
+<li>特性隐藏</li>
+</ul>
+
+
+<h3>2.2 规范化、自动化核心步骤</h3>
+
+<p><img src="https://www.rowkey.cn/post_images/dev/localdev-detail.png" alt="" /></p>
+
+<ul>
+<li>提高开发环境的效率: 环境获取的服务化、自助化；环境的一体化、一致性
+
+<ul>
+<li>本地开发环境
+
+<ul>
+<li>共享机器池</li>
+<li>Git提交日志插入截图：Share Bucket+Google Drive</li>
+<li>远程开发机器/Web IDE</li>
+<li>依赖的服务
+
+<ul>
+<li>维护一个单独的环境，让开发环境接入</li>
+<li>服务虚拟化工具来模拟依赖的服务，Mountbank、WireMock</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>联调环境：提供机器池，确保有两套空闲环境，自助化提供给开发者使用</li>
+</ul>
+</li>
+<li>规范化、自动化本地检查
+
+<ul>
+<li>语法检查、规范检查、单元测试：Maven/Gradle插件</li>
+</ul>
+</li>
+<li>建设并自动化代码入库前的检查流程
+
+<ul>
+<li>持续集成前的必要工作</li>
+<li>代码审查</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>2.3 代码审查</h3>
+
+<p>人工代码检查</p>
+
+<ul>
+<li>统一并明确代码审查标准</li>
+<li>统一并明确日志提交规范</li>
+<li>传达团队的代码规则、质量基准</li>
+<li>LGTM（Looks good to me）</li>
+</ul>
+
+
+<p><strong>方式</strong></p>
+
+<ul>
+<li>代码入库前的设计时检查：在设计阶段进行代码审查
+
+<ul>
+<li>代码入库前门禁检查，需要考虑灵活性，提供绕过机制</li>
+<li>代码入库后检查</li>
+</ul>
+</li>
+<li>工具辅助的线下异步审查：依赖于Gitlab、Gerrit、Code Climate Engines，一对一审查</li>
+<li>面对面审查：架构问题、结对编程</li>
+<li>代码增量审查/代码全量审查</li>
+<li>团队审查：适合专项讨论</li>
+<li>代码审查计入工作量和绩效考评</li>
+</ul>
+
+
+<p><strong>代码提交规范</strong></p>
+
+<ul>
+<li>原子提交</li>
+<li>提交日志规范</li>
+</ul>
+
+
+<p><strong>原则</strong></p>
+
+<ul>
+<li>互相尊重</li>
+<li>基于讨论</li>
+</ul>
+
+
+<p>相关资料可见：<a href="https://github.com/google/eng-practices/blob/master/review/index.md">谷歌代码审查指南</a></p>
+
+<h3>2.4 快速反馈、增量开发</h3>
+
+<blockquote><p>边开发边验证</p></blockquote>
+
+<ul>
+<li>提高运行静态检查和测试的方便性、灵活性：Maven/Gradle插件</li>
+<li>提供沙盒环境方便验证和测试
+
+<ul>
+<li>容器</li>
+<li>小范围的增量构建和验证？</li>
+<li>测试数据：直接使用生产环境、生产数据的导出并脱敏</li>
+</ul>
+</li>
+<li>实时检验工具：IDE实时检验、Liveload</li>
+</ul>
+
+
+<h2>三. 自动化构建/部署流水线</h2>
+
+<p>部署流水线就是对软件交付流程的建模。</p>
+
+<p><img src="https://www.rowkey.cn/post_images/dev/deploy-pipeline.png" alt="" /></p>
+
+<p>实现部署流水线的一些共识如下：</p>
+
+<ul>
+<li><strong>流水线建设原则</strong>
+
+<ul>
+<li>测试尽量完整，保证产品质量->完备的测试机制</li>
+<li>运行速度够快->尽早反馈、提高交付速度</li>
+<li>使用的所有环境尽量和生产环境一致->复现问题</li>
+</ul>
+</li>
+<li>所有相关角色提供构建状态可视化：持续交付流水线大屏显示</li>
+<li>存储构建结果报告</li>
+<li>只要有环节失败，就停止整个流水线！</li>
+<li>制品库是特殊的版本控制系统，不需要保存所有版本。</li>
+<li>为部署流水线的每个阶段创建脚本：脚本是系统中的一等公民</li>
+<li>增量式实现流水线：如果流程中有手工操作部分，就在流水线中为它创建一个占位符。</li>
+</ul>
+
+
+<p>接下来从流水线的各个阶段分别说明。</p>
+
+<h3>3.1 提交阶段</h3>
+
+<p>从技术角度上断言整个系统是可以工作的。</p>
+
+<ul>
+<li><strong>编译、单元测试、组装打包、代码分析</strong></li>
+<li>少于五分钟，一定不要超过十分钟</li>
+<li>提交测试：单元测试、组件测试</li>
+<li>只有在某个错误让提交阶段的其他任务无法执行时，才停下来否则就直至提交阶段全部运行完后，汇总所有的错误和失败报告</li>
+<li>此阶段的结果：结果报告、二进制包、元数据</li>
+</ul>
+
+
+<h3>3.2 自动化验收测试</h3>
+
+<p>验证一个用户故事或需求的验收条件是否被满足。针对业务！</p>
+
+<ul>
+<li><strong>配置环境、部署二进制文件、冒烟测试、验收测试</strong></li>
+<li>令验收测试失败的构建版本不能被部署</li>
+<li>先部署再测试，重用部署脚本。</li>
+<li>类生产环境运行验收测试：大部分是功能验收测试，关注功能正确性</li>
+<li>开发人员能够在自己的开发环境中运行自动化验收测试</li>
+<li>测试的关注点在系统的行为，而非数据本身。所以抵制使用生产数据的备份做为验收测试</li>
+<li>验收测试的性能不是主要考虑问题，重点在测试的全面性。</li>
+<li>正确地做验收测试：不要幼稚地对照着验收测试条件，盲目地把所有东西都自动化。</li>
+<li>验收测试可以看作所有后续测试阶段（包括容量测试）的某种模板：从部署准备开始，然后核实环境和应用程序都已被正确配置和部署，最后执行测试。</li>
+</ul>
+
+
+<h3>3.3 后续测试</h3>
+
+<ul>
+<li>手工测试：探索性测试、易用性测试</li>
+<li>非功能测试：性能、安全、可维护、可扩展</li>
+</ul>
+
+
+<h3>3.4 部署发布</h3>
+
+<p>此阶段的触发不需要自动，测试或者运维人员可以做到自服务即可</p>
+
+<ul>
+<li>对不同环境采用同一部署方式：使用同样的脚本向所有环境部署，包括开发机器</li>
+<li>一键式部署是对环境进行修改的唯一途径。</li>
+<li>部署测试：对部署进行冒烟测试，验证部署是否成功，证明其部署的可靠性</li>
+<li>确保部署流程是幂等的</li>
+<li>只有通过了自动化构建、测试和部署的那些修改才能发布！</li>
+<li>明确每个环境的部署和发布都是由谁负责</li>
+<li>发布计划：第一次发布，产出一些文档、自动化脚本或其他形式的流程步骤</li>
+<li>首次部署：首个迭代的主要目标之一就是在迭代结束时，让部署流水线的前几个阶段可以运行，实现部署流水线的“抽水泵”。
+
+<ul>
+<li>部署流水线的提交阶段。</li>
+<li>一个用于部署的类生产环境。</li>
+<li>通过一个自动化过程获取在提交阶段中生成的二进制包，并将其部署到这个类生产环境中。</li>
+<li>一个简单的冒烟测试，用于验证本次部署是正确的，并且应用程序正在运行。</li>
+</ul>
+</li>
+<li>对发布过程进行建模并让构建晋级
+
+<ul>
+<li>为了达到发布质量，一个构建版本要通过哪些测试阶段</li>
+<li>每个阶段需要设置什么样的晋级门槛或需要什么样的签字许可。</li>
+<li>对于每个晋级门槛来说，谁有权批准让某个构建通过该阶段。</li>
+</ul>
+</li>
+<li>将每次已通过验收测试的变更版本部署在试运行环境中</li>
+<li>紧急修复: 紧急修复版本也要走完标准的部署流水线，与其他代码变更没什么区别。
+
+<ul>
+<li>结对做！</li>
+<li>有时候回滚比部署新的修复版本更划算。</li>
+</ul>
+</li>
+<li>持续部署：每当有版本通过自动化测试之后，就将其部署到生产环境中。【需要依赖强大的自动化测试机制】</li>
+</ul>
+
+
+<h3>3.5 度量</h3>
+
+<p>每次提交后都产生关于这些度量的报告和可视化效果并保存起来</p>
+
+<ul>
+<li>周期时间（cycle time），从决定要做某个特性开始，直到把这个特性交付给用户的这段时间</li>
+<li>自动化测试覆盖率</li>
+<li>代码库特征</li>
+<li>缺陷数量</li>
+<li>交付速度</li>
+<li>提交版本库次数</li>
+<li>构建次数</li>
+<li>构建失败次数</li>
+<li>构建所花时间</li>
+</ul>
+
+
+<h2>四. 其他</h2>
+
+<h3>4.1 DevOps</h3>
+
+<p>Devops是这些年很流行的一个概念，其目的就是打通研发和运维环节，以达到全员目标一致，保障软件高效交付。</p>
+
+<p><img src="https://www.rowkey.cn/post_images/dev/devops.png" alt="" /></p>
+
+<ul>
+<li>职能团队提供平台和工具，让全栈工程师能够自己处理端到端的工作，实现DevOps。</li>
+<li>全栈开发：工程师不再只是对某一个单一职能负责，而是对最终产品负责。</li>
+</ul>
+
+
+<h3>4.2 信息溯源</h3>
+
+<p>打通研发流程中流动的多种标识信息，以方便相关人员快速获取需要的信息，提高工作效率。包括任务工单、代码提交号、版本号、代码审查 ID、测试用例 ID、Bug ID。</p>
+
+<ul>
+<li>制品与源代码版本管理：放置在制品包中的元数据，体现源代码版本号。</li>
+<li>源代码与需求/Bug的版本关联: 提交代码时需要在注释里注明需求ID、测试用例ID等。</li>
+</ul>
+
+
+<h2>五. 参考资料</h2>
+
+<ul>
+<li><a href="https://book.douban.com/subject/6862062/">《持续交付》</a></li>
+<li><a href="https://book.douban.com/subject/30419555/">《持续交付2.0》</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《清教徒的礼物》学习笔记]]></title>
+    <link href="https://www.rowkey.cn/blog/2020/05/31/qjt/"/>
+    <updated>2020-05-31T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2020/05/31/qjt</id>
+    <content type="html"><![CDATA[<p>同学推荐的一本管理书籍，主要是讲的美国的管理文化在世界各地的普及，尤其是日本和中国。阐述了清教徒（第一批欧洲移民，起源于英国，在北美殖民地得以实践与发展）的一些特质，也是美国能够打赢两次世界大战的原因，包括：建造“人间天国”的坚定信念；亲力亲为的技师精神；集体主义；组织能力：善于协调各种财力、物力和人力的组织能力。并且在书的最后给出了管理黄金时代优秀实务背后的25条原理。看完这本书，对于其中的一些东西很有共鸣，比如：自下而上的管理、专家（职业经理人）崇拜的危害等。</p>
+
+<!--more-->
+
+
+<p><img src="https://www.rowkey.cn/post_images/qjt-notes.png" alt="" /></p>
+
+<ul>
+<li>清教的四个特点
+
+<ul>
+<li>建造“人间天国”的坚定信念</li>
+<li>亲力亲为的技师精神：重视技术、重视技术人员</li>
+<li>集体主义：集体大于个人</li>
+<li>组织能力：善于协调各种财力、物力和人力的组织能力</li>
+</ul>
+</li>
+<li>自下而上的管理
+
+<ul>
+<li>逐步去中心化</li>
+<li>在十分正式的组织上面强加一个高度非正式的组织</li>
+<li>把决策权沿指挥链下放至愿意承担又能够承担的最低层级</li>
+<li>火线管理者从事基本的管理工作，上级管理层的工作是派生的</li>
+<li>所有权力和责任都集中在火线管理者，只有火线管理者独立完成不了的，才交给上级管理者</li>
+</ul>
+</li>
+<li>专家崇拜的危害：不懂业务的管理专家会带来诸多负面影响，包括各种强制量化，唯数据论等。</li>
+<li>指导下属自学是自下而上管理的基本方法之一<strong>【杠杆率高的工作】</strong></li>
+<li>优秀实务背后的25个原理
+
+<ul>
+<li>所有成功组织，不管多么简单，都由系统嵌套而成。</li>
+<li>所有系统都离不开常规工作的补充，这些常规要定期审查和更新。</li>
+<li>任何组织最重要的子系统都是层级，其基础很有可能是某种形式的直线职能制。</li>
+<li>最好的层级形式是“自下而上”。</li>
+<li>”集体决策“带来正确的决定<strong>【集体决策是风险最小的决策，但不一定是最正确的决策】</strong></li>
+<li>领导层应尽量实行集体决策制或“共治“</li>
+<li>中层管理者是管理的”拱心石“</li>
+<li>一人一上司<strong>【混血型组织一般是多重汇报机制】</strong></li>
+<li>会议是”管理工作的媒介“</li>
+<li>计划应该分为短期（1-4年）、中期（5-8年）和长期（9年以上）。</li>
+<li>研究前人的成败，从前人的经验中学习。</li>
+<li>各个方向尤其是向上的信息流动畅通无阻，对组织的成功非常必要。</li>
+<li>管理者在实际意义和道德意义上都应该是领导者</li>
+<li>应该保守地使用顾问；应该把顾问”放在手边“而非”供在头上“</li>
+<li>管理者应该清楚自己的社会责任，包括把员工当人而非商品对待</li>
+<li>不要等坏了才修，要注意保养和改进。</li>
+<li>像回避瘟神一样回避债务，如果不可能做到完全回避，那么尽可能少借债。</li>
+<li>管理者应该拥有或获得”领域知识“，即深刻了解公司的技术和业务，这种知识只能通过在公司或公司所在行业长期实践才能获得</li>
+<li>对管理者的考核和培训应该是实用的、连续的。</li>
+<li>任何想晋升到顶层的管理者都该从底层做起。</li>
+<li>工作轮换有利于打造”全才型“经理人。</li>
+<li>用人应该持长期导向，这个长期至少8年，最好是10年。</li>
+<li>互补是任命的关键之一。</li>
+<li>薪酬制度应该奖励并促进合作。</li>
+<li>像回避瘟神一样回避炫耀和张扬。</li>
+</ul>
+</li>
+</ul>
+
+
+<p>&ndash;</p>
+
+<p>书籍链接：<a href="https://book.douban.com/subject/26760576/">https://book.douban.com/subject/26760576/</a></p>
+
+<p><img src="https://www.rowkey.cn/post_images/qjt.png" width="300"/></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[技术管理标准模板]]></title>
+    <link href="https://www.rowkey.cn/blog/2020/04/25/tech-leader-manage/"/>
+    <updated>2020-04-25T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2020/04/25/tech-leader-manage</id>
+    <content type="html"><![CDATA[<p>对于技术团队新晋升的一些研发Leader，即使在大公司具有完善的培训机制，大多数人在一开始还是会手足无措，不能很好地做到从个人贡献者到团队贡献者角色的转变。于是根据自己以及公司内部很多技术管理者的工作经验梳理出了一些技术管理者的管理模板，可以作为管理工作的实践参考。</p>
+
+<!--more-->
+
+
+<p><img src="https://www.rowkey.cn/post_images/tech-manage.png" alt="" /></p>
+
+<h2>看方向</h2>
+
+<ul>
+<li><p>向上级明确团队的职责</p></li>
+<li><p>基于职责确定团队的使命、目标</p></li>
+<li><p>把职责、使命向团队成员传达清楚</p></li>
+<li><p>做好团队规划，包括：规模、分工、梯队、资源盘点等</p></li>
+<li><p>建立团队的WIki，包括：职责、使命、目标、团队规划、人员分工、规章制度等</p></li>
+</ul>
+
+
+<h2>管事</h2>
+
+<ul>
+<li><p>OKR</p>
+
+<ul>
+<li><p>制定团队OKR，对齐公司和部门OKR</p></li>
+<li><p>跟进团队成员的个人OKR制定和进度跟踪</p></li>
+<li><p>跟踪OKR进展，识别高绩效人才</p></li>
+</ul>
+</li>
+<li><p>技术管理</p>
+
+<ul>
+<li><p>参与技术方向决策，将研发规范、例会等信息明确传达给团队成员并推进</p>
+
+<ul>
+<li><p>技术评审规范</p></li>
+<li><p>代码风格规范</p></li>
+<li><p>代码开发规范</p></li>
+<li><p>代码管理规范</p></li>
+<li><p>CodeReview规范</p></li>
+</ul>
+</li>
+<li><p>组织技术评审、CodeReview</p></li>
+<li><p>制定学习分享机制并切实推行</p></li>
+<li><p>团队所负责维护的系统的周期巡检</p></li>
+<li><p>公司层面基础技术以及成熟开源项目的引入和推进</p></li>
+<li><p>了解技术方向相关技术的技术采纳生命周期，根据公司现状知道何时引入相应的技术</p></li>
+</ul>
+</li>
+<li><p>项目管理</p>
+
+<ul>
+<li><p>技术方案确定</p>
+
+<ul>
+<li><p>技术选型</p></li>
+<li><p>技术架构</p></li>
+<li><p>技术难点</p></li>
+<li><p>性能瓶颈</p></li>
+<li><p>上下游系统</p></li>
+<li><p>功能模块</p></li>
+</ul>
+</li>
+<li><p>根据技术评审的结果预估开发工期并做好关键时间点的把控</p>
+
+<ul>
+<li><p>系统、模块、功能的设计以及简述</p></li>
+<li><p>参与的研发人员以及分工</p></li>
+<li><p>预估工时</p></li>
+<li><p>预计完成时间</p></li>
+<li><p>关键时间点、里程碑</p></li>
+<li><p>确定会议机制：晨会、周会</p></li>
+</ul>
+</li>
+<li><p>创建并保持项目文档的更新</p>
+
+<ul>
+<li><p>技术调研文档</p></li>
+<li><p>方案选型文档</p></li>
+<li><p>需求文档</p></li>
+<li><p>系统设计文档</p></li>
+</ul>
+</li>
+<li><p>项目风险管理</p></li>
+<li><p>项目质量管理，包括代码质量把控和监控告警设施的接入</p></li>
+<li><p>协调资源推进项目进展</p></li>
+</ul>
+</li>
+<li><p>技术产品运营</p>
+
+<ul>
+<li><p>提炼团队项目的公共抽象部分，组件化和平台化</p></li>
+<li><p>组件、技术平台的推广</p></li>
+</ul>
+</li>
+<li><p>成本管理</p>
+
+<ul>
+<li><p>技术选型时把成本做为重要考量项</p></li>
+<li><p>提升团队资源的利用率</p></li>
+<li><p>关注团队的人力成本和技术成本</p></li>
+<li><p>关注团队的产出价值</p></li>
+</ul>
+</li>
+<li><p>流程改进</p>
+
+<ul>
+<li><p>定位阻碍研发的流程节点，寻找有效的解决方案</p></li>
+<li><p>寻求有效工具或者方案提升关键流程效率</p></li>
+</ul>
+</li>
+<li><p>制度建设</p>
+
+<ul>
+<li><p>明确公司和部门的规章制度并推进实行</p></li>
+<li><p>根据团队需要，制定团队规章制度</p></li>
+<li><p>制定SOP，保障下限水准</p></li>
+<li><p>明确团队例会制度</p></li>
+</ul>
+</li>
+</ul>
+
+
+<h2>管人</h2>
+
+<ul>
+<li><p>定期的一对一沟通</p>
+
+<ul>
+<li><p>你所负责业务的完成情况到现在怎么样？目标完成情况怎么样？</p></li>
+<li><p>这段时间自我评价绩效如何？什么原因？</p></li>
+<li><p>你个人有没有什么你觉得我应该知道的？</p></li>
+</ul>
+</li>
+<li><p>关注团队成员职业规划和能力成长，给与指导和建议</p></li>
+<li><p>关注团队成员工作状态</p></li>
+<li><p>组织团建，提高团队凝聚力</p></li>
+</ul>
+
+
+<h2>管理仪表盘</h2>
+
+<p>建立自己的管理仪表盘，关注关键数据</p>
+
+<ul>
+<li><p>系统监控数据（QPS、硬件资源使用率、错误数等） -> 提前发现系统瓶颈，消除隐患；提高资源利用率，降低成本</p></li>
+<li><p>项目构建报告（单元测试覆盖率报告、代码质量报告、构建失败与成功概况） -> 关注项目研发质量，保障持续交付</p></li>
+<li><p>项目/任务进度 -> 保证项目/任务正常进行</p></li>
+<li><p>业务关键数据指标 -> 关注业务价值，提升团队成员成就感</p></li>
+<li><p>OKR进度 -> 关注OKR实现状况，识别高绩效人员</p></li>
+<li><p>团队成员的每日/周的工作状况 -> 关注团队成员状况</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
