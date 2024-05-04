@@ -12,9 +12,11 @@ categories: manage
 
 <!--more-->
 
-先给出自己笔记的思维导图，如下：
+笔记的思维导图如下：
 
 <a href="/post_images/manage-notes.png" target="_blank"><img src="/post_images/manage-notes.png"/></a>
+
+详细内容可见：<https://www.mubu.com/doc/2WDjMG-M_8g>
 
 其中让自己印象比较深刻的几点：
 
