@@ -14,7 +14,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 《七周七语言》读后感 在微博上看到Robbin老大推荐《七周七语言》一书，去豆瓣上查了一下发现大家对这本书的评价也是非常高， &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ Android异步加载图片 对于Android中的异步加载图片，自己总结了两种方式，如下： 1.
+/* * 异步读取图片， &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -127,6 +128,155 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2013/05/02/android-image-load/">Android异步加载图片</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-05-02T20:02:50+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>对于Android中的异步加载图片，自己总结了两种方式，如下：</p>
+
+<p>1.<pre>
+/<em>*
+ * 异步读取图片，需要传递三个参数：Imageview imageView,String imagePath,int maxNumpixels<br/>
+ * @author Bryant
+ </em>/<br/>
+public class AsyncLoadImage extends AsyncTask<Object, Object, Void> {<br/>
+    @Override<br/>
+    protected Void doInBackground(Object&hellip; params) {</p>
+
+<pre><code>    try {  
+        ImageView imageView=(ImageView) params[0];  
+        String path=(String) params[1];  
+        int maxNumOfPixels = (Integer)params[2];
+
+        Bitmap bm = CompressPicture.compress(path,maxNumOfPixels);
+
+        publishProgress(new Object[] {imageView, bm});  
+    }catch (Exception e) {  
+        e.printStackTrace();  
+    }  
+
+    return null;
+}  
+
+protected void onProgressUpdate(Object... progress) {  
+    ImageView imageView = (ImageView) progress[0];  
+    Bitmap bm = (Bitmap) progress[1];
+    if(bm != null){
+        imageView.setImageBitmap(bm); 
+    }
+
+}  
+</code></pre>
+
+<p>}<br/>
+</pre></p>
+
+<ol>
+<li></li>
+</ol>
+
+
+<pre>
+/**
+ * 图片异步加载
+ * @author Bryant
+ *
+ */
+public class AsyncImageLoader {
+    private Map<String, SoftReference<Bitmap>> imageCache=new HashMap<String, SoftReference<Bitmap>>();
+    private int maxNumPixels;
+    
+    public Bitmap loadBitmap(final String imagePath,int maxNumPixels,final ImageCallback callback){
+        this.maxNumPixels = maxNumPixels;
+        
+        if(imageCache.containsKey(imagePath)){
+            SoftReference<Bitmap> softReference=imageCache.get(imagePath);
+            if(softReference.get()!=null){
+                return softReference.get();
+            }
+        }
+        final Handler handler=new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                callback.imageLoaded((Bitmap) msg.obj, imagePath);
+            }
+        };
+        new Thread(){
+            public void run() {
+                Bitmap bitmap=loadImageFromPath(imagePath);
+                imageCache.put(imagePath, new SoftReference<Bitmap>(bitmap));
+                handler.sendMessage(handler.obtainMessage(0,bitmap));
+            };
+        }.start();
+        return null;
+    }
+    
+    protected Bitmap loadImageFromPath(String imagePath) {
+        try {
+            return CompressPicture.compress(imagePath, maxNumPixels);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public interface ImageCallback{
+        public void imageLoaded(Bitmap imageBitmap,String imagePath);
+    }
+}
+</pre>
+
+
+<p>经过实际使用，AsyncImageLoader的效率比较高，但是调用比较麻烦。
+调用示例：</p>
+
+<pre>
+private AsyncImageLoader imageLoader = new AsyncImageLoader();
+imageLoader.loadBitmap(imagePath,maxNumPixels, new ImageCallback() {
+    public void imageLoaded(Bitmap imageBitmap, String imagePath) {
+        imageView.setImageBitmap(imageBitmap);
+    }
+}); 
+</pre>
+
+
+<p>AsyncLoadImage调用较简单，调用示例如下：</p>
+
+<pre>
+new AsyncLoadImage().execute(new Object[]{imageView,imagePath,maxNumPixels});
+</pre>
+
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -936,6 +1086,10 @@ canvas.drawBitmap(mBitmap, r, dstRect, null);
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2024/06/05/usa-ai/">美国AI之旅</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2024/04/08/codertocto/">CTO都必须是程序员出身吗？为什么架构师做不了CTO？</a>
       	</li>
     	
@@ -969,10 +1123,6 @@ canvas.drawBitmap(mBitmap, r, dstRect, null);
     	
      	<li>
       	  <a href="/blog/2022/06/04/arch-usage/">架构简明指南2022最新版</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2022/05/04/article-notes/">阅文笔记202205</a>
       	</li>
     	
 	</ul>
