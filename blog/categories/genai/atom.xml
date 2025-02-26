@@ -4,7 +4,7 @@
   <title><![CDATA[Category: genai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/genai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2025-02-26T09:32:24+00:00</updated>
+  <updated>2025-02-26T09:36:20+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -25,7 +25,11 @@
 
 <h2>DeepSeek是什么？</h2>
 
-<p>DeepSeek是一个由中国人推出的媲美ChatGPT O1能力的开源推理大模型，其中文能力更强，而且由于背后公司数据的特点，在金融方面具有优势。这里所说的推理大模型是相对于之前的非推理模型，更加强化了推理、逻辑分析和决策能力，可以看做是把之前的CoT能力直接做到了模型里。DeepSeek本身是包括V3和R1两个模型，参数都达到6000亿，也就是现在市面上很多人说的满血版。而DeepSeek开源的几个蒸馏版本的模型其实本质还是qwen和llama，只是用了R1的推理数据做了微调。</p>
+<p>DeepSeek是一个由中国公司推出的媲美ChatGPT o1能力的开源推理大模型，其中文能力更强，而且由于背后公司数据的特点，在金融方面具有优势。</p>
+
+<p>这里所说的推理大模型是相对于之前的非推理模型，更加强化了推理、逻辑分析和决策能力，可以看做是把之前的CoT能力直接做到了模型里。</p>
+
+<p>DeepSeek本身是包括V3和R1两个模型，参数都达到6000亿，也就是现在市面上很多人说的满血版。而DeepSeek开源的几个蒸馏版本的模型其实本质还是qwen和llama，只是用了R1的推理数据做了微调。</p>
 
 <h2>DeepSeek生态位</h2>
 
