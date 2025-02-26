@@ -16,7 +16,7 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: macos-12
+    runs-on: macos-latest
     permissions:
       contents: write
     strategy:
