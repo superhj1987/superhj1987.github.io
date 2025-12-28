@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2025-02-26T09:36:20+00:00</updated>
+  <updated>2025-12-28T11:01:23+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -12,6 +12,267 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[AI大事记@2025]]></title>
+    <link href="https://www.rowkey.cn/blog/2025/12/27/ai-2025/"/>
+    <updated>2025-12-27T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2025/12/27/ai-2025</id>
+    <content type="html"><![CDATA[<p>接近2025年底，概览总结了一下2025这一年的一些AI关键事件。</p>
+
+<hr />
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> 时间 </th>
+<th style="text-align:left;"> 事项 </th>
+<th style="text-align:left;"> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> <strong>2025.12.16</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-Image-1.5</strong> </td>
+<td style="text-align:left;"> 不管是从零生成，还是对图片进行局部编辑，更接近你脑子里想的那个结果；并且生成速度最高可达 4 倍提升。实测：比配套Nano Banana Pro强。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.12.11</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT 5.2</strong> </td>
+<td style="text-align:left;"> GPT-5.2 能够在真实复杂工作流程中高效协作，从代码分析、财务建模、工程设计，到研究论文分析、实验结果推理，都能提供高质量辅助。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.21</strong> </td>
+<td style="text-align:left;"> <strong>Google Nano Banana Pro</strong><br><em>(aka Gemini 3.0 Pro Image)</em> </td>
+<td style="text-align:left;"> 全球首个“推理至像引擎”，不仅是绘画，更是理解物理规律与空间逻辑。作为 Nano Banana 的旗舰升级版，它像人类一样“思考”和“规划”场景，生成前所未有的逻辑一致性，完美文本和高分辨率的视觉作品。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.16</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.0 pro</strong> </td>
+<td style="text-align:left;"> 全面高刷。同时发布Antigravity 编程IDE，生成式前端UI能力遥遥领先，可以快速实现各种交互式H5应用。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.12</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT 5.1</strong> </td>
+<td style="text-align:left;"> 将GPT-5 和 GPT-5 Mini 合并为一个能适应问题难度的自适应调整思考用量的模型。相比GPT5，语气更亲切、更幽默，更善于遵循指令。整体性能介于GPT-5 和 GPT-5 Mini 之间。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.10.16</strong> </td>
+<td style="text-align:left;"> <strong>Google Veo 3.1</strong> </td>
+<td style="text-align:left;"> 主打更强叙事与音频控制、音乐韵律与多参考图拼接，接入 Gemini API与Vertex AI。Flow与Gemini可用。可合成多人物场景、语音同步，片段最长约146秒；规格至1080p/24fps。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.10.01</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI Sora2</strong> </td>
+<td style="text-align:left;"> 非常好的物理世界理解能力，同时推出了Sora APP，定位AI短影音。号称视频领域的GPT-3.5时刻。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.09.09</strong> </td>
+<td style="text-align:left;"> <strong>字节发布 Seedream 4.0</strong> </td>
+<td style="text-align:left;"> 定位“生成与编辑一体化”专业工具。编辑能力强甚至部分超过nano banana。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.27</strong> </td>
+<td style="text-align:left;"> <strong>Google Nano Banana</strong><br><em>(aka Gemini 2.5 Flash Image)</em> </td>
+<td style="text-align:left;"> 具有极好的编辑能力，能够多图融合、强一致性，替代GPT4o成为图片编辑的王者。SOTA of 图像模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.26</strong> </td>
+<td style="text-align:left;"> <strong>通义万相 Wan2.2-S2V-14B</strong> </td>
+<td style="text-align:left;"> 一个可以跑动的14B视频模型，仅需一张图片和一段音频，即可生成面部表情自然、口型一致、肢体动作丝滑的电影级叙事/人视频。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.26</strong> </td>
+<td style="text-align:left;"> <strong>即梦AI智能多模</strong> </td>
+<td style="text-align:left;"> 传统的拼接是两个团队，各干各的，最后硬拼在一起。而堆叠多帧是一个全真全参数带上下文的团队，大家各让一步处理，因此能做到四宽的一致性。堆叠多帧背后的底层逻辑：即一体的全局考虑。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.21</strong> </td>
+<td style="text-align:left;"> <strong>GenSpark AI Designer</strong> </td>
+<td style="text-align:left;"> 一款革命性的AI设计工具，能够一键生成完整的多屏设计方案，涵盖Logo、包装、网站设计等多个领域，极大地降低了设计门槛。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.20</strong> </td>
+<td style="text-align:left;"> <strong>DeepSeek V3.1</strong> </td>
+<td style="text-align:left;"> 代码能力极高，但文本能力并未提高，甚至有某些下降。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.19</strong> </td>
+<td style="text-align:left;"> <strong>Qwen-Image-Edit</strong> </td>
+<td style="text-align:left;"> 全能图像编辑。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.08</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT5</strong> </td>
+<td style="text-align:left;"> 一个统一的系统，包含一个能够解决大多数问题的智能快速模型、一个能够解决复杂长问题的深度推理模型，以及一个实时语音器。可以根据对话类型、复杂性、工具需求判断意图并快速决定使用哪个模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.06</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI 开源模型</strong><br>GPT-oss-120b和GPT-oss-20b </td>
+<td style="text-align:left;"> 性能与兼容性兼具，非英文表现不好。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.05</strong> </td>
+<td style="text-align:left;"> <strong>Google Genie3</strong> </td>
+<td style="text-align:left;"> 新一代生成式世界模型——Genie3。根据文本创造一个可以实时交互的世界。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.04</strong> </td>
+<td style="text-align:left;"> <strong>Qwen-image</strong> </td>
+<td style="text-align:left;"> 通义千问团队开源的首个图像生成基础模型，在解决传统文生图模型文字渲染难题上实现了突破性进展，尤其在中文场景下表现突出。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.23</strong> </td>
+<td style="text-align:left;"> <strong>Qwen3-coder</strong> </td>
+<td style="text-align:left;"> 拥有卓越的代码Agent能力，在Agentic Coding、Agentic Browser-Use 和 Foundational Coding Tasks 上均取得了开源模型的 SOTA 效果。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.12</strong> </td>
+<td style="text-align:left;"> <strong>Kimi K2</strong> </td>
+<td style="text-align:left;"> 将模型权重代码全量开源。大模型竞技场LMArena排行榜中，Kimi K2综合排名斩获全球第五，在开源大模型中位居全球第一。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.09</strong> </td>
+<td style="text-align:left;"> <strong>xAI Grok 4</strong> </td>
+<td style="text-align:left;"> 极其激进的快速迭代。推出 Grok 4 Heavy，引入多智能体架构，针对复杂科研任务优化，算力规模再创新高。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.05</strong> </td>
+<td style="text-align:left;"> <strong>Gemini CLI</strong> </td>
+<td style="text-align:left;"> 开源命令行界面工具，它将谷歌强大的 Gemini AI 模型直接集成到开发者常用的终端环境中，更擅长服务于编程。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.02</strong> </td>
+<td style="text-align:left;"> <strong>Flux图像模型</strong><br>Kontext Dev模型正式开始 </td>
+<td style="text-align:left;"> 强一致性、强理解力。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.24</strong> </td>
+<td style="text-align:left;"> <strong>Imagen4</strong> </td>
+<td style="text-align:left;"> 显著改善文本渲染效果，进一步提升了文本转图像的生成质量。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.22</strong> </td>
+<td style="text-align:left;"> <strong>Gemini 2.5 Flash/Pro</strong> </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.11</strong> </td>
+<td style="text-align:left;"> <strong>Seedance1.0</strong> </td>
+<td style="text-align:left;"> 字节跳动推出的一款高性能和推理极致的视频语言生成模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.05.23</strong> </td>
+<td style="text-align:left;"> <strong>Claude code</strong> </td>
+<td style="text-align:left;"> 智能化辅助写代码工具，旨在帮助开发者通过自然语言命令理解、浏览和修改整个代码库，前端编程领域无人能敌。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.05.21</strong> </td>
+<td style="text-align:left;"> <strong>Veo3</strong> </td>
+<td style="text-align:left;"> 首个可生成视频背景音效模型，体会画面感、配合感、生成人物对话，物理模拟与口型同步表现优异。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.04.29</strong> </td>
+<td style="text-align:left;"> <strong>Qwen3</strong> </td>
+<td style="text-align:left;"> 国产最强开源模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025年5月</strong> </td>
+<td style="text-align:left;"> <strong>Loverr设计Agent</strong> </td>
+<td style="text-align:left;"> 2025年7月28日正式上线。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.04.05</strong> </td>
+<td style="text-align:left;"> <strong>Meta Llama 4</strong> </td>
+<td style="text-align:left;"> Meta发布开源模型 Llama 4（包含Scout和Maverick版本）。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.03.26</strong> </td>
+<td style="text-align:left;"> <strong>GPT4o改图能力</strong> </td>
+<td style="text-align:left;"> 一致性能力好，响应慢。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.03.06</strong> </td>
+<td style="text-align:left;"> <strong>通用Agent</strong><br>Manus, GenSpark, Flowith </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.02.17</strong> </td>
+<td style="text-align:left;"> <strong>xAI Grok 3</strong> </td>
+<td style="text-align:left;"> Elon Musk 发布 Grok 3，宣称其为“地球上最聪明的AI”。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.01.20</strong> </td>
+<td style="text-align:left;"> <strong>DeepSeek R1</strong> </td>
+<td style="text-align:left;"> 国产开源推理模型，媲美OpenAI o1。 </td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[《太白金星有点烦》读后感]]></title>
+    <link href="https://www.rowkey.cn/blog/2025/08/25/taibaijinxing/"/>
+    <updated>2025-08-25T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2025/08/25/taibaijinxing</id>
+    <content type="html"><![CDATA[<p>最近利用出差在高铁和飞机上的时间，读完了《太白金星有点烦》这本书。总体感觉挺有意思的，作者用诙谐的笔法把现代职场政治、官僚主义与古典神话《西游记》完美融合，让人真觉得西游记是不是就是这么回事。当然，这些感觉之余也在时刻对照目前公司中是否有这些问题，所幸民营企业也不敢这么搞，万幸万幸。</p>
+
+<hr />
+
+<h3>一、 内容梗概</h3>
+
+<p>故事从<strong>太白金星（李长庚）</strong>的视角展开。在书中，原本宏大的“西天取经”不再是一场纯粹的弘扬佛法之旅，而是一项由天庭和西天联合开发、层层外包的<strong>“重点项目”</strong>。</p>
+
+<ol>
+<li><strong>项目经理李长庚：</strong> 李长庚被任命为西游项目的“策划人”和“协调员”。他的任务是确保玄奘一行人经历九九八十一难，且每一难都要有记录、有预算、有排场，还要兼顾各方势力的利益。</li>
+<li><strong>职场琐事：</strong> 书中详细描写了李长庚如何处理那些令人头大的“行政工作”：如何给有背景的妖怪安排出场机会又不能真伤了取经人；如何跨部门沟通（天庭与西天的地盘之争）；如何报销差旅费；以及如何处理各种突发的公关危机。</li>
+<li><strong>取经的真相：</strong> 随着项目的推进，李长庚发现所谓“九九八十一难”大多是人为安排的“走秀”。而在这背后，隐藏着更深层的权力斗争和资源分配。</li>
+<li><strong>结局与悟道：</strong> 在经历了无数职场洗礼后，李长庚在项目结束时面临着“修成正果”的选择。他最终对权力和成仙有了全新的理解，完成了一种精神上的自我救赎。</li>
+</ol>
+
+
+<h3>二、 核心评价与书评</h3>
+
+<h4>1. 绝佳的职场隐喻（“神仙也得写周报”）</h4>
+
+<p>马伯庸最天才的地方在于他把<strong>“仙界”写成了“职场”</strong>。
+*   <strong>层级森严：</strong> 佛祖和玉帝是大BOSS，菩萨和星君是中层领导，李长庚是资深项目经理。
+*   <strong>潜规则：</strong> 没背景的妖怪一棒打死，有背景的妖怪被主人接走。书中将这种《西游记》原本的讽刺进一步具体化为：如何写汇报材料才能既掩盖错误又突出业绩。
+*   <strong>读者的共鸣：</strong> 每一个打工人都能在李长庚身上看到自己——为了KPI奔波，在领导的暗示中揣摩意图，在繁琐的流程中消耗生命。</p>
+
+<h4>2. 对《西游记》的解构与重组</h4>
+
+<p>这本书不仅仅是恶搞，它对原著细节的挖掘极其深厚。
+*   它解释了为什么有的关卡漏洞百出，为什么神仙的坐骑总是“不小心”走失。
+*   通过李长庚的视角，作者重新审视了孙悟空、猪八戒等人的形象。孙悟空不再只是单纯的叛逆者，而是被纳入体制内、必须学会配合演出的“高级顾问”。</p>
+
+<h4>3. 悲悯的底色与“修心”</h4>
+
+<p>虽然表面上充满了幽默和讽刺，但书的内核是有些<strong>致郁且深刻</strong>的。
+*   李长庚在算计了一辈子后，感到了一种深深的疲惫和荒诞感。
+*   <strong>“超脱”：</strong> 最终李长庚的悟道，不是因为累积了多少功德，而是他看穿了这套体制的虚伪，选择回归自我的本真。这种从“入世”到“出世”的转变，给现代职场人提供了一种心理上的抚慰。</p>
+
+<h4>4. 文字风格</h4>
+
+<p>马伯庸的文字极其流畅，充满了“马式冷幽默”。他擅长用现代公文词汇去描述神仙对话，产生了一种强烈的反差萌。例如，把因果报应说成“利益分配”，把降妖伏魔说成“外勤任务”。</p>
+
+<hr />
+
+<h3>三、 总结：为什么要读这本书？</h3>
+
+<ul>
+<li><strong>如果你是职场人：</strong> 你会一边笑一边流泪，感叹“马伯庸是在我工位下装了监控吗？”</li>
+<li><strong>如果你是西游迷：</strong> 你会惊叹于原著竟然还能被这样解读，每一个细节都严丝合缝。</li>
+<li><strong>如果你想寻找慰藉：</strong> 它会告诉你，在繁杂的世俗规则中，如何保有一颗不被磨灭的初心。</li>
+</ul>
+
+
+<p><strong>一句话简评：</strong>
+这是一部披着神话外衣的职场生存指南，也是一首写给所有疲惫灵魂的解脱之诗。它告诉我们：<strong>“成仙”不在于位次的高低，而在于能否在满地鸡毛的生活中，找回那个清醒的自己。</strong></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[DeepSeek简单分享]]></title>
@@ -3280,457 +3541,6 @@
 <li><p>团队做对了哪些事？</p></li>
 <li><p>做错了哪些事？</p></li>
 <li><p>再来一次，如何做得更好？</p></li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[你要成为什么样的人？]]></title>
-    <link href="https://www.rowkey.cn/blog/2020/06/27/mytalk/"/>
-    <updated>2020-06-27T19:29:34+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2020/06/27/mytalk</id>
-    <content type="html"><![CDATA[<p>今天参加了TGO鲲鹏会的小组会议，其中ksyun提了一个问题挺发人深思的，大体的意思就是你什么时候才明确地知道以后要成为什么样的人？</p>
-
-<p>对于这个问题，自己挺有感触的。自己在这方面算是开悟比较早的，现在从事的事情也是自己在初中时候就确定的，虽然细节略有不同。</p>
-
-<!--more-->
-
-
-<p>还记得是97年上小学4年级，学校买了一些电脑（好像是浪潮牌的），让每个班学习比较好的学生上微机兴趣班。那时的我学习还算拔尖，也是其中一员。但那时懂计算机的老师也没有几个，我们每次上计算机课都是在那里对着DOS黑色的命令行在乱敲键盘。很多细节都记不清了，但那确实是自己计算机的启蒙。</p>
-
-<p>后来上了初中，学校里开设了正规的计算机课，系统也成了Win 3.2、Win 95、Win 98这些。我们那个沿海小城已经有很多家里条件不错的同学有了自己的电脑。自己当时的几个好朋友都是其中一员，他们应该算是自己走上计算机这条路非常关键的人物。和大部分人一样，对电脑的频繁接触都是从游戏开始的。从网吧用软盘拷超级玛丽到学校的电脑上玩，在网吧里玩鹿鼎记、沙丘2000、红警95、雷神之锤、魔兽争霸贯穿了我整个初中生涯。当然，初中的计算机课还是很正规的，老师开始教我们使用Word、Excel、PowerPoint、Frontpage这些软件制作文档、PPT、网页。尤其当时家里条件好的同学会把制作的网页传到免费空间上去，然后还有自己的域名（网易的yeah.net免费域名和空间），在学校里都是风云人物。我看到那些网页真的是挺激动的，觉得就那么几行代码就能出来一个可以让很多人访问的东西真的很神奇。自己也就从编写网页开始了自己的程序员生涯。再加上当时互联网领域的世界首富比尔.盖茨和国内网络三剑客丁磊、王志东、张朝阳在财富榜上的崛起，我在心里默默决定选择程序员做为我以后的职业。这里还要提的是，我们那时候小学是五年，初中是四年，而初三的时候会有一个考高中微机实验班的机会，就是我们市的两所省重点高中会提前录取一批学习比较好的学生，集中在初四这年给大家上计算机相关课程。没什么意外的，自己进入了一中的实验班，这一年应该是自己网页编程技术进步最快的一年，包括给自己班级建立主页、维护学校主页这些。</p>
-
-<p>小学和初中应该是自己计算机的启蒙阶段了。而到了高中，由于学业压力的原因，自己的计算机技术也就停留在能做个静态网页、能用js做点简单的动画效果的地步。说起来，我们高中当时在山东省算是信息学竞赛比较厉害的学校，每年都有不少人靠着这个竞赛保送一些名校。而自己当时由于眼界和胆量的问题是不敢赌这条路的，还是在安安稳稳地好好学习、参加高考。值得欣慰的是，最终自己高考的成绩还算不错，在选择学校时坚持了学计算机的想法，综合考虑选择了西电这所电子领域比较强的学校，以至于很多人在知道我高考的分数和省内的位次后都是很不解我为什么不选一些更好的学校的。这也许就是我很早就知道“要成为什么样的人”促使自己在人生一个关键的转折上做的一个抉择吧。</p>
-
-<p>而后来上了大学直到现在工作多年也就一直沿着这条路走了下来。也挺感谢自己能够那么早就能知道自己想成为一个什么样的人的。至少很多事情都是自己的选择，即使后面有失败、有挫折、有失落，也是自己要对自己负责的事情。</p>
-
-<p>“知道自己想成为什么样的人”延伸出来的，就是现在很多人都会疑惑人生该如何规划？我周围也有不少人会问我这个问题，包括还没上大学的、大学毕业即将进入社会的、在社会打拼好多年仍然迷茫的。基于自己的经历，我想说的是：如果你知道自己想成为什么样的人，那么就根据这个目标去筹划自己的人生就好；如果你不知道，那么在学校就好好学习，学习好会是一个最保险最稳妥的人生路径，在社会上就选择最热的行业，至少就业不成问题，经济收入也比较可观。看看这个社会上普遍意义上的成功人士，除了少数那些单纯靠运气发财的，即使是没有高学历的那些人，他们也都是明确知道自己想成为什么样的人，然后追随这个目标付出有效的努力最终才有了成功的结果。</p>
-
-<p>越早知道自己要成为什么样的人，那么就会越早有自己的规划，从而就会越早地为这个目标付出有效的努力和资源。即使最后的结局没那么完美，自己也不会后悔的。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[持续交付这点事]]></title>
-    <link href="https://www.rowkey.cn/blog/2020/06/15/cd/"/>
-    <updated>2020-06-15T19:29:34+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2020/06/15/cd</id>
-    <content type="html"><![CDATA[<p>持续交付指的是在短周期内完成软件产品，以保证软件保持在随时可以发布的状态。让每一个变更都经过一条自动化的检验流水线，来检查每一个变更的质量，通过就进入下一个阶段。<strong>其不是一种工具，而是一种实践！</strong></p>
-
-<!--more-->
-
-
-<p>持续交付的共识和管理机制如下：</p>
-
-<ul>
-<li><strong>不要阻塞开发人员</strong>，这是实现持续交付的本质理念</li>
-<li>为每个团队指定构建负责人或者发布工程师：优化交付流水线，提升交付效率</li>
-<li>项目状态应该对参与整个过程（包括构建、部署、测试和发布）的所有人都是可见的</li>
-<li>做好风险管理
-
-<ul>
-<li><strong>迭代增量式交付</strong>是有效风险管理的关键</li>
-<li>手工测试环境、试运行环境和生产环境总是需要严格的访问控制</li>
-<li>让风险识别成为每日立会的一部分</li>
-</ul>
-</li>
-<li>做好审计
-
-<ul>
-<li>手工测试环境、试运行环境和生产环境总是需要严格的访问控制：指定谁能够访问“特权”环境。</li>
-<li>要求每次部署都要进行审计，以确切知道到底修改了哪些内容。</li>
-<li>文档自动化、自文档</li>
-</ul>
-</li>
-</ul>
-
-
-<p>接下来先说明实现持续交付的一些基础设施和准备工作，然后从本地开发和自动化构建/部署流水线两方面说明持续交付的具体实现。</p>
-
-<h2>一. 基础设施和准备工作</h2>
-
-<h3>1.1 基础设施和环境管理</h3>
-
-<p>让所有测试环境（包括持续集成环境）都要与生产环境相似</p>
-
-<ul>
-<li>开发人员要把运维人员当做重要用户</li>
-<li>切忌吞噬错误信息</li>
-<li>使用运维团队熟悉的技术：开发人员最早负责创建部署脚本，后面移交给运维团队负责维护</li>
-<li>把创建和维护基础设施需要的所有内容都进行版本控制</li>
-<li>以自动化方式进行配置和部署！</li>
-<li>像对待生产环境一样对待测试环境！</li>
-<li>容器化技术实现不可变基础设施</li>
-</ul>
-
-
-<h3>1.2 配置管理</h3>
-
-<p>版本控制、依赖管理、软件配置管理</p>
-
-<ul>
-<li>各个环境的手工配置 -> 自动化配置</li>
-<li>对所有内容进行版本控制</li>
-<li>指定依赖库的确切版本，不要用快照或者模式匹配版本</li>
-<li>配置文件与二进制文件分离</li>
-</ul>
-
-
-<h3>1.3 测试策略</h3>
-
-<ul>
-<li>创建全面的自动化测试套件：单元测试、组件测试、验收测试，每一种测试的代码覆盖率都高于80%以上</li>
-<li>每次修改都能运行一次自动化测试集合</li>
-<li>分层测试</li>
-</ul>
-
-
-<h3>1.4 数据管理</h3>
-
-<ul>
-<li>把创建和迁移数据库全部变成自动化过程，是部署流程的一个组成部分</li>
-<li>让测试自己创建它们所需的状态，并确保每个测试都独立于其他测试</li>
-<li>对数据库进行版本管理，使用DbDeploy这样的工具管理数据迁移过程的自动化。</li>
-<li>在大多数据情况下，不要在测试中使用生产数据集的副本。?</li>
-<li>数据库回滚和无停机发布
-
-<ul>
-<li>蓝绿部署</li>
-<li>大多数修改应该是增加操作（比如向数据库中增加新表或字段），尽可能不修改已存在的结构</li>
-</ul>
-</li>
-<li>测试数据
-
-<ul>
-<li>测试的独立性、原子性</li>
-<li>其他类型的测试，一定不要使用生产数据库的一个dump，除非有特殊情况</li>
-</ul>
-</li>
-<li>部署流水线中的数据管理
-
-<ul>
-<li>提交测试：快速运行，避免复杂的数据准备</li>
-<li>验收测试：后续阶段可以复用</li>
-<li>容量测试：为测试提供足够的输入数据，可以看做验收测试的重复利用</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>1.5 主干开发</h3>
-
-<p>主干开发的分支模式实现持续交付最好的模式，但为了在主干模式下保持应用可发布，需要做到</p>
-
-<ul>
-<li>每次创建分支，都要认识到它带来的成本</li>
-<li>频繁提交代码合并到主干</li>
-<li>新功能隐藏：功能开关统一管理达到特性隐藏的目的(Togglz?)</li>
-<li>增量开发：将所有的变更都变成一系列的增量式小修改，而且每次小的修改都是可发布的。</li>
-<li>抽象模拟分支（无法使用增量开发）：修缮者模式，使用门面模式隔离待改造代码。</li>
-<li>使用组件，根据不同部分修改的频率对应用程序进行解耦。</li>
-</ul>
-
-
-<h2>二. 本地开发</h2>
-
-<p><strong>让开发者不受阻塞、不受不必要的干扰 -> 持续开发</strong></p>
-
-<p><img src="https://www.rowkey.cn/post_images/dev/localdev.png" alt="" /></p>
-
-<ul>
-<li>确保自动化测试、构建部署脚本都能够在开发机上运行</li>
-<li>本地自动化测试：预测试提交pretested commit/个人构建personal build/试飞构建preflight build<strong>【保证本地开发所有验证方式与流水线上的验证方式一致，提高开发人员在本地发现问题的能力】</strong></li>
-<li>提交前在本地运行所有的提交测试，等提交测试通过后再继续工作</li>
-<li>在可控的环境上部署开发的应用程序</li>
-<li>修复破坏应用程序的任意修改是最高优先级的任务，<strong>构建失败后不要提交新代码</strong></li>
-</ul>
-
-
-<h3>2.1 六步提交法</h3>
-
-<p>规范开发习惯。主动提前集成；小步提交、完整代码、不影响已有功能；关注代码规范、动静态扫描问题</p>
-
-<ul>
-<li>检出最近成功的代码</li>
-<li>修改代码</li>
-<li>第一次个人构建</li>
-<li>第二次个人构建： 拉取主干代码集成后本地测试</li>
-<li>提交代码到主干</li>
-<li>提交构建</li>
-</ul>
-
-
-<p>提交不影响已有功能！！</p>
-
-<ul>
-<li>增量迭代开发</li>
-<li>抽象模拟分支</li>
-<li>特性隐藏</li>
-</ul>
-
-
-<h3>2.2 规范化、自动化核心步骤</h3>
-
-<p><img src="https://www.rowkey.cn/post_images/dev/localdev-detail.png" alt="" /></p>
-
-<ul>
-<li>提高开发环境的效率: 环境获取的服务化、自助化；环境的一体化、一致性
-
-<ul>
-<li>本地开发环境
-
-<ul>
-<li>共享机器池</li>
-<li>Git提交日志插入截图：Share Bucket+Google Drive</li>
-<li>远程开发机器/Web IDE</li>
-<li>依赖的服务
-
-<ul>
-<li>维护一个单独的环境，让开发环境接入</li>
-<li>服务虚拟化工具来模拟依赖的服务，Mountbank、WireMock</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>联调环境：提供机器池，确保有两套空闲环境，自助化提供给开发者使用</li>
-</ul>
-</li>
-<li>规范化、自动化本地检查
-
-<ul>
-<li>语法检查、规范检查、单元测试：Maven/Gradle插件</li>
-</ul>
-</li>
-<li>建设并自动化代码入库前的检查流程
-
-<ul>
-<li>持续集成前的必要工作</li>
-<li>代码审查</li>
-</ul>
-</li>
-</ul>
-
-
-<h3>2.3 代码审查</h3>
-
-<p>人工代码检查</p>
-
-<ul>
-<li>统一并明确代码审查标准</li>
-<li>统一并明确日志提交规范</li>
-<li>传达团队的代码规则、质量基准</li>
-<li>LGTM（Looks good to me）</li>
-</ul>
-
-
-<p><strong>方式</strong></p>
-
-<ul>
-<li>代码入库前的设计时检查：在设计阶段进行代码审查
-
-<ul>
-<li>代码入库前门禁检查，需要考虑灵活性，提供绕过机制</li>
-<li>代码入库后检查</li>
-</ul>
-</li>
-<li>工具辅助的线下异步审查：依赖于Gitlab、Gerrit、Code Climate Engines，一对一审查</li>
-<li>面对面审查：架构问题、结对编程</li>
-<li>代码增量审查/代码全量审查</li>
-<li>团队审查：适合专项讨论</li>
-<li>代码审查计入工作量和绩效考评</li>
-</ul>
-
-
-<p><strong>代码提交规范</strong></p>
-
-<ul>
-<li>原子提交</li>
-<li>提交日志规范</li>
-</ul>
-
-
-<p><strong>原则</strong></p>
-
-<ul>
-<li>互相尊重</li>
-<li>基于讨论</li>
-</ul>
-
-
-<p>相关资料可见：<a href="https://github.com/google/eng-practices/blob/master/review/index.md">谷歌代码审查指南</a></p>
-
-<h3>2.4 快速反馈、增量开发</h3>
-
-<blockquote><p>边开发边验证</p></blockquote>
-
-<ul>
-<li>提高运行静态检查和测试的方便性、灵活性：Maven/Gradle插件</li>
-<li>提供沙盒环境方便验证和测试
-
-<ul>
-<li>容器</li>
-<li>小范围的增量构建和验证？</li>
-<li>测试数据：直接使用生产环境、生产数据的导出并脱敏</li>
-</ul>
-</li>
-<li>实时检验工具：IDE实时检验、Liveload</li>
-</ul>
-
-
-<h2>三. 自动化构建/部署流水线</h2>
-
-<p>部署流水线就是对软件交付流程的建模。</p>
-
-<p><img src="https://www.rowkey.cn/post_images/dev/deploy-pipeline.png" alt="" /></p>
-
-<p>实现部署流水线的一些共识如下：</p>
-
-<ul>
-<li><strong>流水线建设原则</strong>
-
-<ul>
-<li>测试尽量完整，保证产品质量->完备的测试机制</li>
-<li>运行速度够快->尽早反馈、提高交付速度</li>
-<li>使用的所有环境尽量和生产环境一致->复现问题</li>
-</ul>
-</li>
-<li>所有相关角色提供构建状态可视化：持续交付流水线大屏显示</li>
-<li>存储构建结果报告</li>
-<li>只要有环节失败，就停止整个流水线！</li>
-<li>制品库是特殊的版本控制系统，不需要保存所有版本。</li>
-<li>为部署流水线的每个阶段创建脚本：脚本是系统中的一等公民</li>
-<li>增量式实现流水线：如果流程中有手工操作部分，就在流水线中为它创建一个占位符。</li>
-</ul>
-
-
-<p>接下来从流水线的各个阶段分别说明。</p>
-
-<h3>3.1 提交阶段</h3>
-
-<p>从技术角度上断言整个系统是可以工作的。</p>
-
-<ul>
-<li><strong>编译、单元测试、组装打包、代码分析</strong></li>
-<li>少于五分钟，一定不要超过十分钟</li>
-<li>提交测试：单元测试、组件测试</li>
-<li>只有在某个错误让提交阶段的其他任务无法执行时，才停下来否则就直至提交阶段全部运行完后，汇总所有的错误和失败报告</li>
-<li>此阶段的结果：结果报告、二进制包、元数据</li>
-</ul>
-
-
-<h3>3.2 自动化验收测试</h3>
-
-<p>验证一个用户故事或需求的验收条件是否被满足。针对业务！</p>
-
-<ul>
-<li><strong>配置环境、部署二进制文件、冒烟测试、验收测试</strong></li>
-<li>令验收测试失败的构建版本不能被部署</li>
-<li>先部署再测试，重用部署脚本。</li>
-<li>类生产环境运行验收测试：大部分是功能验收测试，关注功能正确性</li>
-<li>开发人员能够在自己的开发环境中运行自动化验收测试</li>
-<li>测试的关注点在系统的行为，而非数据本身。所以抵制使用生产数据的备份做为验收测试</li>
-<li>验收测试的性能不是主要考虑问题，重点在测试的全面性。</li>
-<li>正确地做验收测试：不要幼稚地对照着验收测试条件，盲目地把所有东西都自动化。</li>
-<li>验收测试可以看作所有后续测试阶段（包括容量测试）的某种模板：从部署准备开始，然后核实环境和应用程序都已被正确配置和部署，最后执行测试。</li>
-</ul>
-
-
-<h3>3.3 后续测试</h3>
-
-<ul>
-<li>手工测试：探索性测试、易用性测试</li>
-<li>非功能测试：性能、安全、可维护、可扩展</li>
-</ul>
-
-
-<h3>3.4 部署发布</h3>
-
-<p>此阶段的触发不需要自动，测试或者运维人员可以做到自服务即可</p>
-
-<ul>
-<li>对不同环境采用同一部署方式：使用同样的脚本向所有环境部署，包括开发机器</li>
-<li>一键式部署是对环境进行修改的唯一途径。</li>
-<li>部署测试：对部署进行冒烟测试，验证部署是否成功，证明其部署的可靠性</li>
-<li>确保部署流程是幂等的</li>
-<li>只有通过了自动化构建、测试和部署的那些修改才能发布！</li>
-<li>明确每个环境的部署和发布都是由谁负责</li>
-<li>发布计划：第一次发布，产出一些文档、自动化脚本或其他形式的流程步骤</li>
-<li>首次部署：首个迭代的主要目标之一就是在迭代结束时，让部署流水线的前几个阶段可以运行，实现部署流水线的“抽水泵”。
-
-<ul>
-<li>部署流水线的提交阶段。</li>
-<li>一个用于部署的类生产环境。</li>
-<li>通过一个自动化过程获取在提交阶段中生成的二进制包，并将其部署到这个类生产环境中。</li>
-<li>一个简单的冒烟测试，用于验证本次部署是正确的，并且应用程序正在运行。</li>
-</ul>
-</li>
-<li>对发布过程进行建模并让构建晋级
-
-<ul>
-<li>为了达到发布质量，一个构建版本要通过哪些测试阶段</li>
-<li>每个阶段需要设置什么样的晋级门槛或需要什么样的签字许可。</li>
-<li>对于每个晋级门槛来说，谁有权批准让某个构建通过该阶段。</li>
-</ul>
-</li>
-<li>将每次已通过验收测试的变更版本部署在试运行环境中</li>
-<li>紧急修复: 紧急修复版本也要走完标准的部署流水线，与其他代码变更没什么区别。
-
-<ul>
-<li>结对做！</li>
-<li>有时候回滚比部署新的修复版本更划算。</li>
-</ul>
-</li>
-<li>持续部署：每当有版本通过自动化测试之后，就将其部署到生产环境中。【需要依赖强大的自动化测试机制】</li>
-</ul>
-
-
-<h3>3.5 度量</h3>
-
-<p>每次提交后都产生关于这些度量的报告和可视化效果并保存起来</p>
-
-<ul>
-<li>周期时间（cycle time），从决定要做某个特性开始，直到把这个特性交付给用户的这段时间</li>
-<li>自动化测试覆盖率</li>
-<li>代码库特征</li>
-<li>缺陷数量</li>
-<li>交付速度</li>
-<li>提交版本库次数</li>
-<li>构建次数</li>
-<li>构建失败次数</li>
-<li>构建所花时间</li>
-</ul>
-
-
-<h2>四. 其他</h2>
-
-<h3>4.1 DevOps</h3>
-
-<p>Devops是这些年很流行的一个概念，其目的就是打通研发和运维环节，以达到全员目标一致，保障软件高效交付。</p>
-
-<p><img src="https://www.rowkey.cn/post_images/dev/devops.png" alt="" /></p>
-
-<ul>
-<li>职能团队提供平台和工具，让全栈工程师能够自己处理端到端的工作，实现DevOps。</li>
-<li>全栈开发：工程师不再只是对某一个单一职能负责，而是对最终产品负责。</li>
-</ul>
-
-
-<h3>4.2 信息溯源</h3>
-
-<p>打通研发流程中流动的多种标识信息，以方便相关人员快速获取需要的信息，提高工作效率。包括任务工单、代码提交号、版本号、代码审查 ID、测试用例 ID、Bug ID。</p>
-
-<ul>
-<li>制品与源代码版本管理：放置在制品包中的元数据，体现源代码版本号。</li>
-<li>源代码与需求/Bug的版本关联: 提交代码时需要在注释里注明需求ID、测试用例ID等。</li>
-</ul>
-
-
-<h2>五. 参考资料</h2>
-
-<ul>
-<li><a href="https://book.douban.com/subject/6862062/">《持续交付》</a></li>
-<li><a href="https://book.douban.com/subject/30419555/">《持续交付2.0》</a></li>
 </ul>
 
 ]]></content>

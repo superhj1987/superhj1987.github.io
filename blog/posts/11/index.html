@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ SpringMVC的controller传递HttpServletResponse参数的那点事 @RequestMapping( &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 关于SpringMVC中model的attribute无法指定别名的解决方案 最近由于项目需要，发现spring &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -127,6 +127,142 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/01/21/springm-mvc-model-attribute-alias/">关于SpringMVC中model的attribute无法指定别名的解决方案</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-21T12:00:00+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近由于项目需要，发现spring mvc在绑定参数时有这么一个缺陷。</p>
+
+<p><strong>Url</strong>: <a href="http://localhost:8080/api/test?user_name=testUser">http://localhost:8080/api/test?user_name=testUser</a></p>
+
+<p><strong>Controller</strong>:</p>
+
+<pre>
+@Controller
+@RequestMapping("/api")
+public class ApiController extends BaseController {
+
+    @RequestMapping(value = "/test", headers = "Accept=application/json")
+    public void authUser(ModelMap modelMap, Account acc) {
+        ResultPack.packOk(modelMap);
+    }
+}
+
+public class Account{
+    private static final long serialVersionUID = 750752375611621980L;
+
+    private long id;
+    private String userName;
+    private String password;
+    private AccountType type = AccountType.ADMIN;
+    private long timeTag;
+    private int status = 1;
+    ...
+    ...
+}
+</pre>
+
+
+<p>user_name无法映射到acc的userName上。如果使用json的方式，可以使用JsonProperty注解来解决。否则，spring貌似没提供解决方案。</p>
+
+<p>于是追踪了一下spring mvc的源代码，发现可以通过重写ServletModelAttributeMethodProcessor来支持这个功能。</p>
+
+<p><strong>Github</strong>:  <a href="https://github.com/superhj1987/spring-mvc-model-attribute-alias">https://github.com/superhj1987/spring-mvc-model-attribute-alias</a></p>
+</div>
+  
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2015/01/15/2014-final-note/">工作总结@2014</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2015-01-15T16:08:48+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>突然发觉已经是2015年的1月15号了，即兴补上一篇2014年的总结吧。</p>
+
+<p>对自己来说，今年最大的事情莫过于离开一座城市，到达另一座城市，开始了新的职业生涯。</p>
+
+<p>进入新的公司，一个创业公司，截然不同的运作方式让我一开始有点措手不及。相比之前在大公司，小公司更需要一个人的快速成长以及自我约束，以及那种随叫随到、不怕脏累的奋斗精神。而技术层面，要尽最大化压榨硬件资源，用有限的硬件资源达到最大的性能。这些都让自己的架构方式和代码编写不得不去改变、去适应，这也算是一种成长吧。公司的基础架构、公共组件、项目管理、技术体系、项目架构都是一个初级的水平，改变这些是一个很难很长的路，但又不得不做。到现在，在做这些改变的过程中，自己的基础知识得到了巩固、架构能力也有了一定的提升，技术视野也开阔了一些。熟悉了公司的流程和整体的氛围，也算融入了这个团队，要做的还有很多，阻力也有很多。一切都在逼迫自己去学习、去思考、去提高。这也是与以前相比，给自己最大动力的事情。</p>
+
+<p>2015年，工作上希望自己能做到这些</p>
+
+<ul>
+<li>合理设计并实现整个公司的基础架构</li>
+<li>构建合理的项目管理流程、监督机制</li>
+<li>提升团队的整体水平</li>
+<li>保证产品的研发进度以及线上稳定性</li>
+<li>招一些优秀的人加入</li>
+</ul>
+
+
+<p>自身方面，希望能做到这些：</p>
+
+<ul>
+<li>提升自身的技术水平和视野</li>
+<li>深入学习一门技术：docker netty kafka rabbitmq elasticsearch solr</li>
+<li>阅读至少五本非技术书籍</li>
+</ul>
+
+
+<p>Stay hungry,stay foolish!</p>
+</div>
+  
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -571,102 +707,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2013/11/11/web-security-notes/">《白帽子讲Web安全》读书笔记</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-11-11T21:30:20+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
-
-<p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
-
-<h3>一、世界观安全</h3>
-
-<ol>
-<li>黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客，后者则指的是工作在反黑客领域的安全技术专家。</li>
-<li>安全问题的本质是信任的问题。并且安全是一个持续的过程，并不存在所谓的银弹。</li>
-<li>安全三要素：机密性、完整性、可用性</li>
-<li>一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。</li>
-<li>白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。</li>
-</ol>
-
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2013/11/11/web-security-notes/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2013/07/06/no-name/">杂感一篇</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-07-06T16:57:45+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最近两部关于青春的片子《致青春》和《中国合伙人》，对于前者这种爱情的东西，从某个时间段开始，我早已不再关注。后者讲述的奋斗、梦想，却是我特别想看一看的。虽然我知道成功学这东西，完全是一群成功了的人在吹嘘当年自己有多苦逼，后来变得多NB。但是他们的成功却的确能触动自己心里的那根神经，唤起自己当初的激情。</p>
-
-<p>十几年前，自己无意之中说出的一句话，到现在也算一直坚持了下来。虽然没有功成名就，但到现在还是不至于令自己失望的。平淡的日子往往让自己忘了自己当初的梦想，也忘了走向它的这条路。今天看《中国合伙人》这部影片又像当初看《社交网络》一样让自己全身瞬间充满了能量，同时也让自己拷问着自己：还坚持当初的梦想吗？正在为梦想努力吗？努力有收获吗？其实，现实中大多数人在说自己梦想的时候都能侃侃而谈，而真正能付诸于努力的人却寥寥可数。为梦想而努力，结果不一定是成功，但没有为此而努力过，那也许会成为一辈子最大的憾事。</p>
-
-<p>电影里三个人的友情是让我感触颇深的另一个地方。人的一生会不停地结交到各种朋友，但最后真正能称得上<strong>朋友</strong>的人其实就那么几个人。和他们在一起，你会很确定不管你怎么样，他们都不会嫌弃你；不管你跟他们说了什么话，他们也不会介意。心情不好的时候，一个电话，他们不管有多忙也会立马赶到你的身旁。其实，以前的自己挺自私的，有点像孟晓峻，自从经历了某些事情之后，我才体会到友情是多么的珍贵，也才弥足珍惜现在的朋友们。</p>
-</div>
-  
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -740,6 +780,14 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/08/25/taibaijinxing/">《太白金星有点烦》读后感</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2025/02/23/deepseek/">DeepSeek简单分享</a>
       	</li>
     	
@@ -769,14 +817,6 @@
     	
      	<li>
       	  <a href="/blog/2023/11/30/openai-func/">Langchain代理和OpenAI函数调用的区别</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2023/07/30/build-gpt-chatbot/">【译】如何基于开源技术构建类似ChatGPT的聊天机器人</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记-Web3是什么？</a>
       	</li>
     	
 	</ul>

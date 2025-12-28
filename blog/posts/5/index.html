@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ Kotlin语法简明指南 Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。 &hellip;">
+  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 缓存这些事 最新版本可见:https://github.com/superhj1987/pragmatic-java-engineer/ &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -127,6 +127,94 @@
         </div>
       </article>
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2019/02/25/cache/">缓存这些事</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-02-25T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter5-datastore/cache.md</a></strong></p>
+
+<p>缓存是为了弥补持久化存储服务如数据库的性能缓慢而出现的一种将数据存储在内存中，从而大大提高应用性能的服务。如缓存五分钟法则所讲：如果一个数据频繁被访问，那么就应该放内存中。这里的缓存就是一种读写效率都非常高的存储方案，能够应对高并发的访问请求，通常情况下也不需要持久化的保证。但相对其他存储来说，缓存一般是基于内存的，成本比较昂贵，因此不能滥用。</p>
+
+<p>缓存可以分为：本地缓存和分布式缓存。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2019/02/25/cache/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2019/01/26/my2018/">我的2018</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2019-01-26T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>此文是我在部门内的一次公开信（经过脱敏），想法来自于《原则》和《谷歌是如何运营公司的》两本书。极度求真、 极度透明的原则是一个想要做出大事业的公司应该具有的气度，而对所有同事能够客观地陈述自己的得与失，并欢迎吐槽，这不仅仅是真诚文化、极度透明原则的体现，也是对自己的一种压力和驱动。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2019/01/26/my2018/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -474,104 +562,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/05/12/java-tech-overview/">Java后端技术概览</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-05-12T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到<a href="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png">Java后端技术概览图</a>。</p>
-
-<p><img src="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/chapter1-servertech/media/tech-tree.png" alt="" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/05/12/java-tech-overview/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/04/25/arch-usage/">架构简明指南</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-04-25T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md</a></strong></p>
-
-<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。</p>
-
-<p>《Clean Architecture》一书中对于软件架构目的的解释：</p>
-
-<blockquote><p>The goal of software architecture is to miminize the human resources required to build and maintain the required system.</p></blockquote>
-
-<p>即：软件架构的目的就是将构建和维护系统需要的人力成本降到最低。</p>
-
-<p>因此，可以得出架构设计的关键思维就是判断和取舍（程序设计的关键思维是逻辑和实现），即如何选择技术、组合技术使得需要的人力资源最少。</p>
-
-<p>需要注意的一点是，脱离业务谈架构是不合理的，技术架构及其演进都是业务目标驱动的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/04/25/arch-usage/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -645,6 +635,14 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/08/25/taibaijinxing/">《太白金星有点烦》读后感</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2025/02/23/deepseek/">DeepSeek简单分享</a>
       	</li>
     	
@@ -674,14 +672,6 @@
     	
      	<li>
       	  <a href="/blog/2023/11/30/openai-func/">Langchain代理和OpenAI函数调用的区别</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2023/07/30/build-gpt-chatbot/">【译】如何基于开源技术构建类似ChatGPT的聊天机器人</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2023/05/29/web3/">Web3学习笔记-Web3是什么？</a>
       	</li>
     	
 	</ul>

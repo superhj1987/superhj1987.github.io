@@ -1,0 +1,681 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>AI大事记@2025 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="AI大事记@2025 Posted by HJ in ai 接近2025年底，概览总结了一下2025这一年的一些AI关键事件。 时间 事项 备注 2025.12.16 OpenAI GPT-Image-1.5 不管是从零生成，还是对图片进行局部编辑，更接近你脑子里想的那个结果； &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2025/12/27/ai-2025/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="genai-nav" href="/blog/categories/genai">GenAI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="java-nav" href="/blog/categories/java">Java</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">AI大事记@2025</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2025-12-27T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ai/'>ai</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>接近2025年底，概览总结了一下2025这一年的一些AI关键事件。</p>
+
+<hr />
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> 时间 </th>
+<th style="text-align:left;"> 事项 </th>
+<th style="text-align:left;"> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> <strong>2025.12.16</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-Image-1.5</strong> </td>
+<td style="text-align:left;"> 不管是从零生成，还是对图片进行局部编辑，更接近你脑子里想的那个结果；并且生成速度最高可达 4 倍提升。实测：比配套Nano Banana Pro强。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.12.11</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT 5.2</strong> </td>
+<td style="text-align:left;"> GPT-5.2 能够在真实复杂工作流程中高效协作，从代码分析、财务建模、工程设计，到研究论文分析、实验结果推理，都能提供高质量辅助。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.21</strong> </td>
+<td style="text-align:left;"> <strong>Google Nano Banana Pro</strong><br><em>(aka Gemini 3.0 Pro Image)</em> </td>
+<td style="text-align:left;"> 全球首个“推理至像引擎”，不仅是绘画，更是理解物理规律与空间逻辑。作为 Nano Banana 的旗舰升级版，它像人类一样“思考”和“规划”场景，生成前所未有的逻辑一致性，完美文本和高分辨率的视觉作品。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.16</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.0 pro</strong> </td>
+<td style="text-align:left;"> 全面高刷。同时发布Antigravity 编程IDE，生成式前端UI能力遥遥领先，可以快速实现各种交互式H5应用。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.12</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT 5.1</strong> </td>
+<td style="text-align:left;"> 将GPT-5 和 GPT-5 Mini 合并为一个能适应问题难度的自适应调整思考用量的模型。相比GPT5，语气更亲切、更幽默，更善于遵循指令。整体性能介于GPT-5 和 GPT-5 Mini 之间。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.10.16</strong> </td>
+<td style="text-align:left;"> <strong>Google Veo 3.1</strong> </td>
+<td style="text-align:left;"> 主打更强叙事与音频控制、音乐韵律与多参考图拼接，接入 Gemini API与Vertex AI。Flow与Gemini可用。可合成多人物场景、语音同步，片段最长约146秒；规格至1080p/24fps。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.10.01</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI Sora2</strong> </td>
+<td style="text-align:left;"> 非常好的物理世界理解能力，同时推出了Sora APP，定位AI短影音。号称视频领域的GPT-3.5时刻。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.09.09</strong> </td>
+<td style="text-align:left;"> <strong>字节发布 Seedream 4.0</strong> </td>
+<td style="text-align:left;"> 定位“生成与编辑一体化”专业工具。编辑能力强甚至部分超过nano banana。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.27</strong> </td>
+<td style="text-align:left;"> <strong>Google Nano Banana</strong><br><em>(aka Gemini 2.5 Flash Image)</em> </td>
+<td style="text-align:left;"> 具有极好的编辑能力，能够多图融合、强一致性，替代GPT4o成为图片编辑的王者。SOTA of 图像模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.26</strong> </td>
+<td style="text-align:left;"> <strong>通义万相 Wan2.2-S2V-14B</strong> </td>
+<td style="text-align:left;"> 一个可以跑动的14B视频模型，仅需一张图片和一段音频，即可生成面部表情自然、口型一致、肢体动作丝滑的电影级叙事/人视频。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.26</strong> </td>
+<td style="text-align:left;"> <strong>即梦AI智能多模</strong> </td>
+<td style="text-align:left;"> 传统的拼接是两个团队，各干各的，最后硬拼在一起。而堆叠多帧是一个全真全参数带上下文的团队，大家各让一步处理，因此能做到四宽的一致性。堆叠多帧背后的底层逻辑：即一体的全局考虑。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.21</strong> </td>
+<td style="text-align:left;"> <strong>GenSpark AI Designer</strong> </td>
+<td style="text-align:left;"> 一款革命性的AI设计工具，能够一键生成完整的多屏设计方案，涵盖Logo、包装、网站设计等多个领域，极大地降低了设计门槛。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.20</strong> </td>
+<td style="text-align:left;"> <strong>DeepSeek V3.1</strong> </td>
+<td style="text-align:left;"> 代码能力极高，但文本能力并未提高，甚至有某些下降。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.19</strong> </td>
+<td style="text-align:left;"> <strong>Qwen-Image-Edit</strong> </td>
+<td style="text-align:left;"> 全能图像编辑。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.08</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT5</strong> </td>
+<td style="text-align:left;"> 一个统一的系统，包含一个能够解决大多数问题的智能快速模型、一个能够解决复杂长问题的深度推理模型，以及一个实时语音器。可以根据对话类型、复杂性、工具需求判断意图并快速决定使用哪个模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.06</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI 开源模型</strong><br>GPT-oss-120b和GPT-oss-20b </td>
+<td style="text-align:left;"> 性能与兼容性兼具，非英文表现不好。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.05</strong> </td>
+<td style="text-align:left;"> <strong>Google Genie3</strong> </td>
+<td style="text-align:left;"> 新一代生成式世界模型——Genie3。根据文本创造一个可以实时交互的世界。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.04</strong> </td>
+<td style="text-align:left;"> <strong>Qwen-image</strong> </td>
+<td style="text-align:left;"> 通义千问团队开源的首个图像生成基础模型，在解决传统文生图模型文字渲染难题上实现了突破性进展，尤其在中文场景下表现突出。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.23</strong> </td>
+<td style="text-align:left;"> <strong>Qwen3-coder</strong> </td>
+<td style="text-align:left;"> 拥有卓越的代码Agent能力，在Agentic Coding、Agentic Browser-Use 和 Foundational Coding Tasks 上均取得了开源模型的 SOTA 效果。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.12</strong> </td>
+<td style="text-align:left;"> <strong>Kimi K2</strong> </td>
+<td style="text-align:left;"> 将模型权重代码全量开源。大模型竞技场LMArena排行榜中，Kimi K2综合排名斩获全球第五，在开源大模型中位居全球第一。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.09</strong> </td>
+<td style="text-align:left;"> <strong>xAI Grok 4</strong> </td>
+<td style="text-align:left;"> 极其激进的快速迭代。推出 Grok 4 Heavy，引入多智能体架构，针对复杂科研任务优化，算力规模再创新高。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.05</strong> </td>
+<td style="text-align:left;"> <strong>Gemini CLI</strong> </td>
+<td style="text-align:left;"> 开源命令行界面工具，它将谷歌强大的 Gemini AI 模型直接集成到开发者常用的终端环境中，更擅长服务于编程。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.02</strong> </td>
+<td style="text-align:left;"> <strong>Flux图像模型</strong><br>Kontext Dev模型正式开始 </td>
+<td style="text-align:left;"> 强一致性、强理解力。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.24</strong> </td>
+<td style="text-align:left;"> <strong>Imagen4</strong> </td>
+<td style="text-align:left;"> 显著改善文本渲染效果，进一步提升了文本转图像的生成质量。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.22</strong> </td>
+<td style="text-align:left;"> <strong>Gemini 2.5 Flash/Pro</strong> </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.11</strong> </td>
+<td style="text-align:left;"> <strong>Seedance1.0</strong> </td>
+<td style="text-align:left;"> 字节跳动推出的一款高性能和推理极致的视频语言生成模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.05.23</strong> </td>
+<td style="text-align:left;"> <strong>Claude code</strong> </td>
+<td style="text-align:left;"> 智能化辅助写代码工具，旨在帮助开发者通过自然语言命令理解、浏览和修改整个代码库，前端编程领域无人能敌。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.05.21</strong> </td>
+<td style="text-align:left;"> <strong>Veo3</strong> </td>
+<td style="text-align:left;"> 首个可生成视频背景音效模型，体会画面感、配合感、生成人物对话，物理模拟与口型同步表现优异。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.04.29</strong> </td>
+<td style="text-align:left;"> <strong>Qwen3</strong> </td>
+<td style="text-align:left;"> 国产最强开源模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025年5月</strong> </td>
+<td style="text-align:left;"> <strong>Loverr设计Agent</strong> </td>
+<td style="text-align:left;"> 2025年7月28日正式上线。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.04.05</strong> </td>
+<td style="text-align:left;"> <strong>Meta Llama 4</strong> </td>
+<td style="text-align:left;"> Meta发布开源模型 Llama 4（包含Scout和Maverick版本）。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.03.26</strong> </td>
+<td style="text-align:left;"> <strong>GPT4o改图能力</strong> </td>
+<td style="text-align:left;"> 一致性能力好，响应慢。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.03.06</strong> </td>
+<td style="text-align:left;"> <strong>通用Agent</strong><br>Manus, GenSpark, Flowith </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.02.17</strong> </td>
+<td style="text-align:left;"> <strong>xAI Grok 3</strong> </td>
+<td style="text-align:left;"> Elon Musk 发布 Grok 3，宣称其为“地球上最聪明的AI”。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.01.20</strong> </td>
+<td style="text-align:left;"> <strong>DeepSeek R1</strong> </td>
+<td style="text-align:left;"> 国产开源推理模型，媲美OpenAI o1。 </td>
+</tr>
+</tbody>
+</table>
+
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2025/08/25/taibaijinxing/" title="下一篇: 《太白金星有点烦》读后感">《太白金星有点烦》读后感 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/08/25/taibaijinxing/">《太白金星有点烦》读后感</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/02/23/deepseek/">DeepSeek简单分享</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2024/06/05/usa-ai/">美国AI之旅</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2024/04/08/codertocto/">CTO都必须是程序员出身吗？为什么架构师做不了CTO？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2024/04/07/different-cto/">不同的CTO角色 by Werner Vogels (Amazon CTO)</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2024/03/27/ai-video/">如何使用AI生成长视频？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2024/02/01/ai/">AI技术概览（PPT版）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2024/01/27/mythought/">这三年的一些感悟</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2023/11/30/openai-func/">Langchain代理和OpenAI函数调用的区别</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2025 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "AI大事记@2025",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

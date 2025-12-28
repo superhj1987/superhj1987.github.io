@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
+  <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2025-12-28T11:01:23+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
+  <author>
+    <name><![CDATA[HJ]]></name>
+    <email><![CDATA[superhj1987@126.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[AI大事记@2025]]></title>
+    <link href="https://www.rowkey.cn/blog/2025/12/27/ai-2025/"/>
+    <updated>2025-12-27T19:29:34+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2025/12/27/ai-2025</id>
+    <content type="html"><![CDATA[<p>接近2025年底，概览总结了一下2025这一年的一些AI关键事件。</p>
+
+<hr />
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> 时间 </th>
+<th style="text-align:left;"> 事项 </th>
+<th style="text-align:left;"> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> <strong>2025.12.16</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-Image-1.5</strong> </td>
+<td style="text-align:left;"> 不管是从零生成，还是对图片进行局部编辑，更接近你脑子里想的那个结果；并且生成速度最高可达 4 倍提升。实测：比配套Nano Banana Pro强。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.12.11</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT 5.2</strong> </td>
+<td style="text-align:left;"> GPT-5.2 能够在真实复杂工作流程中高效协作，从代码分析、财务建模、工程设计，到研究论文分析、实验结果推理，都能提供高质量辅助。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.21</strong> </td>
+<td style="text-align:left;"> <strong>Google Nano Banana Pro</strong><br><em>(aka Gemini 3.0 Pro Image)</em> </td>
+<td style="text-align:left;"> 全球首个“推理至像引擎”，不仅是绘画，更是理解物理规律与空间逻辑。作为 Nano Banana 的旗舰升级版，它像人类一样“思考”和“规划”场景，生成前所未有的逻辑一致性，完美文本和高分辨率的视觉作品。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.16</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.0 pro</strong> </td>
+<td style="text-align:left;"> 全面高刷。同时发布Antigravity 编程IDE，生成式前端UI能力遥遥领先，可以快速实现各种交互式H5应用。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.11.12</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT 5.1</strong> </td>
+<td style="text-align:left;"> 将GPT-5 和 GPT-5 Mini 合并为一个能适应问题难度的自适应调整思考用量的模型。相比GPT5，语气更亲切、更幽默，更善于遵循指令。整体性能介于GPT-5 和 GPT-5 Mini 之间。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.10.16</strong> </td>
+<td style="text-align:left;"> <strong>Google Veo 3.1</strong> </td>
+<td style="text-align:left;"> 主打更强叙事与音频控制、音乐韵律与多参考图拼接，接入 Gemini API与Vertex AI。Flow与Gemini可用。可合成多人物场景、语音同步，片段最长约146秒；规格至1080p/24fps。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.10.01</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI Sora2</strong> </td>
+<td style="text-align:left;"> 非常好的物理世界理解能力，同时推出了Sora APP，定位AI短影音。号称视频领域的GPT-3.5时刻。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.09.09</strong> </td>
+<td style="text-align:left;"> <strong>字节发布 Seedream 4.0</strong> </td>
+<td style="text-align:left;"> 定位“生成与编辑一体化”专业工具。编辑能力强甚至部分超过nano banana。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.27</strong> </td>
+<td style="text-align:left;"> <strong>Google Nano Banana</strong><br><em>(aka Gemini 2.5 Flash Image)</em> </td>
+<td style="text-align:left;"> 具有极好的编辑能力，能够多图融合、强一致性，替代GPT4o成为图片编辑的王者。SOTA of 图像模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.26</strong> </td>
+<td style="text-align:left;"> <strong>通义万相 Wan2.2-S2V-14B</strong> </td>
+<td style="text-align:left;"> 一个可以跑动的14B视频模型，仅需一张图片和一段音频，即可生成面部表情自然、口型一致、肢体动作丝滑的电影级叙事/人视频。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.26</strong> </td>
+<td style="text-align:left;"> <strong>即梦AI智能多模</strong> </td>
+<td style="text-align:left;"> 传统的拼接是两个团队，各干各的，最后硬拼在一起。而堆叠多帧是一个全真全参数带上下文的团队，大家各让一步处理，因此能做到四宽的一致性。堆叠多帧背后的底层逻辑：即一体的全局考虑。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.21</strong> </td>
+<td style="text-align:left;"> <strong>GenSpark AI Designer</strong> </td>
+<td style="text-align:left;"> 一款革命性的AI设计工具，能够一键生成完整的多屏设计方案，涵盖Logo、包装、网站设计等多个领域，极大地降低了设计门槛。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.20</strong> </td>
+<td style="text-align:left;"> <strong>DeepSeek V3.1</strong> </td>
+<td style="text-align:left;"> 代码能力极高，但文本能力并未提高，甚至有某些下降。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.19</strong> </td>
+<td style="text-align:left;"> <strong>Qwen-Image-Edit</strong> </td>
+<td style="text-align:left;"> 全能图像编辑。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.08</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT5</strong> </td>
+<td style="text-align:left;"> 一个统一的系统，包含一个能够解决大多数问题的智能快速模型、一个能够解决复杂长问题的深度推理模型，以及一个实时语音器。可以根据对话类型、复杂性、工具需求判断意图并快速决定使用哪个模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.06</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI 开源模型</strong><br>GPT-oss-120b和GPT-oss-20b </td>
+<td style="text-align:left;"> 性能与兼容性兼具，非英文表现不好。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.05</strong> </td>
+<td style="text-align:left;"> <strong>Google Genie3</strong> </td>
+<td style="text-align:left;"> 新一代生成式世界模型——Genie3。根据文本创造一个可以实时交互的世界。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.08.04</strong> </td>
+<td style="text-align:left;"> <strong>Qwen-image</strong> </td>
+<td style="text-align:left;"> 通义千问团队开源的首个图像生成基础模型，在解决传统文生图模型文字渲染难题上实现了突破性进展，尤其在中文场景下表现突出。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.23</strong> </td>
+<td style="text-align:left;"> <strong>Qwen3-coder</strong> </td>
+<td style="text-align:left;"> 拥有卓越的代码Agent能力，在Agentic Coding、Agentic Browser-Use 和 Foundational Coding Tasks 上均取得了开源模型的 SOTA 效果。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.12</strong> </td>
+<td style="text-align:left;"> <strong>Kimi K2</strong> </td>
+<td style="text-align:left;"> 将模型权重代码全量开源。大模型竞技场LMArena排行榜中，Kimi K2综合排名斩获全球第五，在开源大模型中位居全球第一。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.09</strong> </td>
+<td style="text-align:left;"> <strong>xAI Grok 4</strong> </td>
+<td style="text-align:left;"> 极其激进的快速迭代。推出 Grok 4 Heavy，引入多智能体架构，针对复杂科研任务优化，算力规模再创新高。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.05</strong> </td>
+<td style="text-align:left;"> <strong>Gemini CLI</strong> </td>
+<td style="text-align:left;"> 开源命令行界面工具，它将谷歌强大的 Gemini AI 模型直接集成到开发者常用的终端环境中，更擅长服务于编程。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.07.02</strong> </td>
+<td style="text-align:left;"> <strong>Flux图像模型</strong><br>Kontext Dev模型正式开始 </td>
+<td style="text-align:left;"> 强一致性、强理解力。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.24</strong> </td>
+<td style="text-align:left;"> <strong>Imagen4</strong> </td>
+<td style="text-align:left;"> 显著改善文本渲染效果，进一步提升了文本转图像的生成质量。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.22</strong> </td>
+<td style="text-align:left;"> <strong>Gemini 2.5 Flash/Pro</strong> </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.06.11</strong> </td>
+<td style="text-align:left;"> <strong>Seedance1.0</strong> </td>
+<td style="text-align:left;"> 字节跳动推出的一款高性能和推理极致的视频语言生成模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.05.23</strong> </td>
+<td style="text-align:left;"> <strong>Claude code</strong> </td>
+<td style="text-align:left;"> 智能化辅助写代码工具，旨在帮助开发者通过自然语言命令理解、浏览和修改整个代码库，前端编程领域无人能敌。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.05.21</strong> </td>
+<td style="text-align:left;"> <strong>Veo3</strong> </td>
+<td style="text-align:left;"> 首个可生成视频背景音效模型，体会画面感、配合感、生成人物对话，物理模拟与口型同步表现优异。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.04.29</strong> </td>
+<td style="text-align:left;"> <strong>Qwen3</strong> </td>
+<td style="text-align:left;"> 国产最强开源模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025年5月</strong> </td>
+<td style="text-align:left;"> <strong>Loverr设计Agent</strong> </td>
+<td style="text-align:left;"> 2025年7月28日正式上线。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.04.05</strong> </td>
+<td style="text-align:left;"> <strong>Meta Llama 4</strong> </td>
+<td style="text-align:left;"> Meta发布开源模型 Llama 4（包含Scout和Maverick版本）。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.03.26</strong> </td>
+<td style="text-align:left;"> <strong>GPT4o改图能力</strong> </td>
+<td style="text-align:left;"> 一致性能力好，响应慢。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.03.06</strong> </td>
+<td style="text-align:left;"> <strong>通用Agent</strong><br>Manus, GenSpark, Flowith </td>
+<td style="text-align:left;"> </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.02.17</strong> </td>
+<td style="text-align:left;"> <strong>xAI Grok 3</strong> </td>
+<td style="text-align:left;"> Elon Musk 发布 Grok 3，宣称其为“地球上最聪明的AI”。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2025.01.20</strong> </td>
+<td style="text-align:left;"> <strong>DeepSeek R1</strong> </td>
+<td style="text-align:left;"> 国产开源推理模型，媲美OpenAI o1。 </td>
+</tr>
+</tbody>
+</table>
+
+]]></content>
+  </entry>
+  
+</feed>
