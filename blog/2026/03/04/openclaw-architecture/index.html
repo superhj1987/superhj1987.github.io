@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>后端技术杂谈</title>
+  <title>OpenClaw 架构剖析：实现原理、核心流程与可复用的方法论 - 后端技术杂谈</title>
   <meta name="author" content="HJ">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="《Java工程师修炼之道》GitBook上线：https://rowkey-books.gitbook.io/pragmatic-java-engineer/ 响应式微服务架构-分布式系统设计原则 O’Reilly的电子书《Reactive Microservices Architecture》 &hellip;">
+  <meta name="description" content="OpenClaw 架构剖析：实现原理、核心流程与可复用的方法论 Posted by HJ in ai 上一篇聊了「OpenClaw 是什么」。这一篇更偏工程视角：OpenClaw 到底怎么实现一个可长期运行的 Agent 系统？消息是怎么进来的？怎么路由到 Agent？工具调用与定时任务如何编排 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="https://www.rowkey.cn/blog/posts/6/">
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2026/03/04/openclaw-architecture/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -120,20 +120,13 @@
   <div id="body">
     <div class="container">
     	<div class="col-group">
-			  <div class="col-8" id="main">
-    <div class="res-cons">
-      <article class="post">
-        <div class="post-content" style="background-color: #f8f8f8;border: 1px solid #ddd;border-radius: 3px;overflow: auto;padding: .5em 2.4em 0 2.4em;"><p>《Java工程师修炼之道》GitBook上线：<a href="https://rowkey-books.gitbook.io/pragmatic-java-engineer/"><strong>https://rowkey-books.gitbook.io/pragmatic-java-engineer/</strong></a></p>
-        </div>
-      </article>
-    
-    
-    
-      <article class="post">
-        
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
   <header>
     
-      <h2 class="post-title"><a href="/blog/2018/06/07/reactive-microservice/">响应式微服务架构-分布式系统设计原则</a></h2>
+      <h1 class="post-title">OpenClaw 架构剖析：实现原理、核心流程与可复用的方法论</h1>
     
     
       <p class="post-meta">
@@ -149,462 +142,282 @@
   
 
 
-<time datetime="2018-06-07T19:29:34+08:00" pubdate data-updated="true"></time>
+<time datetime="2026-03-04T00:15:00+08:00" pubdate data-updated="true"></time>
         
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ai/'>ai</a>
+  
+</span>
+
+
         
       </p>
     
   </header>
 
 
-  <div class="post-content"><p>O’Reilly的电子书《Reactive Microservices Architecture》讲述了微服务/分布式系统的一些设计原则，本文是笔者阅读完此书后的理解。书籍地址：<a href="https://info.lightbend.com/COLL-20XX-Reactive-Microservices-Architecture-RES-LP.html">https://info.lightbend.com/COLL-20XX-Reactive-Microservices-Architecture-RES-LP.html</a>。</p>
+<div class="post-content"><p>上一篇聊了「OpenClaw 是什么」。这一篇更偏工程视角：<strong>OpenClaw 到底怎么实现一个可长期运行的 Agent 系统？消息是怎么进来的？怎么路由到 Agent？工具调用与定时任务如何编排？</strong></p>
 
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/06/07/reactive-microservice/">继续阅读 &rarr;</a>
-    </footer>
-  
+<p>如果你做过 Agent 落地，会很熟悉这些关键词：channel、tool、session、cron、memory、安全边界、幂等、观测……OpenClaw 的价值在于把这些抽象成一套可部署的 runtime。</p>
 
+<!-- more -->
 
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/06/02/microservice-pitfall/">微服务的十个反模式和陷阱</a></h2>
-    
-    
-      <p class="post-meta">
-        
 
+<h2>1. 一张“脑内架构图”：OpenClaw 由哪些块组成？</h2>
 
+<p>你可以把 OpenClaw 想成三层：</p>
 
+<p>1) <strong>接入层（Channels）</strong>：连接外部世界（Telegram/钉钉/QQ/…），负责收消息、发消息。
+2) <strong>编排层（Gateway + Routing + Sessions）</strong>：决定“这条消息交给哪个 Agent/哪个会话”，并维护状态与生命周期。
+3) <strong>执行层（Agents + Tools/Skills + Jobs）</strong>：Agent 负责决策，Tools 负责执行，Jobs（cron 等）负责触发。</p>
 
-
-
-
-
-  
-
-
-<time datetime="2018-06-02T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>O’Reilly的电子书《Microservices AntiPatterns and Pitfalls》讲述了在微服务设计实现时十种最常见的反模式和陷阱。本文基于此书，将这十个点列出。书籍地址：<a href="https://www.oreilly.com/programming/free/microservices-antipatterns-and-pitfalls.csp">https://www.oreilly.com/programming/free/microservices-antipatterns-and-pitfalls.csp</a>，更全的反模式和陷阱可见作者的视频：<a href="http://oreil.ly/29GVuDG">http://oreil.ly/29GVuDG</a></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/06/02/microservice-pitfall/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/05/12/java-tech-overview/">Java后端技术概览</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-05-12T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>一个合格的Java后端工程师需要掌握哪些技能呢？扫描下面的二维码可以看到<a href="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/server-tech/media/java-skill-tree.png">Java后端技术概览图</a>。</p>
-
-<p><img src="https://raw.githubusercontent.com/superhj1987/pragmatic-java-engineer/master/book/chapter1-servertech/media/tech-tree.png" alt="" /></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/05/12/java-tech-overview/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/04/25/arch-usage/">架构简明指南</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-04-25T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p><strong>最新版本可见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/appendix/arch-usage.md</a></strong></p>
-
-<p>之前的<a href="http://www.rowkey.me/blog/2017/08/24/arch/">《谈谈架构》</a>讲述了架构的概念、原则等等，这里择出其中的设计原则部分供大家随手参考。</p>
-
-<p>《Clean Architecture》一书中对于软件架构目的的解释：</p>
-
-<blockquote><p>The goal of software architecture is to miminize the human resources required to build and maintain the required system.</p></blockquote>
-
-<p>即：软件架构的目的就是将构建和维护系统需要的人力成本降到最低。</p>
-
-<p>因此，可以得出架构设计的关键思维就是判断和取舍（程序设计的关键思维是逻辑和实现），即如何选择技术、组合技术使得需要的人力资源最少。</p>
-
-<p>需要注意的一点是，脱离业务谈架构是不合理的，技术架构及其演进都是业务目标驱动的。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/04/25/arch-usage/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/04/13/how-to-study-tech/">如何学习后端技术？</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-04-13T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>最新内容见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md</a></p>
-
-<p>学习后端技术和学习其他的技术并没有什么大的不同。因此，题目换做如何学习技术也是讲的通的。概括来讲，有以下几点建议：</p>
+<p>对应到工程实体，大致是：</p>
 
 <ul>
-<li>扎实的计算机基础知识</li>
-<li>知其然更要知其所以然</li>
-<li>动手实践、频繁练习</li>
-<li>持续学习</li>
-<li>计算机思维</li>
-<li>自我总结</li>
-<li>学会规划</li>
+<li><strong>Gateway（守护进程）</strong>：常驻运行，连接多个 channel provider，维护连接与重连。</li>
+<li><strong>Channel Plugin</strong>：每个渠道一个适配器，实现 inbound/outbound。</li>
+<li><strong>Agent</strong>：可配置多个（不同模型/不同工作空间/不同权限），按路由绑定到渠道。</li>
+<li><strong>Session</strong>：把对话与任务上下文组织起来（类似“对话线程 + 状态机”）。</li>
+<li><strong>Skills</strong>：可复用的工具说明与脚本集合，给 Agent 一个“可靠使用工具”的方法。</li>
+<li><strong>Cron/Jobs</strong>：把定时触发变成一等公民，支持隔离执行、送达与去重。</li>
+<li><strong>Memory</strong>：长期/短期记忆（文件化/向量化），为跨会话连续性服务。</li>
 </ul>
 
 
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/04/13/how-to-study-tech/">继续阅读 &rarr;</a>
-    </footer>
-  
+<h2>2. 核心流程 1：一条消息从“外部”到“Agent”的路径</h2>
 
+<p>把它拆成 8 步，你会发现它是一条典型的事件驱动流水线：</p>
 
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/04/01/pje-release/">如何成为一名合格的Java工程师?</a></h2>
-    
-    
-      <p class="post-meta">
-        
+<p>1) <strong>Channel 收到事件</strong>
+- 可能是文本、图片、语音、文件、按钮回调等。</p>
 
+<p>2) <strong>插件标准化（Normalize）</strong>
+- 把不同平台的 message schema 归一：from/to/messageId/timestamp/chatType/attachments…</p>
 
+<p>3) <strong>封装输入（Envelope）</strong>
+- 给 Agent 一个稳定的“输入格式”，避免每个渠道都写一套提示词。</p>
 
+<p>4) <strong>路由（Routing/Binding）</strong>
+- 根据规则把消息交给指定 agent（例如 QQ 走 hang-ai，Telegram 走 main）。</p>
 
+<p>5) <strong>会话选择（Session Key）</strong>
+- 同一用户/群聊映射到固定 session，确保上下文连续。</p>
 
+<p>6) <strong>Agent 推理（Decide）</strong>
+- Agent 选择：直接回复，还是调用工具（搜索/执行/写文件/定时任务）。</p>
 
+<p>7) <strong>工具执行（Tools/Skills）</strong>
+- 工具是“副作用层”：读写文件、访问网络、调用 API、跑命令。</p>
 
+<p>8) <strong>回传与发送（Outbound Deliver）</strong>
+- 将 Agent 结果交给 channel 插件发送，处理分段、markdown、富媒体等。</p>
 
-  
+<blockquote><p>这条链路里，最容易做坏的其实是第 2～5 步：输入不干净、路由不清晰、session 混乱，都会让 Agent “聪明但不稳定”。OpenClaw 的设计重点正是在这里。</p></blockquote>
 
+<h2>3. 核心流程 2：工具调用如何“可靠地执行”？</h2>
 
-<time datetime="2018-04-01T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
+<p>一个可落地的 Agent 系统，工具调用必须具备三种属性：</p>
 
-
-  <div class="post-content"><p>Java开发一直是当前互联网领域最火热的开发技能之一，Java工程师也一直是需求量非常大的开发职位。那么如何成为一名合格的Java工程师呢？一名合格的Java工程师又应该具有哪些技能呢？针对这些，笔者的新书《Java工程师修炼之道》做了一些经验性的阐述和讲解。</p>
-
-<p><img src="/post_images/book.png" width="250"/></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/04/01/pje-release/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/03/15/blockchain/">浅析区块链</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-03-15T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>从去年开始，区块链突然如火如荼起来，相关的新闻席卷微博、朋友圈、科技论坛、门户网站等各大媒体。业界大佬们更是频频发言，有宣称不做区块链就会被时代淘汰的，有说坚决不碰区块链的。国家队也是频频出手，管制、定性、做应用，央行更是默默地把区块链专利数量做到了世界前列。面对众多纷杂的信息、众多的技术分析文章，很容易让人脑袋嗡嗡，怕不懂，更怕懂了啥也都做不了。于是决定梳理一下相关的信息，看看这区块链到底是什么东西。</p>
-
-<p>开篇之前，先抛出笔者的一个观点：<strong>区块链最合适的应用场景只有虚拟资产,除了虚拟资产的其他场景都是在蹭概念或者不是真正意义上的区块链，而且只要有人参与的业务流程都无法满足区块链设计的初衷。</strong></p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/03/15/blockchain/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/03/10/regx/">正则表达式简明指南</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-03-10T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>公司使用的markdown解析类库一直有一些解析上的问题，最近给fix了。而markdown解析主要是对正则表达式的使用。中间恶补了一下相关知识，在此梳理一下。</p>
-
-<h2>什么是正则表达式</h2>
-
-<p>正则表达式就是用一个“字符串”来描述一个特征，然后去验证另一个“字符串”是否符合这个特征。简单的一个例子：用字符串"a"来验证字符串s是否是"a"，形如s.match(&ldquo;a&rdquo;)。概括来说有以下作用：</p>
+<h3>3.1 可控（Controllable）</h3>
 
 <ul>
-<li>验证字符串是否符合指定特征，比如验证是否是合法的邮件地址。</li>
-<li>查找字符串，从一个长的文本中查找符合指定特征的字符串，比查找固定字符串更加灵活。</li>
-<li>替换字符串，比普通的基于字符串的替换更灵活。</li>
+<li>工具入口有限且明确（不是什么都能 exec）。</li>
+<li>敏感能力要有策略（allowlist/denylist/人工确认）。</li>
 </ul>
 
 
+<h3>3.2 可观测（Observable）</h3>
+
+<ul>
+<li>能看到：调用了什么工具、参数是什么、耗时多久、失败原因。</li>
+<li>能复盘：某次输出是怎么来的。</li>
+</ul>
+
+
+<h3>3.3 可恢复（Recoverable）</h3>
+
+<ul>
+<li>失败要能重试/降级（例如 web fetch 失败就换来源）。</li>
+<li>长链路要能分段（先产出，再补充）。</li>
+</ul>
+
+
+<p>OpenClaw 的 skill 机制，本质是在做“<strong>把提示词工程变成可维护的工程资产</strong>”。你不希望每次靠大模型临场发挥写一堆 shell；你希望它遵循一个稳定的脚本与约定。</p>
+
+<h2>4. 核心流程 3：Cron/Jobs（定时任务）为什么是 Agent 生产化的关键？</h2>
+
+<p>很多 Agent 项目死在“能对话，但不能跑”。原因是：
+- 任务不能准点触发
+- 不能隔离执行（被主会话上下文污染）
+- 失败后没有送达保障
+- 会重复发送（没有幂等）</p>
+
+<p>OpenClaw 的 cron 设计可以抽象成：</p>
+
+<ul>
+<li><strong>触发器（schedule）</strong>：cron / every / at</li>
+<li><strong>执行体（payload）</strong>：systemEvent 或 agentTurn（隔离会话跑）</li>
+<li><strong>投递（delivery）</strong>：把结果发到指定 channel/target</li>
+<li><strong>幂等/去重</strong>：通常用 state 文件（last_date/last_hash）或业务键</li>
+</ul>
+
+
+<blockquote><p>一个很实用的经验：<strong>凡是“每天推送/定时汇总/提醒”的任务，都要把幂等写成硬性要求</strong>。这比“写得更聪明”重要得多。</p></blockquote>
+
+<h2>5. 语音/图片等多媒体：为什么“把内容注入正文”很关键？</h2>
+
+<p>以语音为例，很多系统会把语音转写结果作为“附件描述”塞进消息里，但 Agent 可能把它当噪声过滤掉，最后表现为“不回复”。</p>
+
+<p>更可靠的做法是：
+- 语音 → 转写
+- <strong>把转写文本当作用户输入正文</strong>（例如前缀“（语音转写）xxx”）
+- 同时保留附件元信息（可选）：文件路径、时长、来源</p>
+
+<p>这其实是一条通用原则：</p>
+
+<blockquote><p><strong>Agent 真正在乎的是“它以为用户说了什么”。</strong> 所以多模态处理的结果要进入“正文层”，而不是“旁注层”。</p></blockquote>
+
+<h2>6. 可复用的方法论：如何用 OpenClaw（或任何 Agent Runtime）做出稳定的系统？</h2>
+
+<p>下面这套方法论与 OpenClaw 强相关，但本质上是通用的 Agent 工程原则。</p>
+
+<h3>方法论 1：把 Agent 系统拆成“决策层 vs 执行层”</h3>
+
+<ul>
+<li>决策层：LLM/Agent（可变、概率性）</li>
+<li>执行层：脚本/工具/skill（确定性、可测试）</li>
+</ul>
+
+
+<p>越早把副作用收敛到执行层，你的系统越稳。</p>
+
+<h3>方法论 2：事件驱动 + 明确的状态机</h3>
+
+<p>你会发现 OpenClaw 的心智模型很像：
+- event in → route → session → agent → tools → deliver</p>
+
+<p>这其实就是一个状态机。把“会话键/幂等键/任务键”定义清楚，系统就会稳定。</p>
+
+<h3>方法论 3：任何自动推送都必须幂等</h3>
+
+<p>推荐最低配：
+- <code>last_date</code>（今天发过就退出）
+- <code>last_hash</code>（内容一致就退出）</p>
+
+<p>把它当成产品级需求，而不是“优化项”。</p>
+
+<h3>方法论 4：先做可观测，再做智能</h3>
+
+<p>一个很反直觉的点：
+- 你以为“让模型更聪明”能解决问题
+- 实际上，80% 的线上问题来自：超时、失败重试、权限、消息格式、平台限制</p>
+
+<p>所以先把日志、运行记录、失败原因打通，后面再谈“更聪明”。</p>
+
+<h3>方法论 5：安全边界要前置</h3>
+
+<p>建议至少做到：
+- 渠道 allowlist / groupPolicy
+- 敏感工具禁用或需要确认
+- 不信任外部内容（把网页/邮件当不可信输入）</p>
+
+<p>Agent 的安全不是模型能解决的，是架构要解决的。</p>
+
+<h2>7. 总结</h2>
+
+<p>OpenClaw 的架构并不神秘：它把 Agent 的生产化问题拆解为一组工程模块（channel、session、tool、cron、memory、安全策略），并把“核心流程”做成可运行、可观测、可扩展的系统。</p>
+
+<p>如果你要复用它的方法论，记住一句话就够：</p>
+
+<blockquote><p><strong>让 LLM 做决策，让系统做约束，让工具做执行。</strong></p></blockquote>
+
+<p>这就是把 Agent 从 demo 推向长期运行系统的关键。</p>
 </div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
   
   
-    <footer>
-      <a rel="full-article" href="/blog/2018/03/10/regx/">继续阅读 &rarr;</a>
-    </footer>
   
-
-
-      </article>
-    
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/02/06/2017books/">2017年读过的书</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2018-02-06T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>2017年一共阅读了九本书，包括技术和管理，并且参加了一次“高价值管理人”的管理培训课程，在技术和管理方面都有了一定的学习，得到了一些进步。</p>
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
 
 </div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/02/06/2017books/">继续阅读 &rarr;</a>
-    </footer>
-  
 
-
-      </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2018/01/04/king-rec-pois-wine/">如何快速尝出毒酒？- 用bit解决问题</a></h2>
-    
-    
-      <p class="post-meta">
-        
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2026/03/04/openclaw/" title="下一篇: OpenClaw 是什么：为什么出现、怎么用、能做什么">OpenClaw 是什么：为什么出现、怎么用、能做什么 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
 
 
+<h2>评论</h2>
+<div id="comment-thread"></div>
 
-
-
-
-
-
-  
-
-
-<time datetime="2018-01-04T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><h2>问题</h2>
-
-<p>国王有一百桶酒，比自己的生命还重要。结果有一天其中一桶被投了慢性毒药，喝了以后半个小时以后就会死掉。国王大怒，命令玩忽职守的侍卫去试毒。酒不能被混合，一个侍卫可以喝多桶酒，一桶酒也可以由多个侍卫喝，怎么样才能用最少的侍卫、在最短的时间知道哪桶是毒酒。侍卫可以理解为线程，即怎么样用最少的线程用最快的速度完成这个工作。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2018/01/04/king-rec-pois-wine/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
-      <div class="page-navigator">
-        
-        
-            <a href="/blog/posts/5" class="prev"><<上一页</a>
-        
-        
-            <a href="/blog/posts/7" class="next">下一页>></a>
-        
-        <div class="center"><a href="/blog/archives">所有文章</a></div>
-      </div>
-     </div>
   </div>
-    
+</div>
+
   <aside id="secondary">
   <div id="sidebar">
   
@@ -749,7 +562,9 @@
 </section>
   
   </div>
-  </aside>
+</aside>
+
+
       	</div>
     </div>
   </div>
@@ -795,7 +610,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "",
+   issue_title: "OpenClaw 架构剖析：实现原理、核心流程与可复用的方法论",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
