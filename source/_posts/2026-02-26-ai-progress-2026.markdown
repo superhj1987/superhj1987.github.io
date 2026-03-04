@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "2026 年 AI 最新进展：从模型到产品化"
-date: 2026-03-01 16:00
+date: 2026-02-26 16:00
 comments: true
 categories: ai
 ---
