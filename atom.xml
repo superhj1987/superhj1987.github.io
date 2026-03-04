@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-04T10:00:52+00:00</updated>
+  <updated>2026-03-04T10:22:39+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -156,10 +156,177 @@
   </entry>
   
   <entry>
+    <title type="html"><![CDATA[OpenClaw 是什么]]></title>
+    <link href="https://www.rowkey.cn/blog/2026/03/04/openclaw/"/>
+    <updated>2026-03-04T00:00:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2026/03/04/openclaw</id>
+    <content type="html"><![CDATA[<p>这两年大家对「Agent」的讨论越来越多：能自动查资料、能写代码、能跑流程、还能定时汇总。但真要把它放进日常工作流，会立刻遇到几个现实问题：<strong>它怎么和你的消息渠道连起来？怎么定时？怎么拿到你本机/服务器的上下文？怎么安全地执行命令？怎么长期稳定运行？</strong></p>
+
+<p>OpenClaw 解决的不是“再做一个聊天机器人”，而是把这些“让 Agent 变成生产力”的工程问题打包成一套可部署、可扩展的运行时。</p>
+
+<!-- more -->
+
+
+<h2>1. OpenClaw 到底是什么？</h2>
+
+<p>一句话：<strong>OpenClaw 是一个面向个人/团队的 Agent 运行时（Agent Runtime）</strong>。</p>
+
+<p>它更像一个“智能操作系统/中枢”，把三件事连接起来：</p>
+
+<p>1) <strong>你的输入输出渠道（Channels）</strong>：比如 Telegram、钉钉、QQ、Slack…你在哪里说话，它就在哪里接收与回复。</p>
+
+<p>2) <strong>可执行的工具系统（Tools/Skills）</strong>：不仅是“搜索”，还包括：跑脚本、读写文件、定时任务、发消息、抓网页、处理媒体、接入第三方服务等。</p>
+
+<p>3) <strong>Agent 的会话与状态（Sessions/Memory/Jobs）</strong>：把对话、任务、定时推送、长期记忆等组织起来，能持续运行、可追踪、可回放。</p>
+
+<p>从使用感受上，它像一个“你自己的 AI 助理平台”，而不是单次问答。</p>
+
+<h2>2. 为什么会出现 OpenClaw？（解决 Agent 落地的 4 个痛点）</h2>
+
+<h3>2.1 只靠 Chat，不够</h3>
+
+<p>把大模型当聊天工具，最多做到“回答问题”。但现实工作更像“完成任务”：
+- 每天 10:00 推送 AI 新闻
+- 监控某些关键词/博客更新
+- 把语音转文字、把图片转摘要
+- 在你允许的情况下执行命令、生成文件、提交仓库</p>
+
+<p>这些都需要一个稳定的执行层。</p>
+
+<h3>2.2 工具碎片化，拼起来很痛</h3>
+
+<p>你可以用各种 bot、脚本、cron、Webhook、爬虫、自动化平台……但拼在一起时，常见问题是：
+- 触发点分散（消息、定时、网页变化）
+- 状态难管理（重复发送、幂等、去重）
+- 缺少统一的权限与审计
+- 失败重试、降级策略没人兜底</p>
+
+<p>OpenClaw 的定位就是把这些“胶水层”标准化。</p>
+
+<h3>2.3 Agent 需要“能跑得起来”的生命周期</h3>
+
+<p>Agent 不应该只存在于一次对话里，而应该具备：
+- <strong>可持续运行</strong>（daemon/service）
+- <strong>可定时触发</strong>（cron jobs）
+- <strong>可隔离执行</strong>（isolated sessions）
+- <strong>可观察</strong>（日志、运行记录、失败原因）</p>
+
+<h3>2.4 更重要的是：安全边界</h3>
+
+<p>Agent 一旦能执行命令、能发消息、能访问外部链接，就一定会遇到：
+- prompt injection（内容里夹带指令）
+- 权限扩大（工具链越接越多越危险）
+- 数据泄露（日志、外发、第三方 API）</p>
+
+<p>OpenClaw 的思路是：把工具权限、通道策略、定时任务、敏感能力控制放进同一套配置与运行时里。</p>
+
+<h2>3. 怎么使用 OpenClaw？（一个最小心智模型）</h2>
+
+<p>OpenClaw 里你可以把系统理解成：</p>
+
+<ul>
+<li><strong>Gateway（网关/守护进程）</strong>：负责连接各个 channel、接收消息、派发给 agent、把回复送回去。</li>
+<li><strong>Agent（智能体）</strong>：负责“思考与决策”，选择调用哪些工具。</li>
+<li><strong>Skills（技能）</strong>：一套可复用的“说明 + 脚本 + 约定”，让 agent 可靠地使用工具。</li>
+<li><strong>Cron（定时任务）</strong>：把“每天/每小时/某个时刻做事”变成一等公民。</li>
+</ul>
+
+
+<p>一个典型的工作流是：</p>
+
+<p>1) 你在 Telegram/钉钉/QQ 里发一句话：</p>
+
+<blockquote><p>“每天 10 点给我推送 AI 新闻”</p></blockquote>
+
+<p>2) Agent 把它变成一个 cron job（带去重与失败重试）。</p>
+
+<p>3) 到点了 cron 自动触发，agent 做检索→整理→发送消息。</p>
+
+<p>4) 你觉得格式不对，再要求调整；之后就稳定每天按你的格式推送。</p>
+
+<h2>3.5 一个“最小 Quickstart”（不追求完美，只求跑通）</h2>
+
+<p>如果你只想快速体验 OpenClaw 的核心价值，可以按这个顺序：</p>
+
+<p>1) <strong>选一个入口渠道</strong>：先接 Telegram/钉钉/QQ 其中一个（你日常最常用的）。
+2) <strong>跑通一条闭环任务</strong>：例如“每天 10:00 推送 AI 新闻”。
+3) <strong>把输出格式固定下来</strong>：标题、条目数量、每条的字段（描述/日期/链接）。
+4) <strong>加入幂等/去重</strong>：同一天已发送就退出（避免重复轰炸）。
+5) <strong>再逐步加技能</strong>：比如从“新闻推送”升级到“跟踪你的关注源 + 只推相关内容”。</p>
+
+<p>这一套的关键是：<strong>先让系统进入稳定运行状态</strong>，而不是一上来追求大而全。</p>
+
+<h2>4. OpenClaw 能做哪些场景？（从轻到重）</h2>
+
+<h3>4.1 信息获取与整理</h3>
+
+<ul>
+<li>每日 AI/科技新闻推送（可指定来源、语言、数量、格式）</li>
+<li>监控 RSS/博客更新（发现新文章就提醒）</li>
+<li>追踪某个领域的关键词（模型发布、投融资、政策）</li>
+</ul>
+
+
+<h3>4.2 沟通与会议辅助</h3>
+
+<ul>
+<li>语音消息自动转写 + 生成纪要</li>
+<li>多轮对话里的 TODO 提取与跟踪</li>
+<li>帮你写邮件/公告/总结，统一口吻</li>
+</ul>
+
+
+<h3>4.3 工程与开发工作流</h3>
+
+<ul>
+<li>代码库问答、PR 说明、变更总结</li>
+<li>自动生成文档/模板（比如周报、复盘、技术方案）</li>
+<li>结合 GitHub CLI 做 issue/PR 维护（在权限允许时）</li>
+</ul>
+
+
+<h3>4.4 你的“个人自动化中枢”</h3>
+
+<ul>
+<li>定时行情（BTC/黄金/宏观指标）</li>
+<li>定时提醒（喝水、会议前提醒、月底结算）</li>
+<li>把零散工具串成稳定流程（抓取→处理→分发）</li>
+</ul>
+
+
+<h3>4.5 两个“最像生产力”的 Demo（建议你自己也这么配）</h3>
+
+<p><strong>Demo 1：每日新闻推送（带去重）</strong>
+- 触发：每天 10:00
+- 动作：检索过去 24h 的 AI/科技新闻 → 按固定模板输出 10 条 → 发送到钉钉/Telegram
+- 关键点：写入 <code>last_date</code>/<code>last_hash</code> 做幂等；发送失败有退避重试</p>
+
+<p><strong>Demo 2：语音消息→转写→直接回复</strong>
+- 触发：你在聊天里发一条语音
+- 动作：自动下载语音文件 → 转码（如 AMR/SILK→WAV）→ Whisper 转写 → 把转写文本当作“用户输入正文”让 Agent 回复
+- 关键点：如果只把转写当作“附件描述”，很多 Agent 会把它当噪声忽略；要注入到正文里。</p>
+
+<h2>5. 一些实践建议（把它用成生产力，而不是玩具）</h2>
+
+<p>1) <strong>先从一个强需求开始</strong>：例如“每天 10 点新闻推送”。从 0 到 1 跑通，价值立刻可见。
+2) <strong>格式标准化</strong>：输出要固定模板，后面才能自动化复用。
+3) <strong>幂等与去重</strong>：定时推送必须有“今天已发则退出”的逻辑。
+4) <strong>给 Agent 明确的权限边界</strong>：哪些能访问、哪些不能执行，越早设定越省心。
+5) <strong>把它当成一个长期系统</strong>：日志、状态文件、失败重试、降级策略都要有。</p>
+
+<h2>6. 总结</h2>
+
+<p>OpenClaw 的价值在于：它让 Agent 具备“能接入你真实工作流、能长期稳定运行、能安全执行工具”的工程底座。</p>
+
+<p>当你不再把 AI 当成一次性问答，而是当成一个可以持续协作的“数字员工/助理”，你需要的就不是一个聊天窗口，而是一套运行时——这就是 OpenClaw 为什么会出现。</p>
+]]></content>
+  </entry>
+  
+  <entry>
     <title type="html"><![CDATA[OpenClaw 架构剖析]]></title>
-    <link href="https://www.rowkey.cn/blog/2026/03/04/openclaw-architecture/"/>
-    <updated>2026-03-04T00:15:00+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2026/03/04/openclaw-architecture</id>
+    <link href="https://www.rowkey.cn/blog/2026/03/03/openclaw-architecture/"/>
+    <updated>2026-03-03T00:15:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2026/03/03/openclaw-architecture</id>
     <content type="html"><![CDATA[<p>上一篇聊了「OpenClaw 是什么」。这一篇更偏工程视角：<strong>OpenClaw 到底怎么实现一个可长期运行的 Agent 系统？消息是怎么进来的？怎么路由到 Agent？工具调用与定时任务如何编排？</strong></p>
 
 <p>如果你做过 Agent 落地，会很熟悉这些关键词：channel、tool、session、cron、memory、安全边界、幂等、观测……OpenClaw 的价值在于把这些抽象成一套可部署的 runtime。</p>
@@ -379,169 +546,174 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[OpenClaw 是什么]]></title>
-    <link href="https://www.rowkey.cn/blog/2026/03/04/openclaw/"/>
-    <updated>2026-03-04T00:00:00+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2026/03/04/openclaw</id>
-    <content type="html"><![CDATA[<p>这两年大家对「Agent」的讨论越来越多：能自动查资料、能写代码、能跑流程、还能定时汇总。但真要把它放进日常工作流，会立刻遇到几个现实问题：<strong>它怎么和你的消息渠道连起来？怎么定时？怎么拿到你本机/服务器的上下文？怎么安全地执行命令？怎么长期稳定运行？</strong></p>
+    <title type="html"><![CDATA[2026 年 AI 最新进展：从模型到产品化]]></title>
+    <link href="https://www.rowkey.cn/blog/2026/03/01/ai-progress-2026/"/>
+    <updated>2026-03-01T16:00:00+00:00</updated>
+    <id>https://www.rowkey.cn/blog/2026/03/01/ai-progress-2026</id>
+    <content type="html"><![CDATA[<p>2026 年的 AI 发展，最大的变化不是“又出了一个更强的模型”，而是 <strong>模型能力、工程体系、产品形态</strong> 在同一年里完成了多次叠加：从“能写点代码/能聊两句”，走到了“能在真实环境里长期运行、交付可验收成果”。</p>
 
-<p>OpenClaw 解决的不是“再做一个聊天机器人”，而是把这些“让 Agent 变成生产力”的工程问题打包成一套可部署、可扩展的运行时。</p>
+<p>这篇文章不追热点罗列新闻，更多是一个工程视角的总结：<strong>哪些能力真的变成了可复用的工程组件？哪些方向正在收敛成标准做法？哪些坑还在？</strong></p>
 
-<!-- more -->
+<h2>1. 模型侧：更强不是重点，更“可控/可用”才是</h2>
 
-
-<h2>1. OpenClaw 到底是什么？</h2>
-
-<p>一句话：<strong>OpenClaw 是一个面向个人/团队的 Agent 运行时（Agent Runtime）</strong>。</p>
-
-<p>它更像一个“智能操作系统/中枢”，把三件事连接起来：</p>
-
-<p>1) <strong>你的输入输出渠道（Channels）</strong>：比如 Telegram、钉钉、QQ、Slack…你在哪里说话，它就在哪里接收与回复。</p>
-
-<p>2) <strong>可执行的工具系统（Tools/Skills）</strong>：不仅是“搜索”，还包括：跑脚本、读写文件、定时任务、发消息、抓网页、处理媒体、接入第三方服务等。</p>
-
-<p>3) <strong>Agent 的会话与状态（Sessions/Memory/Jobs）</strong>：把对话、任务、定时推送、长期记忆等组织起来，能持续运行、可追踪、可回放。</p>
-
-<p>从使用感受上，它像一个“你自己的 AI 助理平台”，而不是单次问答。</p>
-
-<h2>2. 为什么会出现 OpenClaw？（解决 Agent 落地的 4 个痛点）</h2>
-
-<h3>2.1 只靠 Chat，不够</h3>
-
-<p>把大模型当聊天工具，最多做到“回答问题”。但现实工作更像“完成任务”：
-- 每天 10:00 推送 AI 新闻
-- 监控某些关键词/博客更新
-- 把语音转文字、把图片转摘要
-- 在你允许的情况下执行命令、生成文件、提交仓库</p>
-
-<p>这些都需要一个稳定的执行层。</p>
-
-<h3>2.2 工具碎片化，拼起来很痛</h3>
-
-<p>你可以用各种 bot、脚本、cron、Webhook、爬虫、自动化平台……但拼在一起时，常见问题是：
-- 触发点分散（消息、定时、网页变化）
-- 状态难管理（重复发送、幂等、去重）
-- 缺少统一的权限与审计
-- 失败重试、降级策略没人兜底</p>
-
-<p>OpenClaw 的定位就是把这些“胶水层”标准化。</p>
-
-<h3>2.3 Agent 需要“能跑得起来”的生命周期</h3>
-
-<p>Agent 不应该只存在于一次对话里，而应该具备：
-- <strong>可持续运行</strong>（daemon/service）
-- <strong>可定时触发</strong>（cron jobs）
-- <strong>可隔离执行</strong>（isolated sessions）
-- <strong>可观察</strong>（日志、运行记录、失败原因）</p>
-
-<h3>2.4 更重要的是：安全边界</h3>
-
-<p>Agent 一旦能执行命令、能发消息、能访问外部链接，就一定会遇到：
-- prompt injection（内容里夹带指令）
-- 权限扩大（工具链越接越多越危险）
-- 数据泄露（日志、外发、第三方 API）</p>
-
-<p>OpenClaw 的思路是：把工具权限、通道策略、定时任务、敏感能力控制放进同一套配置与运行时里。</p>
-
-<h2>3. 怎么使用 OpenClaw？（一个最小心智模型）</h2>
-
-<p>OpenClaw 里你可以把系统理解成：</p>
+<p>过去两年大家习惯用 Benchmark 讨论“强不强”，但 2026 年开始，越来越多团队用另外一组指标评估模型：</p>
 
 <ul>
-<li><strong>Gateway（网关/守护进程）</strong>：负责连接各个 channel、接收消息、派发给 agent、把回复送回去。</li>
-<li><strong>Agent（智能体）</strong>：负责“思考与决策”，选择调用哪些工具。</li>
-<li><strong>Skills（技能）</strong>：一套可复用的“说明 + 脚本 + 约定”，让 agent 可靠地使用工具。</li>
-<li><strong>Cron（定时任务）</strong>：把“每天/每小时/某个时刻做事”变成一等公民。</li>
+<li><strong>稳定性</strong>：同一任务重复跑 10 次，结果方差如何？</li>
+<li><strong>可控性</strong>：能否通过约束（结构化输出、工具调用、策略）稳定落地？</li>
+<li><strong>成本结构</strong>：不是“单次便宜”，而是“端到端交付一件事的总成本”</li>
+<li><strong>失败模式</strong>：错的时候会怎么错？能否被系统兜底？</li>
 </ul>
 
 
-<p>一个典型的工作流是：</p>
+<p>在工程落地里，模型“偶尔惊艳”不重要，重要的是：</p>
 
-<p>1) 你在 Telegram/钉钉/QQ 里发一句话：</p>
+<blockquote><p>能不能在确定的预算和 SLA 下，把一个任务做成“可交付”。</p></blockquote>
 
-<blockquote><p>“每天 10 点给我推送 AI 新闻”</p></blockquote>
+<h2>2. Agent 工程化：从 Demo 到 Production 的关键拼图</h2>
 
-<p>2) Agent 把它变成一个 cron job（带去重与失败重试）。</p>
+<p>2026 年 Agent 之所以能“变得可用”，靠的不是一句“让模型自主执行”，而是工程体系补齐了几块关键能力。</p>
 
-<p>3) 到点了 cron 自动触发，agent 做检索→整理→发送消息。</p>
+<h3>2.1 工具调用（Tool Use）正在变成主流接口</h3>
 
-<p>4) 你觉得格式不对，再要求调整；之后就稳定每天按你的格式推送。</p>
-
-<h2>3.5 一个“最小 Quickstart”（不追求完美，只求跑通）</h2>
-
-<p>如果你只想快速体验 OpenClaw 的核心价值，可以按这个顺序：</p>
-
-<p>1) <strong>选一个入口渠道</strong>：先接 Telegram/钉钉/QQ 其中一个（你日常最常用的）。
-2) <strong>跑通一条闭环任务</strong>：例如“每天 10:00 推送 AI 新闻”。
-3) <strong>把输出格式固定下来</strong>：标题、条目数量、每条的字段（描述/日期/链接）。
-4) <strong>加入幂等/去重</strong>：同一天已发送就退出（避免重复轰炸）。
-5) <strong>再逐步加技能</strong>：比如从“新闻推送”升级到“跟踪你的关注源 + 只推相关内容”。</p>
-
-<p>这一套的关键是：<strong>先让系统进入稳定运行状态</strong>，而不是一上来追求大而全。</p>
-
-<h2>4. OpenClaw 能做哪些场景？（从轻到重）</h2>
-
-<h3>4.1 信息获取与整理</h3>
+<p>很多场景下，最有效的 Agent 不再是让模型“凭空写出答案”，而是：</p>
 
 <ul>
-<li>每日 AI/科技新闻推送（可指定来源、语言、数量、格式）</li>
-<li>监控 RSS/博客更新（发现新文章就提醒）</li>
-<li>追踪某个领域的关键词（模型发布、投融资、政策）</li>
+<li>需要查的就 <strong>search / fetch</strong></li>
+<li>需要算的就 <strong>run code</strong></li>
+<li>需要操作系统就 <strong>shell / browser</strong></li>
+<li>需要发消息就 <strong>channel plugin</strong></li>
 </ul>
 
 
-<h3>4.2 沟通与会议辅助</h3>
+<p>模型负责做“计划与决策”，执行交给工具，结果再反馈给模型。</p>
+
+<p>这让系统的可解释性、可观测性、可控性都显著提升。</p>
+
+<h3>2.2 工作流化（Workflow）在吞掉“纯对话式 Agent”</h3>
+
+<p>很多“看起来像 Agent”的需求，本质更像是工作流：</p>
 
 <ul>
-<li>语音消息自动转写 + 生成纪要</li>
-<li>多轮对话里的 TODO 提取与跟踪</li>
-<li>帮你写邮件/公告/总结，统一口吻</li>
+<li>触发（定时 / webhook / 用户发 URL）</li>
+<li>采集（抓取 / 解析 / 清洗）</li>
+<li>处理（摘要 / 分类 / 去重）</li>
+<li>分发（IM 推送 / Notion 同步 / 邮件）</li>
 </ul>
 
 
-<h3>4.3 工程与开发工作流</h3>
+<p>把它做成 workflow 的好处是：</p>
 
 <ul>
-<li>代码库问答、PR 说明、变更总结</li>
-<li>自动生成文档/模板（比如周报、复盘、技术方案）</li>
-<li>结合 GitHub CLI 做 issue/PR 维护（在权限允许时）</li>
+<li>更确定（有明确步骤、输入输出）</li>
+<li>更可测试（每一步都可回放）</li>
+<li>更易维护（局部替换组件即可）</li>
 </ul>
 
 
-<h3>4.4 你的“个人自动化中枢”</h3>
+<p>Agent 更适合做“流程里需要智能判断的部分”，而不是替代整个工程结构。</p>
+
+<h3>2.3 “配置即契约”正在成为团队协作方式</h3>
+
+<p>当 Agent/Workflow 规模上来后，靠口口相传一定会崩。2026 年更成熟的做法是：</p>
 
 <ul>
-<li>定时行情（BTC/黄金/宏观指标）</li>
-<li>定时提醒（喝水、会议前提醒、月底结算）</li>
-<li>把零散工具串成稳定流程（抓取→处理→分发）</li>
+<li>把“能做什么 / 不能做什么 / 失败怎么办”写进配置</li>
+<li>把“权限边界”写进插件/skill 的声明</li>
+<li>把“输出格式”当作契约（结构化输出、固定模板、幂等键）</li>
 </ul>
 
 
-<h3>4.5 两个“最像生产力”的 Demo（建议你自己也这么配）</h3>
+<p>这样系统才会像一个真正的工程系统，而不是一堆 prompt 拼起来的 demo。</p>
 
-<p><strong>Demo 1：每日新闻推送（带去重）</strong>
-- 触发：每天 10:00
-- 动作：检索过去 24h 的 AI/科技新闻 → 按固定模板输出 10 条 → 发送到钉钉/Telegram
-- 关键点：写入 <code>last_date</code>/<code>last_hash</code> 做幂等；发送失败有退避重试</p>
+<h2>3. 多模态：真正落地的是“音视频处理链路”，不是炫技</h2>
 
-<p><strong>Demo 2：语音消息→转写→直接回复</strong>
-- 触发：你在聊天里发一条语音
-- 动作：自动下载语音文件 → 转码（如 AMR/SILK→WAV）→ Whisper 转写 → 把转写文本当作“用户输入正文”让 Agent 回复
-- 关键点：如果只把转写当作“附件描述”，很多 Agent 会把它当噪声忽略；要注入到正文里。</p>
+<p>多模态的价值，在 2026 年更多体现在“生产级管道”上：</p>
 
-<h2>5. 一些实践建议（把它用成生产力，而不是玩具）</h2>
+<ul>
+<li><strong>语音 → 转写 → 结构化 → 执行/回复</strong>（客服、IM、会议纪要、个人助理）</li>
+<li><strong>图像/截图 → 识别 → 任务化</strong>（报表录入、自动填单、UI 自动化）</li>
+<li><strong>视频 → 摘要 → 检索</strong>（培训/课程/直播内容的知识库化）</li>
+</ul>
 
-<p>1) <strong>先从一个强需求开始</strong>：例如“每天 10 点新闻推送”。从 0 到 1 跑通，价值立刻可见。
-2) <strong>格式标准化</strong>：输出要固定模板，后面才能自动化复用。
-3) <strong>幂等与去重</strong>：定时推送必须有“今天已发则退出”的逻辑。
-4) <strong>给 Agent 明确的权限边界</strong>：哪些能访问、哪些不能执行，越早设定越省心。
-5) <strong>把它当成一个长期系统</strong>：日志、状态文件、失败重试、降级策略都要有。</p>
 
-<h2>6. 总结</h2>
+<p>关键点不是模型“看得懂”，而是：</p>
 
-<p>OpenClaw 的价值在于：它让 Agent 具备“能接入你真实工作流、能长期稳定运行、能安全执行工具”的工程底座。</p>
+<ul>
+<li>处理链路稳定（格式、编码、超时、重试）</li>
+<li>可审计（输入输出可追溯）</li>
+<li>有明确边界（失败兜底、人工确认点）</li>
+</ul>
 
-<p>当你不再把 AI 当成一次性问答，而是当成一个可以持续协作的“数字员工/助理”，你需要的就不是一个聊天窗口，而是一套运行时——这就是 OpenClaw 为什么会出现。</p>
+
+<h2>4. 内容/知识管理：从“收藏夹”到“可复用知识库”</h2>
+
+<p>2026 年很多个人/团队在做一件很像的事：</p>
+
+<ul>
+<li><strong>任何入口（URL、插件、IM）→ 自动入库 → 自动摘要 → 自动同步</strong></li>
+<li>全流程要 <strong>幂等</strong>（同一 URL 不重复写）</li>
+<li>摘要要能被“复用”：要点、结论、原文证据链</li>
+</ul>
+
+
+<p>这背后的变化是：知识管理从“存起来以后再说”，变成了“入库时就做结构化”。</p>
+
+<h2>5. 工程落地的三条经验（很土，但很有效）</h2>
+
+<h3>5.1 幂等是底线，不是加分项</h3>
+
+<p>只要涉及：定时任务、webhook、重试、跨系统同步，就一定要幂等。</p>
+
+<p>典型做法：</p>
+
+<ul>
+<li>用 <code>last_hash</code> / <code>last_date</code> / <code>url_hash</code> 做去重键</li>
+<li>输出“只发一条消息”，避免刷屏</li>
+<li>对“已存在”做明确回执（EXISTS/CREATED）</li>
+</ul>
+
+
+<h3>5.2 观察性（Observability）决定你能不能维护它</h3>
+
+<p>上线后真正折磨人的不是“失败”，而是“偶尔失败但你不知道为什么”。</p>
+
+<p>要提前准备：</p>
+
+<ul>
+<li>关键步骤日志（抓取、解析、摘要、同步、发送）</li>
+<li>错误分类（鉴权失败、限流、结构变更、解析失败）</li>
+<li>可回放输入（保存抓取到的 raw/html/json）</li>
+</ul>
+
+
+<h3>5.3 不要迷信“一步到位的超级 Agent”</h3>
+
+<p>更现实的路线是：</p>
+
+<ul>
+<li>先 workflow 起来，让系统跑通</li>
+<li>再在关键节点引入 Agent 做判断/生成</li>
+<li>再逐步扩展能力边界</li>
+</ul>
+
+
+<p>能稳定交付的系统，往往看起来“没有那么酷”，但非常能打。</p>
+
+<h2>结语</h2>
+
+<p>2026 年的 AI 进展，在我看来是一种“工程化的胜利”：</p>
+
+<ul>
+<li>模型能力继续上升，但真正改变的是 <strong>系统如何使用模型</strong></li>
+<li>Agent 变得可用，是因为工具、工作流、配置契约、幂等等工程能力补齐了</li>
+<li>多模态真正落地的是“管道”和“闭环”，而不是演示</li>
+</ul>
+
+
+<p>接下来一年，决定胜负的可能不是“谁的模型强 3 分”，而是：</p>
+
+<blockquote><p>谁能把 AI 做成一套可维护、可扩展、可协作的工程系统。</p></blockquote>
 ]]></content>
   </entry>
   
@@ -3376,97 +3548,6 @@
 <h2>结语</h2>
 
 <p>不破不立，相比之前做研发，现在走出了自己的舒适区，压力很大，但是斗劲十足，也好久没有这种兴奋感了。虽然一直说自己更喜欢写代码、做架构，但是现在的工作状态更让自己有活力。希望后面的结果会越来越好吧。</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[阿里巴巴管理三板斧]]></title>
-    <link href="https://www.rowkey.cn/blog/2021/03/31/ali-manage/"/>
-    <updated>2021-03-31T19:29:34+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2021/03/31/ali-manage</id>
-    <content type="html"><![CDATA[<p>去年年底受阿里云的邀请参加了一次湖畔大学的参观学习活动，其中有一堂管理的课程《阿里集团管理三板斧》，讲师是阿里的新商业学院院长-正雄。这堂课让我在市面上公开的一些阿里的管理认知上对其有了进一步的了解和启发。以下是在课堂上的一些笔记。</p>
-
-<!--more-->
-
-
-<ul>
-<li>湖畔大学三板斧
-
-<ul>
-<li>上三板：使命、愿景、价值观</li>
-<li>下三板：组织、人才、KPI</li>
-</ul>
-</li>
-<li>业务三板斧：针对事情
-
-<ul>
-<li>揪头发：抓重点</li>
-<li>照镜子：自我反思</li>
-<li>闻味道：发现问题</li>
-</ul>
-</li>
-<li>管理三板斧：针对人</li>
-<li><p>整体观：业务 组织 文化 三位一体</p>
-
-<p>  <img src="https://www.rowkey.cn/post_images/ali-manage/whole.jpg" alt="" /></p>
-
-<ul>
-<li>平常人做非凡事 -> 非凡人平常心做非凡事</li>
-<li>永续经营
-
-<ul>
-<li>业务战略 时代背景</li>
-<li>组织能力 文化土壤</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>领导力梯队
-  <img src="https://www.rowkey.cn/post_images/ali-manage/team.jpg" alt="" /></li>
-<li>腿部三板斧
-  <img src="https://www.rowkey.cn/post_images/ali-manage/leg.jpg" alt="" />
-
-<ul>
-<li>结果和过程都要：为过程鼓掌，为结果复盘
-
-<ul>
-<li>没有过程的结果是垃圾</li>
-<li>没有结果的过程是放屁</li>
-</ul>
-</li>
-<li>奖优罚劣：No Surprise</li>
-<li>绩效目标 &lt; 5条
-
-<ul>
-<li>业务指标</li>
-<li>产品</li>
-<li>团队</li>
-<li>个人</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>腰部三板斧
-  <img src="https://www.rowkey.cn/post_images/ali-manage/waist.jpg" alt="" />
-
-<ul>
-<li>超越伯乐：职能部门不招应届生</li>
-</ul>
-</li>
-<li>头部三板斧：眼光、胸怀、看未来的能力
-  <img src="https://www.rowkey.cn/post_images/ali-manage/head.jpg" alt="" /></li>
-<li>业务、组织、文化三位一体
-  <img src="https://www.rowkey.cn/post_images/ali-manage/integration.jpg" alt="" /></li>
-<li><p>数字化变革时代的理念变迁</p>
-
-<p>  <img src="https://www.rowkey.cn/post_images/ali-manage/trans.jpg" alt="" /></p></li>
-<li><p>终局思维</p></li>
-</ul>
-
-
-<h3>自己的收获</h3>
-
-<p>从自己彻底做好管理角色的认知到转变3年多了，曾经对于管理这件事会武断的认为所有人都需要同样的管理技能。后来逐渐意识到不同的管理层级需要的认知和知识是大不一样的。通过这次课程，也印证了这件事，所谓腿部、腰部、头部也就指的是基层管理者、中层管理者和高层管理者，也就是所谓的领导力阶梯。此外，阿里从“常人做非凡事”转变到现在的“非凡人平常心做非凡事”，也是一个公司从创业团队到大公司的转变过程所需要的观念的改变。</p>
 ]]></content>
   </entry>
   
