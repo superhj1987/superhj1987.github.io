@@ -3,7 +3,7 @@ layout: post
 title: "DeepSeek简单分享"
 date: 2025-02-23 19:29:34 +0800
 comments: true
-categories: genai
+categories: ai
 ---
 
 本文内容来自一次内部分享。主要是对目前非常火的DeepSeek的一些自己的认知和理解。
