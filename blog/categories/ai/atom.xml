@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-04T09:23:31+00:00</updated>
+  <updated>2026-03-04T09:29:44+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -21,6 +21,9 @@
     <content type="html"><![CDATA[<p>2026 年的 AI 发展，最大的变化不是“又出了一个更强的模型”，而是 <strong>模型能力、工程体系、产品形态</strong> 在同一年里完成了多次叠加：从“能写点代码/能聊两句”，走到了“能在真实环境里长期运行、交付可验收成果”。</p>
 
 <p>这篇文章不追热点罗列新闻，更多是一个工程视角的总结：<strong>哪些能力真的变成了可复用的工程组件？哪些方向正在收敛成标准做法？哪些坑还在？</strong></p>
+
+<!-- more -->
+
 
 <h2>1. 模型侧：更强不是重点，更“可控/可用”才是</h2>
 
