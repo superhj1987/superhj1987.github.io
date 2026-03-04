@@ -6,9 +6,7 @@ footer: false
 $(document).ready(function(){
 	$("#nav-menu a").removeClass("current");
 	var thisPath = location.pathname;
-	if(thisPath.indexOf("java") > -1){
-		$("#nav-menu .java-nav").addClass("current");
-	}else if(thisPath.indexOf("architecture") > -1){
+	if(thisPath.indexOf("architecture") > -1){
 		$("#nav-menu .architecture-nav").addClass("current");
 	}else if(thisPath.indexOf("manage") > -1){
 		$("#nav-menu .manage-nav").addClass("current");
