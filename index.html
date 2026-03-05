@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="OpenClaw 架构剖析 上一篇聊了「OpenClaw 是什么」。这一篇更偏工程视角：OpenClaw 到底怎么实现一个可长期运行的 Agent 系统？消息是怎么进来的？怎么路由到 Agent？工具调用与定时任务如何编排？ 如果你做过 Agent 落地，会很熟悉这些关键词：channel、 &hellip;">
+  <meta name="description" content="灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天） 说明：同人小说，纯属虚构。 1996年11月。神奈川，湘南康复医疗中心。 入冬后的第一场雨下得毫无预兆。水汽从没关严的窗缝渗进来，让整间康复室弥漫着一股消毒水和潮气混合的味道。 樱木花道仰面躺在训练垫上，盯着天花板上那盏日光灯管。 &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -122,6 +122,92 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2026-03-05T09:30:00+00:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><blockquote><p>说明：同人小说，纯属虚构。</p></blockquote>
+
+<p>1996年11月。神奈川，湘南康复医疗中心。</p>
+
+<p>入冬后的第一场雨下得毫无预兆。水汽从没关严的窗缝渗进来，让整间康复室弥漫着一股消毒水和潮气混合的味道。</p>
+
+<p>樱木花道仰面躺在训练垫上，盯着天花板上那盏日光灯管。灯管老了，每隔几秒就会轻微地闪烁一下，发出蚊子振翅般的嗡鸣。他已经数了四个月零十七天的闪烁。</p>
+
+<p>一百三十八天。</p>
+
+<p>他的腰椎在全国大赛对山王工业一役中严重受伤，医生说需要至少半年静养，完全恢复运动机能则可能需要一年甚至更久。安西教练亲自把他送到这家康复中心，临走时只说了一句话：</p>
+
+<p>&ldquo;樱木同学，不要着急。你的篮球生涯，才刚刚开始。&rdquo;</p>
+
+<p>那时的樱木还满不在乎地大笑："安西老头放心吧！本天才很快就会回来称霸全国的！"</p>
+
+<p>可一百三十八天的滋味，远比他想象的要漫长。</p>
+
+<p>&ldquo;第三组，腰桥支撑，四十五秒。开始。&rdquo;</p>
+
+<p>物理治疗师高野站在旁边，手里捏着秒表，语气像在播报天气预报。</p>
+
+<p>樱木双脚踩地，臀部撑起，身体绷成一条直线。腰椎右侧的钝痛准时出现，像一根生锈的铁钉被缓慢拧进骨缝。他咬紧后槽牙，额角青筋暴起，汗珠沿着颧骨滚落，砸在垫子上发出几不可闻的"啪"。</p>
+
+<p>&ldquo;……二十秒。&rdquo;</p>
+
+<p>他开始在心里骂人。骂高野，骂这该死的天气，骂那盏不争气的灯管。然后他骂流川枫。不需要理由，骂那个臭狐狸天然就能让他分散注意力。</p>
+
+<p>&ldquo;……三十五秒。&rdquo;</p>
+
+<p>腰部传来的疼痛从钝痛变成灼烧感，像有人拿砂纸在磨他的脊椎。前臂的肌肉开始痉挛。他的脑子里闪过一个画面：山王工业的比赛最后两分钟，他接到流川枫的传球，在所有人的注视下投出了那记中投——球在空中旋转，划出一道完美的抛物线，时间仿佛凝固——</p>
+
+<p>&ldquo;四十五秒。可以了。&rdquo;</p>
+
+<p>樱木的身体砸回垫子，胸膛剧烈起伏。天花板上的灯管又闪了一下。</p>
+
+<p>&ldquo;……高野。"他的声音沙哑。</p>
+
+<p>&ldquo;嗯？&rdquo;</p>
+
+<p>&ldquo;本天才什么时候能碰球？&rdquo;</p>
+
+<p>这个问题他每周至少问三次。高野的回答永远一样。</p>
+
+<p>&ldquo;不能急。&rdquo;</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -508,48 +594,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2024/03/27/ai-video/">如何使用AI生成长视频？</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2024-03-27T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>今年最火的AI技术应该是OpenAI在春节期间发布的Sora了。相比起其他视频生成产品就3、4秒的时长，Sora是碾压式的存在。但Sora没有对外开放，所以要生成长视频，暂时也没有其他完整的好的方案。综合各种资料来看，目前最可行的方案应该就是：写剧本/分镜——>生图——>生视频->视频拼接，本质上就是通过多个短时长的视频组成一个完整的长视频。下面就详细讲述一下。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2024/03/27/ai-video/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -621,6 +665,10 @@
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
       	</li>
     	
@@ -654,10 +702,6 @@
     	
      	<li>
       	  <a href="/blog/2024/04/07/different-cto/">不同的CTO角色 by Werner Vogels (Amazon CTO)</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2024/03/27/ai-video/">如何使用AI生成长视频？</a>
       	</li>
     	
 	</ul>
