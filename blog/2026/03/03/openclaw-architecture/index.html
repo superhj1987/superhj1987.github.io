@@ -201,29 +201,61 @@
 
 <p>把它拆成 8 步，你会发现它是一条典型的事件驱动流水线：</p>
 
-<p>1) <strong>Channel 收到事件</strong>
-- 可能是文本、图片、语音、文件、按钮回调等。</p>
+<p>1) <strong>Channel 收到事件</strong></p>
 
-<p>2) <strong>插件标准化（Normalize）</strong>
-- 把不同平台的 message schema 归一：from/to/messageId/timestamp/chatType/attachments…</p>
+<ul>
+<li>可能是文本、图片、语音、文件、按钮回调等。</li>
+</ul>
 
-<p>3) <strong>封装输入（Envelope）</strong>
-- 给 Agent 一个稳定的“输入格式”，避免每个渠道都写一套提示词。</p>
 
-<p>4) <strong>路由（Routing/Binding）</strong>
-- 根据规则把消息交给指定 agent（例如 QQ 走 hang-ai，Telegram 走 main）。</p>
+<p>2) <strong>插件标准化（Normalize）</strong></p>
 
-<p>5) <strong>会话选择（Session Key）</strong>
-- 同一用户/群聊映射到固定 session，确保上下文连续。</p>
+<ul>
+<li>把不同平台的 message schema 归一：from/to/messageId/timestamp/chatType/attachments…</li>
+</ul>
 
-<p>6) <strong>Agent 推理（Decide）</strong>
-- Agent 选择：直接回复，还是调用工具（搜索/执行/写文件/定时任务）。</p>
 
-<p>7) <strong>工具执行（Tools/Skills）</strong>
-- 工具是“副作用层”：读写文件、访问网络、调用 API、跑命令。</p>
+<p>3) <strong>封装输入（Envelope）</strong></p>
 
-<p>8) <strong>回传与发送（Outbound Deliver）</strong>
-- 将 Agent 结果交给 channel 插件发送，处理分段、markdown、富媒体等。</p>
+<ul>
+<li>给 Agent 一个稳定的“输入格式”，避免每个渠道都写一套提示词。</li>
+</ul>
+
+
+<p>4) <strong>路由（Routing/Binding）</strong></p>
+
+<ul>
+<li>根据规则把消息交给指定 agent（例如 QQ 走 hang-ai，Telegram 走 main）。</li>
+</ul>
+
+
+<p>5) <strong>会话选择（Session Key）</strong></p>
+
+<ul>
+<li>同一用户/群聊映射到固定 session，确保上下文连续。</li>
+</ul>
+
+
+<p>6) <strong>Agent 推理（Decide）</strong></p>
+
+<ul>
+<li>Agent 选择：直接回复，还是调用工具（搜索/执行/写文件/定时任务）。</li>
+</ul>
+
+
+<p>7) <strong>工具执行（Tools/Skills）</strong></p>
+
+<ul>
+<li>工具是“副作用层”：读写文件、访问网络、调用 API、跑命令。</li>
+</ul>
+
+
+<p>8) <strong>回传与发送（Outbound Deliver）</strong></p>
+
+<ul>
+<li>将 Agent 结果交给 channel 插件发送，处理分段、markdown、富媒体等。</li>
+</ul>
+
 
 <blockquote><p>这条链路里，最容易做坏的其实是第 2～5 步：输入不干净、路由不清晰、session 混乱，都会让 Agent “聪明但不稳定”。OpenClaw 的设计重点正是在这里。</p></blockquote>
 
@@ -326,9 +358,12 @@
 
 <p>你在研发其他项目时可以照搬这套思想：</p>
 
-<p>1) <strong>把所有 I/O 做成插件接口</strong>（inbound/outbound 都走统一协议）
-2) <strong>把执行能力做成可装卸的模块</strong>（每个模块有清晰的输入输出契约）
-3) <strong>把运行时策略配置化</strong>（允许按项目/按环境切换能力组合）</p>
+<ul>
+<li><strong>把所有 I/O 做成插件接口</strong>（inbound/outbound 都走统一协议）</li>
+<li><strong>把执行能力做成可装卸的模块</strong>（每个模块有清晰的输入输出契约）</li>
+<li><strong>把运行时策略配置化</strong>（允许按项目/按环境切换能力组合）</li>
+</ul>
+
 
 <p>这样系统才具备“长期演进能力”：</p>
 
@@ -348,10 +383,14 @@
 
 <h3>方法论 2.5：把“配置”当成系统契约（Contract），而不是参数堆</h3>
 
-<p>OpenClaw 里很多稳定性来自于“约束前置”：
-- 绑定规则（哪个 channel → 哪个 agent）
-- 工具权限（哪些 tool 可用/哪些 elevated 禁止）
-- 推送策略（cron 的去重文件、重试退避）</p>
+<p>OpenClaw 里很多稳定性来自于“约束前置”：</p>
+
+<ul>
+<li>绑定规则（哪个 channel → 哪个 agent）</li>
+<li>工具权限（哪些 tool 可用/哪些 elevated 禁止）</li>
+<li>推送策略（cron 的去重文件、重试退避）</li>
+</ul>
+
 
 <p>工程上你可以把它抽象成：</p>
 
