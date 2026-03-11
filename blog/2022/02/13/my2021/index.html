@@ -1,0 +1,648 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>我的2021 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="我的2021 Posted by HJ in work 迟来的关于2021年的总结。 整个2021年还是处在新冠疫情的笼罩之下，反反复复，工作和生活都或多或少收到了一些影响。穿插其中的，有工作上的开始和突破，有生活上的失望与惊喜，也有自己内心的或喜或悲。 工作 游戏 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2022/02/13/my2021/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">我的2021</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2022-02-13T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/work/'>work</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>迟来的关于2021年的总结。</p>
+
+<p>整个2021年还是处在新冠疫情的笼罩之下，反反复复，工作和生活都或多或少收到了一些影响。穿插其中的，有工作上的开始和突破，有生活上的失望与惊喜，也有自己内心的或喜或悲。</p>
+
+<!--more-->
+
+
+<h2>工作</h2>
+
+<h3>游戏</h3>
+
+<p>如果用一个词来概括2021年游戏方面的工作，应该是“突破”。接着2020年底的工作，团队终于在2月份算是组建成功，但实际上一直到8月份，不管是在游戏方向还是团队战斗力上都一直处于一个不稳定的状态。期间发生了一些事，也挺让我无奈的，也感触颇深。后续在经历了人员的变动和游戏方向的屡屡尝试后，最重确定了要做的品类，之后营收数据迅速得到了提升。12月的数据让大家看到了实现盈利的希望，团队也终于有了信心和凝聚力。希望2022年在利润上实现更一步的突破。</p>
+
+<p>通过这一年游戏业务的工作，最令我感悟的一点就是职能部门负责人与业务负责人的不同。之前看美团的前COO干嘉伟说过<strong>“从职能管理到业务管理，这是一个非常大的跨越。哪怕你是一个非常有经验的职能管理者，管过几千人的团队，也不意味着你就可以顺理成章地孵化出一个5个人的独立业务，二者的能力要求完全不一样。”</strong>现在总结来看，职能部门负责人的关注点主要在于团队专业能力的提升，对于自身的要求，专业能力占了很大比重，对于营收、增长、变现这些方面关注是比较少的。而对于业务负责人，需要关注从研发到变现的全流程，并通过数据和经验做出判断和决策，需要的能力更加综合。</p>
+
+<h3>技术团队</h3>
+
+<p>由于2021年自身的主要精力放在了游戏业务上，对于技术团队的管理工作，主要是总体方向上的把控。鉴于整体经济形式和公司业务的状况，整个2021年还是围绕降本增效在进行。</p>
+
+<h3>降本</h3>
+
+<ul>
+<li>大数据上云：完成了大数据迁移至华为云，并回收了之前的物理主机，给公司带来了一笔现金流。</li>
+<li>提高资源利用率：持续监测优化，提高了业务和大数据CPU、磁盘、数据库使用率，节省了客观的云服务成本。</li>
+<li>替代第三方服务：新业务使用友盟推送，减少了推送服务的使用成本。</li>
+<li>华为云政府补贴：完成了云服务到华为云的全量迁移，并争取到了政府可观的云服务补贴。</li>
+</ul>
+
+
+<h3>增效</h3>
+
+<p>在提高效能这方面，今年有明显进展的包括以下：</p>
+
+<ul>
+<li>DevOps平台：2021年eone平台继续优化，最终实现了对K8S、游戏客户端、Python等的支持。并进一步开发了域名管理、资源管理等。基本实现了公司所有业务的接入，大大节省了运维团队的精力和成本，大大提高了产品的交付效率。</li>
+<li>Flutter技术：在游戏业务实现了产品的交付，基本证明了开发与推广的可行性。</li>
+</ul>
+
+
+<h2>学习</h2>
+
+<p>2021年自己主要一直在学习游戏业务方面的知识，也比较零散，但游戏相关的几本专业书看了部分最终也没看完，主要还是通过和游戏行业前辈们的交流沟通来学习。除此之外的书籍，完成阅读的则比较少。</p>
+
+<ul>
+<li><p>极客时间<a href="https://time.geekbang.org/column/intro/100062901">《乔新亮的CTO成长复盘》</a></p>
+
+<blockquote><p>彩食鲜CTO乔新亮的成长复盘课程。作者也是自己大学的学长，职业生涯经历了从程序员到管理者再到CTO的转变，待过大公司、也去过小公司。他的这些经历和对经历的复盘对我来说，是非常有参考价值的。通过这个课程确实学到了不少干货。值得走技术路线的朋友们学习。</p></blockquote></li>
+<li><p>极客时间<a href="https://time.geekbang.org/column/intro/100095401">《超级访谈：对话张雪峰》</a></p>
+
+<blockquote><p>饿了么CTO张雪峰的一次访谈整理出来的课程。我自己是抱着CTO到底需要做什么来学习的。看完之后，有些地方是能印证自己目前在做的，也有很多地方是自己还有很大差距的。自以为，这个课程适合目前处于CTO或者技术总监岗位上的人，可以对照后产生自己的认知。</p></blockquote></li>
+<li><p>极客时间<a href="https://time.geekbang.org/column/intro/100025001">《从0开始学增长》</a></p>
+
+<blockquote><p>作者是前宜人贷用户增长团队负责人，《破茧成蝶》系列图书作者。自己是独立负责业务后，想学习一下增长方面的知识所以在极客时间找了课程来学。所以评价这本书，只能以一个初学者的角度。综合看来，作者讲述了其在增长领域多年经验总结出来的方法论。课程里提到的增长的概念、差异性洞察、北极星指标、增长闭环、一级方向（高级洞察）、二级机会（用户增长地图）、三级增长（精益增长闭环）、四级成果（增长链）等等，有一些在我们实际业务中也做了尝试并取得了一定的效果。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/26464679/">游戏分析的艺术</a></p>
+
+<blockquote><p>这本书是一本针对于游戏业务的数据分析书籍，作者来自于TalkingData、西山居。基于通用的数据分析方法，讲述了针对游戏的一些数据分析指标和方法，包括数据分析的思路、报表组织结构等等。对于数据分析初学者、游戏业务从业者，都有不小的参考和学习价值。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/35260706/">极简市场营销</a></p>
+
+<blockquote><p>这本书是公司CEO推荐公司所有管理层阅读的一本书籍。这里的市场营销主要是讲述的传统行业如消费品的市场运营。是一本理论和实际都兼具的书籍。作者基于传统的市场营销理论扩展出了市场洞察、客户细分和目标用户选择、定位、品牌、市场营销4P、促销组合、黑客增长的框架。同时也讲述了市场营销工作的考核与组织架构，具有实际参考价值。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/27153484/">穷爸爸富爸爸</a></p>
+
+<blockquote><p>挺老的一本书。算是财商教育的启蒙书籍。全书围绕穷人为钱工作，富人让钱为自己工作来讲述。其阐述的通过投资产生的收益来消费，而不是直接消费、如何减少税收等理念确实值得思考。但其中的很多操作方法却也是建立在有足够认知的情况下的，书值得读，但妄想一下子开了窍赚钱可能性也不大。</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/30267664/">深度思维</a></p>
+
+<blockquote><p>今年我最推荐的一本书。里面讲了几大深度思维模式，包括延长逻辑思维链、换位思维、可视化思维、流程思维、生态思维、系统思维、大势思维、兵法思维。其中延长逻辑思维链这一点，在平时的工作上确实感受颇深，具有这一思维的人大都是做事靠谱的管理角色。非常值得阅读学习的一本书！</p></blockquote></li>
+<li><p><a href="https://book.douban.com/subject/33379779/">美国陷阱</a></p>
+
+<blockquote><p>华为孟晚舟事件时此书的作者在媒体上给与过自身经历的分享。通过作者所在的法国阿尔斯通集团公司的电力业务如何被美国通用电气公司收购切身讲述了美国如何通过自身的霸权地位来打击美国企业竞争对手，实现自己经济战争的胜利的。</p></blockquote></li>
+</ul>
+
+
+<p>以上是已经完成阅读的书籍，目前待读的书籍列表如下，每一分类优先级自上至下降低。2021年规划完成其中12-24本的阅读。</p>
+
+<h3>业务&amp;管理</h3>
+
+<ul>
+<li>数据化决策</li>
+<li>经济学思维</li>
+<li>牛奶可乐经济学</li>
+<li>内向者沟通圣经</li>
+<li>用图表说话</li>
+<li>精益创业</li>
+<li>一网打尽：贝佐斯与亚马逊时代</li>
+<li>领导者的大脑</li>
+<li>科学分钱：学习华为分钱方法</li>
+<li>卓有成效的管理者</li>
+<li>领导梯队：全面打造领导力驱动型公司</li>
+<li>回归本源看绩效</li>
+<li>别让猴子跳回背上</li>
+</ul>
+
+
+<h3>技术</h3>
+
+<ul>
+<li>极客时间《许世伟的架构课》</li>
+<li>分布式系统概念与设计</li>
+<li>大数据日知录</li>
+<li>数据密集型系统设计</li>
+<li>程序员的三门课</li>
+<li>程序员修炼之道</li>
+</ul>
+
+
+<h3>企业</h3>
+
+<ul>
+<li>创新者的窘境</li>
+<li>良性增长</li>
+<li>闪电式扩张</li>
+<li>定位：有史以来对美国营销影响最大观念</li>
+<li>刷新：重新发现商业与未来</li>
+<li>公司进化论</li>
+<li>方舟：数字经济创新史</li>
+<li>超级版图：全球供应链、超级城市与新商业文明的崛起</li>
+</ul>
+
+
+<h3>个人</h3>
+
+<ul>
+<li>学会提问</li>
+<li>直击本质：洞察事物底层逻辑的思考力</li>
+<li>模型思维</li>
+<li>结构性思维：让思考和表达像搭积木一样有序省力</li>
+<li>金字塔原理</li>
+<li>社会性动物</li>
+<li>智慧的疆界：从图灵机到人工智能</li>
+<li>资本论</li>
+<li>全球通史</li>
+<li>乡土中国</li>
+<li>置身事内：中国政府与经济发展</li>
+<li>价值：我对投资的思考</li>
+<li>看懂世界格局的第一本书：大国博弈</li>
+<li>大国战略：世界是如何被统治的</li>
+<li>异类</li>
+<li>中国城市大洗牌</li>
+</ul>
+
+
+<h2>生活</h2>
+
+<p>2021年生活的改变还是挺大的。在权衡了各种利弊之后，选择了常驻南京公司来推进游戏业务，家也从北京搬回了杭州，住进了已经装修好三年的房子。一方面是新房子装修好后就没住过，另一方面对于以后定居在杭州还是南京，暂时还没做出决定，因此2021年开始了南京和杭州来回跑的双城记。有点累，但即使就周末住在自己房子里的时间，也是完全不同于租房的感觉。值得一提的是，由于南京的人才安居政策，在年底购买了南京的新房，虽然后面被这个政策给坑了，但基本上也确定了后面定居南京的打算。</p>
+
+<p>今年也是女儿三周岁上幼儿园的一年，在经历了chongwen幼儿园的三观刷新和打击后，最终选了和chongwen有渊源的崇艺幼儿园。从这半个学期来看，女儿很喜欢这个学校，交到了不少好朋友，学会了不少英文，也受到了不少的艺术熏陶。课余还自己学会了平衡车、拍球、自行车。能够明显地看到她每天的进步。希望她能够一直这么开心下去，茁壮成长。</p>
+
+<h2>总结</h2>
+
+<p>以上是2021年的总结，做的事情挺多，收获也不少，总体还算令自己满意的。希望2022年疫情能够尽快消失或者有一个崭新的防控措施。</p>
+
+<ul>
+<li>实现游戏利润的突破，业务线能够自负盈亏，能够开始长线的游戏方向。</li>
+<li>借助新的业务线推进Flutter等跨平台开发技术在公司的使用。</li>
+<li>监控技术成本，控制成本支出，提高性价比。</li>
+<li>能够在海外或者Web3.0业务上有突破，哪怕是入门。</li>
+</ul>
+
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2022/05/04/article-notes/" title="上一篇: 阅文笔记202205">&laquo; 阅文笔记202205 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2021/08/13/game/" title="下一篇: 做游戏业务以来的一些感悟">做游戏业务以来的一些感悟 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/03/11/slam-dunk-asia-storm-ch1-sec5/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第五节：倒计时四十八小时）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/09/slam-dunk-asia-storm-ch1-sec4/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第四节：封闭测试日）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/08/slam-dunk-asia-storm-ch1-sec3/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/06/slam-dunk-asia-storm-ch1-sec2/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "我的2021",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

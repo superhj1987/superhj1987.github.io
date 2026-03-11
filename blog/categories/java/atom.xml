@@ -4,7 +4,7 @@
   <title><![CDATA[Category: java | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/java/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-11T18:12:58+00:00</updated>
+  <updated>2026-03-11T18:18:52+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -404,19 +404,28 @@ thrift --gen java TestService.thrift
 <p>以上即可在gen-java目录下生成TestService的Java代码TestService.java, 其中的核心是接口TestService.Iface，实现此类即可提供服务。需要注意的是Thrift有一个问题就是在接口比较多的时候，生成的Java代码文件太大。</p>
 
 <p>服务提供方：
-```
-TProcessor tprocessor =
-    new TestService.Processor<TestService.Iface>(new TestServiceImpl());</p>
-
-<p>TServerSocket serverTransport = new TServerSocket(8088);
-TServer.Args tArgs = new TServer.Args(serverTransport);
-tArgs.processor(tprocessor);
-tArgs.protocolFactory(new TBinaryProtocol.Factory());</p>
-
-<p>// 简单的单线程服务模型
-TServer server = new TSimpleServer(tArgs);
-server.serve();
-```</p>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>TProcessor tprocessor =
+</span><span class='line'>    new TestService.Processor&lt;TestService.Iface&gt;(new TestServiceImpl());&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;TServerSocket serverTransport = new TServerSocket(8088);
+</span><span class='line'>TServer.Args tArgs = new TServer.Args(serverTransport);
+</span><span class='line'>tArgs.processor(tprocessor);
+</span><span class='line'>tArgs.protocolFactory(new TBinaryProtocol.Factory());&lt;/p&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;p&gt;// 简单的单线程服务模型
+</span><span class='line'>TServer server = new TSimpleServer(tArgs);
+</span><span class='line'>server.serve();</span></code></pre></td></tr></table></div></figure></p>
 
 <p>服务消费方：</p>
 
@@ -1603,70 +1612,129 @@ LOGGER.info("...");
 
 <pre><code>Kotlin中的写法也可以这样：
 
-```
-val str = """hello
-world
-!!!
-"""
-</code></pre>
-
-<pre><code class="```        ">
-    三个”号之间不在需要+号进行连接，不过字符串中的格式符都会被保留，包括回车和tab。
-
-1. 字符串模板
-
-    Kotlin提供了$符来做字符串内的变量替换，并且可以做一些字符串操作。如下：
-
-    ```
-    var name = "hj"
-    var strTemplate = "My name is $name"//My name is hj
-
-    strTemplate = "My name is ${name.replace("j","a")}"// My name is ha
-    ```
-
-1. 一切皆对象
-
-    Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。
-
-1. if条件表达式
-
-    Kotlin中支持if条件表达式。
-
-    ```
-   val a = if(x &gt; 0) 1 else 2
-   fun maxOf(a: Int, b: Int) = if (a &gt; b) a else b
-    ```
-
-1. 循环
-
-    Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。
-
-    ```
-    for(i in 1..10){
-        println(i)
-    }
-
-    for(i in 1..10 step 2){
-        println(i)
-    }
-
-    for(i in 10 downTo 1 step 1){
-        println(i)
-    }
-
-    for (i in 1 until 10) {
-        // i in [1, 10) 排除了 10
-        println(i)
-    }
-
-    for(c in 'A'..'Z'){
-        println(c)
-    }
-</code></pre>
-
-<pre><code>需要注意的是在Kotlin中不再支持Java的for循环形式：
-
-```
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>val str = """hello
+</span><span class='line'>world
+</span><span class='line'>!!!
+</span><span class='line'>"""
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code class="```        "&gt;
+</span><span class='line'>    三个”号之间不在需要+号进行连接，不过字符串中的格式符都会被保留，包括回车和tab。
+</span><span class='line'>
+</span><span class='line'>1. 字符串模板
+</span><span class='line'>
+</span><span class='line'>    Kotlin提供了$符来做字符串内的变量替换，并且可以做一些字符串操作。如下：
+</span><span class='line'>
+</span><span class='line'>    ```
+</span><span class='line'>    var name = "hj"
+</span><span class='line'>    var strTemplate = "My name is $name"//My name is hj
+</span><span class='line'>
+</span><span class='line'>    strTemplate = "My name is ${name.replace("j","a")}"// My name is ha
+</span><span class='line'>    ```
+</span><span class='line'>
+</span><span class='line'>1. 一切皆对象
+</span><span class='line'>
+</span><span class='line'>    Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。
+</span><span class='line'>
+</span><span class='line'>1. if条件表达式
+</span><span class='line'>
+</span><span class='line'>    Kotlin中支持if条件表达式。
+</span><span class='line'>
+</span><span class='line'>    ```
+</span><span class='line'>   val a = if(x &gt; 0) 1 else 2
+</span><span class='line'>   fun maxOf(a: Int, b: Int) = if (a &gt; b) a else b
+</span><span class='line'>    ```
+</span><span class='line'>
+</span><span class='line'>1. 循环
+</span><span class='line'>
+</span><span class='line'>    Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。
+</span><span class='line'>
+</span><span class='line'>    ```
+</span><span class='line'>    for(i in 1..10){
+</span><span class='line'>        println(i)
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    for(i in 1..10 step 2){
+</span><span class='line'>        println(i)
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    for(i in 10 downTo 1 step 1){
+</span><span class='line'>        println(i)
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    for (i in 1 until 10) {
+</span><span class='line'>        // i in [1, 10) 排除了 10
+</span><span class='line'>        println(i)
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    for(c in 'A'..'Z'){
+</span><span class='line'>        println(c)
+</span><span class='line'>    }
+</span><span class='line'>&lt;/code&gt;&lt;/pre&gt;
+</span><span class='line'>
+</span><span class='line'>&lt;pre&gt;&lt;code&gt;需要注意的是在Kotlin中不再支持Java的for循环形式：
+</span></code></pre></td></tr></table></div></figure>
 for(int i =0;i &lt; 10;i++){
     ...
 }

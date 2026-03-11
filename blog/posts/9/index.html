@@ -1,0 +1,962 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="2016年读过的书 16年由于工作、身体等各种原因，阅读的书籍并不多。主要集中在技术方面。 计算广告 广告是什么？广告的效果如何评价？机器学习如何应用在计算广告上？作者从产品、运营、技术角度分别进行了阐述。是其计算广告课程（清华、北航的研究生课程）的总结和输出，推荐广告系统开发工程师学习和参考， &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/posts/9/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			  <div class="col-8" id="main">
+    <div class="res-cons">
+    
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/12/30/2016books/">2016年读过的书</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-12-30T17:13:46+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>16年由于工作、身体等各种原因，阅读的书籍并不多。主要集中在技术方面。</p>
+
+<ul>
+<li><p>计算广告</p>
+
+<blockquote><p>广告是什么？广告的效果如何评价？机器学习如何应用在计算广告上？作者从产品、运营、技术角度分别进行了阐述。是其计算广告课程（清华、北航的研究生课程）的总结和输出，推荐广告系统开发工程师学习和参考，个性化推荐系统的开发者也能够从中得到很多启发。</p></blockquote></li>
+<li><p>集体智慧编程</p>
+
+<blockquote><p>机器学习的经典书籍。讲述了集体智慧相关的东西，也是推荐系统相关的一本书。可以看做是机器学习的入门书籍。</p></blockquote></li>
+<li><p>七周七并发模型</p>
+
+<blockquote><p>多线程、Actor、Lambda架构等八种并发模式。看完此书，确实能够开阔眼界，拓展思路。和系列中的《七周七语言》《七周七数据库》《七周七Web开发框架》都是类似的拓展眼界的佳作。</p></blockquote></li>
+<li><p>写给大忙人看的Java SE 8</p>
+
+<blockquote><p>浅显易懂地对JDK 7和8新特性的概括，很薄的书，很快就能够看完，做到对Java新版本特性的了解。</p></blockquote></li>
+<li><p>快学Scala</p>
+
+<blockquote><p>Scala这个编程语言的学习曲线很陡，之前找到twitter的scala school，但是发现讲的有点不到位。此书作为Scale学习的入门书籍值得阅读。</p></blockquote></li>
+</ul>
+
+</div>
+  
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/11/16/java-trouble-shooting/">[译]JDK自带工具之问题排查场景示例</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-16T22:21:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E5%BC%95%E8%A8%80">引言</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%9C%BA%E6%99%AF">问题排查场景</a>
+
+<ul>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84JVM%E5%88%97%E8%A1%A8">获取正在运行的JVM列表</a></li>
+<li><a href="#Java%E5%A0%86%E7%9A%84DUMP">Java堆的DUMP</a></li>
+<li><a href="#%E5%88%86%E6%9E%90%E5%A0%86%E7%9B%B4%E6%96%B9%E5%9B%BE">分析堆直方图</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8BDump">线程Dump</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8CJava%E9%A3%9E%E8%A1%8C%E8%AE%B0%E5%BD%95%E5%99%A8(Java%20Flight%20Recorder">运行Java飞行记录器(Java Flight Recorder)</a>)</li>
+<li><a href="#%E5%90%8E%E8%AE%B0">后记</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优工具以及它们的惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
+
+<h2><a name='引言'></a>引言</h2>
+
+<p>在Java世界中，我们的很多开发工作从编码、调试到调优都在使用GUI工具。我们经常尝试在本地构建一套和线上一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下是无法在本地重现线上问题的。例如，我们没有权限获取真实客户端提交到线上服务端的数据。</p>
+
+<p>由此，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也不可能有合适的办法来进行排查。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
+
+<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据实际需求逐渐地安装其中的工具)。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/11/16/java-trouble-shooting/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/11/12/groovy-ast/">[译]使用Groovy的AST Transformation实现DSL</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-12T21:21:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近在看一些java开源项目时，发现不少是用gradle做为项目构建工具的。之前虽然也用过gradle，但是却没怎么仔细留意build.gradle的语法是groovy的。但这次再怎么看也觉得里面的好多语法都和以前用过的groovy都联系不到一起。各种懵逼状态。。。后来阅读了这篇文章，算是解答了一些疑问：<a href="http://www.cnblogs.com/CloudTeng/p/3418072.html">http://www.cnblogs.com/CloudTeng/p/3418072.html</a>。但是对于下面这种写法，还是不知道是怎么回事：</p>
+
+<pre><code>task copyFile(type: Copy){
+    from 'xml'
+    into 'destination'
+}
+</code></pre>
+
+<p>copyFile做为task名称竟然不是一个字符串，阅读了groovy的文档也没发现字符串可以省略引号的说明(php中引号倒是可以省略），此外一个方法后面跟一个参数然后这个参数又跟着一个括号，这又是什么语法。。。凭直觉觉得这里的copyFile应该是一个方法，但是这时候copyFile还没有定义啊。。。</p>
+
+<p>带着以上疑问，去翻了一下groovy的官方文档，凭感觉觉得gradle是利用了groovy的ast trasnfomation，也就是抽象语法树转换(故名思议，也就是能够转换groovy的语法树从而创造自己的一套语法)。那么到底是不是这样呢？<a href="http://blog.csdn.net/zxhoo/article/details/29830529">http://blog.csdn.net/zxhoo/article/details/29830529</a>给出了解释并证明了这个结论。但是groovy的ast transformation到底是什么东西呢？国外有一篇博客给出了比较清晰明了的讲述：<a href="http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy">http://www.jroller.com/DhavalDalal/entry/a_case_for_using_groovy</a>。以下即对此篇博文的翻译。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/11/12/groovy-ast/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/11/03/jdk-tools/">JDK自带工具之概览</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-03T22:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。</p>
+
+<p>笔者的开发环境是：OS X EI Captian 10.11.6</p>
+
+<p>JDK版本：</p>
+
+<pre><code>java version "1.8.0_92"
+Java(TM) SE Runtime Environment (build 1.8.0_92-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
+</code></pre>
+
+<p>JAVA_HOME/bin下的工具截图如下：</p>
+
+<p><img src="/images/blog_images/jdk-tools.png" alt="" /></p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/11/03/jdk-tools/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/11/02/java-profile/">Java调优经验谈</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-02T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E8%B0%83%E4%BC%98%E5%87%86%E5%A4%87">调优准备</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90">性能分析</a></li>
+<li><a href="#%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98">性能调优</a></li>
+<li><a href="#%E5%85%B6%E4%BB%96%E4%BC%98%E5%8C%96%E5%BB%BA%E8%AE%AE">其他优化建议</a></li>
+<li><a href="#JVM%E5%8F%82%E6%95%B0%E8%BF%9B%E9%98%B6">JVM参数进阶</a></li>
+</ul>
+
+
+<p>对于调优这个事情来说，一般就是三个过程：</p>
+
+<ul>
+<li>性能监控：问题没有发生，你并不知道你需要调优什么。此时需要一些系统、应用的监控工具来发现问题。</li>
+<li>性能分析：问题已经发生，但是你并不知道问题到底出在哪里。此时就需要使用工具、经验对系统、应用进行瓶颈分析，以求定位到问题原因。</li>
+<li>性能调优：经过上一步的分析定位到了问题所在，需要对问题进行解决，使用代码、配置等手段进行优化。</li>
+</ul>
+
+
+<p>Java调优也不外乎这三步。</p>
+
+<p>此外，本文所讲的性能分析、调优等是抛开以下因素的：</p>
+
+<ul>
+<li>系统底层环境：硬件、操作系统等</li>
+<li>数据结构和算法的使用</li>
+<li>外部系统如数据库、缓存的使用</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/11/02/java-profile/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/09/20/btrace/">BTrace原理浅析</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-09-20T21:39:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>之前在看agentzh的此篇博文<a href="http://openresty.org/posts/dynamic-tracing/">动态追踪技术漫谈</a>时，领会到了动态追踪技术的强大之处，也一直由于无法在不重启线上服务器的情况下排查线上问题在寻找Java中的动态追踪工具。在公司内部的JavaEE性能检测框架中，我们使用了asm做字节码注入来做线上性能的监测，沿着这个思路，如果要做到动态追踪应该是需要做字节码注入的，但是额外的一点是需要动态加载字节码替换掉原有的类的。此外，性能监测框架是需要耦合到业务应用中的，无法做到一个监测工具的灵活性。</p>
+
+<p>后来听同事提到了BTrace这个工具，于是去尝试了一下。BTrace是SUN Kenai云计算开发平台下的一个开源项目，旨在为java提供安全可靠的动态跟踪分析工具。江南白衣的这篇文章<a href="http://calvin1978.blogcn.com/articles/btrace1.html">http://calvin1978.blogcn.com/articles/btrace1.html</a>做了比较详细的描述。</p>
+
+<p>那么，BTrace这么神奇的功能是如何实现的呢？既然这是个开源的代码，那么直接从代码找原理。BTrace代码开源在<a href="https://github.com/btraceio/btrace">https://github.com/btraceio/btrace</a>。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/09/20/btrace/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/08/30/recommend-sys/">推荐系统杂谈</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-08-30T20:39:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>推荐系统是近些年非常火的技术，不管是电商类软件还是新闻类app，都号称有精准的推荐系统能给你推送你最感兴趣的内容。现象级的资讯类app“今日头条”就得益于此成为了势头非常猛的一款产品。本文就针对推荐系统讲述一些相关概念和实践经验。</p>
+
+<p>首先需要明确的就是推荐系统的目标，一般来说不外乎以下几个：</p>
+
+<ul>
+<li>用户满意性：首当其冲的，推荐系统主要就是为了满足用户的需求，因此准确率是评判一个推荐系统好坏的最关键指标。</li>
+<li>多样性：虽然推荐系统最主要还是满足用户的兴趣，但是也要兼顾内容的多样性，对于权重不同的兴趣都要做到兼顾。</li>
+<li>新颖性：用户看到的内容是那些他们之前没有听说过的物品。简单的做法就是在推荐列表去掉用户之前有过行为的那些内容。</li>
+<li>惊喜度：和新颖性类似，但新颖性只是用户没看到过的但是确实是和他行为是相关的，而惊喜度是用户既没有看过和他之前的行为也不相关，但用户看到后的确是喜欢的。</li>
+<li>实时性：推荐系统要根据用户的上下文来实时更新推荐内容，用户的兴趣也是随着时间而改变的，需要实时更新。</li>
+<li>推荐透明度：对于用户看到的最终结果，要让用户知道推荐此内容的原因。比如，“买过这本书的人同时也买过”、"你购买过的xx和此商品类似"。</li>
+<li>覆盖率：挖掘长尾内容也是推荐系统很重要的目标。因此，推荐的内容覆盖到的内容越多越好。</li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/08/30/recommend-sys/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/08/27/server-basic-tech-stack/">谈谈互联网后端基础设施</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-08-27T23:10:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p><strong><em>本文更新于2018.09.14, 更新了后端基础设施框图，增加了负载均衡、Web服务器以及大数据存储和多维数据分析等部分</em></strong></p>
+
+<p>对于一个互联网企业，后端服务是必不可少的一个组成部分。抛开业务应用来说，往下的基础服务设施做到哪些才能够保证业务的稳定可靠、易维护、高可用呢？纵观整个互联网技术体系再结合公司的目前状况，个人认为必不可少或者非常关键的后端基础技术/设施如下图所示：</p>
+
+<p><a href="/images/blog_images/server_basic_stack/server-basic-tech-stack.png" target="_blank"><img src="/images/blog_images/server_basic_stack/server-basic-tech-stack.png"/></a></p>
+
+<ul>
+<li><a href="#Api%E7%BD%91%E5%85%B3">Api网关</a></li>
+<li><a href="#%E4%B8%9A%E5%8A%A1%E5%BA%94%E7%94%A8%E5%92%8C%E5%90%8E%E7%AB%AF%E5%9F%BA%E7%A1%80%E6%A1%86%E6%9E%B6">业务应用和后端基础框架</a></li>
+<li><a href="#%E5%9F%BA%E7%A1%80%E6%9C%8D%E5%8A%A1%E8%BD%AF%E4%BB%B6">基础服务软件</a></li>
+<li><a href="#%E6%96%87%E4%BB%B6%E5%AD%98%E5%82%A8">文件存储</a></li>
+<li><a href="#%E7%BB%9F%E4%B8%80%E8%AE%A4%E8%AF%81%E4%B8%AD%E5%BF%83">统一认证中心</a></li>
+<li><a href="#%E5%8D%95%E7%82%B9%E7%99%BB%E5%BD%95%E7%B3%BB%E7%BB%9F">单点登录系统</a></li>
+<li><a href="#%E7%BB%9F%E4%B8%80%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83">统一配置中心</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E6%A1%86%E6%9E%B6">服务治理框架</a></li>
+<li><a href="#%E7%BB%9F%E4%B8%80%E8%B0%83%E5%BA%A6%E4%B8%AD%E5%BF%83">统一调度中心</a></li>
+<li><a href="#%E7%BB%9F%E4%B8%80%E6%97%A5%E5%BF%97%E6%9C%8D%E5%8A%A1">统一日志服务</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD">数据基础设施</a></li>
+<li><a href="#%E6%95%85%E9%9A%9C%E7%9B%91%E6%8E%A7">故障监控</a></li>
+<li><a href="#%E6%89%A9%E5%B1%95">扩展</a></li>
+</ul>
+
+
+<p>这里的后端基础设施主要指的是应用在线上稳定运行需要依赖的关键组件/服务等。开发或者搭建好以上的后端基础设施，一般情况下是能够支撑很长一段时间内的业务的。此外，对于一个完整的架构来说，还有很多应用感知不到的系统基础服务，如负载均衡、自动化部署、系统安全等，并没有包含在本文的描述范围内。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/08/27/server-basic-tech-stack/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/08/17/dev-manage/">研发体系这点事</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-08-17T20:13:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p><strong><em>&ndash;本文于2016.08.23最新更新&ndash;</em></strong></p>
+
+<p>早在读研究生的时候，自己负责着实验室的项目，就一直在思索如何建立一套简单又高效的研发管理体系，能够在保证项目高质量顺利进行的同时还能够提升团队成员的技术level。后来在自己在校的几次小的创业中，也做过一些尝试。直到毕业后进入前东家，在几个项目的参与过程中，见到了大公司的研发管理是如何进行的。直至加入目前的公司，将研发体系梳理一遍，且学且抄且实践，对这一套东西算是有了一定的实践感悟。</p>
+
+<p>对于一个研发管理体系，其核心是围绕着产品的整个生命周期来进行的。因此，根据一个产品的生命周期，可以把研发体系划分为几个关键的环节，如图所示：</p>
+
+<p><a href="/images/blog_images/dev-system-overview.png" target="_blank"><img src="/images/blog_images/dev-system-overview.png"/></a></p>
+
+<p>更为具体的一个研发流程则如下图所示，标注了每一个环节的参与角色。</p>
+
+<p><img src="/images/blog_images/prject_manage_detail.png" alt="prject_manage_detail.png" /></p>
+
+<p>可知，即时沟通和技术提升虽然不属于研发流程中的某一个环节，但它们是贯穿整个研发体系不可或缺的一部分，有着不可替代的作用。此外，任务管理需要对任务做整个研发生命周期的管理，除了作为其中的一个关键环节，也是贯穿整个研发流程的。</p>
+
+<ul>
+<li><a href="#%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86">任务管理</a></li>
+<li><a href="#%E6%96%87%E6%A1%A3%E5%8D%8F%E4%BD%9C">文档协作</a></li>
+<li><a href="#%E4%BB%A3%E7%A0%81%E5%8D%8F%E4%BD%9C">代码协作</a></li>
+<li><a href="#%E8%B4%A8%E9%87%8F%E4%BF%9D%E8%AF%81">质量保证</a></li>
+<li><a href="#%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2">自动化部署</a></li>
+<li><a href="#%E6%95%85%E9%9A%9C%E7%AE%A1%E7%90%86">故障管理</a></li>
+<li><a href="#%E5%8D%B3%E6%97%B6%E6%B2%9F%E9%80%9A">即时沟通</a></li>
+<li><a href="#%E6%8A%80%E6%9C%AF%E6%8F%90%E5%8D%87">技术提升</a></li>
+</ul>
+
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/08/17/dev-manage/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2016/08/03/java-8-top-tips/">[译]Java8 Top Tips</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-08-03T22:30:34+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>原文：<a href="https://dzone.com/articles/java-8-top-tips">https://dzone.com/articles/java-8-top-tips</a></p>
+
+<p>本文包含了对于Java8的一些最佳实践，包括Stream和Lambda表达式的一些基础。</p>
+
+<p>笔者已经使用Java8工作许多年，包括新的应用开发以及迁移旧的应用，感觉是时候总结Java8中一些有用东西的最佳实践。笔者个人不太喜欢“最佳实践”这个词，因为字面上传达了一种“one size fit all”的概念，当然，编码肯定不是这样的而是不同的场景有不同的解决方案。但是笔者觉得在如何使用Java 8让自己的生活变得更加容易上还是有一些特殊的经验值得分享的。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2016/08/03/java-8-top-tips/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
+    
+      <div class="page-navigator">
+        
+        
+            <a href="/blog/posts/8" class="prev"><<上一页</a>
+        
+        
+            <a href="/blog/posts/10" class="next">下一页>></a>
+        
+        <div class="center"><a href="/blog/archives">所有文章</a></div>
+      </div>
+     </div>
+  </div>
+    
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/03/11/slam-dunk-asia-storm-ch1-sec5/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第五节：倒计时四十八小时）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/09/slam-dunk-asia-storm-ch1-sec4/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第四节：封闭测试日）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/08/slam-dunk-asia-storm-ch1-sec3/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/06/slam-dunk-asia-storm-ch1-sec2/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+  </aside>
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

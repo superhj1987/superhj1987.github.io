@@ -1,0 +1,560 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>JDK自带工具之概览 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="JDK自带工具之概览 Posted by HJ in java 在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。 笔者的开发环境是：OS X &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2016/11/03/jdk-tools/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">JDK自带工具之概览</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-03T22:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>在我们平常对java程序进行问题排查、性能调优时，如果没有合适的工具，很多时候会事倍功半，甚至无法继续进行下去。其实，jdk自身已经提供了很多强大的工具供我们使用。本文就对这些工具做一个概览性的描述。</p>
+
+<p>笔者的开发环境是：OS X EI Captian 10.11.6</p>
+
+<p>JDK版本：</p>
+
+<pre><code>java version "1.8.0_92"
+Java(TM) SE Runtime Environment (build 1.8.0_92-b14)
+Java HotSpot(TM) 64-Bit Server VM (build 25.92-b14, mixed mode)
+</code></pre>
+
+<p>JAVA_HOME/bin下的工具截图如下：</p>
+
+<p><img src="/images/blog_images/jdk-tools.png" alt="" /></p>
+
+<!--more-->
+
+
+<ul>
+<li><p>appletviewer: 用于运行并浏览applet小程序。</p></li>
+<li><p>extcheck: 扩展检测工具，主要用于检测指定jar文件与当前已安装的Java SDK扩展之间是否存在版本冲突。</p></li>
+<li><p>idlj: IDL转Java编译器(IDL-to-Java Compiler)，用于为指定的IDL文件生成Java绑定。IDL意即接口定义语言(Interface Definition Language)。</p></li>
+<li><p>jar: jar文件管理工具，主要用于打包压缩、解压jar文件。</p></li>
+<li><p>jarsigner: jar密匙签名工具。</p></li>
+<li><p>java: Java运行工具，用于运行.class字节码文件或.jar文件。</p></li>
+<li><p>javac: Java编译工具(Java Compiler)，用于编译Java源代码文件。</p></li>
+<li><p>javadoc: Java文档工具，主要用于根据Java源代码中的注释信息生成HTML格式的API帮助文档。</p></li>
+<li><p>javafxpackager: JavaFX包装器，用于执行与封装或签名JavaFX应用有关的任务。JDK 8u20已经迁移此工具到javapackager。</p></li>
+<li><p>javah: Java头文件工具，用于根据Java类生成C/C++头文件和源文件(主要用于JNI开发领域)。</p></li>
+<li><p>javap: Java反编译工具，主要用于根据Java字节码文件反汇编为Java源代码文件。</p></li>
+<li><p>javapackager: 执行针对Java应用程序和JavaFX应用程序的打包和签名的任务。包含了javafxpackager的功能。</p></li>
+<li><p>jcmd: Java 命令行(Java Command)，用于向正在运行的JVM发送诊断命令请求。</p></li>
+<li><p>jconsole: 图形化用户界面的监测工具，主要用于监测并显示运行于Java平台上的应用程序的性能和资源占用等信息。</p></li>
+<li><p>jdeps: 用于分析Java class的依赖关系.</p></li>
+<li><p>jdb: Java调试工具(Java Debugger)，主要用于对Java应用进行断点调试。</p></li>
+<li><p>jhat: Java堆分析工具(Java Heap Analysis Tool)，用于分析Java堆内存中的对象信息。</p></li>
+<li><p>jinfo: Java配置信息工具(Java Configuration Information)，用于打印指定Java进程、核心文件或远程调试服务器的配置信息。</p></li>
+<li><p>jjs: 对Nashorn引擎的调用。<a href="http://www.infoq.com/cn/articles/nashorn">Nashorn</a>是基于Java实现一个轻量级高性能的JavaScript运行环境。</p></li>
+<li><p>jmap: Java内存映射工具(Java Memory Map)，主要用于打印指定Java进程、核心文件或远程调试服务器的共享对象内存映射或堆内存细节。</p></li>
+<li><p>jmc: Java任务控制工具(Java Mission Control)，主要用于HotSpot JVM的生产时间监测、分析、诊断。开发者可以使用jmc命令来创建JMC工具。 <a href="https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm">https://docs.oracle.com/javacomponents/jmc-5-5/jmc-user-guide/toc.htm</a></p></li>
+<li><p>jps: JVM进程状态工具(JVM Process Status Tool)，用于显示目标系统上的HotSpot JVM的Java进程信息。</p></li>
+<li><p>jrunscript: Java命令行脚本外壳工具(command line script shell)，主要用于解释执行javascript、groovy、ruby等脚本语言。</p></li>
+<li><p>jsadebugd: Java可用性代理调试守护进程(Java Serviceability Agent Debug Daemon)，主要用于附加到指定的Java进程、核心文件，或充当一个调试服务器。</p></li>
+<li><p>jstack: Java堆栈跟踪工具，主要用于打印指定Java进程、核心文件或远程调试服务器的Java线程的堆栈跟踪信息。</p></li>
+<li><p>jstat: JVM统计监测工具(JVM Statistics Monitoring Tool)，主要用于监测并显示JVM的性能统计信息，包括gc统计信息。</p></li>
+<li><p>jstatd: jstatd(VM jstatd Daemon)工具是一个RMI服务器应用，用于监测HotSpot JVM的创建和终止，并提供一个接口，允许远程监测工具附加到运行于本地主机的JVM上。</p></li>
+<li><p>jvisualvm: JVM监测、故障排除、分析工具，主要以图形化界面的方式提供运行于指定虚拟机的Java应用程序的详细信息。</p></li>
+<li><p>keytool: 密钥和证书管理工具，主要用于密钥和证书的创建、修改、删除等。主要用于获取或缓存Kerberos协议的票据授权票据。允许用户查看本地凭据缓存和密钥表中的条目(用于Kerberos协议)。Kerberos密钥表管理工具，允许用户管理存储于本地密钥表中的主要名称和服务密钥。</p></li>
+<li><p>native2ascii: 本地编码到ASCII编码的转换器(Native-to-ASCII Converter)，用于"任意受支持的字符编码"和与之对应的"ASCII编码和(或)Unicode转义"之间的相互转换。</p></li>
+<li><p>orbd: 对象请求代理守护进程(Object Request Broker Daemon)，它使客户端能够透明地定位和调用位于CORBA环境的服务器上的持久对象。</p></li>
+<li><p>pack200: JAR文件打包压缩工具，它可以利用Java类特有的结构，对普通JAR文件进行高效压缩，以便于能够更快地进行网络传输。这是微软提供的对象包装程序，用于对象安装包。</p></li>
+<li><p>policytool: 策略工具，用于管理用户策略文件(.java.policy)。</p></li>
+<li><p>rmic: Java RMI 编译器，为使用JRMP或IIOP协议的远程对象生成stub、skeleton、和tie类，也用于生成OMG IDL。</p></li>
+<li><p>rmid: Java RMI 激活系统守护进程，rmid启动激活系统守护进程，允许在虚拟机中注册或激活对象。</p></li>
+<li><p>rmiregistry: Java 远程对象注册表，用于在当前主机的指定端口上创建并启动一个远程对象注册表。</p></li>
+<li><p>schemagen: XML schema生成器，用于生成XML schema文件。</p></li>
+<li><p>serialver: 序列版本命令，用于生成并返回serialVersionUID。</p></li>
+<li><p>servertool: Java IDL 服务器工具，用于注册、取消注册、启动和终止持久化的服务器。</p></li>
+<li><p>tnameserv: Java IDL瞬时命名服务。</p></li>
+<li><p>unpack200: JAR文件解压工具，将一个由pack200打包的文件解压提取为JAR文件。</p></li>
+<li><p>wsgen: XML Web Service 2.0的Java API，生成用于JAX-WS Web Service的JAX-WS便携式产物。</p></li>
+<li><p>wsimport: XML Web Service 2.0的Java API，主要用于根据服务端发布的wsdl文件生成客户端存根及框架</p></li>
+<li><p>xjc: 主要用于根据XML schema文件生成对应的Java类。</p></li>
+</ul>
+
+
+<h2>参考资料</h2>
+
+<p><a href="https://docs.oracle.com/javase/8/docs/technotes/tools/unix/toc.html">https://docs.oracle.com/javase/8/docs/technotes/tools/unix/toc.html</a></p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2016/11/12/groovy-ast/" title="上一篇: [译]使用Groovy的AST Transformation实现DSL">&laquo; [译]使用Groovy的AST Transformation实现DSL </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2016/11/02/java-profile/" title="下一篇: Java调优经验谈">Java调优经验谈 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/03/11/slam-dunk-asia-storm-ch1-sec5/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第五节：倒计时四十八小时）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/09/slam-dunk-asia-storm-ch1-sec4/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第四节：封闭测试日）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/08/slam-dunk-asia-storm-ch1-sec3/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/06/slam-dunk-asia-storm-ch1-sec2/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "JDK自带工具之概览",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

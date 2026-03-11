@@ -1,0 +1,677 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>[译]JDK自带工具之问题排查场景示例 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="[译]JDK自带工具之问题排查场景示例 Posted by HJ in java, translate 目录 引言
+问题排查场景 获取正在运行的JVM列表
+Java堆的DUMP
+分析堆直方图
+线程Dump
+运行Java飞行记录器(Java Flight Recorder))
+后记 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2016/11/16/java-trouble-shooting/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">[译]JDK自带工具之问题排查场景示例</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-11-16T22:21:34+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/translate/'>translate</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><h2>目录</h2>
+
+<ul>
+<li><a href="#%E5%BC%95%E8%A8%80">引言</a></li>
+<li><a href="#%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5%E5%9C%BA%E6%99%AF">问题排查场景</a>
+
+<ul>
+<li><a href="#%E8%8E%B7%E5%8F%96%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E7%9A%84JVM%E5%88%97%E8%A1%A8">获取正在运行的JVM列表</a></li>
+<li><a href="#Java%E5%A0%86%E7%9A%84DUMP">Java堆的DUMP</a></li>
+<li><a href="#%E5%88%86%E6%9E%90%E5%A0%86%E7%9B%B4%E6%96%B9%E5%9B%BE">分析堆直方图</a></li>
+<li><a href="#%E7%BA%BF%E7%A8%8BDump">线程Dump</a></li>
+<li><a href="#%E8%BF%90%E8%A1%8CJava%E9%A3%9E%E8%A1%8C%E8%AE%B0%E5%BD%95%E5%99%A8(Java%20Flight%20Recorder">运行Java飞行记录器(Java Flight Recorder)</a>)</li>
+<li><a href="#%E5%90%8E%E8%AE%B0">后记</a></li>
+</ul>
+</li>
+</ul>
+
+
+<p>最近看到了大量关于java性能调优、故障排查的文章，自己也写了一篇<a href="http://www.rowkey.me/blog/2016/11/02/java-profile/">Java调优经验谈</a>。接着此篇文章，其实一直打算写写一些常用调优工具以及它们的惯常用法的。后来在<a href="http://java-performance.info">http://java-performance.info</a>这个站点上看到了类似的一篇博文，自我感觉很有指导意义。于是决定翻译+重组织一下此篇文章：<a href="http://java-performance.info/java-server-application-troubleshooting-using-jdk-tools/">Java server application troubleshooting using JDK tools</a>。</p>
+
+<h2><a name='引言'></a>引言</h2>
+
+<p>在Java世界中，我们的很多开发工作从编码、调试到调优都在使用GUI工具。我们经常尝试在本地构建一套和线上一样的环境从而使得问题能够重现，进而使用我们常用的工具来排查定位故障。但不幸的是，很多情况下是无法在本地重现线上问题的。例如，我们没有权限获取真实客户端提交到线上服务端的数据。</p>
+
+<p>由此，很多时候都是需要远程来排查线上服务器上发生的问题。但是如果单单只有一个JRE的话，你也不可能有合适的办法来进行排查。你需要JDK或者第三方的工具。有时候使用JDK提供的工具就是最可取的方案，毕竟，在线上环境使用第三方工具有时候会牵扯到权限的问题。</p>
+
+<p>一般情况下，在线上环境安装JDK发布版本可以让排查进行地更高效。建议安装使用最新的Java7/8 JDK或者构建与线上JRE匹配的一些工具(原文作者不建议安装jdk的发布版本，而是建议根据实际需求逐渐地安装其中的工具)。</p>
+
+<!--more-->
+
+
+<h2><a name='问题排查场景'></a>问题排查场景</h2>
+
+<h3><a name='获取正在运行的JVM列表'></a>获取正在运行的JVM列表</h3>
+
+<p>为了开始排查工作，我们首先需要获取正在运行的jvm进程列表，包括进程id、命令行参数等。有时候仅仅这一步就可以定位到问题，例如，同样的app实例被重复启动在并发做同样的事情(破坏输出文件、重新打开sockets或者其他愚蠢的事情)。</p>
+
+<p>使用<strong>jcmd</strong>不加任何参数即可获取jvm进程列表</p>
+
+<pre><code>25691 org.apache.catalina.startup.Bootstrap start
+20730 org.apache.catalina.startup.Bootstrap start
+26828 sun.tools.jcmd.JCmd
+3883 org.apache.catalina.startup.Bootstrap start
+</code></pre>
+
+<p>使用<strong>jcmd <PID> help</strong>能够获取某个jvm进程其他可用的诊断命令。例如：</p>
+
+<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 help
+3883:
+The following commands are available:
+VM.commercial_features
+ManagementAgent.stop
+ManagementAgent.start_local
+ManagementAgent.start
+Thread.print
+GC.class_histogram
+GC.heap_dump
+GC.run_finalization
+GC.run
+VM.uptime
+VM.flags
+VM.system_properties
+VM.command_line
+VM.version
+help
+</code></pre>
+
+<p>输入<strong>jcmd <PID> <COMMAND_NAME></strong>可以运行一个诊断命令或者获取到参数错误信息。</p>
+
+<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 GC.heap_dump
+3883:
+java.lang.IllegalArgumentException: Missing argument for diagnostic command 
+</code></pre>
+
+<p>通过<strong>jcmd <PID> help <COMMAND_NAME></strong>你能够获取此诊断命令更多的信息。如下是<strong>GC.heap_dump</strong>命令的help。</p>
+
+<pre><code>[root@test-172-16-0-34-ip ~]# jcmd 3883 help GC.heap_dump
+3883:
+GC.heap_dump
+Generate a HPROF format dump of the Java heap.
+
+Impact: High: Depends on Java heap size and content. Request a full GC unless the '-all' option is specified.
+
+Syntax : GC.heap_dump [options] &lt;filename&gt;
+
+Arguments:
+    filename :  Name of the dump file (STRING, no default value)
+
+Options: (options must be specified using the &lt;key&gt; or &lt;key&gt;=&lt;value&gt; syntax)
+    -all : [optional] Dump all objects, including unreachable objects (BOOLEAN, false)  
+</code></pre>
+
+<h3><a name='Java堆的DUMP'></a>Java堆的DUMP</h3>
+
+<p>jcmd提供了输出HPROF格式的堆dump接口。运行<strong>jcmd <PID> GC.heap_dump <FILENAME></strong>即可。注意这里的FILENAME是相对于运行中的jvm目录来说的，因此避免找不到dump的文件，这里推荐使用绝对路径。此外，也建议使用.hprof作为输出文件的扩展名。</p>
+
+<p>在堆dump完成之后，你可以复制此文件到本地用VisualVM或者用jmc的JOverflow插件打开，进而通过分析堆的状况定位内存问题。</p>
+
+<p>需要注意的两点：</p>
+
+<ul>
+<li>还有很多可以打开hprof文件进行分析的工具：NetBeans, Elipse的MAT，jhat等等。用你最熟悉的即可。</li>
+<li>同样可以使用<strong>jmap -dump:live,file=<FILE_NAME> <PID></strong>来产生堆dump文件，但是官方文档标注了此工具为unsupported的。虽然我们绝大多数人都会认为JDK中unsupported的特性会永远存在，但是事实并非这样：<a href="http://openjdk.java.net/jeps/240">JEP 240</a>, <a href="http://openjdk.java.net/jeps/241">JEP 241</a>。</li>
+</ul>
+
+
+<h3><a name='分析堆直方图'></a>分析堆直方图</h3>
+
+<p>如果正在排查内存泄漏问题，你可能想要知道堆中某种类型的存活对象数目。例如，某一时刻某些类应该只有一个实例(单例模式)，但是此类的另外一个或者多个实例却已经到了老年代，但是事实上它们不应该能够被GC roots访问到。</p>
+
+<p>运行以下命令可以打印出堆直方图(同时也打印出存活对象的数目)：</p>
+
+<pre><code>jcmd &lt;PID&gt; GC.class_histogram
+jmap -histo:live &lt;PID&gt;
+</code></pre>
+
+<p>输出如下：</p>
+
+<pre><code>    num     #instances         #bytes  class name
+----------------------------------------------
+   1:         37083       48318152  [B
+   2:        235781       22496784  [C
+   3:        103958       16069448  &lt;constMethodKlass&gt;
+   4:        482361       15435552  java.util.HashMap$Entry
+   5:        103958       14152480  &lt;methodKlass&gt;
+   6:          9576       11192168  &lt;constantPoolKlass&gt;
+   7:        186264       10430784  com.mysql.jdbc.ConnectionPropertiesImpl$BooleanConnectionProperty
+   8:        274109        8771488  java.util.Hashtable$Entry
+   9:          9576        7210152  &lt;instanceKlassKlass&gt;
+  10:          7972        6404256  &lt;constantPoolCacheKlass&gt;
+  11:        229637        5511288  java.lang.String
+  12:         48471        5428752  java.net.SocksSocketImpl
+  13:         21599        3859672  [Ljava.util.HashMap$Entry;
+</code></pre>
+
+<p>这里的以byte为单位的占用大小是浅尺寸(shallow size)，并没有包括子对象的大小。其实这个事实很容易由char[]和String的统计数据注意到：这俩的实例数目是差不多的，但是char[]的占用大小要大很多，就是因为String并未包含下面的char[]的大小。</p>
+
+<p>有了堆直方图信息，你就可以grep/search类的名字从而获取存活实例的数目。如果你发现某些类的实例数量比期望要大很多，你就可以做heap dump，然后用任意的heap分析工具来分析问题。</p>
+
+<h3><a name='线程Dump'></a>线程Dump</h3>
+
+<p>很多时候，应用会呈现出“卡在那里”的情形。这里有很多种卡住的状况：死锁、cpu密集运算。为了定位到问题所在需要知道线程在做什么、持有了什么锁等等。</p>
+
+<p>Java中有两种锁：基于sychronized和Object.wait/notifyAll方法的原始锁以及java5引入的java.util.concurrent锁。这俩种锁的不同之处主要在于前者是限制在进入synchronized部分的地方的栈帧(stack frame)中的，并且会一直在线程dump中存在。后者却并不限制在栈帧中，你可以在一个方法中进入锁，在另一方法中解锁。因此，thread dump有时候并没有包含这些信息。尽管如此，还是应该使用thread dump来查看线程信息排查问题。</p>
+
+<p>这里有三种方法可以打印应用的thread dump。</p>
+
+<pre><code>kill -3 &lt;PID&gt; #仅限Linux平台
+jstack &lt;PID&gt;
+jcmd &lt;PID&gt; Thread.print
+</code></pre>
+
+<h3><a name='运行Java飞行记录器(Java Flight Recorder)'></a>运行Java飞行记录器(Java Flight Recorder)</h3>
+
+<p>上面讲到的工具都是作为快速的查看诊断工具的。如果要深入分析问题，可以选择使用内置的Java飞行记录器:<a href="http://java-performance.info/oracle-java-mission-control-overview/">Java Mission Control</a>。</p>
+
+<p>运行JFR需要三步：</p>
+
+<ol>
+<li><p>创建一个包含了你自己配置的JFR模板文件。运行<strong>jmc</strong>, 然后<strong>Window->Flight Recording Template Manage</strong>菜单。准备好档案后，就可以导出文件，并移动到要排查问题的环境中。</p></li>
+<li><p>由于JFR需要JDK的商业证书，这一步需要解锁jdk的商业特性。</p>
+
+<pre><code> jcmd &lt;PID&gt; VM.unlock_commercial_features
+</code></pre></li>
+<li><p>最后你就可以启动JFR。</p>
+
+<pre><code> jcmd &lt;PID&gt; JFR.start name=test duration=60s settings=template.jfc filename=output.jfr
+</code></pre>
+
+<p> 上述命令立即启动JFR并开始使用<strong>templayte.jfc</strong>的配置收集60s的JVM信息，输出到<strong>output.jfr</strong>中。</p></li>
+</ol>
+
+
+<p>一旦记录完成之后，就可以复制.jfr文件到你的工作环境使用jmc GUI来分析。它几乎包含了排查jvm问题需要的所有信息，包括堆dump时的异常信息。</p>
+
+<h3><a name='后记'></a>后记</h3>
+
+<p>本文基本上是对英文原文的翻译，主要描述了几个常见问题的排查场景。</p>
+
+<p>不得不说的是，JDK自带的工具是非常强大的。用好了这些工具其实已经足以应付绝大多数的Java问题排查场景。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2016/12/30/2016books/" title="上一篇: 2016年读过的书">&laquo; 2016年读过的书 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2016/11/12/groovy-ast/" title="下一篇: [译]使用Groovy的AST Transformation实现DSL">[译]使用Groovy的AST Transformation实现DSL &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/03/11/slam-dunk-asia-storm-ch1-sec5/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第五节：倒计时四十八小时）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/09/slam-dunk-asia-storm-ch1-sec4/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第四节：封闭测试日）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/08/slam-dunk-asia-storm-ch1-sec3/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/06/slam-dunk-asia-storm-ch1-sec2/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "[译]JDK自带工具之问题排查场景示例",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

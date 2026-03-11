@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>《白帽子讲Web安全》读书笔记 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="《白帽子讲Web安全》读书笔记 Posted by HJ in security, study 最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。 整本书四篇十八章，包括世界观安全、客户端脚本安全、 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2013/11/11/web-security-notes/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">《白帽子讲Web安全》读书笔记</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-11-11T21:30:20+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/security/'>security</a>, <a class='category' href='/blog/categories/study/'>study</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>最近一直在忙着易信公众平台的开发工作，一直没能抽出空来总结一下。周末终于有了一些空闲，就把这本书的笔记写了一下。</p>
+
+<p>整本书四篇十八章，包括世界观安全、客户端脚本安全、服务端应用安全以及互联网公司安全运营四大部分。</p>
+
+<h3>一、世界观安全</h3>
+
+<ol>
+<li>黑帽子和白帽子这两个概念，前者指的是利用安全技术进行破坏的哪一类黑客，后者则指的是工作在反黑客领域的安全技术专家。</li>
+<li>安全问题的本质是信任的问题。并且安全是一个持续的过程，并不存在所谓的银弹。</li>
+<li>安全三要素：机密性、完整性、可用性</li>
+<li>一个安全评估的过程可以分为4个阶段：资产等级划分、威胁分析、风险分析、确认解决方案。其中威胁分析的一种建模方法是微软提出的STRIDE模型；风险分析则是DREAD模型，Risk = Probability * Damage Potenial。</li>
+<li>白帽子并发有以下几个原则：Secure By Default原则；纵深防御原则（Defense in Depth）；数据与代码分离原则；不可预测性原则。</li>
+</ol>
+
+
+<!--more-->
+
+
+<h3>二、客户端脚本安全</h3>
+
+<ol>
+<li><p>浏览器安全</p>
+
+<p> 同源策略（Same Origin Policy）防止了跨域读写某些资源。
+浏览器提供了浏览器沙箱，使进程在一个相对独立的空间运行，能在一定程度上保护浏览器安全。</p></li>
+<li><p>跨站脚本攻击</p>
+
+<p> 跨站脚本攻击主要是注入到网站内容中，授权用户访问内容时执行一段恶意代码，从而获取用户的私密信息或者进行破坏。通常叫做XSS攻击，是针对动态网站的攻击。</p></li>
+<li><p>跨站点请求伪造</p>
+
+<p> CSRF，指的是伪造出一个请求，诱使授权用户访问，以授权用户的身份去执行请求，从而达到对授权用户信息的读取、攻击等。</p></li>
+<li><p>点击劫持</p>
+
+<p> Click jacking，是指将恶意代码隐藏在看似无害的内容后者按钮之下，诱导用户访问的一种手段。</p></li>
+<li><p>Html5安全</p>
+
+<ul>
+<li>HTML引入了很多新的标签，一些XSS Filter可能并没有覆盖这些新增的标签和功能。比如video、audio、iframe的sandbox。此外使用canvas可以在浏览器环境中实现对验证码的在线破解，大大降低了攻击的门槛。</li>
+<li>跨域请求的Orgin Header和Access-Control-Allow-Origin的设置。postMessage的引入，使XSS PayLoad变得更加的灵活。</li>
+</ul>
+</li>
+</ol>
+
+
+<h3>三、服务端安全</h3>
+
+<ol>
+<li><p>注入攻击</p>
+
+<p> 注入攻击是一种普遍的利用数据库SQL语句进行攻击的方式。使用用户提交的数据拼接数据库操作字符串，如果这些字符串中包含一些特殊字符就有可能查询到数据库关键信息。</p></li>
+<li><p>文件上传漏洞</p>
+
+<p> 通常的一个问题就是对上传文件的格式控制不严格，并且文件存放的路径可以通过Web路径直接进行访问；另一种方式，就是文件路径是通过表单的方式提交的，可以使用一个特殊字符“\0”截断文件路径，从而实现对脚本文件的上传。</p></li>
+<li><p>认证与会话管理</p>
+
+<p> 用户的登录状态一般是进过认证之后保存在服务端的，与服务器端的一系列交互即会话。一般对会话的管理。。。</p></li>
+<li><p>访问控制</p>
+
+<p> 对于系统中不同的用户具有不同的权限，对这些权限进行控制即访问控制。如果访问控制不严就容易形成漏洞被利用。</p></li>
+<li><p>加密算法与随机数</p>
+
+<p> 系统中对数据进行加密使用的加密算法和随机数生成算法的安全性和健壮性都直接关系到整个系统的安全性。对称加密、非对称加密的密钥的安全性，随机数算法的随机性都是要考虑的问题。</p></li>
+<li><p>Web框架安全</p>
+
+<p> 一些经典的使用率较高的Web框架如：Spring、Struts、Hibernate本身会在整个执行体系中有一些安全漏洞。比如前一阵的Struts2的命令执行漏洞，就是因为在OGNL中可以执行JAVA静态方法造成的。</p></li>
+<li><p>应用层拒绝服务攻击</p>
+
+<p> DOS，这种攻击是以耗尽服务器资源为目的攻击。DDOS分布式 拒绝服务攻击，是DOS的加强版。防范拒绝服务攻击要从访问入口处进行，限制来自统一IP的访问频率或者就是最大化提升系统的负载能力。</p></li>
+<li><p>PHP安全和Web服务器配置安全</p>
+
+<p> 针对与PHP本身的一些API的特点，可以在代码层面进行安全控制。比如，对数据库SQL相关的操作，要对用户输入的参数进行mysql_real_esape等。此外，对于Web Server如Apache http server，对其magic_quote,GLOBAL等配置要权衡关闭和开启是否会对系统的安全造成威胁。</p></li>
+</ol>
+
+
+<h3>四、互联网公司安全运营</h3>
+
+<p>除了在技术层面对安全进行保证外，还可以在业务层面对安全进行最大化的保障。此外，微软提出的 SDL安全开发流程，运用在项目开发过程中能够很好地保障系统的安全。而运营方面的安全保障则能够进一步保证整个系统的安全性。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2014/06/04/sys-arch/" title="上一篇: 谈谈系统架构这个东西">&laquo; 谈谈系统架构这个东西 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2013/07/06/no-name/" title="下一篇: 杂感一篇">杂感一篇 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/03/11/slam-dunk-asia-storm-ch1-sec5/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第五节：倒计时四十八小时）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/09/slam-dunk-asia-storm-ch1-sec4/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第四节：封闭测试日）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/08/slam-dunk-asia-storm-ch1-sec3/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/06/slam-dunk-asia-storm-ch1-sec2/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "《白帽子讲Web安全》读书笔记",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

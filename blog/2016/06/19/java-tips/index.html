@@ -1,0 +1,642 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Java开发Tips - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="Java开发Tips Posted by HJ in java 在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。 1. &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2016/06/19/java-tips/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">Java开发Tips</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2016-06-19T20:59:44+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>在Java工程师平常的开发过程中，由于业务的不同，可能关注的点有很多不一样的地方，但是在基础层面还是有一些共性的。此文概括了在Java开发、测试、部署、工程化方面一些需要注意的地方，供大家参考。</p>
+
+<!--more-->
+
+
+<h2>1. 将一些需要变动的配置写在属性文件中</h2>
+
+<p>比如，没有把一些需要并发执行时使用的线程数设置成可在属性文件中配置。那么你的程序无论在DEV环境中，还是TEST环境中，都可以顺畅无阻地运行，但是一旦部署在PROD上，把它作为多线程程序处理更大的数据集时，就会抛出IOException，原因也许是线上环境并发造成也许是其他。如果线程数目可以在属性文件中配置，那么使它成为一个单线程应用程序就变得十分容易了。我们不再需要为了解决问题而反复地部署和测试应用了。这种方法也同样适用于配置 URL、服务器和端口号等。</p>
+
+<p>这里推荐使用属性文件外化这些配置，文件格式使用properties、yaml、hocon、json都可以。下面的类实现了对这些格式的文件的spring注入支持，包括占位符支持。</p>
+
+<p><a href="https://github.com/superhj1987/awesome-libs/blob/master/src/main/java/me/rowkey/libs/spring/config/AwesomePropertyPlaceholderConfigurer.java">https://github.com/superhj1987/awesome-libs/blob/master/src/main/java/me/rowkey/libs/spring/config/AwesomePropertyPlaceholderConfigurer.java</a></p>
+
+<h2>2. 测试中尽可能模拟线上环境</h2>
+
+<p>生产过程中一个典型的场景就是只使用1到3个帐户进行测试，而这个数量本应是1000到2000个的。在做性能测试时，使用的数据必须是真实并且未经裁剪的。不贴近真实环境的性能测试，可能会带来不可预料的性能、拓展和多线程问题。这里也可以采取预发布环境的方式来解决部分问题。</p>
+
+<h2>3. 对于所有外部调用以及内部服务都要做容错处理</h2>
+
+<p>不管是RPC调用还是对于第三方服务的调用，都不能想当然的认为可用性是100%的。不允许出现服务调用超时和重试，将会对应用程序的稳定性和性能造成不利的影响。</p>
+
+<h2>4. 安全设计上一个系统要遵循最小权限原则</h2>
+
+<p>网络服务随处可见，从而使得黑客可以轻易地利用它进行拒绝服务攻击。所以，设计系统时，需要遵循“最小权限”原则，采用白名单等方式。</p>
+
+<h2>5. 需要提供以下文档</h2>
+
+<ol>
+<li>编写单元测试文档并使其拥有良好的代码覆盖率。</li>
+<li>高层次的设计图：描述了所有的组件，交互和结构。</li>
+<li>详细的设计图：具体到代码层面的设计，以及一些关键逻辑的流程。</li>
+<li>系统组成文档：说明系统的所有组成文件、配置文件等。</li>
+<li>数据库层面的dml以及ddl文档，尤其是sql查询语句需要经过dba或者核心开发人员的review才能够上线。</li>
+</ol>
+
+
+<p>不仅仅对于传统的开发流程，即使对于敏捷开发，这些文档也是必不可少的，否则在后续的维护、交接上会带来很大的不便。</p>
+
+<h2>6. 做好系统关键功能的监控、错误恢复、备份等</h2>
+
+<p>对于系统一些至关重要的功能模块要做好对其的监控，防止其影响系统的运行,造成不可估算的损失。另外，如果可以，监控到故障后去去试图恢复，恢复失败再发送告警。对于一些很重要的数据文件，还要做到冗余备份，防止发生一些突然故障造成数据丢失。</p>
+
+<h2>7. 数据库设计时设计一些便于追踪历史、整理的列</h2>
+
+<p>比如create_time、update_time可以说明记录的创建和更新时间。create_by、update_by可以说明记录是由谁创建和更新的。</p>
+
+<p>此外，删除记录有时候并非真正删除，这时需要设计表示此记录状态的列，如可以取‘Active’或‘Inactive’的 ‘status’列。</p>
+
+<h2>8. 制定好项目回滚计划</h2>
+
+<p>新的功能上线时，如果发生故障，没有一份回滚计划，那么可能会手忙脚乱而造成线上服务一段时间不可用。有一个良好的回滚计划，可以让你能够有条不紊的执行相关操作，在可控时间内将系统恢复到一个可运行的状态。</p>
+
+<h2>9. 项目上线前要做好量化分析</h2>
+
+<p>对于项目中用到的内存、数据库、文件、缓存等，要做好量化分析。预估出未来一段时间的空间占用，给运维分配机器时一个参考。防止，由于数据量增长过快，导致存储不够。这一点是非常重要的，不然很容易造成线上服务不可用。</p>
+
+<h2>10. 制定好系统的部署计划。</h2>
+
+<p>系统部署的平台是一个至关重要的部分。对于部署平台的描述，不能仅限于一台服务器、两个数据库这个层面，至少需要包括</p>
+
+<ul>
+<li>操作系统的特定版本，JVM等。</li>
+<li>有多少内存（包括物理内存，JVM堆内存，JVM栈内存和JVM永久代的空间）。</li>
+<li>CPU（内核数）。</li>
+<li>负载均衡器，需要的节点数、节点类型，比如是Active-Standby型还是Active-Active型。</li>
+<li>文件系统要求，例如，你的应用程序可能会收集生成的日志并将其保存很长的周期，之后才进行归档。这样的话，你就需要有足够的硬盘空间。</li>
+</ul>
+
+
+<h2>11. 选择最合适的工具/技术</h2>
+
+<p>很多情况下，开发者会在生产系统中使用一门想要学习的语言或某种工具。通常这不是最好的选择。比如，为已经实际上是关系型的数据使用NoSQL数据库。不管是语言还是工具，都有其适用的场景。不能求新，也不能以“自我”为标准。</p>
+
+<h2>12. 在一些关键技术领域具有充足的知识储备。</h2>
+
+<ul>
+<li>设计模式</li>
+<li>JVM调优</li>
+<li>多线程“并发问题”</li>
+<li>事务问题，包括分布式事务</li>
+<li>性能问题，包括GC、计算等</li>
+<li>缓存</li>
+</ul>
+
+
+<h2>13. Java编码注意点</h2>
+
+<ul>
+<li><p>谨慎对待Java的循环遍历</p>
+
+<p>  对于集合类如List的遍历可以使用两种方式，如下：</p>
+
+<pre><code class="``">  private final List&lt;User&gt; userList;
+  for(User u : userList) {    
+      ...
+  }
+
+  private final List&lt;User&gt; userList;
+  for(int i = 0;i &lt; userList.size() ; i++) {   
+      User u = userList.get(i); 
+      ...
+  }
+</code></pre>
+
+<p>  前者多了创建迭代器的开销，但是取元素的时候是O(1)复杂度(getNext、hasNext())。后者没有迭代器的开销，能够节省一部分开销，但是获取元素的地方会因List的具体实现类不同而不同，如LinkedList就会为O(n)、ArrayList为O(1)。要根据业务目标来选择合适的用法。</p></li>
+<li><p>在初始化的时候预估集合的大小</p>
+
+<p>  这个主要是对HashMap说的。对于HashMap来说主要有两个影响性能的因素：初始大小和加载因子，当哈希表的大小达到初始大小和加载因子的乘积的时候，哈希表会进行rehash操作会影响性能。因此在初始化HashMap时要尽量能够预估其大小并做设置，如：</p>
+
+<pre><code class="``">  new HashMap&lt;String, User&gt;((int)Math.ceil(userList.size() / 0.7)); 
+</code></pre></li>
+<li><p>延迟表达式的计算</p>
+
+<p>  Java中，如果方法的参数是一个表达式，那么都会在方法调用之前进行计算。因此，对于一些非常耗资源的操作，要尽量让其延迟化计算。如：</p>
+
+<pre><code class="``">  class User{
+      private String name;
+      private Address address;
+
+      public int compareTo(User other){
+           return ComparisonChain.start()
+              .compare(this.name, other.getName())
+              .compare(this.address.toString(), user1.getAddress().toString())
+              .result();
+      }
+  }
+</code></pre>
+
+<p>  使用guava的ComparisonChain能够在第一个非0比较结果时就结束整个比较操作，但上面的代码中address的toString方法仍然会执行。可以通过使用单独的Comparator来使其延迟计算。</p>
+
+<pre><code class="``">  return ComparisonChain.start()
+              .compare(this.name, other.getName())
+              .compare(this.address, user1.getAddress(), new Comparator&lt;Address&gt;(){
+                  @Override
+                  public int compare(Address a1, Address a2) {
+                      return a1.toString().compareTo(a2.toString());
+                  }
+              })
+              .result();
+</code></pre></li>
+<li><p>提前编译正则表达式</p>
+
+<p>  Java中的正则表达式运算是非常耗资源的，因此JDK中有正则参数的方法调用都最好提前编译正则表达式。如String的replaceAll方法，其第一个参数是一个正则表达式，可以通过缓存Pattern来避免每次都创建模式。</p>
+
+<pre><code class="``">  private final Pattern pattern = Pattern.compile("&lt;regx&gt;"); //全局缓存
+  ...
+  pattern.matcher(“&lt;text&gt;”).replaceAll("&lt;replacement&gt;"); 
+  ...
+</code></pre></li>
+</ul>
+
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2016/06/27/java-backend-study/" title="上一篇: Java后端工程师学习大纲">&laquo; Java后端工程师学习大纲 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2016/06/17/java-skill-tree/" title="下一篇: Java后端工程师技能树">Java后端工程师技能树 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/03/11/slam-dunk-asia-storm-ch1-sec5/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第五节：倒计时四十八小时）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/09/slam-dunk-asia-storm-ch1-sec4/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第四节：封闭测试日）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/08/slam-dunk-asia-storm-ch1-sec3/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/06/slam-dunk-asia-storm-ch1-sec2/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "Java开发Tips",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

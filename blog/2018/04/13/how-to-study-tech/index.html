@@ -1,0 +1,673 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>如何学习后端技术？ - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="如何学习后端技术？ Posted by HJ in java, pje-book 最新内容见:https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to- &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2018/04/13/how-to-study-tech/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">如何学习后端技术？</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-04-13T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/pje-book/'>pje-book</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>最新内容见:<a href="https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md">https://github.com/superhj1987/pragmatic-java-engineer/blob/master/book/chapter1-servertech/how-to-study.md</a></p>
+
+<p>学习后端技术和学习其他的技术并没有什么大的不同。因此，题目换做如何学习技术也是讲的通的。概括来讲，有以下几点建议：</p>
+
+<ul>
+<li>扎实的计算机基础知识</li>
+<li>知其然更要知其所以然</li>
+<li>动手实践、频繁练习</li>
+<li>持续学习</li>
+<li>计算机思维</li>
+<li>自我总结</li>
+<li>学会规划</li>
+</ul>
+
+
+<!--more-->
+
+
+<h2>扎实的计算机基础知识</h2>
+
+<ul>
+<li>数据结构和算法：程序是由数据和算法组成的，因此这两个东西是计算机软件的基础。诸如B树、哈希表、栈以及七大排序算法、查找算法这些，在很多软件的代码中都可以看得到。有时候，一个优秀的工程师和一个普通工程师的区别也就在于是否能够合理使用合适的数据结构和算法。</li>
+<li>计算机操作系统：操作系统可以说是集大成于一身的一个软件程序。资源调度、任务调度、IO调度、进程通信等等，每一个设计都是很精华的，也是很多其他应用软件设计的思想来源。</li>
+<li>计算机网络：目前只要有数据传输功能的程序绝大多数都是离不开网络的。网络七层或者四层协议栈的设计非常精妙。了解网络连接如何建立、断开以及每个连接状态的意义都有助于对程序网络问题的排查。</li>
+<li>计算机组成原理：这是计算机最底层的设计，也是计算机一切的基础。了解这些有助于消除你对计算机的神秘感，毕竟符合冯诺依曼原理的计算机无非就是存储数据、程序按序运行。</li>
+</ul>
+
+
+<p>以上是计算机专业的一些比较普遍的基础知识课程。这里不得不说的一点是，虽然现在各大高校的计算机专业课程是比较落后的，但是这些基础课程，由于多少年也没有怎么变过，因此不管怎样都是需要扎实掌握的。也许上学的时候你感觉不到有多大的用处。但是进入实际的开发工作中，是否能够掌握扎实的基础知识往往决定了一个开发工程师的上限，这也是很多大的互联网公司无论是校招还是社招，都侧重于一些底层知识考察的原因。毕竟，你会使用什么东西只能决定你的下限，而你的基础知识和学习能力才决定了你的上限。</p>
+
+<p>此外，其实很多平时开发中的一些技术都可以类比到一些基础知识的。比如，我们经常为了提高查询性能而使用的缓存技术，和为了兼容CPU和IO速度不匹配的而设计的CPU Cache就是同样的东西；操作系统中的进程间通信方式和服务之间的异步同步通信也是差不多的道理。诸如此类，其实计算机科学基础凝聚了很多精华的设计，无论是计算机硬件架构、计算机操作系统还是计算网络。</p>
+
+<h2>知其然更要知其所以然</h2>
+
+<p>经常遇到来面试的工程师，他们简历上写了很多项目，也用过很多技术，怎么看都是非常不错的候选人。但是面试一旦深入到原理或者是优化层面，很多工程师甚至是一些公司的资深架构师都会支支吾吾，答非所问或者说是没关注过。听到最多的解释就是业务压力太忙，没有时间去研究这个。其实，自我经历来看，业务忙是原因，但是没有时间却肯定是借口，毕竟阅读一个项目的源码虽然比较耗费时间，但是去网上看看已有的原理分析其实是花不了太多的时间的。归根结底，还是没有一种知其然更要知其所以然的基本意识。很多东西，你学会了使用会很兴奋，但是你有没有想过这么兴奋的功能是如何实现的呢？最简单的例子，Java中的HashMap，大家都在用，但是他到底是怎么实现的呢？很多人甚至都不知道这和数据结构课程上的哈希表是什么关系，更别说让他说出解决冲突的方式了。</p>
+
+<p>这也可以映射到现在的一种现象：很多开发工程师工作了很久，看着经验丰富，但基本都是拿着一年的工作经验重复n年的。基本上每一份工作，每一个项目都在那里做重复劳动，而且也并不去考虑如何避免重复劳动这件事。</p>
+
+<p>进一步的，除了遇到问题再去看源码、究底层，主动阅读经典类库、高质量开源项目的源码以及其他同事写的代码，学习其中好的架构、设计、编码风格以及类库的使用也是促进自身技术进步的一个非常有效的方式。</p>
+
+<p>这也牵扯到了技术的广度和深度的问题。就我自己来看，对于刚刚毕业或者刚刚入职的工程师来说，首要的是深度问题，只有你在某一领域有了深入的研究和造诣了，你才能融汇贯通，迅速地扩大自己的知识面，在广度上做到突破。而对于有一定工作经验的工程师来说，虽然深度不是那么必须了，但是遇到的问题、新学到的东西还是刨根问底才好，否则一旦出现问题再去盲羊补牢会让你显得非常被动，也不利于自己的技术发展。毕竟，一个什么都做过、什么都用过却什么也不精的人可替代性太强了。</p>
+
+<h2>动手实践</h2>
+
+<p>学习领域有所谓721模型：个人的成长70%来自于岗位实践，20%来自向他人学习，10%来自于培训。虽然这种理论存在争议，但在笔者看来对于程序员来说按照实践、学习和培训的方式进行重要性排序是合理的。普遍公认的一种学习技术的最佳实践-“项目驱动型学习”，也就是这里说的动手实践。很多技术，只是看书，你会云里雾里，看了就忘。必须要经过你自己的实践或者项目中使用到了这种技术，你才能很快地掌握并熟练。此外，现在朋友圈、微博上都充斥各种所谓干货，很多人阅读大量的资料自以为收货满满，其实对于里面的东西根本就没有去实践过。甚至有时候就是感叹一下别人真厉害而已。真正的干货是需要自己消化的，消化的一种最好的模式就是实践，无论是对资料中的例子还是一笔带过的知识。</p>
+
+<p>动手实践能够让你快速入门，但只有频繁练习才能让你熟练使用。“一万小时”理论讲的是任何一个行业都至少需要一万小时的实践才能成为专家。先不去争论此理论是否正确，可以想想当你长时间不写代码或者不用某个技术后你再去做相关的开发，那种生涩陌生感想必是每个人都有体会的。可见对于研发这个角色，频繁练习是有多么的重要。</p>
+
+<p>当然，这里的频繁练习并非指的重复劳动。应该是带着自己的思考去练习，多去想一下为什么这么做？有没有更好的方式？</p>
+
+<h2>持续学习</h2>
+
+<p>“活到老，学到老”这句话用在程序员这个职业上再合适不过。IT技术尤其是互联网开发中的技术，其迭代是非常迅速的。也许你今天学的，过不了几年就成了被抛弃的。虽然相比起前端技术，后端技术算是比较稳定的，但相比起其他行业，迭代速度还是非常快的，像Struts这种当年火的一塌糊涂的技术现在也成了过时的东西。因此，一定要对新事物、新技术具有敏感性，要不断地去涉猎业界最新的知识点，扩充自己的知识库。而学习新的知识的时候，与读一些书籍和网上的博文相比，直接阅读相关知识的官方文档是笔者推崇的方式，毕竟经过二次加工的书籍、博文很多时候由于写作者水平或者个人理解的问题会有错误或者偏离原作者的意思。而由于目前IT技术绝大多数都源自欧美，欧美的技术水平也领先国内很多，因此英文对于IT技术从业者的要求也是比较高的，需要达到熟知各种计算机术语，通畅地阅读各类英文资料的水平才不至于在学习方面落后。</p>
+
+<p>这里还需要提到一点就是要“逃离舒适区”。人对自己熟悉的东西都比较亲切，对自己熟练掌握的技术一般也能够自信地使用，然而当需要使用自己没接触过的技术时，很多人就望而却步、不敢尝试，进而也就丧失了学习新的知识、扩充自己知识库的机会。最好的方式应该是敢于“逃离舒适区”、敢于使用新的技术，这样才能让自己具有持续的学习兴趣，促进自己的持续进步。</p>
+
+<p>还需要注意的是，现在业界有很多技术会议，动辄就是全球、全世界这种名头。经常参加这些会议的人肯定是好学的，但是这种会议上都是些流于表面的东西，把精力放在这上面的人的知识也很容易流于表面。笔者比较推荐通过多阅读书籍来学习，喜欢读书的人也习惯于深度思考，深度思考才能更新形成自己的知识体系。尤其对处于技术上升期的程序员，少参加会议，少混圈子，多看书，多做一些能够提升自己技术能力的事情。除非经济压力大，尽量避免去做一些毫无技术含量的外包项目。</p>
+
+<p>此外，学习计算机知识可以多与现实世界类比，能够加强理解，快速掌握。如并发控制的信号量其实和红绿灯本质是一样的原理，银行多窗口服务其实就是负载均衡。</p>
+
+<h2>计算机思维</h2>
+
+<p>这一点主要说的是要学会用计算机思维来思索问题。所谓的计算机思维本质就是冯诺依曼体系所描述：程序存储，顺序执行。</p>
+
+<p>经常听到的程序员买苹果的段子就是按照for循环、if else等逻辑来判断苹果好坏、计数，并做防御性检查等，这就是计算机思维的体现。而之前一个很火的电影《天才枪手》中记忆选择题答案如果使用计算机思维，那么用两位bit可以表示四个答案，再将四位bit转换为一个十六进制数字，记忆答案就可以减少一般的存储量。</p>
+
+<p>如此，诸如二进制存储、防御编程、循环遍历、位运算、多进程/线程以及常用的数据结构和算法等都应该成为不自觉的意识。能够在遇到问题时，下意识地用这些东西来思考，将人类语言的需求转化为计算机语言。</p>
+
+<h2>自我总结</h2>
+
+<p>相信很多人在平常的工作中，经常会遇到一些问题，然后通过查阅网上资料、询问同事、翻看源码等手段解决了，当再次遇到类似的问题甚至是相同的问题时，还是一头雾水。先不提记忆力的问题，造成这种情形的很大一个原因就是没有去总结。当然，这里的总结不仅仅指的是把你平时遇到的问题记录下来，更深一层的是要找到问题发生的本质原因，如何避免发生同样的问题，从中有什么启发和收获。再进一步的则需要经常将自己一段时间内的知识收获组织成体系或者融入到自己的知识体系中，这样才能举一反三，遇到相同的问题可以有据可循。</p>
+
+<p>而自我总结的方式包括记笔记、写博客、做分享。其中，比起记笔记来说，写博客、做分享是笔者更为推荐的方式。毕竟，和别人交流一方面能促使你对总结质量的把控，另一方面分享知识给别人带来的“荣誉感”反过来会产生某种正向反馈让你更加乐于总结和分享。</p>
+
+<h2>学会规划</h2>
+
+<p>平时和不少工程师聊过关于职业规划的事情，其中有些人对自己的职业道路有很清晰的认识，但更多的则是没有任何概念，只是觉得能挣钱养家就好。很明显前者是属于有规划的人，对于这种人来说，其努力是有目标的，因此走的路也会更踏实，更具有可持续性。</p>
+
+<p>对于研发职位来说，学会规划是一个很关键的特质。而规划可以分为长期规划和短期规划。上面说的职业规划就是一种长期规划，需要高瞻远瞩的定下自己前进的方向。如在五年内成长为一个后端服务架构师就可以看做一个长期规划。笔者自己的长期规划如下：</p>
+
+<ul>
+<li>35岁之前只做能提高自己技术水平的事情，能够成为公认的某一个技术领域的专家。</li>
+<li>绝不为了钱加入自己并不认同的企业或者团队。</li>
+</ul>
+
+
+<p>而对于短期规划来说，则是一些具体技能、晋升、学习方面的规划。如，笔者近一年的学习计划包括：</p>
+
+<ul>
+<li>学习机器学习技术，能够成为“调参工程师”。</li>
+<li>加强自身的管理技能，能够带领部门有好的业绩。</li>
+<li>完成《增长黑客》、《分布式系统概念与设计》等十本书的阅读。</li>
+</ul>
+
+
+<p>需要注意的是，对于这些短期规划，要设定的比较合理，具有可达性，也要设定好优先级，根据优先级逐步去完成。此外，规划不要定死，可以根据实际情况灵活调整。</p>
+
+<h2>如何学习一门新技术</h2>
+
+<p>上面主要讲述了宏观层面的如何学习技术，而具体到学习某一个新技术，其实也是有法可循的。如下图所示：</p>
+
+<p><img src="/post_images/howtostudy/15127185777816.jpg" alt="" /></p>
+
+<p>由于很多技术的模块非常多，源码也非常复杂，很多时候在看源码的时候会陷进去越看越不得章法，因此这里着重说明一下“看源码”的一个典型流程：</p>
+
+<ol>
+<li>阅读该技术的架构文档，了解其总体架构和组成。</li>
+<li>根据总体架构，将源码文件以模块或者上下层级进行分类。</li>
+<li>从未阅读过的模块中选择最独立（依赖性最小）的模块代码读起。</li>
+<li>阅读此模块的功能介绍文档。</li>
+<li>阅读此模块的源代码。</li>
+<li>一边阅读一边整理调用关系（以表或者树的形式）。</li>
+<li>转到第三步。</li>
+</ol>
+
+
+<p>第六步中的调用关系表如下所示:</p>
+
+<table>
+<thead>
+<tr>
+<th>. </th>
+<th> init </th>
+<th> load </th>
+<th> set_xx </th>
+<th> method1 </th>
+<th> &hellip;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>init </td>
+<td> x </td>
+<td>  </td>
+<td> 2 </td>
+<td> 1</td>
+<td></td>
+</tr>
+<tr>
+<td>load </td>
+<td> </td>
+<td> </td>
+<td> 1 </td>
+<td> 1 </td>
+<td></td>
+</tr>
+<tr>
+<td>set_xx </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> 2</td>
+<td></td>
+</tr>
+<tr>
+<td>method1 </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> &hellip;</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>其中，数字表示调用次数。</p>
+
+<p>调用关系树也就是调用关系图，类似流程图：</p>
+
+<p><img src="/post_images/howtostudy/call_tree.png" alt="" /></p>
+
+<h2>总结</h2>
+
+<p>程序员是一个金字塔结构的职业体系，越往上，人越少也越难达到。如下图所示：
+<img src="/post_images/howtostudy/15022677629156.jpg" alt="" /></p>
+
+<p>一步步走到金字塔顶部需要不断的学习和进步，包括正确的态度、正确的方法以及持续的努力。本文所述只是笔者自己的体会，也是自己一直在践行的东西。除此之外，肯定还有很多其他优秀的方法和思想能够促进这个过程。</p>
+
+<blockquote><p>本文节选自《Java工程师修炼之道》一书。</p></blockquote>
+
+<p><img src="/post_images/book-all.png" width="400"/></p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2018/04/25/arch-usage/" title="上一篇: 架构简明指南">&laquo; 架构简明指南 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2018/04/01/pje-release/" title="下一篇: 如何成为一名合格的Java工程师?">如何成为一名合格的Java工程师? &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/03/11/slam-dunk-asia-storm-ch1-sec5/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第五节：倒计时四十八小时）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/09/slam-dunk-asia-storm-ch1-sec4/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第四节：封闭测试日）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/08/slam-dunk-asia-storm-ch1-sec3/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/06/slam-dunk-asia-storm-ch1-sec2/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "如何学习后端技术？",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

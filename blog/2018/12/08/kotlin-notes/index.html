@@ -1,0 +1,924 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Kotlin语法简明指南 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="Kotlin语法简明指南 Posted by HJ in java, kotlin Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛 &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2018/12/08/kotlin-notes/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">Kotlin语法简明指南</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2018-12-08T19:29:34+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/java/'>java</a>, <a class='category' href='/blog/categories/kotlin/'>kotlin</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>Kotlin是Intellij IDEA的发明团队JetBrains带来的新一代JVM语言。虽然JVM上一次又一次出现新的语言叫嚣着取代Java，但时至今日，Java也开始吸纳其他语言的各种优势，其生命力依旧强盛，生态也越发强大。那么Kotlin的出现是又一次重蹈覆辙还是有其突破性的特性？</p>
+
+<p>本文对其语法作了简要概括。</p>
+
+<!--more-->
+
+
+<p><strong>Kotlin版本：1.3.11</strong></p>
+
+<ol>
+<li><p>包的定义</p>
+
+<p> 与Java类似，但包的定义与目录结构无需匹配，源代码可以在文件系统任意位置。</p>
+
+<p> 与Java有一点不同，导入包的时候，可以使用import as实现重命名来解决名字冲突的问题。如：</p>
+
+<pre><code class="`"> import me.rowkey.MainClass as aClass // aClass 代表“me.rowkey.MainClass”
+</code></pre></li>
+<li><p>没有类型的Java</p>
+
+<p> 虽然Kotlin是静态语言，但其引入的安全类型推断让其无须声明类型。使用val/var即可，其中val定义只读变量，var定义可变变量。</p>
+
+<pre><code class="`"> var str1 : String = "a" //有初始值，可以省略类型
+ val str2 : String //无初始值，不能省略类型
+ str2 = "b"
+ var str = "i can change"
+ val immutableStr = "i cannot change"
+</code></pre></li>
+<li><p>不需要的public</p>
+
+<p> Kotlin中默认的可见性修饰符是public，所以public修饰符不需要写。其他修饰符如下：</p>
+
+<ul>
+<li>private：只在类内部/声明文件内部可见。</li>
+<li>protected：private+子类中可见。</li>
+<li>internal: 同一模块（编译在一起的一套Kotlin文件）可见。</li>
+</ul>
+</li>
+<li><p>函数定义</p>
+
+<p> 用fun关键字声明函数</p>
+
+<pre><code class="`"> fun main(args: Array&lt;String&gt;) {
+  ...
+ }
+</code></pre>
+
+<p> 其中，函数参数使用 Pascal 表示法定义，即 name: type。参数用逗号隔开。每个参数必须有显式类型。</p>
+
+<p> Kotlin中还能够直接通过表达式做为函数体来定义函数。</p>
+
+<pre><code class="`"> fun sum(a : Int, b : Int) = a + b
+</code></pre>
+
+<p> Kotlin中的函数和Java中的方法是一致的，但与Java不同的是，Kotlin中的函数可以属于任何类，文件当中直接定义则作为“包级函数”，和类的使用方式一致</p></li>
+<li><p>默认参数值</p>
+
+<p> 函数的参数可以指定默认值。</p>
+
+<pre><code class="`"> fun getList(list: Array&lt;String&gt;, offset: Int = 0, size: Int = list.size) { …… }
+</code></pre>
+
+<p> 不指定第2个参数调用方法时，offset参数取默认值0, size参数默认取第一个参数的size。</p></li>
+<li><p>可变参数</p>
+
+<p> 函数的参数（通常是最后一个）可以用 vararg 修饰符标记：</p>
+
+<pre><code class="`"> fun printIntArray(vararg input: Int) {
+     for (i in input) {
+         println(i)
+     }
+ }
+</code></pre></li>
+<li><p>不需要的语句结束符</p>
+
+<p> Kotlin中没有语句结束符，当然为了与java保持一致性，也可以使用;号作为语句结束符。</p></li>
+<li><p>字符串连接符</p>
+
+<p> 跟java一样，如果你需要把一个字符串写在多行里，可以使用+号连接字符串。代码可以这样写：</p></li>
+</ol>
+
+
+<pre><code class="```">   val str = "hello" + "world" + "!!!";
+</code></pre>
+
+<pre><code>Kotlin中的写法也可以这样：
+
+```
+val str = """hello
+world
+!!!
+"""
+</code></pre>
+
+<pre><code class="```        ">
+    三个”号之间不在需要+号进行连接，不过字符串中的格式符都会被保留，包括回车和tab。
+
+1. 字符串模板
+
+    Kotlin提供了$符来做字符串内的变量替换，并且可以做一些字符串操作。如下：
+
+    ```
+    var name = "hj"
+    var strTemplate = "My name is $name"//My name is hj
+
+    strTemplate = "My name is ${name.replace("j","a")}"// My name is ha
+    ```
+
+1. 一切皆对象
+
+    Kotlin中一切皆对象。即使赋值为基本数据类型，也会自动转换为对应的类。
+
+1. if条件表达式
+
+    Kotlin中支持if条件表达式。
+
+    ```
+   val a = if(x &gt; 0) 1 else 2
+   fun maxOf(a: Int, b: Int) = if (a &gt; b) a else b
+    ```
+
+1. 循环
+
+    Kotlin的while循环和Java没什么不同, 在for循环引入了区间的概念。
+
+    ```
+    for(i in 1..10){
+        println(i)
+    }
+
+    for(i in 1..10 step 2){
+        println(i)
+    }
+
+    for(i in 10 downTo 1 step 1){
+        println(i)
+    }
+
+    for (i in 1 until 10) {
+        // i in [1, 10) 排除了 10
+        println(i)
+    }
+
+    for(c in 'A'..'Z'){
+        println(c)
+    }
+</code></pre>
+
+<pre><code>需要注意的是在Kotlin中不再支持Java的for循环形式：
+
+```
+for(int i =0;i &lt; 10;i++){
+    ...
+}
+```
+</code></pre>
+
+<ol>
+<li><p>when</p>
+
+<p>  Kotlin中没有switch。提供when做分支条件选择。</p>
+
+<pre><code class="``">  when (x) {
+     1 -&gt; print("x == 1")
+     2 -&gt; print("x == 2")
+     3, 4 -&gt; print("x == 3 or x == 4")
+     in 10..99999 -&gt; print("x &gt; 10")
+     else -&gt; { // 注意这个块
+         print("x is neither 1 nor 2")
+     }
+ }
+
+ when {
+     x.isOdd() -&gt; print("x is odd")
+     x.isEven() -&gt; print("x is even")
+     else -&gt; print("x is funny")
+  }
+</code></pre>
+
+<p>   when 既可以被当做表达式使用也可以被当做语句使用。如果它被当做表达式， 符合条件的分支的值就是整个表达式的值，如果当做语句使用， 则忽略个别分支的值。</p></li>
+<li><p>操作符重载</p>
+
+<p> Kotlin提供了操作符重载的支持。对于常用的”+“、"-&ldquo;等操作符，创建带有operator且名称符合要求的方法，即可实现。如：</p>
+
+<pre><code class="`"> data class Point(val x: Int, val y: Int)
+
+ operator fun Point.unaryMinus() = Point(-x, -y)
+
+ val point = Point(10, 20)
+
+ fun main() {
+     println(-point)  // 输出“Point(x=-10, y=-20)”
+ }
+</code></pre>
+
+<p> 上面即完成了对-的重载。</p></li>
+<li><p>集合</p>
+
+<p>Kotlin把集合分为可变集合和不可变集合。其创建需要通过标准库的方法：listOf()、 mutableListOf()、 setOf()、 mutableSetOf()、hashMapOf()、mutableHashMapOf()</p>
+
+<pre><code>val list = listOf("1","2","3",""4)
+val set = setOf("1","2")
+val map = hashMapOf("name" to "hj","sex" to "male")
+</code></pre>
+
+<p>这些集合类实现了操作符重载，如下：</p>
+
+<pre><code>val list1 = list - listOf("1","2")
+val list2 = list + "2"
+println(list1[0])
+
+val map = hashMapOf("name" to "hj","sex" to "male")
+val map1 = map + ("name2" to "hah") //{"name":"hj","name2":"ha","sex":"male"}
+val map2 = map - "name"//{"sex":"male"}
+println(map2)
+</code></pre>
+
+<p>Map的遍历如下：</p>
+
+<pre><code>for ((k, v) in map) {
+    println("$k -&gt; $v")
+}
+</code></pre>
+
+<p>Kotlin中的集合具有类似Java中的Stream的操作如filter、map、foreach等。</p>
+
+<pre><code>val positives = list.filter { x -&gt; x &gt; 0 }
+//val positives = list.filter { it &gt; 0 }
+</code></pre></li>
+<li><p>Elvis操作符</p>
+
+<p> 三目运算符通常以这种形式出现：</p>
+
+<pre><code class="`"> String displayName = name != null ? name : "Unknown";
+</code></pre>
+
+<p> Kotlin中可以简化为：</p>
+
+<pre><code class="`"> val displayName = name ?: "Unknown";
+</code></pre></li>
+<li><p>可空/非可空引用/函数返回值</p>
+
+<p> Kotlin中区分一个引用可以容纳null和不能容纳null。默认的引用是不可空的。</p>
+
+<pre><code class="`"> var a = "abc"
+ a = null // 编译错误    ```
+</code></pre>
+
+<p> 需要使用?使其变为可空引用。</p>
+
+<pre><code class="`"> var b : String ? = "abc"
+ b = null
+</code></pre>
+
+<p> 如此，后续如果你调用a的任何方法都可以，但是调用b的会有编译错误。会强制去检查b是否为空</p>
+
+<pre><code class="`"> val l = if (b != null) b.length else -1
+</code></pre>
+
+<p> 也可以使用?做安全调用</p>
+
+<pre><code class="`"> b?.length()
+</code></pre>
+
+<p> b不为空才会执行后续的操作。配合let可以执行其他非自身的操作。</p>
+
+<pre><code class="`"> b?.let{
+     print("a")
+ )
+</code></pre>
+
+<p> 同样的，对于函数参数以及返回值，默认也是非空的，只有加了?才允许传控制且要求做空值检测。</p>
+
+<pre><code class="`"> fun parseInt(str: String?): Int? {
+     // ……
+     if(str == null){
+         return null
+     }
+
+     ...
+     return ..
+ }
+
+ val r = parseInt(null)
+ r?.let{
+     print r
+ }
+</code></pre></li>
+<li><p>try with resources</p>
+
+<pre><code class="`"> val stream = Files.newInputStream(Paths.get("/some/file.txt"))
+ stream.buffered().reader().use { reader -&gt;
+     println(reader.readText())
+ }
+</code></pre></li>
+<li><p>延迟属性</p>
+
+<p> Kotlin提供了延迟属性的支持，即只有在你第一次开始使用的时候才会真正初始化。默认使用同步锁保证只有一个线程初始化。下面例子改成了不使用同步锁，可以多线程执行。</p>
+
+<pre><code class="`"> val p by lazy(LazyThreadSafetyMode.PUBLICATION) {
+     println("computed!")
+     "Hello"
+ }
+ println(p)
+</code></pre></li>
+<li><p>类</p>
+
+<ul>
+<li>无须public修饰符。文件名和类也没有任何关联。</li>
+<li><p>创建对象不需要使用new关键字</p>
+
+<pre><code class="``">  val test = Test()
+</code></pre></li>
+<li><p>对于类属性，默认会有get()和set()两个方法。直接访问属性或者给属性设置值都会调用这两个方法。</p>
+
+<pre><code class="``">  class Test {
+      var counter = 0 // 注意：这个初始器直接为幕后字段赋值
+      get() {
+          println("getter")
+          return field
+      }
+      set(value) {
+          println("setter")
+          field = value
+      }
+
+
+  }
+
+  val test = Test()
+  test.counter = 10
+  println(test.counter)
+</code></pre></li>
+<li><p>主构造函数和次构造函数。Kotlin中一个类可以有一个主构造函数以及一个或多个次构造函数。主构造函数是类头的一部分：它跟在类名（与可选的类型参数）后。主构造函数里的参数如果用val或者var修饰则成为类的属性。如果类有一个主构造函数，每个次构造函数需要委托给主构造函数。主构造函数不能包含任何的代码。初始化的代码可以放到以 init 关键字作为前缀的初始化块（即时没有主构造函数，也会在次构造函数前执行）。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      init{
+
+      }
+
+      constructor(counter: Int, name: String, sex: String) : this(counter, name) {
+
+      }
+
+  }
+
+  val test = Test(10)
+  println(test.counter)
+</code></pre></li>
+<li><p>Kotlin中引入了解构函数来对对象进行解构。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      operator fun component1() : Int{
+          return counter
+      }
+
+      operator fun component2() : String{
+          return name
+      }
+
+  }
+
+  val (counter,name) = Test(10)
+</code></pre>
+
+<p>  如此，也和map一样可以用在集合迭代中。</p>
+
+<pre><code class="``">  val testList = listOf(Test(1),Test(2))
+  for((k,v) in testList){
+      ...
+  }
+</code></pre></li>
+<li><p>Kotlin中引入了数据类的概念。对于此种类，会默认根据主构造函数的属性生成equals()/hashCode()、toString()、componentN()、copy()这几个函数。</p>
+
+<pre><code class="``">  data class User(val name: String, val age: Int)
+</code></pre></li>
+<li><p>Kotlin中提供了对象声明来实现单例模式。</p>
+
+<pre><code class="``">  object SingleInstance {
+      fun test(input: String) = println(input)
+  }
+
+  fun main(args: Array&lt;String&gt;) {
+      SingleInstance.test("hj")
+  }
+</code></pre></li>
+<li><p>Kotlin中提供了密封类来表示受限的类继承结构：当一个值为有限集中的类型、而不能有任何其他类型时。可以看做是枚举类的扩展。密封类需要在类名前面添加 sealed 修饰符。其所有子类都必须在与密封类自身相同的文件中声明。</p>
+
+<pre><code class="``">  sealed class DataType
+  data class Card(val number: Double) :DataType()
+  data class Timeline(val e1: DataType, val e2: DataType) : DataType()
+  object Illegal : DataType()
+</code></pre></li>
+<li><p>Kotlin的类中引入了伴生对象来声明静态方法、属性以及编译期常量（也可以在object中定义）。</p>
+
+<pre><code class="``">  class Test(val counter: Int, val name: String = "test") {
+
+      companion object {
+          const val TYPE = 1
+              val title = "haha"
+
+              fun testStatic(){
+              println("static method")
+          }
+  }
+</code></pre></li>
+<li><p>对一个对象调用多个方法。</p>
+
+<pre><code class="``">  class Test(val counter : Int){
+      fun test1(){
+
+      }
+
+      fun test2(){
+
+      }
+  }
+
+
+  val test = Test(1)
+  with(test){
+      test1()
+      test2()
+  }
+</code></pre></li>
+</ul>
+</li>
+</ol>
+
+
+<p>以上为Kotlin中的基本语法说明，其他诸如委托、lambda函数、协程、与Java互操作等可见<a href="https://www.kotlincn.net/docs/reference/">https://www.kotlincn.net/docs/reference/</a>。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2019/01/26/my2018/" title="上一篇: 我的2018">&laquo; 我的2018 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2018/11/22/online-debug/" title="下一篇: 如何应对在线故障">如何应对在线故障 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/03/11/slam-dunk-asia-storm-ch1-sec5/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第五节：倒计时四十八小时）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/09/slam-dunk-asia-storm-ch1-sec4/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第四节：封闭测试日）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/08/slam-dunk-asia-storm-ch1-sec3/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/06/slam-dunk-asia-storm-ch1-sec2/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/05/slam-dunk-asia-storm-ch1/">灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第一节：两百天）</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2025/12/27/ai-2025/">AI大事记@2025</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+		<li><a href="http://ifeve.com/" target="_blank">并发编程网</a></li>
+	</ul>
+</section>
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "Kotlin语法简明指南",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

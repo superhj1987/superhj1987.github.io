@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-11T18:12:58+00:00</updated>
+  <updated>2026-03-11T18:18:52+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -63,7 +63,7 @@
 
 <h3>2.2 最小配置示例（单机多 Agent）</h3>
 
-<pre><code class="json">{
+<pre><code>{
   "agents": {
     "list": [
       {
