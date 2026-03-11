@@ -48,7 +48,7 @@ categories: ai
 
 ### 2.2 最小配置示例（单机多 Agent）
 
-```json
+```
 {
   "agents": {
     "list": [
