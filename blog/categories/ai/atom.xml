@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-11T17:24:22+00:00</updated>
+  <updated>2026-03-11T17:45:15+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -26,6 +26,8 @@
 
 
 <h2>1. OpenClaw 由哪些模块组成？</h2>
+
+<p><img src="https://www.rowkey.cn/post_images/openclaw/arch.jpg" width="450"/></p>
 
 <p>你可以把 OpenClaw 想成三层：</p>
 
