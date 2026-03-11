@@ -14,6 +14,8 @@ categories: ai
 
 ## 1. OpenClaw 由哪些模块组成？
 
+<img src="/post_images/openclaw/arch.jpg" width="450"/>
+
 你可以把 OpenClaw 想成三层：
 
 1) **接入层（Channels）**：连接外部世界（Telegram/钉钉/QQ/…），负责收消息、发消息。
