@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-12T03:24:42+00:00</updated>
+  <updated>2026-03-12T03:32:18+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计]]></title>
+    <title type="html"><![CDATA[OpenClaw多Agent方案]]></title>
     <link href="https://www.rowkey.cn/blog/2026/03/12/openclaw-multi-agent-architecture/"/>
     <updated>2026-03-12T01:50:00+00:00</updated>
     <id>https://www.rowkey.cn/blog/2026/03/12/openclaw-multi-agent-architecture</id>
@@ -27,7 +27,7 @@
 </ul>
 
 
-<p>这篇文章基于 OpenClaw 官方文档，系统讲清三件事：<strong>单机多 Agent 怎么搭</strong>、<strong>多 OpenClaw 主机怎么协作</strong>、<strong>代理间如何通信才稳定可控</strong>。</p>
+<p>这篇文章基于 OpenClaw 官方文档，系统讲清四件事：<strong>单机多 Agent 怎么搭</strong>、<strong>单主机多 OpenClaw 实例何时可用</strong>、<strong>多 OpenClaw 主机怎么协作</strong>、<strong>代理间如何通信才稳定可控</strong>。</p>
 
 <!-- more -->
 
@@ -107,6 +107,30 @@
 
 <p>这两类通信在同一 Gateway 内是“内生通信”，上下文边界更清晰、可追踪性更好。</p>
 
+<h3>2.4 单主机多 OpenClaw 实例：可做，但要明确边界</h3>
+
+<p>有些团队会在同一台机器上启动多个 OpenClaw 进程（而不是一个 Gateway 托管多个 agent）。这个方案不是主路径，但在“强隔离”诉求下可用。</p>
+
+<p>适用场景：</p>
+
+<ul>
+<li><p>你需要把不同业务线彻底隔离到不同进程生命周期。</p></li>
+<li><p>你希望为不同实例配置不同端口、不同状态目录、不同系统服务策略。</p></li>
+</ul>
+
+
+<p>必须满足的工程约束：</p>
+
+<ul>
+<li><p>每个实例使用独立 <code>OPENCLAW_STATE_DIR</code>。</p></li>
+<li><p>每个实例使用独立 Gateway 端口（避免 WS/HTTP 端口冲突）。</p></li>
+<li><p>每个实例的 channel 账号登录状态独立管理，避免同账号并发占用。</p></li>
+<li><p>每个实例独立 workspace/agentDir，避免会话与认证污染。</p></li>
+</ul>
+
+
+<p>实践建议：如果目标只是“多人格/多角色协作”，优先选择<strong>单 Gateway + 多 agent + bindings</strong>。只有当你明确需要“进程级隔离”时，再采用单主机多实例。</p>
+
 <hr />
 
 <h2>3. 多 OpenClaw 主机：现实可用的 3 种协作拓扑</h2>
@@ -178,6 +202,27 @@
 </ul>
 
 
+<h3>4.4 协议补充：A2A（Google Agent2Agent）与 ANP（Agent Network Protocol）</h3>
+
+<p>在跨系统、跨组织的多代理协作里，可以把 OpenClaw 作为运行时，把 A2A/ANP 当作“外部互联协议层”。</p>
+
+<ul>
+<li><p><strong>A2A（Agent2Agent）</strong>：Google 发起的开放互操作协议，强调任务生命周期、能力发现（Agent Card）、长任务状态同步，以及基于 HTTP / SSE / JSON-RPC 的标准化通信。</p></li>
+<li><p><strong>ANP（Agent Network Protocol）</strong>：国内社区推动的开源协议，重点放在开放网络中的智能体身份与安全通信（例如 DID 身份、认证与加密通道）。</p></li>
+</ul>
+
+
+<p>一个实用落地方式：</p>
+
+<ul>
+<li><p>OpenClaw 内部（同 Gateway 或同实例）优先用 <code>sessions_send</code> / <code>sessions_spawn</code>。</p></li>
+<li><p>OpenClaw 与外部 Agent 平台协作时，可通过桥接层接入 A2A。</p></li>
+<li><p>在跨组织、需要身份自治与安全互信的场景，可评估引入 ANP 作为身份与通信补充层。</p></li>
+</ul>
+
+
+<p>注意：协议选型要看你的治理边界——企业内统一平台优先 A2A 生态兼容，开放网络互联优先关注 ANP 的身份与安全模型成熟度。</p>
+
 <hr />
 
 <h2>5. 实操中的常见坑</h2>
@@ -229,6 +274,14 @@
 <a href="https://docs.openclaw.ai/tools/subagents">https://docs.openclaw.ai/tools/subagents</a></p></li>
 <li><p>OpenClaw 官方文档：Configuration Reference<br/>
 <a href="https://docs.openclaw.ai/gateway/configuration-reference">https://docs.openclaw.ai/gateway/configuration-reference</a></p></li>
+<li><p>Google Developers Blog：Announcing the Agent2Agent Protocol (A2A)<br/>
+<a href="https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/">https://developers.googleblog.com/en/a2a-a-new-era-of-agent-interoperability/</a></p></li>
+<li><p>A2A 协议官方文档（Linux Foundation 托管）<br/>
+<a href="https://a2a-protocol.org/latest/">https://a2a-protocol.org/latest/</a></p></li>
+<li><p>ANP 官方文档（中文）<br/>
+<a href="https://www.agent-network-protocol.com/zh/guide/">https://www.agent-network-protocol.com/zh/guide/</a></p></li>
+<li><p>ANP 身份与加密通信层<br/>
+<a href="https://agentnetworkprotocol.com/docs/concepts/identity/">https://agentnetworkprotocol.com/docs/concepts/identity/</a></p></li>
 </ul>
 
 ]]></content>
