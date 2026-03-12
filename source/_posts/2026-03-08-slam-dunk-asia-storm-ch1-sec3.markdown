@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第三节：封闭测试）"
-date: 2026-03-08 10:30
+date: 2026-03-08 10:30:00 +0800
 comments: true
 categories: novel
 ---

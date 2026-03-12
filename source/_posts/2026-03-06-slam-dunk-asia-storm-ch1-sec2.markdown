@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "灌篮高手·亚洲风暴篇 第一章：旧伤与新火（第二节：代代木的风）"
-date: 2026-03-06 21:30
+date: 2026-03-06 21:30:00 +0800
 comments: true
 categories: novel
 ---
