@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "OpenClaw 多 Agent 架构实战：单机多代理、跨主机协作与通信设计"
-date: 2026-03-12 01:50:00 +0800
+date: 2026-03-12 01:50
 comments: true
 categories: ai
 ---
