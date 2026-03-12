@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-12T03:32:18+00:00</updated>
+  <updated>2026-03-12T03:57:56+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -16,7 +16,7 @@
   <entry>
     <title type="html"><![CDATA[OpenClaw多Agent方案]]></title>
     <link href="https://www.rowkey.cn/blog/2026/03/12/openclaw-multi-agent-architecture/"/>
-    <updated>2026-03-12T01:50:00+00:00</updated>
+    <updated>2026-03-12T01:50:00+08:00</updated>
     <id>https://www.rowkey.cn/blog/2026/03/12/openclaw-multi-agent-architecture</id>
     <content type="html"><![CDATA[<p>很多团队把 Agent 做到第二阶段都会遇到同一个问题：</p>
 
