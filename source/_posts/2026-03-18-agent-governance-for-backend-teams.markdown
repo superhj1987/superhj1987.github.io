@@ -1,14 +1,15 @@
 ---
-title: Agent 落地不靠“更强模型”：后端团队先补这 4 个治理动作
-date: 2026-03-18 21:00:00
+layout: post
+title: "Agent 落地不靠更强模型：后端团队先补这 4 个治理动作"
+date: 2026-03-18 21:00:00 +0800
+comments: true
+categories: ai
 tags:
   - OpenClaw
   - AIAgent
   - 系统架构
   - 工程治理
   - 后端开发
-categories:
-  - AI工程化
 ---
 
 最近一轮知识库信息放在一起看，结论很清楚：
