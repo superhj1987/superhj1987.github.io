@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-12T07:35:38+00:00</updated>
+  <updated>2026-03-18T06:33:41+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -12,6 +12,312 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[OpenClaw 从热闹到落地：后端团队可复用的治理与内容运营实战]]></title>
+    <link href="https://www.rowkey.cn/blog/2026/03/18/openclaw-from-demo-to-production/"/>
+    <updated>2026-03-18T14:45:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2026/03/18/openclaw-from-demo-to-production</id>
+    <content type="html"><![CDATA[<p>最近一段时间，OpenClaw 很热。</p>
+
+<p>但如果你在一线做后端或带技术团队，真正关心的问题通常不是“它火不火”，而是：</p>
+
+<ul>
+<li>这套东西能不能稳定跑？</li>
+<li>多入口消息进来会不会串会话？</li>
+<li>工具执行有副作用，怎么防事故？</li>
+<li>沉淀下来的内容和知识，能不能复用，而不是每次重来？</li>
+</ul>
+
+
+<p>我这段时间把 OpenClaw 相关资料、实操配置和内容生产链路串了一遍，结论很直接：</p>
+
+<blockquote><p><strong>OpenClaw 的价值不在“替你聊天”，而在“把 Agent 变成可治理的执行系统”；内容运营的价值不在“多发”，而在“把每次实战转成可复用资产”。</strong></p></blockquote>
+
+<p>本文给一个后端/技术管理视角的落地版本：背景、问题、做法、踩坑、治理清单，一次讲透。</p>
+
+<!-- more -->
+
+
+<h2>一、背景：为什么很多团队看完 Demo 还是落不了地</h2>
+
+<p>从外部观感看，OpenClaw 的亮点很明显：</p>
+
+<ul>
+<li>能接 IM（如 Telegram 等），调用入口更自然；</li>
+<li>本地优先，隐私和可控性更符合工程团队预期；</li>
+<li>Skills 扩展灵活，能做浏览器、终端、文件、内容类任务。</li>
+</ul>
+
+
+<p>但真正进入团队试运行后，问题也马上出现：</p>
+
+<ol>
+<li><strong>热度高，但认知两极化</strong>：用过 Claude Code/Codex 的同学觉得“并不新鲜”；没形成 Agent 工作流的同学会觉得“第一次看到可执行 AI”。</li>
+<li><strong>安装与运行门槛客观存在</strong>：对大众用户不友好，对工程团队则是“可接受但要治理”。</li>
+<li><strong>从 Demo 到生产有断层</strong>：能跑一个任务，不代表能长期稳定地跑 1000 个任务。</li>
+</ol>
+
+
+<p>这就是我对 OpenClaw 的实际定位：</p>
+
+<ul>
+<li>它不是“神奇聊天工具”；</li>
+<li>它更像“Agent 执行底盘 + 消息调度中心 + 工具治理框架”。</li>
+</ul>
+
+
+<p>这点想清楚，后面的架构和治理动作才不会跑偏。</p>
+
+<hr />
+
+<h2>二、核心问题：不是模型会不会答，而是系统会不会乱</h2>
+
+<p>在多渠道、多任务、多人协作场景里，真正难点集中在五件事。</p>
+
+<h3>1）并发与会话边界</h3>
+
+<p>同一时间多条消息涌入，默认 async 乱跑，最容易出现：</p>
+
+<ul>
+<li>上下文串台；</li>
+<li>工具结果互相污染；</li>
+<li>用户追问被错误合并或丢失。</li>
+</ul>
+
+
+<h3>2）工具副作用治理</h3>
+
+<p>当 Agent 有 <code>exec</code>、文件操作、浏览器自动化能力时，它已经不是“只读系统”。</p>
+
+<ul>
+<li>错误命令可能删文件；</li>
+<li>恶意提示可能诱导危险操作；</li>
+<li>插件来源不可信会带来供应链风险。</li>
+</ul>
+
+
+<h3>3）上下文膨胀与长期可用性</h3>
+
+<p>任务跑到几十轮后，常见问题是：</p>
+
+<ul>
+<li>模型“忘记前文”；</li>
+<li>token 成本飙升；</li>
+<li>对话历史可读性变差，排障困难。</li>
+</ul>
+
+
+<h3>4）模型与凭据不稳定</h3>
+
+<p>限流、鉴权失效、provider 抖动不是偶发，而是常态。</p>
+
+<p>没有回退链和冷却机制，系统可用性就会被“单点模型状态”绑架。</p>
+
+<h3>5）内容资产断裂</h3>
+
+<p>很多团队会做自动化，却没做知识沉淀。</p>
+
+<ul>
+<li>URL 收藏了，但不可检索；</li>
+<li>对话做了，但没有结构化输出；</li>
+<li>发了文章，但方法论没有沉淀。</li>
+</ul>
+
+
+<p>最后只能“高频重复劳动”。</p>
+
+<hr />
+
+<h2>三、实践方法：一套我认为可落地的“四层闭环”</h2>
+
+<p>我把这套实践拆成四层，按顺序落地，复杂度可控。</p>
+
+<h2>1）运行层：先把 Agent 当“作业系统”而不是“聊天窗口”</h2>
+
+<p>最小原则：<strong>同会话串行，全局限并发</strong>。</p>
+
+<p>建议默认队列策略：</p>
+
+<ul>
+<li><code>collect</code>：短时间消息合并，减少“连发追问炸裂”；</li>
+<li><code>debounce</code>：给 1~2 秒静默窗口；</li>
+<li><code>cap + drop summarize</code>：限制积压并保留摘要，不直接丢语义。</li>
+</ul>
+
+
+<p>这背后逻辑很简单：</p>
+
+<blockquote><p>先保证行为可预测，再追求吞吐。</p></blockquote>
+
+<h2>2）治理层：把“权限、审批、审计”做成硬约束</h2>
+
+<p>高风险工具（如 shell、删除、外部写入）建议统一三层治理：</p>
+
+<ol>
+<li><strong>沙箱/环境隔离</strong>：明确可访问目录和执行边界；</li>
+<li><strong>allow/deny 策略</strong>：按工具和命令白名单约束；</li>
+<li><strong>审批与审计</strong>：危险动作必须可拦截、可追踪。</li>
+</ol>
+
+
+<p>经验上，绝大多数线上事故，不是模型“胡说”，而是“胡做”。</p>
+
+<h2>3）知识层：URL 入库 -> 结构化摘要 -> Notion/仓库双存</h2>
+
+<p>这是内容运营和工程治理能打通的关键。</p>
+
+<p>我建议固定一个入库动作：</p>
+
+<ul>
+<li>每条高价值 URL 入 <code>knowledge_base</code>；</li>
+<li>自动提取 meta（标题、来源、发布时间、链接）；</li>
+<li>生成 <code>core/highlights</code> 两级摘要；</li>
+<li>同步到 Notion 页面（便于回看与协同）；</li>
+<li>同时保留本地 JSON（便于脚本处理和版本化）。</li>
+</ul>
+
+
+<p>这样做的直接收益：</p>
+
+<ul>
+<li>写文章时不再“重搜资料”；</li>
+<li>可按主题（架构/治理/运营）二次聚合；</li>
+<li>形成可追溯的观点来源链。</li>
+</ul>
+
+
+<h2>4）内容层：多 Agent 协作，把“写作”工程化</h2>
+
+<p>把内容生产拆成角色，而不是一个 Agent 包办：</p>
+
+<ul>
+<li><strong>Research Agent</strong>：拉取知识库、做事实对齐；</li>
+<li><strong>Outline Agent</strong>：生成结构化提纲（背景/问题/方法/踩坑/清单）；</li>
+<li><strong>Writing Agent</strong>：按目标读者写成可发布稿；</li>
+<li><strong>Review Agent</strong>：做术语统一、风险检查、可执行性检查；</li>
+<li><strong>Publish Agent</strong>：写入仓库、commit/push、回传发布信息。</li>
+</ul>
+
+
+<p>这套流程的目标不是“炫技”，而是降低个人波动，让质量可复制。</p>
+
+<hr />
+
+<h2>四、踩坑与治理：几类高频问题及处理办法</h2>
+
+<h3>坑 1：把“工作区”当成“安全边界”</h3>
+
+<p>工作区只是默认 cwd，不等于强隔离。绝对路径仍可能访问主机其它位置。</p>
+
+<p><strong>建议</strong>：敏感任务必须启用真实隔离策略，不要只靠目录约定。</p>
+
+<h3>坑 2：会话隔离粒度过粗</h3>
+
+<p>多人 DM/群聊不隔离，迟早串台。</p>
+
+<p><strong>建议</strong>：按 <code>channel + peer</code> 至少做一层隔离；跨渠道同人再做 identity 映射。</p>
+
+<h3>坑 3：只追求“回复快”，忽略“可恢复”</h3>
+
+<p>没有 runId、生命周期事件、审计日志，排障几乎靠猜。</p>
+
+<p><strong>建议</strong>：统一事件流（assistant/tool/lifecycle）并保留最小可追溯链路。</p>
+
+<h3>坑 4：模型切换靠人工救火</h3>
+
+<p>某 provider 限流后，系统整体卡死。</p>
+
+<p><strong>建议</strong>：预设主模型+回退模型，叠加凭据轮换与指数退避。</p>
+
+<h3>坑 5：内容发布“只有结果，没有资产”</h3>
+
+<p>文章发了，但观点、案例、模板没沉淀，下次还得从 0 开始。</p>
+
+<p><strong>建议</strong>：发布后反向入库：</p>
+
+<ul>
+<li>文章核心观点 -> 观点库；</li>
+<li>实操清单 -> 模板库；</li>
+<li>踩坑案例 -> 风险库。</li>
+</ul>
+
+
+<hr />
+
+<h2>五、可复用清单（后端/技术管理可直接抄）</h2>
+
+<p>下面这份清单，建议直接放进团队 Wiki：</p>
+
+<h3>A. 运行稳定性</h3>
+
+<ul>
+<li>[ ] 默认每会话串行，跨会话再并发</li>
+<li>[ ] 队列策略可配置（collect/followup/steer）</li>
+<li>[ ] 有 <code>debounce/cap/drop</code> 防抖与削峰</li>
+</ul>
+
+
+<h3>B. 安全与副作用治理</h3>
+
+<ul>
+<li>[ ] 高风险工具默认 deny，按需开白</li>
+<li>[ ] shell/文件删除/外部写入带审批</li>
+<li>[ ] 工具执行日志可查询、可审计</li>
+</ul>
+
+
+<h3>C. 上下文与成本控制</h3>
+
+<ul>
+<li>[ ] 上下文定期压缩与修剪</li>
+<li>[ ] 长对话保留摘要与关键证据</li>
+<li>[ ] 重要知识进入长期记忆文件/知识库</li>
+</ul>
+
+
+<h3>D. 可用性与故障恢复</h3>
+
+<ul>
+<li>[ ] 主模型 + fallback 模型已配置</li>
+<li>[ ] 多凭据轮换与退避策略可用</li>
+<li>[ ] 任务超时、重试、降级路径明确</li>
+</ul>
+
+
+<h3>E. 内容运营闭环</h3>
+
+<ul>
+<li>[ ] URL 入库标准化（meta + 摘要）</li>
+<li>[ ] 知识库与 Notion 双向可追踪</li>
+<li>[ ] 发布脚本输出 commit/hash/push 状态</li>
+<li>[ ] 每篇文章回收 5 条可复用观点</li>
+</ul>
+
+
+<hr />
+
+<h2>结语：别把 Agent 当“炫技工具”，要当“生产系统”来建</h2>
+
+<p>如果只看演示，OpenClaw 的价值会被高估；
+如果按工程方法落地，它的价值反而会被低估。</p>
+
+<p>对后端和技术管理来说，更重要的不是“它能不能写一段漂亮回答”，而是：</p>
+
+<ul>
+<li>能不能长期稳定执行；</li>
+<li>出问题能不能定位与恢复；</li>
+<li>每次实践能不能沉淀成团队资产。</li>
+</ul>
+
+
+<p>我的建议是：</p>
+
+<blockquote><p><strong>从一个最小闭环开始：会话治理 + 工具治理 + 知识入库 + 发布复盘。</strong></p></blockquote>
+
+<p>先把这一套跑顺，再谈更复杂的多 Agent 编排。你会发现，真正的竞争力不是“模型参数”，而是你把 AI 纳入工程体系的能力。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[OpenClaw多Agent方案]]></title>
@@ -918,206 +1224,6 @@
 <p>接下来一年，决定胜负的可能不是“谁的模型强 3 分”，而是：</p>
 
 <blockquote><p>谁能把 AI 做成一套可维护、可扩展、可协作、可审计的工程系统。</p></blockquote>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[AI大事记@2025]]></title>
-    <link href="https://www.rowkey.cn/blog/2025/12/27/ai-2025/"/>
-    <updated>2025-12-27T19:29:34+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2025/12/27/ai-2025</id>
-    <content type="html"><![CDATA[<p>接近2025年底，概括总结了一下2025这一年的一些AI关键事件。</p>
-
-<!-- more -->
-
-
-<table>
-<thead>
-<tr>
-<th style="text-align:left;"> 时间 </th>
-<th style="text-align:left;"> 事项 </th>
-<th style="text-align:left;"> 备注 </th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left;"> <strong>2025.12.16</strong> </td>
-<td style="text-align:left;"> <strong>OpenAI GPT-Image-1.5</strong> </td>
-<td style="text-align:left;"> 不管是从零生成，还是对图片进行局部编辑，更接近你脑子里想的那个结果；并且生成速度最高可达 4 倍提升。实测：比配套Nano Banana Pro强。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.12.11</strong> </td>
-<td style="text-align:left;"> <strong>OpenAI GPT 5.2</strong> </td>
-<td style="text-align:left;"> GPT-5.2 能够在真实复杂工作流程中高效协作，从代码分析、财务建模、工程设计，到研究论文分析、实验结果推理，都能提供高质量辅助。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.11.21</strong> </td>
-<td style="text-align:left;"> <strong>Google Nano Banana Pro</strong><br><em>(aka Gemini 3.0 Pro Image)</em> </td>
-<td style="text-align:left;"> 全球首个“推理至像引擎”，不仅是绘画，更是理解物理规律与空间逻辑。作为 Nano Banana 的旗舰升级版，它像人类一样“思考”和“规划”场景，生成前所未有的逻辑一致性，完美文本和高分辨率的视觉作品。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.11.16</strong> </td>
-<td style="text-align:left;"> <strong>Google Gemini 3.0 pro</strong> </td>
-<td style="text-align:left;"> 全面高刷。同时发布Antigravity 编程IDE，生成式前端UI能力遥遥领先，可以快速实现各种交互式H5应用。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.11.12</strong> </td>
-<td style="text-align:left;"> <strong>OpenAI GPT 5.1</strong> </td>
-<td style="text-align:left;"> 将GPT-5 和 GPT-5 Mini 合并为一个能适应问题难度的自适应调整思考用量的模型。相比GPT5，语气更亲切、更幽默，更善于遵循指令。整体性能介于GPT-5 和 GPT-5 Mini 之间。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.10.16</strong> </td>
-<td style="text-align:left;"> <strong>Google Veo 3.1</strong> </td>
-<td style="text-align:left;"> 主打更强叙事与音频控制、音乐韵律与多参考图拼接，接入 Gemini API与Vertex AI。Flow与Gemini可用。可合成多人物场景、语音同步，片段最长约146秒；规格至1080p/24fps。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.10.01</strong> </td>
-<td style="text-align:left;"> <strong>OpenAI Sora2</strong> </td>
-<td style="text-align:left;"> 非常好的物理世界理解能力，同时推出了Sora APP，定位AI短影音。号称视频领域的GPT-3.5时刻。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.09.09</strong> </td>
-<td style="text-align:left;"> <strong>字节发布 Seedream 4.0</strong> </td>
-<td style="text-align:left;"> 定位“生成与编辑一体化”专业工具。编辑能力强甚至部分超过nano banana。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.27</strong> </td>
-<td style="text-align:left;"> <strong>Google Nano Banana</strong><br><em>(aka Gemini 2.5 Flash Image)</em> </td>
-<td style="text-align:left;"> 具有极好的编辑能力，能够多图融合、强一致性，替代GPT4o成为图片编辑的王者。SOTA of 图像模型。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.26</strong> </td>
-<td style="text-align:left;"> <strong>通义万相 Wan2.2-S2V-14B</strong> </td>
-<td style="text-align:left;"> 一个可以跑动的14B视频模型，仅需一张图片和一段音频，即可生成面部表情自然、口型一致、肢体动作丝滑的电影级叙事/人视频。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.26</strong> </td>
-<td style="text-align:left;"> <strong>即梦AI智能多模</strong> </td>
-<td style="text-align:left;"> 传统的拼接是两个团队，各干各的，最后硬拼在一起。而堆叠多帧是一个全真全参数带上下文的团队，大家各让一步处理，因此能做到四宽的一致性。堆叠多帧背后的底层逻辑：即一体的全局考虑。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.21</strong> </td>
-<td style="text-align:left;"> <strong>GenSpark AI Designer</strong> </td>
-<td style="text-align:left;"> 一款革命性的AI设计工具，能够一键生成完整的多屏设计方案，涵盖Logo、包装、网站设计等多个领域，极大地降低了设计门槛。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.20</strong> </td>
-<td style="text-align:left;"> <strong>DeepSeek V3.1</strong> </td>
-<td style="text-align:left;"> 代码能力极高，但文本能力并未提高，甚至有某些下降。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.19</strong> </td>
-<td style="text-align:left;"> <strong>Qwen-Image-Edit</strong> </td>
-<td style="text-align:left;"> 全能图像编辑。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.08</strong> </td>
-<td style="text-align:left;"> <strong>OpenAI GPT5</strong> </td>
-<td style="text-align:left;"> 一个统一的系统，包含一个能够解决大多数问题的智能快速模型、一个能够解决复杂长问题的深度推理模型，以及一个实时语音器。可以根据对话类型、复杂性、工具需求判断意图并快速决定使用哪个模型。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.06</strong> </td>
-<td style="text-align:left;"> <strong>OpenAI 开源模型</strong><br>GPT-oss-120b和GPT-oss-20b </td>
-<td style="text-align:left;"> 性能与兼容性兼具，非英文表现不好。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.05</strong> </td>
-<td style="text-align:left;"> <strong>Google Genie3</strong> </td>
-<td style="text-align:left;"> 新一代生成式世界模型——Genie3。根据文本创造一个可以实时交互的世界。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.08.04</strong> </td>
-<td style="text-align:left;"> <strong>Qwen-image</strong> </td>
-<td style="text-align:left;"> 通义千问团队开源的首个图像生成基础模型，在解决传统文生图模型文字渲染难题上实现了突破性进展，尤其在中文场景下表现突出。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.07.23</strong> </td>
-<td style="text-align:left;"> <strong>Qwen3-coder</strong> </td>
-<td style="text-align:left;"> 拥有卓越的代码Agent能力，在Agentic Coding、Agentic Browser-Use 和 Foundational Coding Tasks 上均取得了开源模型的 SOTA 效果。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.07.12</strong> </td>
-<td style="text-align:left;"> <strong>Kimi K2</strong> </td>
-<td style="text-align:left;"> 将模型权重代码全量开源。大模型竞技场LMArena排行榜中，Kimi K2综合排名斩获全球第五，在开源大模型中位居全球第一。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.07.09</strong> </td>
-<td style="text-align:left;"> <strong>xAI Grok 4</strong> </td>
-<td style="text-align:left;"> 极其激进的快速迭代。推出 Grok 4 Heavy，引入多智能体架构，针对复杂科研任务优化，算力规模再创新高。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.07.05</strong> </td>
-<td style="text-align:left;"> <strong>Gemini CLI</strong> </td>
-<td style="text-align:left;"> 开源命令行界面工具，它将谷歌强大的 Gemini AI 模型直接集成到开发者常用的终端环境中，更擅长服务于编程。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.07.02</strong> </td>
-<td style="text-align:left;"> <strong>Flux图像模型</strong><br>Kontext Dev模型正式开始 </td>
-<td style="text-align:left;"> 强一致性、强理解力。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.06.24</strong> </td>
-<td style="text-align:left;"> <strong>Imagen4</strong> </td>
-<td style="text-align:left;"> 显著改善文本渲染效果，进一步提升了文本转图像的生成质量。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.06.22</strong> </td>
-<td style="text-align:left;"> <strong>Gemini 2.5 Flash/Pro</strong> </td>
-<td style="text-align:left;"> </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.06.11</strong> </td>
-<td style="text-align:left;"> <strong>Seedance1.0</strong> </td>
-<td style="text-align:left;"> 字节跳动推出的一款高性能和推理极致的视频语言生成模型。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.05.23</strong> </td>
-<td style="text-align:left;"> <strong>Claude code</strong> </td>
-<td style="text-align:left;"> 智能化辅助写代码工具，旨在帮助开发者通过自然语言命令理解、浏览和修改整个代码库，前端编程领域无人能敌。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.05.21</strong> </td>
-<td style="text-align:left;"> <strong>Veo3</strong> </td>
-<td style="text-align:left;"> 首个可生成视频背景音效模型，体会画面感、配合感、生成人物对话，物理模拟与口型同步表现优异。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.04.29</strong> </td>
-<td style="text-align:left;"> <strong>Qwen3</strong> </td>
-<td style="text-align:left;"> 国产最强开源模型。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025年5月</strong> </td>
-<td style="text-align:left;"> <strong>Loverr设计Agent</strong> </td>
-<td style="text-align:left;"> 2025年7月28日正式上线。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.04.05</strong> </td>
-<td style="text-align:left;"> <strong>Meta Llama 4</strong> </td>
-<td style="text-align:left;"> Meta发布开源模型 Llama 4（包含Scout和Maverick版本）。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.03.26</strong> </td>
-<td style="text-align:left;"> <strong>GPT4o改图能力</strong> </td>
-<td style="text-align:left;"> 一致性能力好，响应慢。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.03.06</strong> </td>
-<td style="text-align:left;"> <strong>通用Agent</strong><br>Manus, GenSpark, Flowith </td>
-<td style="text-align:left;"> </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.02.17</strong> </td>
-<td style="text-align:left;"> <strong>xAI Grok 3</strong> </td>
-<td style="text-align:left;"> Elon Musk 发布 Grok 3，宣称其为“地球上最聪明的AI”。 </td>
-</tr>
-<tr>
-<td style="text-align:left;"> <strong>2025.01.20</strong> </td>
-<td style="text-align:left;"> <strong>DeepSeek R1</strong> </td>
-<td style="text-align:left;"> 国产开源推理模型，媲美OpenAI o1。 </td>
-</tr>
-</tbody>
-</table>
-
 ]]></content>
   </entry>
   
