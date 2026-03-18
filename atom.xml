@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-18T15:30:27+00:00</updated>
+  <updated>2026-03-18T17:46:44+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -14,9 +14,9 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Agent 落地不靠“更强模型”：后端团队先补这 4 个治理动作]]></title>
+    <title type="html"><![CDATA[Agent 落地不靠更强模型：后端团队先补这 4 个治理动作]]></title>
     <link href="https://www.rowkey.cn/blog/2026/03/18/agent-governance-for-backend-teams/"/>
-    <updated>2026-03-18T21:00:00+00:00</updated>
+    <updated>2026-03-18T21:00:00+08:00</updated>
     <id>https://www.rowkey.cn/blog/2026/03/18/agent-governance-for-backend-teams</id>
     <content type="html"><![CDATA[<p>最近一轮知识库信息放在一起看，结论很清楚：
 Agent 已经从“能不能做”进入“能不能稳定做、持续做、规模做”。</p>
