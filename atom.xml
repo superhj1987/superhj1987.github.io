@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-03-24T08:37:32+00:00</updated>
+  <updated>2026-03-24T08:43:24+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[OpenClaw Gateway 三种对外接口怎么选：Gateway WS vs Chat Completions vs OpenResponses]]></title>
+    <title type="html"><![CDATA[OpenClaw Gateway 三种对外接口怎么选？]]></title>
     <link href="https://www.rowkey.cn/blog/2026/03/24/openclaw-gateway-protocol-comparison/"/>
     <updated>2026-03-24T16:36:02+08:00</updated>
     <id>https://www.rowkey.cn/blog/2026/03/24/openclaw-gateway-protocol-comparison</id>
@@ -39,10 +39,14 @@
 
 <p>这是 OpenClaw 的原生控制面协议。客户端通过 WebSocket 握手（connect），声明 role/scopes/caps，然后以 req/res/event 方式通信。</p>
 
-<p>它最适合做：
-- 自研控制台
-- 会话与节点能力统一编排
-- 审批、配置、设备配对、运维级治理</p>
+<p>它最适合做：</p>
+
+<ul>
+<li>自研控制台</li>
+<li>会话与节点能力统一编排</li>
+<li>审批、配置、设备配对、运维级治理</li>
+</ul>
+
 
 <p>一句话：<strong>最完整，但接入门槛最高。</strong></p>
 
@@ -52,10 +56,14 @@
 
 <p>这是面向存量生态的兼容接口。你已有 OpenAI SDK 或上层框架时，几乎可以低改造迁移。</p>
 
-<p>它最适合做：
-- 快速打通业务链路
-- 验证模型+工具能力
-- 已有 OpenAI 生态资产复用</p>
+<p>它最适合做：</p>
+
+<ul>
+<li>快速打通业务链路</li>
+<li>验证模型+工具能力</li>
+<li>已有 OpenAI 生态资产复用</li>
+</ul>
+
 
 <p>一句话：<strong>上手最快，迁移成本最低。</strong></p>
 
@@ -65,10 +73,14 @@
 
 <p>这是更现代的兼容接口，强调 item 化输入、工具回合、多模态输入（文件/图片）和更细颗粒度的流式事件。</p>
 
-<p>它最适合做：
-- 复杂工具调用回合
-- 多模态上下文输入
-- 需要更强可观测事件流的 Agent 系统</p>
+<p>它最适合做：</p>
+
+<ul>
+<li>复杂工具调用回合</li>
+<li>多模态上下文输入</li>
+<li>需要更强可观测事件流的 Agent 系统</li>
+</ul>
+
 
 <p>一句话：<strong>语义更完整，适合复杂场景。</strong></p>
 
