@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "OpenClaw Gateway 三种对外接口怎么选：Gateway WS vs Chat Completions vs OpenResponses"
+title: "OpenClaw Gateway 三种对外接口怎么选？"
 date: 2026-03-24 16:36:02 +0800
 comments: true
 categories: ai
@@ -27,6 +27,7 @@ categories: ai
 这是 OpenClaw 的原生控制面协议。客户端通过 WebSocket 握手（connect），声明 role/scopes/caps，然后以 req/res/event 方式通信。
 
 它最适合做：
+
 - 自研控制台
 - 会话与节点能力统一编排
 - 审批、配置、设备配对、运维级治理
@@ -40,6 +41,7 @@ categories: ai
 这是面向存量生态的兼容接口。你已有 OpenAI SDK 或上层框架时，几乎可以低改造迁移。
 
 它最适合做：
+
 - 快速打通业务链路
 - 验证模型+工具能力
 - 已有 OpenAI 生态资产复用
@@ -53,6 +55,7 @@ categories: ai
 这是更现代的兼容接口，强调 item 化输入、工具回合、多模态输入（文件/图片）和更细颗粒度的流式事件。
 
 它最适合做：
+
 - 复杂工具调用回合
 - 多模态上下文输入
 - 需要更强可观测事件流的 Agent 系统
