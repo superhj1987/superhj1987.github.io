@@ -6,7 +6,7 @@
 <html class="no-js" lang="zh-CN"><!--<![endif]-->
 <head>
   <meta charset="utf-8">
-  <title>Category: nginx - 后端技术杂谈</title>
+  <title>OpenClaw Gateway 三种对外接口怎么选：Gateway WS vs Chat Completions vs OpenResponses - 后端技术杂谈</title>
   <meta name="author" content="HJ">
   <!--[if lt IE 9]>
     <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
@@ -14,7 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="Category: nginx">
+  <meta name="description" content="OpenClaw Gateway 三种对外接口怎么选：Gateway WS vs Chat Completions vs OpenResponses Posted by HJ in ai 很多团队在接 OpenClaw Gateway 时，第一反应是：到底该用哪个接口？ 答案不是“ &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -22,7 +22,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="https://www.rowkey.cn/blog/categories/nginx/">
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2026/03/24/openclaw-gateway-protocol-comparison/">
   <link href="/favicon.ico" rel="icon">
   <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
   <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
@@ -124,88 +124,295 @@
   <article class="post clearfix">
   
   <header>
-    <h1 class="post-title">Category: Nginx</h1>
+    
+      <h1 class="post-title">OpenClaw Gateway 三种对外接口怎么选：Gateway WS vs Chat Completions vs OpenResponses</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2026-03-24T16:36:02+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ai/'>ai</a>
+  
+</span>
+
+
+        
+      </p>
     
   </header>
+
+
+<div class="post-content"><p>很多团队在接 OpenClaw Gateway 时，第一反应是：到底该用哪个接口？</p>
+
+<p>答案不是“哪个更新就用哪个”，而是看你的目标：是先把能力接入，还是把系统做成可控、可观测、可治理的平台。</p>
+
+<p>如果你只记一条：<strong>Chat Completions 适合快接入，OpenResponses 适合复杂编排，Gateway WS 适合平台控制面。</strong></p>
+
+<p>本文按工程落地视角，把三种协议放到同一张决策图里讲清楚。</p>
+
+<p>先明确一个问题：同一个 Gateway 为什么要提供三种接口？</p>
+
+<p>这是“分层设计”而不是“重复造轮子”——兼容层负责接入效率，原生协议负责控制力与系统治理。</p>
+
+<!-- more -->
+
+
+<h2>一、三种接口各自解决什么问题</h2>
+
+<h3>1）Gateway 协议（WebSocket）</h3>
+
+<p>这是 OpenClaw 的原生控制面协议。客户端通过 WebSocket 握手（connect），声明 role/scopes/caps，然后以 req/res/event 方式通信。</p>
+
+<p>它最适合做：
+- 自研控制台
+- 会话与节点能力统一编排
+- 审批、配置、设备配对、运维级治理</p>
+
+<p>一句话：<strong>最完整，但接入门槛最高。</strong></p>
+
+<hr />
+
+<h3>2）OpenAI Chat Completions（<code>/v1/chat/completions</code>）</h3>
+
+<p>这是面向存量生态的兼容接口。你已有 OpenAI SDK 或上层框架时，几乎可以低改造迁移。</p>
+
+<p>它最适合做：
+- 快速打通业务链路
+- 验证模型+工具能力
+- 已有 OpenAI 生态资产复用</p>
+
+<p>一句话：<strong>上手最快，迁移成本最低。</strong></p>
+
+<hr />
+
+<h3>3）OpenResponses（<code>/v1/responses</code>）</h3>
+
+<p>这是更现代的兼容接口，强调 item 化输入、工具回合、多模态输入（文件/图片）和更细颗粒度的流式事件。</p>
+
+<p>它最适合做：
+- 复杂工具调用回合
+- 多模态上下文输入
+- 需要更强可观测事件流的 Agent 系统</p>
+
+<p>一句话：<strong>语义更完整，适合复杂场景。</strong></p>
+
+<hr />
+
+<h2>二、工程决策矩阵（可直接拿去评审）</h2>
+
+<h3>维度 1：接入复杂度</h3>
+
+<ul>
+<li>最低：Chat Completions</li>
+<li>中等：OpenResponses</li>
+<li>最高：Gateway WS</li>
+</ul>
+
+
+<h3>维度 2：生态兼容性</h3>
+
+<ul>
+<li>最强：Chat Completions</li>
+<li>次之：OpenResponses</li>
+<li>最弱（但可控性最高）：Gateway WS</li>
+</ul>
+
+
+<h3>维度 3：工具与回合表达能力</h3>
+
+<ul>
+<li>Chat Completions：够用，偏经典函数调用形态</li>
+<li>OpenResponses：更适合复杂工具回合与结构化交互</li>
+<li>Gateway WS：可做全链路控制与事件编排</li>
+</ul>
+
+
+<h3>维度 4：可观测性与治理</h3>
+
+<ul>
+<li>Chat Completions：偏业务调用视角</li>
+<li>OpenResponses：事件语义更细，观测更自然</li>
+<li>Gateway WS：控制面最完整，适合平台治理</li>
+</ul>
+
+
+<h3>维度 5：长期演进空间</h3>
+
+<ul>
+<li>Chat Completions：适合作为入口层</li>
+<li>OpenResponses：适合作为复杂业务主接口</li>
+<li>Gateway WS：适合作为平台核心控制面</li>
+</ul>
+
+
+<hr />
+
+<h2>三、三类典型团队该怎么选</h2>
+
+<h3>场景 A：你要“这周上线”</h3>
+
+<p>选 Chat Completions。</p>
+
+<p>原因：复用现有 SDK，改造最小，最快出结果。</p>
+
+<h3>场景 B：你要“复杂 Agent 工作流”</h3>
+
+<p>选 OpenResponses。</p>
+
+<p>原因：输入输出语义更现代，工具回合、多模态、事件流更顺手。</p>
+
+<h3>场景 C：你要“公司级 AI 平台控制面”</h3>
+
+<p>选 Gateway WS。</p>
+
+<p>原因：只有原生协议能把角色、权限、节点能力、审批、配置纳入一套统一治理模型。</p>
+
+<hr />
+
+<h2>四、推荐落地路径（避免一步到位翻车）</h2>
+
+<h3>Phase 1：先用 Chat Completions 跑通业务闭环</h3>
+
+<p>目标：验证价值，不纠结架构完美。</p>
+
+<h3>Phase 2：把复杂链路迁到 OpenResponses</h3>
+
+<p>目标：提升工具编排能力和事件可观测性。</p>
+
+<h3>Phase 3：控制治理能力下沉到 Gateway WS</h3>
+
+<p>目标：统一权限、审批、配置与节点编排，做成平台而不是脚本集合。</p>
+
+<hr />
+
+<h2>五、生产防坑清单</h2>
+
+<ol>
+<li><strong>协议选型不要脱离组织能力</strong>：团队不会维护 WS 客户端，就别上来就全量 WS。</li>
+<li><strong>先定义会话键与幂等策略</strong>：没有幂等，重试就是事故放大器。</li>
+<li><strong>日志字段跨协议统一</strong>：requestId/sessionKey/runId 必须统一，才能追踪问题。</li>
+<li><strong>权限边界先于功能边界</strong>：先做“能不能做”，再做“做什么更快”。</li>
+<li><strong>演进路线写进技术方案</strong>：短期兼容层、长期控制面，避免每次重构都推倒重来。</li>
+</ol>
+
+
+<hr />
+
+<h2>结语</h2>
+
+<p>OpenClaw Gateway 三种接口不是替代关系，而是分层协作关系。</p>
+
+<p>对工程团队来说，真正重要的不是“选哪个最先进”，而是：</p>
+
+<ul>
+<li>当前阶段怎么最快交付价值</li>
+<li>下一阶段怎么平滑升级</li>
+<li>最终怎么形成可控、可观测、可治理的平台能力</li>
+</ul>
+
+
+<p>这才是协议选型的终局。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
   
-  <script type="text/javascript">
-$(document).ready(function(){
-	$("#nav-menu a").removeClass("current");
-	var thisPath = location.pathname;
-	if(thisPath.indexOf("architecture") > -1){
-		$("#nav-menu .architecture-nav").addClass("current");
-	}else if(thisPath.indexOf("manage") > -1){
-		$("#nav-menu .manage-nav").addClass("current");
-	}else if(thisPath.indexOf("/blog/categories/ai") > -1 || thisPath.indexOf("genai") > -1){
-		$("#nav-menu .ai-nav").addClass("current");
-	}else if(thisPath.indexOf("talk") > -1){
-		$("#nav-menu .talk-nav").addClass("current");
-	}else{
-		$("#nav-menu .categories-nav").addClass("current");
-	}
-	$(".post-title").text("Nginx");
-});
-</script>
-<div style="padding-top:20px"><a href="/blog/categories/nginx/atom.xml">https://www.rowkey.cn/blog/categories/nginx/atom.xml</a></div>
-<div id="archives" class="category">
-
-
-
   
-  <div class="al_year">2014</div>
-
-<div class="archives-post clearfix">
   
-<h2><a href="/blog/2014/09/24/nginx-bootstrap/">Nginx源码分析之启动过程</a></h2>
-<div class="al_meta">
-<time datetime="2014-09-24T17:38:57+08:00" pubdate><span class='month'>Sep</span> <span class='day'>24</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/nginx/'>nginx</a></span>
-</footer>
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
 
 </div>
-</div>
 
-
-
-<div class="archives-post clearfix">
-  
-<h2><a href="/blog/2014/08/27/nginx-loadbalance/">Nginx负载均衡</a></h2>
-<div class="al_meta">
-<time datetime="2014-08-27T14:32:50+08:00" pubdate><span class='month'>Aug</span> <span class='day'>27</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/nginx/'>nginx</a></span>
-</footer>
-
-</div>
-</div>
-
-
-
-<div class="archives-post clearfix">
-  
-<h2><a href="/blog/2014/07/25/nginx-data-structure/">Nginx源码分析之基本数据结构</a></h2>
-<div class="al_meta">
-<time datetime="2014-07-25T17:08:02+08:00" pubdate><span class='month'>Jul</span> <span class='day'>25</span> <span class='year'>2014</span></time>
-
-<footer>
-  <span class="categories">posted in <a class='category' href='/blog/categories/nginx/'>nginx</a></span>
-</footer>
-
-</div>
-</div>
-
-</div>
-  
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2026/03/18/agent-governance-for-backend-teams/" title="下一篇: Agent 落地不靠更强模型：后端团队先补这 4 个治理动作">Agent 落地不靠更强模型：后端团队先补这 4 个治理动作 &raquo;</a>
+      
+    </div>
+  </footer>
 </article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
 
   </div>
 </div>
 
-<aside id="secondary">
-<div id="sidebar">
+  <aside id="secondary">
+  <div id="sidebar">
   
     <section class="widget" style="font-size:9pt" id="ads">
     <div class="_azq7d9qhrfo"></div>
@@ -347,7 +554,7 @@ $(document).ready(function(){
 	</ul>
 </section>
   
-</div>
+  </div>
 </aside>
 
 
@@ -396,7 +603,7 @@ var opt = {
    repo: "superhj1987.github.io",
    no_comment: "还没有评论",
    go_to_comment: "点击评论",
-   issue_title: "Category: nginx",
+   issue_title: "OpenClaw Gateway 三种对外接口怎么选：Gateway WS vs Chat Completions vs OpenResponses",
    btn_class: "btn_primary",
    comments_target: "#comment-thread",
    loading_target: "#loading-spin",
