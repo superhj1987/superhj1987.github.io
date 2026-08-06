@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-08-06T03:43:35+00:00</updated>
+  <updated>2026-08-06T03:57:53+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -38,8 +38,10 @@
 <p><img src="//images/2026-08-06-enterprise-ai-native-architecture.png" alt="" /></p>
 
 <p>这张架构图体现了两个核心逻辑：
-1. <strong>能力解耦（Skill/MCP Hub）</strong>：将数据和系统能力标准化暴露，解决安全鉴权与复用问题。
+1. <strong>能力解耦与治理（Skill/MCP Hub）</strong>：将数据、工具和系统能力标准化暴露，解决安全鉴权与复用问题。
 2. <strong>场景双轮驱动</strong>：既包含了研发侧的 Vibe Coding，也涵盖了全公司业务与职能形态的 Agent 化。</p>
+
+<p>后文讨论的所有“Agent Readable”、“IM 协同”以及“私有 Runtime”，本质上都是这张架构图在具体工程和组织管理中的落地延伸。</p>
 
 <hr />
 
@@ -87,16 +89,16 @@
 
 <p>未来企业真的需要为了 AI 专门再开发一套全新的协作平台吗？答案大概率是：<strong>不需要，甚至应该坚决避免。</strong></p>
 
-<p>重新造一个新平台，面临的最大的阻力就是<strong>用户习惯路径的迁移</strong>。而钉钉/飞书/企微有着得天独厚的优势：</p>
+<p>重新造一个新平台，面临最大的阻力就是<strong>用户习惯路径的迁移</strong>。而钉钉/飞书/企微有着得天独厚的优势：</p>
 
 <ol>
 <li><strong>资源天然沉淀</strong>：企业的组织架构、文档、审批、知识库早已沉淀在上面，天然具备实现 Agent Readable 的基础。</li>
-<li><strong>零迁移阻力</strong>：员工早已经习惯了每天在上面沟通和协同，不需要改变任何工作习惯。</li>
-<li><strong>天然的 Agent 学习场（群聊）</strong>：
+<li><strong>零迁移阻力</strong>：员工早已习惯了每天在上面沟通和协同，不需要改变任何工作习惯。</li>
+<li><strong>天然的 Agent 学习场（群聊即 SOP）</strong>：
 
 <ul>
 <li>协作最好的形式可能就是<strong>群聊</strong>（正如海外企业在 Slack 中实现的那样）。</li>
-<li>一个标准的业务协同流程，Agent 只需要观察群里的历史聊天记录，就能隐性学习到团队的 SOP 和上下文，自然而然地掌握这部分技能。</li>
+<li>传统企业写 SOP 是极其昂贵且容易过期的，但群聊历史天然是“带有上下文、有纠错过程、有结果验证”的真实表达。Agent 驻留在群里，只需观察群里的历史沟通，就能通过无感的 In-Context Learning 隐性学习到团队的业务 SOP 和规则，自然而然掌握这项技能。</li>
 </ul>
 </li>
 </ol>
@@ -104,13 +106,19 @@
 
 <hr />
 
-<h2>五、终局思考：企业还需要私有 Workspace 吗？</h2>
+<h2>五、终局思考：私有大脑 + 标准 IM 接口</h2>
 
-<p>从数据安全性与 Runtime 多样性的角度来看，企业<strong>必须拥有私有的 Agent 运行与治理能力（私有 Workspace/Runtime）</strong>。</p>
+<p>虽然用户界面不需要自研，但这并不意味着企业不需要自己的基础设施。</p>
 
-<p>但这并不意味着用户界面要自研。</p>
+<p>从数据安全性、模型路由与 Runtime 多样性的角度来看，企业<strong>必须拥有私有的 Agent 运行与治理能力</strong>。</p>
 
-<p><strong>理想的终局形态是：私有 Agent Runtime + 标准 IM 接口接入。</strong></p>
+<p>因此，理想的终局形态是明确的解耦：<strong>UI 交互层归办公 IM，运行治理层（私有大脑）归企业自建。</strong></p>
+
+<ul>
+<li><strong>交互层（办公 IM）</strong>：提供人类最熟悉的 UI 和消息通道，零成本承载人机协同。</li>
+<li><strong>治理层（私有 Runtime）</strong>：承载真正的核心逻辑、私有模型路由（TokenHub）、代码沙箱隔离（Sandbox）以及自定义 MCP 工具链。</li>
+</ul>
+
 
 <p>试想这样一个未来的产研闭环场景：</p>
 
