@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-08-06T03:38:34+00:00</updated>
+  <updated>2026-08-06T03:43:35+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -35,7 +35,7 @@
 
 <p>整个架构从上到下分为应用场景层、能力解耦层、核心 Runtime 运行时以及底座资源支撑层：</p>
 
-<p><img src="images/2026-08-06-enterprise-ai-native-architecture.png" alt="" /></p>
+<p><img src="https://www.rowkey.cn/images/2026-08-06-enterprise-ai-native-architecture.png" alt="" /></p>
 
 <p>这张架构图体现了两个核心逻辑：
 1. <strong>能力解耦（Skill/MCP Hub）</strong>：将数据和系统能力标准化暴露，解决安全鉴权与复用问题。
