@@ -22,7 +22,7 @@ categories: ai
 
 整个架构从上到下分为应用场景层、能力解耦层、核心 Runtime 运行时以及底座资源支撑层：
 
-![](images/2026-08-06-enterprise-ai-native-architecture.png)
+![](/images/2026-08-06-enterprise-ai-native-architecture.png)
 
 这张架构图体现了两个核心逻辑：
 1. **能力解耦（Skill/MCP Hub）**：将数据和系统能力标准化暴露，解决安全鉴权与复用问题。
