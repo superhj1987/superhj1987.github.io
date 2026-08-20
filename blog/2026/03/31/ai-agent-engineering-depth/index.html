@@ -1,0 +1,794 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>AI Agent 正在进入工程化深水区：从代码模型、生产框架到多智能体协作协议 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="AI Agent 正在进入工程化深水区：从代码模型、生产框架到多智能体协作协议 Posted by HJ in ai 过去一年，围绕 AI Agent 的讨论大多集中在模型能力本身。 但如果把最近几篇有代表性的内容放在一起看，一个更关键的变化已经出现：AI Agent 的竞争重心，正在从“ &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2026/03/31/ai-agent-engineering-depth/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">AI Agent 正在进入工程化深水区：从代码模型、生产框架到多智能体协作协议</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2026-03-31T01:10:00+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ai/'>ai</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>过去一年，围绕 AI Agent 的讨论大多集中在模型能力本身。</p>
+
+<p>但如果把最近几篇有代表性的内容放在一起看，一个更关键的变化已经出现：<strong>AI Agent 的竞争重心，正在从“模型能力展示”转向“工程系统能力”。</strong></p>
+
+<p>这里的“工程系统能力”，不是一句空话。它至少包含四层：</p>
+
+<ul>
+<li>面向特定任务优化的模型能力</li>
+<li>可接入生产环境的框架能力</li>
+<li>能控制复杂度的架构能力</li>
+<li>支撑协作扩展的协议能力</li>
+</ul>
+
+
+<p>如果只记一条：<strong>2026 年的 Agent，已经不再只是“大模型 + 工具调用”，而是在走向一套完整的软件工程体系。</strong></p>
+
+<!-- more -->
+
+
+<h2>一、模型层正在专用化：从“全能模型”转向“任务最优模型”</h2>
+
+<p>以 Cursor 发布 Composer 2 为例，这类发布最容易被表面解读为“又一个新模型上线”。但如果只盯着 benchmark 分数，其实会错过真正重要的信息。</p>
+
+<p>真正值得关注的是：<strong>垂直场景优化，正在从提示词层面的工程技巧，变成底层模型层面的产品策略。</strong></p>
+
+<p>过去大家默认的路径是：</p>
+
+<ul>
+<li>先用一个尽可能强的通用模型</li>
+<li>再通过 system prompt、工具定义、上下文拼接去适配业务场景</li>
+</ul>
+
+
+<p>而现在，越来越多产品开始反过来做：</p>
+
+<ul>
+<li>先承认模型不需要全能</li>
+<li>再针对核心任务做专门训练和强化</li>
+<li>最后用更低成本、更高稳定性去打场景穿透</li>
+</ul>
+
+
+<p>在代码生成领域，这个逻辑尤其成立。因为对开发者来说，关键指标从来不是“会不会聊天”，而是：</p>
+
+<ul>
+<li>多步修改是否稳定</li>
+<li>大工程上下文下是否少犯错</li>
+<li>工具调用链条是否顺</li>
+<li>生成结果是否更接近可运行状态</li>
+<li>成本是否足够低，能支撑高频使用</li>
+</ul>
+
+
+<p>所以代码模型的价值，不在于“像人一样懂很多”，而在于“在狭窄但高价值的任务里做到足够可靠”。</p>
+
+<p>从工程视角看，这一步非常重要。因为一旦模型专用化开始成立，系统设计就会自然进入下一阶段：</p>
+
+<ul>
+<li>不同任务会使用不同模型</li>
+<li>模型之间会形成分工</li>
+<li>上层调度必须决定何时调用哪个能力</li>
+<li>成本控制开始成为架构问题，而不是单次推理问题</li>
+</ul>
+
+
+<p>一句话：<strong>模型层一旦专用化，Agent 系统就不再是单核结构，而开始具备多能力模块化特征。</strong></p>
+
+<h2>二、框架层正在生产化：企业真正要的不是“聪明”，而是“可治理”</h2>
+
+<p>如果模型层的关键词是“专用化”，那么框架层的关键词就是“生产化”。</p>
+
+<p>以 AgentScope Java 这类框架为代表，可以明显看到一个趋势：<strong>企业级 Agent 框架的卖点，已经从“快速做 Demo”转向“纳入生产治理体系”。</strong></p>
+
+<p>一个 Demo 能跑起来，解决的是“能不能演示”；而一个生产系统能跑下去，解决的是另一组完全不同的问题：</p>
+
+<ul>
+<li>能否中断执行</li>
+<li>能否保存状态并恢复</li>
+<li>能否限制文件、网络、工具访问权限</li>
+<li>能否观察中间推理过程</li>
+<li>能否记录请求链路和成本</li>
+<li>能否融入已有服务体系、监控体系和发布体系</li>
+</ul>
+
+
+<p>这些问题很少出现在社交媒体上的 Agent 演示视频里，但它们决定了系统是否能进入真实业务。</p>
+
+<p>这也是为什么 Java 框架在企业 Agent 讨论里开始重新获得存在感。不是因为 Java 在模型创新上领先，而是因为大量企业核心系统、权限体系、服务治理体系本来就在 Java 世界里。谁更容易接入这些系统，谁就更容易跨过“从试验到生产”的门槛。</p>
+
+<p>从架构角度看，生产化框架至少意味着三件事。</p>
+
+<h3>1）Agent 不再只是一次性调用，而是一个有生命周期的执行体</h3>
+
+<p>它可能被启动、暂停、中断、恢复、观察、接管。这说明 Agent 已经不再是单纯的“函数调用”，而更接近“状态化任务单元”。</p>
+
+<h3>2）Agent 不再只追求最终答案，而要暴露过程</h3>
+
+<p>生产环境里，最终结果固然重要，但更重要的是：</p>
+
+<ul>
+<li>它是怎么得出这个结果的</li>
+<li>过程中调用了哪些工具</li>
+<li>哪一步失败了</li>
+<li>到底是模型错了，还是工具错了，还是上下文错了</li>
+</ul>
+
+
+<p>没有过程可见性，就没有治理能力。</p>
+
+<h3>3）Agent 必须服从企业原有系统边界</h3>
+
+<p>企业不会为了 Agent 重写整套权限和运维体系。真正可落地的框架，必须反过来适应既有系统，而不是要求企业围着 Agent 转。</p>
+
+<p>因此，从这一步开始，Agent 就越来越像软件基础设施问题，而不是一个单独的 AI 功能问题。</p>
+
+<h2>三、架构层正在分层化：多智能体不是默认架构，而是复杂度阈值后的选择</h2>
+
+<p>过去一段时间，“多智能体”几乎成了 Agent 讨论里的政治正确。但真正有实践经验的团队，反而越来越强调另一条原则：<strong>Single Agent First。</strong></p>
+
+<p>这个原则看起来保守，其实非常工程化。原因很简单：多智能体架构虽然听起来强大，但它天然会引入新的系统成本：</p>
+
+<ul>
+<li>角色划分成本</li>
+<li>上下文切分成本</li>
+<li>调度链路成本</li>
+<li>状态同步成本</li>
+<li>调试与排障成本</li>
+<li>Token 与时延成本</li>
+</ul>
+
+
+<p>如果业务复杂度还没高到需要这些机制，那么多智能体带来的收益，很可能不足以覆盖它引入的复杂度。</p>
+
+<p>因此，更合理的路径不是“先上多智能体，再想办法降复杂度”，而是：</p>
+
+<ul>
+<li>先用单智能体 + 工具解决大多数任务</li>
+<li>只有在复杂度跨过阈值时，才引入多角色协作</li>
+</ul>
+
+
+<p>这个“阈值”通常出现在几类场景：</p>
+
+<ul>
+<li>上下文无法放进一个窗口</li>
+<li>不同职责需要严格隔离</li>
+<li>子任务天然适合并行</li>
+<li>流程必须分段控制与校验</li>
+<li>不同团队需要分别维护不同智能体能力</li>
+</ul>
+
+
+<p>这意味着，多智能体的本质不是“更聪明”，而是更适合处理复杂系统中的职责拆分与流程编排问题。</p>
+
+<p>从这一点看，多智能体更像微服务演进中的服务拆分：</p>
+
+<ul>
+<li>在规模小、逻辑简单时，单体更高效</li>
+<li>在复杂度上升后，拆分才开始有意义</li>
+<li>拆分本身不是目标，控制复杂度才是目标</li>
+</ul>
+
+
+<h2>四、协议层正在标准化：Agent 系统开始进入“协作时代”</h2>
+
+<p>当模型专用化、框架生产化、架构分层化之后，会自然冒出下一个问题：<strong>多个 Agent 之间如何协作？</strong></p>
+
+<p>如果没有标准协议，所谓“多智能体”很容易退化成一种脆弱的私有编排：</p>
+
+<ul>
+<li>谁都能发消息，但格式不统一</li>
+<li>上下文传递全靠手工拼接</li>
+<li>能力授权边界模糊</li>
+<li>任务交付物缺少稳定结构</li>
+<li>一旦换一个 Agent 实现，协作链路就断掉</li>
+</ul>
+
+
+<p>这也是 A2A 这类协议值得关注的原因。它的价值，不是又发明了一个新缩写，而是试图回答协作系统里最基础的几个问题：</p>
+
+<ul>
+<li>如何发现具备特定能力的 Agent</li>
+<li>如何把任务以结构化方式委托出去</li>
+<li>如何只传递最小必要上下文</li>
+<li>如何定义可验证的交付规格</li>
+<li>如何在协作过程中进行受控授权</li>
+</ul>
+
+
+<p>这件事为什么重要？因为它标志着“上下文工程”的边界正在上移。</p>
+
+<p>过去谈上下文工程，大家主要关注的是：</p>
+
+<ul>
+<li>prompt 怎么写</li>
+<li>检索内容怎么塞</li>
+<li>tool schema 怎么设计</li>
+<li>memory 如何注入</li>
+</ul>
+
+
+<p>但在多 Agent 系统里，这些问题不再只发生在“人和模型之间”，还发生在“Agent 和 Agent 之间”。</p>
+
+<p>于是新的工程问题出现了：</p>
+
+<ul>
+<li>哪些上下文应该共享</li>
+<li>哪些上下文必须隔离</li>
+<li>信息切片粒度如何定义</li>
+<li>任务目标如何结构化描述</li>
+<li>结果如何自动验收和回流</li>
+</ul>
+
+
+<p>当这些问题成为主问题时，Agent 系统的本质就已经变了。它不再只是“一个大模型加若干外挂工具”，而是在向“分布式协作系统”靠近。</p>
+
+<h2>五、把四层放在一起看：Agent 正在从能力组件变成系统基础设施</h2>
+
+<p>把前面四层连起来，可以看到一条非常清晰的演进链路：</p>
+
+<ul>
+<li>模型层专用化，解决特定任务的能力效率问题</li>
+<li>框架层生产化，解决生产环境的治理问题</li>
+<li>架构层分层化，解决复杂度与职责分工问题</li>
+<li>协议层标准化，解决系统扩展与协作问题</li>
+</ul>
+
+
+<p>这四者不是并列关系，而是递进关系。</p>
+
+<p>因为一旦你开始使用专用模型，就会需要调度；一旦你进入调度，就会需要框架与治理；一旦任务复杂度提高，就会需要角色拆分；一旦角色拆分发生，就会需要标准化协作协议。</p>
+
+<p>所以今天讨论 Agent，最容易犯的错误，就是仍然把它理解成一个单点能力增强工具。实际上，它正在逐步变成一套软件系统的基础设施层。</p>
+
+<p>从这个意义上说，<strong>Agent 的下半场竞争，本质上是软件工程能力的竞争。</strong></p>
+
+<h2>六、对技术团队的实际启示</h2>
+
+<p>如果这个判断成立，那么技术团队下一步最值得做的，不是继续沉迷“模型榜单更新”，而是反过来重建自己的落地顺序：</p>
+
+<h3>1）先定义任务，再定义智能</h3>
+
+<p>不要先问“哪个模型最强”，要先问：</p>
+
+<ul>
+<li>这个任务到底是问答、执行、编排还是协作</li>
+<li>结果是开放式输出，还是结构化交付</li>
+<li>容错成本高不高</li>
+<li>有没有人工接管点</li>
+<li>是否需要审计与追踪</li>
+</ul>
+
+
+<p>没有任务边界，讨论 Agent 架构几乎一定会失真。</p>
+
+<h3>2）先做单智能体闭环，再决定是否升级多智能体</h3>
+
+<p>先验证这几个东西：</p>
+
+<ul>
+<li>工具链路是否稳定</li>
+<li>上下文设计是否有效</li>
+<li>失败主要来自哪里</li>
+<li>哪些环节真的需要拆角色</li>
+<li>并发是否真的带来收益</li>
+</ul>
+
+
+<p>很多“多智能体需求”，最后会发现其实是“单智能体上下文和工具设计没做好”。</p>
+
+<h3>3）尽早补齐治理面，而不是最后补</h3>
+
+<p>包括：</p>
+
+<ul>
+<li>状态保存</li>
+<li>权限隔离</li>
+<li>中断恢复</li>
+<li>过程观测</li>
+<li>成本统计</li>
+<li>回放与审计</li>
+</ul>
+
+
+<p>这些能力越晚补，代价越大。因为它们通常不是外挂功能，而是会反向影响你的框架选择与系统边界。</p>
+
+<h2>结语</h2>
+
+<p>如果只看单个新闻，最近这些变化看起来是分散的：一个代码模型升级了，一个 Java Agent 框架火了，一篇多智能体选型文章刷屏了，又出现了新的协作协议。</p>
+
+<p>但把它们放在一起，就会看到更本质的趋势：<strong>AI Agent 正在从“可演示的智能能力”，演化成“可治理、可扩展、可协作的软件系统”。</strong></p>
+
+<p>这意味着接下来的竞争，不只是“谁更聪明”，而是：</p>
+
+<ul>
+<li>谁的模型更适合任务</li>
+<li>谁的框架更适合生产</li>
+<li>谁的架构更能控制复杂度</li>
+<li>谁的协议更能支撑协作扩展</li>
+</ul>
+
+
+<p>对于真正做落地的人来说，这反而是个好消息。因为从这一刻开始，Agent 不再只是模型厂商的游戏，而重新变成了系统设计者、架构师和工程团队的主战场。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+        <a class="basic-alignment left" style="float:left !important" href="/blog/2026/04/06/soul-vs-agents/" title="上一篇: SOUL.md 和 AGENTS.md 到底有什么区别？Agent 配置别再混着写了">&laquo; SOUL.md 和 AGENTS.md 到底有什么区别？Agent 配置别再混着写了 </a>
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2026/03/24/openclaw-gateway-protocol-comparison/" title="下一篇: OpenClaw Gateway 三种对外接口怎么选？">OpenClaw Gateway 三种对外接口怎么选？ &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/08/06/enterprise-ai-native-architecture-and-im-workspace/">从 Agent Readable 到 IM 群协作：我对企业 AI Native 改造的终局思考</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/05/17/tech-leader-ai-era-cognitive-framework/">从管人到管系统行为：AI时代技术管理者的全新认知框架</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/04/06/soul-vs-agents/">SOUL.md 和 AGENTS.md 到底有什么区别？Agent 配置别再混着写了</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/31/ai-agent-engineering-depth/">AI Agent 正在进入工程化深水区：从代码模型、生产框架到多智能体协作协议</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/24/openclaw-gateway-protocol-comparison/">OpenClaw Gateway 三种对外接口怎么选？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/18/agent-governance-for-backend-teams/">Agent 落地不靠更强模型：后端团队先补这 4 个治理动作</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw多Agent方案</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+	</ul>
+</section>
+
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "AI Agent 正在进入工程化深水区：从代码模型、生产框架到多智能体协作协议",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
