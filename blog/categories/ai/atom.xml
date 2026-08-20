@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-08-20T16:35:49+00:00</updated>
+  <updated>2026-08-20T17:34:52+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -225,7 +225,7 @@
 
 <p>Code Mode 则只向模型暴露一个 <code>run_code</code> 入口和一份自动生成的 TypeScript 或 Python SDK。模型在临时程序中调用：</p>
 
-<pre><code class="typescript">const files = await tools.glob({ pattern: "**/*.java" })
+<pre><code>const files = await tools.glob({ pattern: "**/*.java" })
 const results = await Promise.all(
   files.slice(0, 10).map(file =&gt; tools.read({ path: file }))
 )
