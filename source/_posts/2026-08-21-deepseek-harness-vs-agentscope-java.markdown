@@ -182,7 +182,7 @@ DeepSeek Harness 还有一个很有辨识度的能力：Code Mode。
 
 Code Mode 则只向模型暴露一个 `run_code` 入口和一份自动生成的 TypeScript 或 Python SDK。模型在临时程序中调用：
 
-```typescript
+```
 const files = await tools.glob({ pattern: "**/*.java" })
 const results = await Promise.all(
   files.slice(0, 10).map(file => tools.read({ path: file }))
