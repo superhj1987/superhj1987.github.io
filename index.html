@@ -14,7 +14,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="从 Agent Readable 到 IM 群协作：我对企业 AI Native 改造的终局思考 最近一直在深度思考和实践“企业如何实现 AI Native”。 在看了大量架构方案、也踩了不少落地坑之后，我越来越确信一件事：AI Native 绝不是买几个大模型账号， &hellip;">
+  <meta name="description" content="DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线 最近深度读了两个很有代表性的 Agent 项目： DeepSeek Harness
+AgentScope Java 它们都在解决同一个问题：怎样把“大模型 + 工具调用” &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -122,6 +123,72 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2026/08/21/deepseek-harness-vs-agentscope-java/">DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2026-08-21T00:10:00+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>最近深度读了两个很有代表性的 Agent 项目：</p>
+
+<ul>
+<li><a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a></li>
+<li><a href="https://github.com/agentscope-ai/agentscope-java">AgentScope Java</a></li>
+</ul>
+
+
+<p>它们都在解决同一个问题：<strong>怎样把“大模型 + 工具调用”变成一个能够长期运行、可以恢复、可扩展、可治理的 Agent 系统。</strong></p>
+
+<p>但读完代码后，我发现它们其实不在同一条赛道上。</p>
+
+<p>DeepSeek Harness 更像一套为 Coding Agent 产品准备的<strong>可组合运行时内核</strong>；AgentScope Java 更像一套面向 Java 企业应用的<strong>Agent 框架、Harness 与服务平台</strong>。</p>
+
+<p>如果只看 README，容易得出“两个项目功能差不多，只是一个用 TypeScript、一个用 Java”的结论。真正进入源码后，会看到两套完全不同的架构取向：</p>
+
+<ul>
+<li>DeepSeek Harness 把重点放在运行时语义：插件生命周期、事件溯源、精确回放、工具执行流水线、能力替换</li>
+<li>AgentScope Java 把重点放在生产运行：多租户状态、分布式恢复、长期记忆、沙箱、渠道接入和统一控制面</li>
+</ul>
+
+
+<p>先说我的结论：</p>
+
+<blockquote><p><strong>如果你想造一个 Coding Agent 产品，或者深度定制 Agent Runtime，DeepSeek Harness 更值得研究；如果你想把 Agent 纳入现有 Java 企业系统，并进一步做成可运营的服务，AgentScope Java 路线更直接。</strong></p></blockquote>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2026/08/21/deepseek-harness-vs-agentscope-java/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -569,50 +636,6 @@ Agent 已经从“能不能做”进入“能不能稳定做、持续做、规�
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2026-02-26T16:00:00+00:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>截至文章发布时间（2026-02-26），2026 年 AI 的关键变化不再是“又出了一个更强的模型”，而是 <strong>多模态内容生成、Agent 工程化、可交付系统</strong> 这三件事在同一时期快速叠加，让 AI 从“能演示”走向“能交付”。</p>
-
-<p>这篇文章不做流水账式盘点，而是选 3 个热度高、信号明确的事件作为锚点：<strong>Seedance 2.0（视频）</strong>、<strong>OpenClaw（Agent 系统）</strong>、<strong>Genie3（世界模型/交互式生成）</strong>。基于这些事件，再抽象出一套更可复用的产品化方法论：怎么把 AI 能力沉到工程系统里，做成长期可运营的生产力。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2026/02/26/ai-progress-2026/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         
@@ -684,6 +707,10 @@ Agent 已经从“能不能做”进入“能不能稳定做、持续做、规�
 	<ul class="widget-list">
 		
      	<li>
+      	  <a href="/blog/2026/08/21/deepseek-harness-vs-agentscope-java/">DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2026/08/06/enterprise-ai-native-architecture-and-im-workspace/">从 Agent Readable 到 IM 群协作：我对企业 AI Native 改造的终局思考</a>
       	</li>
     	
@@ -717,10 +744,6 @@ Agent 已经从“能不能做”进入“能不能稳定做、持续做、规�
     	
      	<li>
       	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2026/02/26/ai-progress-2026/">2026 年 AI 最新进展</a>
       	</li>
     	
 	</ul>

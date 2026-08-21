@@ -1,0 +1,987 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线 Posted by HJ in ai 最近深度读了两个很有代表性的 Agent 项目： DeepSeek Harness
+AgentScope Java 它们都在解决同一个问题： &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2026/08/21/deepseek-harness-vs-agentscope-java/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2026-08-21T00:10:00+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ai/'>ai</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>最近深度读了两个很有代表性的 Agent 项目：</p>
+
+<ul>
+<li><a href="https://github.com/deepseek-ai/deepseek-harness">DeepSeek Harness</a></li>
+<li><a href="https://github.com/agentscope-ai/agentscope-java">AgentScope Java</a></li>
+</ul>
+
+
+<p>它们都在解决同一个问题：<strong>怎样把“大模型 + 工具调用”变成一个能够长期运行、可以恢复、可扩展、可治理的 Agent 系统。</strong></p>
+
+<p>但读完代码后，我发现它们其实不在同一条赛道上。</p>
+
+<p>DeepSeek Harness 更像一套为 Coding Agent 产品准备的<strong>可组合运行时内核</strong>；AgentScope Java 更像一套面向 Java 企业应用的<strong>Agent 框架、Harness 与服务平台</strong>。</p>
+
+<p>如果只看 README，容易得出“两个项目功能差不多，只是一个用 TypeScript、一个用 Java”的结论。真正进入源码后，会看到两套完全不同的架构取向：</p>
+
+<ul>
+<li>DeepSeek Harness 把重点放在运行时语义：插件生命周期、事件溯源、精确回放、工具执行流水线、能力替换</li>
+<li>AgentScope Java 把重点放在生产运行：多租户状态、分布式恢复、长期记忆、沙箱、渠道接入和统一控制面</li>
+</ul>
+
+
+<p>先说我的结论：</p>
+
+<blockquote><p><strong>如果你想造一个 Coding Agent 产品，或者深度定制 Agent Runtime，DeepSeek Harness 更值得研究；如果你想把 Agent 纳入现有 Java 企业系统，并进一步做成可运营的服务，AgentScope Java 路线更直接。</strong></p></blockquote>
+
+<!-- more -->
+
+
+<h2>一、先别急着比功能：它们不是同一层级的产品</h2>
+
+<p>在讨论这两个项目之前，先要回答一个基础问题：什么是 Harness？</p>
+
+<p>一个最简单的 Agent 循环通常只有几步：</p>
+
+<ol>
+<li>把历史消息和工具描述发给模型</li>
+<li>模型决定回复，或者调用工具</li>
+<li>执行工具，把结果放回上下文</li>
+<li>继续循环，直到输出最终答案</li>
+</ol>
+
+
+<p>这只是 ReAct Loop。真正进入生产后，系统还要处理很多模型并不关心、但工程上无法回避的问题：</p>
+
+<ul>
+<li>任务跑到一半进程崩了，怎么恢复？</li>
+<li>用户中途追加指令，应该插入哪一步？</li>
+<li>多个工具能否并行，写操作如何避免竞争？</li>
+<li>哪些命令可以直接运行，哪些必须审批？</li>
+<li>上下文太长时，如何压缩但不破坏工具调用配对？</li>
+<li>子 Agent 的状态、权限和工作区如何隔离？</li>
+<li>同一个 Agent 如何同时服务多个用户和会话？</li>
+<li>如何观察、审计和干预一个正在运行的任务？</li>
+</ul>
+
+
+<p>Harness 就是包围在模型循环之外的这一整层工程系统。</p>
+
+<p>从这个定义看，两边虽然都叫 Harness，但边界不同。</p>
+
+<p>DeepSeek Harness 的产品边界从底层事件、工具和文件系统能力，一直延伸到 Web UI、CLI、SDK 和插件开发体系。运行中的 <code>dsh</code> 本身就是一棵插件树。</p>
+
+<p>AgentScope Java 则更明确地分成三层：</p>
+
+<ul>
+<li><code>agentscope-core</code> 提供模型、消息、工具、事件和 <code>ReActAgent</code></li>
+<li><code>agentscope-harness</code> 在 Core 之上叠加工作区、记忆、压缩、技能、子 Agent、沙箱等能力</li>
+<li><code>agentscope-service</code> 再向上提供 Agent 注册、Session 管理、团队编排、Dashboard 和分布式控制面</li>
+</ul>
+
+
+<p>所以，更准确的对比不是“框架 A 对框架 B”，而是：</p>
+
+<blockquote><p><strong>一套高度可组合的 Agent 产品运行时，对比一套 Java Agent 框架及其生产服务平台。</strong></p></blockquote>
+
+<h2>二、DeepSeek Harness：把整个 Agent Runtime 做成插件树</h2>
+
+<p>DeepSeek Harness 最鲜明的设计不是工具多，也不是 UI 完整，而是它真的贯彻了“一切皆插件”。</p>
+
+<p>底层的 <a href="https://github.com/cordiverse/cordis">Cordis</a> 提供共享 Context、服务注册、类型化事件和可撤销副作用。模型适配器、工具注册表、会话日志、Agent Loop，甚至持久化与沙箱策略，都是挂载在同一棵树上的插件。</p>
+
+<p>这意味着系统里没有一个必须不断打补丁的“神圣内核”。一个插件注册服务、工具或监听器时，这些注册都会绑定到插件生命周期；插件卸载时，副作用也会被撤销。依赖服务消失，消费它的插件会一起卸载；服务恢复后，再重新加载。</p>
+
+<p>这套设计带来三个很强的能力。</p>
+
+<h3>1）运行时能力可以真正替换</h3>
+
+<p>传统框架常见的“可插拔”，其实只是允许你传一个接口实现。DeepSeek Harness 的粒度更细：</p>
+
+<ul>
+<li>模型是 provider</li>
+<li>文件系统是 provider</li>
+<li>Shell、PTY、LSP 是 provider</li>
+<li>Session Persistence 是 provider</li>
+<li>Subagent 也是 provider</li>
+<li>工具、提示词片段、审批和遥测都通过事件与服务组合</li>
+</ul>
+
+
+<p>例如把本地文件系统和进程执行替换成 E2B provider，Shell、文件工具等消费者可以继续复用同一套上层语义。它强调的是“能力接缝”（capability seam），而不是在每个工具内部判断当前跑在本机、容器还是远端。</p>
+
+<p>这很适合构建 Coding Agent：底层执行世界会变化，但上层 Agent Loop 不应该跟着分叉。</p>
+
+<h3>2）插件卸载和 HMR 是架构能力，不是开发便利</h3>
+
+<p>因为注册本身就是可撤销副作用，DeepSeek Harness 可以在运行时卸载、替换、重新挂载插件。配置文件变化时，Loader 会比较配置项，只重载发生变化的部分；无效的新配置不会摧毁当前可用的插件树。</p>
+
+<p>这不只是“保存文件后少重启一次”。它说明这个系统从一开始就在处理一个困难问题：<strong>动态变化的能力集合，如何不留下失效引用和脏状态。</strong></p>
+
+<p>对于需要安装第三方插件、切换 Agent Profile、运行不同产品形态的系统，这个底座很有价值。</p>
+
+<h3>3）扩展行为主要通过事件进入，而不是修改主循环</h3>
+
+<p>DeepSeek Harness 把事件分成三个域：</p>
+
+<ul>
+<li>Session Event：需要持久化、重启后仍然存在的事实</li>
+<li><code>agent/*</code> Event：正在运行的 Agent 状态与控制</li>
+<li>Capability Event：文件系统、工具、遥测等能力自己的策略扩展点</li>
+</ul>
+
+
+<p>例如工具执行不是简单调用一个函数，而是经过：</p>
+
+<p><code>pre-execute → 单调守卫 → execute → post-execute → finalize → result</code></p>
+
+<p>审批、沙箱、超时、重试、指标、结果改写都可以挂在流水线上，不必让具体工具直接依赖这些策略。</p>
+
+<p>这类设计的好处是扩展面非常清楚；代价则是概念多、学习曲线陡。你必须理解 Context、Service、Effect、Scope、Waterfall Event、Profile、Bundle 和 Patch，才能真正驾驭它。</p>
+
+<h2>三、DeepSeek Harness 最值得看的设计：事件日志才是真相</h2>
+
+<p>我认为 DeepSeek Harness 最有含金量的部分，不是插件，而是它对 Session 的定义。</p>
+
+<p>它把会话建模为一份<strong>只追加的事件日志</strong>。<code>turn/start</code>、<code>step/start</code>、用户消息、模型流式 chunk、完整 assistant message、工具调用、工具结果和结束边界都会进入日志。</p>
+
+<p>模型看到的上下文不是另一份独立状态，而是通过 <code>deriveMessages()</code> 从日志投影出来。</p>
+
+<p>它甚至把原则写得非常直接：</p>
+
+<blockquote><p>模型可见即已记录。</p></blockquote>
+
+<p>这句话很重要。很多 Agent 系统同时维护三份相似但不完全一致的状态：</p>
+
+<ul>
+<li>发给模型的上下文</li>
+<li>展示给用户的聊天记录</li>
+<li>用于恢复任务的持久化快照</li>
+</ul>
+
+
+<p>一旦三者漂移，就会出现最难查的 Agent Bug：界面上看到了某条消息，但模型没看到；模型根据某段隐藏上下文做了决定，但重启恢复后这段上下文丢了。</p>
+
+<p>DeepSeek Harness 试图从结构上消灭这种分叉。原始流式 chunk 保证 UI 可以精确回放；完整消息用于派生模型历史；压缩通过 surface replacement 表达；fork、resume、transcript 和 telemetry 都从同一事件流产生。</p>
+
+<p>Crash Recovery 也遵循这个思路：如果载入时发现一个 <code>turn/start</code> 没有对应的 <code>turn/end</code>，系统不会粗暴截断已经持久化的长任务，而是补上一个 <code>interrupted</code> 结束事件，保留中断前已经发生的事实。</p>
+
+<p>这种做法更像事件溯源系统，而不是传统聊天记录。</p>
+
+<p>它的收益是：</p>
+
+<ul>
+<li>可重放</li>
+<li>可审计</li>
+<li>可恢复</li>
+<li>可 fork</li>
+<li>UI 与模型上下文更容易保持一致</li>
+</ul>
+
+
+<p>但它也把兼容性压力集中到了事件协议上。当前 Session 格式版本仍是 <code>0</code>，官方明确表示没有兼容承诺；一旦事件含义变化，迁移就会成为非常严肃的问题。</p>
+
+<h2>四、工具执行：DeepSeek Harness 更像调度器，AgentScope 更像企业框架</h2>
+
+<p>工具调用是比较两个项目时最能体现设计差异的地方。</p>
+
+<h3>DeepSeek Harness：每次调用动态分类</h3>
+
+<p>DeepSeek Harness 会为每一个待执行调用查询 <code>executionMode</code>：</p>
+
+<ul>
+<li><code>parallel</code> 可以与相邻安全调用重叠</li>
+<li><code>exclusive</code> 必须独占执行，并形成顺序屏障</li>
+</ul>
+
+
+<p>Agent Loop 使用滚动并发池执行安全调用，同时保证结果仍按模型调用顺序写回。更关键的是，分类发生在调用级，而不只是工具级。理论上，同一个工具可以根据本次参数判断它是只读操作，还是需要独占的写操作。</p>
+
+<p>它的工具流水线还把权限、单调守卫、沙箱、超时、重试、结果规范化和持久化观察分开。任何一层失败，都要被转成唯一、可记录的最终结果。</p>
+
+<h3>AgentScope Java：默认并发，加安全标记</h3>
+
+<p>AgentScope Java 2.0 的 Toolkit 默认开启并行执行。工具可以通过 <code>concurrencySafe</code> 标记自己是否能安全并发；连续的安全工具会并发运行，不安全工具形成串行槽位，输出顺序仍然保留。</p>
+
+<p>这已经比“整个批次要么全并行、要么全串行”细很多，也很符合 Java 工程团队的使用习惯。但它当前主要还是工具定义级标记，表达力不如 DeepSeek Harness 的调用级动态分类。</p>
+
+<p>因此，如果你在做文件编辑、终端、数据库变更这类副作用复杂的 Coding Agent，DeepSeek Harness 的执行语义更精细；如果大多数工具本身就是业务 API，AgentScope 的模型更直接，也更容易让普通团队理解。</p>
+
+<h2>五、Code Mode：不是让 Agent 写业务代码，而是让它编排工具</h2>
+
+<p>DeepSeek Harness 还有一个很有辨识度的能力：Code Mode。</p>
+
+<p>普通 Function Calling 会把每个工具的完整 JSON Schema 暴露给模型，模型每调用一次工具，结果又会进入对话上下文。工具一多，Schema 和中间结果会持续占用 Token。</p>
+
+<p>Code Mode 则只向模型暴露一个 <code>run_code</code> 入口和一份自动生成的 TypeScript 或 Python SDK。模型在临时程序中调用：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>const files = await tools.glob({ pattern: "**/*.java" })
+</span><span class='line'>const results = await Promise.all(
+</span><span class='line'>  files.slice(0, 10).map(file =&gt; tools.read({ path: file }))
+</span><span class='line'>)
+</span><span class='line'>return results.map(item =&gt; extractWhatMatters(item))</span></code></pre></td></tr></table></div></figure>
+
+
+<p>中间工具结果留在本次执行局部，只有 <code>return</code> 或 <code>console.log</code> 的内容回到模型上下文。</p>
+
+<p>这带来的价值不是“模型会写代码”——Coding Agent 本来就会——而是：</p>
+
+<ul>
+<li>用程序表达循环、分支和聚合</li>
+<li>独立只读调用可以显式并发</li>
+<li>大量中间结果不必全部进入对话</li>
+<li>工具返回值保留结构化类型，而不是来回解析文本</li>
+</ul>
+
+
+<p>它本质上是把一部分 Agent 编排从自然语言推理迁移到一次性的确定性程序中。</p>
+
+<p>不过 Code Mode 也不是免费午餐。当前每次运行都是全新状态，不是持久 REPL；中间值不能从会话日志重建，而且执行局部没有统一字节上限。如果程序拿回超大对象，仍然可能造成 worker 内存压力。</p>
+
+<h2>六、AgentScope Java：Core、Harness、Service 三层一起解决生产问题</h2>
+
+<p>如果说 DeepSeek Harness 的关键词是“可组合”，AgentScope Java 的关键词就是“可运营”。</p>
+
+<p>它的双层 Agent 结构很清楚。</p>
+
+<p><code>ReActAgent</code> 负责核心推理循环，把模型、Toolkit、权限、Middleware、事件和 <code>AgentState</code> 组合起来；<code>HarnessAgent</code> 是外层包装，通过固定顺序的 Middleware 和工具，增加工作区、长期记忆、上下文压缩、技能、子 Agent、沙箱和 Plan Mode。</p>
+
+<p>这种设计没有追求“一切皆插件”的纯粹性，而是刻意保留一个容易使用的 Builder：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>HarnessAgent agent = HarnessAgent.builder()
+</span><span class='line'>        .name("assistant")
+</span><span class='line'>        .model("dashscope:qwen-plus")
+</span><span class='line'>        .workspace(Paths.get(".agentscope/workspace"))
+</span><span class='line'>        .build();</span></code></pre></td></tr></table></div></figure>
+
+
+<p>对于 Java 团队，这种体验很熟悉：核心抽象稳定，基础设施通过 Builder 和 Spring Boot Starter 接入，扩展行为走 Middleware。</p>
+
+<p>更重要的是，AgentScope Java 没有停在 SDK 层。仓库中的 <code>agentscope-service</code> 已经把 Agent 运行进一步拆成 Gateway、Control Plane、Dataplane 和 Scheduler，并提供 Dashboard、Managed Agents 与 Agent Teams。</p>
+
+<p>因此它真正想解决的不是“如何写出一个聪明的 Agent”，而是：</p>
+
+<blockquote><p><strong>一家公司里有很多 Agent、很多用户和很多运行副本时，怎样统一注册、恢复、观察、调度和治理。</strong></p></blockquote>
+
+<h2>七、状态模型：一个强调重放，一个强调恢复与隔离</h2>
+
+<p>两边都重视持久化，但设计中心不同。</p>
+
+<h3>DeepSeek Harness：从事件重建会话</h3>
+
+<p>DeepSeek Harness 以 append-only Session Event Log 为 Source of Truth。状态恢复、模型历史和 UI 展示尽量从事件投影得到。</p>
+
+<p>这是偏运行时语义的选择：重点是“过去到底发生了什么”。</p>
+
+<h3>AgentScope Java：从 RuntimeContext 找到 AgentState</h3>
+
+<p>AgentScope Java 把状态分成几层：</p>
+
+<ul>
+<li><code>RuntimeContext</code>：当前调用的 <code>userId</code>、<code>sessionId</code> 和临时属性，不持久化</li>
+<li><code>AgentState</code>：对话上下文、权限、Plan Mode 和工具状态，通过 <code>AgentStateStore</code> 跨调用恢复</li>
+<li>Session JSONL：长期保留的对话流水账</li>
+<li>Workspace Memory：每日只追加记忆和聚合后的 <code>MEMORY.md</code></li>
+<li>Sandbox Snapshot：容器文件、安装依赖和运行环境的快照</li>
+</ul>
+
+
+<p>同一个 Agent 实例可以服务多个用户和会话。系统通过 <code>(userId, sessionId)</code> 定位状态；同一 Session 的调用串行化，不同 Session 可以并行。再配合 Redis、MySQL、PostgreSQL、OSS 或 COS 等后端，实例本身可以保持无状态并水平扩容。</p>
+
+<p>这是偏服务架构的选择：重点是“下一次请求由任何副本接手时，怎样继续运行”。</p>
+
+<p>两种模型没有绝对高下。</p>
+
+<ul>
+<li>要做可回放、可 fork、过程保真的 Agent 产品，事件溯源更有吸引力</li>
+<li>要融入现有用户、租户、数据库和服务治理体系，状态存储模型更容易落地</li>
+</ul>
+
+
+<h2>八、沙箱：同样是隔离，关注点完全不同</h2>
+
+<p>DeepSeek Harness 的本地 Sandbox 更贴近开发者桌面和 Coding Agent。Linux 可使用 bubblewrap / Landlock，macOS 使用 Seatbelt，Windows 有 ACL restricted-token runner。它强调同一宿主执行世界里的文件写入边界，并且在无法落实策略时 fail closed，而不是悄悄降级为无限制执行。</p>
+
+<p>远端执行则不被塞进同一个进程沙箱接口，而是通过替换文件系统与进程 provider，把整个执行世界一起移动。目前仓库也已经提供 E2B 的文件系统和进程实现。</p>
+
+<p>AgentScope Java 的沙箱更偏服务部署。它把 Docker、Kubernetes、Daytona、E2B 和 AgentRun 视为同类后端，并进一步考虑：</p>
+
+<ul>
+<li>按 User、Session、Agent 或 Global 隔离</li>
+<li>容器消失后从快照恢复</li>
+<li>快照放在本机、Redis、JDBC 或对象存储</li>
+<li>多副本同时操作同一沙箱时使用分布式锁</li>
+<li>对话状态和可执行环境一起跨请求续跑</li>
+</ul>
+
+
+<p>所以，DeepSeek Harness 更关心“这条命令在当前执行世界里是否越界”；AgentScope Java 更关心“这个租户的执行环境能否隔离、持久并被另一台机器接手”。</p>
+
+<h2>九、多 Agent：一个先抽象 provider，一个先建设运营体系</h2>
+
+<p>DeepSeek Harness 把 Subagent 做成可替换 capability seam。不同 provider 可以在同一 Context 共存：进程内 spawn、基于历史 fork，以及对接 Codex、Claude Code、ACP 或 DSH SDK 的外部执行器。</p>
+
+<p>它还区分一次性子 Agent 和可继续对话的子 Agent。后者拥有持久 Session、可冷恢复的 Activation、唯一 inbox 和明确的父子授权关系。实验性的 Agent Teams 则在其上增加 roster、task board 和 mailbox。</p>
+
+<p>AgentScope Java 的多 Agent 更贴近业务使用：</p>
+
+<ul>
+<li><code>agent_spawn</code> 创建同步或后台子任务</li>
+<li><code>agent_send</code> 向已创建的子 Agent 继续发消息</li>
+<li>超时的同步任务可以自动转为后台任务</li>
+<li>后台结果通过消息总线反向通知父 Agent</li>
+<li>Agent Teams 提供成员、任务认领、任务板和邮箱</li>
+<li>Service 控制面负责跨实例注册、路由与观察</li>
+</ul>
+
+
+<p>简单说，DeepSeek Harness 优先解决的是“如何把不同 Subagent 实现放到同一个抽象后面”；AgentScope Java 优先解决的是“如何让一组 Agent 在企业平台里持续协作”。</p>
+
+<h2>十、一张表看懂核心差异</h2>
+
+<table>
+<thead>
+<tr>
+<th> 维度 </th>
+<th> DeepSeek Harness </th>
+<th> AgentScope Java </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 核心定位 </td>
+<td> 可组合 Agent Runtime 与产品底座 </td>
+<td> Java Agent 框架、Harness 与服务平台 </td>
+</tr>
+<tr>
+<td> 技术栈 </td>
+<td> TypeScript / Node.js，含 Web、Native 与 Python SDK </td>
+<td> Java 17 / Reactor / Maven / Spring Boot，Service 含 Go 与前端 </td>
+</tr>
+<tr>
+<td> 核心抽象 </td>
+<td> Cordis Context、Plugin、Service、Event、Effect、Scope </td>
+<td> Agent、ReActAgent、HarnessAgent、Middleware、RuntimeContext、AgentState </td>
+</tr>
+<tr>
+<td> 执行循环 </td>
+<td> Turn / Step 边界明确，行为大量通过事件拦截 </td>
+<td> ReAct 核心循环稳定，Harness 通过 Middleware 叠加能力 </td>
+</tr>
+<tr>
+<td> 状态真相 </td>
+<td> Append-only Session Event Log </td>
+<td> AgentStateStore + Session Log + Workspace / Memory </td>
+</tr>
+<tr>
+<td> 回放能力 </td>
+<td> 强，原始 chunk、调用与结果都进入事件日志 </td>
+<td> 更偏事件流展示和状态恢复，不以统一事件溯源为核心 </td>
+</tr>
+<tr>
+<td> 工具并发 </td>
+<td> 调用级 <code>parallel</code> / <code>exclusive</code> 分类与屏障 </td>
+<td> Toolkit 批量并发，工具级 <code>concurrencySafe</code> 标记 </td>
+</tr>
+<tr>
+<td> 工具扩展 </td>
+<td> 多阶段 waterfall、守卫、审批、沙箱、结果规范化 </td>
+<td> Toolkit、权限系统、Middleware、执行配置 </td>
+</tr>
+<tr>
+<td> Code Mode </td>
+<td> 原生支持 TypeScript / Python 工具编排 </td>
+<td> 不是当前核心设计 </td>
+</tr>
+<tr>
+<td> 沙箱 </td>
+<td> 本机强制隔离 + E2B provider，可替换整个执行世界 </td>
+<td> Docker / K8s / Daytona / E2B / AgentRun，快照与分布式锁完整 </td>
+</tr>
+<tr>
+<td> 多 Agent </td>
+<td> 多 provider、一次性与可继续子 Agent、实验性 Teams </td>
+<td> 同步/后台子 Agent、持久任务、Teams 与控制面 </td>
+</tr>
+<tr>
+<td> 企业集成 </td>
+<td> 需要自行组合和建设 </td>
+<td> Redis、MySQL、PostgreSQL、OSS、COS、Nacos、Spring Boot、Channel </td>
+</tr>
+<tr>
+<td> 产品形态 </td>
+<td> CLI、Web、Headless、SDK、插件 Profile </td>
+<td> Core、Harness、Extensions、Service、Dashboard </td>
+</tr>
+<tr>
+<td> 当前成熟度 </td>
+<td> <code>0.1.0-rc.8</code>，Developer Preview </td>
+<td> 2.0 已 GA，主干继续快速迭代 </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>十一、两边各自最需要警惕什么</h2>
+
+<h3>DeepSeek Harness：架构漂亮，不等于现在就适合所有生产系统</h3>
+
+<p>它的风险主要有三个。</p>
+
+<p>第一，项目仍处于 Developer Preview，当前版本是 <code>0.1.0-rc.8</code>，官方明确提示后续会有破坏性变化。Session 格式也是预发布的 v0，没有内置迁移链。</p>
+
+<p>第二，Cordis 的抽象能力很强，但认知成本也高。插件树、Service 注入、Scope 隔离、Effect 回收、Waterfall Event、Bundle 和 Patch 共同工作时，调试难度不低。</p>
+
+<p>第三，它更像一个完整产品底座，而不是一个轻量 SDK。如果团队只是想在已有业务里增加几个 Agent 能力，引入整套运行时未必划算。</p>
+
+<h3>AgentScope Java：生产面完整，但核心类正在承受复杂度</h3>
+
+<p>AgentScope Java 的风险也很明显。</p>
+
+<p>首先，<code>ReActAgent</code> 和 <code>HarnessAgent</code> 都已经是体量很大的中心类。大量能力虽然通过 Middleware、Toolkit 和 Builder 暴露，但编排与兼容逻辑仍集中在核心实现里。未来功能继续增加时，维护成本值得关注。</p>
+
+<p>其次，它的“可扩展”更接近企业框架的扩展方式，而不是 DeepSeek Harness 那种运行时级可替换。你可以加 Middleware、工具和 Store，但很难像 Cordis 一样把整个 Agent Loop 当成普通插件换掉。</p>
+
+<p>最后，AgentScope Service 已经覆盖控制面、托管运行时和 Teams，能力很诱人，但这也意味着更重的部署和运维成本。只有当组织真的存在多 Agent、多租户、多副本和统一治理需求时，这一层平台才有足够回报。</p>
+
+<h2>十二、到底怎么选</h2>
+
+<p>如果你的目标是下面这些，优先研究 DeepSeek Harness：</p>
+
+<ul>
+<li>做自己的 Coding Agent、IDE Agent 或桌面 Agent</li>
+<li>希望替换模型、文件系统、Shell、Subagent 和持久化实现</li>
+<li>强调会话回放、fork、恢复和过程保真</li>
+<li>需要插件市场、动态装卸或多种产品 Profile</li>
+<li>想研究 Code Mode 和更精细的工具执行语义</li>
+</ul>
+
+
+<p>如果你的目标是下面这些，优先考虑 AgentScope Java：</p>
+
+<ul>
+<li>企业核心系统本来就在 Java / Spring Boot 生态</li>
+<li>一个 Agent 需要服务大量用户和 Session</li>
+<li>需要 Redis、数据库、对象存储与跨副本恢复</li>
+<li>需要长期记忆、技能治理、Channel 和多租户隔离</li>
+<li>希望进一步建设 Agent Dashboard、Managed Agents 或统一控制面</li>
+</ul>
+
+
+<p>还有一种常见情况：团队只是验证一个小型 Agent 功能。</p>
+
+<p>这种时候，两套方案都可能太重。直接使用简单的模型 SDK、少量工具和一个清楚的状态边界，往往更合适。<strong>不要因为 Harness 很先进，就默认所有 Agent 都需要 Harness。</strong></p>
+
+<h2>十三、最后的判断：它们代表了 Agent 工程化的两种未来</h2>
+
+<p>DeepSeek Harness 展示的是一种 Runtime-first 路线：</p>
+
+<blockquote><p>把 Agent 的每一项能力都变成可组合、可替换、可回收的运行时部件，再用统一事件日志保证执行语义。</p></blockquote>
+
+<p>AgentScope Java 展示的是一种 Production-first 路线：</p>
+
+<blockquote><p>把 Agent 纳入成熟的应用服务体系，解决租户、状态、沙箱、存储、渠道、调度和控制面，再让企业真正运营它。</p></blockquote>
+
+<p>前者更像在设计 Agent 时代的“运行时内核”，后者更像在建设 Agent 时代的“应用服务器与控制平台”。</p>
+
+<p>两边最终很可能会互相靠近：DeepSeek Harness 会继续补生产基础设施，AgentScope Java 也会继续细化运行时语义。但至少在当前阶段，选型边界非常清楚：</p>
+
+<blockquote><p><strong>造 Agent Runtime 和产品，选 DeepSeek Harness；在企业系统里运行和治理 Agent，选 AgentScope Java。</strong></p></blockquote>
+
+<p>这也说明 Agent 开发已经进入了一个新阶段。竞争不再只是“谁的模型更聪明”或“谁的 Demo 工具更多”，而是：</p>
+
+<p><strong>谁能把不确定的模型行为，装进一套可恢复、可解释、可扩展、可治理的软件系统。</strong></p>
+
+<hr />
+
+<p>本文阅读基线为 2026 年 8 月 21 日，主要参考两个仓库当时的主干源码与文档：DeepSeek Harness <code>141eb6f</code>（<code>0.1.0-rc.8</code>）和 AgentScope Java <code>643905e</code>。关键资料包括 <a href="https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/docs/architecture.zh.md">DeepSeek Harness 架构</a>、<a href="https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/docs/agent-lifecycle.zh.md">Agent 生命周期</a>、<a href="https://github.com/deepseek-ai/deepseek-harness/blob/141eb6fef83422698aef7a981029e843e8161534/docs/tool-execution-pipeline.zh.md">工具执行流水线</a>、<a href="https://github.com/agentscope-ai/agentscope-java/blob/643905e6bfdaabae50264048f69d58a43628c64c/docs/v2/zh/docs/harness/architecture.md">AgentScope Harness 架构</a>、<a href="https://github.com/agentscope-ai/agentscope-java/blob/643905e6bfdaabae50264048f69d58a43628c64c/docs/v2/zh/docs/building-blocks/agent.md">AgentScope Agent</a> 与 <a href="https://github.com/agentscope-ai/agentscope-java/blob/643905e6bfdaabae50264048f69d58a43628c64c/agentscope-service/README_zh.md">AgentScope Service</a>。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2026/08/06/enterprise-ai-native-architecture-and-im-workspace/" title="下一篇: 从 Agent Readable 到 IM 群协作：我对企业 AI Native 改造的终局思考">从 Agent Readable 到 IM 群协作：我对企业 AI Native 改造的终局思考 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/08/21/deepseek-harness-vs-agentscope-java/">DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/08/06/enterprise-ai-native-architecture-and-im-workspace/">从 Agent Readable 到 IM 群协作：我对企业 AI Native 改造的终局思考</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/05/17/tech-leader-ai-era-cognitive-framework/">从管人到管系统行为：AI时代技术管理者的全新认知框架</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/04/06/soul-vs-agents/">SOUL.md 和 AGENTS.md 到底有什么区别？Agent 配置别再混着写了</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/31/ai-agent-engineering-depth/">AI Agent 正在进入工程化深水区：从代码模型、生产框架到多智能体协作协议</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/24/openclaw-gateway-protocol-comparison/">OpenClaw Gateway 三种对外接口怎么选？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/18/agent-governance-for-backend-teams/">Agent 落地不靠更强模型：后端团队先补这 4 个治理动作</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw多Agent方案</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/03/openclaw-architecture/">OpenClaw 架构剖析</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/01/openclaw/">OpenClaw 是什么</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+	</ul>
+</section>
+
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
