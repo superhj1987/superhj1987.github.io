@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-08-21T05:09:57+00:00</updated>
+  <updated>2026-09-02T08:32:29+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -12,6 +12,195 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[从Token治理到Agentic OS：企业AI-Native转型的四级演进与落地实践]]></title>
+    <link href="https://www.rowkey.cn/blog/2026/09/02/ai-native-evolution-agentic-os/"/>
+    <updated>2026-09-02T12:30:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2026/09/02/ai-native-evolution-agentic-os</id>
+    <content type="html"><![CDATA[<p>AI 编码工具（如 Cursor、GitHub Copilot、Codex）已在研发团队中广泛普及，但编码仅占整个软件研发生命周期的 30% 左右。如果仅仅提升编码速度，不仅无法实现研发效能的质变，反而会造成“更快的瓶颈”：需求模糊导致返工更快、未验证决策堆积更快、局部正确而全局错误。</p>
+
+<p>真正的 AI-Native 转型，核心在于从“人用 AI 提效（AI-Assistant）”走向“Human Directs, AI Delivers（人定方向，AI 交付）”，最终演进为以系统形态运行的 <strong>Agentic OS</strong>。本文结合近期团队在 AI 自动化流水线、Token 治理与知识库建设中的实战思考，梳理企业 AI-Native 转型的四级递进路径与落地关键。</p>
+
+<!-- more -->
+
+
+<h2>一、 第一阶段：基建与契约 —— Token 治理与 Spec-Driven 交付</h2>
+
+<p>在转型的初期，大多数团队容易陷入“工具散乱、效果难衡量、成本不可控”的泥潭。要实现“人把控、AI 实现”的协同模式，首先必须打牢两块基石：<strong>Token 治理</strong>与 <strong>Spec-Driven 交付</strong>。</p>
+
+<h3>1.1 Token 治理：AI 化的基础设施</h3>
+
+<p>没有 Token 治理，就无法谈及规模化的 AI 落地。Token 治理不仅是成本控制手段，更是推进全员 AI 使用率与评估交付质量的指标中枢。</p>
+
+<p>Token 治理的核心包含三个维度：</p>
+
+<ul>
+<li><p><strong>使用率与渗透率</strong>：监控各团队/岗位的 Token 消耗与活跃度，识别阻碍 AI 普及的断点。</p></li>
+<li><p><strong>交付质量与 ROI</strong>：将 Token 消耗与产出物（如代码提交、PR、文档、测试用例）关联，评估单位 Token 创造的业务价值。</p></li>
+<li><p><strong>成本与限额管控</strong>：建立基于角色与任务的配额机制，防止无意义的 Prompt 试错与无限循环导致的 Token 浪费。</p></li>
+</ul>
+
+
+<h3>1.2 Spec-Driven 交付：人与 AI 的“数字合同”</h3>
+
+<p>在传统的研发流程中，需求往往通过口头沟通或模糊的文档传递。当执行主体由人类工程师转变为 AI 时，这种模糊性会导致严重的方向漂移。</p>
+
+<p>Spec（规格说明书）是人与 AI 协作的“数字合同”，也是全链路的唯一锚点：</p>
+
+<ul>
+<li><p><strong>SDD（Spec-Driven Development）</strong>：在上游通过结构化 Spec 锁定意图。上游所有决策（产品、设计、架构）都服务于写好 Spec。</p></li>
+<li><p><strong>TDD（Test-Driven Development）</strong>：在下游作为验收机制。先根据 Spec 生成测试用例（Red），再生成代码实现（Green），最后进行验证（Verify）。</p></li>
+</ul>
+
+
+<p>在 Spec-Driven 模式下，人类工程师的职责发生了根本性转变：<strong>从“直接编写和操作代码”转向“定义做什么和不做什么”</strong>。</p>
+
+<hr />
+
+<h2>二、 第二阶段：上下文与判断力 —— Agent Readable 与 DDD 知识治理</h2>
+
+<p>有了 Spec 之后，虽然消除了意图漂移，但 Agent 在执行时常常遇到“导航盲区”：不了解代码库历史、不懂业务逻辑、看不懂数据库字段含义。这就是“导航不解决判断”的天花板。第二阶段的核心任务是实现 <strong>Agent Readable</strong> 与 <strong>DDD 知识治理</strong>。</p>
+
+<h3>2.1 Agent Readable：让代码与数据对 AI 可读</h3>
+
+<p>要让 Agent 自主做出正确判断，必须将代码和企业数据改造为“AI 易读（Agent Readable）”的格式：</p>
+
+<h4>1) Code 的 Agent Readable：AI-Ready Repo</h4>
+
+<p>代码仓库必须显式提供上下文，让 AI 理解“项目为什么存在、怎么运行、踩过什么坑、当前处于什么状态”。建议在仓库中标准化以下四类文件：</p>
+
+<ul>
+<li><p><code>PRODUCT.md</code>：记录产品目标、业务优先级与成功标准。</p></li>
+<li><p><code>TECH.md</code>：记录技术架构、硬性约束（Blocking Constraints）与关键路径。</p></li>
+<li><p><code>IMPROVEMENT.md</code>：记录历史教训、避坑指南与踩坑反馈。</p></li>
+<li><p><code>PROJECT.md</code>：记录当前迭代状态、关键决策与阻塞项。</p></li>
+</ul>
+
+
+<h4>2) Data 的 Agent Readable：Agent for Data</h4>
+
+<p>直接将自然语言交给大模型生成 SQL（裸 NL2SQL）的准确率通常仅为 60%-70%，在生产环境中几乎不可用。其根本原因在于缺少“数据含义与访问权限”的语义合约。必须建立三层数据准确度模型：</p>
+
+<ul>
+<li><p><strong>Level 1: Certified Patterns（100% 准确）</strong>：预置经过验证的 SQL 模板，Agent 仅做参数替换与模板选择。适用于核心报表、合规推送。</p></li>
+<li><p><strong>Level 2: Guided NL2SQL（~95% 准确）</strong>：NL2SQL + Catalog 语义约束（白名单 + 强制过滤 + JOIN 映射规则）。适用于临时分析与自助探索。</p></li>
+<li><p><strong>Level 3: Unconstrained NL2SQL（60%-70% 准确）</strong>：无约束自由生成，仅建议作为探索参考。</p></li>
+</ul>
+
+
+<h3>2.2 DDD 知识治理：让领域知识“自己活着”</h3>
+
+<p>这里的 <strong>DDD 指的是 Domain-Driven Documentation（领域驱动文档）</strong>，而非传统的 Domain-Driven Design。</p>
+
+<p>传统知识库的最大问题是“维护税大于查询价值”——知识不断堆积，最终沦为噪声库。AI 时代的知识治理，核心竞争力不是“记住”，而是<strong>“遗忘”</strong>：</p>
+
+<ul>
+<li><p><strong>达尔文衰减模式</strong>：知识被引用则强化（<code>ref_count + 1</code>）；90 天无引用进入休眠（Dormant）；180 天无引用自动归档死亡（Archived）。由衰减引擎每日自动执行，保持知识库的高精炼度。</p></li>
+<li><p><strong>三条治理原则</strong>：</p>
+
+<ul>
+<li><p><strong>自动生成</strong>：引擎从代码、数据与执行日志中自动提取，人类仅做审核补充。</p></li>
+<li><p><strong>自动衰减</strong>：依靠系统机制剔除过时知识，无需定期人工 Review。</p></li>
+<li><p><strong>自动复利</strong>：使用越多，知识网图越丰富，推荐越精准，形成知识飞轮。</p></li>
+</ul>
+</li>
+</ul>
+
+
+<hr />
+
+<h2>三、 第三阶段：全流程自动化 —— Autonomous Pipeline 与双门检查</h2>
+
+<p>当代码与数据实现 Agent Readable、且领域知识具备自我演进能力后，研发流程便可迈入全自动化阶段：<strong>Autonomous Pipeline（自主流水线）</strong>。</p>
+
+<h3>3.1 10 阶段闭环流水线</h3>
+
+<p>Autonomous Pipeline 将编码视为黑盒（Coding as Black Box），实现“一句话需求 → PR-Ready”的闭环。其典型执行链路包含 10 个阶段：</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>EVALUATE → THINK → PLAN → PRE-CHECK → BUILD → REVIEW → TEST → ADVERSARIAL → DELIVER → REFLECT</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>3.2 双门架构（Double-Gate Architecture）</h3>
+
+<p>为确保全自动流水线不输出垃圾代码，系统引入了两个独立的 Sub-Agent 质量门：</p>
+
+<ul>
+<li><p><strong>Gate 1：做正确的事（编码前）</strong></p>
+
+<ul>
+<li>由“怀疑者”角色（独立上下文 Sub-Agent）在 <code>BUILD</code> 之前挑战方案。</li>
+<li>检查方向对齐、约束违规及已知失败模式（<code>IMPROVEMENT.md</code>），在代码未写前拦截方向错误。</li>
+</ul>
+</li>
+<li><p><strong>Gate 2：正确地做事（编码后）</strong></p>
+
+<ul>
+<li>由“攻击者”角色（独立上下文 Sub-Agent）直接攻击 ChangeSet（只看 git diff，忽略 Builder 的主观意图）。</li>
+<li>针对正确性、安全性、集成度进行 30+ 项 Review Pattern 检查，发现隐蔽 Bug。</li>
+</ul>
+</li>
+</ul>
+
+
+<h3>3.3 经济学视角：为什么 Gate 是“净负成本”？</h3>
+
+<p>有人担忧增加 Gate 1 和 Gate 2 会显著增加 Token 开销。但实践数据表明：</p>
+
+<ul>
+<li><p><strong>无 Gate 模式</strong>：盲目生成代码（Vibe Coding），后期产生 2-3 次大型返工，单次 PR 综合消耗 460K~690K Tokens。</p></li>
+<li><p><strong>双门 Gate 模式</strong>：编码前拦截错误、编码后精准收敛，1 次通过，单次 Run 消耗约为 255K Tokens。</p></li>
+</ul>
+
+
+<p><strong>结论</strong>：Gate 不是增加了成本，而是消除了“返工乘数”。Gate 在经济学上是<strong>净负成本项</strong>。</p>
+
+<hr />
+
+<h2>四、 第四阶段：终局形态 —— Agentic OS</h2>
+
+<p>AI-Native 转型的终局，是构建一套以系统形态自主运行的 <strong>Agentic OS</strong>。</p>
+
+<h3>4.1 Agentic OS 的三层解耦架构</h3>
+
+<p>Agentic OS 实现了“一层知识，多个执行引擎”的解耦架构：</p>
+
+<ul>
+<li><p><strong>底盘（Harness / Runtime）</strong>：提供执行能力（Capability），包括运行环境、Tool/MCP 接入、调度器、Hook 与渠道适配器。底盘决定 Agent“能做什么”，但不决定“该做什么”。</p></li>
+<li><p><strong>大脑（DDD Knowledge Layer）</strong>：提供判断力（Judgment），包含 4-Docs 领域知识、代码图谱、数据 Catalog 与演化反馈。</p></li>
+<li><p><strong>手脚（AgentHub / Delivery Engines）</strong>：提供交付形态，面向不同业务场景导出 Agent 服务（如 CLI、IM 机器人、Web 交互终端）。</p></li>
+</ul>
+
+
+<h3>4.2 角色分工与系统级复利</h3>
+
+<p>在 Agentic OS 架构下，团队成员的分工实现了重塑：</p>
+
+<ul>
+<li><p><strong>AI 职能人员</strong>：专注于编写 Skill、MCP 接口以及沉淀领域知识，为系统补充“大脑”与“手脚”。</p></li>
+<li><p><strong>AgentHub</strong>：调度各种专有 Skill 与 Agent，基于 Runtime 机制为企业内外提供全自动化的 Agent 服务。</p></li>
+</ul>
+
+
+<p>系统每运行一次，<code>REFLECT</code> 机制都会将错误教训与新经验写回知识层，使下一次执行更精准，真正实现<strong>“越用越聪明”的系统级复利</strong>。</p>
+
+<hr />
+
+<h2>五、 总结：避开“跳层”的陷阱</h2>
+
+<p>在推进 AI-Native 转型的过程中，切忌盲目跨越阶段：</p>
+
+<ul>
+<li><p><strong>直接跨到 Autonomous Pipeline 而缺失 DDD</strong>：Agent 虽有强执行力，但处于“盲干”状态。</p></li>
+<li><p><strong>有 DDD 但缺乏 Spec 纪律</strong>：知识丰富，但缺乏约束，导致“意图漂移”。</p></li>
+<li><p><strong>有自主执行但缺乏反馈飞轮</strong>：第 300 天的交付质量依然和第 1 天一样。</p></li>
+</ul>
+
+
+<p>从 <strong>Token 治理</strong> 到 <strong>Spec-Driven</strong>，再到 <strong>Agent Readable</strong>、<strong>Autonomous Pipeline</strong>，最终抵达 <strong>Agentic OS</strong>，这是一条清晰而严谨的工程演进之路。只有一步一个脚印搭建好知识与控制面，才能真正释放 AI 在企业级生产中的终极价值。</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线]]></title>
@@ -3398,73 +3587,6 @@ Agent 已经从“能不能做”进入“能不能稳定做、持续做、规�
 <li>新摩尔定律：宇宙中的智能数量每18个月翻一番</li>
 <li>所有的应用都值得用AI重构一遍</li>
 <li>AI不会取代人类，但会AI的会取代不会AI的人类</li>
-</ul>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[这三年的一些感悟]]></title>
-    <link href="https://www.rowkey.cn/blog/2024/01/27/mythought/"/>
-    <updated>2024-01-27T19:29:34+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2024/01/27/mythought</id>
-    <content type="html"><![CDATA[<p>得闲看了一下博客，发现从2021年开始文章就很少了。主要是由于工作的需要，从那时开始基本上都在不停地学习新的东西，每个东西学习和使用的时间都不长，能分享的东西也就不多。而自己年终总结也停留在了2021年。今天想着梳理一下从2021年开始自己的一些感悟吧，也算是总结，也算是一个阶段的分享。</p>
-
-<!--more-->
-
-
-<p>2021-2023可以分为三个阶段</p>
-
-<ul>
-<li>游戏</li>
-<li>Web3</li>
-<li>AI</li>
-</ul>
-
-
-<h2>游戏</h2>
-
-<p>2021年开始做了一年多的游戏业务，从开始的休闲游戏到后来的网赚游戏，经历了好几次转型。最终以失败告终。</p>
-
-<p>这段经历让我深深体会到了前美团COO干嘉伟的一段话：从职能管理到业务管理，这是一个非常大的跨越。哪怕你是一个非常有经验的职能管理者，管过几千人的团队，也不意味着你就可以顺理成章地孵化出一个5个人的独立业务，二者的能力要求完全不一样。</p>
-
-<p>当然，一个业务的成功很多时候也得看很多客观因素的，比如市场环境、机会等等。但换个角度的话，每个行业总有成功的，为什么不是自己呢？</p>
-
-<p>现在反思来看，自己其实不具备负责一整个业务的能力的。对于一个业务负责人来说，去识别业务的关键环节，并采取有效办法去解决是核心能力。而自己确实识别出来了一些关键点，但却跳不出舒适区，没有弄脏自己的双手去解决问题。这也导致了一次次业务转型的失败。</p>
-
-<h2>Web3</h2>
-
-<p>2022年下半年开始，停了游戏业务，也关了一些其他业务。在互联网行业夏然而止的境况下，也试着去探索Web3业务。</p>
-
-<p>由于这个话题的敏感性，过程这里就不过多提及了。最终差不多了做了半年，发现其实Web3的本质还是加密货币，其他的都是一种概念炒作而已，也决定停滞了。好的地方时经历了这个学习过程，整个团队算是破除了对Web3的神秘感。</p>
-
-<h2>AI</h2>
-
-<p>2022年底随着ChatGPT的火爆，一下子点燃了AI行业。而随着23年疫情的结束，也开始了对AI这方面的探索。所以，整个23年是一直处于对AI的学习过程。</p>
-
-<p>首先，肯定逃不开ChatGPT，原理、使用、提示词工程、微调、应用开发等等，都有涉猎。</p>
-
-<p>然后，就是Stable Diffusion、MidJourney等AI绘画产品，逐步都引入了设计团队，很大程度节省了人力，提高了交付效率。</p>
-
-<p>再者就是后来各种开源的LLM，从LLaMA开始，一系列国内国外的模型层出不穷。</p>
-
-<p>概括来看，2023年，AI绘画已经可以用在工业场景了，LLM也能够达到真人水平的聊天水平。但受限于很多限制，除了类似ChatGPT这种LLM原生的聊天应用，杀手级的toC应用一直没有出现（c.ai的留存有问题），这个也是大家目前都在探索的方向。</p>
-
-<p>这个过程也伴随我们的AI应用的从0到1，一路踩坑，一路成长。</p>
-
-<h2>其他</h2>
-
-<p>除了上面之外，在南京算是待了三年了，还有一些对南京这个城市的感悟。</p>
-
-<ul>
-<li>南京真的算是互联网沙漠了，尤为明显的就是各种技术大会基本就没有在南京开的，虽然上海、杭州都离得不远，但要想完整地参加一次会议，怎么着也得住一晚才行。</li>
-<li>南京这个地方，可以看做是东部的西安，还是以研究所、体制内为主的好单位居多。其中14所，据说是全国待遇最好、也是最难进的研究所。自己当时毕业时，投了简历就没啥下文了。</li>
-<li>南京比起其他同量级的城市，挺小的。在这里开车即使再堵车，也就是十几二十分钟的事情。</li>
-<li>南京对人才的拥抱程度我感觉是不太好的，自己当时用人才资格购房时遇到的一些事情，真的无力吐槽。这个状况貌似也和西安差不多，就先把人给吸引过去，然后就不管了或者直接割这波人的韭菜。</li>
-<li>自己待过时间比较长的城市如果自己选定居顺序的话，应该是：杭州>北京>南京>西安。当时如果有北京户口的话，为了下一代，无脑北京也没问题。</li>
-<li>23年在成都开了分公司，对比起来，成都招互联网的研发人员比南京容易，薪资还比南京便宜。南京就很尴尬。</li>
-<li>南京的教育很卷，据说中考硬卡50%升学率，考不上要么技校，要么就花钱出国。然后江苏最厉害的南京大学对本省每年貌似也就招500左右的学生，与浙大每年在浙江招四五千人相比，真的是很吝啬与照顾本省学生了。当然，好的学校总数确实比浙江多，东南大学、南理、南邮、南师等等，211学校还是不少的。</li>
-<li>我自己感觉南京的城市规划是有问题的。在南京开车，有时候就突然来到一片区域感觉进了县城一样，破破旧旧的感觉。尤其有个宁芜铁路，直接把南京主城区分割成了两半，周围的小区一到晚上就只能伴随着一些柴油货车的鸣笛声入睡了。每次经过这地方，一大群人、自行车、电动车等待火车经过放开闸机的景象，犹如回到了90年代。</li>
 </ul>
 
 ]]></content>
