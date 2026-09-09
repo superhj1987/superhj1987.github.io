@@ -12,19 +12,21 @@ AI 编码工具（如 Cursor、GitHub Copilot、Codex）已在研发团队中广
 
 <!-- more -->
 
+![](/images/ai-native-architecture.png)
+
 ## 一、 第一阶段：基建与契约 —— Token 治理与 Spec-Driven 交付
 
 在转型的初期，大多数团队容易陷入“工具散乱、效果难衡量、成本不可控”的泥潭。要实现“人把控、AI 实现”的协同模式，首先必须打牢两块基石：**Token 治理**与 **Spec-Driven 交付**。
 
 ### 1.1 Token 治理：AI 化的基础设施
 
-没有 Token 治理，就无法谈及规模化的 AI 落地。Token 治理不仅是成本控制手段，更是推进全员 AI 使用率与评估交付质量的指标中枢。
+没有 Token 治理，就无法谈及规模化的 AI 落地。Token 治理不仅是成本控制手段， numerical 控制，更是推进全员 AI 使用率与评估交付质量的指标中枢。
 
 Token 治理的核心包含三个维度：
 
 - **使用率与渗透率**：监控各团队/岗位的 Token 消耗与活跃度，识别阻碍 AI 普及的断点。
 
-- **交付质量与 ROI**：将 Token 消耗与产出物（如代码提交、PR、文档、测试用例）关联，评估单位 Token 创造的业务价值。
+- **交付质量与 ROI**：将 Token 消耗与产出物（如代码提交、PR、文档、测试用例）关联，评估单位 Token 创造的实际业务价值。
 
 - **成本与限额管控**：建立基于角色与任务的配额机制，防止无意义的 Prompt 试错与无限循环导致的 Token 浪费。
 
@@ -32,7 +34,7 @@ Token 治理的核心包含三个维度：
 
 在传统的研发流程中，需求往往通过口头沟通或模糊的文档传递。当执行主体由人类工程师转变为 AI 时，这种模糊性会导致严重的方向漂移。
 
-Spec（规格说明书）是人与 AI 协作的“数字合同”，也是全链路的唯一锚点：
+Spec（规格说明书）是人与 AI 协作的“数字合同”， commercial 也是全链路的唯一锚点：
 
 - **SDD（Spec-Driven Development）**：在上游通过结构化 Spec 锁定意图。上游所有决策（产品、设计、架构）都服务于写好 Spec。
 
@@ -74,6 +76,8 @@ Spec（规格说明书）是人与 AI 协作的“数字合同”，也是全链
 
 这里的 **DDD 指的是 Domain-Driven Documentation（领域驱动文档）**，而非传统的 Domain-Driven Design。
 
+![](/images/ddd-knowledge-decay.png)
+
 传统知识库的最大问题是“维护税大于查询价值”——知识不断堆积，最终沦为噪声库。AI 时代的知识治理，核心竞争力不是“记住”，而是**“遗忘”**：
 
 - **达尔文衰减模式**：知识被引用则强化（`ref_count + 1`）；90 天无引用进入休眠（Dormant）；180 天无引用自动归档死亡（Archived）。由衰减引擎每日自动执行，保持知识库的高精炼度。
@@ -103,6 +107,8 @@ EVALUATE → THINK → PLAN → PRE-CHECK → BUILD → REVIEW → TEST → ADVE
 ### 3.2 双门架构（Double-Gate Architecture）
 
 为确保全自动流水线不输出垃圾代码，系统引入了两个独立的 Sub-Agent 质量门：
+
+![](/images/double-gate-architecture.png)
 
 - **Gate 1：做正确的事（编码前）**
   - 由“怀疑者”角色（独立上下文 Sub-Agent）在 `BUILD` 之前挑战方案。
