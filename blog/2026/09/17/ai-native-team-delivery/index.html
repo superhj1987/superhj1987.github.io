@@ -1,0 +1,978 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!-->
+<html class="no-js" lang="zh-CN"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>从 AI 编码到团队交付：企业 AI-Native 的落地路径 - 后端技术杂谈</title>
+  <meta name="author" content="HJ">
+  <!--[if lt IE 9]>
+    <script src="http://x.papaapp.com/farm1/a571d2/8dda131d/html5shiv.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
+    <![endif]-->
+  
+  <meta name="description" content="从 AI 编码到团队交付：企业 AI-Native 的落地路径 Posted by HJ in ai 代码写得更快了，需求为什么还在排队？ 这可能是企业引入 AI 编码工具后，最值得追问的问题。 工程师可以很快生成一段实现，但产品口径尚未确定；Agent 已经完成修改， &hellip;">
+  
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="https://www.rowkey.cn/blog/2026/09/17/ai-native-team-delivery/">
+  <link href="/favicon.ico" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <!-- <script src="http://cdn.staticfile.org/jquery/1.9.1/jquery.min.js"></script> -->
+  <script src="//cdn.staticfile.org/jquery/2.0.3/jquery.min.js"></script>
+  <link href="/atom.xml" rel="alternate" title="后端技术杂谈" type="application/atom+xml">
+  <!-- <script data-ad-client="ca-pub-8736325488820874" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?8358d2fb0fb047d5a9c9307a58152484";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>       
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link rel="stylesheet" href="/stylesheets/comment.css">
+<link rel="stylesheet" href="//cdn.staticfile.org/highlight.js/9.10.0/styles/default.min.css">
+<style type="text/css">
+  /* span#cnzz_stat_icon_1257166229{
+  	display: none !important
+  } */
+  .btn_primary{
+    color: #fff;
+    background-color: #006dcc;
+    background-image: linear-gradient(to bottom,#08c,#04c);
+    border-color: rgba(0,0,0,.1) rgba(0,0,0,.1) rgba(0,0,0,.25);
+    padding: 4px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    line-height: 20px;
+    vertical-align: middle;
+    cursor: pointer;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+    display: inline-block;
+    text-align: center;
+  }
+  #recent-comments .comment-widget-content {
+      color: #000000 !important;
+  }
+</style>
+
+  
+
+</head>
+<body   >
+  <header id="header" class="clearfix">    <div class="container">
+        <div class="col-group">
+            <div class="site-name ">
+                <a id="logo" href="/">
+                   后端技术杂谈
+                </a>
+                <p class="description">What、Why、How</p>
+            </div>
+            <div id="m-search">
+                <section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script>
+            </div>
+            <div>
+                <nav id="nav-menu" class="clearfix">
+                    <a class="index-nav current" href="/">首页</a>
+<a class="talks-nav" href="/blog/talks">技术琐话</a>
+<a class="ai-nav" href="/blog/categories/ai/">AI</a>
+<a class="manage-nav" href="/blog/categories/manage">管理</a>
+<a class="architecture-nav" href="/blog/categories/architecture">架构</a>
+<a class="categories-nav" href="/blog/categories">分类</a>
+<a class="archives-nav" href="/blog/archives">归档</a>
+<a class="about-nav" href="/about_me.html">关于</a>
+                </nav>
+            </div>
+        </div>
+    </div>
+</header>
+  <div id="body">
+    <div class="container">
+    	<div class="col-group">
+			<div class="col-8" id="main">
+  <div class="res-cons">
+  <article class="post clearfix">
+  
+  <header>
+    
+      <h1 class="post-title">从 AI 编码到团队交付：企业 AI-Native 的落地路径</h1>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2026-09-17T21:54:25+08:00" pubdate data-updated="true"></time>
+        
+        
+  
+
+<span class="byline author vcard">Posted by <span class="fn">HJ</span></span>
+ in 
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/ai/'>ai</a>
+  
+</span>
+
+
+        
+      </p>
+    
+  </header>
+
+
+<div class="post-content"><p>代码写得更快了，需求为什么还在排队？</p>
+
+<p>这可能是企业引入 AI 编码工具后，最值得追问的问题。</p>
+
+<p>工程师可以很快生成一段实现，但产品口径尚未确定；Agent 已经完成修改，却不了解另一个服务的隐含依赖；测试全部通过，上线后才发现验收标准漏掉了关键场景。</p>
+
+<p>编码速度的提升是真实的，交付流程中的等待、返工和协作成本也是真实的。当一个环节加速，原来被它掩盖的问题就会显现。</p>
+
+<p>最近看了一些企业 AI-Native 实践分享，也与正在推进转型的 CTO、技术负责人交流，我越来越关注一个问题：<strong>怎样把个人使用 AI 的能力，变成团队能够持续复用的交付能力？</strong></p>
+
+<!-- more -->
+
+
+<h2>一. 什么叫 AI-Native？</h2>
+
+<p>在我看来，AI-Native 体现为产品、组织和认知方式的变化。是否使用 AI 工具、年龄多大，都不足以判断一个人或一家企业是否具备这种思维。</p>
+
+<p><strong>第一，产品探索从模型能力边界出发。</strong> 先通过实际使用与测试，摸清模型已经能稳定完成什么、哪些能力仍不可靠，再探索由此成为可能的产品形态。对未来能力可以作假设，但需要持续验证。这并不意味着忽略用户需求，而是让技术能力参与定义产品机会，再由真实用户价值检验方向。模型成为产品设计的基础，也就有机会改变整个工作流。</p>
+
+<p><strong>第二，组织围绕人与 Agent 的组合分工。</strong> 面对一组任务，先考虑哪些判断由人承担，哪些执行可以交给 Agent，怎样验收、何时升级，再决定岗位与协作方式。一个人可以协调多个 Agent，承担更完整的交付责任。组织设计的重点随之转向任务、能力、权限与责任之间的匹配。</p>
+
+<p><strong>第三，用一手信息和亲自验证形成判断。</strong> 论文、模型卡、官方文档、代码仓库中的问题讨论，以及自己运行的评测，应成为判断能力边界的重要依据。行业分享与交流可以提供线索，但关键结论要回到原始材料，并在自己的任务上验证。特别是决定采用什么模型、开放多大执行范围时，实测结果应当比转述更有分量。</p>
+
+<p>这三点也构成了我理解企业落地的起点：<strong>产品围绕模型能力探索，组织围绕人机协作重构，判断依靠一手证据校准。</strong> 后文的 Agent Readable，则是把这种思维落实为工程能力的一项基础：让任务、知识、工具与验收规则真正能够被 Agent 使用。</p>
+
+<h2>二. 企业 AI-Native 的两条落地线</h2>
+
+<p>在企业内部，我倾向于把 AI-Native 分成两部分：<strong>AI-Native 产研</strong>与<strong>Agentic 业务与职能</strong>。</p>
+
+<p><strong>AI-Native 产研，也就是 Vibe Coding 的工程化。</strong> 它面向研发交付，关注需求如何变成 Spec，代码库如何被 Agent 理解，代码生成、测试、评审和发布如何形成可追踪的链路。它的结果是更稳定的产品迭代能力，而不只是更快地写出代码。</p>
+
+<p><strong>Agentic 业务与职能。</strong> 它面向数据分析、客服、运营、销售、测试等具体工作，关注业务系统能力如何通过 MCP 或 CLI 暴露，岗位流程如何沉淀为 Skill，Agent 如何进入已有协作场景，并在权限范围内完成任务、提交结果和请求人工介入。</p>
+
+<p>两条线的用户和交付物不同，但底座应当共享：模型接入与 Token 治理提供资源和度量，Agent Readable 提供代码、数据和业务上下文，权限与审计提供边界，测试和评审提供验证，知识治理负责把有效经验沉淀下来。</p>
+
+<p>可以把它理解成同一套企业 AI 能力的两个出口：产研线把能力用于“构建和维护产品”，业务线把能力用于“运行和改善业务”。如果只做 Vibe Coding，企业可能获得更快的研发，却仍让业务流程依赖人工传递；如果只做业务 Agent，缺少工程化底座又容易出现权限不清、知识过期和结果不可复核。两条线应分别试点、共享底座，再通过统一指标比较实际交付价值。</p>
+
+<h2>三. 从认知到落地</h2>
+
+<p>结合团队落地经验，本文尝试给出一条工程落地路径：以 Token 治理保障接入与度量，明确意图与责任，建设 Agent 可理解的上下文，随后把执行、验证和异常处理接成闭环，最后让有效经验在团队中积累。</p>
+
+<p>文中的实践经过匿名化整理，保留建设方法与阶段性经验，不涉及具体企业、产品及实施排期。案例中的阶段状态描述的是相应实践过程，不代表当前部署情况。</p>
+
+<p><img src="/images/2026-09-17-ai-native-team-delivery/ai-native-evolution-v4.png" alt="" /></p>
+
+<p>这张图表达的是<strong>时间上的演进路线</strong>：企业通常先解决接入和投入可见性，再把任务意图说清楚，接着建设 Agent 可理解的上下文，最后把有效做法沉淀为团队可以复用的能力。它不是严格的瀑布流程，试点中几项能力往往会并行建设，但成熟度大致沿着这个方向推进。</p>
+
+<p>如果把问题换成“这些能力最终由什么承载”，需要看另一张图。下面的架构图表达的是<strong>空间上的分层关系</strong>：上层是 AI-Native 产研和 Agentic 业务与职能两条落地线，中间是 Agent 能力层与 Runtime，底层是模型接入、Token、企业数据、知识和系统资源。箭头表示能力依赖，不表示项目必须按自下而上的单线顺序交付。</p>
+
+<p><img src="/images/2026-09-17-ai-native-team-delivery/ai-native-architecture-v2.png" alt="" /></p>
+
+<p>两张图合起来，分别回答“能力如何逐步成熟”和“成熟后的能力如何被组织承载”。不同业务、不同风险等级的任务，可以在同一架构上长期采用不同程度的自动化。</p>
+
+<h2>四. Token 治理：让团队用得上、看得清、持续改进</h2>
+
+<p>企业推进 AI，往往先从工具采购、模型接入和账号分配开始。这些工作必要，但它们回答的是“能不能用”，还没有回答“用得是否有效”。</p>
+
+<p>如果把 Token 消耗、AI 生成代码占比或 PR 数量直接作为成绩，团队很容易优化出更多调用、更多代码和更多提交，却没有缩短一次需求真正交付的时间。</p>
+
+<p><strong>Token 是投入，经过验收的交付才是产出。</strong></p>
+
+<p>试点开始前，建议先记录几项基线：</p>
+
+<table>
+<thead>
+<tr>
+<th> 维度 </th>
+<th> 要回答的问题 </th>
+<th> 可观察指标 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 速度 </td>
+<td> 需求从进入到验收，需要多久？ </td>
+<td> 交付周期、等待时间 </td>
+</tr>
+<tr>
+<td> 质量 </td>
+<td> 交付后是否还要返工？ </td>
+<td> 验收退回率、回归缺陷、线上故障 </td>
+</tr>
+<tr>
+<td> 自主程度 </td>
+<td> 哪些任务可以在既定授权内完成？ </td>
+<td> 同类任务自主完成率、人工介入原因 </td>
+</tr>
+<tr>
+<td> 成本 </td>
+<td> 完成一个合格任务花了多少资源？ </td>
+<td> 模型、运行环境、人工审核与返工总成本 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>比较时应尽量保持任务类型、复杂度和验收口径一致。一个简单页面与一次跨服务数据迁移，不能因为都算“一项任务”，就直接比较完成速度。</p>
+
+<p>自主完成率也需要定义清楚。例如，统计范围是“无需中途人工纠偏，达到 PR 待审状态的任务”，就不能把这个指标解释成“无需人工即可上线”。</p>
+
+<h3>接入治理实践：从统一入口到成本归集</h3>
+
+<p>在一个团队的落地实践中，Token 治理是一条独立的建设主线。第一批工作集中在三个问题：员工怎样接入，资源怎样管理，投入怎样衡量。</p>
+
+<p>该案例首先完成了几项基础建设：</p>
+
+<ul>
+<li><strong>统一接入</strong>：验证 Coding Agent 与统一 API 入口的兼容性，搭建供团队使用的模型调用网关。</li>
+<li><strong>订阅资源管理</strong>：将分散的订阅账号和接入资源纳入统一管理，明确资源归属与使用范围。</li>
+<li><strong>降低配置门槛</strong>：提供一键配置脚本和安装包，让非研发用户也能快速完成工具与模型入口的配置。</li>
+<li><strong>建设管理视图</strong>：扩展统一管理平台，覆盖部门、业务、项目组织管理，分业务成本统计，以及调用质量分析。</li>
+</ul>
+
+
+<p>这些工作解决的是规模化使用的前提：团队成员不用各自摸索配置，平台能够识别调用属于哪个业务，也能把投入放到同一口径下观察。具体资源组织方式可以根据接入条件选择，重点是让企业订阅和 API 配额的归属、用量及费用可追踪。</p>
+
+<h3>成本、使用率与质量，要放在一起看</h3>
+
+<p>在这类实践中，可以先手工汇总订阅与 API 费用，再推进平台自动统计，并将代码产出与费用关联观察。</p>
+
+<p>这个指标可以帮助建立投入产出的初步视图，但还不能单独证明业务价值。如果采用代码当量，计算规则需要固定，生成代码是否被采纳、是否通过验收，以及审核和返工花了多少时间，也需要一起观察。</p>
+
+<p>在基础统计之上，还可以按团队或任务类型分析使用覆盖、提示词质量和重复调用，帮助发现配置、上下文与流程中的问题。</p>
+
+<p>我的理解是，Token 治理可以逐步形成三个视角：</p>
+
+<table>
+<thead>
+<tr>
+<th> 视角 </th>
+<th> 重点观察什么 </th>
+<th> 用来推动什么 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 使用覆盖 </td>
+<td> 哪些岗位已开始使用，哪些环节仍有接入障碍 </td>
+<td> 配置支持、培训与流程接入 </td>
+</tr>
+<tr>
+<td> 资源消耗 </td>
+<td> 不同业务、项目和任务的费用与失败调用 </td>
+<td> 预算分配、模型选择与调用优化 </td>
+</tr>
+<tr>
+<td> 交付质量 </td>
+<td> 调用对应的任务是否完成，是否产生返工 </td>
+<td> 改进 Spec、上下文、Skill 和验证流程 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>例如，某类任务消耗很高时，应进一步区分：是任务本身复杂、重复传入大量上下文，还是需求不清导致反复重试？低使用率也需要区分：是没有适用场景，还是配置和工作流挡住了用户？热力图提供线索，任务结果才帮助我们判断原因。</p>
+
+<p>下一步值得建设的是把调用记录与任务、PR、文档或测试报告关联起来，逐渐从“花了多少 Token”走到“完成一个合格任务花了多少总成本”。这也是 Token 治理与研发工程化真正接上的地方。</p>
+
+<p>组织上的前提同样重要：负责人需要明确试点目标，允许团队投入时间建设规范、测试和知识资产，并安排人处理跨团队依赖。否则，一线工程师节省出来的编码时间，仍会消耗在旧流程的等待中。</p>
+
+<h2>五. 用 Spec 明确意图，也明确人的责任</h2>
+
+<p>当 AI 承担越来越多执行工作，需求表达中的歧义会直接影响产物。</p>
+
+<p>“给客户分析增加一个导出功能”看起来很明确，真正实现时却会遇到一系列问题：谁有权导出？导出哪些字段？时间范围如何解释？是否包含敏感信息？大数据量如何处理？失败后能否重试？</p>
+
+<p>这些问题需要业务和工程共同作出判断。AI 可以帮助发现遗漏、比较方案、起草规格，但不能凭空获得业务授权。</p>
+
+<p>Spec 的价值，就在于把这些决定变成可追溯、可检查的交付依据。</p>
+
+<p>一份可用于执行的 Spec，至少应包含：</p>
+
+<ul>
+<li>目标与非目标：本次解决什么问题，哪些内容明确不做。</li>
+<li>业务规则：术语、指标口径、权限和异常场景。</li>
+<li>工程约束：接口兼容性、依赖关系、性能及数据边界。</li>
+<li>验收标准：什么证据能够证明任务完成。</li>
+<li>待决事项：哪些问题仍需确认，由谁决定。</li>
+</ul>
+
+
+<p>Spec 应与代码一起版本化。需求变化时，同步调整规格、测试与实现；执行中发现矛盾时，回到决策者确认。只有这样，Spec 才能持续发挥作用。</p>
+
+<h3>角色的变化，是责任向两端延伸</h3>
+
+<p>工程师需要更早参与需求澄清，也需要对最终验证负责。产品和设计可以借助 AI 生成原型、探索方案、验证体验，让讨论更早建立在可观察的产物上。</p>
+
+<p>但“一个人能做更多事”，不等于专业判断与责任自动消失。</p>
+
+<table>
+<thead>
+<tr>
+<th> 角色 </th>
+<th> 应承担的主要责任 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 产品或业务负责人 </td>
+<td> 明确价值、优先级、业务规则和验收标准 </td>
+</tr>
+<tr>
+<td> 设计负责人 </td>
+<td> 明确交互、体验及可用性要求 </td>
+</tr>
+<tr>
+<td> 工程师与技术负责人 </td>
+<td> 判断架构影响、实现约束、验证方式与发布风险 </td>
+</tr>
+<tr>
+<td> 平台团队 </td>
+<td> 提供共享工具、权限控制、执行环境和成本度量 </td>
+</tr>
+<tr>
+<td> Agent </td>
+<td> 在已授权范围内规划、执行、检查，并报告异常 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>小团队可以由同一人承担多项职责，但每项决定仍应有明确负责人。</p>
+
+<h3>测试把规格变成证据</h3>
+
+<p>对于行为可明确验证的改动，可以先根据验收标准建立测试，确认测试能够暴露问题，再实现功能并持续回归。</p>
+
+<p>这里需要注意：如果规格本身遗漏了场景，AI 生成的测试和代码可能一起遗漏。因此，测试通过证明的是已覆盖条件下的行为，业务验收还需要确认这些条件是否完整。</p>
+
+<h2>六. 让 Agent 读懂项目，也让上下文保持有效</h2>
+
+<p>到目前为止，我形成的一个判断是：<strong>AI-Native = Agent Readable。</strong></p>
+
+<p>它强调的是一种建设视角：企业的代码、数据、规则和流程，需要能够被 Agent 理解和使用。真正落地时，还要继续追问：能否在授权范围内执行？结果能否验证？错误能否追溯？</p>
+
+<h3>把“理解、约束、验证”沉淀为工程资产</h3>
+
+<p><img src="/images/2026-09-17-ai-native-team-delivery/agent-readable-assets-v2.png" alt="" /></p>
+
+<p>每次与 AI 协作，都可以为下一次执行留下三类资产。</p>
+
+<p><strong>理解资产</strong>回答项目为什么存在、模块如何协作、关键依赖在哪里。除了文字说明，还可以包括架构图、接口契约、代码依赖和数据口径。</p>
+
+<p><strong>约束资产</strong>回答有哪些规则需要遵守。团队可以用 <code>AGENTS.md</code> 提供入口和关键规范，用 Skill 沉淀特定任务的流程与资源，并明确团队、项目和任务规则发生冲突时如何处理。</p>
+
+<p><strong>验证资产</strong>回答如何判断结果正确，包括可运行的测试、验收样例、检查脚本、评审要求和运行反馈。</p>
+
+<p>在相关工程实践中，有一种可参考的四文件组织方式：</p>
+
+<table>
+<thead>
+<tr>
+<th> 文件 </th>
+<th> 主要内容 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> <code>PRODUCT.md</code> </td>
+<td> 产品目标、优先级与成功标准 </td>
+</tr>
+<tr>
+<td> <code>TECH.md</code> </td>
+<td> 技术架构、关键路径与硬性约束 </td>
+</tr>
+<tr>
+<td> <code>IMPROVEMENT.md</code> </td>
+<td> 已确认的失败模式与经验 </td>
+</tr>
+<tr>
+<td> <code>PROJECT.md</code> </td>
+<td> 当前状态、关键决定与阻塞项 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>这是一种可参考的实现。已有文档体系的团队，可以保留原来的结构，重点建立清晰入口、可靠内容与更新机制，无需为了文件名再复制一套知识库。</p>
+
+<h3>企业数据还需要语义与权限</h3>
+
+<p>让 Agent 看见数据库表结构，并不意味着它理解业务。</p>
+
+<p>例如，“本月收入”可能涉及退款、结算时间、币种和组织范围。SQL 能执行，也可能给出错误答案。</p>
+
+<p>可以按任务确定查询路径：核心报表优先采用经过业务确认的查询模板；临时分析采用受语义目录、关联规则和访问策略约束的查询生成；开放探索则明确结果尚未验证。</p>
+
+<p>模板也需要检查选择是否正确、参数是否合理，以及数据结构和口径是否发生变化。访问权限应由工具或数据服务实际执行，不能仅依赖提示词要求 Agent 自觉遵守。</p>
+
+<h3>数据助手实践：先补业务知识，再扩大分析范围</h3>
+
+<p>以一个处于试用阶段的数据助手案例为例，它面向业务分析场景，需要持续补充领域知识，并逐步支持原始数据层的分析。</p>
+
+<p>在补充领域知识后，助手能够支持已知指标的查询和分析；更开放的下钻分析则需要继续验证。团队也将数据库查询能力封装为 Skill，供分析人员复用。</p>
+
+<p>这个过程让我更明确地看到：数据助手的建设不止是接上数据库，还包括把指标定义、业务背景和分析边界整理成可复用的知识。已知指标查询跑通，只代表一部分能力成立，不能据此宣称开放分析已经成熟。</p>
+
+<p>对数据助手而言，准确性、分析深度和等待时间需要一起评估。分析结果更详细，并不自动意味着工作体验更好；还要观察用户是否能在合理时间内拿到可用答案。</p>
+
+<h3>知识要更新，也要允许退出</h3>
+
+<p>部分实践用 Domain-Driven Documentation 描述这类建设，简称 DDD，即领域驱动文档。本文沿用这一命名，与通常所说的领域驱动设计区分。</p>
+
+<p>其中值得借鉴的是知识的生命周期：从执行中发现经验，验证后沉淀，在使用中获得反馈，失效后退出活跃上下文。</p>
+
+<p>材料中的“90 天休眠、180 天归档”是一种具体策略。实际采用时，引用频率应与规则重要性、适用版本和业务变化一起判断。灾备流程、权限边界等低频知识，不能仅因长期未被引用就失效。</p>
+
+<p>自动化适合发现候选知识和过期迹象；影响范围大的规则，仍应经过负责人确认。归档也应保留来源与恢复路径。</p>
+
+<h2>七. 把执行、验证和异常处理接成闭环</h2>
+
+<p>当意图、上下文和验证方式逐渐稳定，就可以扩大 Agent 的执行范围。</p>
+
+<p>一个可参考的自主流水线：评估需求、分析方案、制定计划、编码前检查、构建、审查、测试、对抗性验证、交付和反思。</p>
+
+<p><img src="/images/2026-09-17-ai-native-team-delivery/double-gate-pipeline-v2.png" alt="" /></p>
+
+<p>这套流程最值得借鉴的，是两个不同时间点的检查。</p>
+
+<p><strong>第一道门在编码前，检查是否值得做、方向是否正确。</strong> 审查者挑战方案中的假设、约束冲突和已知失败模式，尽量在实现之前发现偏差。</p>
+
+<p><strong>第二道门在编码后，检查实际产物是否满足要求。</strong> 审查者以改动和验收证据为依据，检查正确性、兼容性、安全及系统影响。</p>
+
+<p>第二道门可以使用独立上下文，减少对实现者解释的依赖，但仍应允许读取必要的规格、调用方和测试。独立审查的目的，是形成独立判断。</p>
+
+<p>两个 Agent 也可能有相似盲点，因此还需要自动化测试、静态检查、运行证据和必要的人工验收共同支撑结论。</p>
+
+<h3>自主执行必须定义什么时候停下来</h3>
+
+<p>一个可运行的闭环，除了成功路径，还需要明确：</p>
+
+<ul>
+<li>需求或权限不清楚时，向谁升级。</li>
+<li>连续验证失败时，最多重试多少轮。</li>
+<li>时间或费用达到上限时，如何停止并交接。</li>
+<li>涉及高影响变更时，在哪个节点由人决定。</li>
+<li>执行失败后，如何保留现场、恢复状态或回滚。</li>
+</ul>
+
+
+<p>任务类型也会影响流程。“完成一个导出功能”主要按产物和验收标准判断；“把接口延迟降低到目标范围”则需要反复测量，直到外部指标达标或触发停止条件。</p>
+
+<p>PR 待审、允许合并和允许生产发布，应分别设置完成条件与授权边界。</p>
+
+<h3>埋点校验实践：上线以后，继续和人工结果对照</h3>
+
+<p>在一个自动化校验案例中，Agent 被用于检查埋点是否符合要求。投入实际使用后，团队继续将 Agent 结果与人工结果对照，在版本变化中发现问题并优化。</p>
+
+<p>这类任务除了检查规则，还需要关注任务引导、执行时长、失败恢复和结果留存，才能适应持续变化的测试场景。</p>
+
+<p>这类实践的价值在于把验证落到了真实工作中。Agent 能运行一次，不代表能稳定覆盖不同版本和长任务；接下来应持续记录漏检、误报、人工复核成本和任务完成情况，再决定扩大哪些测试范围。这些是建议继续追踪的指标，并非已经测得的收益。</p>
+
+<h3>用一个需求贯穿整个流程</h3>
+
+<p>仍以“客户分析导出”为例，下面是一个示意流程，并非已验证的项目案例：</p>
+
+<ol>
+<li>产品明确导出对象、字段和验收场景，工程师确认权限、数据量与接口约束。</li>
+<li>Agent 读取 Spec、数据目录和现有实现，提出改动计划。</li>
+<li>编码前审查发现“是否允许跨部门导出”尚未确定，任务暂停，由业务负责人确认。</li>
+<li>边界明确后，Agent 建立权限、空数据、边界日期等测试，再完成实现。</li>
+<li>编码后审查结合调用链和运行结果检查改动，通过后输出 PR、测试证据和剩余风险。</li>
+<li>经确认的新经验写回项目知识，并补充可持续运行的验证。</li>
+</ol>
+
+
+<p>这个过程的价值，在于问题更早暴露，执行更少反复，同类任务下次有可靠依据可用。</p>
+
+<h2>八. 从一条流水线，走向团队共享的能力</h2>
+
+<p>当多个任务开始复用同一套知识、工具和验证流程，企业会需要更统一的能力管理方式。</p>
+
+<p>可以把它理解为三类能力的协作：</p>
+
+<ul>
+<li><strong>运行与控制能力</strong>：执行环境、工具接入、任务调度、权限、预算和审计。</li>
+<li><strong>领域知识能力</strong>：业务规则、项目约束、代码与数据上下文，以及经过验证的经验。</li>
+<li><strong>交付能力</strong>：面向研发、分析、内容或其他业务的工作流与产物。</li>
+</ul>
+
+
+<p>这些能力未必需要从头开发。企业更应明确哪些可以使用现有平台，哪些是需要自己长期维护的领域资产。</p>
+
+<p>在组织分工上，可以借鉴 Builder、Hub、Runner 的思路：建设团队沉淀共享知识与工具；共享平台管理版本、权限和分发；面向用户的 Agent 或应用组合这些能力，完成具体任务。</p>
+
+<p>团队积累的效果，应能体现为新人更快上手、重复错误减少、同类任务交付更稳定。仅仅增加文档或 Skill 数量，无法证明能力已经提升。</p>
+
+<h3>Agent 在群里，但工作不能只留在聊天里</h3>
+
+<p>在业务落地上，我倾向于优先尝试现有办公 IM。员工已经在群里讨论问题、分配任务和确认结果，让 Agent 进入已有协作环境，可以降低使用门槛。</p>
+
+<p>后台系统提供受控的 MCP 或 CLI 能力，业务流程沉淀为 Skill，员工在群里发起任务和处理异常。这是一条值得试验的路径。</p>
+
+<p>在群聊接入实践中，可以先验证单人 @Agent 发起任务的链路，再逐步扩展多人协作。“机器人能在群里响应”与“能够理解群内分工并持续推进任务”，需要分开建设和验收。</p>
+
+<p>客服类 Agent 则适合先在有限场景中灰度验证，根据回答质量、转人工情况和用户反馈逐步扩大范围。不同 Agent 应根据业务风险和验证结果分别确定推进节奏。</p>
+
+<p>但聊天入口还需要连接可追踪的任务状态、产物、责任人和执行记录。复杂数据分析、设计评审或高密度操作，也可能更适合专门界面。入口可以不同，背后的知识、权限和交付机制应尽量复用。</p>
+
+<h2>九. Vibe Coding 实践：用脚手架固化从理解到验收的链路</h2>
+
+<p>前面讨论了意图、上下文、执行验证与团队复用。回到 AI-Native 产研这条落地线，项目脚手架可以把这些能力串成日常交付流程。</p>
+
+<p>在一份 Vibe Coding 工程化实践中，建设重点贯穿开发、交付和测试：让 Agent 理解项目，用 Spec 对齐需求，再把测试、独立评审和人工验收接起来。配套脚手架提供了一个具体载体，可用于新项目初始化，也可用于已有项目改造。</p>
+
+<p><strong>第一步，先建立项目事实。</strong> 新项目先确认最小必要信息；已有项目先盘点代码、配置与测试，整理架构、模块依赖和外部依赖。存在接口或持久化数据时，再补接口清单、数据模型与关系图。Agent 后续从这些材料进入项目，也能沿索引回到代码核实，减少每次从聊天重新解释项目的成本。改造已有仓库时先检查冲突，再合并规范，保留原有文档和用户修改。</p>
+
+<p><strong>第二步，把规则和任务流程分开维护。</strong> <code>AGENTS.md</code> 提供入口，Rules 区分通用底线、团队规范和项目约束，Skill 承载测试、接口对齐、评审等可复用流程，并按任务适用性加载。一次需求中的临时要求不必全部上升为团队规则；反复出现且经确认的问题，才值得沉淀为共享约束。</p>
+
+<p><strong>第三步，让 Spec 成为需求与验收的共同依据。</strong> 脚手架采用开源项目 OpenSpec 管理提案、设计、规格场景和任务；以一个 Change 表达一项可独立交付、验收的需求。实现与测试围绕同一份任务台账推进，避免规划工具和执行工具各维护一套状态。边界明确、低风险且不改变产品行为的小修可以简化流程；需求、接口或验收边界变化时，则先更新规格。</p>
+
+<p><strong>第四步，让评审结论对应实际交付版本。</strong> 实现者先自查并运行适用测试，再由未参与实现的 Coding Agent 独立评审。脚手架要求留下审查范围、上下文与文件指纹；代码或相关上下文发生实质变化，旧结论就不能直接沿用。选择本地运行态联调时，还要启动真实目标、执行关键场景并记录证据；环境不可用要明确报告阻塞，不能写成通过。人工审查应优先关注高影响变更和测试本身，并保留合并决策。</p>
+
+<p><strong>第五步，把“研发交付”和“产品验收”分开。</strong> 交付文档需要把需求场景、任务、实现位置和验证证据逐项对应，并写清版本、风险、回滚方式和下一位负责人的动作。研发完成只代表进入待验收状态。产品验收后，再复盘哪些问题属于项目知识、团队规则或可复用流程，经人工确认后安排沉淀。</p>
+
+<p>例如，一项导出需求的交付记录，可以把“无权限用户无法导出”对应到具体任务、权限校验实现和可重复运行的测试。验收者据此检查行为；如果验收发现字段口径遗漏，就回到规格与测试一起修正。这是上述机制的示意用法，不是额外宣称一个已验证案例。</p>
+
+<h3>基于钉钉群的需求流转：让下一位负责人接得住</h3>
+
+<p>上述链路还需要解决一个日常问题：规格准备好了，谁开始开发？研发交付了，谁来验收？脚手架为此提供钉钉项目群集成，将 OpenSpec Change 的状态变化与群内负责人提醒连接起来。</p>
+
+<p><strong>规格与交付证据保存在 Git 中，钉钉群负责把交接信息送到下一位负责人。</strong> 配置完成后，提交后的通知脚本检查需求工件和任务状态变化，按需求涉及的模块找到产品或研发负责人，在群里定向 @。它所支持的交接过程如下：</p>
+
+<table>
+<thead>
+<tr>
+<th> 节点 </th>
+<th> 触发依据 </th>
+<th> 群内交接 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 需求就绪或规格更新 </td>
+<td> 规划工件齐备、严格校验通过，且相关规划内容新增或更新 </td>
+<td> 提醒研发负责人确认并实施需求 </td>
+</tr>
+<tr>
+<td> 研发交付、待产品验收 </td>
+<td> 交付状态有效，具备实现版本与交付文档，且没有影响交付的待决事项 </td>
+<td> 提醒产品负责人，提供交付摘要、版本、文档路径、下一步与完成标准 </td>
+</tr>
+<tr>
+<td> 产品验收 </td>
+<td> 产品负责人依据场景验收，并记录验收状态 </td>
+<td> 单独记录验收时不另发通知；验收结论保留在需求记录中 </td>
+</tr>
+<tr>
+<td> 验收后归档 </td>
+<td> 完成相关任务、验收与复盘，同步相关主规格并归档需求 </td>
+<td> 通知研发负责人该需求已验收并归档 </td>
+</tr>
+</tbody>
+</table>
+
+
+<p>以导出需求为例，产品与工程确认范围后提交规格，群里提醒研发接手；研发完成实现、测试和评审，提交交付材料，群里再提醒产品按清单验收。验收发现偏差时，应回到需求记录中修正规格、实现或证据；完成验收、复盘与归档后，再向研发反馈结果。群里的讨论因此能够落回同一项需求，而不是散落成几段无法追踪的聊天。</p>
+
+<p>这套机制围绕交接节点通知，普通任务进度变化不会逐条刷屏。交付证据缺失或仍有影响交付的待决事项时，不发送待验收通知。通知是否送达与需求是否交付是两件事：通知配置缺失或发送失败，不能据此改写仓库中的交付事实，也不能把“已经 @ 了负责人”当作对方已经验收。</p>
+
+<p>这也补上了团队复用中的协作环节：<strong>不仅把流程交给 Agent 执行，还把结果、责任和下一步交到具体的人手上。</strong> 这里描述的是脚手架提供的流转机制，其运行效果仍需在实际项目中观察。</p>
+
+<p>这套实践最值得借鉴的是：<strong>每次交付都留下可核对的证据，每次验收都为下一次协作提供改进依据。</strong> 文档和脚手架能够说明机制如何设计，实际能否缩短交付周期、减少返工，还需要在日常需求中持续衡量。云端编码控制平面、隔离执行和测试 Agent 的扩展，可作为后续方向，不能仅凭建设计划就视为成熟能力。</p>
+
+<h2>十. 先跑通一个试点，再扩大自主范围</h2>
+
+<p>企业无需等整套体系齐备，才开始验证价值。</p>
+
+<p>可以先选择一个依赖相对清楚、验收能够执行的仓库，以及一类边界明确的任务，用一个月左右的试点观察变化。这个周期用于学习与比较，不是收益承诺。</p>
+
+<p>试点按四件事推进：</p>
+
+<ol>
+<li><strong>记录现状</strong>：确定任务范围、责任人和交付质量基线。</li>
+<li><strong>补齐基础</strong>：建立 Spec、上下文入口、测试与关键权限边界。</li>
+<li><strong>连接闭环</strong>：引入编码前后检查，明确人工升级和停止条件。</li>
+<li><strong>评估与复用</strong>：比较同类任务的周期、质量和总成本，把有效经验复制到下一类任务。</li>
+</ol>
+
+
+<p>如果审核和返工成本持续上升，就先缩小任务范围，找出规格、上下文或验证中的缺口。只有收益和质量得到验证，再逐步扩大自主执行权限。</p>
+
+<p>我认为，AI-Native 最值得追求的变化，是把个人与 AI 协作时形成的判断、约束和经验，转化成团队可使用、可检查、可更新的能力。</p>
+
+<p>代码生成只是其中一个环节。企业最终需要回答的是：<strong>下一次遇到类似需求，我们能否更少依赖临时解释，更早发现错误，并以更低的总成本交付可信的结果？</strong></p>
+
+<hr />
+
+<p>说明：本文结合行业分享与团队实践整理。案例已匿名化，省略企业与产品名称、内部工具组合、具体排期及部署状态，保留工程方法与实践边界；建议和示意流程不作为已验证成果。</p>
+</div>
+<!-- <div style="width:100%;text-align:center;display: none" id="wxFooter">
+  <img src="/images/blog_images/h.png"/>
+  <p style="color: rgb(58, 65, 69);"><strong>ID: servertalk</strong></p>
+  <img src="/images/blog_images/mp-qrcode.jpg"/>
+  <p style="color: rgb(178, 178, 178);"><strong>关注[<span style="color:red !important;">后端技术杂谈</span>]</strong></p>
+  <p style="color: rgb(178, 178, 178);"><strong>把握后端技术</strong></p>
+</div>
+<script>
+var browser = {
+  versions: function () {
+      var u = navigator.userAgent, app = navigator.appVersion;
+      return {         //移动终端浏览器版本信息
+          trident: u.indexOf('Trident') > -1, //IE内核
+          presto: u.indexOf('Presto') > -1, //opera内核
+          webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+          gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+          mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+          ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+          android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+          iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+          iPad: u.indexOf('iPad') > -1, //是否iPad
+          webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+      };
+  }(),
+  language: (navigator.browserLanguage || navigator.language).toLowerCase()
+}
+if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+  // var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+  // if (ua.match(/MicroMessenger/i) == "micromessenger") {
+  $("div#wxFooter").show();
+  // }
+  // if (ua.match(/WeiBo/i) == "weibo") {
+  //         //在新浪微博客户端打开
+  // }
+  // if (ua.match(/QQ/i) == "qq") {
+  //         //在QQ空间打开
+  // }
+  // if (browser.versions.ios) {
+  //         //是否在IOS浏览器打开
+  // } 
+  // if(browser.versions.android){
+  //         //是否在安卓浏览器打开
+  // }
+} 
+</script> -->
+
+
+  <div class="_dj8d8fo8gk" style="display:none"></div>
+  <div class="_ywga8i2zs8c"></div>
+  <footer class="post-footer">
+    
+      <!-- <div class="sharing">
+  
+  
+  
+</div>
+ -->
+ <div class="share"  style='margin-bottom:15px'>
+
+</div>
+
+    
+    <div class="meta">
+      
+      
+        <a class="basic-alignment right" style="float:right !important" href="/blog/2026/09/02/ai-native-evolution-agentic-os/" title="下一篇: 重构产研与组织：企业级 AI-Native 落地全景图与演进四部曲">重构产研与组织：企业级 AI-Native 落地全景图与演进四部曲 &raquo;</a>
+      
+    </div>
+  </footer>
+</article>
+
+
+<h2>评论</h2>
+<div id="comment-thread"></div>
+
+  </div>
+</div>
+
+  <aside id="secondary">
+  <div id="sidebar">
+  
+    <section class="widget" style="font-size:9pt" id="ads">
+    <div class="_azq7d9qhrfo"></div>
+</section><section class="widget" style="font-size:9pt" id="copyright">
+<p><span style="font-weight:bold">版权声明：</span>本博客所有文章为博主原创或翻译文章，采用<a href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">知识共享署名-非商业性使用-相同方式共享4.0</a> 国际许可协议共享，转载请注明作者和原文链接。</p>
+</section><section class="widget">
+    <form action="http://cn.bing.com/search" method="get" target="_blank" onsubmit="return doSearch(this)">
+    <div class="content">
+      <input type="text" class="textfield searchtip" name="s" placeholder="请输入关键字" size="24" value="">
+    </div>
+    </form>
+    <form action="http://cn.bing.com/search" method="get" target="_blank" style="display:none" name="frmSearch">
+    <div class="content">
+      <input type="hidden" name="q" value="">
+    </div>
+    </form>
+</section>
+<script type="text/javascript">
+  function doSearch(o){
+    var $s = $(o).find("input[name=s]");
+    var $q = $(o).next("form").find("input[name=q]");
+    $q.val($s.val() + " site:rowkey.me");
+    $(o).next("form").submit();
+    return false;
+  }
+</script><!--公告-->
+<section class="widget" id="notice">
+	<!-- <p><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a>长期求各研发职位，感兴趣者可发送简历到<a href="mailto:hang@wekoi.cn">hang@wekoi.cn</a>。</p>
+	<div style="margin-bottom: 10px">
+	原博客：<a href="http://srhang.iteye.com/" target="_blank">http://srhang.iteye.com/</a>
+	</div> -->
+</section><section class="widget" id="social">
+		
+		<a class="weibo" href="http://weibo.com/superhj1987" title="Weibo" target="_blank">Weibo</a>
+		
+		
+			<a class="github" href="https://github.com/superhj1987" title="GitHub" target="_blank">GitHub</a>
+		
+		
+		
+		<!-- 
+			<a class="linkedin" href="http://www.linkedin.com/in/superhj1987" title="LinkedIn" target="_blank">LinkedIn</a>
+		 -->
+		
+		
+		
+		
+		
+		
+    	
+    	
+			<a class="rss" href="/atom.xml" title="RSS" target="_blank">RSS</a>
+		
+</section><section class="widget">
+	<h3 class="widget-title">最新文章</h3>
+	<ul class="widget-list">
+		
+     	<li>
+      	  <a href="/blog/2026/09/17/ai-native-team-delivery/">从 AI 编码到团队交付：企业 AI-Native 的落地路径</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/09/02/ai-native-evolution-agentic-os/">重构产研与组织：企业级 AI-Native 落地全景图与演进四部曲</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/08/21/deepseek-harness-vs-agentscope-java/">DeepSeek Harness 与 AgentScope Java 深度对比：两条不同的 Agent 工程化路线</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/08/06/enterprise-ai-native-architecture-and-im-workspace/">从 Agent Readable 到 IM 群协作：我对企业 AI Native 改造的终局思考</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/05/17/tech-leader-ai-era-cognitive-framework/">从管人到管系统行为：AI时代技术管理者的全新认知框架</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/04/06/soul-vs-agents/">SOUL.md 和 AGENTS.md 到底有什么区别？Agent 配置别再混着写了</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/31/ai-agent-engineering-depth/">AI Agent 正在进入工程化深水区：从代码模型、生产框架到多智能体协作协议</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/24/openclaw-gateway-protocol-comparison/">OpenClaw Gateway 三种对外接口怎么选？</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/18/agent-governance-for-backend-teams/">Agent 落地不靠更强模型：后端团队先补这 4 个治理动作</a>
+      	</li>
+    	
+     	<li>
+      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw多Agent方案</a>
+      	</li>
+    	
+	</ul>
+</section>
+<section class="widget" style="margin-bottom: 0px !important">
+	<h3 class="widget-title">最新评论</h3>
+	<div id="recent-comments">暂无</div>
+</section>
+
+
+<section>
+  <h3 class="widget-title">GitHub Repos</h3>
+  <ul id="gh_repos" class="widget-list">
+    <li class="loading">数据读取中...</li>
+  </ul>
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'superhj1987',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+<section class="widget">
+	<h3 class="widget-title">技术酷站</h3>
+	<ul class="widget-list">
+		<li><a href="https://tech.wekoi.cn/" target="_blank">微鲤技术团队</a></li>
+     	<li><a href="https://dzone.com/java-jdk-development-tutorials-tools-news" target="_blank">DZone - Java Zone</a></li>
+	</ul>
+</section>
+
+  
+  </div>
+</aside>
+
+
+      	</div>
+    </div>
+  </div>
+  <footer id="footer">
+  	<div class="container">
+	Copyright &copy; 2026 - HJ - 京ICP备20027460号 -
+  <span class="credit">Powered by <a rel="nofollow" href="http://octopress.org">Octopress</a></span>
+  - <span class="credit">Theme by <a rel="nofollow" href="http://pagecho.com">Cho</a></span>
+
+
+</div>
+<link href="/stylesheets/scrollUp.min.css" media="screen, projection" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/javascripts/libs/jquery.scrollUp.min.js"></script>
+<script src="//cdn.staticfile.org/marked/0.3.6/marked.min.js"></script>
+<script src="//cdn.staticfile.org/timeago.js/3.0.1/timeago.min.js"></script>
+<script src="//cdn.staticfile.org/spin.js/2.3.2/spin.min.js"></script>
+<script src="//cdn.staticfile.org/highlight.js/9.10.0/highlight.min.js"></script>
+<script type="text/javascript">
+  marked.setOptions({
+  highlight: function (code, lang) {
+     return hljs.highlightAuto(code).value;
+  }
+  });
+  function Highlighting(){
+    var markdowns = document.getElementsByClassName('markdown');
+    for(var i=0;i<markdowns.length;i++){
+       if(markdowns[i].innerHTML) markdowns[i].innerHTML =marked(markdowns[i].innerHTML);
+    }
+  }
+  window.addEventListener('DOMContentLoaded', Highlighting, false);
+  window.addEventListener('load', Highlighting, false);
+</script>
+<script src="/javascripts/comment.js"></script>
+<script type="text/javascript">
+$(function(){
+	$.scrollUp({
+		appendId: 'footer'
+	});
+});
+var opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   no_comment: "还没有评论",
+   go_to_comment: "点击评论",
+   issue_title: "从 AI 编码到团队交付：企业 AI-Native 的落地路径",
+   btn_class: "btn_primary",
+   comments_target: "#comment-thread",
+   loading_target: "#loading-spin",
+   client_id: "",
+   client_secret: ""
+};
+getComments(opt);
+opt = {
+   type: "github",
+   user: "superhj1987",
+   repo: "superhj1987.github.io",
+   recent_comments_target: "#recent-comments",
+   count: 5,
+   client_id: "",
+   client_secret: ""
+};
+getRecentCommentsList(opt);
+</script>
+<script type="text/javascript">
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803601",
+       container: "_azq7d9qhrfo",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803483",
+       container: "_ywga8i2zs8c",
+       async: true
+   });
+   (window.slotbydup = window.slotbydup || []).push({
+       id: "u6803481",
+       container: "_dj8d8fo8gk",
+       async: true
+   });
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/cm.js" async="async" defer="defer" >
+</script>
+  </footer>
+  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
