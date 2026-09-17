@@ -4,7 +4,7 @@
   <title><![CDATA[后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-09-17T13:56:03+00:00</updated>
+  <updated>2026-09-17T14:32:13+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -1402,6 +1402,142 @@
 
 
 <p>打破幻想，扎实建设基础设施，才能真正拥抱 AI Native 的时代。</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[AI大事记@2026H1]]></title>
+    <link href="https://www.rowkey.cn/blog/2026/07/05/ai-2026-h1/"/>
+    <updated>2026-07-05T10:00:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2026/07/05/ai-2026-h1</id>
+    <content type="html"><![CDATA[<p>2026 年上半年，AI 的演进明显从“单点能力竞赛”转向“完整工作能力竞赛”：模型开始统一推理、编程、多模态和工具调用，Agent 从演示走进真实工作流，图像与视频生成也在加速进入生产链路。</p>
+
+<p>概括总结一下 2026 年上半年的关键 AI 事件。</p>
+
+<!-- more -->
+
+
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> 时间 </th>
+<th style="text-align:left;"> 事项 </th>
+<th style="text-align:left;"> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> <strong>2026.06.30</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Sonnet 5</strong> </td>
+<td style="text-align:left;"> 面向日常 Agent 的主力模型升级，增强规划、浏览器与终端工具调用、编程和知识工作能力。官方定位接近 Opus 4.8，但价格更低，并成为 Free、Pro 用户的默认模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.06.30</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Science（Beta）</strong> </td>
+<td style="text-align:left;"> 推出面向科研场景的 AI 工作台，整合文献、代码、科学工具和计算资源，图表与结果可追溯到生成代码及运行环境。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.06.09</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Fable 5 / Mythos 5</strong> </td>
+<td style="text-align:left;"> 新增 Mythos 级模型：Fable 面向一般使用并强化安全防护，Mythos 面向可信网络防御计划。软件工程、知识工作、视觉理解与科研能力继续增强。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.05.28</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Opus 4.8</strong><br><strong>Claude Code Dynamic Workflows</strong> </td>
+<td style="text-align:left;"> Opus 继续提升编程、工具调用与协作可靠性；Claude Code 同时推出 Dynamic Workflows 研究预览，可组织大量并行子 Agent 处理复杂任务。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.05.19</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.5 Flash</strong><br><strong>Gemini Spark</strong> </td>
+<td style="text-align:left;"> Google I/O 发布新一代 Agent 主力模型，强化长程编程、工具协作和多模态理解。Gemini Spark 则展示了全天候个人 Agent 的产品方向。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.28</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude for Creative Work</strong> </td>
+<td style="text-align:left;"> 新增 Adobe、Blender、Autodesk Fusion、SketchUp、Ableton 等创意工具连接器，让 Claude 直接参与设计、3D、音视频与批量制作流程。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.24</strong> </td>
+<td style="text-align:left;"> <strong>DeepSeek V4 预览版</strong> </td>
+<td style="text-align:left;"> 发布 V4-Pro 与 V4-Flash 两条产品线，主打 1M 上下文、开源与低成本，继续冲击闭源模型的价格体系。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.23</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-5.5</strong> </td>
+<td style="text-align:left;"> 主打真实工作场景，覆盖代码、联网研究、数据分析、文档与表格制作，以及跨软件执行；次日补充开放 API。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.21</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI ChatGPT Images 2.0</strong><br><strong>GPT-Image-Gen-2</strong> </td>
+<td style="text-align:left;"> 新一代图像生成模型重点增强多语言文字渲染、版式、漫画、海报、信息图、真实感与复杂视觉表达。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.16</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Opus 4.7</strong> </td>
+<td style="text-align:left;"> 强化复杂代码、长任务、视觉理解，以及文档、幻灯片和界面生成能力，同时引入更严格的网络安全使用限制。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.03.05</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-5.4</strong> </td>
+<td style="text-align:left;"> 将 GPT-5.3-Codex 的编程与电脑操作能力并入主线模型，支持 1M 上下文，明显增强办公文档、表格、演示、工具调用与 Computer Use。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.03.03</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.1 Flash-Lite</strong> </td>
+<td style="text-align:left;"> 面向大规模调用的低成本模型，重点优化高吞吐、低价格和实用智能。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.26</strong> </td>
+<td style="text-align:left;"> <strong>Google Nano Banana 2</strong><br><em>(aka Gemini 3.1 Flash Image)</em> </td>
+<td style="text-align:left;"> 将 Nano Banana Pro 的图像质量、世界知识和编辑能力下放到 Flash 速度，定位为高质量图片生成与编辑的快速版本。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.19</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.1 Pro</strong> </td>
+<td style="text-align:left;"> Gemini 3 系列主力模型升级，继续增强复杂推理、Agent 工作流、可视化与前端生成能力。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.17</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Sonnet 4.6</strong> </td>
+<td style="text-align:left;"> Sonnet 系列大升级，提供 1M 上下文 Beta，增强代码、电脑操作、长上下文推理、Agent 规划和知识工作能力。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.12</strong> </td>
+<td style="text-align:left;"> <strong>字节 Seedance 2.0</strong> </td>
+<td style="text-align:left;"> 新一代视频创作模型，统一音视频生成，支持文本、图片、音频和视频等多模态输入。视频模型的竞争进一步进入“音画一体”阶段。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.05</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-5.3-Codex</strong> </td>
+<td style="text-align:left;"> Codex 从“辅助写代码”继续走向“电脑上的通用工作 Agent”，增强长任务、终端、调试、部署和研究工具链能力。 </td>
+</tr>
+</tbody>
+</table>
+
+
+<h2>半年观察</h2>
+
+<h3>1. 编程模型与通用模型正在合流</h3>
+
+<p>GPT-5.3-Codex 到 GPT-5.4 的演进很有代表性：编程、终端操作、工具调用和 Computer Use 不再只是专用模型的附加能力，而是逐渐并入通用主线模型。模型的衡量标准，也从回答一道题转向能否在真实环境中持续完成一项工作。</p>
+
+<h3>2. Agent 的竞争焦点转向工作流</h3>
+
+<p>Claude Code Dynamic Workflows、Gemini Spark，以及各家模型不断增强的浏览器和终端能力，共同说明 Agent 已经进入工程化阶段。上下文长度和单次推理成绩仍然重要，但任务拆解、工具协作、长时间运行、结果校验和失败恢复，正在成为决定实际体验的关键。</p>
+
+<h3>3. 多模态开始接管专业生产链路</h3>
+
+<p>Nano Banana 2、GPT-Image-Gen-2 和 Seedance 2.0 分别推动图片编辑、视觉表达与音视频联合生成。与此同时，Claude 通过连接 Adobe、Blender、Fusion 和 Ableton 等工具进入专业创作环境。多模态模型不再只负责“生成一个作品”，而是开始参与素材理解、编辑和交付的完整流程。</p>
+
+<h3>4. 模型分层更加清晰</h3>
+
+<p>2026 年上半年，各家都在同时经营旗舰模型、高性价比模型和受控专业模型。Pro、Sonnet、Flash、Lite、Fable、Mythos 等不同定位背后，是同一个趋势：企业不再只选“最强模型”，而是根据任务难度、延迟、成本和安全边界动态选择模型。</p>
+
+<h2>小结</h2>
+
+<p>如果说 2025 年的关键词是推理模型、多模态和 Agent 的集中爆发，那么 2026 年上半年更像是这些能力的汇合：模型正在成为一个能读懂环境、调用工具、组织任务并交付结果的工作系统。</p>
+
+<p>下半年的竞争重点，也会从“谁又刷新了榜单”，进一步转向“谁能用更低成本、更稳定地完成真实任务”。</p>
 ]]></content>
   </entry>
   
@@ -3824,100 +3960,6 @@ Agent 已经从“能不能做”进入“能不能稳定做、持续做、规�
 
 
 <p>原文链接：<a href="https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html">https://www.allthingsdistributed.com/2007/07/the_different_cto_roles.html</a></p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[如何使用AI生成长视频？]]></title>
-    <link href="https://www.rowkey.cn/blog/2024/03/27/ai-video/"/>
-    <updated>2024-03-27T19:29:34+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2024/03/27/ai-video</id>
-    <content type="html"><![CDATA[<p>今年最火的AI技术应该是OpenAI在春节期间发布的Sora了。相比起其他视频生成产品就3、4秒的时长，Sora是碾压式的存在。但Sora没有对外开放，所以要生成长视频，暂时也没有其他完整的好的方案。综合各种资料来看，目前最可行的方案应该就是：写剧本/分镜——>生图——>生视频->视频拼接，本质上就是通过多个短时长的视频组成一个完整的长视频。下面就详细讲述一下。</p>
-
-<!-- more -->
-
-
-<p>详细的步骤：</p>
-
-<ol>
-<li>脚本确认：拆分镜头，初步确定生成内容。这一步就是需要针对要生成的内容撰写剧本，并拆分成数个镜头。</li>
-<li>单帧图片
-
-<ul>
-<li>使用Midjourney（V6的语义理解能力有明显提升），DALL-E 3（语义理解能力较好）进行文/图生图</li>
-<li>审查已生成图片中的细节问题，调整、更换合适的主题内容，并重新生成符合要求的图片</li>
-<li>使用PS处理图片中的不合理细节，添加未被AI生成的元素</li>
-<li>使用Stable Diffusion图生图进行图片放大和细节优化</li>
-<li>使用PS进行图片的最后优化</li>
-<li>人物不一致可以使用换脸进行统一</li>
-</ul>
-</li>
-<li>图生视频
-
-<ul>
-<li>使用RunWay/Pika/SVD/Animatediff实现图片生成短视频，可以综合利用各个视频服务的优点，如RunWay的运动笔刷、Pika的面部表情等，其中Pika还可以对局部视频进行重绘。</li>
-</ul>
-</li>
-<li>视频合成
-
-<ul>
-<li>使用剪映/iMove进行短视频片段合成与特效转场处理</li>
-<li>添加配音和配乐，根据卡点节奏进行视频剪辑与重新生成内容替换(如需要声音)</li>
-</ul>
-</li>
-</ol>
-
-
-<p>每一步使用的软件以及关键点如下：</p>
-
-<ol>
-<li><p>场景描述需要分镜，这里用GPT4来做场景拆解，场景的描述提示词模版如下：</p>
-
-<pre><code class="`"> 需要将一段场景的描述改写成一个时长30秒的分镜脚本，再根据每个分镜脚本的文字描述生成单张图片，之后通过图片生成视频，最后将视频进行拼接成最终的成品视频。
-
- 场景描述如下：
-
- xxx
-
- 分镜脚本结构如下：
- ‒ 序号：递增数字 
- ‒ 景别：远景/全景/中景/近景/特写 
- ‒ 风格：真实影像风格/日本动漫风格/水墨画风格等（在Dalle3里无法直接写作者的名字，比如新海诚，但Midjourney是可以的。） 
- ‒ 角色：具体到是什么样的角色，有什么特殊的颜色、道具、服饰等等。 
- ‒ 环境：森林、家、海边等等 
- ‒ 镜头移动：描述每个分镜中镜头的动作或变化 
- ‒ 比例：16:9/2.35:1等等
-
- 分镜要求如下：
- 1. 每个分镜时长4s
- 2. xxx
- 3. 内容和风格需要xxx
-
- 每一个分镜后续会通过Midjourney进行图片生成。现在请给出每一个分镜脚本以及对应的Midjourney提示词，以Markdown Table的方式输出。
-</code></pre></li>
-<li><p>图像需要保持一致性，包括人物和周围场景</p>
-
-<ul>
-<li>DALL-E 3：一致性可以通过GenID</li>
-<li>Midjourney V6: 最新版有了ref，一致性功能</li>
-</ul>
-</li>
-<li><p>图生视频这一步，需要结合多种视频软件一起使用。每个软件的特点如下：</p>
-
-<ul>
-<li><a href="https://pixverse.ai/">Pixverse</a>: 免费无限生成，有一致性角色功能(效果一般)，可用于无限生成视频后择优选取</li>
-<li><a href="https://app.runwayml.com/">Runway</a>: 每次生成消耗5积分，做角色动作和部分运动镜头会好一点</li>
-<li><a href="https://pika.art/">Pika</a>: 每次生消耗10积分，做角色动作和面部表情</li>
-<li><a href="https://www.stablevideo.com">Stable Video</a>: 每次生成消耗10积分，适合生成风景视频</li>
-</ul>
-
-
-<p> 换脸的话，可以使用roop或者facefusion，这里有其colab版本：<a href="https://github.com/dream80/roop_colab">https://github.com/dream80/roop_colab</a>。</p></li>
-<li><p>视频拼接，可以使用剪映或者苹果电脑上的iMovie。</p></li>
-</ol>
-
-
-<p>通过以上方案，基本可以实现长视频的生成，但目前AI生成视频的崩坏率极高，可控性差，所以需要生成很多视频，从中选取最符合预期的。</p>
 ]]></content>
   </entry>
   

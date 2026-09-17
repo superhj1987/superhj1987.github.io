@@ -14,7 +14,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.7/es5-sham.min.js"></script>
     <![endif]-->
   
-  <meta name="description" content="OpenClaw 架构剖析 上一篇聊了「OpenClaw 是什么」。这一篇更偏工程视角：OpenClaw 到底怎么实现一个可长期运行的 Agent 系统？消息是怎么进来的？怎么路由到 Agent？工具调用与定时任务如何编排？ 如果你做过 Agent 落地，会很熟悉这些关键词：channel、 &hellip;">
+  <meta name="description" content="OpenClaw多Agent方案 很多团队把 Agent 做到第二阶段都会遇到同一个问题： 单个 Agent 已经不够用，要拆“角色分工”。
+一台机器放不下所有任务，要跨多台主机部署。
+代理之间需要通信协作，但又不能互相污染上下文。 这篇文章基于 OpenClaw 官方文档，系统讲清四件事： &hellip;">
   
 
   <meta name="HandheldFriendly" content="True">
@@ -122,6 +124,57 @@
 			  <div class="col-8" id="main">
     <div class="res-cons">
     
+    
+    
+      <article class="post">
+        
+  <header>
+    
+      <h2 class="post-title"><a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw多Agent方案</a></h2>
+    
+    
+      <p class="post-meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2026-03-12T01:50:00+08:00" pubdate data-updated="true"></time>
+        
+        
+      </p>
+    
+  </header>
+
+
+  <div class="post-content"><p>很多团队把 Agent 做到第二阶段都会遇到同一个问题：</p>
+
+<ul>
+<li><p>单个 Agent 已经不够用，要拆“角色分工”。</p></li>
+<li><p>一台机器放不下所有任务，要跨多台主机部署。</p></li>
+<li><p>代理之间需要通信协作，但又不能互相污染上下文。</p></li>
+</ul>
+
+
+<p>这篇文章基于 OpenClaw 官方文档，系统讲清四件事：<strong>单机多 Agent 怎么搭</strong>、<strong>单主机多 OpenClaw 实例何时可用</strong>、<strong>多 OpenClaw 主机怎么协作</strong>、<strong>代理间如何通信才稳定可控</strong>。</p>
+
+</div>
+  
+  
+    <footer>
+      <a rel="full-article" href="/blog/2026/03/12/openclaw-multi-agent-architecture/">继续阅读 &rarr;</a>
+    </footer>
+  
+
+
+      </article>
     
     
       <article class="post">
@@ -508,48 +561,6 @@
 
       </article>
     
-    
-      <article class="post">
-        
-  <header>
-    
-      <h2 class="post-title"><a href="/blog/2024/03/27/ai-video/">如何使用AI生成长视频？</a></h2>
-    
-    
-      <p class="post-meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2024-03-27T19:29:34+08:00" pubdate data-updated="true"></time>
-        
-        
-      </p>
-    
-  </header>
-
-
-  <div class="post-content"><p>今年最火的AI技术应该是OpenAI在春节期间发布的Sora了。相比起其他视频生成产品就3、4秒的时长，Sora是碾压式的存在。但Sora没有对外开放，所以要生成长视频，暂时也没有其他完整的好的方案。综合各种资料来看，目前最可行的方案应该就是：写剧本/分镜——>生图——>生视频->视频拼接，本质上就是通过多个短时长的视频组成一个完整的长视频。下面就详细讲述一下。</p>
-
-</div>
-  
-  
-    <footer>
-      <a rel="full-article" href="/blog/2024/03/27/ai-video/">继续阅读 &rarr;</a>
-    </footer>
-  
-
-
-      </article>
-    
       <div class="page-navigator">
         
         <a href="/" class="prev">←上一页</a>
@@ -639,6 +650,10 @@
       	</li>
     	
      	<li>
+      	  <a href="/blog/2026/07/05/ai-2026-h1/">AI大事记@2026H1</a>
+      	</li>
+    	
+     	<li>
       	  <a href="/blog/2026/05/17/tech-leader-ai-era-cognitive-framework/">从管人到管系统行为：AI时代技术管理者的全新认知框架</a>
       	</li>
     	
@@ -656,10 +671,6 @@
     	
      	<li>
       	  <a href="/blog/2026/03/18/agent-governance-for-backend-teams/">Agent 落地不靠更强模型：后端团队先补这 4 个治理动作</a>
-      	</li>
-    	
-     	<li>
-      	  <a href="/blog/2026/03/12/openclaw-multi-agent-architecture/">OpenClaw多Agent方案</a>
       	</li>
     	
 	</ul>

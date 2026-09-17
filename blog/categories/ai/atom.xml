@@ -4,7 +4,7 @@
   <title><![CDATA[Category: ai | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/ai/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-09-17T13:56:03+00:00</updated>
+  <updated>2026-09-17T14:32:13+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -1395,61 +1395,138 @@ return results.map(item =&gt; extractWhatMatters(item))
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[从管人到管系统行为：AI时代技术管理者的全新认知框架]]></title>
-    <link href="https://www.rowkey.cn/blog/2026/05/17/tech-leader-ai-era-cognitive-framework/"/>
-    <updated>2026-05-17T11:44:00+08:00</updated>
-    <id>https://www.rowkey.cn/blog/2026/05/17/tech-leader-ai-era-cognitive-framework</id>
-    <content type="html"><![CDATA[<p>最近大量使用 AI 进行开发，我逐渐意识到一个趋势：随着 AI 编程的普及，被颠覆的不仅仅是一线工程师的工作方式，对 CTO、技术总监、技术 Leader 这些技术管理者的要求，正在发生截然不同的改变。</p>
+    <title type="html"><![CDATA[AI大事记@2026H1]]></title>
+    <link href="https://www.rowkey.cn/blog/2026/07/05/ai-2026-h1/"/>
+    <updated>2026-07-05T10:00:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2026/07/05/ai-2026-h1</id>
+    <content type="html"><![CDATA[<p>2026 年上半年，AI 的演进明显从“单点能力竞赛”转向“完整工作能力竞赛”：模型开始统一推理、编程、多模态和工具调用，Agent 从演示走进真实工作流，图像与视频生成也在加速进入生产链路。</p>
 
-<p>过去，技术管理的核心在于“人”与“确定性”；而现在，当 AI 开始接管代码生成，系统正在变得“非确定性”。如何理解和控制这种非确定性，将成为下一代技术管理者的核心壁垒。</p>
+<p>概括总结一下 2026 年上半年的关键 AI 事件。</p>
 
 <!-- more -->
 
 
-<h2>传统的确定性时代：管组织与做平衡</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;"> 时间 </th>
+<th style="text-align:left;"> 事项 </th>
+<th style="text-align:left;"> 备注 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;"> <strong>2026.06.30</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Sonnet 5</strong> </td>
+<td style="text-align:left;"> 面向日常 Agent 的主力模型升级，增强规划、浏览器与终端工具调用、编程和知识工作能力。官方定位接近 Opus 4.8，但价格更低，并成为 Free、Pro 用户的默认模型。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.06.30</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Science（Beta）</strong> </td>
+<td style="text-align:left;"> 推出面向科研场景的 AI 工作台，整合文献、代码、科学工具和计算资源，图表与结果可追溯到生成代码及运行环境。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.06.09</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Fable 5 / Mythos 5</strong> </td>
+<td style="text-align:left;"> 新增 Mythos 级模型：Fable 面向一般使用并强化安全防护，Mythos 面向可信网络防御计划。软件工程、知识工作、视觉理解与科研能力继续增强。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.05.28</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Opus 4.8</strong><br><strong>Claude Code Dynamic Workflows</strong> </td>
+<td style="text-align:left;"> Opus 继续提升编程、工具调用与协作可靠性；Claude Code 同时推出 Dynamic Workflows 研究预览，可组织大量并行子 Agent 处理复杂任务。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.05.19</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.5 Flash</strong><br><strong>Gemini Spark</strong> </td>
+<td style="text-align:left;"> Google I/O 发布新一代 Agent 主力模型，强化长程编程、工具协作和多模态理解。Gemini Spark 则展示了全天候个人 Agent 的产品方向。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.28</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude for Creative Work</strong> </td>
+<td style="text-align:left;"> 新增 Adobe、Blender、Autodesk Fusion、SketchUp、Ableton 等创意工具连接器，让 Claude 直接参与设计、3D、音视频与批量制作流程。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.24</strong> </td>
+<td style="text-align:left;"> <strong>DeepSeek V4 预览版</strong> </td>
+<td style="text-align:left;"> 发布 V4-Pro 与 V4-Flash 两条产品线，主打 1M 上下文、开源与低成本，继续冲击闭源模型的价格体系。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.23</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-5.5</strong> </td>
+<td style="text-align:left;"> 主打真实工作场景，覆盖代码、联网研究、数据分析、文档与表格制作，以及跨软件执行；次日补充开放 API。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.21</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI ChatGPT Images 2.0</strong><br><strong>GPT-Image-Gen-2</strong> </td>
+<td style="text-align:left;"> 新一代图像生成模型重点增强多语言文字渲染、版式、漫画、海报、信息图、真实感与复杂视觉表达。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.04.16</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Opus 4.7</strong> </td>
+<td style="text-align:left;"> 强化复杂代码、长任务、视觉理解，以及文档、幻灯片和界面生成能力，同时引入更严格的网络安全使用限制。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.03.05</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-5.4</strong> </td>
+<td style="text-align:left;"> 将 GPT-5.3-Codex 的编程与电脑操作能力并入主线模型，支持 1M 上下文，明显增强办公文档、表格、演示、工具调用与 Computer Use。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.03.03</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.1 Flash-Lite</strong> </td>
+<td style="text-align:left;"> 面向大规模调用的低成本模型，重点优化高吞吐、低价格和实用智能。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.26</strong> </td>
+<td style="text-align:left;"> <strong>Google Nano Banana 2</strong><br><em>(aka Gemini 3.1 Flash Image)</em> </td>
+<td style="text-align:left;"> 将 Nano Banana Pro 的图像质量、世界知识和编辑能力下放到 Flash 速度，定位为高质量图片生成与编辑的快速版本。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.19</strong> </td>
+<td style="text-align:left;"> <strong>Google Gemini 3.1 Pro</strong> </td>
+<td style="text-align:left;"> Gemini 3 系列主力模型升级，继续增强复杂推理、Agent 工作流、可视化与前端生成能力。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.17</strong> </td>
+<td style="text-align:left;"> <strong>Anthropic Claude Sonnet 4.6</strong> </td>
+<td style="text-align:left;"> Sonnet 系列大升级，提供 1M 上下文 Beta，增强代码、电脑操作、长上下文推理、Agent 规划和知识工作能力。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.12</strong> </td>
+<td style="text-align:left;"> <strong>字节 Seedance 2.0</strong> </td>
+<td style="text-align:left;"> 新一代视频创作模型，统一音视频生成，支持文本、图片、音频和视频等多模态输入。视频模型的竞争进一步进入“音画一体”阶段。 </td>
+</tr>
+<tr>
+<td style="text-align:left;"> <strong>2026.02.05</strong> </td>
+<td style="text-align:left;"> <strong>OpenAI GPT-5.3-Codex</strong> </td>
+<td style="text-align:left;"> Codex 从“辅助写代码”继续走向“电脑上的通用工作 Agent”，增强长任务、终端、调试、部署和研究工具链能力。 </td>
+</tr>
+</tbody>
+</table>
 
-<p>在传统的软件工程时代，代码由工程师一行行敲出来，系统严格按照设定的逻辑执行。</p>
 
-<p>这种模式下，系统是高度确定性的：输入相同，输出必然相同。如果出了 Bug，顺着调用栈一层层 Debug，总能找到引发异常的那行代码。因此，技术管理者不需要每天盯着系统的细枝末节，核心精力主要放在以下三件事：</p>
+<h2>半年观察</h2>
 
-<ul>
-<li><strong>管理复杂组织</strong>：搭建梯队、拆分团队、把控研发效能。</li>
-<li><strong>决策技术路线</strong>：选型、架构演进、技术债务管理。</li>
-<li><strong>平衡业务与工程</strong>：在有限的资源下，平衡需求交付进度与系统长期健康度。</li>
-</ul>
+<h3>1. 编程模型与通用模型正在合流</h3>
 
+<p>GPT-5.3-Codex 到 GPT-5.4 的演进很有代表性：编程、终端操作、工具调用和 Computer Use 不再只是专用模型的附加能力，而是逐渐并入通用主线模型。模型的衡量标准，也从回答一道题转向能否在真实环境中持续完成一项工作。</p>
 
-<h2>AI 编程时代：非确定性带来的失控感</h2>
+<h3>2. Agent 的竞争焦点转向工作流</h3>
 
-<p>当研发流程全面接入 AI，情况变了。</p>
+<p>Claude Code Dynamic Workflows、Gemini Spark，以及各家模型不断增强的浏览器和终端能力，共同说明 Agent 已经进入工程化阶段。上下文长度和单次推理成绩仍然重要，但任务拆解、工具协作、长时间运行、结果校验和失败恢复，正在成为决定实际体验的关键。</p>
 
-<p>现在是工程师设计约束，AI 负责生成代码。这种模式打破了传统的确定性——同样的输入，AI 每次给出的实现细节可能完全不同。这带来了一系列连锁反应：</p>
+<h3>3. 多模态开始接管专业生产链路</h3>
 
-<ul>
-<li><strong>调试极其复杂</strong>：代码不再是人类思维的直接映射，遇到 Bug 时，由于存在机器生成的不可解释性，排查链路变长。</li>
-<li><strong>系统难以理解</strong>：大量 AI 生成的代码交织在一起，如果不加以严格规范，系统会变成一个连创造者都看不透的黑盒。</li>
-<li><strong>风险更难控制</strong>：非确定性的代码直接进入工程环节，边界变得模糊，安全和可用性风险急剧上升。</li>
-</ul>
+<p>Nano Banana 2、GPT-Image-Gen-2 和 Seedance 2.0 分别推动图片编辑、视觉表达与音视频联合生成。与此同时，Claude 通过连接 Adobe、Blender、Fusion 和 Ableton 等工具进入专业创作环境。多模态模型不再只负责“生成一个作品”，而是开始参与素材理解、编辑和交付的完整流程。</p>
 
+<h3>4. 模型分层更加清晰</h3>
 
-<h2>技术管理者的新定位</h2>
+<p>2026 年上半年，各家都在同时经营旗舰模型、高性价比模型和受控专业模型。Pro、Sonnet、Flash、Lite、Fable、Mythos 等不同定位背后，是同一个趋势：企业不再只选“最强模型”，而是根据任务难度、延迟、成本和安全边界动态选择模型。</p>
 
-<p>在这样的背景下，技术管理者的核心工作，正在从单纯的“管人”向“管系统行为”演进。未来的首要任务，是解决<strong>“如何完全理解系统为什么这么运行”</strong>的问题。</p>
+<h2>小结</h2>
 
-<p>技术管理者的新角色正在转变为：</p>
+<p>如果说 2025 年的关键词是推理模型、多模态和 Agent 的集中爆发，那么 2026 年上半年更像是这些能力的汇合：模型正在成为一个能读懂环境、调用工具、组织任务并交付结果的工作系统。</p>
 
-<ul>
-<li><strong>系统约束设计者</strong>：从设计架构，转变为设计“AI 生成与运行的约束条件”。通过制定严格的上下文准入边界、静态检查校验规则以及自动化测试拦截网，让 AI 在可控轨道内工作。</li>
-<li><strong>AI 能力整合者</strong>：准确判断系统的哪些模块该用传统逻辑保底，哪些模块可以放权给 AI 生成。将大模型能力无缝、安全地整合进既有的工程开发链路中。</li>
-<li><strong>风险控制负责人</strong>：面对非确定性输出，必须建立一套全新的兜底与熔断机制。从架构设计上控制 AI 产生错误代码或不可控行为的爆炸半径。</li>
-</ul>
-
-
-<h2>结语：建立全新的认知框架</h2>
-
-<p>本质上，AI 时代的研发管理，需要建立一套全新的认知框架。</p>
-
-<p>从管理“人类开发者的产能”，升级为管理“人机协同系统的行为边界”。对现有的技术管理者来说，这不仅是脱离舒适区的巨大挑战，更是抓住下一次技术代差、重塑团队战斗力的绝佳机会。</p>
+<p>下半年的竞争重点，也会从“谁又刷新了榜单”，进一步转向“谁能用更低成本、更稳定地完成真实任务”。</p>
 ]]></content>
   </entry>
   
