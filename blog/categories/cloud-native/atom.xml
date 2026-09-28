@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cloud-native | 后端技术杂谈]]></title>
+  <link href="https://www.rowkey.cn/blog/categories/cloud-native/atom.xml" rel="self"/>
+  <link href="https://www.rowkey.cn/"/>
+  <updated>2026-09-28T12:18:03+00:00</updated>
+  <id>https://www.rowkey.cn/</id>
+  <author>
+    <name><![CDATA[HJ]]></name>
+    <email><![CDATA[superhj1987@126.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[容器与云计算（四）：Kubernetes 的核心模型]]></title>
+    <link href="https://www.rowkey.cn/blog/2022/09/26/container-cloud-04/"/>
+    <updated>2022-09-26T20:00:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2022/09/26/container-cloud-04</id>
+    <content type="html"><![CDATA[<p>Docker 解决了单机上的打包和运行；当容器数量增加到多台机器时，还需要调度、服务发现、滚动升级和故障恢复。Kubernetes 的核心思想是：用户声明期望状态，控制器持续把实际状态调整到期望状态。</p>
+
+<!--more-->
+
+
+<h2>一、Pod 是调度的最小单位</h2>
+
+<p>Pod 包含一个或多个紧密协作的容器。Pod 内的容器共享网络命名空间，可以通过 <code>localhost</code> 通信，也可以共享卷。通常一个 Pod 只运行一个主应用，Sidecar 只有在确实需要共享生命周期或本地资源时才加入。</p>
+
+<p>Pod 是短暂的。它被删除或重新调度后，IP 和本地文件都可能变化，因此应用不能把 Pod 身份当成稳定地址或持久化存储。</p>
+
+<h2>二、Deployment 负责无状态应用</h2>
+
+<p>Deployment 描述一组相同的 Pod 副本，并通过 ReplicaSet 完成创建、替换和滚动更新。更新镜像时，控制器逐步创建新版本并减少旧版本，期间可以通过就绪探针决定哪些实例能够接收流量。</p>
+
+<p>副本数解决可用性和吞吐问题，但不等于高可用。应用还需要跨节点分布、合理的资源请求、优雅关闭和数据层的容错设计。</p>
+
+<h2>三、Service 提供稳定访问入口</h2>
+
+<p>Service 为一组符合标签选择器的 Pod 提供稳定的虚拟地址和端口。Pod 发生替换时，Service 仍然保持不变，后端端点由控制器自动更新。</p>
+
+<p>集群内部服务可以使用 ClusterIP；需要从集群外部访问时，可以使用 Gateway 或云厂商提供的负载均衡能力。Ingress 仍然常见，但新系统应根据 Kubernetes 版本和平台能力评估 Gateway API 等方案。</p>
+
+<h2>四、资源、探针和配置</h2>
+
+<p>容器应声明 CPU、内存等资源请求和上限。调度器根据请求选择节点，运行时根据上限限制资源。请求过低会导致节点过度装载，上限过高则会降低集群利用率。</p>
+
+<p>存活探针用于判断进程是否需要重启，就绪探针用于判断实例是否可以接收流量，启动探针用于保护启动较慢的应用。配置和敏感信息应分别使用 ConfigMap 和 Secret，并通过权限控制限制读取范围。</p>
+
+<h2>五、控制器思维</h2>
+
+<p>Kubernetes 中的对象是声明，控制器是实现闭环的程序。Deployment、Job、StatefulSet 和自定义 Operator 都遵循相同的思路：读取当前状态，比较期望状态，然后执行小步调整。</p>
+
+<p>这种模型带来自动恢复和可扩展性，也带来新的复杂度：状态是异步收敛的，删除和更新可能不是立即完成的，故障排查必须结合事件、日志、指标和对象状态，而不能只看一次命令输出。</p>
+
+<h2>六、生产落地的最低要求</h2>
+
+<p>生产集群至少需要明确镜像来源、RBAC 权限、网络策略、资源配额、备份恢复、升级策略和审计方式。对有状态服务，优先评估托管服务；确实运行在集群内时，要先验证故障转移、数据恢复和跨可用区能力。</p>
+
+<p>Kubernetes 是基础设施抽象层，不会替应用自动获得高可用。只有应用、数据、网络和发布流程都能处理失败，系统才真正具备云原生的弹性。</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="https://kubernetes.io/docs/concepts/">Kubernetes Concepts</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/pods/">Pods</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployments</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/services-networking/service/">Service</a></li>
+<li><a href="https://gateway-api.sigs.k8s.io/">Gateway API</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[容器与云计算（三）：用 Docker 建立可重复交付]]></title>
+    <link href="https://www.rowkey.cn/blog/2022/06/18/container-cloud-03/"/>
+    <updated>2022-06-18T20:00:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2022/06/18/container-cloud-03</id>
+    <content type="html"><![CDATA[<p>Docker 最重要的价值不是“启动一个容器”，而是把应用运行所需的文件、依赖和启动方式编码成可分发的制品。这样开发、测试和生产可以使用同一个构建结果。</p>
+
+<!--more-->
+
+
+<h2>一、镜像、容器和仓库</h2>
+
+<p>镜像是不可变的构建产物，容器是镜像在运行时的进程实例，仓库负责保存和分发镜像。一个镜像应该由明确的基础镜像、依赖版本和构建步骤生成，而不是在运行中的容器里手工修改。</p>
+
+<p>推荐使用多阶段构建：第一阶段编译代码，第二阶段只复制运行所需文件。这样可以减少镜像体积、缩小攻击面，也避免把编译器和源码带进生产环境。</p>
+
+<h2>二、一个可靠 Dockerfile 的原则</h2>
+
+<ul>
+<li>固定基础镜像的版本，重要环境同时记录摘要。</li>
+<li>按变化频率组织步骤，让稳定依赖能够复用构建缓存。</li>
+<li>使用 <code>.dockerignore</code> 排除构建产物、密钥和本地依赖。</li>
+<li>以非 root 用户运行应用。</li>
+<li>将配置和密钥通过环境变量、挂载文件或平台配置注入，不写进镜像。</li>
+<li>为进程提供明确的健康检查和优雅终止逻辑。</li>
+</ul>
+
+
+<p>镜像越小不一定越好；可调试性、补丁策略和运行时兼容性同样重要。对生产镜像而言，“可重建”比“曾经能运行”更重要。</p>
+
+<h2>三、数据和状态怎么处理</h2>
+
+<p>容器实例应该尽量无状态：实例可以随时销毁并由新实例替代。数据库、上传文件、消息队列和任务进度属于外部状态，需要使用卷、托管服务或专门的存储系统。</p>
+
+<p>这并不意味着应用不能缓存数据，而是要区分缓存和事实来源。缓存丢失时应用应能恢复；事实数据必须有独立的持久化和备份方案。</p>
+
+<h2>四、Compose 适合什么场景</h2>
+
+<p>Docker Compose 适合在本地或单机测试环境中描述多个服务、网络和卷。例如应用、数据库和消息队列可以用一个配置文件启动，团队成员得到一致的开发环境。</p>
+
+<p>Compose 解决的是多容器开发编排，不等于生产集群管理。生产环境需要考虑跨节点调度、故障恢复、滚动发布、权限和审计，这些通常由 Kubernetes 或云厂商托管平台负责。</p>
+
+<h2>五、从镜像到生产的流水线</h2>
+
+<p>一条可靠的路径通常是：提交代码后运行测试，使用 BuildKit/Buildx 构建并扫描镜像，推送带有不可变版本号的镜像，部署该版本，执行健康检查，观察指标后再逐步扩大流量。回滚时重新指向上一个已验证的镜像，而不是在服务器上临时修补。</p>
+
+<p>容器化解决了交付一致性，却没有自动解决容量规划、数据迁移、可观测性和安全治理。应用仍然需要超时、重试、限流、幂等和优雅关闭等工程设计。进入 Kubernetes 后，集群通常通过 CRI 对接 containerd 或 CRI-O 等运行时；Docker Engine 仍可用于构建镜像，但不应把 Docker CLI 等同于 Kubernetes 的运行时接口。</p>
+
+<p>下一篇会把这些容器放进 Kubernetes，解释 Pod、Deployment、Service 和控制器如何协作。</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="https://docs.docker.com/reference/dockerfile/">Dockerfile reference</a></li>
+<li><a href="https://docs.docker.com/compose/">Docker Compose documentation</a></li>
+<li><a href="https://docs.docker.com/build/checks/">Build checks</a></li>
+<li><a href="https://docs.docker.com/build/buildkit/">BuildKit</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[容器与云计算（二）：容器隔离的四个 Linux 基础]]></title>
+    <link href="https://www.rowkey.cn/blog/2021/11/22/container-cloud-02/"/>
+    <updated>2021-11-22T20:00:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2021/11/22/container-cloud-02</id>
+    <content type="html"><![CDATA[<p>容器看起来像一台独立的机器，实际上只是由 Linux 内核提供了隔离视图和资源控制的一组进程。理解 Namespace、cgroup、文件系统和网络，才能知道容器的边界在哪里。</p>
+
+<!--more-->
+
+
+<h2>一、Namespace：让进程看到不同的世界</h2>
+
+<p>Namespace 为进程提供隔离的系统视图。常见类型包括：</p>
+
+<ul>
+<li>PID Namespace：容器内的第一个进程可以看到自己是 PID 1。</li>
+<li>Mount Namespace：容器可以拥有自己的挂载点和根文件系统。</li>
+<li>Network Namespace：容器拥有独立的网卡、路由表和端口空间。</li>
+<li>UTS Namespace：可以设置独立的主机名与 NIS 域名（domain name）。</li>
+<li>IPC、User Namespace：分别隔离进程间通信对象和用户/组 ID。</li>
+</ul>
+
+
+<p>Namespace 解决的是“能看到什么”。它不是完整的安全边界：宿主机内核仍然被共享，特权配置、内核漏洞和错误的设备访问都可能扩大影响面。</p>
+
+<h2>二、cgroup：限制进程能用多少</h2>
+
+<p>cgroup 解决的是资源控制和统计。它可以限制或记录 CPU、内存、块设备 IO、进程数量等资源。容器内的进程即使看到一台机器，也只能在自己的资源配额内运行。现在主流 Linux 发行版通常优先使用 cgroup v2；排查资源问题时，应确认宿主机和运行时实际使用的层级，而不是只看容器命令行参数。</p>
+
+<p>资源限制必须配合应用行为理解。例如内存限制触发后，内核可能杀死容器中的进程；CPU 限制会让进程获得更少的调度时间。线上设置限制时，应同时设置合理的请求值、上限值和告警指标。</p>
+
+<h2>三、镜像与 UnionFS：把文件系统分层</h2>
+
+<p>容器镜像通常由多层只读文件组成，运行容器时再叠加一层可写层。多个镜像可以共享相同的基础层，因此分发和存储成本比复制完整虚拟机低。Docker 常见的 <code>overlay2</code> 和其他运行时 snapshotter 都是在实现这一类分层文件系统模型。</p>
+
+<p>镜像层是构建缓存和分发的基础，但可写层不适合保存重要业务数据。需要持久化的数据应该放到卷或外部存储，并明确备份、恢复和迁移策略。</p>
+
+<h2>四、容器网络：从虚拟网卡到服务端口</h2>
+
+<p>容器网络通常通过 Network Namespace、虚拟以太网设备、网桥和 NAT 组合实现。容器看到的是自己的网卡，宿主机通过网桥连接多个容器，再通过端口映射把服务暴露出去。</p>
+
+<p>端口映射只解决“如何到达”，不解决服务发现、负载均衡和访问控制。在多实例环境中，这些职责通常交给编排平台或独立的网络组件。</p>
+
+<h2>五、容器的真实边界</h2>
+
+<p>容器提供的是进程级隔离，不是魔法安全盒。生产环境至少要做到：使用非 root 用户、减少 Linux capabilities、只读根文件系统、限制资源和系统调用、及时更新宿主机内核与镜像，并扫描第三方依赖。</p>
+
+<p>理解这些机制后，Docker 的命令就不再是孤立的记忆题：<code>run</code> 创建隔离的进程环境，<code>--memory</code> 和 <code>--cpus</code> 设置资源约束，<code>-p</code> 配置端口映射，<code>-v</code> 连接持久化存储。</p>
+
+<p>下一篇会从镜像、容器、网络、卷和 Compose 说明如何把这些内核能力组织成可复现的开发与部署流程。</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="https://docs.docker.com/engine/security/">Docker security</a></li>
+<li><a href="https://man7.org/linux/man-pages/man7/namespaces.7.html">Linux namespaces</a></li>
+<li><a href="https://docs.kernel.org/admin-guide/cgroup-v2.html">Control Group v2</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[容器与云计算（一）：从物理机到云原生]]></title>
+    <link href="https://www.rowkey.cn/blog/2021/05/15/container-cloud-01/"/>
+    <updated>2021-05-15T20:00:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2021/05/15/container-cloud-01</id>
+    <content type="html"><![CDATA[<p>很多人把云计算理解成“把服务器放到别人的机房”，把容器理解成“更轻量的虚拟机”。这两个说法都抓住了一点表象，却没有解释它们为什么改变了软件交付方式。</p>
+
+<p>这组文章先从资源管理的演进开始，再讨论容器的隔离机制、Docker 的工程实践和 Kubernetes 的调度模型。重点不是记住一堆产品名，而是理解每一层解决了什么问题。</p>
+
+<!--more-->
+
+
+<h2>一、计算资源为什么需要抽象</h2>
+
+<p>一台物理服务器提供 CPU、内存、磁盘和网络。早期应用直接部署在服务器上，优点是路径短，缺点是资源利用率和交付效率都很差：一台机器上的应用会互相争抢资源，扩容需要采购和安装，迁移还要重新配置环境。</p>
+
+<p>因此基础设施逐步出现了三层抽象：</p>
+
+<ul>
+<li><strong>虚拟机</strong>：把一台物理机切分成多个相互隔离的完整计算机，每台虚拟机拥有自己的内核和用户空间。</li>
+<li><strong>容器</strong>：隔离进程、网络、文件系统和资源配额，但共享宿主机内核。</li>
+<li><strong>云服务</strong>：把计算、存储、网络和应用能力封装成可按需申请的服务，并用 API 自动化管理。</li>
+</ul>
+
+
+<p>抽象层越高，使用者越少关心底层设备；同时也越需要接受服务边界、故障模型和计费方式的约束。</p>
+
+<h2>二、云计算解决的核心问题</h2>
+
+<p>云计算的价值可以拆成四件事：</p>
+
+<ol>
+<li><strong>资源池化</strong>：把多个数据中心或集群的资源统一管理，按需分配。</li>
+<li><strong>弹性</strong>：业务高峰时增加实例，低峰时释放实例。</li>
+<li><strong>自动化</strong>：通过 API、声明式配置和控制器完成创建、升级、扩缩容和回收。</li>
+<li><strong>服务化</strong>：把基础设施能力包装成标准服务，使用者按使用量或订阅付费。</li>
+</ol>
+
+
+<p>常见的服务模型是：IaaS 提供虚拟机、网络和磁盘；PaaS 提供运行应用所需的平台；SaaS 直接提供可使用的软件。它们不是互斥的产品分类，而是责任边界：服务商负责的范围越大，用户管理的底层细节越少。</p>
+
+<h2>三、虚拟机和容器怎么选择</h2>
+
+<p>虚拟机的隔离边界更完整，适合运行不同操作系统、需要强隔离的租户环境，以及对内核有特殊要求的工作负载。容器启动更快、镜像更容易分发，适合微服务、批处理和持续交付。</p>
+
+<p>容器并没有消除虚拟机。公有云中常见的架构是“虚拟机承载容器”：虚拟机提供租户隔离，容器负责应用交付。选择时应该先看隔离、兼容性和运维责任，再比较启动速度和资源开销。</p>
+
+<h2>四、云原生不是某个产品</h2>
+
+<p>云原生更像一组工程习惯：应用可重复构建、配置与代码分离、实例尽量无状态、通过 API 管理、能够水平扩展，并且具备日志、指标和追踪能力。容器和 Kubernetes 是常见实现方式，但不是云原生的全部。</p>
+
+<p>例如，一个只把应用打进镜像、仍然依赖人工登录服务器修改配置的系统，仍然没有获得云原生的主要收益。真正的改进来自可重复交付、自动恢复和可观测性。</p>
+
+<h2>五、接下来怎样学习</h2>
+
+<p>建议按这条路径建立概念：先理解虚拟机与容器的边界，再学习 Docker 镜像、网络和存储，最后学习 Kubernetes 的 Pod、Deployment、Service 和控制器。每学习一个概念，都用“它管理什么状态、谁负责恢复、故障会如何传播”三个问题检验理解。</p>
+
+<p>下一篇会从 Linux 的 Namespace、cgroup 和 UnionFS 解释容器为什么能够工作。</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="https://docs.docker.com/get-started/docker-overview/">Docker overview</a></li>
+<li><a href="https://kubernetes.io/docs/concepts/">Kubernetes concepts</a></li>
+<li><a href="https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-145.pdf">NIST SP 800-145: The NIST Definition of Cloud Computing</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

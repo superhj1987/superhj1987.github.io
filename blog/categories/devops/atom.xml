@@ -4,7 +4,7 @@
   <title><![CDATA[Category: devops | 后端技术杂谈]]></title>
   <link href="https://www.rowkey.cn/blog/categories/devops/atom.xml" rel="self"/>
   <link href="https://www.rowkey.cn/"/>
-  <updated>2026-09-17T14:32:13+00:00</updated>
+  <updated>2026-09-28T12:18:03+00:00</updated>
   <id>https://www.rowkey.cn/</id>
   <author>
     <name><![CDATA[HJ]]></name>
@@ -12,6 +12,68 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[容器与云计算（三）：用 Docker 建立可重复交付]]></title>
+    <link href="https://www.rowkey.cn/blog/2022/06/18/container-cloud-03/"/>
+    <updated>2022-06-18T20:00:00+08:00</updated>
+    <id>https://www.rowkey.cn/blog/2022/06/18/container-cloud-03</id>
+    <content type="html"><![CDATA[<p>Docker 最重要的价值不是“启动一个容器”，而是把应用运行所需的文件、依赖和启动方式编码成可分发的制品。这样开发、测试和生产可以使用同一个构建结果。</p>
+
+<!--more-->
+
+
+<h2>一、镜像、容器和仓库</h2>
+
+<p>镜像是不可变的构建产物，容器是镜像在运行时的进程实例，仓库负责保存和分发镜像。一个镜像应该由明确的基础镜像、依赖版本和构建步骤生成，而不是在运行中的容器里手工修改。</p>
+
+<p>推荐使用多阶段构建：第一阶段编译代码，第二阶段只复制运行所需文件。这样可以减少镜像体积、缩小攻击面，也避免把编译器和源码带进生产环境。</p>
+
+<h2>二、一个可靠 Dockerfile 的原则</h2>
+
+<ul>
+<li>固定基础镜像的版本，重要环境同时记录摘要。</li>
+<li>按变化频率组织步骤，让稳定依赖能够复用构建缓存。</li>
+<li>使用 <code>.dockerignore</code> 排除构建产物、密钥和本地依赖。</li>
+<li>以非 root 用户运行应用。</li>
+<li>将配置和密钥通过环境变量、挂载文件或平台配置注入，不写进镜像。</li>
+<li>为进程提供明确的健康检查和优雅终止逻辑。</li>
+</ul>
+
+
+<p>镜像越小不一定越好；可调试性、补丁策略和运行时兼容性同样重要。对生产镜像而言，“可重建”比“曾经能运行”更重要。</p>
+
+<h2>三、数据和状态怎么处理</h2>
+
+<p>容器实例应该尽量无状态：实例可以随时销毁并由新实例替代。数据库、上传文件、消息队列和任务进度属于外部状态，需要使用卷、托管服务或专门的存储系统。</p>
+
+<p>这并不意味着应用不能缓存数据，而是要区分缓存和事实来源。缓存丢失时应用应能恢复；事实数据必须有独立的持久化和备份方案。</p>
+
+<h2>四、Compose 适合什么场景</h2>
+
+<p>Docker Compose 适合在本地或单机测试环境中描述多个服务、网络和卷。例如应用、数据库和消息队列可以用一个配置文件启动，团队成员得到一致的开发环境。</p>
+
+<p>Compose 解决的是多容器开发编排，不等于生产集群管理。生产环境需要考虑跨节点调度、故障恢复、滚动发布、权限和审计，这些通常由 Kubernetes 或云厂商托管平台负责。</p>
+
+<h2>五、从镜像到生产的流水线</h2>
+
+<p>一条可靠的路径通常是：提交代码后运行测试，使用 BuildKit/Buildx 构建并扫描镜像，推送带有不可变版本号的镜像，部署该版本，执行健康检查，观察指标后再逐步扩大流量。回滚时重新指向上一个已验证的镜像，而不是在服务器上临时修补。</p>
+
+<p>容器化解决了交付一致性，却没有自动解决容量规划、数据迁移、可观测性和安全治理。应用仍然需要超时、重试、限流、幂等和优雅关闭等工程设计。进入 Kubernetes 后，集群通常通过 CRI 对接 containerd 或 CRI-O 等运行时；Docker Engine 仍可用于构建镜像，但不应把 Docker CLI 等同于 Kubernetes 的运行时接口。</p>
+
+<p>下一篇会把这些容器放进 Kubernetes，解释 Pod、Deployment、Service 和控制器如何协作。</p>
+
+<p>参考资料：</p>
+
+<ul>
+<li><a href="https://docs.docker.com/reference/dockerfile/">Dockerfile reference</a></li>
+<li><a href="https://docs.docker.com/compose/">Docker Compose documentation</a></li>
+<li><a href="https://docs.docker.com/build/checks/">Build checks</a></li>
+<li><a href="https://docs.docker.com/build/buildkit/">BuildKit</a></li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[关于terracotta在tomcat集群中做session共享的问题]]></title>
