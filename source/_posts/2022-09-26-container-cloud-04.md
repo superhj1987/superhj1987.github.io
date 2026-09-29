@@ -6,50 +6,257 @@ comments: true
 categories: cloud-native kubernetes
 ---
 
-Docker 解决了单机上的打包和运行；当容器数量增加到多台机器时，还需要调度、服务发现、滚动升级和故障恢复。Kubernetes 的核心思想是：用户声明期望状态，控制器持续把实际状态调整到期望状态。
+> 内容更新于 2026-09-29。保留原发布日期，正文与示例已按更新时的官方文档修订。
+
+把应用打成镜像以后，单机运行通常已经不难。真正的复杂度出现在多台机器和多个团队之间：新实例应该放在哪里？节点损坏后谁来补齐副本？发布期间怎样保留可用容量？客户端如何找到不断变化的实例？
+
+Kubernetes 用声明式 API 和控制器管理这些变化。用户提交期望状态，系统持续观察实际状态，再通过一系列操作缩小两者之间的差距。理解这套机制，比先记住大量 YAML 字段更重要。
 
 <!--more-->
 
-## 一、Pod 是调度的最小单位
+## 一、从一次部署请求理解集群分工
 
-Pod 包含一个或多个紧密协作的容器。Pod 内的容器共享网络命名空间，可以通过 `localhost` 通信，也可以共享卷。通常一个 Pod 只运行一个主应用，Sidecar 只有在确实需要共享生命周期或本地资源时才加入。
+假设我们希望订单服务运行 3 个副本。向 API Server 提交 Deployment 后，并不是 API Server 自己启动了 3 个容器，而是多个组件协作完成：
 
-Pod 是短暂的。它被删除或重新调度后，IP 和本地文件都可能变化，因此应用不能把 Pod 身份当成稳定地址或持久化存储。
+1. API Server 处理身份认证、授权、准入和资源请求，并把集群状态持久化到 etcd。
+2. Deployment 控制器管理 ReplicaSet，ReplicaSet 控制器创建所需的 Pod 对象。
+3. Scheduler 为尚未绑定节点的 Pod 选择符合条件的节点。
+4. 节点上的 kubelet 观察分配给自己的 Pod，通过 CRI 调用容器运行时。
+5. 运行时配合网络、存储等组件准备环境并启动容器，kubelet 持续报告状态。
+6. Service 相关控制机制维护后端端点，网络数据面按规则转发流量。
 
-## 二、Deployment 负责无状态应用
+这是一条异步链路。`kubectl apply` 成功说明资源请求被接受，并不说明镜像已经拉取、应用已经启动或流量已经打通。
 
-Deployment 描述一组相同的 Pod 副本，并通过 ReplicaSet 完成创建、替换和滚动更新。更新镜像时，控制器逐步创建新版本并减少旧版本，期间可以通过就绪探针决定哪些实例能够接收流量。
+etcd 保存的是 Kubernetes 对象等控制面状态，不是业务数据库内容。恢复集群元数据与恢复订单数据属于两套不同的备份恢复工作。
 
-副本数解决可用性和吞吐问题，但不等于高可用。应用还需要跨节点分布、合理的资源请求、优雅关闭和数据层的容错设计。
+## 二、Pod 是一组共享生命周期的进程
 
-## 三、Service 提供稳定访问入口
+Pod 是调度的基本单位，包含一个或多个容器。这些容器共享网络空间，能够通过 `localhost` 通信，也可以显式挂载同一个卷；但它们不会因为属于同一 Pod 就自动共享各自的根文件系统。
 
-Service 为一组符合标签选择器的 Pod 提供稳定的虚拟地址和端口。Pod 发生替换时，Service 仍然保持不变，后端端点由控制器自动更新。
+常见情况下，一个 Pod 承载一个主应用。确实需要贴近主应用、共享网络或本地文件的辅助进程，可以作为 Sidecar，例如本地代理或配置同步组件。不能仅因为两个业务服务会互相调用，就把它们塞进同一个 Pod，否则扩缩容和发布也会被绑定。
 
-集群内部服务可以使用 ClusterIP；需要从集群外部访问时，可以使用 Gateway 或云厂商提供的负载均衡能力。Ingress 仍然常见，但新系统应根据 Kubernetes 版本和平台能力评估 Gateway API 等方案。
+### 2.1 重启容器和替换 Pod 的区别
 
-## 四、资源、探针和配置
+应用进程退出后，kubelet 可以根据策略在同一 Pod 内重启容器。节点失效或 Pod 被删除时，控制器则可能创建一个新的 Pod。新 Pod 有新的身份，并不等于把原 Pod 原封不动迁移到了另一台机器。
 
-容器应声明 CPU、内存等资源请求和上限。调度器根据请求选择节点，运行时根据上限限制资源。请求过低会导致节点过度装载，上限过高则会降低集群利用率。
+这一区别会影响数据。容器可写层不能作为可靠存储；`emptyDir` 可以供同一 Pod 内的容器使用，并跨越容器重启，但 Pod 删除后数据也随之失去。需要跨 Pod 生命周期保存的数据，应通过持久卷或外部服务管理。
 
-存活探针用于判断进程是否需要重启，就绪探针用于判断实例是否可以接收流量，启动探针用于保护启动较慢的应用。配置和敏感信息应分别使用 ConfigMap 和 Secret，并通过权限控制限制读取范围。
+因此应用不能依赖某个 Pod IP 永远不变，也不能用本地磁盘上的任务标记保证跨实例一致性。临时计算结果可以重建，业务事实则要有稳定的持久化来源。
 
-## 五、控制器思维
+## 三、Deployment 如何管理发布
 
-Kubernetes 中的对象是声明，控制器是实现闭环的程序。Deployment、Job、StatefulSet 和自定义 Operator 都遵循相同的思路：读取当前状态，比较期望状态，然后执行小步调整。
+Deployment 适合管理可替换的无状态副本。它通过 ReplicaSet 维持数量，并在 Pod 模板变化时推动新旧副本集之间的切换。修改镜像属于模板变化；只修改外部配置文件，不一定会触发 Deployment 自动创建新 Pod。
 
-这种模型带来自动恢复和可扩展性，也带来新的复杂度：状态是异步收敛的，删除和更新可能不是立即完成的，故障排查必须结合事件、日志、指标和对象状态，而不能只看一次命令输出。
+滚动发布需要两个重要预算：`maxSurge` 控制发布时可以额外增加多少 Pod，`maxUnavailable` 控制期望副本中允许多少个不可用。它们会影响发布速度、可用容量和临时资源需求。
 
-## 六、生产落地的最低要求
+例如 3 个副本，配置 `maxSurge: 1`、`maxUnavailable: 0`，意味着更新策略允许创建额外副本，并要求在减少旧副本前保留足够的可用实例。集群没有空闲资源时，新 Pod 可能一直 Pending；为了保证可用性而设置的策略，也可能因此让发布停住。
 
-生产集群至少需要明确镜像来源、RBAC 权限、网络策略、资源配额、备份恢复、升级策略和审计方式。对有状态服务，优先评估托管服务；确实运行在集群内时，要先验证故障转移、数据恢复和跨可用区能力。
+### 3.1 控制器不会自动理解业务成功
 
-Kubernetes 是基础设施抽象层，不会替应用自动获得高可用。只有应用、数据、网络和发布流程都能处理失败，系统才真正具备云原生的弹性。
+Pod Ready 不代表订单写入一定正确。发布时除了探针，还需要观察错误率、延迟、订单成功率等业务指标。Deployment 检测到进展超时会报告相应状态，并不会替业务团队自动判断回滚时机和数据兼容性。
 
-参考资料：
+配置了多副本也不一定具备节点容灾。如果所有副本都落在同一台节点或同一可用区，底层故障仍会同时影响它们。拓扑分布约束、反亲和性与足够的集群容量，需要一起规划。
 
-* [Kubernetes Concepts](https://kubernetes.io/docs/concepts/)
-* [Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
-* [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
-* [Service](https://kubernetes.io/docs/concepts/services-networking/service/)
-* [Gateway API](https://gateway-api.sigs.k8s.io/)
+### 3.2 其他工作负载何时使用
+
+| 对象 | 主要用途 | 容易误解的地方 |
+|---|---|---|
+| Deployment | 可替换的服务副本 | 不管理业务事务和数据库一致性 |
+| StatefulSet | 稳定身份、存储关联和有序管理 | 不自动实现数据库复制或备份 |
+| DaemonSet | 在符合条件的节点运行代理 | 适合节点职责，不是普通服务扩容工具 |
+| Job / CronJob | 一次性或周期性任务 | 失败重试、调度等可能导致重复执行，业务应幂等 |
+
+选对象时应先明确实例身份、状态存储和完成条件，而不是把所有进程都包装成长期运行的 Deployment。
+
+## 四、Service 如何找到不断变化的 Pod
+
+普通 ClusterIP Service 提供稳定的集群内访问入口，通过标签选择器关联后端 Pod。EndpointSlice 等对象记录后端端点，节点的数据面组件依据相关信息实现转发。常见实现使用 kube-proxy，也有采用其他数据面方案的集群。
+
+Service 中的 `port` 是客户端访问端口，`targetPort` 是后端应用端口，二者不必一致。`containerPort` 则描述容器端口信息，并不会替应用启动监听程序。
+
+Service 负责提供访问抽象，默认不等于把每个 HTTP 请求均匀轮转到所有 Pod。转发常常具有连接级行为，长连接和连接池可能造成负载不均，需要结合客户端连接策略分析。
+
+### 4.1 从集群外进入应用
+
+`LoadBalancer` 类型的 Service 需要云平台或其他负载均衡实现支持。Ingress 通过配套控制器处理常见 HTTP 路由；Gateway API 则提供 GatewayClass、Gateway、HTTPRoute 等资源，让基础设施与路由职责可以更清楚地划分。
+
+创建 Gateway API 对象并不会凭空产生可用网关。集群需要安装对应 API 资源和兼容实现，具体协议、扩展和跨命名空间行为还要看实现支持情况。Kubernetes 将 Ingress API 视为功能冻结的 API，并建议新增能力考虑 Gateway；这不表示现有 Ingress 资源无法继续工作。
+
+公开入口只是访问路径的一部分。TLS 证书、身份认证、限流、网络访问控制和后端超时，同样需要明确由哪一层负责。
+
+## 五、requests 和 limits 应该怎么理解
+
+调度器主要依据 requests 以及节点可分配资源等条件，判断某个 Pod 是否能够放入节点；它不会只看“这台机器现在 CPU 很空”。因此实际负载低，不代表调度器一定允许继续放入更多 Pod。
+
+`cpu: 250m` 表示 0.25 CPU 的资源量，`memory: 256Mi` 表示 256 MiB。调度请求描述的是资源需求，不是应用一定会消耗这么多，也不是给普通 Pod 独占绑定一颗 CPU。
+
+在节点有余量且配置允许时，容器可以超过 request 使用资源。CPU limit 通常通过节流约束 CPU 时间，内存 limit 则可能在无法回收内存时导致 OOM 处理。二者都叫 limit，但失败表现很不相同。
+
+### 5.1 资源配置不合理会发生什么
+
+- **requests 太低**：调度器可能放入过多工作负载，负载上来后产生争抢。
+- **requests 太高**：即使实际用量低，也可能导致新 Pod 无法调度。
+- **CPU limit 太紧**：应用被节流，请求延迟上升，即使节点整体仍有余量。
+- **内存 limit 太低**：进程可能被 OOM 杀死，反复启动又增加故障压力。
+
+limit 高并不直接等于调度层预留了同样高的资源。不过，只设置 limit 而不设置 request，且没有准入机制给出其他默认值时，Kubernetes 可能把 limit 用作 request。因此应检查最终进入集群的资源对象，而不只看手里的模板。
+
+资源参数需要基于实际压测和运行指标调整，尤其要为 JVM 的非堆内存、线程栈和启动峰值留空间。本文后面的示例数值只用于小型 Nginx 实验，不能照搬到 Java 服务。
+
+## 六、三种探针分别决定什么
+
+| 探针 | 要回答的问题 | 失败后的主要影响 |
+|---|---|---|
+| startupProbe | 启动是否完成 | 达到失败阈值后重启相应容器 |
+| readinessProbe | 当前能否接收流量 | Pod 就绪状态变更，普通 Service 的可用后端随之调整 |
+| livenessProbe | 进程是否陷入无法自行恢复的状态 | 达到阈值后重启相应容器 |
+
+配置 startupProbe 后，在它成功之前，不执行对应容器的 liveness 和 readiness 检查。这可以避免慢启动应用被存活探针过早重启。
+
+探针端点应该快速、明确、成本低。liveness 不宜把所有下游依赖都纳入判断，否则数据库一抖动，应用副本可能一起重启，形成更大的恢复压力。readiness 是否依赖数据库，则需要根据应用是否还有可服务能力决定，不能机械套用统一模板。
+
+探针参数也有预算。例如每 5 秒检查一次，失败阈值为 30，大致给启动留出了约 150 秒的失败容忍窗口；真实时间还受首次检查、超时和执行调度影响。这个窗口需要覆盖正常慢启动，同时不能让真正坏掉的实例长期占用容量。
+
+## 七、一个可以在实验集群执行的部署
+
+下面用 Nginx 演示 Deployment、Service、资源和探针之间的关系。保存为 `web-demo.yaml`，在已有的实验集群执行；它只提供集群内 Service，不会申请公网负载均衡器。
+
+`nginx:stable-alpine` 是便于实验的可变标签，生产部署应使用经过验证的固定版本或摘要。默认页面仅用来观察部署链路，不代表业务健康接口的完整设计。
+
+```yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: container-cloud-demo
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+  namespace: container-cloud-demo
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+        - name: web
+          image: nginx:stable-alpine
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 64Mi
+            limits:
+              cpu: 500m
+              memory: 128Mi
+          startupProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 2
+            failureThreshold: 30
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web
+  namespace: container-cloud-demo
+spec:
+  selector:
+    app: web
+  ports:
+    - port: 80
+      targetPort: http
+  type: ClusterIP
+```
+
+应用并观察状态：
+
+```bash
+kubectl apply -f web-demo.yaml
+kubectl -n container-cloud-demo rollout status deployment/web --timeout=120s
+kubectl -n container-cloud-demo get pods -o wide
+kubectl -n container-cloud-demo get endpointslices \
+  -l kubernetes.io/service-name=web
+kubectl -n container-cloud-demo port-forward service/web 8080:80
+```
+
+另开一个终端请求 `http://127.0.0.1:8080/`，应该能看到页面。注意，`port-forward` 会选择后端 Pod 建立转发，用于验证应用访问很方便，但它绕过了普通 Service 虚拟 IP 的数据路径，不能据此认定集群网络和负载均衡已全面正常。
+
+可以再把副本扩到 3 个，观察新增 Pod 从 Pending 到 Running、Ready 的过程：
+
+```bash
+kubectl -n container-cloud-demo scale deployment/web --replicas=3
+kubectl -n container-cloud-demo get pods -w
+```
+
+命令行扩容会改变集群状态，但原文件仍声明 2 个副本；后续重新应用文件时需要理解这种差异。日常管理应明确配置的权威来源，避免手工操作与自动化系统相互覆盖。实验结束后执行 `kubectl delete -f web-demo.yaml` 清理专用示例资源。
+
+## 八、配置、存储和权限需要独立设计
+
+ConfigMap 适合普通配置，Secret 用于敏感数据对象，但 Secret 中的 base64 编码不是加密。仍需配置访问控制、审计，并根据环境启用静态加密或对接外部密钥服务。
+
+配置作为环境变量传入时，已有进程不会因对象变化自动获得新值；通过卷投射的文件通常可以更新，但存在传播时间和挂载方式限制，应用还需要能够重新加载。变更配置以后是否滚动重启，应作为发布策略明确下来。
+
+PVC 表达持久存储需求，StorageClass 等机制帮助供应相应卷。跨节点访问方式、可用区约束、卷回收策略和备份能力取决于存储系统。StatefulSet 提供身份与卷关联，不会自动解决数据库主从复制或数据一致性。
+
+Namespace 可以组织资源并配合 RBAC、配额和网络策略使用，但本身不是完整的安全隔离边界。NetworkPolicy 需要网络实现支持并执行，RBAC 则控制 API 操作权限，两者不能相互替代。
+
+## 九、按状态排查，不要先重启
+
+| 现象 | 优先检查 | 常见原因 |
+|---|---|---|
+| Pending | Pod Events、requests、节点条件、PVC | 资源不足、亲和性约束、卷无法绑定 |
+| ImagePullBackOff | 镜像名、仓库访问、拉取凭证 | 标签不存在、权限错误、网络故障 |
+| CrashLoopBackOff | 当前与上次容器日志、退出原因 | 启动配置错误、OOM、探针失败 |
+| Running 但不 Ready | readiness 结果、启动进度 | 依赖未就绪、监听地址错误、检查端点错误 |
+| Service 无法访问 | selector、EndpointSlice、端口、网络策略 | 没有可用后端或流量路径被阻断 |
+
+常用命令包括 `kubectl describe pod`、`kubectl logs` 和 `kubectl logs --previous`。其中 `--previous` 用于读取上一轮已终止容器实例的日志，对反复重启尤其有用；日志是否仍可取得还受容器清理和保留情况影响。
+
+发布卡住时，应沿“对象被接受 → Pod 创建 → 调度 → 镜像拉取 → 进程启动 → 探针通过 → 流量到达”的顺序检查。一次重启可能暂时隐藏症状，却会丢掉定位所需的现场。
+
+## 十、平台负责恢复实例，应用负责业务正确
+
+HPA 可以调整副本数，但需要有效的指标管道；增加 Pod 不代表节点容量也会自动增加。节点扩容、应用预热与外部依赖容量，需要分别考虑。
+
+PodDisruptionBudget 可以限制某些自愿中断操作对可用副本的影响，却不能阻止节点突然宕机，也不能替代 Deployment 的更新策略。多副本、跨故障域部署、数据备份和恢复演练解决的是不同问题。
+
+对订单服务而言，平台可以重新启动进程，却无法判断某次扣款是否已经成功、某条消息是否需要重试。幂等键、事务边界、超时和补偿仍属于业务设计。只有把平台机制和应用语义一起考虑，自动恢复才不会变成自动重复错误。
+
+[上一篇：用 Docker 建立可重复交付](/blog/2022/06/18/container-cloud-03/) · [系列起点：从物理机到云原生](/blog/2021/05/15/container-cloud-01/)
+
+## 参考资料
+
+- [Kubernetes 组件](https://kubernetes.io/docs/concepts/overview/components/)
+- [Pods](https://kubernetes.io/docs/concepts/workloads/pods/)
+- [Deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/)
+- [资源请求与限制](https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/)
+- [存活、就绪与启动探针](https://kubernetes.io/docs/concepts/workloads/pods/probes/)
+- [Service](https://kubernetes.io/docs/concepts/services-networking/service/)
+- [Gateway API](https://kubernetes.io/docs/concepts/services-networking/gateway/)
+- [Disruptions 与 PodDisruptionBudget](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
