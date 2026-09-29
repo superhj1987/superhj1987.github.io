@@ -33,7 +33,25 @@ jobs:
         ruby-version: ${{ matrix.ruby-version }}
         bundler-cache: true # runs 'bundle install' and caches installed gems automatically
     - name: Generate pages
-      run: bundle exec rake generate
+      shell: bash
+      run: |
+        set -o pipefail
+        if ! bundle exec rake generate 2>&1 | tee /tmp/blog-build.log; then
+          tail -n 30 /tmp/blog-build.log | while IFS= read -r line; do
+            line="${line//'%'/'%25'}"
+            line="${line//$'\r'/'%0D'}"
+            echo "::error title=Site generation failed::$line"
+          done
+          exit 1
+        fi
+    - name: Verify publish output
+      shell: bash
+      run: |
+        test -s public/index.html
+        test -s public/CNAME
+        cmp source/CNAME public/CNAME
+        test -s public/stylesheets/screen.css
+        test -s public/atom.xml
     - name: Deploy pages
       uses: peaceiris/actions-gh-pages@v3
       with:
