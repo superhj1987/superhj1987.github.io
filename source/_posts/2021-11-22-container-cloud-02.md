@@ -46,7 +46,7 @@ categories: cloud-native linux
 以下命令在已有 Docker Engine 的实验环境执行。观察宿主 `/proc` 的步骤适用于原生 Linux；Docker Desktop 的宿主内核位于其 Linux 虚拟机内。
 
 {% raw %}
-```bash
+```plain
 docker run -d --name ns-demo alpine:3.21 sleep 600
 docker exec ns-demo sh -c 'echo "hostname=$(hostname)"; ps'
 docker inspect --format '{{.State.Pid}}' ns-demo
@@ -55,7 +55,7 @@ docker inspect --format '{{.State.Pid}}' ns-demo
 
 最后一条返回容器主进程在 Docker 宿主上的 PID。将结果代入下面路径，可以观察它所属的命名空间：
 
-```bash
+```plain
 # 把 12345 换成上一步返回的宿主 PID
 sudo ls -l /proc/12345/ns/
 ls -l /proc/self/ns/
@@ -88,7 +88,7 @@ cgroup v2 使用统一层级组织进程与资源控制器。不要只根据发�
 ### 2.3 观察资源约束
 
 {% raw %}
-```bash
+```plain
 docker run -d --name limits-demo \
   --memory=256m --cpus=0.5 --pids-limit=128 \
   alpine:3.21 sleep 600
@@ -140,7 +140,7 @@ Volume 独立于容器，不等于独立于宿主机。一台机器磁盘损坏�
 
 宿主端口与容器监听地址也有区别。应用只监听容器内的 `127.0.0.1` 时，从容器网卡方向到达的请求通常无法访问它，即使端口已经发布。需要对外提供服务的应用一般监听容器接口或 `0.0.0.0`，再由外层网络策略限制访问范围。
 
-```bash
+```plain
 docker network create demo-net
 docker run -d --name web-demo --network demo-net \
   -p 127.0.0.1:8080:80 nginx:stable-alpine

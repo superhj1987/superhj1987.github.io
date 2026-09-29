@@ -34,7 +34,7 @@ Docker 的价值在于把运行环境和应用一起组织成制品，再让部�
 
 这里的版本标签用于说明构建流程，并非“最新版本”推荐。正式使用时，应选择组织维护的补丁版本或经过验证的摘要，并安排定期更新。
 
-```dockerfile
+```plain
 # syntax=docker/dockerfile:1
 FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /workspace
@@ -67,7 +67,7 @@ ENTRYPOINT ["java", "-jar", "/app/app.jar"]
 
 构建上下文也应尽量小。对这个示例，可以使用：
 
-```text
+```plain
 .git
 .idea
 .vscode
@@ -81,7 +81,7 @@ target
 
 ### 2.2 构建和本地运行
 
-```bash
+```plain
 docker buildx build --load -t orders:local .
 docker run --rm --name orders-local \
   -p 127.0.0.1:8080:8080 \
@@ -102,7 +102,7 @@ docker run --rm --name orders-local \
 
 BuildKit 提供 secret mount，让某个构建步骤临时读取凭证：
 
-```dockerfile
+```plain
 RUN --mount=type=secret,id=maven_settings,target=/root/.m2/settings.xml \
     --mount=type=cache,target=/root/.m2 \
     mvn -B verify
@@ -136,7 +136,7 @@ Docker 的 `HEALTHCHECK` 可以记录健康状态，但 Docker Engine 并不会�
 
 下面仅演示 PostgreSQL 与 Redis 两个开发依赖。PostgreSQL 使用明确的大版本，避免跨大版本时直接复用数据目录；示例不是生产数据库部署方案。
 
-```yaml
+```plain
 services:
   db:
     image: postgres:16-alpine

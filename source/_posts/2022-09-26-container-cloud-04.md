@@ -123,7 +123,7 @@ limit 高并不直接等于调度层预留了同样高的资源。不过，只�
 
 `nginx:stable-alpine` 是便于实验的可变标签，生产部署应使用经过验证的固定版本或摘要。默认页面仅用来观察部署链路，不代表业务健康接口的完整设计。
 
-```yaml
+```plain
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -196,7 +196,7 @@ spec:
 
 应用并观察状态：
 
-```bash
+```plain
 kubectl apply -f web-demo.yaml
 kubectl -n container-cloud-demo rollout status deployment/web --timeout=120s
 kubectl -n container-cloud-demo get pods -o wide
@@ -209,7 +209,7 @@ kubectl -n container-cloud-demo port-forward service/web 8080:80
 
 可以再把副本扩到 3 个，观察新增 Pod 从 Pending 到 Running、Ready 的过程：
 
-```bash
+```plain
 kubectl -n container-cloud-demo scale deployment/web --replicas=3
 kubectl -n container-cloud-demo get pods -w
 ```
